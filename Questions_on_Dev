@@ -1,0 +1,8 @@
+1) views > apprenticeships > _fields.html.erb - lines 3-5
+-- I want the type to be a hidden field that's automatically selected. Is it okay to just not print the field (<% instead of <%=)? Then to change which field is selected in the different forms for different types?
+
+2) views > apprenticeships > _fields.html.erb - lines 9-on
+-- How do I generate helper text to appear beside the fields? (how do I search for it??) I assume it may require JQuery, but also saw a link that used :help => "blah blah" - is this a thing?
+
+3) views > apprenticeships > _fields.html.erb - lines 9-on
+-- How do I get the default value text to highlight/delete when a user clicks on the field?

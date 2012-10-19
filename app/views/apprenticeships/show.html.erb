@@ -1,0 +1,16 @@
+<% provide(:title, @apprenticeship.title) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h1>
+        <%= @apprenticeship.title %>
+      </h1>
+      <p>
+      	<%= @apprenticeship.description %>
+      </P>
+      <p>
+      	<%= @apprenticeship.topic %> Apprenticeship with <%= @apprenticeship.host %>
+      </p>
+    </section>
+  </aside>
+</div>

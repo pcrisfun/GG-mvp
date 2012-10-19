@@ -11,7 +11,35 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120715030159) do
+ActiveRecord::Schema.define(:version => 20121012203408) do
+
+  create_table "events", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "type"
+    t.string   "state"
+    t.string   "title"
+    t.string   "topic"
+    t.string   "host"
+    t.text     "description"
+    t.datetime "begins_at"
+    t.datetime "ends_at"
+    t.integer  "hours"
+    t.string   "hours_per",            :default => "week"
+    t.string   "availability"
+    t.datetime "registration_ends_at"
+    t.string   "address"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "zipcode"
+    t.boolean  "location_private"
+    t.boolean  "location_varies"
+    t.integer  "age_min"
+    t.integer  "age_max"
+    t.integer  "registration_min"
+    t.integer  "registration_max"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "name"

@@ -1,0 +1,11 @@
+<% provide(:title, 'New Apprenticeship') %>
+<h1>Create a New Apprenticeship</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@apprenticeship) do |f| %>
+    <%= render 'fields', f: f %>
+      <%= f.submit "Create my apprenticeship", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

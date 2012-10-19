@@ -45,3 +45,7 @@ group :test do
   #gem 'rb-fsevent', '0.4.3.1', :require => false
   gem 'growl', '1.0.3'
 end 
+
+gem 'state_machine'
+
+gem 'acts-as-taggable-on'

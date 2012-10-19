@@ -1,0 +1,7 @@
+<%= link_to "New Apprenticeship", new_apprenticeship_path %>
+
+<% @apprenticeships.each do |apprenticeship| %>
+
+<p><%= link_to apprenticeship.title, apprenticeship_path(apprenticeship) %> <%= link_to "Edit", edit_apprenticeship_path(apprenticeship)%></p>
+
+<% end %>
