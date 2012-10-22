@@ -7,21 +7,26 @@
 
 <p>Title</p>
 <%= f.label :topic %>
-<%= f.text_field :topic, :required => true, :placeholder => "Ex. 'Printmaking' or 'Jewelry Design'" %> 
+<%= f.text_field :topic, :required => true, :placeholder => "Ex. 'Printmaking' or 'Jewelry Design'", :rel => 'popover', :data => { :content => 'What will you be teaching?', "original-title" => 'Topic' } %> 
 <!--How do I generate helper text to appear beside the fields? (how do I search for it??) I assume it may require JQuery, but also saw a link that used :help => "blah blah" - is this a thing?-->
 <!--How do I get the default value text to highlight/delete when a user clicks on the field?-->
 
 <p>Apprenticeship with</p> 
-<%= f.text_field :host, :required => true, :placeholder => "Your name or business name" %>
+<%= f.text_field :host, :required => true, :placeholder => "Your name or business name", :rel => 'popover', :data => { :content => 'How would you like to be listed?', "original-title" => 'Name' }  %>
 
 <%= f.label :description %>
-<%= f.text_area :description, :required => true, :placeholder => "Describe your apprenticeship." %>
+<%= f.text_area :description, :required => true, :placeholder => "Describe your apprenticeship.", :rel => 'popover', :data => { :content => "Think about including: schooling, current work, recent shows, what you're interested in as an artist and why you're interested in teaching it&mdash;and a bit of personality too!", "original-title" => 'Description' }  %>
 
 <p>Timeframe</p>
 <%= f.label :begins_at %>
-<div class="input-append date" data-behaviour="datepicker" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-  <input class="span2" size="16" type="text" value="12-02-2012" readonly>
+<div class="input-append date" data-behaviour="datepicker">
+  <%= f.text_field :begins_at, :class => "span2", :readonly => true, :value => @apprenticeship.begins_at.strftime("%m/%d/%Y") %>
   <span class="add-on"><i class="icon-th"></i></span>
 </div>
-<%#= f.text_field :begins_at, :data => { :behaviour => 'datepicker' } %>
+
+<%= f.label :ends_at %>
+<div class="input-append date" data-behaviour="datepicker">
+  <%= f.text_field :ends_at, :class => "span2", :readonly => true, :value => @apprenticeship.ends_at.strftime("%m/%d/%Y") %>
+  <span class="add-on"><i class="icon-th"></i></span>
+</div>
 

@@ -13,6 +13,8 @@ class ApprenticeshipsController < ApplicationController
 
 	def new
 		@apprenticeship = Apprenticeship.new 
+		@apprenticeship.begins_at = Date.today
+		@apprenticeship.ends_at = Date.today + 1.day
 	end	
 
 	def create
