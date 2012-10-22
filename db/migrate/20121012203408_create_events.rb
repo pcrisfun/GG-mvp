@@ -14,11 +14,11 @@ class CreateEvents < ActiveRecord::Migration
       t.string :hours_per, :default => "week"
       t.string :availability
       t.datetime :registration_ends_at
-      t.string :address
-      t.string :address2
-      t.string :city
-      t.string :state
-      t.string :zipcode
+      t.string :location_address
+      t.string :location_address2
+      t.string :location_city
+      t.string :location_state
+      t.string :location_zipcode
       t.boolean :location_private
       t.boolean :location_varies
       t.integer :age_min
