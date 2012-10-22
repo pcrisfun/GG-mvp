@@ -47,5 +47,5 @@ group :test do
 end 
 
 gem 'state_machine'
-
+gem 'bootstrap-datepicker-rails'
 gem 'acts-as-taggable-on'
