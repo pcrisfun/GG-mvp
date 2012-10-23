@@ -25,14 +25,14 @@
 </div>
 
 <%= f.label :skill_list %>
-<%= f.text_field :skill_list %>
+<%= f.text_field :skill_list, :data => { :pre => @apprenticeship.skills.map { |t|  { :id => t.name, :name => t.name } } } %>
 
 
 <%= f.label :tool_list %>
-<%= f.text_field :tool_list %>
+<%= f.text_field :tool_list, :data => { :pre => @apprenticeship.tools.map { |t|  { :id => t.name, :name => t.name } } }  %>
 
 
 <%= f.label :requirement_list %>
-<%= f.text_field :requirement_list %>
+<%= f.text_field :requirement_list, :data => { :pre => @apprenticeship.requirements.map { |t|  { :id => t.name, :name => t.name } } }  %>
 
 
