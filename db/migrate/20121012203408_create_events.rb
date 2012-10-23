@@ -3,7 +3,7 @@ class CreateEvents < ActiveRecord::Migration
     create_table :events do |t|
       t.references :user
       t.string :type
-      t.string :state, :default => "pending"
+      t.string :state, :default => "started"
       t.string :title
       t.string :topic
       t.string :host

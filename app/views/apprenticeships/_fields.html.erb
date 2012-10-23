@@ -1,17 +1,11 @@
 <%= render 'shared/error_messages', :form_model => @apprenticeship %>
 
-<% f.label :type %>
-<% f.radio_button :type, "apprenticeship" %>
-<% f.label :type, "Apprenticeship", :value => 'apprenticeship', :checked => true %>
-<!--I want the type to be a hidden field that's automatically selected. Is it okay to just not print the field (< % instead of < % =)? Then to change which field is selected in the different forms for different types?--> 
-
-<p>Title</p>
 <%= f.label :topic %>
 <%= f.text_field :topic, :required => true, :placeholder => "Ex. 'Printmaking' or 'Jewelry Design'", :rel => 'popover', :data => { :content => 'What will you be teaching?', "original-title" => 'Topic' } %> 
 <!--How do I generate helper text to appear beside the fields? (how do I search for it??) I assume it may require JQuery, but also saw a link that used :help => "blah blah" - is this a thing?-->
 <!--How do I get the default value text to highlight/delete when a user clicks on the field?-->
 
-<p>Apprenticeship with</p> 
+<%= f.label :host %>
 <%= f.text_field :host, :required => true, :placeholder => "Your name or business name", :rel => 'popover', :data => { :content => 'How would you like to be listed?', "original-title" => 'Name' }  %>
 
 <%= f.label :description %>
@@ -29,4 +23,16 @@
   <%= f.text_field :ends_at, :class => "span2", :readonly => true, :value => @apprenticeship.ends_at.strftime("%m/%d/%Y") %>
   <span class="add-on"><i class="icon-th"></i></span>
 </div>
+
+<%= f.label :skill_list %>
+<%= f.text_field :skill_list %>
+
+
+<%= f.label :tool_list %>
+<%= f.text_field :tool_list %>
+
+
+<%= f.label :requirement_list %>
+<%= f.text_field :requirement_list %>
+
 

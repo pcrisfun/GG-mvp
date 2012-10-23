@@ -4,9 +4,28 @@
 <div class="row">
   <div class="span6 offset3">
     <%= form_for(@apprenticeship) do |f| %>
-    <%= render 'fields', f: f %>
+    
+      <%= render 'fields', f: f %>
+  
+      <% if @apprenticeship.started? %>
+        <%= f.submit "Save for Later", :name => "save_button", :class => "btn btn-large" %>
+        <%= f.submit "Create Apprenticeship", :name => "create_button", :class => "btn btn-large btn-primary" %>
+      <% else %>
+        <%= f.submit "Update Apprenticeship", :name => "save_button", :class => "btn btn-large btn-primary" %>
+      <% end %>
+      
+      <% if current_user.admin? && @apprenticeship.pending? %>
+        <%= f.submit "Reject Apprenticeship", :name => "reject_button", :class => "btn btn-large btn-danger" %>
+      <% end %>
+      
+      <% if current_user.admin? && @apprenticeship.accepted? %>
+        <%= f.submit "Revoke Apprenticeship", :name => "revoke_button", :class => "btn btn-large btn-danger" %>
+      <% end %>
+      
+      <% if current_user.admin? && @apprenticeship.pending? %>
+        <%= f.submit "Approve Apprenticeship", :name => "accept_button", :class => "btn btn-large btn-success" %>
+      <% end %>
 
-    <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>
 </div>

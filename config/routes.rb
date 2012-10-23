@@ -2,6 +2,10 @@ SampleApp::Application.routes.draw do
   resources :users
   resources :sessions, only: [ :new, :create, :destroy ]
   resources :apprenticeships
+  
+  resources :event_skills, only: [ :index ]
+  resources :event_tools, only: [ :index ]
+  resources :event_requirements, only: [ :index ]
 
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'

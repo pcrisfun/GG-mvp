@@ -5,7 +5,8 @@
   <div class="span6 offset3">
     <%= form_for(@apprenticeship) do |f| %>
     <%= render 'fields', f: f %>
-      <%= f.submit "Create my apprenticeship", class: "btn btn-large btn-primary" %>
+      <%= f.submit "Save for Later", :name => 'save_button', :class => "btn btn-large" %>
+      <%= f.submit "Create Apprenticeship", :name => 'create_button', :class => "btn btn-large btn-primary" %>
     <% end %>
   </div>
 </div>

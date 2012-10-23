@@ -15,6 +15,7 @@
 //= require bootstrap
 //= require bootstrap-tooltip
 //= require bootstrap-datepicker
+//= require jquery.tokeninput
 //= require_tree .
 
 
@@ -28,4 +29,17 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $("[rel=popover]").popover();
+});
+
+
+$(function () {
+  $('#apprenticeship_skill_list').tokenInput('/event_skills.json', { crossDomain: false, allowCustomEntry : true, theme: 'facebook' });
+});
+
+$(function () {
+  $('#apprenticeship_requirement_list').tokenInput('/event_requirements.json', { crossDomain: false, 'allowCustomEntry' : true, theme: 'facebook' });
+});
+
+$(function () {
+  $('#apprenticeship_tool_list').tokenInput('/event_tools.json', { crossDomain: false, 'allowCustomEntry' : true,  theme: 'facebook' });
 });
