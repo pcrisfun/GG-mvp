@@ -1,0 +1,21 @@
+<%= link_to "Offer a Workshop", new_workshop_path, :class => 'btn btn-large btn-primary' %>
+
+<% unless @saved_workshops.blank? %>
+<h3>My Saved Workshops</h3>
+<%= render :partial => "workshop", :collection => @saved_workshops || "No saved workshops" %>
+<% end %>
+
+<% unless @pending_workshops.blank? %>
+<h3>My Pending Workshops</h3>
+<%= render :partial => "workshop", :collection => @pending_workshops || "No pending workshops" %>
+<% end %>
+
+<% unless @active_workshops.blank? %>
+<h3>My Upcoming Workshops</h3>
+<%= render :partial => "workshop", :collection => @active_workshops || "No saved workshops" %>
+<% end %>
+
+<% unless @workshops.blank? %>
+<h3>All Workshops</h3>
+<%= render :partial => "workshop", :collection => @workshops || "No workshops" %>
+<% end %>

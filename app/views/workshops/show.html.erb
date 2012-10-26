@@ -1,0 +1,35 @@
+<% provide(:title, @workshop.title) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h1>
+        <%= @workshop.topic %> Workshop with <%= @workshop.host %>
+      </h1>
+      <p>
+      	<%= @workshop.description %>
+      </P>
+      
+      <h4>Skills:</h4> 
+      <p><%= @workshop.skill_list %></p>
+      
+      <h4>Tools:</h4>
+      <p><%= @workshop.tool_list %></p>
+      
+      <h4>Requirements:</h4>
+      <p><%= @workshop.requirement_list %></p>
+
+      <h4>Start date:</h4>
+      <p><%= @workshop.begins_at.strftime("%m/%d/%Y") %></p>
+
+
+      <p>
+        <% if @workshop.started? %>
+         (<%= link_to "Resume", edit_workshop_path(@workshop) if @workshop.user == current_user %>)
+        <% elsif @workshop.accepted? or current_user.admin? %>
+         (<%= link_to "Edit", edit_workshop_path(@workshop) if @workshop.user == current_user %>)
+        <% end %>
+      </p>
+
+    </section>
+  </aside>
+</div>

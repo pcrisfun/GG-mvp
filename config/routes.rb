@@ -2,6 +2,7 @@ SampleApp::Application.routes.draw do
   resources :users
   resources :sessions, only: [ :new, :create, :destroy ]
   resources :apprenticeships
+  resources :workshops
   
   resources :event_skills, only: [ :index ]
   resources :event_tools, only: [ :index ]

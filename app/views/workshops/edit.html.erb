@@ -1,0 +1,31 @@
+<% provide(:title, "Edit Workshop") %> 
+<h1>Update your workshop</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@workshop) do |f| %>
+    
+      <%= render 'fields', f: f %>
+  
+      <% if @workshop.started? %>
+        <%= f.submit "Save for Later", :name => "save_button", :class => "btn btn-large" %>
+        <%= f.submit "Create Workshop", :name => "create_button", :class => "btn btn-large btn-primary" %>
+      <% else %>
+        <%= f.submit "Update Workshop", :name => "save_button", :class => "btn btn-large btn-primary" %>
+      <% end %>
+      
+      <% if current_user.admin? && @workshop.pending? %>
+        <%= f.submit "Reject Workshop", :name => "reject_button", :class => "btn btn-large btn-danger" %>
+      <% end %>
+      
+      <% if current_user.admin? && @workshop.accepted? %>
+        <%= f.submit "Revoke Workshop", :name => "revoke_button", :class => "btn btn-large btn-danger" %>
+      <% end %>
+      
+      <% if current_user.admin? && @workshop.pending? %>
+        <%= f.submit "Approve Workshop", :name => "accept_button", :class => "btn btn-large btn-success" %>
+      <% end %>
+
+    <% end %>
+  </div>
+</div>

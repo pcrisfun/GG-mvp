@@ -1,0 +1,63 @@
+<%= render 'shared/error_messages', :form_model => @workshop %>
+
+<%= f.label :topic %>
+<%= f.text_field :topic, :required => true, :placeholder => "Ex. 'Printmaking' or 'Jewelry Design'", :rel => 'popover', :data => { :content => 'What will you be teaching?', "original-title" => 'Topic' } %> 
+
+<%= f.label :host %>
+<%= f.text_field :host, :required => true, :placeholder => "Ex. Natalie Davis of Canoe", :rel => 'popover', :data => { :content => 'How would you like to be listed? You can choose to use your own name, your business name, or both.', "original-title" => 'Name' }  %>
+<!--Can we auto-fill the field with the user's name?-->
+<!--Add a host?-->
+
+<%= f.label :description %>
+<%= f.text_area :description, :required => true, :placeholder => "Tell us about your workshop.", :rel => 'popover', :data => { :content => "Give a few sentences telling people what they’ll be learning and doing in the workshop, what (if anything) they’ll take home from it, and why it’s fun/awesome/useful.", "original-title" => 'Description' }  %>
+
+
+<!-- <%= f.label :skill_list %> -->
+<h4>Skills & Techniques</h4>
+<p>What skills and techniques will participants learn? (List them, separated by commas)</p>
+<%= f.text_field :skill_list, :required => true, :data => { :pre => @workshop.skills.map { |t|  { :id => t.name, :name => t.name } } } %>
+<!--Helper text: Be as specific as possible to give each participant credit for her experience. We’ll keep track, to help her show off her skills! -->
+<br />
+
+
+<!-- <%= f.label :tool_list %> -->
+<h4>Tools & Materials</h4>
+<p>What tools and materials will participants learn to use? (List them, separated by commas)</p>
+<%= f.text_field :tool_list, :required => true, :data => { :pre => @workshop.tools.map { |t|  { :id => t.name, :name => t.name } } }  %>
+<!--Helper text: Be as specific as possible to give each participant credit for her experience. We’ll keep track, to help her show off her skills! -->
+<br />
+
+
+<!-- <%= f.label :requirement_list %> -->
+<h4>Requirements</h4>
+<p>Do participants need experience with any skills, techniques, or tools before they join the workshop? (List them, separated by commas)</p>
+<%= f.text_field :requirement_list, :data => { :pre => @workshop.requirements.map { |t|  { :id => t.name, :name => t.name } } }  %>
+<br />
+
+<!-- <%= f.label :begins_at %> -->
+<h4>Date</h4>
+<div class="input-append date" data-behaviour="datepicker">
+  <%= f.text_field :begins_at, :required => true, :class => "span2", :readonly => true, :value => @workshop.begins_at.strftime("%m/%d/%Y") %>
+  <span class="add-on"><i class="icon-th"></i></span>
+</div>
+
+<h4>Start Time</h4>
+
+<h4>End Time</h4>
+<!--Repeat?-->
+
+<h4>Location</h4>
+
+<h4>Age Range</h4>
+
+<h4>Number of Participants</h4>
+
+<h4>Cost</h4>
+
+<h4>Close registration date</h4>
+
+
+
+
+
+

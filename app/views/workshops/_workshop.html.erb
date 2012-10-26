@@ -1,0 +1,8 @@
+<p>
+<%= link_to workshop.title, workshop_path(workshop) %>
+<% if workshop.started? %>
+ (<%= link_to "Resume", edit_workshop_path(workshop) if workshop.user == current_user %>)
+<% elsif workshop.accepted? or current_user.admin? %>
+ (<%= link_to "Edit", edit_workshop_path(workshop) if workshop.user == current_user %>)
+<% end %>
+</p>
