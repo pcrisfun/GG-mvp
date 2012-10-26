@@ -3,14 +3,35 @@
   <aside class="span4">
     <section>
       <h1>
-        <%= @apprenticeship.title %>
+        <%= @apprenticeship.topic %> Apprenticeship with <%= @apprenticeship.host %>
       </h1>
       <p>
       	<%= @apprenticeship.description %>
       </P>
+      
+      <h4>Skills:</h4> 
+      <p><%= @apprenticeship.skill_list %></p>
+      
+      <h4>Tools:</h4>
+      <p><%= @apprenticeship.tool_list %></p>
+      
+      <h4>Requirements:</h4>
+      <p><%= @apprenticeship.requirement_list %></p>
+
+      <h4>Start date:</h4>
+      <p><%= @apprenticeship.begins_at.strftime("%m/%d/%Y") %></p>
+
+      <h4>End date:</h4> 
+      <p><%= @apprenticeship.ends_at.strftime("%m/%d/%Y") %></p>
+
       <p>
-      	<%= @apprenticeship.topic %> Apprenticeship with <%= @apprenticeship.host %>
+        <% if @apprenticeship.started? %>
+         (<%= link_to "Resume", edit_apprenticeship_path(@apprenticeship) if @apprenticeship.user == current_user %>)
+        <% elsif @apprenticeship.accepted? or current_user.admin? %>
+         (<%= link_to "Edit", edit_apprenticeship_path(@apprenticeship) if @apprenticeship.user == current_user %>)
+        <% end %>
       </p>
+
     </section>
   </aside>
 </div>

@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(:version => 20121022231502) do
   create_table "events", :force => true do |t|
     t.integer  "user_id"
     t.string   "type"
-    t.string   "state",                :default => "pending"
+    t.string   "state"
     t.string   "title"
     t.string   "topic"
     t.string   "host"
@@ -27,19 +27,18 @@ ActiveRecord::Schema.define(:version => 20121022231502) do
     t.string   "hours_per",            :default => "week"
     t.string   "availability"
     t.datetime "registration_ends_at"
-    t.string   "location_address"
-    t.string   "location_address2"
-    t.string   "location_city"
-    t.string   "location_state"
-    t.string   "location_zipcode"
+    t.string   "address"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "zipcode"
     t.boolean  "location_private"
     t.boolean  "location_varies"
     t.integer  "age_min"
     t.integer  "age_max"
     t.integer  "registration_min"
     t.integer  "registration_max"
-    t.datetime "created_at",                                  :null => false
-    t.datetime "updated_at",                                  :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
   end
 
   create_table "taggings", :force => true do |t|

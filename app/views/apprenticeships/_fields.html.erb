@@ -2,37 +2,58 @@
 
 <%= f.label :topic %>
 <%= f.text_field :topic, :required => true, :placeholder => "Ex. 'Printmaking' or 'Jewelry Design'", :rel => 'popover', :data => { :content => 'What will you be teaching?', "original-title" => 'Topic' } %> 
-<!--How do I generate helper text to appear beside the fields? (how do I search for it??) I assume it may require JQuery, but also saw a link that used :help => "blah blah" - is this a thing?-->
-<!--How do I get the default value text to highlight/delete when a user clicks on the field?-->
 
 <%= f.label :host %>
-<%= f.text_field :host, :required => true, :placeholder => "Your name or business name", :rel => 'popover', :data => { :content => 'How would you like to be listed?', "original-title" => 'Name' }  %>
+<%= f.text_field :host, :required => true, :placeholder => "Ex. Natalie Davis of Canoe", :rel => 'popover', :data => { :content => 'How would you like to be listed? You can choose to use your own name, your business name, or both.', "original-title" => 'Name' }  %>
+
+<!--Add a host?-->
 
 <%= f.label :description %>
-<%= f.text_area :description, :required => true, :placeholder => "Describe your apprenticeship.", :rel => 'popover', :data => { :content => "Think about including: schooling, current work, recent shows, what you're interested in as an artist and why you're interested in teaching it&mdash;and a bit of personality too!", "original-title" => 'Description' }  %>
-
-<p>Timeframe</p>
-<%= f.label :begins_at %>
-<div class="input-append date" data-behaviour="datepicker">
-  <%= f.text_field :begins_at, :class => "span2", :readonly => true, :value => @apprenticeship.begins_at.strftime("%m/%d/%Y") %>
-  <span class="add-on"><i class="icon-th"></i></span>
-</div>
-
-<%= f.label :ends_at %>
-<div class="input-append date" data-behaviour="datepicker">
-  <%= f.text_field :ends_at, :class => "span2", :readonly => true, :value => @apprenticeship.ends_at.strftime("%m/%d/%Y") %>
-  <span class="add-on"><i class="icon-th"></i></span>
-</div>
-
-<%= f.label :skill_list %>
-<%= f.text_field :skill_list, :data => { :pre => @apprenticeship.skills.map { |t|  { :id => t.name, :name => t.name } } } %>
+<%= f.text_area :description, :required => true, :placeholder => "Tell us about your apprenticeship.", :rel => 'popover', :data => { :content => "Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. Based on your expectations, consider whether you plan to pay the apprentice, and if so, how much?", "original-title" => 'Description' }  %>
 
 
-<%= f.label :tool_list %>
-<%= f.text_field :tool_list, :data => { :pre => @apprenticeship.tools.map { |t|  { :id => t.name, :name => t.name } } }  %>
+<!-- <%= f.label :skill_list %> -->
+<h4>Skills & Techniques</h4>
+<p>What skills and techniques will your apprentice(s) learn? (List them, separated by commas)</p>
+<%= f.text_field :skill_list, :required => true, :data => { :pre => @apprenticeship.skills.map { |t|  { :id => t.name, :name => t.name } } } %>
+<!--Helper text: Be as specific as possible to give your apprentice credit for her experience. We’ll keep track, to help her show off her skills! -->
+<br />
 
 
-<%= f.label :requirement_list %>
+<!-- <%= f.label :tool_list %> -->
+<h4>Tools & Materials</h4>
+<p>What tools and materials will your apprentice(s) learn to use? (List them, separated by commas)</p>
+<%= f.text_field :tool_list, :required => true, :data => { :pre => @apprenticeship.tools.map { |t|  { :id => t.name, :name => t.name } } }  %>
+<!--Helper text: Be as specific as possible to give your apprentice credit for her experience. We’ll keep track, to help her show off her skills! -->
+<br />
+
+
+<!-- <%= f.label :requirement_list %> -->
+<h4>Requirements</h4>
+<p>Do applicants need experience with any skills, techniques, or tools before they apply? (List them, separated by commas)</p>
 <%= f.text_field :requirement_list, :data => { :pre => @apprenticeship.requirements.map { |t|  { :id => t.name, :name => t.name } } }  %>
+<br />
+
+<h4>TIMEFRAME</h4>
+<!-- <%= f.label :begins_at %> -->
+<h4>Start date</h4>
+<div class="input-append date" data-behaviour="datepicker">
+  <%= f.text_field :begins_at, :required => true, :class => "span2", :readonly => true, :value => @apprenticeship.begins_at.strftime("%m/%d/%Y") %>
+  <span class="add-on"><i class="icon-th"></i></span>
+</div>
+
+<!-- <%= f.label :ends_at %> -->
+<h4>End date</h4>
+<div class="input-append date" data-behaviour="datepicker">
+  <%= f.text_field :ends_at, :required => true, :class => "span2", :readonly => true, :value => @apprenticeship.ends_at.strftime("%m/%d/%Y") %>
+  <span class="add-on"><i class="icon-th"></i></span>
+</div>
+
+<h4>How Often?</h4>
+
+<h4>Location</h4>
+
+
+
 
 

@@ -1,8 +1,18 @@
-1) views > apprenticeships > _fields.html.erb - lines 3-5
--- I want the type to be a hidden field that's automatically selected. Is it okay to just not print the field (<% instead of <%=)? Then to change which field is selected in the different forms for different types?
+- When not signed in as a user & trying to view Apprenticeships page: 
 
-2) views > apprenticeships > _fields.html.erb - lines 9-on
--- How do I generate helper text to appear beside the fields? (how do I search for it??) I assume it may require JQuery, but also saw a link that used :help => "blah blah" - is this a thing?
+	NoMethodError in ApprenticeshipsController#index
 
-3) views > apprenticeships > _fields.html.erb - lines 9-on
--- How do I get the default value text to highlight/delete when a user clicks on the field?
+	undefined method `apprenticeships' for nil:NilClass
+
+	app/controllers/apprenticeships_controller.rb:8:in `index'
+
+
+
+- Why use f.label? What if I want the label to be different?
+
+
+- No placeholder or helper text with taggable fields - Any workarounds?
+
+
+- How to add another host? (I know this is a wormhole.)
+
