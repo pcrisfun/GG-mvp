@@ -50,3 +50,6 @@ gem 'state_machine'
 gem 'bootstrap-datepicker-rails'
 gem 'chronic'
 gem 'acts-as-taggable-on'
+gem 'state_select'
+gem 'stripe'
+

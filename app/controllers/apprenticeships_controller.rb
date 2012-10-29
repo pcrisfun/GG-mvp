@@ -20,51 +20,79 @@ class ApprenticeshipsController < ApplicationController
   end	
   
   def create
-      @apprenticeship = current_user.apprenticeships.new(params[:apprenticeship])
-      if @apprenticeship.save!
-      
-        if params[:create_button]
-          @apprenticeship.submit
-          flash[:success] = "Your apprenticeship was created!"
+  
+    @apprenticeship = current_user.apprenticeships.new(params[:apprenticeship])
+    
+    if params[:apprenticeship][:stripe_card_token] && @apprenticeship.save && @apprenticeship.process_payment && @apprenticeship.submit
+      flash[:success] = "Your apprenticeship was created!"
+      redirect_to apprenticeships_path
 
+    elsif @apprenticeship.save(:validate => false)
+      flash[:success] = "Your apprenticeship was saved."
+      redirect_to apprenticeships_path
+
+    else
+      render new
+    end
+      
+  end
+
+	def update
+
+  	things_are_good = false
+	
+	  if @apprenticeship.update_attributes(params[:apprenticeship])
+            
+      if params[:apprenticeship][:stripe_card_token]
+        if @apprenticeship.process_payment
+          # yay?
         else
-          flash[:success] = "Your apprenticeship was saved."
+          flash.now[:notify] = "Couldn't process payment"
+        end
+      end
+            
+      if params[:create_button] || params[:apprenticeship][:stripe_card_token]
+
+        if @apprenticeship.submit
+          things_are_good = true
+          flash[:success] = "Your apprenticeship was created!"
+        end
+
+      elsif params[:revoke_button] && current_user.admin?
+        if @apprenticeship.revoke
+          things_are_good = true
+          flash[:warning] = "Apprenticeship was revoked."
         end
         
-        redirect_to apprenticeships_path
-      else
-        render 'new'
-      end
-  	end
-  
-  	def update
-      if @apprenticeship.update_attributes(params[:apprenticeship])
-      
-        if params[:create_button]
-          @apprenticeship.submit
-          flash[:success] = "Your apprenticeship was created!"
-          
-        elsif params[:revoke_button] && current_user.admin?
-          @apprenticeship.revoke
-          flash[:warning] = "Apprenticeship was revoked."
-          
-        elsif params[:reject_button] && current_user.admin?
-          @apprenticeship.reject
+      elsif params[:reject_button] && current_user.admin?
+        if @apprenticeship.reject
+          things_are_good = true
           flash[:warning] = "Apprenticeship was rejected."
-          
-        elsif params[:accept_button] && current_user.admin?
-          @apprenticeship.accept
-          flash[:success] = "Apprenticeship was accepted."
-          
-        else
-          flash[:success] = "Your apprenticeship was saved."
         end
-        redirect_to apprenticeships_path
+        
+      elsif params[:accept_button] && current_user.admin?
+        if @apprenticeship.accept
+          things_are_good = true
+          flash[:success] = "Apprenticeship was accepted."
+        end
+
       else
-        render 'edit'
+          things_are_good = true
+        flash[:success] = "Your apprenticeship was saved."
       end
-  	end
-  
+      
+    end
+
+    if things_are_good
+      redirect_to apprenticeships_path
+      
+    else
+      flash.now[:notify] = "We couldn't update your apprenticeship. Check your entry!"
+      render 'edit'
+
+    end
+	end
+
   
   def show
   end
@@ -77,4 +105,5 @@ class ApprenticeshipsController < ApplicationController
   	@apprenticeship = Apprenticeship.find_by_id(params[:id])
   	redirect_to :index if @apprenticeship.nil? 
   end
+    
 end

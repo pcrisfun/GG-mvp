@@ -9,7 +9,7 @@
   
       <% if @apprenticeship.started? %>
         <%= f.submit "Save for Later", :name => "save_button", :class => "btn btn-large" %>
-        <%= f.submit "Create Apprenticeship", :name => "create_button", :class => "btn btn-large btn-primary" %>
+        <%= f.submit "Create Apprenticeship", :name => "create_button", :class => "btn btn-large btn-primary", :id => "cc_process" %>
       <% else %>
         <%= f.submit "Update Apprenticeship", :name => "save_button", :class => "btn btn-large btn-primary" %>
       <% end %>

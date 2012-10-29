@@ -1,0 +1,29 @@
+<% unless paid %>
+<div id="stripe_error" class="alert alert-error" style="display:none;">
+  <strong>Payment error!</strong> <span class="message"></span>
+</div>
+
+
+<div id="stripe_error">
+  <noscript>JavaScript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
+</div>
+<div class="controls-row">
+<%= label_tag :card_number, "Credit Card Number " %>
+<%= text_field_tag :card_number, nil, name: nil, class: "span6" %>
+</div>
+<div class="controls controls-row">
+<%= label_tag :card_code, "Security Code on Card (CVV)" %>
+<%= text_field_tag :card_code, nil, name: nil, class: "span2" %>
+<%= label_tag :card_month, "Card Expiration" %>
+<%= select_month nil, {add_month_numbers_true: true}, {name: nil, id: "card_month", class: "span2" }%>
+<%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year", class: "span2" } %>
+</div>
+<%= f.hidden_field :stripe_card_token, :id => "stripe_card_token" %>
+
+<% else %>
+
+<div class="alert alert-success">
+  <strong>Awesome!</strong> <span class="message">Thanks for paying already!</span>
+</div>
+
+<% end %>
