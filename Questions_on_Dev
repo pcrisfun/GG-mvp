@@ -1,18 +1,2 @@
-- When not signed in as a user & trying to view Apprenticeships page: 
 
-	NoMethodError in ApprenticeshipsController#index
-
-	undefined method `apprenticeships' for nil:NilClass
-
-	app/controllers/apprenticeships_controller.rb:8:in `index'
-
-
-
-- Why use f.label? What if I want the label to be different?
-
-
-- No placeholder or helper text with taggable fields - Any workarounds?
-
-
-- How to add another host? (I know this is a wormhole.)
 

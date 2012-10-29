@@ -5,9 +5,11 @@ class ApprenticeshipsController < ApplicationController
   before_filter :admin_user, only: :destroy
   
   def index
-  	@saved_apprenticeships = current_user.apprenticeships.find_all_by_state('started')
-  	@pending_apprenticeships = current_user.apprenticeships.find_all_by_state('pending')
-  	@active_apprenticeships =  current_user.apprenticeships.find_all_by_state('accepted')
+    unless current_user.blank?
+  	  @saved_apprenticeships = current_user.apprenticeships.find_all_by_state('started')
+  	  @pending_apprenticeships = current_user.apprenticeships.find_all_by_state('pending')
+  	  @active_apprenticeships =  current_user.apprenticeships.find_all_by_state('accepted')
+    end
   	@apprenticeships = Apprenticeship.find_all_by_state('accepted')
   end
   

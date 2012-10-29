@@ -5,9 +5,11 @@ class WorkshopsController < ApplicationController
   before_filter :admin_user, only: :destroy
   
   def index
-  	@saved_workshops = current_user.workshops.find_all_by_state('started')
-  	@pending_workshops = current_user.workshops.find_all_by_state('pending')
-  	@active_workshops =  current_user.workshops.find_all_by_state('accepted')
+    unless current_user.blank?
+      @saved_workshops = current_user.workshops.find_all_by_state('started')
+      @pending_workshops = current_user.workshops.find_all_by_state('pending')
+      @active_workshops =  current_user.workshops.find_all_by_state('accepted')
+    end
   	@workshops = Workshop.find_all_by_state('accepted')
   end
   
