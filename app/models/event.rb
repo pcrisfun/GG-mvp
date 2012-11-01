@@ -1,9 +1,11 @@
 class Event < ActiveRecord::Base
 
 	belongs_to :user
-	validates_presence_of :topic, :host, :description
-	
-	attr_accessible :title, :description, :topic, :host, :begins_at, :ends_at, :skill_list, :tool_list, :requirement_list, :hours, :hours_per, :location_address, :location_address2, :location_city, :location_state, :location_zipcode, :location_private, :location_varies
+	validates_presence_of :topic, :host, :description, :skill_list, :tool_list, :location_address, :age_min, :age_max
+	validates_inclusion_of :age_min, :in => 0..99
+  validates_numericality_of :registration_min, :registration_max
+
+	attr_accessible :title, :kind, :description, :topic, :host, :begins_at, :ends_at, :skill_list, :tool_list, :requirement_list, :hours, :hours_per, :location_address, :location_address2, :location_city, :location_state, :location_zipcode, :location_private, :location_varies, :age_min, :age_max, :registration_min, :registration_max
 	before_save :generate_title
 	
 	acts_as_taggable

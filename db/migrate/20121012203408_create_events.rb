@@ -4,6 +4,7 @@ class CreateEvents < ActiveRecord::Migration
       t.references :user
       t.string :type
       t.string :state, :default => "started"
+      t.boolean :kind
       t.string :title
       t.string :topic
       t.string :host

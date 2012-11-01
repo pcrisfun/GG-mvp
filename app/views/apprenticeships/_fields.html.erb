@@ -1,89 +1,116 @@
 <%= render 'shared/error_messages', :form_model => @apprenticeship %>
 
+<h3>What kind of apprenticeship will it be?</h3>
+<div rel='popover' data-content="In an event apprenticeship your apprentice helps you organize and run an event - for example: hanging a gallery show, planning an art auction, or preparing a booth for a craft fair." data-original-title='Event Apprenticeships' > 
+<%= f.radio_button :kind, 'event' %>
+  <%= label :kind, 'Event Apprenticeship' %>
+</div>
+<div rel='popover' data-content="In a production apprenticeship your apprentice helps you produce your work - for example: filling a large order, designing a new line, or just keeping up with demand." data-original-title='Production Apprenticeships' >
+<%= f.radio_button :kind, 'production' %> 
+  <%= label :kind, 'Production apprenticeship' %>
+</div>
+<div rel='popover' data-content="In an ongoing apprenticeship your apprentice helps you in your everyday practice, and learns from you as you work together." data-original-title='Ongoing Apprenticeships' >
+<%= f.radio_button :kind, 'ongoing' %>
+  <%= label :kind, 'Ongoing apprenticeship' %> 
+</div>
+
+<br />
+
+<h3>Apprenticeship Title</h3>
 <%= f.label :topic %>
 <%= f.text_field :topic, :required => true, :placeholder => "Ex. 'Printmaking' or 'Jewelry Design'", :rel => 'popover', :data => { :content => 'What will you be teaching?', "original-title" => 'Topic' } %> 
 
-<%= f.label :host %>
+<p>Apprenticeship with</p>
+<%= f.label :host, capture { %>
+<p>Your name + business name</p>
+<% } %>
 <%= f.text_field :host, :required => true, :placeholder => "Ex. Natalie Davis of Canoe", :rel => 'popover', :data => { :content => 'How would you like to be listed? You can choose to use your own name, your business name, or both.', "original-title" => 'Name' }  %>
 
 <!--Add a host?-->
 
-<%= f.label :description %>
+<h3>Apprenticeship Description</h3>
 <%= f.text_area :description, :required => true, :placeholder => "Tell us about your apprenticeship.", :rel => 'popover', :data => { :content => "Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. Based on your expectations, consider whether you plan to pay the apprentice, and if so, how much?", "original-title" => 'Description' }  %>
 
-
+<h3>Skills & Techniques</h3>
 <%= f.label :skill_list, capture { %> 
-<h4>Skills & Techniques</h4> 
+<p>What skills and techniques will your apprentice(s) learn? (List each, followed by a comma).</p> 
 <% } %>
-<div rel='popover' data-content="What skills and techniques will your apprentice(s) learn? (List them, separated by commas). Be as specific as possible to give your apprentice credit for her experience. We’ll keep track, to help her show off her skills!" data-original-title='Description' >
-<%= f.text_field :skill_list, :required => true, :placeholder => "Ex. Natalie Davis of Canoe", :data => { :pre => @apprenticeship.skills.map { |t|  { :id => t.name, :name => t.name } } } %>
+<div rel='popover' data-content="Be as specific as possible to give your apprentice credit for her experience. We’ll keep track, to help her show off her skills!" data-original-title='Skills & Techniques' > 
+<%= f.text_field :skill_list, :required => true, :data => { :pre => @apprenticeship.skills.map { |t|  { :id => t.name, :name => t.name } } } %>
 </div>
-<!--Helper text: Be as specific as possible to give your apprentice credit for her experience. We’ll keep track, to help her show off her skills! -->
 <br />
 
-
-<!-- <%= f.label :tool_list %> -->
-<h4>Tools & Materials</h4>
-<p>What tools and materials will your apprentice(s) learn to use? (List them, separated by commas)</p>
-<%= f.text_field :tool_list, :required => true, :placeholder => "Ex. Natalie Davis of Canoe", :data => { :pre => @apprenticeship.tools.map { |t|  { :id => t.name, :name => t.name } } }  %>
-<!--Helper text: Be as specific as possible to give your apprentice credit for her experience. We’ll keep track, to help her show off her skills! -->
+<h3>Tools & Materials</h3>
+<%= f.label :tool_list, capture { %>
+<p>What tools and materials will your apprentice(s) use? (List each, followed by a comma).</p> 
+<% } %>
+<div rel='popover' data-content="Be as specific as possible to give your apprentice credit for her experience. We’ll keep track, to help her show off her skills!" data-original-title='Tools & Materials' >
+<%= f.text_field :tool_list, :required => true, :data => { :pre => @apprenticeship.tools.map { |t|  { :id => t.name, :name => t.name } } }  %>
+</div>
 <br />
 
-
-<!-- <%= f.label :requirement_list %> -->
-<h4>Requirements</h4>
-<p>Do applicants need experience with any skills, techniques, or tools before they apply? (List them, separated by commas)</p>
+<h3>Requirements</h3>
+<%= f.label :requirement_list, capture { %> 
+<p>Do applicants need experience with any skills, techniques, or tools before they apply? (List each, followed by a comma)</p>
+<% } %>
+<div rel='popover' data-content="Applicants will rate their level of experience with these skills and tools for you to see on their application." data-original-title='Requirements' >
 <%= f.text_field :requirement_list, :data => { :pre => @apprenticeship.requirements.map { |t|  { :id => t.name, :name => t.name } } }  %>
+</div>
+
+<!-- Other requirements text field? (car, computer, etc.) -->
+
 <br />
 
-<h4>TIMEFRAME</h4>
-<!-- <%= f.label :begins_at %> -->
-<h4>Start date</h4>
-<div class="input-append date" data-behaviour="datepicker" rel='popover' data-content="Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. Based on your expectations, consider whether you plan to pay the apprentice, and if so, how much?" data-original-title='Description' >
-  <%= f.text_field :begins_at, :required => true, :class => "span2", :value => @apprenticeship.begins_at.strftime("%m/%d/%Y")  %>
-  <span class="add-on"><i class="icon-calendar"></i></span>
-</div>
-
-<!-- <%= f.label :ends_at %> -->
-<h4>End date</h4>
+<%= f.label :begins_at, capture { %> 
+<h3>Start date</h3>
+<% } %>
 <div class="input-append date" data-behaviour="datepicker">
-  <%= f.text_field :ends_at, :required => true, :class => "span2", :value => @apprenticeship.ends_at.strftime("%m/%d/%Y") %>
-  <span class="add-on"><i class="icon-calendar"></i></span>
+<%= f.text_field :begins_at, :required => true, :class => "span2", :value => @apprenticeship.begins_at.strftime("%m/%d/%Y")  %>
 </div>
 
+<%= f.label :ends_at, capture { %> 
+<h3>End date</h3>
+<% } %>
+<div class="input-append date" data-behaviour="datepicker">
+<%= f.text_field :ends_at, :required => true, :class => "span2", :value => @apprenticeship.ends_at.strftime("%m/%d/%Y") %>
+</div>
 
-<%= f.label :hours, "How Often" %>
+<%= f.label :hours, capture { %>
+<h3>How Often?</h3>
+<% } %>
 <%= f.number_field :hours, :required => true, :class => "span1" %>
 
-<%= f.label :hours_per, " per " %>
+<%= f.label :hours_per, " hours per " %>
 <%= f.select :hours_per, [ "day", "week", "month" ], {}, :class => "span2" %>
 
-<h4>Location</h4>
-
+<h3>Location</h3>
 <div class="controls">
-  <%= f.text_field :location_address, :required => true, :class => "span6" %>
+<%= f.text_field :location_address, :required => true, :class => "span6", :rel => 'popover', :data => { :content => "Where will the apprenticeship take place? Please give the exact address. If it’s your home we’ll show only the neighborhood on the public listing, and send the address to participants when they sign up.", "original-title" => 'Location' } %>
 </div>
 <div class="controls">
-  <%= f.text_field :location_address2, :class => "span6" %>
+<%= f.text_field :location_address2, :class => "span6" %>
 </div>
 <div class="controls controls-row">
-  <%= f.text_field :location_city, :required => true, :class => "span3" %>
-  <%= f.text_field :location_state, :required => true, :class => "span1" %>
-  <%= f.text_field :location_zipcode, :required => true, :class => "span2" %>
+<%= f.text_field :location_city, :required => true, :class => "span3" %>
+<%= f.text_field :location_state, :required => true, :class => "span1" %>
+<%= f.text_field :location_zipcode, :required => true, :class => "span2" %>
 </div>
 
 <%= f.label :location_private, :class => "checkbox" do %>
-  <%= f.check_box :location_private %>This is a private or home address
+  <%= f.check_box :location_private %>This is a private or home address 
 <% end %>
 
 <%= f.label :location_varies, :class => "checkbox" do %>
-  <%= f.check_box :location_varies %>Varying locations (must have transportation)
+  <%= f.check_box :location_varies %>The apprenticeship will take place at varying locations 
 <% end %>
 
+<h3>Age Range</h3>
+<%= f.label :age_min, "Min. age" %>
+<%= f.number_field :age_min, :required => true, :class => "span1", :rel => 'popover', :data => { :content => "This is entirely up to you. We suggest a minimum age of 11 because our research has shown a need for fabulous mentors before middle school. If you need someone with a specific skill set or experience you may want to set the age higher and be clear about your needs in the apprenticeship description above.", "original-title" => 'Age Range' } %>
+<%= f.label :age_max, "Max. age" %>
+<%= f.number_field :age_max, :class => "span1", :rel => 'popover', :data => { :content => "If you want to work specifically with youth, you can set a maximum age accordingly. If you're happy to work with adults as well, you can set the maximum to 99.", "original-title" => 'Age Range' } %>
 
-<h4>Age Range</h4>
-
-<h4>Close applications after I've accepted _#_ apprentice(s).</h4>
+<p>Close applications after I've accepted <%= f.number_field :registration_min, :required => true, :class => "span1", :rel => 'popover', :data => { :content => "After receiving an application you must accept or reject it within two weeks.  Your listing will remain open until you fill or cancel the apprenticeship.", "original-title" => 'Number of Apprentices' } %> apprentice(s).</p>
 
 
 
