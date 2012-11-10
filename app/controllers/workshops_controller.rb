@@ -16,6 +16,7 @@ class WorkshopsController < ApplicationController
   def new
   	@workshop = Workshop.new 
   	@workshop.begins_at = Date.today
+    @workshop.ends_at = Date.today
   end	
   
   def create

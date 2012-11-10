@@ -33,7 +33,7 @@
 
 <h3>Skills & Techniques</h3>
 <%= f.label :skill_list, capture { %> 
-<p>What skills and techniques will your apprentice(s) learn? (List each, followed by a comma).</p> 
+<p>What skills and techniques will your apprentice(s) learn? (List each, followed by a comma)</p> 
 <% } %>
 <div rel='popover' data-content="Be as specific as possible to give your apprentice credit for her experience. We’ll keep track, to help her show off her skills!" data-original-title='Skills & Techniques' > 
 <%= f.text_field :skill_list, :required => true, :data => { :pre => @apprenticeship.skills.map { |t|  { :id => t.name, :name => t.name } } } %>
@@ -42,7 +42,7 @@
 
 <h3>Tools & Materials</h3>
 <%= f.label :tool_list, capture { %>
-<p>What tools and materials will your apprentice(s) use? (List each, followed by a comma).</p> 
+<p>What tools and materials will your apprentice(s) use? (List each, followed by a comma)</p> 
 <% } %>
 <div rel='popover' data-content="Be as specific as possible to give your apprentice credit for her experience. We’ll keep track, to help her show off her skills!" data-original-title='Tools & Materials' >
 <%= f.text_field :tool_list, :required => true, :data => { :pre => @apprenticeship.tools.map { |t|  { :id => t.name, :name => t.name } } }  %>
@@ -56,9 +56,12 @@
 <div rel='popover' data-content="Applicants will rate their level of experience with these skills and tools for you to see on their application." data-original-title='Requirements' >
 <%= f.text_field :requirement_list, :data => { :pre => @apprenticeship.requirements.map { |t|  { :id => t.name, :name => t.name } } }  %>
 </div>
+<br />
 
-<!-- Other requirements text field? (car, computer, etc.) -->
-
+<%= f.label :other_needs, capture { %>
+<p>Are there other things your apprentice needs to have, like their own computer or car?<p>
+<% } %>
+<%= f.text_field :other_needs, :placeholder => "Ex. Must have their own laptop", :rel => 'popover', :data => { :content => "Applicants will confirm that they have these things for you to see on their application.", "original-title" => 'Other Needs' } %>
 <br />
 
 <%= f.label :begins_at, capture { %> 
@@ -110,7 +113,7 @@
 <%= f.label :age_max, "Max. age" %>
 <%= f.number_field :age_max, :class => "span1", :rel => 'popover', :data => { :content => "If you want to work specifically with youth, you can set a maximum age accordingly. If you're happy to work with adults as well, you can set the maximum to 99.", "original-title" => 'Age Range' } %>
 
-<p>Close applications after I've accepted <%= f.number_field :registration_min, :required => true, :class => "span1", :rel => 'popover', :data => { :content => "After receiving an application you must accept or reject it within two weeks.  Your listing will remain open until you fill or cancel the apprenticeship.", "original-title" => 'Number of Apprentices' } %> apprentice(s).</p>
+<p>Close applications after I've accepted <%= f.number_field :registration_min, :required => true, :class => "span1", :rel => 'popover', :data => { :content => "After receiving an application you must accept or reject it within two weeks. Your listing will remain open until you fill or cancel the apprenticeship.", "original-title" => 'Number of Apprentices' } %> apprentice(s).</p>
 
 
 

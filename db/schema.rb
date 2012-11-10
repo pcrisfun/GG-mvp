@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121101204115) do
+ActiveRecord::Schema.define(:version => 20121109232021) do
 
   create_table "events", :force => true do |t|
     t.integer  "user_id"
@@ -42,6 +42,8 @@ ActiveRecord::Schema.define(:version => 20121101204115) do
     t.datetime "updated_at",                                  :null => false
     t.string   "charge_id"
     t.boolean  "kind"
+    t.string   "other_needs"
+    t.float    "price"
   end
 
   create_table "taggings", :force => true do |t|

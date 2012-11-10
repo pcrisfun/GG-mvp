@@ -1,2 +1,9 @@
+in workshops > _fields.html.erb
+
+	Can we auto-fill the :host field with the user's name (but still have it editable)?
+ 	
+ 	For the cost field we want to display: "[number field] x 20% = _______ TOTAL cost to participants" - How do we get it to do this math?
+
+ 	Is it going to mess it up that I used ends_at for the "end registration on" date field, which will always be a date before the begins_at date?
 
 
