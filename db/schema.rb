@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121109232021) do
+ActiveRecord::Schema.define(:version => 20121112004101) do
 
   create_table "events", :force => true do |t|
     t.integer  "user_id"
@@ -26,7 +26,6 @@ ActiveRecord::Schema.define(:version => 20121109232021) do
     t.integer  "hours"
     t.string   "hours_per",            :default => "week"
     t.string   "availability"
-    t.datetime "registration_ends_at"
     t.string   "location_address"
     t.string   "location_address2"
     t.string   "location_city"
@@ -43,7 +42,13 @@ ActiveRecord::Schema.define(:version => 20121109232021) do
     t.string   "charge_id"
     t.boolean  "kind"
     t.string   "other_needs"
+    t.datetime "regsitration_ends_at"
     t.float    "price"
+    t.datetime "registration_ends_at"
+    t.datetime "begins_at_date"
+    t.datetime "begins_at_time"
+    t.datetime "ends_at_date"
+    t.datetime "ends_at_time"
   end
 
   create_table "taggings", :force => true do |t|

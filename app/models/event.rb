@@ -22,7 +22,7 @@ class Event < ActiveRecord::Base
 	def begins_at=(new_date)
   	write_attribute(:begins_at, Chronic::parse(new_date).strftime('%Y-%m-%d %H:%M:%S'))
 	end
-	
+
 	def ends_at=(new_date)
   	write_attribute(:ends_at, Chronic::parse(new_date).strftime("%Y-%m-%d %H:%M:%S"))
 	end

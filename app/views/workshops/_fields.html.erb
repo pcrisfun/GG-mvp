@@ -52,15 +52,16 @@
 <br />
 
 <%= f.label :begins_at, capture { %> 
-<h3>Date</h3>
+<h3>When</h3>
 <% } %>
 <div class="input-append date" data-behaviour="datepicker">
-  <%= f.text_field :begins_at, :required => true, :class => "span2", :readonly => true, :value => @workshop.begins_at.strftime("%m/%d/%Y") %>
+  <%= f.text_field :begins_at, :required => true, :class => "span2", :value => @workshop.begins_at.strftime("%m/%d/%Y") %>
+</div>
+<div class="timefield">
+  <%= f.text_field :begins_at_time, :class => "span2", :maxlength => 7, :value => "12:00pm" %> to
+  <%= f.text_field :ends_at_time, :class => "span2", :maxlength => 7, :value => "3:00pm" %>
 </div>
 
-<h4>Start Time</h4>
-
-<h4>End Time</h4>
 <!--Repeat?-->
 
 <h3>Location</h3>
@@ -104,11 +105,11 @@
 <%= f.number_field :price, :class => "span1", :rel => 'popover', :data => { :content => "Please list the amount per girl that you want to earn from teaching this session (remember to account for materials). We’ll add 20% on top of that to set the full fee each girl will pay. See our FAQ page for details and examples of our cost structure."} %>
 <!--"x 20% = _______ TOTAL cost to participants" - How do we get it to do this math?-->
 
-<%= f.label :ends_at, capture { %> 
+<%= f.label :registration_ends_at, capture { %> 
 <p>Close registration for this workshop on:</p>
 <% } %>
 <div class="input-append date" data-behaviour="datepicker">
-  <%= f.text_field :ends_at, :required => true, :class => "span2", :readonly => true, :value => @workshop.ends_at.strftime("%m/%d/%Y") %>
+  <%= f.text_field :registration_ends_at, :required => true, :class => "span2", :readonly => true, :value => @workshop.ends_at.strftime("%m/%d/%Y") %>
 </div>
 
 
