@@ -1,34 +1,32 @@
 <%= render 'shared/error_messages', :form_model => @apprenticeship %>
 
-<h3>What kind of apprenticeship will it be?</h3>
-<div rel='popover' data-content="In an event apprenticeship your apprentice helps you organize and run an event - for example: hanging a gallery show, planning an art auction, or preparing a booth for a craft fair." data-original-title='Event Apprenticeships' > 
-<%= f.radio_button :kind, 'event' %>
-  <%= label :kind, 'Event Apprenticeship' %>
-</div>
-<div rel='popover' data-content="In a production apprenticeship your apprentice helps you produce your work - for example: filling a large order, designing a new line, or just keeping up with demand." data-original-title='Production Apprenticeships' >
-<%= f.radio_button :kind, 'production' %> 
-  <%= label :kind, 'Production apprenticeship' %>
-</div>
-<div rel='popover' data-content="In an ongoing apprenticeship your apprentice helps you in your everyday practice, and learns from you as you work together." data-original-title='Ongoing Apprenticeships' >
-<%= f.radio_button :kind, 'ongoing' %>
-  <%= label :kind, 'Ongoing apprenticeship' %> 
-</div>
-
-<br />
 
 <h3>Apprenticeship Title</h3>
-<%= f.label :topic %>
-<%= f.text_field :topic, :required => true, :placeholder => "Ex. 'Printmaking' or 'Jewelry Design'", :rel => 'popover', :data => { :content => 'What will you be teaching?', "original-title" => 'Topic' } %> 
+<br />
+<p>
+<%= f.label :topic %>	
+<%= f.text_field :topic, :class => 'span2', :required => true, :placeholder => "Ex. 'Furniture Design'", :rel => 'popover', :data => { :content => 'What will you be teaching?', "original-title" => 'Topic' } %> 
 
-<p>Apprenticeship with</p>
+
+Apprenticeship with
 <%= f.label :host, capture { %>
-<p>Your name + business name</p>
+Your name + business name
 <% } %>
-<%= f.text_field :host, :required => true, :placeholder => "Ex. Natalie Davis of Canoe", :rel => 'popover', :data => { :content => 'How would you like to be listed? You can choose to use your own name, your business name, or both.', "original-title" => 'Name' }  %>
+<%= f.text_field :host, :class => 'span2', :required => true, :placeholder => "Ex. Natalie Davis of Canoe", :rel => 'popover', :data => { :content => 'How would you like to be listed? You can choose to use your own name, your business name, or both.', "original-title" => 'Name' }  %>
+</p>
 
 <!--Add a host?-->
 
 <h3>Apprenticeship Description</h3>
+
+<div class="form_row" rel='popover' data-content="An event apprenticeship centers around organizing and running an event, for example: hanging a gallery show, or planning an art auction. In a production apprenticeship your apprentice helps you produce your work, for example: filling a large order, or designing a new line or series. And in an ongoing apprenticeship your apprentice helps you in your everyday practice.">
+  <p>What kind of apprenticeship will it be?</p>
+  <% [ 'Event Apprenticeship', 'Production Apprenticeship', 'Ongoing Apprenticeship' ].each do |kind| %>
+    <br><%= radio_button_tag 'kind', kind, @kind == kind %>
+    <%= label_tag "kind_#{kind}", kind.humanize %>
+  <% end %>
+</div>
+
 <%= f.text_area :description, :required => true, :placeholder => "Tell us about your apprenticeship.", :rel => 'popover', :data => { :content => "Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. Based on your expectations, consider whether you plan to pay the apprentice, and if so, how much?", "original-title" => 'Description' }  %>
 
 <h3>Skills & Techniques</h3>
@@ -88,19 +86,19 @@
 
 <h3>Location</h3>
 <div class="controls">
-<%= f.text_field :location_address, :required => true, :class => "span6", :rel => 'popover', :data => { :content => "Where will the apprenticeship take place? Please give the exact address. If it’s your home we’ll show only the neighborhood on the public listing, and send the address to participants when they sign up.", "original-title" => 'Location' } %>
+<%= f.text_field :location_address, :required => true, :placeholder => 'Address Line 1', :class => "span6", :rel => 'popover', :data => { :content => "Where will the apprenticeship take place? Please give the exact address. If it’s your home we’ll show only the neighborhood on the public listing, and send the address to participants when they sign up.", "original-title" => 'Location' } %>
 </div>
 <div class="controls">
-<%= f.text_field :location_address2, :class => "span6" %>
+<%= f.text_field :location_address2, :placeholder => 'Address Line 2', :class => "span6" %>
 </div>
 <div class="controls controls-row">
-<%= f.text_field :location_city, :required => true, :class => "span3" %>
-<%= f.text_field :location_state, :required => true, :class => "span1" %>
-<%= f.text_field :location_zipcode, :required => true, :class => "span2" %>
+<%= f.text_field :location_city, :required => true, :placeholder => 'City', :class => "span3" %>
+<%= f.text_field :location_state, :required => true, :placeholder => 'State', :class => "span1" %>
+<%= f.text_field :location_zipcode, :required => true, :placeholder => 'Zip', :class => "span2" %>
 </div>
 
 <%= f.label :location_private, :class => "checkbox" do %>
-  <%= f.check_box :location_private %>This is a private or home address 
+<%= f.check_box :location_private %>This is a private or home address in the <%= f.text_field :location_nbrhood, :placeholder => 'Ex. Clarksville', :class => 'span2' %> neighborhood.
 <% end %>
 
 <%= f.label :location_varies, :class => "checkbox" do %>

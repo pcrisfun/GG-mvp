@@ -3,9 +3,9 @@ class Event < ActiveRecord::Base
 	belongs_to :user
 	validates_presence_of :topic, :host, :description, :skill_list, :tool_list, :location_address, :age_min, :age_max
 	validates_inclusion_of :age_min, :in => 0..99
-  validates_numericality_of :registration_min, :registration_max
+  validates_numericality_of :registration_min
 
-	attr_accessible :title, :kind, :description, :topic, :host, :begins_at, :ends_at, :skill_list, :tool_list, :requirement_list, :hours, :hours_per, :location_address, :location_address2, :location_city, :location_state, :location_zipcode, :location_private, :location_varies, :age_min, :age_max, :registration_min, :registration_max
+	attr_accessible :title, :kind, :description, :topic, :host, :begins_at, :begins_at_time, :ends_at, :ends_at_time, :skill_list, :tool_list, :requirement_list, :other_needs, :hours, :hours_per, :location_address, :location_address2, :location_city, :location_state, :location_zipcode, :location_private, :location_nbrhood, :location_varies, :age_min, :age_max, :registration_min, :registration_max, :price, :registration_ends_at
 	before_save :generate_title
 	
 	acts_as_taggable
@@ -27,6 +27,10 @@ class Event < ActiveRecord::Base
   	write_attribute(:ends_at, Chronic::parse(new_date).strftime("%Y-%m-%d %H:%M:%S"))
 	end
 	
+  def registration_ends_at=(new_date)
+    write_attribute(:registration_ends_at, Chronic::parse(new_date).strftime("%Y-%m-%d %H:%M:%S"))
+  end
+
   def process_payment
     logger.info "Processing payment"
     unless charge_id.present?

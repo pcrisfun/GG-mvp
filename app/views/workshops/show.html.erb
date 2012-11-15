@@ -1,6 +1,6 @@
 <% provide(:title, @workshop.title) %>
 <div class="row">
-  <aside class="span4">
+  <aside class="span8">
     <section>
       <h1>
         <%= @workshop.topic %> Workshop with <%= @workshop.host %>
@@ -9,17 +9,34 @@
       	<%= @workshop.description %>
       </P>
       
-      <h4>Skills:</h4> 
+      <h4>Skills</h4> 
       <p><%= @workshop.skill_list %></p>
       
-      <h4>Tools:</h4>
+      <h4>Tools</h4>
       <p><%= @workshop.tool_list %></p>
       
-      <h4>Requirements:</h4>
-      <p><%= @workshop.requirement_list %></p>
+      <h4>Requirements</h4>
+      <p><%= @workshop.requirement_list %><p>
+      <p>Note: <%= @workshop.other_needs %></p>
 
-      <h4>Start date:</h4>
-      <p><%= @workshop.begins_at.strftime("%m/%d/%Y") %></p>
+      <h4>When</h4>
+      <p><%= @workshop.begins_at.strftime("%m/%d/%Y") %>, <%= @workshop.begins_at_time.to_s %> to <%= @workshop.ends_at_time.to_s %></p>
+
+      <h4>Where</h4>
+      <p>
+        <% if @workshop.location_private.blank? %>
+          <%= @workshop.location_address %>, <%= @workshop.location_address2 %><br />
+          <%= @workshop.location_city %>, <%= @workshop.location_state %> <%= @workshop.location_zipcode %>
+        <% else %>
+          <%= @workshop.location_nbrhood %>        
+        <% end %>
+      </p>
+
+      <h4>Age Range</h4>
+      <p><%= @workshop.age_min %> to <%= @workshop.age_max %></p>
+
+      <h4>Cost</h4>
+      <p>$<%= @workshop.price %>
 
 
       <p>

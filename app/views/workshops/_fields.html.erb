@@ -66,19 +66,19 @@
 
 <h3>Location</h3>
 <div class="controls">
-<%= f.text_field :location_address, :required => true, :class => "span6", :rel => 'popover', :data => { :content => "Where will the workshop take place? Please give the exact address. If it’s your home we’ll show only the neighborhood on the public listing, and send the address to participants when they sign up.", "original-title" => 'Location' } %>
+<%= f.text_field :location_address, :required => true, :class => "span6", :placeholder => 'Address Line 1', :rel => 'popover', :data => { :content => "Where will the workshop take place? Please give the exact address. If it’s your home we’ll show only the neighborhood on the public listing, and send the address to participants when they sign up.", "original-title" => 'Location' } %>
 </div>
 <div class="controls">
-<%= f.text_field :location_address2, :class => "span6" %>
+<%= f.text_field :location_address2, :placeholder => 'Address Line 2', :class => "span6" %>
 </div>
 <div class="controls controls-row">
-<%= f.text_field :location_city, :required => true, :class => "span3" %>
-<%= f.text_field :location_state, :required => true, :class => "span1" %>
-<%= f.text_field :location_zipcode, :required => true, :class => "span2" %>
+<%= f.text_field :location_city, :required => true, :placeholder => 'City', :class => "span3" %>
+<%= f.text_field :location_state, :required => true, :placeholder => 'State', :class => "span1" %>
+<%= f.text_field :location_zipcode, :required => true, :placeholder => 'Zip', :class => "span2" %>
 </div>
 
 <%= f.label :location_private, :class => "checkbox" do %>
-  <%= f.check_box :location_private %>This is a private or home address 
+  <%= f.check_box :location_private %>This is a private or home address in the <%= f.text_field :location_nbrhood, :placeholder => 'Ex. Clarksville', :class => 'span2' %> neighborhood.
 <% end %>
 
 <h3>Age Range</h3>
@@ -105,11 +105,11 @@
 <%= f.number_field :price, :class => "span1", :rel => 'popover', :data => { :content => "Please list the amount per girl that you want to earn from teaching this session (remember to account for materials). We’ll add 20% on top of that to set the full fee each girl will pay. See our FAQ page for details and examples of our cost structure."} %>
 <!--"x 20% = _______ TOTAL cost to participants" - How do we get it to do this math?-->
 
-<%= f.label :registration_ends_at, capture { %> 
+<%= f.label :ends_at, capture { %> 
 <p>Close registration for this workshop on:</p>
 <% } %>
 <div class="input-append date" data-behaviour="datepicker">
-  <%= f.text_field :registration_ends_at, :required => true, :class => "span2", :readonly => true, :value => @workshop.ends_at.strftime("%m/%d/%Y") %>
+  <%= f.text_field :ends_at, :required => true, :class => "span2", :value => @workshop.ends_at.strftime("%m/%d/%Y") %>
 </div>
 
 
