@@ -5,7 +5,7 @@ class Event < ActiveRecord::Base
 	validates_inclusion_of :age_min, :in => 0..99
   validates_numericality_of :registration_min
 
-	attr_accessible :title, :kind, :description, :topic, :host, :begins_at, :begins_at_time, :ends_at, :ends_at_time, :skill_list, :tool_list, :requirement_list, :other_needs, :hours, :hours_per, :location_address, :location_address2, :location_city, :location_state, :location_zipcode, :location_private, :location_nbrhood, :location_varies, :age_min, :age_max, :registration_min, :registration_max, :price, :registration_ends_at
+	attr_accessible :title, :topic, :host, :kind, :description, :begins_at, :begins_at_time, :ends_at, :ends_at_time, :skill_list, :tool_list, :requirement_list, :other_needs, :hours, :hours_per, :location_address, :location_address2, :location_city, :location_state, :location_zipcode, :location_private, :location_nbrhood, :location_varies, :age_min, :age_max, :registration_min, :registration_max, :price, :registration_ends_at
 	before_save :generate_title
 	
 	acts_as_taggable

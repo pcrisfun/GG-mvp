@@ -40,9 +40,9 @@ ActiveRecord::Schema.define(:version => 20121112212521) do
     t.datetime "created_at",                                  :null => false
     t.datetime "updated_at",                                  :null => false
     t.string   "charge_id"
-    t.boolean  "kind"
-    t.string   "other_needs"
     t.datetime "regsitration_ends_at"
+    t.string   "kind"
+    t.string   "other_needs"
     t.float    "price"
     t.datetime "registration_ends_at"
     t.datetime "begins_at_date"

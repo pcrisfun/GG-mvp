@@ -20,11 +20,11 @@ Your name + business name
 <h3>Apprenticeship Description</h3>
 
 <div class="form_row" rel='popover' data-content="An event apprenticeship centers around organizing and running an event, for example: hanging a gallery show, or planning an art auction. In a production apprenticeship your apprentice helps you produce your work, for example: filling a large order, or designing a new line or series. And in an ongoing apprenticeship your apprentice helps you in your everyday practice.">
-  <p>What kind of apprenticeship will it be?</p>
-  <% [ 'Event Apprenticeship', 'Production Apprenticeship', 'Ongoing Apprenticeship' ].each do |kind| %>
-    <br><%= radio_button_tag 'kind', kind, @kind == kind %>
-    <%= label_tag "kind_#{kind}", kind.humanize %>
-  <% end %>
+<p>What kind of apprenticeship will it be?</p>
+<%= f.radio_button :kind, "Event Apprenticeship" %>
+<%= f.label :kind, "Event Apprenticeship" %>
+<%= f.radio_button :kind, "Production Apprenticeship" %>
+<%= f.label :kind, "Production Apprenticeship" %>
 </div>
 
 <%= f.text_area :description, :required => true, :placeholder => "Tell us about your apprenticeship.", :rel => 'popover', :data => { :content => "Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. Based on your expectations, consider whether you plan to pay the apprentice, and if so, how much?", "original-title" => 'Description' }  %>
