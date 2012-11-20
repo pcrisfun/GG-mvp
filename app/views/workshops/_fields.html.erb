@@ -2,20 +2,24 @@
 
 
 <h3>Workshop Title</h3>
+<br />
+<p>
 <%= f.label :topic %>
 <%= f.text_field :topic, :required => true, :placeholder => "Ex. 'Printmaking' or 'Jewelry Design'", :rel => 'popover', :data => { :content => 'What will you be teaching?', "original-title" => 'Topic' } %> 
 
-<p>Workshop with</p>
+Workshop with
 <%= f.label :host, capture { %>
-<p>Your name + business name</p>
+Your name + business name
 <% } %>
 <%= f.text_field :host, :required => true, :placeholder => "Ex. Natalie Davis of Canoe", :rel => 'popover', :data => { :content => 'How would you like to be listed? You can choose to use your own name, your business name, or both.', "original-title" => 'Name' }  %>
+</p>
 
 <!--Can we auto-fill the field with the user's name?-->
 <!--Add a host?-->
 
 <h3>Workshop Description</h3>
-<%= f.label :description %>
+<br />
+<% f.label :description %>
 <%= f.text_area :description, :required => true, :placeholder => "Tell us about your workshop.", :rel => 'popover', :data => { :content => "Give a few sentences telling people what they’ll be learning and doing in the workshop, what (if anything) they’ll take home from it, and why it’s fun/awesome/useful.", "original-title" => 'Description' }  %>
 
 
@@ -78,8 +82,8 @@
 </div>
 
 <%= f.label :location_private, :class => "checkbox" do %>
-  <%= f.check_box :location_private %>This is a private or home address in the <%= f.text_field :location_nbrhood, :placeholder => 'Ex. Clarksville', :class => 'span2' %> neighborhood.
-<% end %>
+  <%= f.check_box :location_private %>This is a private or home address in the <% end %><%= f.text_field :location_nbrhood, :placeholder => 'Ex. Clarksville', :class => 'span2' %> neighborhood.
+
 
 <h3>Age Range</h3>
 <%= f.label :age_min, "Min. age" %>
@@ -88,14 +92,10 @@
 <%= f.number_field :age_max, :class => "span1", :rel => 'popover', :data => { :content => "If you want to work specifically with children or teenagers, you can set a maximum age accordingly. If you're happy to work with adults as well, you can set the maximum to 99.", "original-title" => 'Age Range' } %>
 
 <h3>Number of Participants</h3>
-<%= f.label :registration_min, capture { %> 
-<p>Minimum number of participants:</p>
-<% } %>
+<%= f.label :registration_min, "Min. participants" %>
 <%= f.number_field :registration_min, :required => true, :class => "span1", :rel => 'popover', :data => { :content => "What is the minimum number of participants you need to run the workshop? If fewer than this number have signed up by the time registration closes, the workshop will be cancelled.", "original-title" => 'Number of Participants' } %> 
 <br />
-<%= f.label :registration_max, capture { %>
-<p>Maximum number of participants:</p>
-<% } %>
+<%= f.label :registration_max, "Max. participants" %>
 <%= f.number_field :registration_max, :required => true, :class => "span1", :rel => 'popover', :data => { :content => "What is the maximum number of participants you can accommodate in the workshop? Once this many people have signed up, we will close registration for the workshop.", "original-title" => 'Number of Participants'} %>
 
 

@@ -98,8 +98,10 @@ Your name + business name
 </div>
 
 <%= f.label :location_private, :class => "checkbox" do %>
-<%= f.check_box :location_private %>This is a private or home address in the <%= f.text_field :location_nbrhood, :placeholder => 'Ex. Clarksville', :class => 'span2' %> neighborhood.
+<%= f.check_box :location_private %>This is a private or home address in the 
 <% end %>
+<%= f.text_field :location_nbrhood, :placeholder => 'Ex. Clarksville', :class => 'span2' %> neighborhood.
+
 
 <%= f.label :location_varies, :class => "checkbox" do %>
   <%= f.check_box :location_varies %>The apprenticeship will take place at varying locations 
