@@ -102,8 +102,9 @@ Your name + business name
 <%= f.label :price, capture { %>
 <h3>Cost</h3>
 <% } %>
-<%= f.number_field :price, :class => "span1", :rel => 'popover', :data => { :content => "Please list the amount per girl that you want to earn from teaching this session (remember to account for materials). We’ll add 20% on top of that to set the full fee each girl will pay. See our FAQ page for details and examples of our cost structure."} %>
-<!--"x 20% = _______ TOTAL cost to participants" - How do we get it to do this math?-->
+<%= f.text_field :price, :class => "span1", :rel => 'popover', :data => { :content => "Please list the amount per girl that you want to earn from teaching this session (remember to account for materials). We’ll add 20% on top of that to set the full fee each girl will pay. See our FAQ page for details and examples of our cost structure."} %>
+
+<!--<p><%= @workshop.price %> + 20% = <%= @workshop.price %> x 1.2 TOTAL cost to participants</p>-->
 
 <%= f.label :ends_at, capture { %> 
 <p>Close registration for this workshop on:</p>

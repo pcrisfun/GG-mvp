@@ -1,5 +1,5 @@
 class AddPriceToEvents < ActiveRecord::Migration
   def change
-    add_column :events, :price, :float
+    add_column :events, :price, :decimal, :precision => 8, :scale => 2
   end
 end

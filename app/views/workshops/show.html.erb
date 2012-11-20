@@ -36,7 +36,7 @@
       <p><%= @workshop.age_min %> to <%= @workshop.age_max %></p>
 
       <h4>Cost</h4>
-      <p>$<%= @workshop.price %>
+      <p><%= number_to_currency(@workshop.price, :unit => "$") %>
 
 
       <p>
