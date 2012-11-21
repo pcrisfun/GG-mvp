@@ -20,7 +20,7 @@
       <p>Note: <%= @workshop.other_needs %></p>
 
       <h4>When</h4>
-      <p><%= @workshop.begins_at.strftime("%m/%d/%Y") %>, <%= @workshop.begins_at_time.to_s %> to <%= @workshop.ends_at_time.to_s %></p>
+      <p><%= @workshop.begins_at.strftime("%m/%d/%Y") %>, <%= @workshop.begins_at_time.strftime("%l:%M%P") %> to <%= @workshop.ends_at_time.strftime("%l:%M%P") %></p>
 
       <h4>Where</h4>
       <p>

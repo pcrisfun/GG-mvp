@@ -62,11 +62,14 @@ Your name + business name
   <%= f.text_field :begins_at, :required => true, :class => "span2", :value => @workshop.begins_at.strftime("%m/%d/%Y") %>
 </div>
 <div class="timefield">
-  <%= f.text_field :begins_at_time, :class => "span2", :maxlength => 7, :value => "12:00pm" %> to
-  <%= f.text_field :ends_at_time, :class => "span2", :maxlength => 7, :value => "3:00pm" %>
+  <%= f.text_field :begins_at_time, :class => "span2", :placeholder => "12:00pm" %> to
+  <%= f.text_field :ends_at_time, :class => "span2", :placeholder => "3:00pm" %>
 </div>
 
-<!--Repeat?-->
+<!-- 
+, :value => @workshop.begins_at_time.strftime("%l:%M%P")
+, :value => @workshop.ends_at_time.strftime("%l:%M%P")
+	Repeat?-->
 
 <h3>Location</h3>
 <div class="controls">
