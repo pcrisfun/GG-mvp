@@ -13,11 +13,6 @@ class Event < ActiveRecord::Base
 
   attr_accessible :stripe_card_token
   attr_accessor :stripe_card_token
-
-
-	def generate_title
-  	self.title = "#{self.topic} Apprenticeship with #{self.host}"
-	end
 	
 	def begins_at=(new_date)
   	write_attribute(:begins_at, Chronic::parse(new_date).strftime('%Y-%m-%d %H:%M:%S'))
@@ -44,7 +39,7 @@ class Event < ActiveRecord::Base
       logger.info "Processed payment #{charge.id}"
     end	
   rescue Stripe::InvalidRequestError => e
-    logger.error "Stripe error while creating charge: #{e.mesage}"
+    logger.error "Stripe error while creating charge: #{e.message}"
     errors.add :base, "There was a problem with your credit card."
   end
 	
