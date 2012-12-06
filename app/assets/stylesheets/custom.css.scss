@@ -147,6 +147,10 @@ input, textarea, select, .uneditable-input {
   @include box_sizing;
 }
 
+input.span1, textarea.span1, .uneditable-input.span1 {  /* cw */
+  width: 60px;
+}
+
 div.date span.add-on {
     padding: 10px;
 }
