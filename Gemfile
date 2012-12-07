@@ -48,6 +48,8 @@ end
 
 gem 'state_machine'
 gem 'bootstrap-datepicker-rails'
+gem 'bootstrap-timepicker-rails', :require => 'bootstrap-timepicker-rails',
+                              :git => 'git://github.com/tispratik/bootstrap-timepicker-rails.git'
 gem 'chronic'
 gem 'acts-as-taggable-on'
 gem 'state_select'
