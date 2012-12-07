@@ -10,9 +10,18 @@ class Event < ActiveRecord::Base
 	acts_as_taggable
 	acts_as_taggable_on :skills, :tools, :requirements
 
+  before_save :fix_tags
+
   attr_accessible :stripe_card_token
   attr_accessor :stripe_card_token
 	
+  def fix_tags
+    # OPTIMIZE: lol this is a hack to fix acts as taggable on
+    self.skill_list = self.skill_list.map { |t| t.strip.gsub(/[^,A-Z0-9 '-]/i, '') }.join(',')
+    self.tool_list = self.tool_list.map { |t| t.strip.gsub(/[^,A-Z0-9 '-]/i, '') }.join(',')
+    self.requirement_list = self.requirement_list.map { |t| t.strip.gsub(/[^,A-Z0-9 '-]/i, '') }.join(',')
+  end
+
 	def begins_at=(new_date)
   	write_attribute(:begins_at, Chronic::parse(new_date).strftime('%Y-%m-%d %H:%M:%S'))
 	end

@@ -9,7 +9,7 @@ class Workshop < Event
 	  	
 	  	state :pending do
 			validates_numericality_of :price, :greater_than_or_equal_to => 0
-			validates_numericality_of :registration_min,  :greater_than_or_equal_to => 0			
+			validates_numericality_of :registration_min,  :greater_than_or_equal_to => 0		
 	  	end
 	 end
 end

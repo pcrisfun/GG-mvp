@@ -41,7 +41,7 @@ class WorkshopsController < ApplicationController
   
   	def update
       if @workshop.update_attributes(params[:workshop])
-      
+        
         if params[:create_button]
           if @workshop.submit
             redirect_to workshops_path, :flash => {:success => "Your workshop was created!" }
