@@ -146,6 +146,13 @@ input, textarea, select, .uneditable-input {
   @include box_sizing;
 }
 
+.datepickerlayout .tofield {
+  width:auto;
+}
+.datepickerlayout .span3 {
+  width:auto;
+}
+
 input.span1, textarea.span1, .uneditable-input.span1 {  /* cw */
   width: 60px;
 }
@@ -154,9 +161,9 @@ input.span1, textarea.span1, .uneditable-input.span1 {  /* cw */
     padding: 10px;
 }*/
 
-div.time span.add-on {
+/*div.time span.add-on {
     padding: 10px;
-}
+}*/
 
 
 div.bootstrap-timepicker input {
