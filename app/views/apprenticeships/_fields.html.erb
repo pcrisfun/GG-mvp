@@ -25,6 +25,8 @@ Your name + business name
 <%= f.label :kind, "Event Apprenticeship" %>
 <%= f.radio_button :kind, "Production Apprenticeship" %>
 <%= f.label :kind, "Production Apprenticeship" %>
+<%= f.radio_button :kind, "Ongoing Apprenticeship" %>
+<%= f.label :kind, "Ongoing Apprenticeship" %>
 </div>
 
 <%= f.text_area :description, :required => true, :placeholder => "Tell us about your apprenticeship.", :rel => 'popover', :data => { :content => "Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. Based on your expectations, consider whether you plan to pay the apprentice, and if so, how much?", "original-title" => 'Description' }  %>
