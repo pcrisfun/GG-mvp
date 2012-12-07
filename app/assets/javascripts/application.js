@@ -18,9 +18,8 @@
 //= require jquery.tokeninput
 //= require_tree .
 
-
-$(document).on("focus", "[data-behaviour~='datepicker']", function(e){
-    $(this).datepicker({"autoclose": true, "date-format": 'mm/dd/yyyy'});
+$(document).ready(function () {
+	$("[data-behaviour~='datepicker']").datepicker({"autoclose": true, "date-format": 'mm/dd/yyyy'});
 });
 
 $(document).ready(function () {
