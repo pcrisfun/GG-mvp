@@ -1,9 +1,8 @@
 class Event < ActiveRecord::Base
 
 	belongs_to :user
-	validates_presence_of :topic, :host, :description, :skill_list, :tool_list, :location_address, :age_min, :age_max
-	validates_inclusion_of :age_min, :in => 0..99
-  validates_numericality_of :registration_min
+	validates_presence_of :topic, :message => ' should tell us what you\'re teaching'
+  validates_presence_of :host, :message => ' should really yknow be like filled out'
 
 	attr_accessible :title, :topic, :host, :kind, :description, :begins_at, :begins_at_date, :begins_at_time, :ends_at, :ends_at_date, :ends_at_time, :skill_list, :tool_list, :requirement_list, :other_needs, :hours, :hours_per, :location_address, :location_address2, :location_city, :location_state, :location_zipcode, :location_private, :location_nbrhood, :location_varies, :age_min, :age_max, :registration_min, :registration_max, :price, :registration_ends_at
 	before_save :generate_title
@@ -49,7 +48,10 @@ class Event < ActiveRecord::Base
   	end
   	
   	state :pending do
-  	  validates_presence_of :charge_id
+      validates_presence_of :description
+      #, :skill_list, :tool_list, :location_address, :age_min, :age_max
+      validates_inclusion_of :age_min, :in => 0..99
+  	  #validates_presence_of :charge_id
   	end
   	
   	state :accepted do

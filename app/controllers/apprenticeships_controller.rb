@@ -20,6 +20,7 @@ class ApprenticeshipsController < ApplicationController
   end	
   
   def create
+    # TODO: This needs to work like workshops, but handle charge id validation
   
     @apprenticeship = current_user.apprenticeships.new(params[:apprenticeship])
     
@@ -38,6 +39,7 @@ class ApprenticeshipsController < ApplicationController
   end
 
 	def update
+    # TODO: This needs to work like workshops, but handle charge id validation
 
   	things_are_good = false
 	

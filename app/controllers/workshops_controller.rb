@@ -21,18 +21,20 @@ class WorkshopsController < ApplicationController
   
   def create
       @workshop = current_user.workshops.new(params[:workshop])
-      if @workshop.save!
+      if @workshop.save
       
         if params[:create_button]
-          @workshop.submit
-          flash[:success] = "Your workshop was created!"
-
+          if @workshop.submit
+            redirect_to workshops_path, :flash => {:success => "Your workshop was created!" }
+          else
+            flash[:warning] = "Workshop submission is incomplete. Please review all fields."
+            render 'edit'
+          end
         else
-          flash[:success] = "Your workshop was saved."
+          redirect_to workshops_path, :flash => { :success => "Your workshop was saved." }
         end
-        
-        redirect_to workshops_path
       else
+        flash.now[:warning] = "There was a problem saving your workshop. Please review all fields."
         render 'new'
       end
   	end
@@ -41,26 +43,31 @@ class WorkshopsController < ApplicationController
       if @workshop.update_attributes(params[:workshop])
       
         if params[:create_button]
-          @workshop.submit
-          flash[:success] = "Your workshop was created!"
+          if @workshop.submit
+            redirect_to workshops_path, :flash => {:success => "Your workshop was created!" }
+          else
+            flash[:warning] = "Workshop submission is incomplete. Please review all fields."
+            render 'edit'
+          end
           
         elsif params[:revoke_button] && current_user.admin?
           @workshop.revoke
-          flash[:warning] = "Workshop was revoked."
+          redirect_to workshops_path, :flash => { :warning => "Workshop was revoked." }
           
         elsif params[:reject_button] && current_user.admin?
           @workshop.reject
-          flash[:warning] = "Workshop was rejected."
+          redirect_to workshops_path, :flash => { :warning => "Workshop was rejected." }
           
         elsif params[:accept_button] && current_user.admin?
           @workshop.accept
-          flash[:success] = "Workshop was accepted."
+          redirect_to workshops_path, :flash => { :success => "Workshop was accepted." }
           
         else
-          flash[:success] = "Your workshop was saved."
+          redirect_to workshops_path, :flash => { :success => "Your workshop was saved." }
         end
-        redirect_to workshops_path
+
       else
+        flash.now[:warning] = "There was a problem saving your workshop. Please review all fields."
         render 'edit'
       end
   	end
