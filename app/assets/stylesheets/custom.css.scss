@@ -140,7 +140,7 @@ footer {
 input, textarea, select, .uneditable-input {
   border: 1px solid #bbb;
   width: 100%;
-  padding: 10px;
+  /*padding: 10px;*/
   height: auto;
   margin-bottom: 15px;
   @include box_sizing;
@@ -150,9 +150,9 @@ input.span1, textarea.span1, .uneditable-input.span1 {  /* cw */
   width: 60px;
 }
 
-div.date span.add-on {
+/*div.date span.add-on {
     padding: 10px;
-}
+}*/
 
 div.time span.add-on {
     padding: 10px;
