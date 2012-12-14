@@ -9,9 +9,9 @@
 
     <%= render 'layouts/shim' %>    
   </head>
-  <body>
+  <body class='theme-pattern-lightmesh'>
     <%= render 'layouts/header' %>
-    <div class="container">
+    <div id="content" role="main">
       <% flash.each do |key, value| %>
         <%= content_tag(:div, value, class: "alert alert-#{key}") %>
       <% end %>
@@ -20,4 +20,27 @@
       <%= debug(params) if Rails.env.development? %>
     </div>
   </body>
+<!--
+  <script src="javascripts/jquery.min.js" type="text/javascript"></script>
+  <script src="javascripts/bootstrap.js" type="text/javascript"></script>
+-->
+  <script src="javascripts/script.js" type="text/javascript"></script>
+  <script src='https://maps.googleapis.com/maps/api/js?sensor=false'></script>
+  <script type='text/javascript'>
+    //<![CDATA[
+      // Call the google map
+      mapInit();
+    //]]>
+  </script>
+  <!-- Google Analytics -->
+  <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-31531066-1']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();   
+    </script>
 </html>
