@@ -1,53 +1,57 @@
-<% provide(:title, @apprenticeship.title) %>
-<div class="row">
-  <aside class="span8">
-    <section>
-      <h1>
-        <%= @apprenticeship.kind %> in <%= @apprenticeship.topic %> with <%= @apprenticeship.host %>
-      </h1>
-      <p>
-      	<%= @apprenticeship.description %>
-      </P>
-      
-      <h4>Skills</h4> 
-      <p><%= @apprenticeship.skill_list %></p>
-      
-      <h4>Tools</h4>
-      <p><%= @apprenticeship.tool_list %></p>
-      
-      <h4>Requirements</h4>
-      <p><%= @apprenticeship.requirement_list %></p>
-      <p>Note: <%= @apprenticeship.other_needs %></p>
+<%= content_tag :section, :class => "section" do %>
+  <%= content_tag :div, :class => "container" do %>
+    <% provide(:title, @apprenticeship.title) %>
+    <div class="row">
+      <aside class="span8">
+        <section>
+          <h1>
+            <%= @apprenticeship.kind %> in <%= @apprenticeship.topic %> with <%= @apprenticeship.host %>
+          </h1>
+          <p>
+          	<%= @apprenticeship.description %>
+          </P>
+          
+          <h4>Skills</h4> 
+          <p><%= @apprenticeship.skill_list %></p>
+          
+          <h4>Tools</h4>
+          <p><%= @apprenticeship.tool_list %></p>
+          
+          <h4>Requirements</h4>
+          <p><%= @apprenticeship.requirement_list %></p>
+          <p>Note: <%= @apprenticeship.other_needs %></p>
 
-      <h4>When</h4>
-      <p><%= @apprenticeship.begins_at.strftime("%m/%d/%Y") %> to <%= @apprenticeship.ends_at.strftime("%m/%d/%Y") %>, <%= @apprenticeship.hours %> hours per <%= @apprenticeship.hours_per %>.</p>
+          <h4>When</h4>
+          <p><%= @apprenticeship.begins_at.strftime("%m/%d/%Y") %> to <%= @apprenticeship.ends_at.strftime("%m/%d/%Y") %>, <%= @apprenticeship.hours %> hours per <%= @apprenticeship.hours_per %>.</p>
 
-      <h4>Where</h4>
-      <p>
-        <% if @apprenticeship.location_private.blank? %>
-          <%= @apprenticeship.location_address %>, <%= @apprenticeship.location_address2 %><br />
-          <%= @apprenticeship.location_city %>, <%= @apprenticeship.location_state %> <%= @apprenticeship.location_zipcode %>
-        <% else %>
-          <%= @apprenticeship.location_nbrhood %>        
-        <% end %>
-      </p>
-      <p> 
-        <% unless @apprenticeship.location_varies.blank? %>
-          Note: locations for this apprenticeship will vary.
-        <% end %>
-      </p>
+          <h4>Where</h4>
+          <p>
+            <% if @apprenticeship.location_private.blank? %>
+              <%= @apprenticeship.location_address %>, <%= @apprenticeship.location_address2 %><br />
+              <%= @apprenticeship.location_city %>, <%= @apprenticeship.location_state %> <%= @apprenticeship.location_zipcode %>
+            <% else %>
+              <%= @apprenticeship.location_nbrhood %>        
+            <% end %>
+          </p>
+          <p> 
+            <% unless @apprenticeship.location_varies.blank? %>
+              Note: locations for this apprenticeship will vary.
+            <% end %>
+          </p>
 
-      <h4>Age Range</h4>
-      <p><%= @apprenticeship.age_min %> to <%= @apprenticeship.age_max %></p>
+          <h4>Age Range</h4>
+          <p><%= @apprenticeship.age_min %> to <%= @apprenticeship.age_max %></p>
 
-      <p>
-        <% if @apprenticeship.started? %>
-         (<%= link_to "Resume", edit_apprenticeship_path(@apprenticeship) if @apprenticeship.user == current_user %>)
-        <% elsif @apprenticeship.accepted? or current_user.admin? %>
-         (<%= link_to "Edit", edit_apprenticeship_path(@apprenticeship) if @apprenticeship.user == current_user %>)
-        <% end %>
-      </p>
+          <p>
+            <% if @apprenticeship.started? %>
+             (<%= link_to "Resume", edit_apprenticeship_path(@apprenticeship) if @apprenticeship.user == current_user %>)
+            <% elsif @apprenticeship.accepted? or current_user.admin? %>
+             (<%= link_to "Edit", edit_apprenticeship_path(@apprenticeship) if @apprenticeship.user == current_user %>)
+            <% end %>
+          </p>
 
-    </section>
-  </aside>
-</div>
+        </section>
+      </aside>
+    </div>
+  <% end %>
+<% end %>
