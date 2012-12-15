@@ -13,11 +13,5 @@
  *= require token-input
  *= require token-input-facebook
  *= require_self
-
+ *= require_tree .
  */
-@import "custom.css.scss";
-@import "bootstrap.css";
-@import "responsive.css";
-@import "font-awesome.css.erb";
-@import "theme.css";
-@import "fonts.css";
