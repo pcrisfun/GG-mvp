@@ -56,25 +56,25 @@
             </h1>
             <div class='nav-collapse'>
               <ul class='nav pull-right'>
-                <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to "Home", root_path %></li>
-                <li class="<%= 'active' if current_page?(apprenticeships_path) %>"><%= link_to "Apprentice", apprenticeships_path %></li>
-                <li class="<%= 'active' if current_page?(workshops_path) %>"><%= link_to "Workshop", workshops_path %></li>
-                <li class="<%= 'active' if current_page?(help_path) %>"><%= link_to "Help", help_path %></li>
-                <li class="<%= 'active' if current_page?(about_path) %>"><%= link_to "About", about_path %></li>
-                <li class="<%= 'active' if current_page?(contact_path) %>"><%= link_to "Contact", contact_path %></li>
+                <%= active_link_to 'Home', root_path, :wrap_tag => :li, :active => :exclusive %>
+                <%= active_link_to 'Apprentice', apprenticeships_path, :wrap_tag => :li %>
+                <%= active_link_to 'Workshop', workshops_path, :wrap_tag => :li %>
+                <%= active_link_to 'Help', help_path, :wrap_tag => :li %>
+                <%= active_link_to 'About', about_path, :wrap_tag => :li %>
+                <%= active_link_to 'Contact', contact_path, :wrap_tag => :li %>
                 <% if signed_in? %>
-                  <li class="<%= 'active' if current_page?(users_path) %>"><%= link_to "Users", users_path %></li>
+                  <%= active_link_to 'Users', users_path, :wrap_tag => :li %>
                   <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Account</a>
                     <ul class="dropdown-menu">
-                      <li><%= link_to "Profile", current_user %></li>
-                      <li><%= link_to "Settings", edit_user_path(current_user) %></li>
+                      <%= active_link_to 'Profile', current_user, :wrap_tag => :li, :active => :exclusive %>
+                      <%= active_link_to 'Settings', edit_user_path(current_user), :wrap_tag => :li, :active => :exclusive %>
                       <li class="divider"></li>
-                      <li><%= link_to "Sign out", signout_path, method: "delete" %></li>
+                      <%= active_link_to 'Sign out', signout_path, :wrap_tag => :li, method: "delete"%>
                     </ul>
                   </li>
                 <% else %>
-                  <li class="<%= 'active' if current_page?(signin_path) %>"><%= link_to "Sign in", signin_path %></li>
+                  <%= active_link_to 'Sign in', signin_path, :wrap_tag => :li %>
                 <% end %>
                 <!--
                 <li class='dropdown'>

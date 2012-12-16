@@ -54,4 +54,5 @@ gem 'chronic'
 gem 'acts-as-taggable-on'
 gem 'state_select'
 gem 'stripe'
+gem 'active_link_to'
 
