@@ -56,14 +56,14 @@
             </h1>
             <div class='nav-collapse'>
               <ul class='nav pull-right'>
-                <li class='active'><%= link_to "Home", root_path %></li>
-                <li><%= link_to "Apprentice", apprenticeships_path %></li>
-                <li><%= link_to "Workshop", workshops_path %></li>
-                <li><%= link_to "Help", help_path %></li>
-                <li><%= link_to "About", about_path %></li>
-                <li><%= link_to "Contact", contact_path %></li>
+                <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to "Home", root_path %></li>
+                <li class="<%= 'active' if current_page?(apprenticeships_path) %>"><%= link_to "Apprentice", apprenticeships_path %></li>
+                <li class="<%= 'active' if current_page?(workshops_path) %>"><%= link_to "Workshop", workshops_path %></li>
+                <li class="<%= 'active' if current_page?(help_path) %>"><%= link_to "Help", help_path %></li>
+                <li class="<%= 'active' if current_page?(about_path) %>"><%= link_to "About", about_path %></li>
+                <li class="<%= 'active' if current_page?(contact_path) %>"><%= link_to "Contact", contact_path %></li>
                 <% if signed_in? %>
-                  <li><%= link_to "Users", users_path %></li>
+                  <li class="<%= 'active' if current_page?(users_path) %>"><%= link_to "Users", users_path %></li>
                   <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Account</a>
                     <ul class="dropdown-menu">
@@ -74,7 +74,7 @@
                     </ul>
                   </li>
                 <% else %>
-                  <li><%= link_to "Sign in", signin_path %></li>
+                  <li class="<%= 'active' if current_page?(signin_path) %>"><%= link_to "Sign in", signin_path %></li>
                 <% end %>
                 <!--
                 <li class='dropdown'>
