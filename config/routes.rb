@@ -16,9 +16,11 @@ SampleApp::Application.routes.draw do
 
   match '/signup',   to: 'users#new'
   
-  match '/help',    to: 'static_pages#help'
+  match '/faq',    to: 'static_pages#faq'
   match '/about',   to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'
+  match '/newsletter', to: 'static_pages#newsletter'
+  match '/thankyou',  to: 'static_pages#thankyou'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
