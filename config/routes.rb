@@ -26,6 +26,7 @@ SampleApp::Application.routes.draw do
   match '/newsletter', to: 'static_pages#newsletter'
   match '/thankyou',  to: 'static_pages#thankyou'
 
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
