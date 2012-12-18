@@ -16,8 +16,11 @@
 //= require bootstrap-tooltip
 //= require bootstrap-datepicker
 //= require bootstrap-timepicker
-//= require jquery.tokeninput
+//= require rails.validations
 //= require_tree .
+
+
+
 
 $(document).ready(function () {
 	$("[data-behaviour~='datepicker']").datepicker({"autoclose": true, "date-format": 'mm/dd/yyyy'});
@@ -29,9 +32,8 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    $("[rel=popover]").popover();
+    $("[rel=popover]").popover({"trigger": 'focus'});
 });
-
 
 $(function () {
   $('#apprenticeship_skill_list').tokenInput('/event_skills.json', { crossDomain: false, allowCustomEntry : true, theme: 'facebook', prePopulate: $('#apprenticeship_skill_list').data('pre') });

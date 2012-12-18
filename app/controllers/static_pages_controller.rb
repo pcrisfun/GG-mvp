@@ -9,6 +9,7 @@ class StaticPagesController < ApplicationController
   end
 
   def contact
+    @inquiry = Inquiry.new
   end
 
   def newsletter

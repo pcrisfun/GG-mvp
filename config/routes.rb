@@ -7,6 +7,10 @@ SampleApp::Application.routes.draw do
   resources :event_skills, only: [ :index ]
   resources :event_tools, only: [ :index ]
   resources :event_requirements, only: [ :index ]
+  
+  resources :inquiries, :only => [:create] do
+    get 'static_pages/thanks', :on => :collection
+  end
 
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'
