@@ -25,6 +25,8 @@ SampleApp::Application.routes.draw do
   match '/contact', to: 'static_pages#contact'
   match '/newsletter', to: 'static_pages#newsletter'
   match '/thankyou',  to: 'static_pages#thankyou'
+  match '/termsandconditions', to:'static_pages#termsandconditions'
+  match '/privacypolicy', to:'static_pages#privacypolicy'
 
 
   # The priority is based upon order of creation:

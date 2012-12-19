@@ -17,4 +17,10 @@ class StaticPagesController < ApplicationController
 
   def thankyou
   end
+
+  def termsandconditions
+  end
+
+  def privacypolicy
+  end
 end
