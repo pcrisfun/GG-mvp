@@ -1,11 +1,12 @@
 <% provide(:title, 'Sign up') %>
+
 <!-- SmartBiz theme -->
 <section class='section' id='promo'>
 	<div class='container'>
 		<h1>Sign up</h1>
 		<div class="row">
 		  <div class="span6 fancyform">
-		    <%= simple_form_for @user do |f| %>
+		    <%= simple_form_for @user, :validate => true do |f| %>
 		    <%= render 'fields', f: f %>
 		      <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
 		    <% end %>
@@ -14,3 +15,4 @@
 		</div>
 	</div>
 </section>
+

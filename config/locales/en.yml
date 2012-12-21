@@ -6,3 +6,7 @@ en:
     attributes:
       user:
         password_digest: "Password"
+
+  errors:
+   messages:
+      date: "Yer Too Young Little Chitlin!"

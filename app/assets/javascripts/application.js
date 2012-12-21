@@ -10,13 +10,13 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require bootstrap_theme
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
 //= require bootstrap-tooltip
 //= require bootstrap-datepicker
 //= require bootstrap-timepicker
+//= require jquery.tokeninput
 //= require rails.validations
 //= require_tree .
 
@@ -26,15 +26,10 @@
 $(document).ready(function () {
 	$("[data-behaviour~='datepicker']").datepicker({"autoclose": true, "date-format": 'mm/dd/yyyy'});
 	$("[data-behaviour~='timepicker']").timepicker();
+  $("[rel=tooltip]").tooltip();
+  $("[rel=popover]").popover({"trigger": 'focus'});
 });
 
-$(document).ready(function () {
-    $("[rel=tooltip]").tooltip();
-});
-
-$(document).ready(function () {
-    $("[rel=popover]").popover({"trigger": 'focus'});
-});
 
 $(function () {
   $('#apprenticeship_skill_list').tokenInput('/event_skills.json', { crossDomain: false, allowCustomEntry : true, theme: 'facebook', prePopulate: $('#apprenticeship_skill_list').data('pre') });
