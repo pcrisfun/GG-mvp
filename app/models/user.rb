@@ -25,9 +25,7 @@ class User < ActiveRecord::Base
   					uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 6 }
   validates :password_confirmation, presence: true
-  validates_inclusion_of :birthday,
-            :in => Date.new(1900)..Time.now.years_ago(13).to_date,
-            :message => 'Sorry, it looks like you are too young to start an account. You will need to have your parent or legal guardian start an account for you.'
+  validates :birthday, :date => {:after => Proc.new { Time.now - 13.year }}
 
   def birthday=(new_date)
     write_attribute(:birthday, Chronic::parse(new_date).strftime("%Y-%m-%d %H:%M:%S"))
