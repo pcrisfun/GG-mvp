@@ -9,6 +9,7 @@ gem 'bootstrap-will_paginate', '0.0.6'
 gem 'jquery-rails', '~> 2.0.0'
 
 
+
 group :development, :test do
   gem 'sqlite3', '1.3.5'
   gem 'rspec-rails', '2.11.0'
@@ -58,3 +59,7 @@ gem 'state_select'
 gem 'stripe'
 gem 'active_link_to'
 gem 'pony'
+gem 'jquery-validator'
+gem 'client_side_validations'
+gem 'simple_form'
+gem 'date_validator'

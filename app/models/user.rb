@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
 
   has_many :apprenticeships
   has_many :workshops
-  attr_accessible :email, :name, :password, :password_confirmation
+  attr_accessible :email, :name, :password, :password_confirmation, :birthday
   has_secure_password
 
   before_save { |user| user.email = email.downcase }
@@ -25,6 +25,11 @@ class User < ActiveRecord::Base
   					uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 6 }
   validates :password_confirmation, presence: true
+  validates :birthday, :date => {:after => Proc.new { Time.now - 13.year }}
+
+  def birthday=(new_date)
+    write_attribute(:birthday, Chronic::parse(new_date).strftime("%Y-%m-%d %H:%M:%S"))
+  end
 
   private
 

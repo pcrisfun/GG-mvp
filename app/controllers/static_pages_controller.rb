@@ -9,11 +9,18 @@ class StaticPagesController < ApplicationController
   end
 
   def contact
+    @inquiry = Inquiry.new
   end
 
   def newsletter
   end
 
   def thankyou
+  end
+
+  def termsandconditions
+  end
+
+  def privacypolicy
   end
 end

@@ -10,8 +10,6 @@
  *
  *= require bootstrap-datepicker
  *= require bootstrap-timepicker
- *= require token-input
- *= require token-input-facebook
  *= require_self
  *= require_tree .
  */

@@ -3,10 +3,8 @@
     <div class="alert alert-error">
       The form contains <%= pluralize(form_model.errors.count, "error") %>.
     </div>
-    <ul>
-    <% form_model.errors.full_messages.each do |msg| %>
-      <li>* <%= msg %></li>
+    <% form_model.errors.each do |field, msg| %>
+      <span class="help-inline" for=<%= field %> generated="true">* <%= msg %></span>
     <% end %>
-    </ul>
   </div>
 <% end %>

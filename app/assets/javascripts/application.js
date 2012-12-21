@@ -17,19 +17,17 @@
 //= require bootstrap-datepicker
 //= require bootstrap-timepicker
 //= require jquery.tokeninput
+//= require rails.validations
 //= require_tree .
+
+
+
 
 $(document).ready(function () {
 	$("[data-behaviour~='datepicker']").datepicker({"autoclose": true, "date-format": 'mm/dd/yyyy'});
 	$("[data-behaviour~='timepicker']").timepicker();
-});
-
-$(document).ready(function () {
-    $("[rel=tooltip]").tooltip();
-});
-
-$(document).ready(function () {
-    $("[rel=popover]").popover();
+  $("[rel=tooltip]").tooltip();
+  $("[rel=popover]").popover({"trigger": 'focus'});
 });
 
 

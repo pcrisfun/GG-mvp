@@ -7,6 +7,10 @@ SampleApp::Application.routes.draw do
   resources :event_skills, only: [ :index ]
   resources :event_tools, only: [ :index ]
   resources :event_requirements, only: [ :index ]
+  
+  resources :inquiries, :only => [:create] do
+    get 'static_pages/thanks', :on => :collection
+  end
 
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'
@@ -21,6 +25,8 @@ SampleApp::Application.routes.draw do
   match '/contact', to: 'static_pages#contact'
   match '/newsletter', to: 'static_pages#newsletter'
   match '/thankyou',  to: 'static_pages#thankyou'
+  match '/termsandconditions', to:'static_pages#termsandconditions'
+  match '/privacypolicy', to:'static_pages#privacypolicy'
 
 
   # The priority is based upon order of creation:
