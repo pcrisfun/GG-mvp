@@ -40,7 +40,6 @@ ActiveRecord::Schema.define(:version => 20121218185835) do
     t.datetime "created_at",                                                                :null => false
     t.datetime "updated_at",                                                                :null => false
     t.string   "charge_id"
-    t.datetime "regsitration_ends_at"
     t.string   "kind"
     t.string   "other_needs"
     t.decimal  "price",                :precision => 8, :scale => 2
@@ -70,7 +69,8 @@ ActiveRecord::Schema.define(:version => 20121218185835) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "name"
+    t.string   "first_name"
+    t.string   "last_name"
     t.string   "email"
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false

@@ -4,7 +4,6 @@ class CreateEvents < ActiveRecord::Migration
       t.references :user
       t.string :type
       t.string :state, :default => "started"
-      t.boolean :kind
       t.string :title
       t.string :topic
       t.string :host
@@ -14,7 +13,6 @@ class CreateEvents < ActiveRecord::Migration
       t.integer :hours
       t.string :hours_per, :default => "week"
       t.string :availability
-      t.datetime :registration_ends_at
       t.string :location_address
       t.string :location_address2
       t.string :location_city
