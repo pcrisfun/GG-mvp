@@ -46,6 +46,7 @@ def process_payment
 rescue Stripe::InvalidRequestError => e
   logger.error "Stripe error while creating charge: #{e.message}"
   errors.add :base, "There was a problem with your credit card."
+  false
 end
 
 state_machine :state, :initial => :started do
@@ -56,7 +57,7 @@ state_machine :state, :initial => :started do
    state :pending do
       validates_presence_of :description, :begins_at, :skill_list, :tool_list, :location_address, :location_city, :location_state, :location_zipcode, :age_min, :age_max, :registration_min
       validates_numericality_of :age_min, :greater_than => 0
-   validates_numericality_of :age_max, :greater_than => :age_min, :message => "must be greater than the minimum age you set."
+      validates_numericality_of :age_max, :greater_than => :age_min, :message => "must be greater than the minimum age you set."
       validates_numericality_of :registration_min, :greater_than_or_equal_to => 0
    end
   

@@ -26,4 +26,4 @@ charge =
       $('#stripe_error').show()
       $('#stripe_error .message').text(response.error.message)
       $('input[type=submit]').attr('disabled', false)
-      return false
+

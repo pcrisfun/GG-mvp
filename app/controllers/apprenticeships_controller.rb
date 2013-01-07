@@ -23,8 +23,8 @@ class ApprenticeshipsController < ApplicationController
     @apprenticeship = current_user.apprenticeships.new(params[:apprenticeship])
     if @apprenticeship.save
     
-      if params[:create_button] 
-        if params[:apprenticeship][:stripe_card_token] && @apprenticeship.process_payment
+      if params[:apprenticeship][:stripe_card_token] 
+        if @apprenticeship.process_payment
           if @apprenticeship.submit
             redirect_to apprenticeships_path, :flash => {:success => "Your apprenticeship was created!" }
           else
@@ -36,7 +36,7 @@ class ApprenticeshipsController < ApplicationController
           render 'edit'
         end
       else
-        redirect_to apprenticeships_path, :flash => { :success => "Your workshop was saved." }
+        redirect_to apprenticeships_path, :flash => { :success => "Your apprenticeship was saved." }
       end
 
     else 
@@ -49,10 +49,10 @@ class ApprenticeshipsController < ApplicationController
   def update
     if @apprenticeship.update_attributes(params[:apprenticeship])
       
-      if params[:create_button]
-        if params[:apprenticeship][:stripe_card_token] && @apprenticeship.process_payment
+      if params[:apprenticeship][:stripe_card_token]
+        if @apprenticeship.process_payment
           if @apprenticeship.submit
-            redirect_to apprenticeships_path, :flash => {:success => "Your workshop was created!" }
+            redirect_to apprenticeships_path, :flash => {:success => "Your apprenticeship was created!" }
           else
             flash[:warning] = "Apprenticeship submission is incomplete. Please review all fields."
             render 'edit'
