@@ -2,9 +2,10 @@ class Event < ActiveRecord::Base
 
 belongs_to :user
 validates_presence_of :topic, :message => ' must be included in order to save your form.'
-  validates_presence_of :host, :message => ' must be included in order to save your form.'
+validates_presence_of :host_firstname, :message => ' must be included in order to save your form.'
+validates_presence_of :host_lastname, :message => ' must be included in order to save your form.'
 
-attr_accessible :title, :topic, :host, :kind, :description, :begins_at, :begins_at_time, :ends_at, :ends_at_time, :skill_list, :tool_list, :requirement_list, :other_needs, :hours, :hours_per, :location_address, :location_address2, :location_city, :location_state, :location_zipcode, :location_private, :location_nbrhood, :location_varies, :age_min, :age_max, :registration_min, :registration_max, :price
+attr_accessible :title, :topic, :host_firstname, :host_lastname, :host_business, :bio, :twitter, :facebook, :website, :webshop, :permission, :payment, :paypalemail, :sendcheck_address, :sendcheck_address2, :sendcheck_city, :sendcheck_state, :sendcheck_zip, :kind, :description, :begins_at, :begins_at_time, :ends_at, :ends_at_time, :skill_list, :tool_list, :requirement_list, :other_needs, :hours, :hours_per, :location_address, :location_address2, :location_city, :location_state, :location_zipcode, :location_private, :location_nbrhood, :location_varies, :age_min, :age_max, :registration_min, :registration_max, :price
 before_save :generate_title
 
 acts_as_taggable
@@ -55,7 +56,7 @@ state_machine :state, :initial => :started do
    end
   
    state :pending do
-      validates_presence_of :description, :begins_at, :skill_list, :tool_list, :location_address, :location_city, :location_state, :location_zipcode, :age_min, :age_max, :registration_min
+      validates_presence_of :bio, :website, :payment_options, :permission, :description, :begins_at, :skill_list, :tool_list, :location_address, :location_city, :location_state, :location_zipcode, :age_min, :age_max, :registration_min
       validates_numericality_of :age_min, :greater_than => 0
       validates_numericality_of :age_max, :greater_than => :age_min, :message => "must be greater than the minimum age you set."
       validates_numericality_of :registration_min, :greater_than_or_equal_to => 0
