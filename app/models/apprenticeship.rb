@@ -1,7 +1,7 @@
 class Apprenticeship < Event
 
 	def generate_title
-   		self.title = "#{self.topic} Apprenticeship with #{self.host}"
+   		self.title = "#{self.topic} Apprenticeship with #{self.host_firstname} #{self.host_lastname}"
 	end
 
 	state_machine :state, :initial => :started do

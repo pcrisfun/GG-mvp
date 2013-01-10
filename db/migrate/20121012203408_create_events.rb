@@ -6,7 +6,22 @@ class CreateEvents < ActiveRecord::Migration
       t.string :state, :default => "started"
       t.string :title
       t.string :topic
-      t.string :host
+      t.string :host_firstname
+      t.string :host_lastname
+      t.string :host_business
+      t.text :bio
+      t.string :twitter
+      t.string :facebook
+      t.string :website
+      t.string :webshop
+      t.string :permission
+      t.string :payment_options
+      t.string :paypal_email
+      t.string :sendcheck_address
+      t.string :sendcheck_address2
+      t.string :sendcheck_city
+      t.string :sendcheck_state
+      t.string :sendcheck_zip
       t.text :description
       t.datetime :begins_at, :null => true
       t.datetime :ends_at, :null => true
@@ -18,8 +33,8 @@ class CreateEvents < ActiveRecord::Migration
       t.string :location_city
       t.string :location_state
       t.string :location_zipcode
-      t.boolean :location_private
-      t.boolean :location_varies
+      t.string :location_private
+      t.string :location_varies
       t.integer :age_min
       t.integer :age_max
       t.integer :registration_min

@@ -1,4 +1,4 @@
-<% provide(:title, @user.name) %>
+<% provide(:title, @user.first_name) %>
 <!-- SmartBiz theme -->
 <section class='section' id='promo'>
 	<div class='container'>
@@ -7,10 +7,11 @@
 		    <section>
 		      <h1>
 		        <%= gravatar_for @user %>
-		        <%= @user.name %>
+		        <%= @user.first_name %>
 		      </h1>
 		    </section>
 		  </aside>
 		</div>
 	</div>
 </section>
+
