@@ -46,10 +46,23 @@
 			<%= f.text_field :webshop, :rel => 'popover', :data => { :content => "Your online shop (Etsy, Big Cartel, etc.), if you have one."} %>
 
 			<%= f.label :facebook %>
+			<div class="input-prepend input-append">
+			<span class="add-on">facebook.com/</span>
 			<%= f.text_field :facebook, :rel => 'popover', :data => { :content => "This helps us promote you and your events!"} %>
+			</div>
 
-			<%= f.label :twitter %>
+			<%= f.label :twitter %>			
+			<div class="input-prepend input-append">
+			<span class="add-on">@</span>
 			<%= f.text_field :twitter, :rel => 'popover', :data => { :content => "This helps to give a sense of who you are and what you're interested in."} %>
+			</div>
+			<ul class="icons">
+				<li>
+					<a data-toggle="collapse" data-target="#collapseOne" >
+						<i class="icon-chevron-up"></i>
+					</a>
+				</li>
+			</ul>
 	    </div>  
 	  </div>  
 	</div> 
@@ -175,6 +188,13 @@
 			  <%= f.text_field :ends_at, :class => "span2", :value => @workshop.ends_at.strftime("%m/%d/%Y") %>
 			 <span class="add-on"><i class="icon-th"></i></span>
 			</div>
+			<ul class="icons">
+				<li>
+					<a data-toggle="collapse" data-target="#collapseTwo" >
+						<i class="icon-chevron-up"></i>
+					</a>
+				</li>
+			</ul>
 		</div>  
 	  </div>  
 	</div> 
@@ -212,6 +232,13 @@
 			<%= f.label :permission, :class => "checkbox" do %>
 			  <%= f.check_box :permission, :rel => 'popover', :data => { :content => "We run background checks on all maker-mentors as part of our efforts to foster a safe community."} %>Yes, I give permission for GirlsGuild to run a background check on me.*
 			<% end %>
+			<ul class="icons">
+				<li>
+					<a data-toggle="collapse" data-target="#collapseThree" >
+						<i class="icon-chevron-up"></i>
+					</a>
+				</li>
+			</ul>
 	  	</div>  
 	  </div>  
 	</div> 

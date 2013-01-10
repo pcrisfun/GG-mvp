@@ -23,7 +23,7 @@ class ApprenticeshipsController < ApplicationController
     @apprenticeship = current_user.apprenticeships.new(params[:apprenticeship])
     if @apprenticeship.save
     
-      if params[:apprenticeship][:stripe_card_token] 
+      if params[:apprenticeship][:stripe_card_token].present? 
         if @apprenticeship.process_payment
           if @apprenticeship.submit
             redirect_to apprenticeships_path, :flash => {:success => "Your apprenticeship was created!" }
@@ -32,7 +32,7 @@ class ApprenticeshipsController < ApplicationController
           render 'edit'
           end
         else
-          flash.now[:notify] = "Couldn't process payment. Please try again."
+          flash.now[:notify] = "Couldn't process payment. There's a problem with def create in the controller."
           render 'edit'
         end
       else
@@ -49,7 +49,7 @@ class ApprenticeshipsController < ApplicationController
   def update
     if @apprenticeship.update_attributes(params[:apprenticeship])
       
-      if params[:apprenticeship][:stripe_card_token]
+      if params[:apprenticeship][:stripe_card_token].present?
         if @apprenticeship.process_payment
           if @apprenticeship.submit
             redirect_to apprenticeships_path, :flash => {:success => "Your apprenticeship was created!" }
@@ -58,7 +58,7 @@ class ApprenticeshipsController < ApplicationController
             render 'edit'
           end
         else
-          flash.now[:notify] = "Couldn't process payment."
+          flash.now[:notify] = "Couldn't process payment. There's a problem with def update in the controller."
           render 'edit'
         end
 
