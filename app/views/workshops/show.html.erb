@@ -5,8 +5,36 @@
       <aside class="span8">
         <section>
           <h1>
-            <%= @workshop.topic %> Workshop with <%= @workshop.host %>
+            <%= @workshop.topic %> Workshop with <%= @workshop.host_firstname %> <%=@workshop.host_lastname %>
+            <% unless @workshop.host_business.blank? %>
+              of <%=@workshop.host_business %>
+            <% end %>
           </h1>
+
+          <h4>Bio</h4>
+          <p>
+            <%= @workshop.bio %>
+          </p>
+
+          <h4>Website</h4>
+          <p>
+            <%= @workshop.website %>
+          </p>
+          <p>
+            <%= @workshop.webshop %>
+          </p>
+
+          <h4>Social Media</h4>
+          <p>
+            <%= @workshop.twitter %>
+          </p>
+          <p>
+            <%= @workshop.facebook %>
+          </p>
+
+          <hr />
+
+          <h4>Workshop Description</h4>
           <p>
           	<%= @workshop.description %>
           </P>

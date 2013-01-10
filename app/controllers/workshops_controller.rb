@@ -20,57 +20,57 @@ class WorkshopsController < ApplicationController
   end	
   
   def create
-      @workshop = current_user.workshops.new(params[:workshop])
-      if @workshop.save
+    @workshop = current_user.workshops.new(params[:workshop])
+    if @workshop.save
       
-        if params[:create_button]
-          if @workshop.submit
-            redirect_to workshops_path, :flash => {:success => "Your workshop was created!" }
-          else
-            flash[:warning] = "Workshop submission is incomplete. Please review all fields."
-            render 'edit'
-          end
+      if params[:create_button]
+        if @workshop.submit
+          redirect_to workshops_path, :flash => {:success => "Your workshop was created!" }
         else
-          redirect_to workshops_path, :flash => { :success => "Your workshop was saved." }
+          flash[:warning] = "Workshop submission is incomplete. Please review all fields."
+          render 'edit'          
         end
       else
-        flash.now[:warning] = "There was a problem saving your workshop. Please review all fields."
-        render 'new'
+        redirect_to workshops_path, :flash => { :success => "Your workshop was saved." }
       end
-  	end
+    else
+      flash.now[:warning] = "There was a problem saving your workshop. Please review all fields."
+      render 'new'
+    end
+  end
   
-  	def update
-      if @workshop.update_attributes(params[:workshop])
+  def update
+    if @workshop.update_attributes(params[:workshop])
       
-        if params[:create_button]
-          if @workshop.submit
-            redirect_to workshops_path, :flash => {:success => "Your workshop was created!" }
-          else
-            flash[:warning] = "Workshop submission is incomplete. Please review all fields."
-            render 'edit'
-          end
-          
-        elsif params[:revoke_button] && current_user.admin?
-          @workshop.revoke
-          redirect_to workshops_path, :flash => { :warning => "Workshop was revoked." }
-          
-        elsif params[:reject_button] && current_user.admin?
-          @workshop.reject
-          redirect_to workshops_path, :flash => { :warning => "Workshop was rejected." }
-          
-        elsif params[:accept_button] && current_user.admin?
-          @workshop.accept
-          redirect_to workshops_path, :flash => { :success => "Workshop was accepted." }
-          
+      if params[:create_button]
+        if @workshop.submit
+          redirect_to workshops_path, :flash => {:success => "Your workshop was created!" }
         else
-          redirect_to workshops_path, :flash => { :success => "Your workshop was saved." }
+          flash[:warning] = "Workshop submission is incomplete. Please review all fields."
+          render 'edit'
         end
-
+          
+      elsif params[:revoke_button] && current_user.admin?
+        @workshop.revoke
+        redirect_to workshops_path, :flash => { :warning => "Workshop was revoked." }
+          
+      elsif params[:reject_button] && current_user.admin?
+        @workshop.reject
+        redirect_to workshops_path, :flash => { :warning => "Workshop was rejected." }
+          
+      elsif params[:accept_button] && current_user.admin?
+        @workshop.accept
+        redirect_to workshops_path, :flash => { :success => "Workshop was accepted." }
+          
       else
-        flash.now[:warning] = "There was a problem saving your workshop. Please review all fields."
-        render 'edit'
+        redirect_to workshops_path, :flash => { :success => "Your workshop was saved." }
       end
-  	end
+
+    else
+      flash.now[:warning] = "There was a problem saving your workshop. Please review all fields."
+      render 'edit'
+    end
+  end
   
   
   def show
@@ -84,4 +84,5 @@ class WorkshopsController < ApplicationController
   	@workshop = Workshop.find_by_id(params[:id])
   	redirect_to :index if @workshop.nil? 
   end
+  
 end
