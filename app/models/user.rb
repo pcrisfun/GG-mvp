@@ -29,7 +29,11 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence: true
 
   validates :terms_of_service, acceptance: true
-  validates :birthday, :date => {:after => Proc.new { Time.now - 13.year }}
+  validates :birthday, :date => {:before => Proc.new { Time.now - 13.year }}
+
+  def name
+    return "#{first_name} #{last_name}"
+  end
 
   def birthday=(new_date)
     write_attribute(:birthday, Chronic::parse(new_date).strftime("%Y-%m-%d %H:%M:%S"))

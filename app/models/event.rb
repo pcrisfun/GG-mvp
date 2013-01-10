@@ -15,6 +15,7 @@ acts_as_taggable_on :skills, :tools, :requirements
   attr_accessible :stripe_card_token
   attr_accessor :stripe_card_token
 
+
   def fix_tags
     # OPTIMIZE: lol this is a hack to fix acts as taggable on
     self.skill_list = self.skill_list.map { |t| t.strip.gsub(/[^,A-Z0-9 '-]/i, '') }.join(',')
@@ -56,7 +57,7 @@ state_machine :state, :initial => :started do
    state :pending do
       validates_presence_of :description, :begins_at, :skill_list, :tool_list, :location_address, :location_city, :location_state, :location_zipcode, :age_min, :age_max, :registration_min
       validates_numericality_of :age_min, :greater_than => 0
-   validates_numericality_of :age_max, :greater_than => :age_min, :message => "must be greater than the minimum age you set."
+      validates_numericality_of :age_max, :greater_than => :age_min, :message => "must be greater than the minimum age you set."
       validates_numericality_of :registration_min, :greater_than_or_equal_to => 0
    end
   
