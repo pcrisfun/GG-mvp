@@ -10,6 +10,17 @@
  *
  *= require bootstrap-datepicker
  *= require bootstrap-timepicker
+ *= require font-awesome
+ *= require bootstrap-theme
+ *= require fonts
+ *= require responsive
+ *= require sessions
+ *= require static_pages
+ *= require theme
+ *= require token-input-facebook
+ *= require token-input
+ *= require users
+ *= require custom
  *= require_self
  *= require_tree .
  */

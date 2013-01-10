@@ -16,6 +16,7 @@ acts_as_taggable_on :skills, :tools, :requirements
   attr_accessible :stripe_card_token
   attr_accessor :stripe_card_token
 
+
   def fix_tags
     # OPTIMIZE: lol this is a hack to fix acts as taggable on
     self.skill_list = self.skill_list.map { |t| t.strip.gsub(/[^,A-Z0-9 '-]/i, '') }.join(',')

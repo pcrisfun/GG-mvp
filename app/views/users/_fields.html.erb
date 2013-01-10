@@ -1,25 +1,51 @@
 <%= render 'shared/error_messages', :form_model => @user %>
+<%= f.input :birthday, :validate => true do %>
+	<div class="form-inline">
+		<div class="input-append date" data-behaviour="datepicker">
+			<%= f.text_field :birthday, :required => true, :class => "span5", :value => @user.birthday.strftime("%m/%d/%Y") %>
+			<span class="add-on"><i class="icon-th"></i></span>
+		</div>
+		<a data-content="Individuals under the age of 18 must at all times use GirlsGuild's services only in conjunction with and under the supervision of a parent or legal guardian who is at least 18 years of age. In this all cases, the adult is the user and is responsible for any and all activities." data-placement="right" rel="popover" href="#" data-original-title="Why do you need my birthday?">Why? <i class='icon-question-sign small-icon'></i>
+		</a>
+	</div>
+<% end -%>
 
-<%= f.label :birthday %>
-<div class="input-append date" data-behaviour="datepicker">
-	<%= f.text_field :birthday, :required => true, :class => "span2", :value => @user.birthday.strftime("%m/%d/%Y")  %>
-	<span class="add-on"><i class="icon-th"></i></span>
+<div class="form-inline">
+	<div class="input-append date" data-behaviour="datepicker">
+		<%= f.text_field :birthday, :required => true, :class => "span5", :value => @user.birthday.strftime("%m/%d/%Y"), :validate => true  %>
+		<span class="add-on"><i class="icon-th"></i></span>
+	</div>
+	<a data-content="Individuals under the age of 18 must at all times use GirlsGuild's services only in conjunction with and under the supervision of a parent or legal guardian who is at least 18 years of age. In this all cases, the adult is the user and is responsible for any and all activities." data-placement="right" rel="popover" href="#" data-original-title="Why do you need my birthday?">Why? <i class='icon-question-sign small-icon'></i>
+	</a>
 </div>
-<a data-content="Individuals under the age of 18 must at all times use GirlsGuild's services only in conjunction with and under the supervision of a parent or legal guardian who is at least 18 years of age. In this all cases, the adult is the user and is responsible for any and all activities." data-placement="right" rel="popover" href="#" data-original-title="Why do you need my birthday?">
-	Why? <i class='icon-question-sign small-icon'></i>
-</a>
+<br />
 
-<%= f.label :first_name %>
-<%= f.text_field :first_name %>
+<%= f.input :first_name do %>
+	<%= f.text_field :first_name, :class => "span6" %>
+<% end -%>
 
-<%= f.label :last_name %>
-<%= f.text_field :last_name %>
+<%= f.input :last_name do %>
+	<%= f.text_field :last_name, :class => "span6" %>
+<% end -%>
 
-<%= f.label :email %>
-<%= f.text_field :email %>
+<%= f.input :email do %>
+	<%= f.text_field :email, :class => "span6" %>
+<% end -%>
 
-<%= f.label :password %>
-<%= f.password_field :password %>
+<%= f.input :password do %>
+	<%= f.text_field :password, :class => "span6" %>
+<% end -%>
 
-<%= f.label :password_confirmation, "Confirm Password" %>
-<%= f.password_field :password_confirmation %>
+<%= f.input :password_confirmation do %>
+	<%= f.text_field :password_confirmation, :class => "span6" %>
+<% end -%>
+
+
+<!-- this terms is not working right now -->
+<div class="form-inline">
+	<%= f.check_box :terms_of_service %>
+	<%= f.label :terms_of_service, capture { %> 
+		<p>I have read the <%= active_link_to 'terms and conditions', termsandconditions_path, :target => '_blank' %></p> 
+	<% } %>
+</div>
+<br/>
