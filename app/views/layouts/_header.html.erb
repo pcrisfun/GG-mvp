@@ -9,18 +9,15 @@
               <span class='icon-bar'></span>
               <span class='icon-bar'></span>
             </a>
-            <h1 class='brand'>
-              <%= link_to "GirlsGuild", root_path, id: "logo" %><i class='icon-beaker'></i>
-            </h1>
+            <a href='#'>
+              <h1 class='brand'>
+              <!--<%= link_to "GirlsGuild", root_path, id: "logo" %>-->
+              </h1>
+            </a>
             <div class='nav-collapse'>
               <ul class='nav pull-right'>
-                <!--<%= active_link_to 'Home', root_path, :wrap_tag => :li, :active => :exclusive %>-->
                 <%= active_link_to 'Apprenticeships', apprenticeships_path, :wrap_tag => :li %>
                 <%= active_link_to 'Workshops', workshops_path, :wrap_tag => :li %>
-                <!--<%= active_link_to 'FAQ', faq_path, :wrap_tag => :li %>
-                <%= active_link_to 'About', about_path, :wrap_tag => :li %>
-                <%= active_link_to 'Contact', contact_path, :wrap_tag => :li %>
-                <%= active_link_to 'Newsletter', newsletter_path, :wrap_tag => :li %>-->
                 <% if signed_in? %>
                   <%= active_link_to 'Users', users_path, :wrap_tag => :li %>
                   <li class="dropdown">

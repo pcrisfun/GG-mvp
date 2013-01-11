@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(:version => 20121218185835) do
     t.string   "other_needs"
     t.decimal  "price",              :precision => 8, :scale => 2
     t.time     "begins_at_time"
+    t.date     "ends_at_date"
     t.time     "ends_at_time"
     t.string   "location_nbrhood"
   end

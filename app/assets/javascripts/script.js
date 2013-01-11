@@ -18,6 +18,11 @@ function carouselInit() {
     // setting the default height
     carousel.css('min-height', defaultHeight);
 
+    // prevents sliding automatically after clicking the next buttons
+    $(document).ready(function() {      
+        $('.carousel').carousel('pause');
+    });
+
     // animate the container height on any slider transitiom
     carousel.bind('slid', function() {
         var itemheight = carousel.find('.active').height();

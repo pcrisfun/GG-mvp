@@ -7,6 +7,7 @@ gem 'faker', '1.0.1'
 gem 'will_paginate', '3.0.3'
 gem 'bootstrap-will_paginate', '0.0.6'
 gem 'jquery-rails', '~> 2.0.0'
+gem 'stripe'
 
 
 
@@ -54,9 +55,9 @@ gem 'bootstrap-datepicker-rails'
 gem 'bootstrap-timepicker-rails', :require => 'bootstrap-timepicker-rails',
                               :git => 'git://github.com/tispratik/bootstrap-timepicker-rails.git'
 gem 'chronic'
+gem 'nokogiri', '~> 1.5.6'
 gem 'acts-as-taggable-on'
 gem 'state_select'
-gem 'stripe'
 gem 'active_link_to'
 gem 'pony'
 gem 'jquery-validator'

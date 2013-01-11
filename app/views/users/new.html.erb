@@ -1,11 +1,18 @@
 <% provide(:title, 'Sign up') %>
-<h1>Sign up</h1>
 
-<div class="row">
-  <div class="span6 offset3">
-    <%= simple_form_for @user, :validate => true  do |f| %>
-    <%= render 'fields', f: f %>
-      <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
-    <% end %>
-  </div>
-</div>
+<!-- SmartBiz theme -->
+<section class='section' id='promo'>
+	<div class='container'>
+		<h1>Sign up</h1>
+		<div class="row">
+		  <div class="span6 fancyform">
+		    <%= simple_form_for @user, :validate => true do |f| %>
+		    <%= render 'fields', f: f %>
+		      <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
+		    <% end %>
+		    <p class="pull-right">Already have an account? <%= link_to "SIGN IN", signin_path %></p>
+		  </div>
+		</div>
+	</div>
+</section>
+

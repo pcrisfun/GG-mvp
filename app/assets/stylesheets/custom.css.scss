@@ -3,13 +3,36 @@
 /* mixins, variables, etc./*
 
 /* universal */
-a {
+a, a:hover, a:active, a:visited, a:focus {
   outline: none;
 }
 
-/* typography */
+/* typography  - THIS SHOULD PROBABLY GO IN FONTS.CSS??? */
 
 /* header */
+/*.navbar-inner {
+  background: none repeat scroll 0 0 rgba(40, 40, 40, 0.95);
+}
+.navbar .brand {
+  text-shadow: 0 1px 0 black;
+}*/
+#masthead .brand {
+  background: url('../../../images/gg-logo.png') no-repeat 0 0 transparent;
+  width:110px;
+  height:80px;
+  padding:0px;
+}
+.navbar .nav > .active > a,
+.navbar .nav > .active > a:hover,
+.navbar .nav > .active > a:focus,
+.navbar .nav li.dropdown.open > .dropdown-toggle, 
+.navbar .nav li.dropdown.active > .dropdown-toggle, 
+.navbar .nav li.dropdown.open.active > .dropdown-toggle {
+  background-color:transparent;
+}
+#masthead .brand a:hover {
+  color:#fff;
+}
 
 /* sidebar */
 .gravatar {
@@ -20,9 +43,6 @@ a {
 /* footer */
 
 /* forms */
-input, textarea {
-  width: 510px;
-}
 
 #error_explanation { /* WHAT IS THIS ?????????????????????????? */
   color: #f00;
@@ -36,6 +56,32 @@ input, textarea {
   @extend .control-group;
   @extend .error;
  }
+
+.fancyform {
+    background: #EBEBEB;
+    border: 1px solid #D3D3D3;
+    padding: 30px;
+    margin-bottom:30px;
+ }
+
+.bttn-newsletter {
+  text-align:center;
+  .btn {
+    padding:2px 14px;
+  }
+}
+
+/* home */
+.valueprop {
+  list-style: none;
+  padding: 5px 0px;
+  li {
+    padding: 2px 0px;
+    .btn {
+      margin-top:15px;
+    }
+  }
+}
 
 /* users index */
 .users { /* WHAT IS THIS ?????????????????????????? */
