@@ -3,7 +3,7 @@
 <div id="artworks">
   <% @portfolio.artworks.each do |artwork| %>
     <div class="artwork">
-      <%= image_tag artwork.image_url.to_s %>
+      <%= image_tag artwork.image_url(:thumb).to_s %>
       <div class="name"><%= artwork.title %></div>
       <div class="actions">
         <%= link_to "edit", edit_artwork_path(artwork) %> |
