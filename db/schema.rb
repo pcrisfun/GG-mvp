@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121218185835) do
+ActiveRecord::Schema.define(:version => 20130114224813) do
+
+  create_table "artworks", :force => true do |t|
+    t.string   "title"
+    t.integer  "year"
+    t.string   "material"
+    t.string   "category"
+    t.integer  "portfolio_id"
+    t.integer  "events_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.string   "image"
+  end
 
   create_table "events", :force => true do |t|
     t.integer  "user_id"
@@ -59,9 +71,15 @@ ActiveRecord::Schema.define(:version => 20121218185835) do
     t.string   "other_needs"
     t.decimal  "price",              :precision => 8, :scale => 2
     t.time     "begins_at_time"
-    t.date     "ends_at_date"
     t.time     "ends_at_time"
     t.string   "location_nbrhood"
+  end
+
+  create_table "portfolios", :force => true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "taggings", :force => true do |t|

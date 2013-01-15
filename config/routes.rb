@@ -1,4 +1,10 @@
 SampleApp::Application.routes.draw do
+  resources :artworks
+
+
+  resources :portfolios
+
+
   resources :users
   resources :sessions, only: [ :new, :create, :destroy ]
   resources :apprenticeships
