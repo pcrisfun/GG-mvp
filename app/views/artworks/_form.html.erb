@@ -7,7 +7,7 @@
     <%= f.text_field :title %>
   </p>
   <p>
-    <%= f.file_field :image %>
+    <%= f.file_field :image, multiple: true, title: "artwork[image]" %>
   </p>
   <p>
     <%= f.label :year %>

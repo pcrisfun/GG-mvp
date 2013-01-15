@@ -5,6 +5,15 @@ class ArtworksController < ApplicationController
   # GET /artworks/1.json
   # GET /artworks/new
   # GET /artworks/new.json
+  def index
+    @artworks = Artwork.all
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @artworks }
+    end
+  end
+
   def new
     @artwork = Artwork.new(:portfolio_id => params[:portfolio_id])
   end
@@ -17,7 +26,7 @@ class ArtworksController < ApplicationController
   # POST /artworks
   # POST /artworks.json
   def create
-    @artwork = Artwork.new(params[:artwork])
+    @artwork = Artwork.create(params[:artwork])
     if @artwork.save
       flash[:notice] = "Successfully uploaded artwork."
       redirect_to @artwork.portfolio

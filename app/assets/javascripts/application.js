@@ -18,6 +18,7 @@
 //= require bootstrap-timepicker
 //= require jquery.tokeninput
 //= require rails.validations
+//= require jquery-fileupload/basic
 //= require_tree .
 
 
@@ -53,4 +54,8 @@ $(function () {
 
 $(function () {
   $('#workshop_tool_list').tokenInput('/event_tools.json', { crossDomain: false, 'allowCustomEntry' : true,  theme: 'facebook', prePopulate: $('#workshop_tool_list').data('pre') });
+});
+
+$(function () {
+  $('#new_artwork').fileupload({dataType: "script"});
 });

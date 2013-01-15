@@ -1,6 +1,7 @@
 class Event < ActiveRecord::Base
 
 belongs_to :user
+has_and_belongs_to_many :artworks
 validates_presence_of :topic, :message => ' must be included in order to save your form.'
 validates_presence_of :host_firstname, :message => ' must be included in order to save your form.'
 validates_presence_of :host_lastname, :message => ' must be included in order to save your form.'
