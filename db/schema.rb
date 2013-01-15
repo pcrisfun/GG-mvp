@@ -11,12 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121218185835) do
+ActiveRecord::Schema.define(:version => 20130114171902) do
 
   create_table "events", :force => true do |t|
     t.integer  "user_id"
     t.string   "type"
-    t.string   "state",                                              :default => "started"
+    t.string   "state",                                            :default => "started"
     t.string   "title"
     t.string   "topic"
     t.string   "host_firstname"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(:version => 20121218185835) do
     t.datetime "begins_at"
     t.datetime "ends_at"
     t.integer  "hours"
-    t.string   "hours_per",                                          :default => "week"
+    t.string   "hours_per",                                        :default => "week"
     t.string   "availability"
     t.string   "location_address"
     t.string   "location_address2"
@@ -52,16 +52,13 @@ ActiveRecord::Schema.define(:version => 20121218185835) do
     t.integer  "age_max"
     t.integer  "registration_min"
     t.integer  "registration_max"
-    t.datetime "created_at",                                                                :null => false
-    t.datetime "updated_at",                                                                :null => false
+    t.datetime "created_at",                                                              :null => false
+    t.datetime "updated_at",                                                              :null => false
     t.string   "charge_id"
     t.string   "kind"
     t.string   "other_needs"
-    t.decimal  "price",                :precision => 8, :scale => 2
-    t.datetime "registration_ends_at"
-    t.date     "begins_at_date"
+    t.decimal  "price",              :precision => 8, :scale => 2
     t.time     "begins_at_time"
-    t.date     "ends_at_date"
     t.time     "ends_at_time"
     t.string   "location_nbrhood"
   end
@@ -93,6 +90,7 @@ ActiveRecord::Schema.define(:version => 20121218185835) do
     t.string   "remember_token"
     t.boolean  "admin",           :default => false
     t.datetime "birthday"
+    t.string   "picture"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

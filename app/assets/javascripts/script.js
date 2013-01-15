@@ -18,7 +18,7 @@ function carouselInit() {
     // setting the default height
     carousel.css('min-height', defaultHeight);
 
-    // prevents sliding automatically after clicking the next buttons
+    // added to prevent sliding automatically after clicking the next buttons - http://stackoverflow.com/questions/13358499/preventing-twitter-bootstrap-carousel-from-auto-sliding-on-page-load
     $(document).ready(function() {      
         $('.carousel').carousel('pause');
     });
