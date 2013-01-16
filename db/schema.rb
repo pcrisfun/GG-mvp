@@ -117,7 +117,7 @@ ActiveRecord::Schema.define(:version => 20130115182039) do
     t.string   "remember_token"
     t.boolean  "admin",           :default => false
     t.datetime "birthday"
-    t.string   "picture"
+    t.string "picture"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
