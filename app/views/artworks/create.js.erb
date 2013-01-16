@@ -1,5 +1,3 @@
-
-
 <% if @artwork.new_record? %>
   alert("Failed to upload artwork: <%= j @artwork.errors.full_messages.join(', ').html_safe %>");
 <% else %>

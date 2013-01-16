@@ -30,8 +30,6 @@ class ArtworksController < ApplicationController
     if @artwork.save
       flash[:notice] = "Successfully uploaded artwork."
       redirect_to @artwork.portfolio
-    else
-      render :action => 'new'
     end
   end
 

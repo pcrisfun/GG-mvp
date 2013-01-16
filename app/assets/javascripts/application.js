@@ -19,6 +19,7 @@
 //= require jquery.tokeninput
 //= require rails.validations
 //= require jquery-fileupload/basic
+//= require jquery-fileupload/vendor/tmpl
 //= require_tree .
 
 
@@ -59,3 +60,7 @@ $(function () {
 $(function () {
   $('#new_artwork').fileupload({dataType: "script"});
 });
+
+// jQuery ->
+//  $('#new_artwork').fileupload
+//  dataType: "script"

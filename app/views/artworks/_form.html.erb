@@ -9,6 +9,14 @@
   <p>
     <%= f.file_field :image, multiple: true, title: "artwork[image]" %>
   </p>
+
+  <script id="template-upload" type="text/x-tmpl">
+    <div class="upload">
+    {%=o.name%}
+    <div class="progress"><div class="bar" style="width: 0%;"></div></div>
+    </div>
+  </script>
+  
   <p>
     <%= f.label :year %>
     <%= f.number_field :year %>
@@ -21,5 +29,6 @@
     <%= f.label :category %>
     <%= f.text_field :category %>
   </p>
+
   <p><%= f.submit %></p>
 <% end %>
