@@ -1,4 +1,6 @@
 class Event < ActiveRecord::Base
+  extend ActiveModel::Naming
+  include ActiveModel::Conversion
 
 belongs_to :user
 validates_presence_of :topic, :message => ' must be included in order to save your form.'

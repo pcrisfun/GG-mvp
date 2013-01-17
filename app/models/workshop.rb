@@ -4,6 +4,20 @@ class Workshop < Event
 		self.title = "#{self.topic} Workshop with #{self.host_firstname} #{self.host_lastname}"
 	end
 
+
+
+	def deliver
+		return false unless valid?
+		Pony.mail({
+			:from => %("#{host_firstname}"),
+			:reply_to => %("#{@current_user_email}"),
+			:subject => %("#{topic} Workshop with #{host_firstname} #{host_lastname,
+			:body => %("#{self.title}"),
+		})
+		return true
+	end
+	
+
 	state_machine :state, :initial => :started do
 
 		state :pending do
