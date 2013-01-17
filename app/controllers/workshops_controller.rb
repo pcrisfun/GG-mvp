@@ -18,7 +18,7 @@ class WorkshopsController < ApplicationController
   	@workshop.begins_at = Date.today
     @workshop.ends_at = Date.today
   end	
-  
+
   def create
     @workshop = current_user.workshops.new(params[:workshop])
     if @workshop.save
