@@ -19,6 +19,7 @@
 //= require jquery.tokeninput
 //= require rails.validations
 //= require jquery-fileupload
+//= require fancybox
 //= require_tree .
 
 
@@ -29,6 +30,7 @@ $(document).ready(function () {
 	$("[data-behaviour~='timepicker']").timepicker();
   $("[rel=tooltip]").tooltip();
   $("[rel=popover]").popover({"trigger": 'focus'});
+  $("a.fancybox").fancybox();
 });
 
 
