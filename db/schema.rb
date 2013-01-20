@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130115182039) do
+ActiveRecord::Schema.define(:version => 20121218185835) do
 
   create_table "albums", :force => true do |t|
     t.string   "title"
@@ -19,26 +19,6 @@ ActiveRecord::Schema.define(:version => 20130115182039) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
-
-  create_table "artworks", :force => true do |t|
-    t.string   "title"
-    t.integer  "year"
-    t.string   "material"
-    t.string   "category"
-    t.integer  "portfolio_id"
-    t.integer  "events_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-    t.string   "image"
-  end
-
-  create_table "artworks_events", :id => false, :force => true do |t|
-    t.integer "artwork_id"
-    t.integer "event_id"
-  end
-
-  add_index "artworks_events", ["artwork_id", "event_id"], :name => "index_artworks_events_on_artwork_id_and_event_id"
-  add_index "artworks_events", ["event_id", "artwork_id"], :name => "index_artworks_events_on_event_id_and_artwork_id"
 
   create_table "events", :force => true do |t|
     t.integer  "user_id"
@@ -101,13 +81,6 @@ ActiveRecord::Schema.define(:version => 20130115182039) do
     t.integer  "album_id"
   end
 
-  create_table "portfolios", :force => true do |t|
-    t.string   "name"
-    t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
@@ -135,7 +108,6 @@ ActiveRecord::Schema.define(:version => 20130115182039) do
     t.string   "remember_token"
     t.boolean  "admin",           :default => false
     t.datetime "birthday"
-    t.string   "picture"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
