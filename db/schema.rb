@@ -13,6 +13,13 @@
 
 ActiveRecord::Schema.define(:version => 20130115182039) do
 
+  create_table "albums", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "artworks", :force => true do |t|
     t.string   "title"
     t.integer  "year"
@@ -81,6 +88,17 @@ ActiveRecord::Schema.define(:version => 20130115182039) do
     t.time     "begins_at_time"
     t.time     "ends_at_time"
     t.string   "location_nbrhood"
+  end
+
+  create_table "photos", :force => true do |t|
+    t.string   "caption"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+    t.integer  "album_id"
   end
 
   create_table "portfolios", :force => true do |t|
