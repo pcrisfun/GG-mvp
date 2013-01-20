@@ -18,8 +18,8 @@
 //= require bootstrap-timepicker
 //= require jquery.tokeninput
 //= require rails.validations
-//= require jquery-fileupload/basic
-//= require jquery-fileupload/vendor/tmpl
+//= require jquery-fileupload
+//= require fancybox
 //= require_tree .
 
 
@@ -30,6 +30,7 @@ $(document).ready(function () {
 	$("[data-behaviour~='timepicker']").timepicker();
   $("[rel=tooltip]").tooltip();
   $("[rel=popover]").popover({"trigger": 'focus'});
+  $("a.fancybox").fancybox();
 });
 
 
@@ -57,10 +58,5 @@ $(function () {
   $('#workshop_tool_list').tokenInput('/event_tools.json', { crossDomain: false, 'allowCustomEntry' : true,  theme: 'facebook', prePopulate: $('#workshop_tool_list').data('pre') });
 });
 
-$(function () {
-  $('#new_artwork').fileupload({dataType: "script"});
-});
 
-// jQuery ->
-//  $('#new_artwork').fileupload
-//  dataType: "script"
+

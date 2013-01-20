@@ -1,19 +1,17 @@
 SampleApp::Application.routes.draw do
-  resources :artworks
-
-
-  resources :portfolios
-
+  resources :albums do
+    resources :photos
+  end
 
   resources :users
   resources :sessions, only: [ :new, :create, :destroy ]
   resources :apprenticeships
   resources :workshops
-  
+
   resources :event_skills, only: [ :index ]
   resources :event_tools, only: [ :index ]
   resources :event_requirements, only: [ :index ]
-  
+
   resources :inquiries, :only => [:create] do
     get 'static_pages/thanks', :on => :collection
   end
@@ -25,7 +23,7 @@ SampleApp::Application.routes.draw do
   root to: 'static_pages#home'
 
   match '/signup',   to: 'users#new'
-  
+
   match '/faq',    to: 'static_pages#faq'
   match '/about',   to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'
