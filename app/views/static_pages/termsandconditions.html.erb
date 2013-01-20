@@ -1,7 +1,6 @@
 <% provide(:title, 'Terms and Conditions!') %>
-<!-- SmartBiz theme -->
-<section class='section alt' id='promo'>
-  <div class='container'>
+<%= content_tag :section, :class => "section alt" do %>
+	<%= content_tag :div, :class => "container" do %>
     <div class='hero-unit'>
       <h1>Terms and Conditions</h1>
     </div>
@@ -264,5 +263,5 @@
 	        </p>
 	        <p><strong>Effective Date: December 22, 2012</strong>
 		</div>
-	</div>
-</section>
+	<% end %>
+<% end %>

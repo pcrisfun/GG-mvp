@@ -1,7 +1,6 @@
 <% provide(:title, @user.first_name) %>
-<!-- SmartBiz theme -->
-<section class='section' id='promo'>
-	<div class='container'>
+<%= content_tag :section, :class => "section" do %>
+	<%= content_tag :div, :class => "container" do %>
 		<div class="row">
 		  <aside class="span4">
 		    <section>
@@ -12,6 +11,6 @@
 		    </section>
 		  </aside>
 		</div>
-	</div>
-</section>
+	<% end %>
+<% end %>
 

@@ -10,10 +10,8 @@
 
 <%= will_paginate %>
 -->
-
-<!-- SmartBiz theme -->
-<section class='section alt' id='promo'>
-  <div class='container'>
+<%= content_tag :section, :class => "section alt" do %>
+  <%= content_tag :div, :class => "container" do %>
     <div class='hero-unit'>
       <h1>All Users</h1>
     </div>
@@ -22,13 +20,13 @@
 <section class='section'>
   <div class='container'>
     <div class='row-fluid'>
-<%= will_paginate %>
+      <%= will_paginate %>
 
-<ul class="users">
-  <%= render @users %>
-</ul>
+      <ul class="users">
+        <%= render @users %>
+      </ul>
 
-<%= will_paginate %>
+      <%= will_paginate %>
     </div>
-  </div>
-</section>
+  <% end %>
+<% end %>

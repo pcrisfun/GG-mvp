@@ -3,11 +3,15 @@
 <% provide(:title, 'Thank You') %>
 <!-- SmartBiz theme -->
 <section class='section' id='promo'>
-	<div class='container'>
+<%= content_tag :section, :class => "section" do %>
+	<%= content_tag :div, :class => "container" do %>
 		<div>
+			<h2>
+				Yatzee!
+			</h2>
 			<p>
-				Nice one! Thanks for joining the GirlsGuild Newsletter.
+				Thanks for signing up for the GirlsGuild Newsletter.
 			</p>
 		</div>
-	</div>
-</section>
+	<% end %>
+<% end %>
