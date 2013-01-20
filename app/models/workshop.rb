@@ -1,18 +1,21 @@
 class Workshop < Event
 
+  def default_url_options
+    { :host => 'http://gg-mvp.dev/' }
+  end
+
 	def generate_title
 		self.title = "#{self.topic} Workshop with #{self.host_firstname} #{self.host_lastname}"
 	end
 
 
-
 	def deliver
 		return false unless valid?
 		Pony.mail({
-			:from => %("#{host_firstname}"),
-			:reply_to => %("#{@current_user_email}"),
-			:subject => %("#{topic} Workshop with #{host_firstname} #{host_lastname,
-			:body => %("#{self.title}"),
+			:from => %("#{user.first_name} #{user.last_name}" <#{user.email}>),
+			:reply_to => user.email,
+			:subject => "#{topic} Workshop with #{host_firstname} #{host_lastname}",
+			:body => %(<a href="#{url_for(self)}">#{self.title}</a>),
 		})
 		return true
 	end
