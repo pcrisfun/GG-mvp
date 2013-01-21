@@ -8,11 +8,11 @@
             <div class='carousel-inner'>
               <div class='active item'>
                 <div class='row-fluid'>
-                  <div class='span7'>
+                  <div class='span6'>
                     <div class='hero-unit'>
                       <h1>Learn from <br/>Makers & Doers</h1>
                       <p>Apprenticeships for girls, by girls.</p>
-                      <div style="float:left;">
+                      <div style="display:inline;">
                         <%= link_to "Join GirlsGuild for Free!", signup_path, class: "btn btn-large btn-primary" %>
                       </div>
                       <div style="float:right; margin:5px;" class="fb-like" data-href="http://www.facebook.com/GirlsGuild" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false">
@@ -20,10 +20,11 @@
                       <div style="float:right; margin:9px;">
                         <a href="https://twitter.com/TheGirlsGuild" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow @TheGirlsGuild</a>
                       </div> 
+                      <img alt='for makers' class='pull-left' src='images/formakers.png' />
                     </div>
                   </div>
-                  <div class='span5'>
-                    <img alt='imac' class='pull-right' src='images/assets/imac.png' />
+                  <div class='span6'>
+                    <img alt='imac' class='pull-right' src='images/gg-illust-andand.png' />
                   </div>
                 </div>
                 <div class='row-fluid'>
@@ -61,11 +62,11 @@
               </div>
               <div class='item'>
                 <div class='row-fluid'>
-                  <div class='span7'>
+                  <div class='span6'>
                     <div class='hero-unit'>
-                      <h1>Join the Community of Makers</h1>
+                      <h1>Join the Maker Community</h1>
                       <p>Apprenticeships for girls, by girls.</p>
-                      <div style="float:left;">
+                      <div style="display:inline;">
                         <%= link_to "Join GirlsGuild for Free!", signup_path, class: "btn btn-large btn-primary" %>
                       </div>
                       <div style="float:right; margin:5px;" class="fb-like" data-href="http://www.facebook.com/GirlsGuild" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false">
@@ -73,10 +74,11 @@
                       <div style="float:right; margin:9px;">
                         <a href="https://twitter.com/TheGirlsGuild" class="twitter-follow-button" data-show-count="false" data-lang="en">Follow @TheGirlsGuild</a>
                       </div> 
+                      <img alt='for girls' class='pull-left' src='images/forgirls.png' />
                     </div>
                   </div>
-                  <div class='span5'>
-                    <img alt='imac' class='pull-right' src='images/assets/imac.png' />
+                  <div class='span6'>
+                    <img alt='imac' class='pull-right' src='images/gg-illust-andand.png' />
                   </div>
                 </div>
                 <div class='row-fluid'>
@@ -120,44 +122,16 @@
         </div>
       </section>
 
-      <section class='section'>
+      <section class='section newsletter'>
         <div class='container'>
           <div class='row-fluid'>
-          <div class="input-append bttn-newsletter">
-            <input class="span3" id="appendedInputButton" type="text">
-            <button class="btn btn-primary" type="button">Sign up for our Newsletter!</button>
-          </div>
-          </div>
-        </div>
-      </section>
-
-      <section class='section alt'>
-        <div class='container'>
-          <div class='row-fluid'>
-            <!--
-            <ul class='span6 pull-center valueprop'> 
-              <h2>
-                Learn a new Skill
-              </h2>             
-              <li> Learn new skills</li>
-              <li>Connect to makers and doers</li>
-              <li>Discover a new career</li>
-              <li>Build a portfolio</li>
-              <li>Make new friends</li>
-              <li><%= link_to "Take a Workshop", workshops_path, class: "btn btn-large btn-info" %></li>
-            </ul>
-            <ul class='span6 pull-center valueprop'>
-              <h2>
-                Be an Apprentice
-              </h2>
-              <li>Learn a process</li>
-              <li>Work with makers</li>
-              <li>Understand making as a small business</li>
-              <li>Strengthen your portfolio</li>
-              <li>Be part of a community</li>
-              <li><%= link_to "Be an Apprentice", apprenticeships_path, class: "btn btn-large btn-info" %></li>
-            </ul>
-          -->
+            <div class="input-append bttn-newsletter">
+              <p>Don't forget to</p>
+              <div class="dontforget">
+                <input class="span3" id="appendedInputButton" type="text">
+              </div>
+              <button class="btn btn-primary" type="button">Sign up for our Newsletter!</button>
+            </div>
           </div>
         </div>
       </section>

@@ -30,8 +30,8 @@ a, a:hover, a:active, a:visited, a:focus {
 .navbar .nav li.dropdown.open.active > .dropdown-toggle {
   background-color:transparent;
 }
-#masthead .brand a:hover {
-  color:#fff;
+#masthead .brand h1 {
+  display:none;
 }
 
 /* sidebar */
@@ -79,6 +79,17 @@ a, a:hover, a:active, a:visited, a:focus {
     padding: 2px 0px;
     .btn {
       margin-top:15px;
+    }
+  }
+}
+.newsletter {
+  background-color: #333;
+  .dontforget {
+    background: url('../../../images/dontforgetto.png') no-repeat center left transparent;
+    margin-left:180px;
+    height:40px;
+    p {
+    display: none;
     }
   }
 }
