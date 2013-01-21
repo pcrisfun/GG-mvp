@@ -5,7 +5,7 @@
 		<h1>Update your profile</h1>
 		<div class="row">
 		  <div class="span6 fancyform">
-		    <%= form_for(@user) do |f| %>
+		    <%= simple_form_for(@user) do |f| %>
 		    <%= render 'fields', f: f %>
 
 		    <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>

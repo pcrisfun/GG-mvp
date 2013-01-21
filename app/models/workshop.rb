@@ -1,32 +1,41 @@
 class Workshop < Event
+
+<<<<<<< HEAD
+	def default_url_options
+	  { :host => 'localhost:3000'}
+	end
+=======
+  def default_url_options
+    { :host => 'http://gg-mvp.dev/' }
+  end
+>>>>>>> 432b8a7a30a9147a6edb4a0e3f677412479c2cb7
+
 	def generate_title
 		self.title = "#{self.topic} Workshop with #{self.host_firstname} #{self.host_lastname}"
 	end
+<<<<<<< HEAD
 	
 	def deliver
 		return false unless valid?
 		Pony.mail({
-			:from => %("#{host_firstname}"),
-			:reply_to =>  %("#{@current_user}"),
-			:subject => "Workshop Proposal submitted!",
-			:body => %("#{self.title}"),
-		})
-		return true
-	end
-
+			:from => %("#{user.name}" <#{user.email}>),
+			:reply_to => %("#{user.name}" <#{user.email}>),
+			:subject => "New Workshop Proposal - #{topic} with #{user.name}",
+			:html_body => %(Review it here - <a href="#{url_for(self)}"> #{self.title}</a>),
+=======
 
 
 	def deliver
 		return false unless valid?
 		Pony.mail({
-			:from => %("#{host_firstname}"),
-			:reply_to => %("#{@current_user_email}"),
-			:subject => %("#{topic} Workshop with #{host_firstname} #{host_lastname,
-			:body => %("#{self.title}"),
+			:from => %("#{user.first_name} #{user.last_name}" <#{user.email}>),
+			:reply_to => user.email,
+			:subject => "#{topic} Workshop with #{host_firstname} #{host_lastname}",
+			:body => %(<a href="#{url_for(self)}">#{self.title}</a>),
+>>>>>>> 432b8a7a30a9147a6edb4a0e3f677412479c2cb7
 		})
 		return true
 	end
-	
 
 	state_machine :state, :initial => :started do
 
