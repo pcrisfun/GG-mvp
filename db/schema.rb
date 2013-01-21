@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(:version => 20121218185835) do
   create_table "events", :force => true do |t|
     t.integer  "user_id"
     t.string   "type"
-    t.string   "state",                                              :default => "started"
+    t.string   "state", :default => "started"
     t.string   "title"
     t.string   "topic"
     t.string   "host_firstname"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(:version => 20121218185835) do
     t.datetime "begins_at"
     t.datetime "ends_at"
     t.integer  "hours"
-    t.string   "hours_per",                                          :default => "week"
+    t.string   "hours_per", :default => "week"
     t.string   "availability"
     t.string   "location_address"
     t.string   "location_address2"
@@ -52,12 +52,12 @@ ActiveRecord::Schema.define(:version => 20121218185835) do
     t.integer  "age_max"
     t.integer  "registration_min"
     t.integer  "registration_max"
-    t.datetime "created_at",                                                                :null => false
-    t.datetime "updated_at",                                                                :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.string   "charge_id"
     t.string   "kind"
     t.string   "other_needs"
-    t.decimal  "price",                :precision => 8, :scale => 2
+    t.decimal  "price", :precision => 8, :scale => 2
     t.datetime "registration_ends_at"
     t.date     "begins_at_date"
     t.time     "begins_at_time"
@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(:version => 20121218185835) do
     t.string   "taggable_type"
     t.integer  "tagger_id"
     t.string   "tagger_type"
-    t.string   "context",       :limit => 128
+    t.string   "context", :limit => 128
     t.datetime "created_at"
   end
 
@@ -87,11 +87,11 @@ ActiveRecord::Schema.define(:version => 20121218185835) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.string   "password_digest"
     t.string   "remember_token"
-    t.boolean  "admin",           :default => false
+    t.boolean  "admin", :default => false
     t.datetime "birthday"
   end
 
