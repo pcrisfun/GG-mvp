@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(:version => 20130119160302) do
     t.string   "other_needs"
     t.decimal  "price",              :precision => 8, :scale => 2
     t.time     "begins_at_time"
+    t.date     "ends_at_date"
     t.time     "ends_at_time"
     t.string   "location_nbrhood"
   end
@@ -108,7 +109,6 @@ ActiveRecord::Schema.define(:version => 20130119160302) do
     t.string   "remember_token"
     t.boolean  "admin",           :default => false
     t.datetime "birthday"
-    t.string   "picture"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
