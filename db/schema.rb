@@ -11,19 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130116223152) do
+ActiveRecord::Schema.define(:version => 20130119160302) do
 
-  create_table "artworks", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.string   "image"
+  create_table "albums", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "events", :force => true do |t|
     t.integer  "user_id"
     t.string   "type"
-    t.string   "state", :default => "started"
+    t.string   "state",                                            :default => "started"
     t.string   "title"
     t.string   "topic"
     t.string   "host_firstname"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(:version => 20130116223152) do
     t.datetime "begins_at"
     t.datetime "ends_at"
     t.integer  "hours"
-    t.string   "hours_per", :default => "week"
+    t.string   "hours_per",                                        :default => "week"
     t.string   "availability"
     t.string   "location_address"
     t.string   "location_address2"
@@ -59,18 +59,27 @@ ActiveRecord::Schema.define(:version => 20130116223152) do
     t.integer  "age_max"
     t.integer  "registration_min"
     t.integer  "registration_max"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                                                              :null => false
+    t.datetime "updated_at",                                                              :null => false
     t.string   "charge_id"
     t.string   "kind"
     t.string   "other_needs"
-    t.decimal  "price", :precision => 8, :scale => 2
-    t.datetime "registration_ends_at"
-    t.date     "begins_at_date"
+    t.decimal  "price",              :precision => 8, :scale => 2
     t.time     "begins_at_time"
     t.date     "ends_at_date"
     t.time     "ends_at_time"
     t.string   "location_nbrhood"
+  end
+
+  create_table "photos", :force => true do |t|
+    t.string   "caption"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+    t.integer  "album_id"
   end
 
   create_table "taggings", :force => true do |t|
@@ -79,7 +88,7 @@ ActiveRecord::Schema.define(:version => 20130116223152) do
     t.string   "taggable_type"
     t.integer  "tagger_id"
     t.string   "tagger_type"
-    t.string   "context", :limit => 128
+    t.string   "context",       :limit => 128
     t.datetime "created_at"
   end
 
@@ -94,11 +103,11 @@ ActiveRecord::Schema.define(:version => 20130116223152) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.string   "password_digest"
     t.string   "remember_token"
-    t.boolean  "admin", :default => false
+    t.boolean  "admin",           :default => false
     t.datetime "birthday"
   end
 
