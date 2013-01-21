@@ -1,4 +1,9 @@
 class Event < ActiveRecord::Base
+  extend ActiveModel::Naming
+  include ActiveModel::Conversion
+  include ActionView::Helpers::TextHelper
+  include Rails.application.routes.url_helpers
+  include ActionDispatch::Routing::UrlFor
 
 belongs_to :user
 validates_presence_of :topic, :message => ' must be included in order to save your form.'

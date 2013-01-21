@@ -20,7 +20,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    if @user.save
+    if @user.save && @user.deliver_welcome
       sign_in @user
       flash[:success] = "Welcome to the GirlsGuild community!"
       redirect_to @user
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update_attributes(params[:user])
+    if @user.update_attributes(params[:user]) && @user.deliver_update
       flash[:success] = "Profile updated"
       sign_in @user
       redirect_to @user

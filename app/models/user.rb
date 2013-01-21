@@ -39,6 +39,30 @@ class User < ActiveRecord::Base
     write_attribute(:birthday, Chronic::parse(new_date).strftime("%Y-%m-%d %H:%M:%S"))
   end
 
+  def deliver_welcome
+    return false unless valid?
+    Pony.mail({
+      :to => "#{name}<#{email}>", 
+      :from => "GirlsGuild<hello@girlsguild.com>",
+      :reply_to =>  "hello@girlsguild.com",
+      :subject => "Welcome to GirlsGuild!",
+      :body => "Welcome #{name}! Thanks for joining GirlsGuild! You've signed up this email - #{email}",
+    })
+    return true
+  end
+
+  def deliver_update
+    return false unless valid?
+    Pony.mail({
+      :to => "#{name}<#{email}>",
+      :from => "GirlsGuild<hello@girlsguild.com>",
+      :reply_to =>  "hello@girlsguild.com",
+      :subject => "Boom. You've updated your account",
+      :body => "Thanks #{name}. You've updated your account information. If you did not update your account, please let us know by replying to this email. :-)",
+    })
+    return true
+  end 
+
   private
 
     def create_remember_token

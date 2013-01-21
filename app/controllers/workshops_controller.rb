@@ -18,13 +18,13 @@ class WorkshopsController < ApplicationController
   	@workshop.begins_at = Date.today
     @workshop.ends_at = Date.today
   end	
-  
+
   def create
     @workshop = current_user.workshops.new(params[:workshop])
     if @workshop.save
       
       if params[:create_button]
-        if @workshop.submit
+        if @workshop.submit && @workshop.deliver
           redirect_to workshops_path, :flash => {:success => "Your workshop was created!" }
         else
           flash[:warning] = "Workshop submission is incomplete. Please review all fields."
@@ -43,7 +43,7 @@ class WorkshopsController < ApplicationController
     if @workshop.update_attributes(params[:workshop])
       
       if params[:create_button]
-        if @workshop.submit
+        if @workshop.submit && @workshop.deliver
           redirect_to workshops_path, :flash => {:success => "Your workshop was created!" }
         else
           flash[:warning] = "Workshop submission is incomplete. Please review all fields."

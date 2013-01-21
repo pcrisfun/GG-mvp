@@ -25,7 +25,7 @@ class ApprenticeshipsController < ApplicationController
     
       if params[:apprenticeship][:stripe_card_token].present? 
         if @apprenticeship.process_payment
-          if @apprenticeship.submit
+          if @apprenticeship.submit && @apprenticeship.deliver
             redirect_to apprenticeships_path, :flash => {:success => "Your apprenticeship was created!" }
           else
           flash.now[:warning] = "There was a problem creating your apprenticeship. Please review all fields."
@@ -51,7 +51,7 @@ class ApprenticeshipsController < ApplicationController
       
       if params[:apprenticeship][:stripe_card_token].present?
         if @apprenticeship.process_payment
-          if @apprenticeship.submit
+          if @apprenticeship.submit && @apprenticeship.deliver
             redirect_to apprenticeships_path, :flash => {:success => "Your apprenticeship was created!" }
           else
             flash[:warning] = "Apprenticeship submission is incomplete. Please review all fields."
