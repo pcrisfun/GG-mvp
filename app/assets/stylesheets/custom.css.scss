@@ -1,6 +1,11 @@
 /*@import "bootstrap";*/
 
-/* mixins, variables, etc./*
+/* mixins, variables, etc.*/
+@mixin box_sizing { /* Hartl */
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
 
 /* universal */
 a, a:hover, a:active, a:visited, a:focus {
@@ -43,20 +48,6 @@ a, a:hover, a:active, a:visited, a:focus {
 /* footer */
 
 /* forms */
-
-#error_explanation { /* WHAT IS THIS ?????????????????????????? */
-  color: #f00;
-  ul {
-    list-style: none;
-    margin: 0 0 18px 0;
-  }
-}
-
-.field_with_errors { /* WHAT IS THIS ?????????????????????????? - perhaps Hartl was trying to fix the issue with the wrapping div? */
-  @extend .control-group;
-  @extend .error;
- }
-
 .fancyform {
     background: #EBEBEB;
     border: 1px solid #D3D3D3;
@@ -111,9 +102,10 @@ a, a:hover, a:active, a:visited, a:focus {
 }
 
 /* miscellaneous */
-.debug_dump { /* WHAT IS THIS ?????????????????????????? */
+.debug_dump { /* Hartl */
   clear: both;
   float: left;
   width: 100%;
   margin-top: 45px;
+  @include box_sizing;
 }

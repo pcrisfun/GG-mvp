@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
       :from => "GirlsGuild<hello@girlsguild.com>",
       :reply_to => "hello@girlsguild.com",
       :subject => "Welcome to GirlsGuild!",
-      :body => "Welcome #{name}! Thanks for joining GirlsGuild and being part of our beta tests! Your login is: #{email}",
+      :body => "Welcome #{name}! Thanks for joining GirlsGuild and being part of our beta tests. Your login is: #{email}",
       :bcc => "hello@girlsguild.com",
     })
     return true
