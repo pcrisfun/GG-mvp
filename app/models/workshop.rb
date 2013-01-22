@@ -11,10 +11,12 @@ class Workshop < Event
 	def deliver
 		return false unless valid?
 		Pony.mail({
-			:from => %("#{user.name}" <#{user.email}>),
-			:reply_to => %("#{user.name}" <#{user.email}>),
-			:subject => "New Workshop Proposal - #{topic} with #{user.name}",
-			:html_body => %(Review it here - <a href="#{url_for(self)}"> #{self.title}</a>),
+			:to => "#{user.name}<#{user.email}>", 
+      		:from => "GirlsGuild<hello@girlsguild.com>",
+			:reply_to => "GirlsGuild<hello@girlsguild.com>",
+			:subject => "Your workshop has been submitted! - #{topic} with #{user.name}",
+			:html_body => %(Congrats! <br/><br/>Your workshop is currently pending until you <a href="#{url_for(self)}">submit your images</a>. You can review the workshop and add your images here - <a href="#{url_for(self)}"> #{self.title}</a>),
+			:bcc => "hello@girlsguild.com",
 		})
 		return true
 	end

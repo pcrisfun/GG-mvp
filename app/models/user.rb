@@ -44,9 +44,10 @@ class User < ActiveRecord::Base
     Pony.mail({
       :to => "#{name}<#{email}>", 
       :from => "GirlsGuild<hello@girlsguild.com>",
-      :reply_to =>  "hello@girlsguild.com",
+      :reply_to => "hello@girlsguild.com",
       :subject => "Welcome to GirlsGuild!",
-      :body => "Welcome #{name}! Thanks for joining GirlsGuild! You've signed up this email - #{email}",
+      :body => "Welcome #{name}! Thanks for joining GirlsGuild and being part of our beta tests! Your login is: #{email}",
+      :bcc => "hello@girlsguild.com",
     })
     return true
   end
