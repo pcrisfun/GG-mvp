@@ -54,15 +54,24 @@ a, a:hover, a:active, a:visited, a:focus {
     padding: 30px;
     margin-bottom:30px;
  }
-
 .bttn-newsletter {
   text-align:center;
   .btn {
     padding:2px 14px;
   }
 }
+input[type="radio"], input[type="checkbox"] {
+  margin: -4px 0 0;
+}
 
 /* home */
+.girls{
+  background: url('../../../images/girls.jpg') no-repeat 0 0 transparent;
+}
+.makers{
+  background: url('../../../images/makers.jpg') no-repeat 0 0 transparent;
+}
+
 .valueprop {
   list-style: none;
   padding: 5px 0px;
