@@ -12,6 +12,8 @@
             <% if @apprenticeship.started? %>
               <%= f.submit "Save for Later", :name => "save_button", :class => "btn btn-large" %>
               <%= f.submit "Create Apprenticeship", :name => "create_button", :class => "btn btn-large btn-primary", :id => "cc_process" %>
+            <% elsif @apprenticeship.accepted? %>
+              <%= f.submit "Resubmit Apprenticeship", :name => "resubmit_button", :class => "btn btn-large btn-primary" %>  
             <% else %>
               <%= f.submit "Update Apprenticeship", :name => "save_button", :class => "btn btn-large btn-primary" %>
             <% end %>
@@ -20,14 +22,14 @@
               <%= f.submit "Reject Apprenticeship", :name => "reject_button", :class => "btn btn-large btn-danger" %>
             <% end %>
             
-            <% if current_user.admin? && @apprenticeship.accepted? %>
-              <%= f.submit "Revoke Apprenticeship", :name => "revoke_button", :class => "btn btn-large btn-danger" %>
-            <% end %>
-            
             <% if current_user.admin? && @apprenticeship.pending? %>
               <%= f.submit "Approve Apprenticeship", :name => "accept_button", :class => "btn btn-large btn-success" %>
             <% end %>
 
+            <% if current_user.admin? && @apprenticeship.accepted? %>
+              <%= f.submit "Revoke Apprenticeship", :name => "revoke_button", :class => "btn btn-large btn-danger" %>
+            <% end %>
+            
           <% end %>
         </div>
       </div>

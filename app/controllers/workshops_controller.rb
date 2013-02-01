@@ -61,6 +61,9 @@ class WorkshopsController < ApplicationController
       elsif params[:accept_button] && current_user.admin?
         @workshop.accept
         redirect_to workshops_path, :flash => { :success => "Workshop was accepted." }
+
+      elsif params[:resubmit_button] && @workshop.deliver_resubmit
+        redirect_to workshops_path, :flash => { :success => "Your workshop was resubmitted."}
           
       else
         redirect_to workshops_path, :flash => { :success => "Your workshop was saved." }

@@ -89,6 +89,10 @@ state_machine :state, :initial => :started do
     event :accept do
       transition :pending => :accepted
     end
+
+    event :resubmit do
+      transition :accepted => :pending
+    end
     
     event :cancel do
       transition all => :canceled

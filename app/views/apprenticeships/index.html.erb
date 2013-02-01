@@ -12,6 +12,11 @@
 		<%= render :partial => "apprenticeship", :collection => @pending_apprenticeships || "No pending apprenticeships" %>
 		<% end %>
 
+		<% if current_user.admin? %>
+		<h3>Pending Apprenticeships</h3>
+		<%= render :partial => "apprenticeship", :collection => @pending_apprenticeships || "No pending apprenticeships" %>
+		<% end %>
+
 		<% unless @active_apprenticeships.blank? %>
 		<h3>My Upcoming Apprenticeships</h3>
 		<%= render :partial => "apprenticeship", :collection => @active_apprenticeships || "No saved apprenticeships" %>

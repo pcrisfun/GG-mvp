@@ -74,6 +74,9 @@ class ApprenticeshipsController < ApplicationController
         @apprenticeship.accept
         redirect_to apprenticeships_path, :flash => { :success => "Apprenticeship was accepted." }
 
+      elsif params[:resubmit_button] && @apprenticeship.deliver_resubmit
+        redirect_to apprenticeships_path, :flash => { :success => "Your apprenticeship was resubmitted."}
+
       else
         redirect_to apprenticeships_path, :flash => { :success => "Your apprenticeship was saved." }
       end   

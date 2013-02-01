@@ -71,10 +71,10 @@
           <p><%= @apprenticeship.age_min %> to <%= @apprenticeship.age_max %></p>
 
           <p>
-            <% if @apprenticeship.started? %>
-             (<%= link_to "Resume", edit_apprenticeship_path(@apprenticeship) if @apprenticeship.user == current_user %>)
-            <% elsif @apprenticeship.accepted? or current_user.admin? %>
-             (<%= link_to "Edit", edit_apprenticeship_path(@apprenticeship) if @apprenticeship.user == current_user %>)
+            <% if @apprenticeship.started? && @apprenticeship.user == current_user %>
+             (<%= link_to "Resume", edit_apprenticeship_path(@apprenticeship) %>)
+            <% elsif @apprenticeship.accepted? && @apprenticeship.user == current_user or current_user.admin? %>
+             (<%= link_to "Edit", edit_apprenticeship_path(@apprenticeship) %>)
             <% end %>
           </p>
 
