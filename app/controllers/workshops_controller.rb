@@ -9,6 +9,8 @@ class WorkshopsController < ApplicationController
       @saved_workshops = current_user.workshops.find_all_by_state('started')
       @pending_workshops = current_user.workshops.find_all_by_state('pending')
       @active_workshops =  current_user.workshops.find_all_by_state('accepted')
+      @pendingadmin_workshops = Workshop.find_all_by_state('pending')
+      @savedadmin_workshops = Workshop.find_all_by_state('started')      
     end
   	@workshops = Workshop.find_all_by_state('accepted')
   end

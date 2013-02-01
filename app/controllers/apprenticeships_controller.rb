@@ -9,6 +9,8 @@ class ApprenticeshipsController < ApplicationController
   	  @saved_apprenticeships = current_user.apprenticeships.find_all_by_state('started')
   	  @pending_apprenticeships = current_user.apprenticeships.find_all_by_state('pending')
   	  @active_apprenticeships =  current_user.apprenticeships.find_all_by_state('accepted')
+      @pendingadmin_apprenticeships = Apprenticeship.find_all_by_state('pending')
+      @savedadmin_apprenticeships = Apprenticeship.find_all_by_state('started')
     end
   	@apprenticeships = Apprenticeship.find_all_by_state('accepted')
   end
