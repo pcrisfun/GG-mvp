@@ -32,6 +32,30 @@ class Apprenticeship < Event
 		return true
 	end
 
+	def deliver_cancel
+		return false unless valid?
+		Pony.mail({
+			:to => "#{user.name}<#{user.email}>", 
+      		:from => "GirlsGuild<hello@girlsguild.com>",
+			:reply_to => "GirlsGuild<hello@girlsguild.com>",
+			:subject => "Your apprenticeship has been canceled - #{topic} with #{user.name}",
+			:html_body => %(Bummer! <br/><br/>You've canceled your apprenticeship. We hope you'll consider offering it again sometime! You can edit the apprenticeship and resubmit it anytime. Find it here - <a href="#{url_for(self)}"> #{self.title}</a>),
+			:bcc => "hello@girlsguild.com",
+		})
+		return true
+		#Can we enter another email into this method, like:
+		#return false unless valid?
+		#Pony.mail({
+		#	:to => the list of people signed up for the apprenticeship 
+      	#	:from => "GirlsGuild<hello@girlsguild.com>",
+		#	:reply_to => "GirlsGuild<hello@girlsguild.com>",
+		#	:subject => "Your apprenticeship has been canceled - #{topic} with #{user.name}",
+		#	:html_body => %(Bummer! <br/><br/>We're sorry to say the #{topic} apprenticeship with #{user.name} has been cancelled. It may be rescheduled later, and if it is you'll be the first to know! In the meantime we'll refund your sign-up fee, and you can check out other upcoming apprenticehsips you might like here: <a href="#{url_for(apprenticeships)}"> #{apprenticeships_path}</a>),
+		#	:bcc => "hello@girlsguild.com",
+		#})
+		#return true
+	end
+
 	state_machine :state, :initial => :started do
 
 		state :pending do

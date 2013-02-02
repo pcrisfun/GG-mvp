@@ -6,11 +6,13 @@ class WorkshopsController < ApplicationController
   
   def index
     unless current_user.blank?
-      @saved_workshops = current_user.workshops.find_all_by_state('started')
-      @pending_workshops = current_user.workshops.find_all_by_state('pending')
-      @active_workshops =  current_user.workshops.find_all_by_state('accepted')
-      @pendingadmin_workshops = Workshop.find_all_by_state('pending')
-      @savedadmin_workshops = Workshop.find_all_by_state('started')      
+      @mysaved_workshops = current_user.workshops.find_all_by_state('started')
+      @mypending_workshops = current_user.workshops.find_all_by_state('pending')
+      @myactive_workshops =  current_user.workshops.find_all_by_state('accepted')
+      @mycanceled_workshops = current_user.workshops.find_all_by_state('canceled')
+      @allpending_workshops = Workshop.find_all_by_state('pending')
+      @allsaved_workshops = Workshop.find_all_by_state('started')
+      @allcanceled_workshops = Workshop.find_all_by_state('canceled')      
     end
   	@workshops = Workshop.find_all_by_state('accepted')
   end
@@ -66,7 +68,11 @@ class WorkshopsController < ApplicationController
 
       elsif params[:resubmit_button] && @workshop.deliver_resubmit
         redirect_to workshops_path, :flash => { :success => "Your workshop was resubmitted."}
-          
+
+      elsif params[:cancel_button] && @workshop.deliver_cancel
+        @workshop.cancel  
+        redirect_to workshops_path, :flash => { :warning => "Your workshop has been canceled."}
+         
       else
         redirect_to workshops_path, :flash => { :success => "Your workshop was saved." }
       end
@@ -74,6 +80,17 @@ class WorkshopsController < ApplicationController
     else
       flash.now[:warning] = "There was a problem saving your workshop. Please review all fields."
       render 'edit'
+    end
+  end
+  
+
+  def destroy
+    @workshop = Workshop.where(:id => params[:id]).first
+    @workshop.destroy
+
+    respond_to do |format|
+      format.html { redirect_to workshops_path, :flash => { :warning => "Your workshop was deleted."} }
+      format.json { head :no_content }
     end
   end
   

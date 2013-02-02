@@ -56,6 +56,9 @@ rescue Stripe::InvalidRequestError => e
   false
 end
 
+def refund_payment
+end
+
 state_machine :state, :initial => :started do
   
    state :started do
