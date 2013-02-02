@@ -16,13 +16,21 @@
 	      	<%= f.label :host_firstname, capture { %>
 				First Name*
 				<% } %>
-			<%= f.text_field :host_firstname, :value => "#{@current_user.first_name}" %>
-			
+			<% unless current_user.admin? %>	
+				<%= f.text_field :host_firstname, :value => "#{@current_user.first_name}" %>
+			<% else %>
+				<%= f.text_field :host_firstname, :value => "#{@workshop.user.first_name}" %>
+			<% end %>
+
 			<%= f.label :host_lastname, capture { %>
 				Last Name*
 				<% } %>
-			<%= f.text_field :host_lastname, :value => "#{@current_user.last_name}" %>
-
+			<% unless current_user.admin? %>
+				<%= f.text_field :host_lastname, :value => "#{@current_user.last_name}" %>
+			<% else %>
+				<%= f.text_field :host_lastname, :value => "#{@workshop.user.last_name}" %>
+			<% end %>
+				
 			<%= f.label :host_business, capture { %>
 				Business Name
 				<% } %>
@@ -131,12 +139,12 @@
 
 			<div class="row datepickerlayout">
 			<div class='input-append time bootstrap-timepicker-component span3'>
-			  <%= f.text_field :begins_at_time, :class => "dateselect-time span2", :data => { :behaviour => 'timepicker', :time => '12:45 PM' } %> 
+			  <%= f.text_field :begins_at_time, :class => "dateselect-time span2", :data => { :behaviour => 'timepicker', :placeholder => '12:45 PM' } %> 
 			  <span class='add-on'><i class='icon-time'></i></span>
 			</div> 
 			<div class="span2 tofield"> to </div>
 			<div class='input-append time bootstrap-timepicker-component'>
-			  <%= f.text_field :ends_at_time, :class => "dateselect-time  span2", :data => { :behaviour => 'timepicker', :time => '12:45 PM' } %>
+			  <%= f.text_field :ends_at_time, :class => "dateselect-time  span2", :data => { :behaviour => 'timepicker', :placeholder => '12:45 PM' } %>
 			  <span class='add-on'><i class='icon-time'></i></span>
 			</div>
 			</div><!-- end div.row -->

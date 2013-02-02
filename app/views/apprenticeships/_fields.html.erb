@@ -16,13 +16,21 @@
 	      	<%= f.label :host_firstname, capture { %>
 				First Name*
 				<% } %>
-			<%= f.text_field :host_firstname, :value => "#{@current_user.first_name}" %>
-			
+			<% unless current_user.admin? %>
+				<%= f.text_field :host_firstname, :value => "#{@current_user.first_name}" %>
+			<% else %> 
+				<%= f.text_field :host_firstname, :value => "#{@apprenticeship.user.first_name}" %>
+			<% end %>
+
 			<%= f.label :host_lastname, capture { %>
 				Last Name*
 				<% } %>
-			<%= f.text_field :host_lastname, :value => "#{@current_user.last_name}" %>
-
+			<% unless current_user.admin? %>
+				<%= f.text_field :host_lastname, :value => "#{@current_user.last_name}" %>
+			<% else %>
+				<%= f.text_field :host_lastname, :value => "#{@apprenticeship.user.last_name}" %>
+			<% end %>
+				
 			<%= f.label :host_business, capture { %>
 				Business Name
 				<% } %>
@@ -195,6 +203,9 @@
 					</a>
 				</li>
 			</ul>
+
+			<p><%= f.file_field :picture %></p>
+
 	    </div>  
 	  </div>  
 	</div> 

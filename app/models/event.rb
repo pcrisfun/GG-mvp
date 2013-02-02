@@ -1,4 +1,9 @@
 class Event < ActiveRecord::Base
+  extend ActiveModel::Naming
+  include ActiveModel::Conversion
+  include ActionView::Helpers::TextHelper
+  include Rails.application.routes.url_helpers
+  include ActionDispatch::Routing::UrlFor
 
 belongs_to :user
 has_and_belongs_to_many :artworks
@@ -52,6 +57,9 @@ rescue Stripe::InvalidRequestError => e
   false
 end
 
+def refund_payment
+end
+
 state_machine :state, :initial => :started do
   
    state :started do
@@ -84,6 +92,10 @@ state_machine :state, :initial => :started do
     
     event :accept do
       transition :pending => :accepted
+    end
+
+    event :resubmit do
+      transition :accepted => :pending
     end
     
     event :cancel do
