@@ -1,11 +1,11 @@
-<% provide(:title, "Edit user") %> 
+<% provide(:title, "Edit user") %>
 <!-- SmartBiz theme -->
 <section class='section' id='promo'>
 	<div class='container'>
 		<h1>Update your profile</h1>
 		<div class="row">
 		  <div class="span6 fancyform">
-		    <%= form_for(@user) do |f| %>
+		    <%= simple_form_for(@user), :defaults => {:input_html => { :class => 'span6' }} do |f| %>
 		    <%= render 'fields', f: f %>
 
 		    <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
