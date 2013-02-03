@@ -1,4 +1,4 @@
-= simple_form_for [@album, @photo], :html => { :class => 'form-horizontal', multipart:true } do |f|
+= simple_form_for [@user, @gallery, @photo], :html => { :class => 'form-horizontal', multipart:true } do |f|
   %fieldset
     %legend
       = controller.action_name.capitalize
@@ -9,4 +9,4 @@
 
     .form-actions
       = f.submit nil, :class => 'btn btn-primary'
-      = link_to "Cancel", album_photos_path(@album), :class => 'btn'
+      = link_to "Cancel", user_gallery_photos_path(@user, @gallery), :class => 'btn'

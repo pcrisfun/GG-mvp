@@ -15,8 +15,6 @@
  *= require bootstrap-theme
  *= require fonts
  *= require responsive
- *= require sessions
- *= require static_pages
  *= require theme
  *= require token-input-facebook
  *= require token-input

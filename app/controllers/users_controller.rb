@@ -4,7 +4,9 @@ class UsersController < ApplicationController
   before_filter :admin_user,     only: :destroy
 
   def destroy
-    User.find(params[:id]).destroy
+    @user = User.find(params[:id])
+    @user.gallery.destroy
+    @user.destroy
     flash[:success] = "User destroyed."
     redirect_to users_path
   end
@@ -20,7 +22,8 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    if @user.save && @user.deliver_welcome
+    @user.gallery = Gallery.new
+    if @user.save #&& @user.deliver_welcome
       sign_in @user
       flash[:success] = "Welcome to the GirlsGuild community!"
       redirect_to @user

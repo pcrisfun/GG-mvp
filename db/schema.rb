@@ -11,14 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130119160302) do
-
-  create_table "albums", :force => true do |t|
-    t.string   "title"
-    t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
+ActiveRecord::Schema.define(:version => 20130202160303) do
 
   create_table "albums", :force => true do |t|
     t.string   "title"
@@ -77,6 +70,12 @@ ActiveRecord::Schema.define(:version => 20130119160302) do
     t.string   "location_nbrhood"
   end
 
+  create_table "galleries", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "user_id"
+  end
+
   create_table "photos", :force => true do |t|
     t.string   "caption"
     t.datetime "created_at",        :null => false
@@ -86,6 +85,7 @@ ActiveRecord::Schema.define(:version => 20130119160302) do
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
     t.integer  "album_id"
+    t.integer  "gallery_id"
   end
 
   create_table "taggings", :force => true do |t|
@@ -115,8 +115,7 @@ ActiveRecord::Schema.define(:version => 20130119160302) do
     t.string   "remember_token"
     t.boolean  "admin",           :default => false
     t.datetime "birthday"
-    t.string "picture"
-
+    t.string   "picture"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

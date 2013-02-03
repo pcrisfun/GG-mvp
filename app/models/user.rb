@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
 
   has_many :apprenticeships
   has_many :workshops
+  has_one :gallery
+  has_many :photos, :through => :gallery
   attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :birthday, :terms_of_service
   has_secure_password
 
@@ -21,9 +23,9 @@ class User < ActiveRecord::Base
   before_save :create_remember_token
 
   validates :first_name, 	presence: true, length: { maximum: 50 }
-  validates :last_name,  presence: true, length: { maximum: 50 }  
+  validates :last_name,  presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, 
+  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
   					uniqueness: { case_sensitive: false }
   validates :password, presence: true, length: { minimum: 6 }
   validates :password_confirmation, presence: true
@@ -42,7 +44,7 @@ class User < ActiveRecord::Base
   def deliver_welcome
     return false unless valid?
     Pony.mail({
-      :to => "#{name}<#{email}>", 
+      :to => "#{name}<#{email}>",
       :from => "GirlsGuild<hello@girlsguild.com>",
       :reply_to => "hello@girlsguild.com",
       :subject => "Welcome to GirlsGuild!",
@@ -62,7 +64,7 @@ class User < ActiveRecord::Base
       :body => "Thanks #{name}. You've updated your account information. If you did not update your account, please let us know by replying to this email. :-)",
     })
     return true
-  end 
+  end
 
   private
 
