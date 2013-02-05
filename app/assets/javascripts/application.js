@@ -24,7 +24,13 @@
 
 
 $(document).ready(function () {
-	$("[data-behaviour~='datepicker']").datepicker({"autoclose": true, "date-format": 'mm/dd/yyyy'});
+	//$("[data-behaviour~='datepicker']").datepicker({"autoclose": true, "date-format": 'mm/dd/yyyy'});
+  $("[data-behaviour~='datepicker']").datepicker({
+        format: 'mm-dd-yyyy'
+    })
+  .on('changeDate', function(ev){
+    $("[data-behaviour~='datepicker']").datepicker('hide');
+  });
 	$("[data-behaviour~='timepicker']").timepicker();
   $("[rel=tooltip]").tooltip();
   $("[rel=popover]").popover({"trigger": 'focus'});

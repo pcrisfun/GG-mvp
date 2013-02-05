@@ -2,7 +2,7 @@
 // The selector variable is a jQuery Object
 window.ClientSideValidations.validators.local['date'] = function(element, options) {
   // Your validator code goes in here
-  var dateParts = element.val().split("/");
+  var dateParts = element.val().split("-");
   if(dateParts.length != 3) {
     return options.message;
   }

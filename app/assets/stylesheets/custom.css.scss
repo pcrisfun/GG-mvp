@@ -53,6 +53,10 @@ a, a:hover, a:active, a:visited, a:focus {
     border: 1px solid #D3D3D3;
     padding: 30px;
     margin-bottom:30px;
+    hr {
+      border-color:#DDD;
+      border-width: 0px 0px 1px 0px;
+    }
  }
 .bttn-newsletter {
   text-align:center;
