@@ -12,32 +12,22 @@
           </h1>
 
           <h4>Bio</h4>
-          <p>
-            <%= @workshop.bio %>
-          </p>
+          <p><%= @workshop.bio %></p>
 
           <h4>Website</h4>
-          <p>
-            <%= @workshop.website %>
-          </p>
-          <p>
-            <%= @workshop.webshop %>
-          </p>
+          <p><%= @workshop.website %></p>
+          <p><%= @workshop.webshop %></p>
 
-          <h4>Social Media</h4>
-          <p>
-            <%= @workshop.twitter %>
-          </p>
-          <p>
-            <%= @workshop.facebook %>
-          </p>
+          <% unless @workshop.facebook.blank? && @workshop.twitter.blank? %>
+            <h4>Social Media</h4>
+              <p>@<%= @workshop.twitter %></p>
+              <p>facebook.com/<%= @workshop.facebook %></p>
+          <% end %>
 
           <hr />
 
           <h4>Workshop Description</h4>
-          <p>
-          	<%= @workshop.description %>
-          </P>
+          <p><%= @workshop.description %></P>
           
           <h4>Skills</h4> 
           <p><%= @workshop.skill_list %></p>
@@ -45,12 +35,21 @@
           <h4>Tools</h4>
           <p><%= @workshop.tool_list %></p>
           
-          <h4>Requirements</h4>
-          <p><%= @workshop.requirement_list %><p>
-          <p>Note: <%= @workshop.other_needs %></p>
+          <% unless @workshop.requirement_list.blank? %>
+            <h4>Requirements</h4>
+            <p><%= @workshop.requirement_list %><p>
+          <% end %>
+
+          <% unless @workshop.other_needs.blank? %>
+            <p>Note: <%= @workshop.other_needs %></p>
+          <% end %>
 
           <h4>When</h4>
-          <p><%= @workshop.begins_at.strftime("%m/%d/%Y") %>, <%= @workshop.begins_at_time.strftime("%l:%M%P") %> to <%= @workshop.ends_at_time.strftime("%l:%M%P") %></p>
+            <% if @workshop.datetime_tba.blank? %>
+                <p><%= @workshop.begins_at.strftime("%m/%d/%Y") %>, <%= @workshop.begins_at_time.strftime("%l:%M%P") %> to <%= @workshop.ends_at_time.strftime("%l:%M%P") %></p>
+            <% else %>
+                <p>TBA</p>        
+            <% end %>
 
           <h4>Where</h4>
           <p>

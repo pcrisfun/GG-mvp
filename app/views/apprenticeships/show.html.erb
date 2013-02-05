@@ -12,32 +12,22 @@
           </h1>
 
           <h4>Bio</h4>
-          <p>
-            <%= @apprenticeship.bio %>
-          </p>
+          <p><%= @apprenticeship.bio %></p>
 
           <h4>Website</h4>
-          <p>
-            <%= @apprenticeship.website %>
-          </p>
-          <p>
-            <%= @apprenticeship.webshop %>
-          </p>
+          <p><%= @apprenticeship.website %></p>
+          <p><%= @apprenticeship.webshop %></p>
 
-          <h4>Social Media</h4>
-          <p>
-            <%= @apprenticeship.twitter %>
-          </p>
-          <p>
-            <%= @apprenticeship.facebook %>
-          </p>
+          <% unless @apprenticeship.facebook.blank? && @apprenticeship.twitter.blank? %>
+            <h4>Social Media</h4>
+            <p><%= @apprenticeship.twitter %></p>
+            <p><%= @apprenticeship.facebook %></p>
+          <% end %>
 
           <hr />
 
           <h4>Apprenticeship Description</h4>
-          <p>
-          	<%= @apprenticeship.description %>
-          </P>
+          <p><%= @apprenticeship.description %></P>
           
           <h4>Skills</h4> 
           <p><%= @apprenticeship.skill_list %></p>
@@ -45,12 +35,21 @@
           <h4>Tools</h4>
           <p><%= @apprenticeship.tool_list %></p>
           
-          <h4>Requirements</h4>
-          <p><%= @apprenticeship.requirement_list %></p>
-          <p>Note: <%= @apprenticeship.other_needs %></p>
+          <% unless @apprenticeship.requirement_list.blank? %>
+            <h4>Requirements</h4>
+            <p><%= @apprenticeship.requirement_list %></p>
+          <% end %>
+
+          <% unless @apprenticeship.other_needs.blank? %>
+            <p>Note: <%= @apprenticeship.other_needs %></p>
+          <% end %>
 
           <h4>When</h4>
-          <p><%= @apprenticeship.begins_at.strftime("%m/%d/%Y") %> to <%= @apprenticeship.ends_at.strftime("%m/%d/%Y") %>, <%= @apprenticeship.hours %> hours per <%= @apprenticeship.hours_per %>.</p>
+          <% if @apprenticeship.datetime_tba.blank? %>
+            <p><%= @apprenticeship.begins_at.strftime("%m/%d/%Y") %> to <%= @apprenticeship.ends_at.strftime("%m/%d/%Y") %>, <%= @apprenticeship.hours %> hours per <%= @apprenticeship.hours_per %>.</p>
+          <% else %>
+            TBA
+          <% end %>
 
           <h4>Where</h4>
           <p>

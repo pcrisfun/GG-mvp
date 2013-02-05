@@ -3,11 +3,13 @@
 <div class="accordion" id="accordion2">
 
 	<div class="accordion-group">  
+
 	  <div class="accordion-heading">  
 		<a class="accordion-toggle" data-toggle="collapse" href="#collapseOne">  
 	      1. Tell us a little about yourself  
 	    </a>  
-	  </div>  
+	  </div> 
+
 	  <div id="collapseOne" class="accordion-body collapse" style="height: 0px; ">  
 	    <div class="accordion-inner">  
 	      	<p>We’ll post this with your workshop listing to show people who they’ll be working with.</p> 
@@ -19,7 +21,7 @@
 			<% unless current_user.admin? %>	
 				<%= f.text_field :host_firstname, :value => "#{@current_user.first_name}" %>
 			<% else %>
-				<%= f.text_field :host_firstname, :value => "#{@workshop.user.first_name}" %>
+				<%= f.text_field :host_firstname %>
 			<% end %>
 
 			<%= f.label :host_lastname, capture { %>
@@ -28,13 +30,13 @@
 			<% unless current_user.admin? %>
 				<%= f.text_field :host_lastname, :value => "#{@current_user.last_name}" %>
 			<% else %>
-				<%= f.text_field :host_lastname, :value => "#{@workshop.user.last_name}" %>
+				<%= f.text_field :host_lastname %>
 			<% end %>
 				
 			<%= f.label :host_business, capture { %>
 				Business Name
 				<% } %>
-			<%= f.text_field :host_business %>
+			<%= f.text_field :host_business, :class => "span4", :placeholder => "(optional)" %>
 
 			<!--Add a host?-->
 	      	<br />
@@ -43,26 +45,32 @@
 			<%= f.label :bio, capture { %>
 				Bio*
 				<% } %>
-			<%= f.text_area :bio, :placeholder => "Give people a sense of who they'll be working with.", :rel => 'popover', :data => { :content => "Think about including: schooling, current work, recent shows, what you’re interested in as an artist and why you’re interested in teaching it - and a bit of personality, too!", "original-title" => 'Describe yourself' } %> 
+			<%= f.text_area :bio, :class => "span6", :placeholder => "Give people a sense of who they'll be working with.", :rel => 'popover', :data => { :content => "Think about including: schooling, current work, recent shows, what you’re interested in as an artist and why you’re interested in teaching it - and a bit of personality, too!", "original-title" => 'Describe yourself' } %> 
 
 			<%= f.label :website, capture { %>
 				Website*
 				<% } %>
-			<%= f.text_field :website, :rel => 'popover', :data => { :content => "Your studio website, or any other site that shows off your work."} %>
+			<div class="input-prepend input-append">
+			<span class="add-on">www.</span>
+			<%= f.text_field :website, :class => 'span3', :rel => 'popover', :data => { :content => "Your studio website, or any other site that shows off your work."} %>
+			</div>
 
 			<%= f.label :webshop %>
-			<%= f.text_field :webshop, :rel => 'popover', :data => { :content => "Your online shop (Etsy, Big Cartel, etc.), if you have one."} %>
+			<div class="input-prepend input-append">
+			<span class="add-on">www.</span>
+			<%= f.text_field :webshop, :class => 'span3', :rel => 'popover', :data => { :content => "Your online shop (Etsy, Big Cartel, etc.), if you have one."} %>
+			</div>
 
 			<%= f.label :facebook %>
 			<div class="input-prepend input-append">
-			<span class="add-on">facebook.com/</span>
-			<%= f.text_field :facebook, :rel => 'popover', :data => { :content => "This helps us promote you and your events!"} %>
+				<span class="add-on">facebook.com/</span>
+				<%= f.text_field :facebook, :rel => 'popover', :data => { :content => "This helps us promote you and your events!"} %>
 			</div>
 
 			<%= f.label :twitter %>			
 			<div class="input-prepend input-append">
-			<span class="add-on">@</span>
-			<%= f.text_field :twitter, :rel => 'popover', :data => { :content => "This helps to give a sense of who you are and what you're interested in."} %>
+				<span class="add-on">@</span>
+				<%= f.text_field :twitter, :rel => 'popover', :data => { :content => "This helps to give a sense of who you are and what you're interested in."} %>
 			</div>
 			<ul class="icons">
 				<li>
@@ -71,30 +79,34 @@
 					</a>
 				</li>
 			</ul>
-	    </div>  
+		</div>  
 	  </div>  
+	
 	</div> 
 
 
 	<div class="accordion-group">  
+
 	  <div class="accordion-heading">  
 	    <a class="accordion-toggle" data-toggle="collapse" href="#collapseTwo">  
 	      2. Tell us about your workshop  
 	    </a>  
 	  </div>  
+
 	  <div id="collapseTwo" class="accordion-body collapse">  
 	    <div class="accordion-inner"> 
 	    	<p>Give people an idea of what they'll do, what they'll learn, and what they'll take away from it.</p>
 			<%= f.label :topic, capture { %>
 			<h3>Workshop Topic</h3>
 			<% } %>
-			<%= f.text_field :topic, :placeholder => "Ex. 'Printmaking' or 'Jewelry Design'", :rel => 'popover', :data => { :content => 'What will you be teaching?', "original-title" => 'Topic' } %> 
+			<%= f.text_field :topic, :class => "span4", :placeholder => "Ex. 'Printmaking' or 'Jewelry Design'", :rel => 'popover', :data => { :content => 'What will you be teaching?', "original-title" => 'Topic' } %> 
 
 			<br />
+
 			<%= f.label :description, capture { %>
 			<h3>Workshop Description</h3>
 			<% } %>
-			<%= f.text_area :description, :placeholder => "Tell us about your workshop.", :rel => 'popover', :data => { :content => "Give a few sentences telling people what they’ll be learning and doing in the workshop, what (if anything) they’ll take home from it, and why it’s fun/awesome/useful.", "original-title" => 'Description' }  %>
+			<%= f.text_area :description, :class => "span6", :placeholder => "Tell us about your workshop.", :rel => 'popover', :data => { :content => "Give a few sentences telling people what they’ll be learning and doing in the workshop, what (if anything) they’ll take home from it, and why it’s fun/awesome/useful.", "original-title" => 'Description' }  %>
 
 
 			<h3>Skills & Techniques</h3>
@@ -102,8 +114,9 @@
 			<p>What skills and techniques will participants learn? (List each, followed by a comma)</p>
 			<% } %>
 			<div rel='popover' data-content="Be as specific as possible to give each participant credit for her experience. We’ll keep track, to help her show off her skills!" data-original-title='Skills & Techniques' > 
-			<%= f.text_field :skill_list, :data => { :pre => @workshop.skills.map { |t|  { :id => t.name, :name => t.name } } } %>
+				<%= f.text_field :skill_list, :data => { :pre => @workshop.skills.map { |t|  { :id => t.name, :name => t.name } } } %>
 			</div>
+
 			<br />
 
 			<h3>Tools & Materials</h3>
@@ -111,8 +124,9 @@
 			<p>What tools and materials will participants learn to use? (List each, followed by a comma)</p> 
 			<% } %>
 			<div rel='popover' data-content="Be as specific as possible to give each participant credit for her experience. We’ll keep track, to help her show off her skills!" data-original-title='Tools & Materials' >
-			<%= f.text_field :tool_list, :data => { :pre => @workshop.tools.map { |t|  { :id => t.name, :name => t.name } } }  %>
+				<%= f.text_field :tool_list, :data => { :pre => @workshop.tools.map { |t|  { :id => t.name, :name => t.name } } }  %>
 			</div>
+
 			<br />
 
 			<h3>Requirements</h3>
@@ -120,34 +134,48 @@
 			<p>Do participants need experience with any skills, techniques, or tools before they join the workshop? (List each, followed by a comma)</p>
 			<% } %>
 			<div rel='popover' data-content="Participants will rate their level of experience with these skills and tools when they sign up, to help you plan your teaching." data-original-title='Requirements' >
-			<%= f.text_field :requirement_list, :data => { :pre => @workshop.requirements.map { |t|  { :id => t.name, :name => t.name } } }  %>
+				<%= f.text_field :requirement_list, :data => { :pre => @workshop.requirements.map { |t|  { :id => t.name, :name => t.name } } }  %>
 			</div>
 
 			<%= f.label :other_needs, capture { %>
 			<p>Are there other things participants should do to prepare, or bring to the workshop?<p>
 			<% } %>
-			<%= f.text_field :other_needs, :placeholder => "Ex. 'Wear sturdy shoes (no sandals)' or 'Bring a camera'", :rel => 'popover', :data => { :content => "Participants will be reminded to bring these .", "original-title" => 'Other Needs' } %>
+			<%= f.text_field :other_needs, :class => "span6", :placeholder => "Ex. 'Wear sturdy shoes (no sandals)' or 'Bring a camera'", :rel => 'popover', :data => { :content => "Participants will be reminded to bring these .", "original-title" => 'Other Needs' } %>
+
 			<br />
 
 			<%= f.label :begins_at, capture { %> 
 			<h3>When</h3>
 			<% } %>
 			<div class="input-append date" data-behaviour="datepicker">
-			  <%= f.text_field :begins_at, :class => "span2", :value => @workshop.begins_at.strftime("%m/%d/%Y") %>
-			 <span class="add-on"><i class="icon-th"></i></span>
+				<%= f.text_field :begins_at, :class => "span2", :value => @workshop.begins_at.strftime("%m/%d/%Y") %>
+			 	<span class="add-on"><i class="icon-th"></i></span>
 			</div>
 
 			<div class="row datepickerlayout">
-			<div class='input-append time bootstrap-timepicker-component span3'>
-			  <%= f.text_field :begins_at_time, :class => "dateselect-time span2", :data => { :behaviour => 'timepicker', :placeholder => '12:45 PM' } %> 
-			  <span class='add-on'><i class='icon-time'></i></span>
-			</div> 
-			<div class="span2 tofield"> to </div>
-			<div class='input-append time bootstrap-timepicker-component'>
-			  <%= f.text_field :ends_at_time, :class => "dateselect-time  span2", :data => { :behaviour => 'timepicker', :placeholder => '12:45 PM' } %>
-			  <span class='add-on'><i class='icon-time'></i></span>
+				<div class='input-append time bootstrap-timepicker-component span2'>
+			  		<%= f.text_field :begins_at_time, :class => "dateselect-time span2", :data => { :behaviour => 'timepicker', :placeholder => '12:45 PM' } %> 
+			  		<span class='add-on'><i class='icon-time'></i></span>
+				</div> 
+
+				<div class="span1 tofield"> &nbsp; &nbsp; &nbsp; to </div>
+
+				<div class='input-append time bootstrap-timepicker-component'>
+			 		<%= f.text_field :ends_at_time, :class => "dateselect-time  span2", :data => { :behaviour => 'timepicker', :placeholder => '12:45 PM' } %>
+			  		<span class='add-on'><i class='icon-time'></i></span>
+				</div>
 			</div>
-			</div><!-- end div.row -->
+			<br />
+			<p>-OR-</p>
+
+			<div class="form-inline" >
+			<%= f.check_box :datetime_tba %>
+			<%= f.label :datetime_tba, capture { %> 
+			<p>I'd like to gauge interest by gathering pre-registrations before I schedule a date, so please list it as "TBA"</p> 
+			<% } %>
+			</div>
+
+			<br />
 
 			<h3>Location</h3>
 			<div class="controls">
@@ -163,8 +191,9 @@
 			</div>
 
 			<%= f.label :location_private, :class => "checkbox" do %>
-			  <%= f.check_box :location_private %>This is a private or home address in the <% end %><%= f.text_field :location_nbrhood, :placeholder => 'Ex. Clarksville', :class => 'span2' %> neighborhood.
-
+			<%= f.check_box :location_private %>This is a private or home address in the 
+			<% end %>
+			<%= f.text_field :location_nbrhood, :placeholder => 'Ex. Clarksville', :class => 'span2' %> neighborhood.	
 
 			<h3>Age Range</h3>
 			<%= f.label :age_min, "Min. age" %>

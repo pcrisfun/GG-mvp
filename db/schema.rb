@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130119160302) do
+ActiveRecord::Schema.define(:version => 20130204232513) do
 
   create_table "albums", :force => true do |t|
     t.string   "title"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(:version => 20130119160302) do
     t.date     "ends_at_date"
     t.time     "ends_at_time"
     t.string   "location_nbrhood"
+    t.string   "datetime_tba"
   end
 
   create_table "photos", :force => true do |t|
