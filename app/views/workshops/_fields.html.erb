@@ -19,7 +19,7 @@
 				First Name*
 				<% } %>
 			<% unless current_user.admin? %>	
-				<%= f.text_field :host_firstname, :value => "#{@current_user.first_name}" %>
+				<%= f.text_field :host_firstname, :value => "#{current_user.first_name}" %>
 			<% else %>
 				<%= f.text_field :host_firstname %>
 			<% end %>
@@ -28,7 +28,7 @@
 				Last Name*
 				<% } %>
 			<% unless current_user.admin? %>
-				<%= f.text_field :host_lastname, :value => "#{@current_user.last_name}" %>
+				<%= f.text_field :host_lastname, :value => "#{current_user.last_name}" %>
 			<% else %>
 				<%= f.text_field :host_lastname %>
 			<% end %>
@@ -250,7 +250,7 @@
 			<h3>Payment options</h3>
 
 			<p>After the workshop, we'll send your payment by:</p>
-			<p><%= f.radio_button :payment_options, "Paypal" %> Paypal, to the following email address: <%= f.text_field :paypal_email, :value => "#{@current_user.email}", :class => 'span2' %></p>
+			<p><%= f.radio_button :payment_options, "Paypal" %> Paypal, to the following email address: <%= f.text_field :paypal_email, :value => "#{current_user.email}", :class => 'span2' %></p>
 
 			<p><%= f.radio_button :payment_options, "Check" %> Check, mailed to the following address:</p>
 			<div class="controls">

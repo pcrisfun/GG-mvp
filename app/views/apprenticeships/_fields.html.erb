@@ -17,7 +17,7 @@
 				First Name*
 				<% } %>
 			<% unless current_user.admin? %>
-				<%= f.text_field :host_firstname, :value => "#{@current_user.first_name}" %>
+				<%= f.text_field :host_firstname, :value => "#{current_user.first_name}" %>
 			<% else %> 
 				<%= f.text_field :host_firstname %>
 			<% end %>
@@ -26,7 +26,7 @@
 				Last Name*
 				<% } %>
 			<% unless current_user.admin? %>
-				<%= f.text_field :host_lastname, :value => "#{@current_user.last_name}" %>
+				<%= f.text_field :host_lastname, :value => "#{current_user.last_name}" %>
 			<% else %>
 				<%= f.text_field :host_lastname %>
 			<% end %>
@@ -142,8 +142,8 @@
 
 			<%= f.label :other_needs, capture { %>
 				<p>Are there other things your apprentice needs to have, like their own computer or car?<p>
-			<% } %>
-			<%= f.text_field :other_needs, :class => "span6", :placeholder => "Ex. Must have their own laptop", :rel => 'popover', :data => { :content => "Applicants will confirm that they have these things for you to see on their application.", "original-title" => 'Other Needs' } %>
+				<% } %>	
+			<%= f.text_field :other_needs, :class => 'span3', :placeholder => "Ex. Must have their own laptop", :rel => 'popover', :data => { :content => 'Applicants will confirm on their application that they have these things.', "original-title" => 'Other Needs' } %> 
 			
 			<br />
 
