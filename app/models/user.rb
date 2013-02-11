@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :birthday, :terms_of_service
   has_secure_password
 
+  after_create :create_gallery
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
 
@@ -70,5 +71,9 @@ class User < ActiveRecord::Base
 
     def create_remember_token
       self.remember_token = SecureRandom.urlsafe_base64
+    end
+
+    def create_gallery
+      self.gallery = Gallery.new
     end
 end

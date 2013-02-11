@@ -128,7 +128,5 @@
 </script>
 
 <div class="form-actions">
-  <%= link_to "Back", user_gallery_path, class: 'btn' %>
-  <%= link_to "Edit", edit_user_gallery_path(@user, @gallery), class: 'btn' %>
-  <%= link_to "Delete", user_gallery_path(@user, @gallery), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}", :class => 'btn btn-danger' %>
+  <%= link_to "Back", user_path, class: 'btn' %>
 </div>

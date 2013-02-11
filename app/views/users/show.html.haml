@@ -1,0 +1,13 @@
+= provide(:title, @user.name)
+%section.section{id: 'promo'}
+	.container
+		.row
+			%aside.span
+				%section
+					%h1
+						= gravatar_for @user
+						= @user.name
+						%br
+						%br
+						%br
+						= link_to 'Your Gallery', user_gallery_path(@user)

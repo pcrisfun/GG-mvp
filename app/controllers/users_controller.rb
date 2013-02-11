@@ -22,7 +22,6 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    @user.gallery = Gallery.new
     if @user.save #&& @user.deliver_welcome
       sign_in @user
       flash[:success] = "Welcome to the GirlsGuild community!"

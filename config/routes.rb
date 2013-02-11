@@ -5,6 +5,7 @@ SampleApp::Application.routes.draw do
       resources :photos
     end
   end
+
   resources :sessions, only: [ :new, :create, :destroy ]
   resources :apprenticeships
   resources :workshops
