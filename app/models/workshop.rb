@@ -58,6 +58,16 @@ class Workshop < Event
 		#return true
 	end
 
+	def self.complete_workshop
+		workshops = self.where(:begins_at => Date.today).all 
+		workshops.each {|w| w.complete}
+
+		#review Date syntax to go in where statment
+		#in rails c Workshop.where lablabhakj
+
+	end
+
+
 	state_machine :state, :initial => :started do
 
 		state :pending do

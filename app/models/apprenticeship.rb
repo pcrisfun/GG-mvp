@@ -56,6 +56,10 @@ class Apprenticeship < Event
 		#return true
 	end
 
+	def self.complete_apprenticeship
+	    puts "fuck yeah."
+	end
+
 	state_machine :state, :initial => :started do
 
 		state :pending do

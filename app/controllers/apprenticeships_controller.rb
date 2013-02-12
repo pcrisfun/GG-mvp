@@ -116,5 +116,12 @@ class ApprenticeshipsController < ApplicationController
   	@apprenticeship = Apprenticeship.find_by_id(params[:id])
   	redirect_to :index if @apprenticeship.nil? 
   end
+
+  def complete
+    if @apprenticeship.ends_at == Date.today
+      @apprenticeship.complete
+    end
+  end
+  
 end
     
