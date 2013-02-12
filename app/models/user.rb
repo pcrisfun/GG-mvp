@@ -30,6 +30,8 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :email_regexp =>  /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+  after_create :add_user_to_mailchimp unless Rails.env.test?
+  before_destroy :remove_user_from_mailchimp unless Rails.env.test?
 
   def name
     return "#{first_name} #{last_name}"
@@ -39,30 +41,22 @@ class User < ActiveRecord::Base
     write_attribute(:birthday, Chronic::parse(new_date).strftime("%Y-%m-%d %H:%M:%S"))
   end
 
-  def deliver_welcome
-    return false unless valid?
-    Pony.mail({
-      :to => "#{name}<#{email}>", 
-      :from => "GirlsGuild<hello@girlsguild.com>",
-      :reply_to => "hello@girlsguild.com",
-      :subject => "Welcome to GirlsGuild!",
-      :body => "Welcome #{name}! Thanks for joining GirlsGuild and being part of our beta tests. Your login is: #{email}",
-      :bcc => "hello@girlsguild.com",
-    })
-    return true
+  # MailChimp list_subscribe options: http://apidocs.mailchimp.com/api/rtfm/listsubscribe.func.php
+  def add_user_to_mailchimp
+    mailchimp = Hominid::API.new(ENV["MAILCHIMP_API_KEY"])
+    list_id = mailchimp.find_list_id_by_name "UsersTest"
+    info = {"FNAME" => self.first_name, "LNAME" => self.last_name }
+    result = mailchimp.list_subscribe(list_id, self.email, info, 'html', true, true, false, true)
+    Rails.logger.info("MAILCHIMP SUBSCRIBE: result #{result.inspect} for #{self.email}")
   end
 
-  def deliver_update
-    return false unless valid?
-    Pony.mail({
-      :to => "#{name}<#{email}>",
-      :from => "GirlsGuild<hello@girlsguild.com>",
-      :reply_to =>  "hello@girlsguild.com",
-      :subject => "Boom. You've updated your account",
-      :body => "Thanks #{name}. You've updated your account information. If you did not update your account, please let us know by replying to this email. :-)",
-    })
-    return true
-  end 
+  # MailChimp list_subscribe options: http://apidocs.mailchimp.com/api/rtfm/listunsubscribe.func.php
+  def remove_user_from_mailchimp
+    mailchimp = Hominid::API.new(ENV["MAILCHIMP_API_KEY"])
+    list_id = mailchimp.find_list_id_by_name "UsersTest"
+    result = mailchimp.list_unsubscribe(list_id, self.email, 'html', true, true, true)
+    Rails.logger.info("MAILCHIMP UNSUBSCRIBE: result #{result.inspect} for #{self.email}")
+  end
 
   private
 end

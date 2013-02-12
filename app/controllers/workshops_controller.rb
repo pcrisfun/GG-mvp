@@ -1,5 +1,5 @@
 class WorkshopsController < ApplicationController
-  before_filter :signed_in_user, except: [:index, :show]
+  before_filter :authenticate_user!, except: [:index, :show]
   before_filter :current_workshop, except: [:index, :new, :create]
   before_filter :owner_user, only: [:edit, :update]
   before_filter :admin_user, only: :destroy
