@@ -125,10 +125,36 @@
       <section class='section newsletter'>
         <div class='container'>
           <div class='row-fluid'>
-            <div class="input-append bttn-newsletter">
-              <input class="span3" id="appendedInputButton" type="text">
-              <button class="btn btn-primary" type="button">Sign up for our Newsletter!</button>
+
+            <!-- Modal -->
+            <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Sign Up!</h3>
+              </div>
+              <div class="modal-body">
+                <!-- Begin MailChimp Signup Form -->
+                <div id="mc_embed_signup">
+                <form action="http://girlsguild.us4.list-manage.com/subscribe/post?u=9f2de43ebd5f4d79e3d803fb9&amp;id=aea5bd62bf" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                  <label for="mce-EMAIL">Subscribe to our rad monthly newsletter to get the drop on workshops and apprenticeships in Austin!</label>
+                  <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+                  <div class="clear">
+                    <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+                  </div>
+                </form>
+                </div>
+                <!--End mc_embed_signup-->
+              </div>
+              <div class="modal-footer">
+                <a data-dismiss="modal" aria-hidden="true">I'll do this later</a>
+              </div>
             </div>
+
+            <form action="http://girlsguild.us4.list-manage.com/subscribe/post?u=9f2de43ebd5f4d79e3d803fb9&amp;id=aea5bd62bf" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate input-append bttn-newsletter" target="_blank" novalidate>
+              <input class="span3 email" id="mce-EMAIL" type="email" name="EMAIL" placeholder="email address" required>
+              <button class="btn btn-primary button" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" >Sign up for our Newsletter!</button>
+            </form>
+
           </div>
         </div>
       </section>
