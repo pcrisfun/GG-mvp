@@ -16,9 +16,10 @@ class User < ActiveRecord::Base
   has_many :workshops
   has_one :gallery
   has_many :photos, :through => :gallery
-  attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :birthday, :terms_of_service
+  attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :birthday, :terms_of_service, :avatar
+  attr_accessible :use_gravatar
   has_secure_password
-
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "50x50>" }
   after_create :create_gallery
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
@@ -40,6 +41,10 @@ class User < ActiveRecord::Base
 
   def birthday=(new_date)
     write_attribute(:birthday, Chronic::parse(new_date).strftime("%Y-%m-%d %H:%M:%S"))
+  end
+
+  def update_avatar=(new_avatar)
+    write_attribute(:avatar, new_avatar)
   end
 
   def deliver_welcome

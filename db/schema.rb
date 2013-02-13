@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130202160303) do
+ActiveRecord::Schema.define(:version => 20130213144855) do
 
   create_table "albums", :force => true do |t|
     t.string   "title"
@@ -84,7 +84,6 @@ ActiveRecord::Schema.define(:version => 20130202160303) do
     t.string   "file_content_type"
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
-    t.integer  "album_id"
     t.integer  "gallery_id"
   end
 
@@ -109,13 +108,17 @@ ActiveRecord::Schema.define(:version => 20130202160303) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.string   "password_digest"
     t.string   "remember_token"
-    t.boolean  "admin",           :default => false
+    t.boolean  "admin",               :default => false
     t.datetime "birthday"
-    t.string   "picture"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.boolean  "use_gravatar",        :default => true
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

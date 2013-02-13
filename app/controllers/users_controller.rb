@@ -46,6 +46,7 @@ class UsersController < ApplicationController
   end
 
   def index
+    @user = current_user
     @users = User.paginate(page: params[:page])
   end
 

@@ -16,12 +16,4 @@
 <%= f.input :password %>
 <%= f.input :password_confirmation %>
 
-
-<!-- this terms is not working right now -->
-<div class="form-inline">
-	<%= f.check_box :terms_of_service %>
-	<%= f.label :terms_of_service, capture { %>
-		<p>I have read the <%= active_link_to 'terms and conditions', termsandconditions_path, :target => '_blank' %></p>
-	<% } %>
-</div>
 <br/>

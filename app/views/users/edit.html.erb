@@ -6,13 +6,17 @@
 		<div class="row">
 		  <div class="span6 fancyform">
 
-		    <%= simple_form_for(@user), :validate => true, :defaults => {:input_html => { :class => 'span6'}} do |f| %>
-		    <%= render 'fields', f: f %>
-		    <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+		    <%= simple_form_for @user, :validate => true, :defaults => {:input_html => { :class => 'span6'}} do |f| %>
+			    <%= f.label "Change Your Avatar" %>
+			    <%= f.collection_radio_buttons :use_gravatar, [
+			    																								[true, content_tag(:div,f.label('Use Gravitar') + gravatar_for(@user) + link_to('change', 'http://gravatar.com/emails', :target=>'_blank'), :class => 'control-group')],
+			    																								[false, content_tag(:div,f.label('Upload an Avatar') + image_tag(@user.avatar.url(:thumb)) + f.input(:avatar), :class=>'control-group')]
+			    																							], :first, :last, :item_wrapper_class => 'row', :item_wrapper_tag => 'div' %>
+
+		    	<%= render 'fields', f: f %>
+		    	<%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
 		    <% end %>
 
-		    <%= gravatar_for @user %>
-		    <a href="http://gravatar.com/emails">change</a>
 		  </div>
 		</div>
 	</div>
