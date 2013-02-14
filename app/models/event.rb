@@ -57,7 +57,12 @@ class Event < ActiveRecord::Base
   end
 
   def refund_payment
+    #how do we do this through stripe?
   end
+
+  def tba_is_blank 
+    !datetime_tba.blank? 
+  end   
 
   state_machine :state, :initial => :started do
     
@@ -70,13 +75,15 @@ class Event < ActiveRecord::Base
         validates_numericality_of :age_max, :greater_than => :age_min, :message => "must be greater than the minimum age you set."
         validates_numericality_of :registration_min, :greater_than_or_equal_to => 0
 
-        validates_date :begins_at, :on_or_after => :aweektoday, :if => :tba_is_blank # See Restriction Shorthand in config/initializers/validates_timeliness
      end
     
      state :accepted do
      end
     
      state :canceled do
+     end
+
+     state :in_progress do
      end
 
      state :completed do
@@ -106,13 +113,13 @@ class Event < ActiveRecord::Base
         transition all => :canceled
       end   
 
+      event :in_progress do
+        transition :accepted => :in_progress
+      end
+
       event :complete do
         transition :accepted => :completed
       end   
-  end
-
-def tba_is_blank 
-  !datetime_tba.blank? 
-end    
+  end 
 
 end
