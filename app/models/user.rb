@@ -26,12 +26,12 @@ class User < ActiveRecord::Base
   validates :birthday, :date => {:before => Proc.new {Time.now - 13.years }}
 
   # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable,
+  # :token_authenticatable, 
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable, :email_regexp =>  /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
-  after_create :add_user_to_mailchimp unless Rails.env.test?
-  before_destroy :remove_user_from_mailchimp unless Rails.env.test?
+  # after_create :add_user_to_mailchimp unless Rails.env.test?
+  # before_destroy :remove_user_from_mailchimp unless Rails.env.test?
 
   def name
     return "#{first_name} #{last_name}"
@@ -39,23 +39,6 @@ class User < ActiveRecord::Base
 
   def birthday=(new_date)
     write_attribute(:birthday, Chronic::parse(new_date).strftime("%Y-%m-%d %H:%M:%S"))
-  end
-
-  # MailChimp list_subscribe options: http://apidocs.mailchimp.com/api/rtfm/listsubscribe.func.php
-  def add_user_to_mailchimp
-    mailchimp = Hominid::API.new(ENV["MAILCHIMP_API_KEY"])
-    list_id = mailchimp.find_list_id_by_name "UsersTest"
-    info = {"FNAME" => self.first_name, "LNAME" => self.last_name }
-    result = mailchimp.list_subscribe(list_id, self.email, info, 'html', true, true, false, true)
-    Rails.logger.info("MAILCHIMP SUBSCRIBE: result #{result.inspect} for #{self.email}")
-  end
-
-  # MailChimp list_subscribe options: http://apidocs.mailchimp.com/api/rtfm/listunsubscribe.func.php
-  def remove_user_from_mailchimp
-    mailchimp = Hominid::API.new(ENV["MAILCHIMP_API_KEY"])
-    list_id = mailchimp.find_list_id_by_name "UsersTest"
-    result = mailchimp.list_unsubscribe(list_id, self.email, 'html', true, true, true)
-    Rails.logger.info("MAILCHIMP UNSUBSCRIBE: result #{result.inspect} for #{self.email}")
   end
 
   private
