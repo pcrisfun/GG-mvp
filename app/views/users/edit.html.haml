@@ -1,0 +1,29 @@
+= provide(:title, "Edit user")
+
+%section.section{id: 'promo'}
+	.container
+		%h1 Update your profile
+		.row
+			.span6.fancyform
+				= simple_form_for @user, :validate => true, :defaults => {:input_html => { :class => 'span6'}} do |f|
+					.control-group
+						= f.label "Change Your Avatar"
+						.controls
+							.form-inline
+								= radio_button_tag(:use_gravatar, true, :class => 'btn')
+								%label Use Gravitar
+							.form-inline
+								= gravatar_for(@user)
+								%a{href: 'http://gravatar.com/emails'}change
+						%br
+						.controls
+							.form-inline
+								= radio_button_tag(:use_gravatar, false)
+								%label Upload an Avatar
+							.form-inline
+								= image_tag(@user.avatar.url(:thumb))
+								= f.file_field(:avatar)
+					%br
+					= render 'fields', f: f
+					= f.submit "Save changes", class: "btn btn-large btn-primary"
+
