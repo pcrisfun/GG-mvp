@@ -25,9 +25,17 @@ class ApprenticeshipsController < ApplicationController
   
   def create
     @apprenticeship = current_user.apprenticeships.new(params[:apprenticeship])
-    if @apprenticeship.save
-    
-      if params[:apprenticeship][:stripe_card_token].present? 
+
+    if params[:save_button] == "Save for Later"
+      if @apprenticeship.group_valid?(:save) && @apprenticeship.save(:validate => false)
+        redirect_to apprenticeships_path, :flash => { :success => "Your apprenticeship was saved." }
+      else
+        flash.now[:warning] = "There was a problem saving your apprenticeship. Please review all fields."
+        render 'new'
+      end
+    else
+      if @apprenticeship.save
+        #if params[:apprenticeship][:stripe_card_token].present?
         if @apprenticeship.process_payment
           if @apprenticeship.submit && @apprenticeship.deliver
             redirect_to apprenticeships_path, :flash => {:success => "Your apprenticeship was created!" }
@@ -39,13 +47,12 @@ class ApprenticeshipsController < ApplicationController
           flash.now[:notify] = "Couldn't process payment. There's a problem with def create in the controller."
           render 'edit'
         end
-      else
-        redirect_to apprenticeships_path, :flash => { :success => "Your apprenticeship was saved." }
+        #else
+        #end
+      else 
+        flash.now[:warning] = "There was a problem saving your apprenticeship. Please review all fields."
+        render 'new'
       end
-
-    else 
-      flash.now[:warning] = "There was a problem saving your apprenticeship. Please review all fields."
-      render 'new'
     end
   end
 	
