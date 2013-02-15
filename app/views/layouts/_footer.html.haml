@@ -1,0 +1,50 @@
+/ Page Footer
+%footer#footer.section{:role => "contentinfo"}
+  .container
+    .row-fluid
+      .span4
+        %h3 Join us online
+        %ul.icons
+          %li
+            %i.icon-twitter
+            %a{:href => "http://twitter.com/thegirlsguild/", :target => "_blank"} Twitter
+          %li
+            %i.icon-pinterest
+            %a{:href => "http://pinterest.com/girlsguild", :target => "_blank"} Pinterest
+          %li
+            %i.icon-facebook
+            %a{:href => "http://facebook.com/girlsguild", :target => "_blank"} Facebook
+          %li
+            .fb-like{"data-colorscheme" => "dark", "data-href" => "http://www.facebook.com/GirlsGuild", "data-layout" => "button_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "450", :style => "margin:2px 0px 5px 40px;"}
+          %li
+            %div{:style => "margin:5px 0px 5px 15px;"}
+              %a.twitter-follow-button{"data-lang" => "en", "data-show-count" => "false", :href => "https://twitter.com/TheGirlsGuild"} Follow @thegirlsguild
+      .span4
+        %h3 GirlsGuild
+        %ul.icons
+          %li
+            %i.icon-map-marker
+            = link_to "Contact", contact_path
+          %li
+            %i.icon-bolt
+            = link_to "About", about_path
+          %li
+            %i.icon-bookmark-empty
+            = link_to "FAQ", faq_path
+          %li
+            %i.icon-envelope
+            %a{"data-toggle" => "modal", :href => "#myModal"} Newsletter
+      .span4
+        %h3 Hecho en Austin
+        %ul.unstyled
+          %li
+            %i.icon-legal
+            = link_to "Terms and Conditions", termsandconditions_path
+          %li
+            %i.icon-bullhorn
+            = link_to "Privacy Policy", privacypolicy_path
+        %ul.icons
+          %li
+            %span.label{:style => "font-weight:normal;text-transform:uppercase;"}For girls, by girls
+          %li
+            © 2012 GirlsGuild Co. All Rights Reversed.

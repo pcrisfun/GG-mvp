@@ -1,0 +1,133 @@
+/ Main Content
+#content{:role => "main"}
+  %section#promo.section.alt
+    .container
+      #myCarousel.carousel.slide
+        / Carousel items
+        .carousel-inner
+          .active.item
+            .row-fluid
+              .span6
+                .hero-unit
+                  %h1 Learn from Makers &amp; Doers
+                  %p{:style => "font-family: 'Dosis', sans-serif; text-transform:uppercase; font-weight:400; font-size:27px; letter-spacing:3px; margin: 20px 0;"} Apprenticeships for girls, by girls.
+                  %div{:style => "display:inline;"}
+                    = link_to "JOIN GIRLSGUILD FOR FREE!", new_user_registration_path, class: "btn btn-large btn-primary", :style => "font-weight:bold;"
+                  .fb-like{"data-href" => "http://www.facebook.com/GirlsGuild", "data-layout" => "button_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "450", :style => "float:right; margin:5px;"}
+                  %div{:style => "float:right; margin:9px;"}
+                    %a.twitter-follow-button{"data-lang" => "en", "data-show-count" => "false", :href => "https://twitter.com/TheGirlsGuild"} Follow @TheGirlsGuild
+                  %img.pull-left{:alt => "for makers", :src => "images/formakers.png"}/
+              .span6
+                %img.pull-right{:alt => "imac", :src => "images/gg-illust-andand_v3.png"}/
+            .row-fluid
+              .span6
+                .well
+                  %ul.pull-center.valueprop
+                    %h2 Learn a new Skill
+                    %li Learn new skills
+                    %li Connect to makers and doers
+                    %li Discover a new career
+                    %li Build a portfolio
+                    %li Make new friends
+                    %li= link_to "Take a Workshop", workshops_path, class: "btn btn-large"
+              .span6
+                .well
+                  %ul.pull-center.valueprop
+                    %h2 Be an Apprentice
+                    %li Learn a process
+                    %li Work with makers
+                    %li Understand making as a small business
+                    %li Strengthen your portfolio
+                    %li Be part of a community
+                    %li= link_to "Be an Apprentice", apprenticeships_path, class: "btn btn-large"
+          .item
+            .row-fluid
+              .span6
+                .hero-unit
+                  %h1 Join the Maker Community
+                  %p Apprenticeships for girls, by girls.
+                  %div{:style => "display:inline;"}
+                    = link_to "Join GirlsGuild for Free!", new_user_registration_path, class: "btn btn-large btn-primary"
+                  .fb-like{"data-href" => "http://www.facebook.com/GirlsGuild", "data-layout" => "button_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "450", :style => "float:right; margin:5px;"}
+                  %div{:style => "float:right; margin:9px;"}
+                    %a.twitter-follow-button{"data-lang" => "en", "data-show-count" => "false", :href => "https://twitter.com/TheGirlsGuild"} Follow @TheGirlsGuild
+                  %img.pull-left{:alt => "for girls", :src => "images/forgirls.png"}/
+              .span6
+                %img.pull-right{:alt => "imac", :src => "images/gg-illust-andand.png"}/
+            .row-fluid
+              .span6
+                .well
+                  %ul.pull-center.valueprop
+                    %h2 Teach a Skill
+                    %li Earn extra income
+                    %li Teach what you love
+                    %li Increase your recognition
+                    %li Build your network
+                    %li Collaborate on projects
+                    %li= link_to "Propose a Workshop", workshops_path, class: "btn btn-large"
+              .span6
+                .well
+                  %ul.pull-center.valueprop
+                    %h2 Find an Apprentice
+                    %li Expand production
+                    %li Find girls with the skills you need
+                    %li Share your process
+                    %li Build your team
+                    %li Refine your brand
+                    %li= link_to "Find an Apprentice", apprenticeships_path, class: "btn btn-large"
+        / Carousel nav
+        %a.carousel-control.left{"data-slide" => "prev", :href => "#myCarousel"} ‹
+        %a.carousel-control.right{"data-slide" => "next", :href => "#myCarousel"} ›
+  %section.section.newsletter
+    .container
+      .row-fluid
+        / Modal
+        #myModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+          .modal-header
+            %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+            %h3#myModalLabel Sign Up!
+          .modal-body
+            / Begin MailChimp Signup Form
+            #mc_embed_signup
+              %form#mc-embedded-subscribe-form.validate.input-append.bttn-newsletter{:action => "http://girlsguild.us4.list-manage.com/subscribe/post?u=9f2de43ebd5f4d79e3d803fb9&id=aea5bd62bf", :method => "post", :name => "mc-embedded-subscribe-form", :novalidate => ""}
+                %label{:for => "mce-EMAIL"} For our rad monthly newsletters!
+                %input#mce-EMAIL.span5.email{:name => "EMAIL", :placeholder => "Your Email", :required => "", :type => "email"}/
+                %button#mc-embedded-subscribe.btn.btn-primary.button{:name => "subscribe", :type => "submit", :value => "Subscribe"} Sign up
+            / End mc_embed_signup
+          .modal-footer
+            %a{"aria-hidden" => "true", "data-dismiss" => "modal"} I'll do this later
+        %form#mc-embedded-subscribe-form.validate.input-append.bttn-newsletter{:action => "http://girlsguild.us4.list-manage.com/subscribe/post?u=9f2de43ebd5f4d79e3d803fb9&id=aea5bd62bf", :method => "post", :name => "mc-embedded-subscribe-form", :novalidate => "", :target => "_blank"}
+          %input#mce-EMAIL.span3.email{:name => "EMAIL", :placeholder => "Your Email", :required => "", :type => "email"}/
+          %button#mc-embedded-subscribe.btn.btn-primary.button{:name => "subscribe", :type => "submit", :value => "Subscribe"} Sign up for our Newsletter!
+  %section
+    .container
+      .page-header
+        %h4.pull-center
+          Featured in
+      .row-fluid
+        %ul.thumbnails.bordered.pull-center
+          %li.span2
+            %img{:alt => "Poppy Talk", :src => "images/assets/press/poppytalk.png"}/
+            %h5
+              %a{:href => "http://poppytalk.blogspot.com/2012/09/dispatches-from-austin-trans-pecos.html", :target => "_blank"} Poppy Talk
+          %li.span2
+            %img{:alt => "Culture Map", :src => "images/assets/press/culturemap.png"}/
+            %h5
+              %a{:href => "http://austin.culturemap.com/newsdetail/06-08-12-22-40-girls-guild-building-a-community-of-artistic-women-through-apprenticeships/", :target => "_blank"} Culture Map
+          %li.span2
+            %img{:alt => "Best In Austin", :src => "images/assets/press/bestinaustin.png"}/
+            %h5
+              %a{:href => "http://www.austinchronicle.com/gyrobase/Awards/BestOfAustin?Award=1373018", :target => "_blank"} Best in Austin
+          %li.span2
+            %img{:alt => "Tribeza", :src => "images/assets/press/tribeza.png"}/
+            %h5
+              %a{:href => "http://www.tribeza.com/magazine_content/girlsguild", :target => "_blank"} Tribeza
+          %li.span2
+            %img{:alt => "Creative Little Beasts", :src => "images/assets/press/creativelbeasts.png"}/
+            %h5
+              %a{:href => "http://creativelittlebeasts.tumblr.com/post/31990019776/handmade-to-sell-with-kelly-rand-and-girls-guild", :target => "_blank"} Creative Little Beasts
+          %li.span2
+            %img{:alt => "Apartment Therapy", :src => "images/assets/press/apartmenttherapy.png"}/
+            %h5
+              %a{:href => "http://www.apartmenttherapy.com/cheyenne-weavers-gilded-simplicityhome-tour-171948", :target => "_blank"} Apartment Therapy
+        %hr/

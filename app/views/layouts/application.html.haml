@@ -1,0 +1,57 @@
+!!!
+%html
+  %head
+    %title= full_title(yield(:title))
+    = stylesheet_link_tag    "application", media: "all"
+    = javascript_include_tag "https://js.stripe.com/v1/", "application"
+    = csrf_meta_tags
+    = tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY
+    = render 'layouts/shim'
+  %body.theme-pattern-lightmesh
+    = render 'layouts/header'
+    #content{:role => "main"}
+      - flash.each do |key, value|
+        = content_tag(:div, value, class: "alert alert-#{key}")
+      = yield
+      = render 'layouts/footer'
+      = debug(params) if Rails.env.development?
+  /
+    <script src="javascripts/jquery.min.js" type="text/javascript"></script>
+    <script src="javascripts/bootstrap.js" type="text/javascript"></script>
+  %script{:src => "https://maps.googleapis.com/maps/api/js?sensor=false"}
+  :javascript
+    //
+      // Call the google map
+      mapInit();
+    //
+    / Newsletter Modal load
+  :javascript
+    $(window).load(function(){
+        $('#myModal').modal('show');
+    });
+    / Google Analytics
+  :javascript
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-31531066-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();   
+    / Facebook Like bttn
+  #fb-root
+  :javascript
+    (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+          fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'facebook-jssdk'));
+          / Twitter Follow bttn
+  :javascript
+    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+        / conditional include for google map
+  - if current_page?(contact_path) or params[:controller] == 'inquiries'
+    = render 'layouts/googleshim'
