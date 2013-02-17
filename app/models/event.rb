@@ -10,7 +10,7 @@ validates_presence_of :topic, :message => ' must be included in order to save yo
 validates_presence_of :host_firstname, :message => ' must be included in order to save your form.'
 validates_presence_of :host_lastname, :message => ' must be included in order to save your form.'
 
-attr_accessible :title, :topic, :host_firstname, :host_lastname, :host_business, :bio, :twitter, :facebook, :website, :webshop, :permission, :payment_options, :paypal_email, :sendcheck_address, :sendcheck_address2, :sendcheck_city, :sendcheck_state, :sendcheck_zip, :kind, :description, :begins_at, :begins_at_time, :ends_at, :ends_at_time, :skill_list, :tool_list, :requirement_list, :other_needs, :hours, :hours_per, :location_address, :location_address2, :location_city, :location_state, :location_zipcode, :location_private, :location_nbrhood, :location_varies, :age_min, :age_max, :registration_min, :registration_max, :price, :picture
+attr_accessible :title, :topic, :host_firstname, :host_lastname, :host_business, :bio, :twitter, :facebook, :website, :webshop, :permission, :payment_options, :paypal_email, :sendcheck_address, :sendcheck_address2, :sendcheck_city, :sendcheck_state, :sendcheck_zip, :kind, :description, :begins_at, :begins_at_time, :ends_at, :ends_at_time, :datetime_tba, :skill_list, :tool_list, :requirement_list, :other_needs, :hours, :hours_per, :location_address, :location_address2, :location_city, :location_state, :location_zipcode, :location_private, :location_nbrhood, :location_varies, :age_min, :age_max, :registration_min, :registration_max, :price
 before_save :generate_title
 
 acts_as_taggable
@@ -56,6 +56,9 @@ rescue Stripe::InvalidRequestError => e
   false
 end
 
+def refund_payment
+end
+
 state_machine :state, :initial => :started do
   
    state :started do
@@ -88,6 +91,10 @@ state_machine :state, :initial => :started do
     
     event :accept do
       transition :pending => :accepted
+    end
+
+    event :resubmit do
+      transition :accepted => :pending
     end
     
     event :cancel do

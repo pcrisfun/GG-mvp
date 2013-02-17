@@ -12,32 +12,22 @@
           </h1>
 
           <h4>Bio</h4>
-          <p>
-            <%= @workshop.bio %>
-          </p>
+          <p><%= @workshop.bio %></p>
 
           <h4>Website</h4>
-          <p>
-            <%= @workshop.website %>
-          </p>
-          <p>
-            <%= @workshop.webshop %>
-          </p>
+          <p><%= @workshop.website %></p>
+          <p><%= @workshop.webshop %></p>
 
-          <h4>Social Media</h4>
-          <p>
-            <%= @workshop.twitter %>
-          </p>
-          <p>
-            <%= @workshop.facebook %>
-          </p>
+          <% unless @workshop.facebook.blank? && @workshop.twitter.blank? %>
+            <h4>Social Media</h4>
+              <p>@<%= @workshop.twitter %></p>
+              <p>facebook.com/<%= @workshop.facebook %></p>
+          <% end %>
 
           <hr />
 
           <h4>Workshop Description</h4>
-          <p>
-          	<%= @workshop.description %>
-          </P>
+          <p><%= @workshop.description %></P>
           
           <h4>Skills</h4> 
           <p><%= @workshop.skill_list %></p>
@@ -45,12 +35,21 @@
           <h4>Tools</h4>
           <p><%= @workshop.tool_list %></p>
           
-          <h4>Requirements</h4>
-          <p><%= @workshop.requirement_list %><p>
-          <p>Note: <%= @workshop.other_needs %></p>
+          <% unless @workshop.requirement_list.blank? %>
+            <h4>Requirements</h4>
+            <p><%= @workshop.requirement_list %><p>
+          <% end %>
+
+          <% unless @workshop.other_needs.blank? %>
+            <p>Note: <%= @workshop.other_needs %></p>
+          <% end %>
 
           <h4>When</h4>
-          <p><%= @workshop.begins_at.strftime("%m/%d/%Y") %>, <%= @workshop.begins_at_time.strftime("%l:%M%P") %> to <%= @workshop.ends_at_time.strftime("%l:%M%P") %></p>
+            <% if @workshop.datetime_tba.blank? %>
+                <p><%= @workshop.begins_at.strftime("%m/%d/%Y") %>, <%= @workshop.begins_at_time.strftime("%l:%M%P") %> to <%= @workshop.ends_at_time.strftime("%l:%M%P") %></p>
+            <% else %>
+                <p>TBA</p>        
+            <% end %>
 
           <h4>Where</h4>
           <p>
@@ -70,10 +69,13 @@
 
 
           <p>
-            <% if @workshop.started? %>
-             (<%= link_to "Resume", edit_workshop_path(@workshop) if @workshop.user == current_user %>)
-            <% elsif @workshop.accepted? or current_user.admin? %>
-             (<%= link_to "Edit", edit_workshop_path(@workshop) if @workshop.user == current_user %>)
+            <% if @workshop.started? && @workshop.user == current_user %>
+             (<%= link_to "Resume", edit_workshop_path(@workshop) %>)
+            <% elsif @workshop.pending? && @workshop.user == current_user %>
+             (<%= link_to 'Delete', @workshop, :method => :delete, :data => { :confirm => 'Are you sure you want to delete this workshop? Deleting cannot be undone.' } %>)
+            <% elsif @workshop.accepted? && @workshop.user == current_user or current_user.admin? %>
+              (<%= link_to "Cancel", @workshop, :method => :cancel, :data => { :confirm => "Are you sure you want to cancel this workshop? It will be closed for sign-up and moved under My Canceled Workshops. You will still be able to edit and resubmit it."} %>)
+             (<%= link_to "Edit", edit_workshop_path(@workshop) %>)
             <% end %>
           </p>
 

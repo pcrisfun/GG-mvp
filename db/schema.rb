@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121112212521) do
+ActiveRecord::Schema.define(:version => 20130204232513) do
 
   create_table "events", :force => true do |t|
     t.integer  "user_id"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20121112212521) do
     t.time     "begins_at_time"
     t.time     "ends_at_time"
     t.string   "location_nbrhood"
+    t.string   "datetime_tba"
   end
 
   create_table "taggings", :force => true do |t|

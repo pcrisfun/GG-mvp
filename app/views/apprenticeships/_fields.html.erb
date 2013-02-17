@@ -16,17 +16,25 @@
 	      	<%= f.label :host_firstname, capture { %>
 				First Name*
 				<% } %>
-			<%= f.text_field :host_firstname, :value => "#{current_user.first_name}" %>
-			
+			<% unless current_user.admin? %>
+				<%= f.text_field :host_firstname, :value => "#{current_user.first_name}" %>
+			<% else %> 
+				<%= f.text_field :host_firstname %>
+			<% end %>
+
 			<%= f.label :host_lastname, capture { %>
 				Last Name*
 				<% } %>
-			<%= f.text_field :host_lastname, :value => "#{current_user.last_name}" %>
-
+			<% unless current_user.admin? %>
+				<%= f.text_field :host_lastname, :value => "#{current_user.last_name}" %>
+			<% else %>
+				<%= f.text_field :host_lastname %>
+			<% end %>
+				
 			<%= f.label :host_business, capture { %>
 				Business Name
 				<% } %>
-			<%= f.text_field :host_business, :rel => 'popover', :data => { :content => "If you have a line of products or a brand for your work, include it here."} %>
+			<%= f.text_field :host_business, :class => "span4", :rel => 'popover', :data => { :content => "If you have a line of products or a brand for your work, include it here."} %>
 
 			<!--Add a host?-->
 	      	<br />
@@ -35,7 +43,7 @@
 			<%= f.label :bio, capture { %>
 				Bio*
 				<% } %>
-			<%= f.text_area :bio, :placeholder => "Give people a sense of who they'll be working with.", :rel => 'popover', :data => { :content => "Think about including: schooling, current work, recent shows, what you’re interested in as an artist and why you’re interested in teaching it - and a bit of personality, too!", "original-title" => 'Describe yourself' } %> 
+			<%= f.text_area :bio, :class => "span6", :placeholder => "Give people a sense of who they'll be working with.", :rel => 'popover', :data => { :content => "Think about including: schooling, current work, recent shows, what you’re interested in as an artist and why you’re interested in teaching it - and a bit of personality, too!", "original-title" => 'Describe yourself' } %> 
 
 			<%= f.label :website, capture { %>
 				Website*
@@ -84,6 +92,7 @@
 	  <div id="collapseTwo" class="accordion-body collapse">  
 	    <div class="accordion-inner"> 
 	    	<p>Give people an idea of what they'll learn and work on with you.</p>
+			
 			<%= f.label :topic, capture { %>
 				<h3>Apprenticeship Topic</h3>
 				<% } %>	
@@ -91,72 +100,86 @@
 			<!--Add a host?-->
 
 			<h3>Apprenticeship Description</h3>
-
 			<div class="form_row" rel='popover' data-content="An event apprenticeship centers around organizing and running an event, for example: hanging a gallery show, or planning an art auction. In a production apprenticeship your apprentice helps you produce your work, for example: filling a large order, or designing a new line or series. And in an ongoing apprenticeship your apprentice helps you in your everyday practice.">
 			<p>What kind of apprenticeship will it be?</p>
+			
 			<p><%= f.radio_button :kind, "Event Apprenticeship" %> Event Apprenticeship</p>
 			<p><%= f.radio_button :kind, "Production Apprenticeship" %> Production Apprenticeship</p>
 			<p><%= f.radio_button :kind, "Ongoing Apprenticeship" %> Ongoing Apprenticeship</p>
 			</div>
 
-			<%= f.text_area :description, :placeholder => "Tell us about your apprenticeship.", :rel => 'popover', :data => { :content => "Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. Based on your expectations, consider whether you plan to pay the apprentice, and if so, how much?", "original-title" => 'Description' }  %>
+			<%= f.text_area :description, :class => "span6", :placeholder => "Tell us about your apprenticeship.", :rel => 'popover', :data => { :content => "Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. Based on your expectations, consider whether you plan to pay the apprentice, and if so, how much?", "original-title" => 'Description' }  %>
 
 			<h3>Skills & Techniques</h3>
 			<%= f.label :skill_list, capture { %> 
-			<p>What skills and techniques will your apprentice(s) learn? (List each, followed by a comma)</p> 
+				<p>What skills and techniques will your apprentice(s) learn? (List each, followed by a comma)</p> 
 			<% } %>
 			<div rel='popover' data-content="Be as specific as possible to give your apprentice credit for her experience. We’ll keep track, to help her show off her skills!" data-original-title='Skills & Techniques' > 
 			<%= f.text_field :skill_list, :data => { :pre => @apprenticeship.skills.map { |t|  { :id => t.name, :name => t.name } } } %>
 			</div>
+
 			<br />
 
 			<h3>Tools & Materials</h3>
 			<%= f.label :tool_list, capture { %>
-			<p>What tools and materials will your apprentice(s) use? (List each, followed by a comma)</p> 
+				<p>What tools and materials will your apprentice(s) use? (List each, followed by a comma)</p> 
 			<% } %>
 			<div rel='popover' data-content="Be as specific as possible to give your apprentice credit for her experience. We’ll keep track, to help her show off her skills!" data-original-title='Tools & Materials' >
 			<%= f.text_field :tool_list, :data => { :pre => @apprenticeship.tools.map { |t|  { :id => t.name, :name => t.name } } }  %>
 			</div>
+
 			<br />
 
 			<h3>Requirements</h3>
 			<%= f.label :requirement_list, capture { %> 
-			<p>Do applicants need experience with any skills, techniques, or tools before they apply? (List each, followed by a comma)</p>
+				<p>Do applicants need experience with any skills, techniques, or tools before they apply? (List each, followed by a comma)</p>
 			<% } %>
 			<div rel='popover' data-content="Applicants will rate their level of experience with these skills and tools for you to see on their application." data-original-title='Requirements' >
 			<%= f.text_field :requirement_list, :data => { :pre => @apprenticeship.requirements.map { |t|  { :id => t.name, :name => t.name } } }  %>
 			</div>
+
 			<br />
 
 			<%= f.label :other_needs, capture { %>
-			<p>Are there other things your apprentice needs to have, like their own computer or car?<p>
-			<% } %>
-			<%= f.text_field :other_needs, :placeholder => "Ex. Must have their own laptop", :rel => 'popover', :data => { :content => "Applicants will confirm that they have these things for you to see on their application.", "original-title" => 'Other Needs' } %>
+				<p>Are there other things your apprentice needs to have, like their own computer or car?<p>
+				<% } %>	
+			<%= f.text_field :other_needs, :class => 'span3', :placeholder => "Ex. Must have their own laptop", :rel => 'popover', :data => { :content => 'Applicants will confirm on their application that they have these things.', "original-title" => 'Other Needs' } %> 
+			
 			<br />
 
-			<%= f.label :begins_at, capture { %> 
-			<h3>Start date</h3>
-			<% } %>
-			<div class="input-append date" data-behaviour="datepicker">
-			<%= f.text_field :begins_at, :class => "span2", :value => @apprenticeship.begins_at.strftime("%m/%d/%Y")  %>
-			 <span class="add-on"><i class="icon-th"></i></span>
+			<h3>Duration</h3>
+			<div class="row datepickerlayout">
+				<div class="input-append date span2" data-behaviour="datepicker">
+					<%= f.text_field :begins_at, :class => "span2", :value => @apprenticeship.begins_at.strftime("%m/%d/%Y")  %>
+			 		<span class="add-on"><i class="icon-th"></i></span>
+				</div>
+
+				<div class="span1 tofield"> &nbsp; &nbsp; &nbsp; to </div>
+
+				<div class="input-append date" data-behaviour="datepicker">
+					<%= f.text_field :ends_at, :class => "span2", :value => @apprenticeship.ends_at.strftime("%m/%d/%Y") %>
+			 		<span class="add-on"><i class="icon-th"></i></span>
+				</div>
 			</div>
 
-			<%= f.label :ends_at, capture { %> 
-			<h3>End date</h3>
-			<% } %>
-			<div class="input-append date" data-behaviour="datepicker">
-			<%= f.text_field :ends_at, :class => "span2", :value => @apprenticeship.ends_at.strftime("%m/%d/%Y") %>
-			 <span class="add-on"><i class="icon-th"></i></span>
+			<p>-OR-</p>
+			<div class="form-inline" >
+				<%= f.check_box :datetime_tba %>
+				<%= f.label :datetime_tba, capture { %> 
+					<p>I'd like to gauge interest by gathering pre-registrations before I set a date range, so please list it as "TBA"</p> 
+				<% } %>
 			</div>
 
 			<%= f.label :hours, capture { %>
-			<h3>How Often?</h3>
+				<h3>How Often?</h3>
 			<% } %>
-			<%= f.number_field :hours, :class => "span1" %>
+			<div class="form-inline" >
+				<%= f.number_field :hours, :class => "span1" %>
+				<%= f.label :hours_per, " hours per " %>
+				<%= f.select :hours_per, [ "day", "week", "month" ], {}, :class => "span2" %>
+			</div>
 
-			<%= f.label :hours_per, " hours per " %>
-			<%= f.select :hours_per, [ "day", "week", "month" ], {}, :class => "span2" %>
+			<br />
 
 			<h3>Location</h3>
 			<div class="controls">
@@ -172,22 +195,31 @@
 			</div>
 
 			<%= f.label :location_private, :class => "checkbox" do %>
-			<%= f.check_box :location_private %>This is a private or home address in the 
-			<% end %>
-			<%= f.text_field :location_nbrhood, :placeholder => 'Ex. Clarksville', :class => 'span2' %> neighborhood.
+			<%= f.check_box :location_private %>This is a private or home address in the <% end %><%= f.text_field :location_nbrhood, :placeholder => 'Ex. Clarksville', :class => 'span2' %> neighborhood.
 
+			<div class="form-inline" >
+			<%= f.check_box :location_varies %>
+			<%= f.label :location_varies, capture { %> 
+			<p>The apprenticeship will take place at varying locations</p> 
+			<% } %>
+			</div>
 
-			<%= f.label :location_varies, :class => "checkbox" do %>
-			  <%= f.check_box :location_varies %>The apprenticeship will take place at varying locations 
-			<% end %>
+			<br />
 
 			<h3>Age Range</h3>
-			<%= f.label :age_min, "Min. age" %>
-			<%= f.number_field :age_min, :class => "span1", :rel => 'popover', :data => { :content => "This is entirely up to you. We suggest a minimum age of 11 because our research has shown a need for fabulous mentors before middle school. If you need someone with a specific skill set or experience you may want to set the age higher and be clear about your needs in the apprenticeship description above.", "original-title" => 'Age Range' } %>
-			<%= f.label :age_max, "Max. age" %>
-			<%= f.number_field :age_max, :class => "span1", :rel => 'popover', :data => { :content => "If you want to work specifically with youth, you can set a maximum age accordingly. If you're happy to work with adults as well, you can set the maximum to 99.", "original-title" => 'Age Range' } %>
+			<div class="form-inline" >
+				<%= f.label :age_min, "Min. age:" %>
+				<%= f.number_field :age_min, :class => "span1", :rel => 'popover', :data => { :content => "This is entirely up to you. We suggest a minimum age of 11 because our research has shown a need for fabulous mentors before middle school. If you need someone with a specific skill set or experience you may want to set the age higher and be clear about your needs in the apprenticeship description above.", "original-title" => 'Age Range' } %>
+				
+				&nbsp; to &nbsp;
+			
+				<%= f.label :age_max, "Max. age:" %>
+				<%= f.number_field :age_max, :class => "span1", :rel => 'popover', :data => { :content => "If you want to work specifically with youth, you can set a maximum age accordingly. If you're happy to work with adults as well, you can set the maximum to 99.", "original-title" => 'Age Range' } %>
+			</div>
 
-			<p>Close applications after I've accepted <%= f.number_field :registration_min, :class => "span1", :rel => 'popover', :data => { :content => "After receiving an application you must accept or reject it within two weeks. Your listing will remain open until you fill or cancel the apprenticeship.", "original-title" => 'Number of Apprentices' } %> apprentice(s).</p>
+			<br />
+
+			<p>Close applications after I've accepted <%= f.number_field :registration_min, :placeholder => "1", :class => "span1", :rel => 'popover', :data => { :content => "After receiving an application you must accept or reject it within two weeks. Your listing will remain open until you fill or cancel the apprenticeship.", "original-title" => 'Number of Apprentices' } %> apprentice(s).</p>
 			<ul class="icons">
 				<li>
 					<a data-toggle="collapse" data-target="#collapseTwo">
