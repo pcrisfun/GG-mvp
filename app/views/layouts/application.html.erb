@@ -25,6 +25,7 @@
   <script src="javascripts/bootstrap.js" type="text/javascript"></script>
 -->
   <link href='http://fonts.googleapis.com/css?family=Dosis:400,300,500' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Kristi' rel='stylesheet' type='text/css'>
   <script src='https://maps.googleapis.com/maps/api/js?sensor=false'></script>
   <script type='text/javascript'>
     //<![CDATA[
@@ -36,10 +37,14 @@
   <!-- Newsletter Modal load -->
   <script type="text/javascript">
     $(window).load(function(){
+      if ($.cookie('#myModal') != 'shown')
+     {
+       $.cookie('#myModal', 'shown');
         $('#myModal').modal('show');
+     }
     });
   </script>
-  
+
   <!-- Google Analytics -->
   <script type="text/javascript">
       var _gaq = _gaq || [];
@@ -71,5 +76,7 @@
   <% if current_page?(contact_path) or params[:controller] == 'inquiries' %>
     <%= render 'layouts/googleshim' %>
   <% end -%>
+
+
 
 </html>

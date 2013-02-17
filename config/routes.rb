@@ -1,4 +1,4 @@
-SampleApp::Application.routes.draw do
+GirlsGuild::Application.routes.draw do
   devise_for :users
   resources :apprenticeships
   resources :workshops
