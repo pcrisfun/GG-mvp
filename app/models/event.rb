@@ -21,21 +21,20 @@ class Event < ActiveRecord::Base
   attr_accessible :title, :topic, :host_firstname, :host_lastname, :host_business, :bio, :twitter, :facebook, :website, :webshop, :permission, :payment_options, :paypal_email, :sendcheck_address, :sendcheck_address2, :sendcheck_city, :sendcheck_state, :sendcheck_zip, :kind, :description, :begins_at, :begins_at_time, :ends_at, :ends_at_time, :datetime_tba, :skill_list, :tool_list, :requirement_list, :other_needs, :hours, :hours_per, :location_address, :location_address2, :location_city, :location_state, :location_zipcode, :location_private, :location_nbrhood, :location_varies, :age_min, :age_max, :registration_min, :registration_max, :price
   before_save :generate_title
 
-  acts_as_taggable
-  acts_as_taggable_on :skills, :tools, :requirements
-
-  before_save :fix_tags
-
   attr_accessible :stripe_card_token
   attr_accessor :stripe_card_token
 
+  acts_as_taggable
+  acts_as_taggable_on :skills, :tools, :requirements
 
-  def fix_tags
-    # OPTIMIZE: lol this is a hack to fix acts as taggable on
-    self.skill_list = self.skill_list.map { |t| t.strip.gsub(/[^,A-Z0-9 '-]/i, '') }.join(',')
-    self.tool_list = self.tool_list.map { |t| t.strip.gsub(/[^,A-Z0-9 '-]/i, '') }.join(',')
-    self.requirement_list = self.requirement_list.map { |t| t.strip.gsub(/[^,A-Z0-9 '-]/i, '') }.join(',')
-  end
+    before_save :fix_tags
+
+    def fix_tags
+      # OPTIMIZE: lol this is a hack to fix acts as taggable on
+      self.skill_list = self.skill_list.map { |t| t.strip.gsub(/[^,A-Z0-9 '-]/i, '') }.join(',')
+      self.tool_list = self.tool_list.map { |t| t.strip.gsub(/[^,A-Z0-9 '-]/i, '') }.join(',')
+      self.requirement_list = self.requirement_list.map { |t| t.strip.gsub(/[^,A-Z0-9 '-]/i, '') }.join(',')
+    end
 
   def begins_at=(new_date)
      write_attribute(:begins_at, Chronic::parse(new_date).strftime('%Y-%m-%d %H:%M:%S'))
@@ -119,11 +118,7 @@ class Event < ActiveRecord::Base
 
       event :in_progress do
         transition :accepted => :in_progress
-      end
-
-      event :complete do
-        transition :accepted => :completed
-      end   
+      end  
   end 
 
 end

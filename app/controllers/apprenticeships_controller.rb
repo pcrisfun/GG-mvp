@@ -56,20 +56,26 @@ class ApprenticeshipsController < ApplicationController
     end
   end
 	
-
   def update
-    if @apprenticeship.update_attributes(params[:apprenticeship])
-      
-      if params[:apprenticeship][:stripe_card_token].present?
+    if params[:save_button] == "Save for Later"
+      if @apprenticeship.group_valid?(:save) && @apprenticeship.update_attributes(params[:apprenticeship],:validate => false)
+        redirect_to apprenticeships_path, :flash => { :success => "Your apprenticeship was saved." }
+      else
+        flash.now[:warning] = "There was a problem saving your apprenticeship. Please review all fields."
+        render 'edit'
+      end
+
+    else
+      if @apprenticeship.update_attributes(params[:apprenticeship])
         if @apprenticeship.process_payment
           if @apprenticeship.submit && @apprenticeship.deliver
             redirect_to apprenticeships_path, :flash => {:success => "Your apprenticeship was created!" }
           else
-            flash[:warning] = "Apprenticeship submission is incomplete. Please review all fields."
+            flash[:warning] = "Some required information is missing. Please review all fields."
             render 'edit'
           end
         else
-          flash.now[:notify] = "Couldn't process payment. There's a problem with def update in the controller."
+          flash.now[:notify] = "Couldn't process payment. Please try again."
           render 'edit'
         end
 
@@ -90,15 +96,12 @@ class ApprenticeshipsController < ApplicationController
 
       elsif params[:cancel_button] && @apprenticeship.deliver_cancel
         @apprenticeship.cancel  
-        redirect_to workshops_path, :flash => { :warning => "Your apprenticeship has been canceled."}
+        redirect_to apprenticeships_path, :flash => { :warning => "Your apprenticeship has been canceled."}  
 
       else
-        redirect_to apprenticeships_path, :flash => { :success => "Your apprenticeship was saved." }
-      end   
-
-    else
-      flash.now[:warning] = "There was a problem saving your apprenticeship. Please review all fields."
-      render 'edit'
+        flash.now[:warning] = "There was a problem saving your apprenticeship. Please review all fields."
+        render 'edit'
+      end
     end
   end
   
