@@ -63,18 +63,13 @@ class Apprenticeship < Event
 	end
 
 	def self.complete_apprenticeship
-	    puts "fuck yeah." 
-	#---This should be:
-	    #apprenticeships = self.where(:begins_at => Date.today).all 
-		#apprenticeships.each {|a| a.complete}
-
-	#---review Date syntax to go in where statment
-	#---test in rails c: Workshop.where blahblah
+	    apprenticeships = self.where(:ends_at => Date.today).all 
+		apprenticeships.each {|a| a.complete}
 	end
 
 	state_machine :state, :initial => :started do
 		event :complete do
-        	transition :in_progress => :completed
+        	transition :accepted => :completed #once signup is working this should be :in_progress => :completed
         end 
 	end
 

@@ -10,9 +10,11 @@ class WorkshopsController < ApplicationController
       @mypending_workshops = current_user.workshops.find_all_by_state('pending')
       @myactive_workshops =  current_user.workshops.find_all_by_state('accepted')
       @mycanceled_workshops = current_user.workshops.find_all_by_state('canceled')
+      @mycompleted_workshops = current_user.workshops.find_all_by_state('completed')
       @allpending_workshops = Workshop.find_all_by_state('pending')
       @allsaved_workshops = Workshop.find_all_by_state('started')
-      @allcanceled_workshops = Workshop.find_all_by_state('canceled')      
+      @allcanceled_workshops = Workshop.find_all_by_state('canceled')  
+      @allcompleted_workshops = Workshop.find_all_by_state('completed')    
     end
   	@workshops = Workshop.find_all_by_state('accepted')
   end
@@ -20,66 +22,73 @@ class WorkshopsController < ApplicationController
   def new
   	@workshop = Workshop.new 
   	@workshop.begins_at = Date.today
-    @workshop.ends_at = Date.today
+    @workshop.ends_at = Date.today - 1.day
   end	
 
   def create
     @workshop = current_user.workshops.new(params[:workshop])
-    if @workshop.save
-      
-      if params[:create_button]
+
+    if params[:save_button] == "Save for Later"
+      if @workshop.group_valid?(:save) && @workshop.save(:validate => false)
+        redirect_to workshops_path, :flash => { :success => "Your workshop was saved." }
+      else
+        flash.now[:warning] = "There was a problem saving your workshop. Please review all fields."
+        render 'new'
+      end
+    else
+      if @workshop.save
         if @workshop.submit && @workshop.deliver
           redirect_to workshops_path, :flash => {:success => "Your workshop was created!" }
         else
-          flash[:warning] = "Workshop submission is incomplete. Please review all fields."
-          render 'edit'          
+        flash.now[:warning] = "There was a problem creating your workshop. Please review all fields."
+        render 'edit'
         end
-      else
-        redirect_to workshops_path, :flash => { :success => "Your workshop was saved." }
+      else 
+        flash.now[:warning] = "There was a problem saving your workshop. Please review all fields."
+        render 'new'
       end
-    else
-      flash.now[:warning] = "There was a problem saving your workshop. Please review all fields."
-      render 'new'
     end
   end
   
   def update
-    if @workshop.update_attributes(params[:workshop])
-      
-      if params[:create_button]
-        if @workshop.submit && @workshop.deliver
-          redirect_to workshops_path, :flash => {:success => "Your workshop was created!" }
-        else
-          flash[:warning] = "Workshop submission is incomplete. Please review all fields."
-          render 'edit'
-        end
-          
-      elsif params[:revoke_button] && current_user.admin?
-        @workshop.revoke
-        redirect_to workshops_path, :flash => { :warning => "Workshop was revoked." }
-          
-      elsif params[:reject_button] && current_user.admin?
-        @workshop.reject
-        redirect_to workshops_path, :flash => { :warning => "Workshop was rejected." }
-          
-      elsif params[:accept_button] && current_user.admin?
-        @workshop.accept
-        redirect_to workshops_path, :flash => { :success => "Workshop was accepted." }
-
-      elsif params[:resubmit_button] && @workshop.deliver_resubmit
-        redirect_to workshops_path, :flash => { :success => "Your workshop was resubmitted."}
-
-      elsif params[:cancel_button] && @workshop.deliver_cancel
-        @workshop.cancel  
-        redirect_to workshops_path, :flash => { :warning => "Your workshop has been canceled."}
-         
-      else
+    if params[:save_button] == "Save for Later"
+      if @workshop.group_valid?(:save) && @workshop.update_attributes(params[:workshop],:validate => false)
         redirect_to workshops_path, :flash => { :success => "Your workshop was saved." }
+      else
+        flash.now[:warning] = "There was a problem saving your workshop. Please review all fields."
+        render 'edit'
       end
 
     else
-      flash.now[:warning] = "There was a problem saving your workshop. Please review all fields."
-      render 'edit'
+      if @workshop.update_attributes(params[:workshop])
+
+        if params[:revoke_button] && current_user.admin?
+          @workshop.revoke
+          redirect_to workshops_path, :flash => { :warning => "Workshop was revoked."}
+
+        elsif params[:reject_button] && current_user.admin?
+          @workshop.reject
+          redirect_to workshops_path, :flash => { :warning => "Workshop was rejected." }
+          
+        elsif params[:accept_button] && current_user.admin?
+          @workshop.accept
+          redirect_to workshops_path, :flash => { :success => "Workshop was accepted." }
+
+        elsif params[:resubmit_button] && @workshop.deliver_resubmit
+          redirect_to workshops_path, :flash => { :success => "Your workshop was resubmitted."}
+
+        elsif params[:cancel_button] && @workshop.deliver_cancel
+          @workshop.cancel  
+          redirect_to workshops_path, :flash => { :warning => "Your workshop has been canceled."}  
+
+        else @workshop.submit && @workshop.deliver
+            redirect_to workshops_path, :flash => {:success => "Your workshop was created!" }
+        end
+
+      else
+        flash.now[:warning] = "Some required information is missing. Please review all fields."
+        render 'edit'
+      end
     end
   end
   

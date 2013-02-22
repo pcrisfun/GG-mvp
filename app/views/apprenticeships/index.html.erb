@@ -8,23 +8,33 @@
 				<hr />
 				<h3>My Apprenticeships</h2>
 				<% unless @mycanceled_apprenticeships.blank? %>
-				<h4>My Canceled Apprenticeships</h4>
-				<%= render :partial => "apprenticeship", :collection => @mycanceled_apprenticeships %>
+					<h4>My Canceled Apprenticeships</h4>
+					<%= render :partial => "apprenticeship", :collection => @mycanceled_apprenticeships %>
 				<% end %>
 
 				<% unless @mysaved_apprenticeships.blank? %>
-				<h4>My Saved Apprenticeships</h4>
-				<%= render :partial => "apprenticeship", :collection => @mysaved_apprenticeships %>
+					<h4>My Saved Apprenticeships</h4>
+					<%= render :partial => "apprenticeship", :collection => @mysaved_apprenticeships %>
 				<% end %>
 
 				<% unless @mypending_apprenticeships.blank? %>
-				<h4>My Pending Apprenticeships</h4>
-				<%= render :partial => "apprenticeship", :collection => @mypending_apprenticeships %>
+					<h4>My Pending Apprenticeships</h4>
+					<%= render :partial => "apprenticeship", :collection => @mypending_apprenticeships %>
 				<% end %>
 
 				<% unless @myactive_apprenticeships.blank? %>
-				<h4>My Upcoming Apprenticeships</h4>
-				<%= render :partial => "apprenticeship", :collection => @myactive_apprenticeships %>
+					<h4>My Upcoming Apprenticeships</h4>
+					<%= render :partial => "apprenticeship", :collection => @myactive_apprenticeships %>
+				<% end %>
+
+				<% unless @myinprogress_apprenticeships.blank? %>
+					<h4>My Current Apprenticeships</h4>
+					<%= render :partial => "apprenticeship", :collection => @myinprogress_apprenticeships %>
+				<% end %>
+
+				<% unless @mycompleted_apprenticeships.blank? %>
+					<h4>My Completed Apprenticeships</h4>
+					<%= render :partial => "apprenticeship", :collection => @mycompleted_apprenticeships %>
 				<% end %>
 			<% end %>	
 
@@ -47,6 +57,18 @@
 					<h4>Canceled Apprenticeships</h4>
 					<p>These apprenticeships have been canceled since we accepted them. :(</p>
 					<%= render :partial => "apprenticeship", :collection => @allcanceled_apprenticeships %>
+				<% end %>
+
+				<% unless @allinprogress_apprenticeships.blank? %>
+					<h4>In-Progress Apprenticeships</h4>
+					<p>These apprenticeships are underway right now.</p>
+					<%= render :partial => "apprenticeship", :collection => @allinprogress_apprenticeships %>
+				<% end %>
+
+				<% unless @allcompleted_apprenticeships.blank? %>
+					<h4>Completed Apprenticeships</h4>
+					<p>These apprenticeships are all wrapped up.</p>
+					<%= render :partial => "apprenticeship", :collection => @allcompleted_apprenticeships %>
 				<% end %>
 			<% end %>
 		<% end %>		

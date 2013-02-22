@@ -13,13 +13,6 @@
 
 ActiveRecord::Schema.define(:version => 20130204232513) do
 
-  create_table "albums", :force => true do |t|
-    t.string   "title"
-    t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
   create_table "events", :force => true do |t|
     t.integer  "user_id"
     t.string   "type"
@@ -43,8 +36,8 @@ ActiveRecord::Schema.define(:version => 20130204232513) do
     t.string   "sendcheck_state"
     t.string   "sendcheck_zip"
     t.text     "description"
-    t.datetime "begins_at"
-    t.datetime "ends_at"
+    t.date     "begins_at"
+    t.date     "ends_at"
     t.integer  "hours"
     t.string   "hours_per",                                        :default => "week"
     t.string   "availability"
@@ -66,21 +59,9 @@ ActiveRecord::Schema.define(:version => 20130204232513) do
     t.string   "other_needs"
     t.decimal  "price",              :precision => 8, :scale => 2
     t.time     "begins_at_time"
-    t.date     "ends_at_date"
     t.time     "ends_at_time"
     t.string   "location_nbrhood"
     t.string   "datetime_tba"
-  end
-
-  create_table "photos", :force => true do |t|
-    t.string   "caption"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.integer  "album_id"
   end
 
   create_table "taggings", :force => true do |t|
