@@ -2,7 +2,7 @@ class WorkshopsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
   before_filter :current_workshop, except: [:index, :new, :create]
   before_filter :owner_user, only: [:edit, :update]
-  before_filter :admin_user, only: :destroy
+  before_filter :current_admin, only: :destroy
   
   def index
     unless current_user.blank?
@@ -29,13 +29,14 @@ class WorkshopsController < ApplicationController
       
       if params[:create_button]
         if @workshop.submit && @workshop.deliver
-          redirect_to workshops_path, :flash => {:success => "Your workshop was created!" }
+          redirect_to workshops_path, :flash => {:success => "Yatzee! Your workshop was submitted." }
         else
           flash[:warning] = "Workshop submission is incomplete. Please review all fields."
           render 'edit'          
         end
       else
-        redirect_to workshops_path, :flash => { :success => "Your workshop was saved." }
+        @workshop.deliver_save
+        redirect_to workshops_path, :flash => { :success => "Nice! Your workshop was saved." }
       end
     else
       flash.now[:warning] = "There was a problem saving your workshop. Please review all fields."
@@ -48,7 +49,7 @@ class WorkshopsController < ApplicationController
       
       if params[:create_button]
         if @workshop.submit && @workshop.deliver
-          redirect_to workshops_path, :flash => {:success => "Your workshop was created!" }
+          redirect_to workshops_path, :flash => {:success => "Yatzee! Your workshop was submitted." }
         else
           flash[:warning] = "Workshop submission is incomplete. Please review all fields."
           render 'edit'
@@ -63,18 +64,18 @@ class WorkshopsController < ApplicationController
         redirect_to workshops_path, :flash => { :warning => "Workshop was rejected." }
           
       elsif params[:accept_button] && current_user.admin?
-        @workshop.accept
+        @workshop.accept && @workshop.deliver_accept
         redirect_to workshops_path, :flash => { :success => "Workshop was accepted." }
 
       elsif params[:resubmit_button] && @workshop.deliver_resubmit
-        redirect_to workshops_path, :flash => { :success => "Your workshop was resubmitted."}
+        redirect_to workshops_path, :flash => { :success => "Thanks! Your workshop was resubmitted."}
 
       elsif params[:cancel_button] && @workshop.deliver_cancel
         @workshop.cancel  
-        redirect_to workshops_path, :flash => { :warning => "Your workshop has been canceled."}
+        redirect_to workshops_path, :flash => { :warning => "Rats. Your workshop has been canceled."}
          
       else
-        redirect_to workshops_path, :flash => { :success => "Your workshop was saved." }
+        redirect_to workshops_path, :flash => { :success => "Nice! Your workshop was saved." }
       end
 
     else

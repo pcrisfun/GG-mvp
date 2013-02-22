@@ -1,5 +1,5 @@
 GirlsGuild::Application.routes.draw do
-  devise_for :users
+  devise_for :users, :admins
   resources :apprenticeships
   resources :workshops
   

@@ -61,9 +61,6 @@ end
 
 state_machine :state, :initial => :started do
   
-   state :started do
-   end
-  
    state :pending do
       validates_presence_of :bio, :website, :permission, :description, :begins_at, :skill_list, :tool_list, :location_address, :location_city, :location_state, :location_zipcode, :age_min, :age_max, :registration_min
       validates_numericality_of :age_min, :greater_than => 0
