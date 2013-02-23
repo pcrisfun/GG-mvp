@@ -3,9 +3,33 @@
 		<%= link_to "Offer a Workshop", new_workshop_path, :class => 'btn btn-large btn-primary' %>
 
 		<% unless current_user.blank? %>
+			<% if current_user.admin? %>
+				<hr />
+				<h2>Admin</h2>
+				<% unless @allsaved_workshops.blank? %>
+					<h3>Saved Workshops</h3>
+					<%= render :partial => "workshop", :collection => @allsaved_workshops %>
+				<% end %>
+
+				<% unless @allpending_workshops.blank? %>
+					<h3>Pending Workshops Needing Review</h3>
+					<%= render :partial => "workshop", :collection => @allpending_workshops %>
+				<% end %>
+
+				<% unless @allcanceled_workshops.blank? %>
+					<h4>Canceled Workshops Since Being Accepted</h4>
+					<%= render :partial => "workshop", :collection => @allcanceled_workshops %>
+				<% end %>
+
+				<% unless @allcompleted_workshops.blank? %>
+					<h4>Completed Workshops</h4>
+					<%= render :partial => "workshop", :collection => @allcompleted_workshops %>
+				<% end %>
+			<% end %>
+
 			<% unless current_user.workshops.blank? %> 
 				<hr />
-				<h3>My Workshops</h2>
+				<h2>My Workshops</h2>
 				<% unless @mycanceled_workshops.blank? %>
 					<h4>My Canceled Workshops</h4>
 					<%= render :partial => "workshop", :collection => @mycanceled_workshops %>
@@ -31,39 +55,11 @@
 					<%= render :partial => "workshop", :collection => @mycompleted_workshops %>
 				<% end %>
 			<% end %>
-
-			<% if current_user.admin? %>
-				<hr />
-				<h3>Admin View</h3>
-				<% unless @allsaved_workshops.blank? %>
-					<h4>Workshops in Progress</h4>
-					<p>These workshops have not been submitted yet; this list just lets us see what's in the works.</p>
-					<%= render :partial => "workshop", :collection => @allsaved_workshops %>
-				<% end %>
-
-				<% unless @allpending_workshops.blank? %>
-					<h4>Pending Workshops</h4>
-					<p>These workshops need review!</p>
-					<%= render :partial => "workshop", :collection => @allpending_workshops %>
-				<% end %>
-
-				<% unless @allcanceled_workshops.blank? %>
-					<h4>Canceled Workshops</h4>
-					<p>These workshops have been canceled since we accepted them. :(</p>
-					<%= render :partial => "workshop", :collection => @allcanceled_workshops %>
-				<% end %>
-
-				<% unless @allcompleted_workshops.blank? %>
-					<h4>Completed Workshops</h4>
-					<p>These workshops are all wrapped up.</p>
-					<%= render :partial => "workshop", :collection => @allcompleted_workshops %>
-				<% end %>
-			<% end %>	
 		<% end %>	
 
 		<% unless @workshops.blank? %>
 			<hr />
-			<h3>All Workshops</h3>
+			<h2>All Workshops</h2>
 			<%= render :partial => "workshop", :collection => @workshops %>
 		<% end %>
 

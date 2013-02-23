@@ -21,3 +21,6 @@ doc/
 .project
 .DS_Store
 bundler_stubs/
+
+# Ignore application configuration
+/config/application.yml

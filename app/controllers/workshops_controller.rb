@@ -1,8 +1,8 @@
 class WorkshopsController < ApplicationController
-  before_filter :signed_in_user, except: [:index, :show]
+  before_filter :authenticate_user!, except: [:index, :show]
   before_filter :current_workshop, except: [:index, :new, :create]
   before_filter :owner_user, only: [:edit, :update]
-  before_filter :admin_user, only: :destroy
+  before_filter :current_admin, only: :destroy
   
   def index
     unless current_user.blank?
@@ -29,33 +29,34 @@ class WorkshopsController < ApplicationController
     @workshop = current_user.workshops.new(params[:workshop])
 
     if params[:save_button] == "Save for Later"
-      if @workshop.group_valid?(:save) && @workshop.save(:validate => false)
+      if @workshop.group_valid?(:save) && @workshop.save(:validate => false) && @workshop.deliver_save
         redirect_to workshops_path, :flash => { :success => "Your workshop was saved." }
       else
-        flash.now[:warning] = "There was a problem saving your workshop. Please review all fields."
+        flash.now[:warning] = "Whoops! There was a problem saving your workshop. Please check all fields."
         render 'new'
       end
     else
       if @workshop.save
         if @workshop.submit && @workshop.deliver
-          redirect_to workshops_path, :flash => {:success => "Your workshop was created!" }
+          redirect_to workshops_path, :flash => {:success => "Yatzee! Your workshop was submitted." }
         else
-        flash.now[:warning] = "There was a problem creating your workshop. Please review all fields."
+        flash.now[:warning] = "Whoops! There was a problem creating your workshop. Please check all fields."
         render 'edit'
         end
       else 
-        flash.now[:warning] = "There was a problem saving your workshop. Please review all fields."
+        flash.now[:warning] = "Whoops! There was a problem saving your workshop. Please check all fields."
         render 'new'
       end
     end
   end
   
   def update
+
     if params[:save_button] == "Save for Later"
       if @workshop.group_valid?(:save) && @workshop.update_attributes(params[:workshop],:validate => false)
-        redirect_to workshops_path, :flash => { :success => "Your workshop was saved." }
+        redirect_to workshops_path, :flash => { :success => "Nice! Your workshop was saved." }
       else
-        flash.now[:warning] = "There was a problem saving your workshop. Please review all fields."
+        flash.now[:warning] = "Whoops! There was a problem saving your workshop. Please check all fields."
         render 'edit'
       end
 
@@ -64,29 +65,29 @@ class WorkshopsController < ApplicationController
 
         if params[:revoke_button] && current_user.admin?
           @workshop.revoke
-          redirect_to workshops_path, :flash => { :warning => "Workshop was revoked."}
+          redirect_to workshops_path, :flash => { :warning => "Workshop revoked."}
 
         elsif params[:reject_button] && current_user.admin?
           @workshop.reject
-          redirect_to workshops_path, :flash => { :warning => "Workshop was rejected." }
+          redirect_to workshops_path, :flash => { :warning => "Workshop rejected." }
           
         elsif params[:accept_button] && current_user.admin?
           @workshop.accept
-          redirect_to workshops_path, :flash => { :success => "Workshop was accepted." }
+          redirect_to workshops_path, :flash => { :success => "Workshop accepted." }
 
         elsif params[:resubmit_button] && @workshop.deliver_resubmit
-          redirect_to workshops_path, :flash => { :success => "Your workshop was resubmitted."}
+          redirect_to workshops_path, :flash => { :success => "Thanks! Your workshop was resubmitted."}
 
         elsif params[:cancel_button] && @workshop.deliver_cancel
           @workshop.cancel  
-          redirect_to workshops_path, :flash => { :warning => "Your workshop has been canceled."}  
+          redirect_to workshops_path, :flash => { :warning => "Rats. Your workshop has been canceled."}  
 
         else @workshop.submit && @workshop.deliver
-            redirect_to workshops_path, :flash => {:success => "Your workshop was created!" }
+            redirect_to workshops_path, :flash => {:success => "Yatzee! Your workshop was created!" }
         end
 
       else
-        flash.now[:warning] = "Some required information is missing. Please review all fields."
+        flash.now[:warning] = "Oops, some required information is missing. Please check all fields."
         render 'edit'
       end
     end

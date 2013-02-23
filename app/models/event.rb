@@ -44,7 +44,6 @@ class Event < ActiveRecord::Base
      write_attribute(:ends_at, Chronic::parse(new_date).strftime("%Y-%m-%d %H:%M:%S"))
   end
 
-
   def process_payment
     logger.info "Processing payment"
     unless charge_id.present?
@@ -72,12 +71,11 @@ class Event < ActiveRecord::Base
   end   
 
   state_machine :state, :initial => :started do
-    
+
      state :started do
      end
     
      state :pending do
-
      end
     
      state :accepted do

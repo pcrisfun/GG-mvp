@@ -49,7 +49,7 @@ html
 
 end
 
-module SampleApp
+module GirlsGuild
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -92,6 +92,9 @@ module SampleApp
     # in your app. As such, your models will need to explicitly whitelist or blacklist accessible
     # parameters by using an attr_accessible or attr_protected declaration.
     config.active_record.whitelist_attributes = true
+
+    # forcing your application to not access the DB or load models when precompiling your assets
+    config.assets.initialize_on_precompile = false
 
     # Enable the asset pipeline
     config.assets.enabled = true

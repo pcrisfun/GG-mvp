@@ -1,0 +1,94 @@
+/ Mailchimp newsletter signup page
+- provide(:title, 'Newsletter')
+%section#promo.section.alt
+  .container
+    .hero-unit
+      %h1 Guild News
+%section#promo.section
+  .container
+    .span6.fancyform
+      / Begin MailChimp Signup Form
+      #mc_embed_signup
+        %form#mc-embedded-subscribe-form.validate{:action => "http://girlsguild.us4.list-manage1.com/subscribe/post?u=9f2de43ebd5f4d79e3d803fb9&id=968aec4fad", :method => "post", :name => "mc-embedded-subscribe-form", :novalidate => "", :target => "_blank"}
+          .indicates-required
+            %span.asterisk *
+            indicates required
+          %br/
+          %br/
+          .mc-field-group
+            %label{:for => "mce-EMAIL"}
+              Email Address
+              %span.asterisk *
+            %input#mce-EMAIL.required.email.span6{:name => "EMAIL", :type => "email", :value => ""}/
+          .mc-field-group
+            %label{:for => "mce-FNAME"}
+              First Name
+              %span.asterisk *
+            %input#mce-FNAME.required.span6{:name => "FNAME", :type => "text", :value => ""}/
+          .mc-field-group
+            %label{:for => "mce-LNAME"}
+              Last Name
+              %span.asterisk *
+            %input#mce-LNAME.required.span6{:name => "LNAME", :type => "text", :value => ""}/
+          .mc-field-group
+            %label{:for => "mce-MMERGE3"}
+              Where did you hear about us?
+              %span.asterisk *
+            %input#mce-MMERGE3.required.span6{:name => "MMERGE3", :type => "text", :value => ""}/
+          %br/
+          .mc-field-group.input-group
+            %strong
+              Do you live in/near Austin?
+              %span.asterisk *
+            %label.radio
+              %input#mce-MMERGE4-0{:name => "MMERGE4", :type => "radio", :value => "Yes, in Austin"}/
+            %label{:for => "mce-MMERGE4-0"} Yes, in Austin
+            %label.radio
+              %input#mce-MMERGE4-1{:name => "MMERGE4", :type => "radio", :value => "No, outside Austin"}/
+            %label{:for => "mce-MMERGE4-1"} No, outside Austin
+          %br/
+          .mc-field-group.input-group
+            %strong I'm interested in...
+            %label.checkbox
+              %input{:id => "mce-group[3449]-3449-0", :name => "group[3449][1]", :type => "checkbox", :value => "1"}/
+            %label{:for => "mce-group[3449]-3449-0"}
+              taking a session or apprenticeship! (I'm under 19 years old.)
+            %label.checkbox
+              %input{:id => "mce-group[3449]-3449-1", :name => "group[3449][2]", :type => "checkbox", :value => "2"}/
+            %label{:for => "mce-group[3449]-3449-1"}
+              taking a session or apprenticeship! (I'm 19 years old or over.)
+            %label.checkbox
+              %input{:id => "mce-group[3449]-3449-2", :name => "group[3449][4]", :type => "checkbox", :value => "4"}/
+            %label{:for => "mce-group[3449]-3449-2"} having my daughter take a session or apprenticeship.
+            %label.checkbox
+              %input{:id => "mce-group[3449]-3449-3", :name => "group[3449][8]", :type => "checkbox", :value => "8"}/
+            %label{:for => "mce-group[3449]-3449-3"} leading a session as a maker.
+            %label.checkbox
+              %input{:id => "mce-group[3449]-3449-4", :name => "group[3449][16]", :type => "checkbox", :value => "16"}/
+            %label{:for => "mce-group[3449]-3449-4"} having an apprentice
+            %label.checkbox
+              %input{:id => "mce-group[3449]-3449-5", :name => "group[3449][32]", :type => "checkbox", :value => "32"}/
+            %label{:for => "mce-group[3449]-3449-5"}
+              partnering GirlsGuild with the school/organization I work with.
+            %label.checkbox
+              %input{:id => "mce-group[3449]-3449-6", :name => "group[3449][64]", :type => "checkbox", :value => "64"}/
+            %label{:for => "mce-group[3449]-3449-6"} just getting occasional emails.
+          %br/
+          .mc-field-group.input-group
+            %strong Email Format
+            %label.radio
+              %input#mce-EMAILTYPE-0{:name => "EMAILTYPE", :type => "radio", :value => "html"}/
+            %label{:for => "mce-EMAILTYPE-0"} html
+            %label.radio
+              %input#mce-EMAILTYPE-1{:name => "EMAILTYPE", :type => "radio", :value => "text"}/
+            %label{:for => "mce-EMAILTYPE-1"} text
+            %label.radio
+              %input#mce-EMAILTYPE-2{:name => "EMAILTYPE", :type => "radio", :value => "mobile"}/
+            %label{:for => "mce-EMAILTYPE-2"} mobile
+          #mce-responses.clear
+            #mce-error-response.response{:style => "display:none"}
+            #mce-success-response.response{:style => "display:none"}
+          %br/
+          .clear
+            %input#mc-embedded-subscribe.button.btn.btn-large.btn-primary{:name => "subscribe", :type => "submit", :value => "Subscribe"}/
+      / End mc_embed_signup

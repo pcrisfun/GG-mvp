@@ -1,8 +1,8 @@
 class ApprenticeshipsController < ApplicationController
-  before_filter :signed_in_user, except: [:index, :show]
+  before_filter :authenticate_user!, except: [:index, :show]
   before_filter :current_apprenticeship, except: [:index, :new, :create]
   before_filter :owner_user, only: [:edit, :update]
-  before_filter :admin_user, only: :destroy
+  before_filter :current_admin, only: :destroy
   
   def index
     unless current_user.blank?
@@ -32,27 +32,27 @@ class ApprenticeshipsController < ApplicationController
     @apprenticeship = current_user.apprenticeships.new(params[:apprenticeship])
 
     if params[:save_button] == "Save for Later"
-      if @apprenticeship.group_valid?(:save) && @apprenticeship.save(:validate => false)
-        redirect_to apprenticeships_path, :flash => { :success => "Your apprenticeship was saved." }
+      if @apprenticeship.group_valid?(:save) && @apprenticeship.save(:validate => false) && @apprenticeship.deliver_save
+        redirect_to apprenticeships_path, :flash => { :success => "Nice! Your apprenticeship was saved." }
       else
-        flash.now[:warning] = "There was a problem saving your apprenticeship. Please review all fields."
+        flash.now[:warning] = "Whoops! There was a problem saving your apprenticeship. Please check all fields."
         render 'new'
       end
     else
       if @apprenticeship.save
         if @apprenticeship.process_payment
           if @apprenticeship.submit && @apprenticeship.deliver
-            redirect_to apprenticeships_path, :flash => {:success => "Your apprenticeship was created!" }
+            redirect_to apprenticeships_path, :flash => {:success => "Baller! Your apprenticeship was submitted!" }
           else
-          flash.now[:warning] = "There was a problem creating your apprenticeship. Please review all fields."
+          flash.now[:warning] = "Whoops! There was a problem creating your apprenticeship. Please check all fields."
           render 'edit'
           end
         else
-          flash.now[:notify] = "Couldn't process payment. There's a problem with def create in the controller."
+          flash.now[:notify] = "Hmm, we couldn't process payment. Please try again."
           render 'edit'
         end
       else 
-        flash.now[:warning] = "There was a problem saving your apprenticeship. Please review all fields."
+        flash.now[:warning] = "Whoops! There was a problem saving your apprenticeship. Please check all fields."
         render 'new'
       end
     end
@@ -63,7 +63,7 @@ class ApprenticeshipsController < ApplicationController
       if @apprenticeship.group_valid?(:save) && @apprenticeship.update_attributes(params[:apprenticeship],:validate => false)
         redirect_to apprenticeships_path, :flash => { :success => "Your apprenticeship was saved." }
       else
-        flash.now[:warning] = "There was a problem saving your apprenticeship. Please review all fields."
+        flash.now[:warning] = "Whoops! There was a problem saving your apprenticeship. Please check all fields."
         render 'edit'
       end
 
@@ -72,38 +72,38 @@ class ApprenticeshipsController < ApplicationController
 
         if params[:revoke_button] && current_user.admin?
           @apprenticeship.revoke
-          redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship was revoked."}
+          redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship revoked."}
 
         elsif params[:reject_button] && current_user.admin?
           @apprenticeship.reject
-          redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship was rejected." }
+          redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship rejected." }
           
         elsif params[:accept_button] && current_user.admin?
           @apprenticeship.accept
-          redirect_to apprenticeships_path, :flash => { :success => "Apprenticeship was accepted." }
+          redirect_to apprenticeships_path, :flash => { :success => "Apprenticeship accepted." }
 
         elsif params[:resubmit_button] && @apprenticeship.deliver_resubmit
-          redirect_to apprenticeships_path, :flash => { :success => "Your apprenticeship was resubmitted."}
+          redirect_to apprenticeships_path, :flash => { :success => "Thanks! Your apprenticeship was resubmitted."}
 
         elsif params[:cancel_button] && @apprenticeship.deliver_cancel
           @apprenticeship.cancel  
-          redirect_to apprenticeships_path, :flash => { :warning => "Your apprenticeship has been canceled."}  
+          redirect_to apprenticeships_path, :flash => { :warning => "Rats. Your apprenticeship has been canceled."}  
 
         elsif @apprenticeship.process_payment
           if @apprenticeship.submit && @apprenticeship.deliver
-            redirect_to apprenticeships_path, :flash => {:success => "Your apprenticeship was created!" }
+            redirect_to apprenticeships_path, :flash => {:success => "Baller! Your apprenticeship was submitted!" }
           else
-            flash[:warning] = "Some required information is missing. Please review all fields."
+            flash[:warning] = "Whoops! Your apprenticeship submission is missing some info. Please check all fields."
             render 'edit'
           end
           
         else
-          flash.now[:notify] = "Couldn't process payment. Please try again."
+          flash.now[:notify] = "Hmm, we couldn't process payment. Please try again."
           render 'edit'
         end
 
       else
-        flash.now[:warning] = "There was a problem saving your apprenticeship. Please review all fields."
+        flash.now[:warning] = "Whoops! There was a problem saving your apprenticeship. Please check all fields."
         render 'edit'
       end
     end
