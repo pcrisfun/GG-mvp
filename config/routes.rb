@@ -3,7 +3,7 @@ SampleApp::Application.routes.draw do
   resources :users
   resources :galleries, only: [:new, :create, :destroy]
   resources :albums, path: 'portfolio'
-  resources :photos, only: [:new, :create, :destroy, :show, :edit]
+  resources :photos, only: [:new, :create, :destroy, :show, :edit, :update]
 
 
   resources :sessions, only: [:new, :create, :destroy]

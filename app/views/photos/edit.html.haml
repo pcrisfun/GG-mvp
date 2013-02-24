@@ -1,11 +1,11 @@
-= provide(:title, "Edit Photo")
+= provide(:title, "Edit Image")
 %section.section
-	.container
-		.row
+  .container
+    .row
       .span6.offset3
         %h1
           = controller.action_name.capitalize
-          Photo
+          Image
         .well
           = simple_form_for @photo, :html => { :class => 'form-horizontal', multipart:true } do |f|
             = image_tag(@photo.file)

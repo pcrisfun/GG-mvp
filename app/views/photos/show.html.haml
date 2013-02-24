@@ -7,5 +7,5 @@
           %p
             = @photo.caption
 
-          = link_to "Back", url_for(:back), :class => 'btn'
+          = link_to "Back", return_store_location || url_for(:back), :class => 'btn'
           = link_to "Edit", edit_photo_path(@photo), :class => 'btn'
