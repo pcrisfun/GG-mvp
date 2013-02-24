@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password
 
   validates :terms_of_service, acceptance: true
-  validates :birthday, :date => {:before => Proc.new{Time.now - 13.years }}
+  validates :birthday, :date => {:before => Proc.new { Time.now - 13.years }}
 
   # Include default devise modules. Others available are:
   # :token_authenticatable,
@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   end
 
   def birthday=(new_date)
-    write_attribute(:birthday, Chronic::parse(new_date).strftime("%Y/%m/%d %H:%M:%S"))
+    write_attribute(:birthday, Chronic::parse(new_date).strftime("%Y-%m-%d %H:%M:%S"))
   end
 
   def update_avatar=(new_avatar)
