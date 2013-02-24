@@ -23,8 +23,8 @@ class CreateEvents < ActiveRecord::Migration
       t.string :sendcheck_state
       t.string :sendcheck_zip
       t.text :description
-      t.datetime :begins_at, :null => true
-      t.datetime :ends_at, :null => true
+      t.date :begins_at, :null => true
+      t.date :ends_at, :null => true
       t.integer :hours
       t.string :hours_per, :default => "week"
       t.string :availability

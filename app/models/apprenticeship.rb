@@ -1,5 +1,10 @@
 class Apprenticeship < Event
 
+	validates_presence_of :kind, :hours, :hours_per #, :charge_id (shouldn't need this bc we added 'update_attribute(:charge_id, charge.id)' to process_payment method)
+	validates_numericality_of :hours, :greater_than => 0
+	validates :begins_at, :date => {:after => Proc.new { Date.today + 6.day }, :message => 'Sorry! You need to plan your apprenticeship to start at least a week from today. Please check the dates you set.'}, :if => :tba_is_blank 
+	validates :ends_at, :date => {:after => :begins_at, :message => "Oops! Please check the dates you set. Your apprenticeship can't end before it begins!"}, :if => :tba_is_blank
+
 	def default_url_options
 	  { :host => 'localhost:3000'}
 	end
@@ -72,6 +77,7 @@ class Apprenticeship < Event
 		})
 		return true
 		#Can we enter another email into this method, like:
+		#
 		#return false unless valid?
 		#Pony.mail({
 		#	:to => the list of people signed up for the apprenticeship 
@@ -84,11 +90,14 @@ class Apprenticeship < Event
 		#return true
 	end
 
-	state_machine :state, :initial => :started do
+	def self.complete_apprenticeship
+	    apprenticeships = self.where(:ends_at => Date.today).all 
+		apprenticeships.each {|a| a.complete}
+	end
 
-		state :pending do
-			validates_presence_of :kind, :hours, :hours_per, :charge_id	
-			validates_numericality_of :hours, :greater_than => 0
-		end
+	state_machine :state, :initial => :started do
+		event :complete do
+        	transition :accepted => :completed #once signup is working this should be :in_progress => :completed
+        end 
 	end
 end

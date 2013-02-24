@@ -14,8 +14,10 @@
 ActiveRecord::Schema.define(:version => 20130221155222) do
 
   create_table "admins", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "email"
+    t.string   "encrypted_password"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   create_table "events", :force => true do |t|
@@ -41,8 +43,8 @@ ActiveRecord::Schema.define(:version => 20130221155222) do
     t.string   "sendcheck_state"
     t.string   "sendcheck_zip"
     t.text     "description"
-    t.datetime "begins_at"
-    t.datetime "ends_at"
+    t.date     "begins_at"
+    t.date     "ends_at"
     t.integer  "hours"
     t.string   "hours_per",                                        :default => "week"
     t.string   "availability"

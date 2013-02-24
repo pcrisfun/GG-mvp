@@ -7,8 +7,7 @@
 				<hr />
 				<h2>Admin</h2>
 				<% unless @allsaved_workshops.blank? %>
-					<h3>Workshops in Progress</h3>
-					<p>These workshops have not been submitted yet; this list just lets us see what's in the works.</p>
+					<h3>Saved Workshops</h3>
 					<%= render :partial => "workshop", :collection => @allsaved_workshops %>
 				<% end %>
 
@@ -18,8 +17,13 @@
 				<% end %>
 
 				<% unless @allcanceled_workshops.blank? %>
-					<h3>Canceled Workshops Since Being Accepted</h3>
+					<h4>Canceled Workshops Since Being Accepted</h4>
 					<%= render :partial => "workshop", :collection => @allcanceled_workshops %>
+				<% end %>
+
+				<% unless @allcompleted_workshops.blank? %>
+					<h4>Completed Workshops</h4>
+					<%= render :partial => "workshop", :collection => @allcompleted_workshops %>
 				<% end %>
 			<% end %>
 
@@ -27,32 +31,37 @@
 				<hr />
 				<h2>My Workshops</h2>
 				<% unless @mycanceled_workshops.blank? %>
-				<h3>My Canceled Workshops</h3>
-				<%= render :partial => "workshop", :collection => @mycanceled_workshops %>
+					<h4>My Canceled Workshops</h4>
+					<%= render :partial => "workshop", :collection => @mycanceled_workshops %>
 				<% end %>
 
 				<% unless @mysaved_workshops.blank? %>
-				<h3>My Saved Workshops</h3>
-				<%= render :partial => "workshop", :collection => @mysaved_workshops %>
+					<h4>My Saved Workshops</h4>
+					<%= render :partial => "workshop", :collection => @mysaved_workshops %>
 				<% end %>
 
 				<% unless @mypending_workshops.blank? %>
-				<h3>My Pending Workshops</h3>
-				<%= render :partial => "workshop", :collection => @mypending_workshops %>
+					<h4>My Pending Workshops</h4>
+					<%= render :partial => "workshop", :collection => @mypending_workshops %>
 				<% end %>
 
 				<% unless @myactive_workshops.blank? %>
-				<h3>My Upcoming Workshops</h3>
-				<%= render :partial => "workshop", :collection => @myactive_workshops %>
+					<h4>My Upcoming Workshops</h4>
+					<%= render :partial => "workshop", :collection => @myactive_workshops %>
+				<% end %>
+
+				<% unless @mycompleted_workshops.blank? %>
+					<h4>My Completed Workshops</h4>
+					<%= render :partial => "workshop", :collection => @mycompleted_workshops %>
 				<% end %>
 			<% end %>
-	
 		<% end %>	
 
 		<% unless @workshops.blank? %>
-		<hr />
-		<h2>All Workshops</h2>
-		<%= render :partial => "workshop", :collection => @workshops %>
+			<hr />
+			<h2>All Workshops</h2>
+			<%= render :partial => "workshop", :collection => @workshops %>
 		<% end %>
+
 	<% end %>
 <% end %>

@@ -111,7 +111,7 @@
 
 			<h3>Skills & Techniques</h3>
 			<%= f.label :skill_list, capture { %> 
-			<p>What skills and techniques will participants learn? (List each, followed by a comma)</p>
+				<p>What skills and techniques will participants learn? (List each, followed by a comma)</p>
 			<% } %>
 			<div rel='popover' data-content="Be as specific as possible to give each participant credit for her experience. We’ll keep track, to help her show off her skills!" data-original-title='Skills & Techniques' > 
 				<%= f.text_field :skill_list, :data => { :pre => @workshop.skills.map { |t|  { :id => t.name, :name => t.name } } } %>
@@ -121,7 +121,7 @@
 
 			<h3>Tools & Materials</h3>
 			<%= f.label :tool_list, capture { %>
-			<p>What tools and materials will participants learn to use? (List each, followed by a comma)</p> 
+				<p>What tools and materials will participants learn to use? (List each, followed by a comma)</p> 
 			<% } %>
 			<div rel='popover' data-content="Be as specific as possible to give each participant credit for her experience. We’ll keep track, to help her show off her skills!" data-original-title='Tools & Materials' >
 				<%= f.text_field :tool_list, :data => { :pre => @workshop.tools.map { |t|  { :id => t.name, :name => t.name } } }  %>

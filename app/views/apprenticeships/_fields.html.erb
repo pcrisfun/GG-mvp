@@ -147,7 +147,9 @@
 			
 			<br />
 
-			<h3>Duration</h3>
+			<%= f.label :begins_at, capture { %>
+				<h3>Duration</h3>
+				<% } %> 
 			<div class="row datepickerlayout">
 				<div class="input-append date span2" data-behaviour="datepicker">
 					<%= f.text_field :begins_at, :class => "span2", :value => @apprenticeship.begins_at.strftime("%m/%d/%Y")  %>
