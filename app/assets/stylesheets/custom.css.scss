@@ -12,6 +12,11 @@ a, a:hover, a:active, a:visited, a:focus {
   outline: none;
 }
 
+.relative {
+  position: relative;
+  z-index: 99;
+}
+
 /* typography  - THIS SHOULD PROBABLY GO IN FONTS.CSS??? */
 
 /* header */
@@ -30,8 +35,8 @@ a, a:hover, a:active, a:visited, a:focus {
 .navbar .nav > .active > a,
 .navbar .nav > .active > a:hover,
 .navbar .nav > .active > a:focus,
-.navbar .nav li.dropdown.open > .dropdown-toggle, 
-.navbar .nav li.dropdown.active > .dropdown-toggle, 
+.navbar .nav li.dropdown.open > .dropdown-toggle,
+.navbar .nav li.dropdown.active > .dropdown-toggle,
 .navbar .nav li.dropdown.open.active > .dropdown-toggle {
   background-color:transparent;
 }
@@ -117,4 +122,30 @@ input[type="radio"], input[type="checkbox"] {
   width: 100%;
   margin-top: 45px;
   @include box_sizing;
+}
+
+/* Required for jQuery Masonry */
+.box {
+  margin: 5px;
+  padding: 5px;
+  font-size: 11px;
+  line-height: 1.4em;
+  float: left;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  box-shadow: 0px 1px 5px #ccc;
+  width: 180px;
+  img {
+    display: block;
+    width: 100%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+  }
+}
+
+.description {
+  margin: 10px 0px 5px;
+  font-size: 13px;
 }

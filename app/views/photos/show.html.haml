@@ -1,27 +1,11 @@
-= image_tag @photo.file.url(:medium)
+%section.section
+  .container
+    .row
+      .span6.offset3
+        .well
+          = image_tag @photo.file
+          %p
+            = @photo.caption
 
-%p
-  %strong= t("activerecord.attributes.photo.caption", :default => t("activerecord.labels.caption", :default => "Caption")) + ":"
-  %br
-  = @photo.caption
-%p
-  %strong= t("activerecord.attributes.photo.file_file_name", :default => t("activerecord.labels.file_file_name", :default => "File file name")) + ":"
-  %br
-  = @photo.file_file_name
-%p
-  %strong= t("activerecord.attributes.photo.file_content_type", :default => t("activerecord.labels.file_content_type", :default => "File content type")) + ":"
-  %br
-  = @photo.file_content_type
-%p
-  %strong= t("activerecord.attributes.photo.file_file_size", :default => t("activerecord.labels.file_file_size", :default => "File file size")) + ":"
-  %br
-  = @photo.file_file_size
-%p
-  %strong= t("activerecord.attributes.photo.file_updated_at", :default => t("activerecord.labels.file_updated_at", :default => "File updated at")) + ":"
-  %br
-  = @photo.file_updated_at
-
-.form-actions
-  = link_to "Back", user_gallery_photos_path(@user, @gallery), :class => 'btn'
-  = link_to "Edit", edit_user_gallery_photo_path(@user, @gallery, @photo), :class => 'btn'
-  = link_to "Delete", user_gallery_photo_path(@user, @gallery, @photo), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}", :class => 'btn btn-danger'
+          = link_to "Back", url_for(:back), :class => 'btn'
+          = link_to "Edit", edit_photo_path(@photo), :class => 'btn'

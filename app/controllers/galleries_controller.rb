@@ -45,8 +45,8 @@ class GalleriesController < ApplicationController
 
     respond_to do |format|
       if @gallery.save
-        format.html { redirect_to user_galleries_path(@user), notice: 'gallery was successfully created.' }
-        format.json { render json: @gallery, status: :created, location: user_galleries_path(@user) }
+        format.html { redirect_to galleries_path(@gallery), notice: 'gallery was successfully created.' }
+        format.json { render json: @gallery, status: :created, location: galleries_path(@gallery) }
       else
         format.html { render action: "new" }
         format.json { render json: @gallery.errors, status: :unprocessable_entity }
@@ -84,6 +84,6 @@ class GalleriesController < ApplicationController
 
   private
   def load_user
-    @user = User.find(params[:user_id])
+    @user = current_user
   end
 end

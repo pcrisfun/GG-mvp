@@ -1,9 +1,10 @@
 %section.section
   .container
     .row-fluid
-      .span9
+      = render partial: 'album'
       = render partial: 'sidenav'
     %hr
     .row-fluid
       %h2 My Images
       = render partial: 'galleries/gallery'
+

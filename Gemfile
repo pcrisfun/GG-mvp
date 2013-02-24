@@ -70,4 +70,5 @@ gem 'date_validator'
 gem 'rmagick'
 gem 'jquery-fileupload-rails'
 gem 'fancybox2-rails'
+gem 'masonry-rails'
 

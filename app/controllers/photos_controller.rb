@@ -1,5 +1,5 @@
 class PhotosController < ApplicationController
-  before_filter :load_gallery
+  before_filter :load_user_gallery
   # GET /photos
   # GET /photos.json
   def index
@@ -9,10 +9,10 @@ class PhotosController < ApplicationController
   # GET /photos/1
   # GET /photos/1.json
   def show
-    @photo = @gallery.photos.find(params[:id])
+    @photo = Photo.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html #show.html.erb
       format.json { render json: @photo }
     end
   end
@@ -40,7 +40,7 @@ class PhotosController < ApplicationController
 
     if @photo.save
       respond_to do |format|
-        format.html {redirect_to user_gallery_photos_path(@user), notice: 'Photo was successfully created.'}
+        format.html {redirect_back_or photo_path(@photo), notice: 'Photo was successfully created.'}
         @photos = [@photo]
         format.json {render 'index'}
       end
@@ -67,7 +67,7 @@ class PhotosController < ApplicationController
 
     respond_to do |format|
       if @photo.update_attributes(params[:photo])
-        format.html { redirect_to user_gallery_path(@user, @gallery), notice: 'Photo was successfully updated.' }
+        format.html { redirect_back_or photo_path(@photo), notice: 'Photo was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -84,14 +84,14 @@ class PhotosController < ApplicationController
     @photo.destroy
 
     respond_to do |format|
-      format.html { redirect_to @gallery }
+      format.html { redirect_to :back, notice: 'Image was deleted.' }
       format.json { head :no_content }
     end
   end
 
   private
-  def load_gallery
-    @gallery = Gallery.find(params[:gallery_id])
-    @user = User.find(params[:user_id])
+  def load_user_gallery
+    @user = current_user
+    @gallery = @user.gallery
   end
 end

@@ -14,14 +14,13 @@ validates_presence_of :host_lastname, :message => ' must be included in order to
 attr_accessible :title, :topic, :host_firstname, :host_lastname, :host_business, :bio, :twitter, :facebook, :website, :webshop, :permission, :payment_options, :paypal_email, :sendcheck_address, :sendcheck_address2, :sendcheck_city, :sendcheck_state, :sendcheck_zip, :kind, :description, :begins_at, :begins_at_time, :ends_at, :ends_at_time, :skill_list, :tool_list, :requirement_list, :other_needs, :hours, :hours_per, :location_address, :location_address2, :location_city, :location_state, :location_zipcode, :location_private, :location_nbrhood, :location_varies, :age_min, :age_max, :registration_min, :registration_max, :price
 before_save :generate_title
 
+attr_accessible :stripe_card_token
+attr_accessor :stripe_card_token
+
 acts_as_taggable
 acts_as_taggable_on :skills, :tools, :requirements
 
   before_save :fix_tags
-
-  attr_accessible :stripe_card_token
-  attr_accessor :stripe_card_token
-
 
   def fix_tags
     # OPTIMIZE: lol this is a hack to fix acts as taggable on
@@ -50,7 +49,7 @@ def process_payment
     )
     self.charge_id = charge.id
     logger.info "Processed payment #{charge.id}"
-  end 
+  end
 rescue Stripe::InvalidRequestError => e
   logger.error "Stripe error while creating charge: #{e.message}"
   errors.add :base, "There was a problem with your credit card."
@@ -61,35 +60,35 @@ def refund_payment
 end
 
 state_machine :state, :initial => :started do
-  
+
    state :started do
    end
-  
+
    state :pending do
       validates_presence_of :bio, :website, :permission, :description, :begins_at, :skill_list, :tool_list, :location_address, :location_city, :location_state, :location_zipcode, :age_min, :age_max, :registration_min
       validates_numericality_of :age_min, :greater_than => 0
       validates_numericality_of :age_max, :greater_than => :age_min, :message => "must be greater than the minimum age you set."
       validates_numericality_of :registration_min, :greater_than_or_equal_to => 0
    end
-  
+
    state :accepted do
    end
-  
+
    state :canceled do
    end
-  
+
    event :reject do
      transition :pending => :started
    end
-  
+
    event :revoke do
      transition :accepted => :started
    end
-  
+
    event :submit do
      transition :started => :pending
     end
-    
+
     event :accept do
       transition :pending => :accepted
     end
@@ -97,11 +96,11 @@ state_machine :state, :initial => :started do
     event :resubmit do
       transition :accepted => :pending
     end
-    
+
     event :cancel do
       transition all => :canceled
     end
-    
+
   end
-  
+
 end

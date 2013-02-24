@@ -1,1 +1,16 @@
-= render :partial => "form"
+= provide(:title, "Edit Photo")
+%section.section
+	.container
+		.row
+      .span6.offset3
+        %h1
+          = controller.action_name.capitalize
+          Photo
+        .well
+          = simple_form_for @photo, :html => { :class => 'form-horizontal', multipart:true } do |f|
+            = image_tag(@photo.file)
+            %br
+            %br
+            = f.input :caption, label: 'Title'
+            = f.submit 'Update', :class => 'btn btn-primary'
+            = link_to "Cancel", url_for(:back), :class => 'btn'

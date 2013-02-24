@@ -12,7 +12,7 @@ module SessionsHelper
     cookies.permanent[:remember_token] = user.remember_token
     @current_user = user
   end
-  
+
   def current_user
     @current_user ||= User.find_by_remember_token(cookies[:remember_token])
   end
@@ -26,8 +26,8 @@ module SessionsHelper
     cookies.delete(:remember_token)
   end
 
-  def redirect_back_or(default)
-    redirect_to(session[:return_to] || default)
+  def redirect_back_or(default, options={})
+    redirect_to session[:return_to] || default, notice: options[:notice]
     session.delete(:return_to)
   end
 

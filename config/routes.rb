@@ -1,20 +1,20 @@
 SampleApp::Application.routes.draw do
 
-  resources :users do
-    resources :galleries do
-      resources :photos
-    end
-  end
+  resources :users
+  resources :galleries, only: [:new, :create, :destroy]
+  resources :albums, path: 'portfolio'
+  resources :photos, only: [:new, :create, :destroy, :show, :edit]
 
-  resources :sessions, only: [ :new, :create, :destroy ]
+
+  resources :sessions, only: [:new, :create, :destroy]
   resources :apprenticeships
   resources :workshops
 
-  resources :event_skills, only: [ :index ]
-  resources :event_tools, only: [ :index ]
-  resources :event_requirements, only: [ :index ]
+  resources :event_skills, only: [:index]
+  resources :event_tools, only: [:index]
+  resources :event_requirements, only: [:index]
 
-  resources :inquiries, :only => [:create] do
+  resources :inquiries, only: [:create] do
     get 'static_pages/thanks', :on => :collection
   end
 
