@@ -1,0 +1,54 @@
+- provide(:title, 'Edit account')
+/ SmartBiz theme
+%section#promo.section
+  .container
+    %h2
+      Edit #{resource_name.to_s.humanize}
+    .row
+      .span8.fancyform
+        = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :defaults => {:input_html => {:class => 'span4'}}, :html => { :method => :put }) do |f|
+          = f.error_notification
+          = f.input :birthday do
+            .form-inline
+              .input-append.date{"data-behaviour" => "datepicker"}
+                = f.text_field :birthday, :class => "span4", :value=>Chronic::parse(@user.birthday).strftime("%m-%d-%Y")
+                %span.add-on
+                  %i.icon-th
+              %a{"data-content" => "Individuals under the age of 18 must at all times use GirlsGuild's services only in conjunction with and under the supervision of a parent or legal guardian who is at least 18 years of age. In this all cases, the adult is the user and is responsible for any and all activities.", "data-original-title" => "Why do you need my birthday?", "data-placement" => "right", :href => "#", :rel => "popover"}
+                Why?
+                %i.icon-question-sign.small-icon
+          %br/
+          = f.input :first_name
+          = f.input :last_name
+          = f.input :email, :required => true, :autofocus => true
+          - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+            %p
+              Currently waiting confirmation for: #{resource.unconfirmed_email}
+          = f.input :password, :autocomplete => "off", :hint => "leave it blank if you don't want to change it", :required => false
+          = f.input :password_confirmation, :required => false
+          = f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true
+          %br
+          %hr
+          %label Change Your Avatar
+          .form-inline
+            %input{id: 'user_use_gravatar_true',name: "user[use_gravatar]", type: 'radio', value: 'true', :checked => (@user.use_gravatar ? "checked" : false) }
+            %label.collection_radio_buttons{:for => 'user_use_gravatar_true'} Use Gravitar
+          .form-inline
+            = gravatar_for(@user)
+            %a{href: 'http://gravatar.com/emails'} change
+          %br
+          .form-inline
+            %input{id: 'user_use_gravatar_false',name: "user[use_gravatar]", type: 'radio', value: 'false',  :checked => (!@user.use_gravatar ? "checked" : false) }
+            %label.collection_radio_buttons{:for => 'user_use_gravatar_false'} Upload an Avatar
+          .form-inline
+            = image_tag(@user.avatar.url(:large))
+            = f.file_field(:avatar)
+          %hr
+          %div
+            %br/
+            = f.button :submit, "Update", :class => "btn btn-primary"
+        %br/
+        %hr/
+        %p
+          Unhappy? #{link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete}.
+        %p.pull-right= link_to "Back", :back
