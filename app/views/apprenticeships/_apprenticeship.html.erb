@@ -1,8 +1,8 @@
 <p>
-<%= link_to apprenticeship.title, apprenticeship_path(apprenticeship) %>
-<% if apprenticeship.started? && apprenticeship.user == current_user %>
- (<%= link_to "Resume", edit_apprenticeship_path(apprenticeship) %>)
-<% elsif apprenticeship.accepted? && apprenticeship.user == current_user or current_user.admin? %>
- (<%= link_to "Edit", edit_apprenticeship_path(apprenticeship) %>)
-<% end %>
+	<% if apprenticeship.started? && apprenticeship.user == current_user %>
+ 		<%= link_to "Resume", edit_apprenticeship_path(apprenticeship), :class => "btn btn-mini btn-warning" %> 
+		<% elsif apprenticeship.accepted? && apprenticeship.user == current_user or current_user.admin? %>
+ 		<%= link_to "Edit", edit_apprenticeship_path(apprenticeship), :class => "btn btn-mini btn-warning" %> 
+	<% end %>
+	<%= link_to apprenticeship.title, apprenticeship_path(apprenticeship) %>	
 </p>

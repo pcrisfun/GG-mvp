@@ -1,12 +1,10 @@
-SampleApp::Application.routes.draw do
+GirlsGuild::Application.routes.draw do
+  devise_for :users, :admins
 
-  resources :users
   resources :galleries, only: [:new, :create, :destroy]
   resources :albums, path: 'portfolio'
   resources :photos, only: [:new, :create, :destroy, :show, :edit, :update]
 
-
-  resources :sessions, only: [:new, :create, :destroy]
   resources :apprenticeships
   resources :workshops
 
@@ -18,13 +16,7 @@ SampleApp::Application.routes.draw do
     get 'static_pages/thanks', :on => :collection
   end
 
-  match '/signup',  to: 'users#new'
-  match '/signin',  to: 'sessions#new'
-  match '/signout', to: 'sessions#destroy'#, via: :delete  <-- commented since signout page is called with a GET request
-
   root to: 'static_pages#home'
-
-  match '/signup',   to: 'users#new'
 
   match '/faq',    to: 'static_pages#faq'
   match '/about',   to: 'static_pages#about'

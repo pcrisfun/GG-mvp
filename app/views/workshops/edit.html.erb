@@ -10,35 +10,34 @@
           <%= render 'fields', f: f %>
       
           <% if @workshop.started? %>
-            <%= link_to 'Delete', @workshop, :method => :delete, :data => { :confirm => 'Are you sure you want to delete this workshop?' } %>          
-            <%= f.submit "Save for Later", :name => "save_button", :class => "btn btn-large" %>
-            <%= f.submit "Create Workshop", :name => "create_button", :class => "btn btn-large btn-primary" %>
+            <%= link_to 'Delete', @workshop, :method => :delete, :data => { :confirm => 'Are you sure you want to delete this workshop?' }, :class => "btn btn-small btn-danger" %>          
+            <%= f.submit "Save for Later", :name => "save_button", :class => "btn" %>
+            <%= f.submit "Create Workshop", :name => "create_button", :class => "btn btn-primary" %>
 
           <% elsif @workshop.accepted? %>
-            <%= f.submit "Cancel Workshop", :name => "cancel_button", :class => "btn btn-small btn-danger", :data => { :confirm => "Are you sure you want to cancel this workshop? It will be closed for sign-up and moved under My Canceled Workshops. You will still be able to edit and resubmit it."} %>
-            <%= f.submit "Resubmit Workshop", :name => "resubmit_button", :class => "btn btn-large btn-primary" %>
+            <%= f.submit "Cancel Workshop", :name => "cancel_button", :class => "btn btn-danger", :data => { :confirm => "Are you sure you want to cancel this workshop? It will be closed for sign-up and moved under My Canceled Workshops. You will still be able to edit and resubmit it."} %>
+            <%= f.submit "Resubmit Workshop", :name => "resubmit_button", :class => "btn btn-primary" %>
 
           <% elsif @workshop.canceled? %>
-            <%= link_to 'Delete', @workshop, :method => :delete, :data => { :confirm => 'Are you sure you want to delete this workshop?' } %>          
-            <%= f.submit "Resubmit Workshop", :name => "resubmit_button", :class => "btn btn-large btn-primary" %> 
+            <%= link_to 'Delete', @workshop, :method => :delete, :data => { :confirm => 'Are you sure you want to delete this workshop?' }, :class => "btn btn-small btn-danger" %>          
+            <%= f.submit "Resubmit Workshop", :name => "resubmit_button", :class => "btn btn-primary" %> 
 
           <% else %>
-            <%= link_to 'Delete', @workshop, :method => :delete, :data => { :confirm => 'Are you sure you want to delete this workshop?' } %>            
-            <%= f.submit "Update Workshop", :name => "save_button", :class => "btn btn-large btn-primary" %>
+            <%= f.submit "Cancel Workshop", :name => "cancel_button", :class => "btn btn-small btn-danger", :data => { :confirm => "Are you sure you want to cancel this workshop? It will be closed for registration and moved under My Canceled Workshops. You will still be able to edit and resubmit it."} %>  
           <% end %>
 
           <% if current_user.admin? && @workshop.pending? %>
             <hr />
             <h3>Admin Controls</h3>
-            <%= f.submit "Reject Workshop", :name => "reject_button", :class => "btn btn-large btn-danger" %>
-            <%= f.submit "Approve Workshop", :name => "accept_button", :class => "btn btn-large btn-success" %>
+            <%= f.submit "Reject Workshop", :name => "reject_button", :class => "btn btn-danger" %>
+            <%= f.submit "Approve Workshop", :name => "accept_button", :class => "btn btn-success" %>
           <% end %>
 
           <% if current_user.admin? && @workshop.accepted? %>
             <hr />
             <h3>Admin Controls</h3>          
-            <%= f.submit "Revoke Workshop", :name => "revoke_button", :class => "btn btn-large btn-danger" %>
-            <%= link_to 'Delete', @workshop, :method => :delete, :data => { :confirm => 'Are you sure you want to delete this workshop?' } %>             
+            <%= f.submit "Revoke Workshop", :name => "revoke_button", :class => "btn btn-warning" %>
+            <%= link_to 'Delete', @workshop, :method => :delete, :data => { :confirm => 'Are you sure you want to delete this workshop?' }, :class => "btn btn-small btn-danger" %>             
           <% end %>
           
 

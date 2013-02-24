@@ -13,6 +13,13 @@
 
 ActiveRecord::Schema.define(:version => 20130221163515) do
 
+  create_table "admins", :force => true do |t|
+    t.string   "email"
+    t.string   "encrypted_password"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
   create_table "albums", :force => true do |t|
     t.string   "title"
     t.text     "description"
@@ -52,8 +59,8 @@ ActiveRecord::Schema.define(:version => 20130221163515) do
     t.string   "sendcheck_state"
     t.string   "sendcheck_zip"
     t.text     "description"
-    t.datetime "begins_at"
-    t.datetime "ends_at"
+    t.date     "begins_at"
+    t.date     "ends_at"
     t.integer  "hours"
     t.string   "hours_per",                                        :default => "week"
     t.string   "availability"
@@ -77,6 +84,7 @@ ActiveRecord::Schema.define(:version => 20130221163515) do
     t.time     "begins_at_time"
     t.time     "ends_at_time"
     t.string   "location_nbrhood"
+    t.string   "datetime_tba"
   end
 
   create_table "galleries", :force => true do |t|
@@ -116,21 +124,33 @@ ActiveRecord::Schema.define(:version => 20130221163515) do
   create_table "users", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "email"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
-    t.string   "password_digest"
-    t.string   "remember_token"
-    t.boolean  "admin",               :default => false
     t.datetime "birthday"
+    t.string   "email",                  :default => "",    :null => false
+    t.string   "encrypted_password",     :default => "",    :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+    t.boolean  "admin",                  :default => false
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.boolean  "use_gravatar",        :default => true
+    t.boolean  "use_gravatar",           :default => true
   end
 
+  add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end

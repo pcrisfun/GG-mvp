@@ -1,5 +1,5 @@
 class AlbumsController < ApplicationController
-  before_filter :load_user_gallery # , :authenticate_user!
+  before_filter :load_user_gallery, :authenticate_user!
   # GET /albums
   # GET /albums.json
   def index

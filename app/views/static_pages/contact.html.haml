@@ -1,0 +1,38 @@
+- provide(:title, 'Contact')
+%section#promo.section.alt
+  .map-top-shadow
+  #map
+  .map-bottom-shadow
+%section.section
+  .container
+    .page-header
+      %h1
+        Tell us what you think
+        %small As we continue to build out the service, let us know how we're doing.
+    .row-fluid
+      .span6
+        %p
+          We're currently working out of the
+          = succeed "." do
+            %a{:href => "htttp://www.austincenterfordesign.com"} Austin Center for Design
+          We'll be looking for workshop space in the coming year, so if you know of any cheap but fabulous warehouse space, let us know!
+        %ul.icons
+          %li
+            %p
+              %i.icon-home>
+              1201 Hackberry St. Austin, TX. 78702
+          %li
+            %p
+              %i.icon-phone>
+              +1 512 443-2243
+          %li
+            %p
+              %i.icon-envelope
+              %a{:href => "mailto:hello@girlsguild.com?Subject=Howdy"}
+                hello@girlsguild.com
+          %li
+            %p
+              %i.icon-globe>
+              www.girlsguild.com
+      .span6
+        = render 'static_pages/inquiryform', :inquiry => @inquiry

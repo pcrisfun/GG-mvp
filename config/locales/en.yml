@@ -2,11 +2,6 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  activerecord:
-    attributes:
-      user:
-        password_digest: "Password"
-
   errors:
    messages:
-      date: "Yer Too Young Little Chitlin!"
+      date: "You must be over 13 years old to join GirlsGuild at this time."
