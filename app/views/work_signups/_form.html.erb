@@ -7,7 +7,16 @@
 	<h4>Age:</h4>
 	<p><%= current_user.age %> years old</p> 
 	<br />
-	<p>Not you? <%= link_to "Sign in as a different user.", "../../../users/sign_in" %></p>
+	<p>Not you? <%= link_to "Sign in as a different user.", "../../../users/sign_out" %></p>
+	<% if current_user.age >= 18 %>
+		<div class="form-inline" >
+			<%= f.check_box :parent %>
+			<%= f.label :parent, capture { %> 
+			<p>I'm a parent signing up for my daughter.</p> 
+			<% } %>
+		</div>
+	<% end %>
+
 	<p style="color:red;">[If over 18 put a :parent checkbox here for "I'm a parent signing up for my daughter(s)", then create columns :daughter_name, :daughter_age, (and ability to add another?) and write an if statement dependent on client-side validations that shows the daughter fields when the checkbox is checked]</p>
 	<hr />
 
@@ -82,5 +91,5 @@
 	</div>
 
 	<br />
-	<p style="color:red;">[...Then there's payment. Don't panic.]</p>
+	<p style="color:red;">[...Then there's payment. Plus ability to add more participants??]</p>
 

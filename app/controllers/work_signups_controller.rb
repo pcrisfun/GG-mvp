@@ -1,4 +1,6 @@
 class WorkSignupsController < ApplicationController
+  before_filter :authenticate_user!, except: [:index, :show]
+
   def new
   	@workshop = Workshop.find(params[:workshop_id])
   	@work_signup = WorkSignup.new
