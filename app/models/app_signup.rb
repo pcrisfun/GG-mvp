@@ -1,0 +1,3 @@
+class AppSignup < Signup 
+	
+end

@@ -1,0 +1,2 @@
+class WorkSignup < Signup
+end

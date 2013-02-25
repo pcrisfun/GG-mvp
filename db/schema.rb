@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130221155222) do
+ActiveRecord::Schema.define(:version => 20130224222802) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -71,6 +71,30 @@ ActiveRecord::Schema.define(:version => 20130221155222) do
     t.string   "datetime_tba"
   end
 
+  create_table "signups", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.string   "type"
+    t.text     "happywhen"
+    t.text     "collaborate"
+    t.text     "interest"
+    t.text     "experience"
+    t.text     "requirements"
+    t.string   "confirm_available"
+    t.string   "preferred_times"
+    t.string   "confirm_unpaid"
+    t.string   "confirm_fee"
+    t.string   "parent_phone"
+    t.string   "parent_name"
+    t.string   "parent_email"
+    t.string   "waiver"
+    t.string   "parents_waiver"
+    t.string   "respect_agreement"
+    t.string   "charge_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
@@ -109,6 +133,8 @@ ActiveRecord::Schema.define(:version => 20130221155222) do
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
     t.boolean  "admin",                  :default => false
+    t.integer  "host_id"
+    t.string   "phone"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

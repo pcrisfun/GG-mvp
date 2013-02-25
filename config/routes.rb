@@ -1,7 +1,22 @@
 GirlsGuild::Application.routes.draw do
+  get "app_signups/new"
+
+  get "app_signups/create"
+
+  get "work_signups_controller/new"
+
+  get "work_signups_controller/create"
+
+  resources :signups
+
+
   devise_for :users, :admins
-  resources :apprenticeships
-  resources :workshops
+  resources :apprenticeships do
+    resources :app_signups
+  end
+  resources :workshops do
+    resources :work_signups
+  end
   
   resources :event_skills, only: [ :index ]
   resources :event_tools, only: [ :index ]

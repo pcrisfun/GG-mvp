@@ -61,3 +61,11 @@ $(function () {
 $(function () {
   $('#workshop_tool_list').tokenInput('/event_tools.json', { crossDomain: false, 'allowCustomEntry' : true,  theme: 'facebook', prePopulate: $('#workshop_tool_list').data('pre') });
 });
+
+$(function() {
+  $('#workshop_price').keyup(function() {
+    var total = Math.round($(this).val() * 1.2 * 100)/100;
+    $('#workshop_total_price').text(isNaN(total) ? "" : ("" + total));
+  }).keyup();
+});
+

@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Happywhen:</b>
+  <%= @signup.happywhen %>
+</p>
+
+<p>
+  <b>Collaborate:</b>
+  <%= @signup.collaborate %>
+</p>
+
+<p>
+  <b>Interest:</b>
+  <%= @signup.interest %>
+</p>
+
+
+<%= link_to 'Edit', edit_signup_path(@signup) %> |
+<%= link_to 'Back', signups_path %>

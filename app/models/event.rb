@@ -6,6 +6,7 @@ class Event < ActiveRecord::Base
   include ActionDispatch::Routing::UrlFor
 
   belongs_to :user
+  has_many :signups, :dependent => :destroy
 
   validation_group :save do
     validates_presence_of :topic, :message => ' must be included in order to save your form.'
