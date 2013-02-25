@@ -70,17 +70,21 @@
           <p><%= @apprenticeship.age_min %> to <%= @apprenticeship.age_max %></p>
 
           <p>
-            <% if @apprenticeship.started? && @apprenticeship.user == current_user %>
-             (<%= link_to "Resume", edit_apprenticeship_path(@apprenticeship) %>)
-            <% elsif @apprenticeship.pending? && @apprenticeship.user == current_user %>
-             (<%= link_to 'Delete', @apprenticeship, :method => :delete, :data => { :confirm => 'Are you sure you want to delete this apprenticeship? Deleting cannot be undone.' } %>)             
-            <% elsif @apprenticeship.accepted? && @apprenticeship.user == current_user or current_user.admin? %>
-              <%= link_to "Cancel", @apprenticeship, :method => :cancel, :data => { :confirm => "Are you sure you want to cancel this apprenticeship? It will be closed for sign-up and moved under My Canceled Apprenticeships. You will still be able to edit and resubmit it."} %>
-             (<%= link_to "Edit", edit_apprenticeship_path(@apprenticeship) %>)
+            <% unless current_user.blank? %>
+              <% if @apprenticeship.started? && @apprenticeship.user == current_user %>
+               (<%= link_to "Resume", edit_apprenticeship_path(@apprenticeship) %>)
+              <% elsif @apprenticeship.pending? && @apprenticeship.user == current_user %>
+               (<%= link_to 'Delete', @apprenticeship, :method => :delete, :data => { :confirm => 'Are you sure you want to delete this apprenticeship? Deleting cannot be undone.' } %>)             
+              <% elsif @apprenticeship.accepted? && @apprenticeship.user == current_user or current_user.admin? %>
+                <%= link_to "Cancel", @apprenticeship, :method => :cancel, :data => { :confirm => "Are you sure you want to cancel this apprenticeship? It will be closed for sign-up and moved under My Canceled Apprenticeships. You will still be able to edit and resubmit it."} %>
+               (<%= link_to "Edit", edit_apprenticeship_path(@apprenticeship) %>)
+              <% end %>
             <% end %>
           </p>
 
-          <%= link_to "Apply to work with #{@apprenticeship.host_firstname}", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-large btn-primary" %>
+          <% if @workshop.accepted? %>
+            <%= link_to "Apply to work with #{@apprenticeship.host_firstname}", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-large btn-primary" %>
+          <% end %>
 
         </section>
       </aside>

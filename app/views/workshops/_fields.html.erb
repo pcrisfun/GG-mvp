@@ -267,6 +267,12 @@
 			<%= f.text_field :sendcheck_zip, :placeholder => 'Zip', :class => "span2" %>
 			</div>
 
+			<h3>Don't steal my style!</h3>
+			<p>We understand that for some makers, teaching your unique techniques can feel like risking your trade secrets. If this is a concern for you, we'll ask your workshop participants to sign an agreement to respect your artistic style.</p>
+			<%= f.label :respect_my_style, :class => "checkbox" do %>
+			  <%= f.check_box :respect_my_style %>Yes, please ask participants to sign a respect agreement.
+			<% end %>
+
 			<h3>Background check</h3>
 			<%= f.label :permission, :class => "checkbox" do %>
 			  <%= f.check_box :permission, :rel => 'popover', :data => { :content => "We run background checks on all maker-mentors as part of our efforts to foster a safe community."} %>Yes, I give permission for GirlsGuild to run a background check on me.*

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130224222802) do
+ActiveRecord::Schema.define(:version => 20130225062808) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(:version => 20130224222802) do
     t.time     "ends_at_time"
     t.string   "location_nbrhood"
     t.string   "datetime_tba"
+    t.string   "respect_my_style"
   end
 
   create_table "galleries", :force => true do |t|
