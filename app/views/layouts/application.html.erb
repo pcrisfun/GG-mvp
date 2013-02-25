@@ -6,14 +6,16 @@
     <%= javascript_include_tag "https://js.stripe.com/v1/", "application" %>
     <%= csrf_meta_tags %>
     <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
-    <%= render 'layouts/shim' %>    
+    <%= render 'layouts/shim' %>
   </head>
 
   <body class='theme-pattern-lightmesh'>
     <%= render 'layouts/header' %>
     <div id="content" role="main">
       <% flash.each do |key, value| %>
-        <%= content_tag(:div, value, class: "alert alert-#{key}") %>
+        <%= content_tag(:div, class: "alert alert-#{key}")  do%>
+          <%= content_tag(:div, value, class: "container") %>
+        <% end %>
       <% end %>
       <%= yield %>
       <%= render 'layouts/footer' %>
@@ -21,26 +23,8 @@
     </div>
   </body>
 
-  <link href='http://fonts.googleapis.com/css?family=Dosis:400,300,500' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Kristi' rel='stylesheet' type='text/css'>
-  <script src='https://maps.googleapis.com/maps/api/js?sensor=false'></script>
-  <script type='text/javascript'>
-    //<![CDATA[
-      // Call the google map
-      mapInit();
-    //]]>
-  </script>
-  
-  <!-- Newsletter Modal load -->
-  <script type="text/javascript">
-    $(window).load(function(){
-      if ($.cookie('#myModal') != 'shown')
-     {
-       $.cookie('#myModal', 'shown');
-        $('#myModal').modal('show');
-     }
-    });
-  </script>
+
+  <%= render 'layouts/googleshim' if current_page?(contact_path) %>
 
   <!-- Google Analytics -->
   <script type="text/javascript">
@@ -51,7 +35,7 @@
         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();   
+      })();
   </script>
 
   <!-- Facebook Like bttn -->
@@ -68,7 +52,7 @@
   <!-- Twitter Follow bttn -->
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
   </script>
-      
+
   <!-- conditional include for google map -->
   <% if current_page?(contact_path) or params[:controller] == 'inquiries' %>
     <%= render 'layouts/googleshim' %>

@@ -11,23 +11,28 @@ GirlsGuild::Application.routes.draw do
 
 
   devise_for :users, :admins
+
+  resources :galleries, only: [:new, :create, :destroy]
+  resources :albums, path: 'portfolio'
+  resources :photos, only: [:new, :create, :destroy, :show, :edit, :update]
+
   resources :apprenticeships do
     resources :app_signups
   end
   resources :workshops do
     resources :work_signups
   end
-  
-  resources :event_skills, only: [ :index ]
-  resources :event_tools, only: [ :index ]
-  resources :event_requirements, only: [ :index ]
-  
-  resources :inquiries, :only => [:create] do
+
+  resources :event_skills, only: [:index]
+  resources :event_tools, only: [:index]
+  resources :event_requirements, only: [:index]
+
+  resources :inquiries, only: [:create] do
     get 'static_pages/thanks', :on => :collection
   end
 
   root to: 'static_pages#home'
-  
+
   match '/faq',    to: 'static_pages#faq'
   match '/about',   to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'

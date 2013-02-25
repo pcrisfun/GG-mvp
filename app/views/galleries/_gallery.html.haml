@@ -1,0 +1,30 @@
+%table.table.table-striped
+  %thead
+    %tr
+      %th
+        = link_to ' Add Image', '#newPhotoModal', "data-toggle"=>"modal", :class => "btn btn-primary  icon-plus"
+      %th
+      %th
+      %th
+      %th
+  %tbody
+    - @gallery.photos.order("created_at desc").each do |photo|
+      %tr
+        %td
+          = link_to(image_tag(photo.file.url(:thumb)), photo_path(photo))
+        %td
+          = photo.caption
+        %td
+        %td
+          - if @album && !@album.photos.include?(photo)
+            = link_to ' Add to Album', album_path(@album, :add_photos => [photo.id]), :class => "btn btn-mini btn-success icon-plus", method: 'put'
+        %td
+          = link_to ' Delete', photo_path(photo), :method => "delete", :class => 'btn btn-mini btn-danger icon-trash'
+
+/ New Photo Modal
+#newPhotoModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "newPhotoModal", :role => "dialog", :tabindex => "-1"}
+  .modal-header
+    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+    %h3#newPhotoModelLabel New Image
+  .modal-body
+    = render :partial => '/photos/new'

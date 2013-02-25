@@ -1,0 +1,16 @@
+.span3
+  %ul.nav.nav-pills.nav-stacked.well
+    %li
+      = link_to content_tag(:i, '',:class => "icon-plus-sign")+'Add Album', '#newAlbumModal', "data-toggle"=>"modal"
+    - @albums.each do |album|
+      = active_link_to album.title, album, :wrap_tag => :li
+
+
+
+/ Modal
+#newAlbumModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "newAlbumModal", :role => "dialog", :tabindex => "-1"}
+  .modal-header
+    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+    %h3#newAlbumModelLabel New Album
+  .modal-body
+    = render :partial => 'new'

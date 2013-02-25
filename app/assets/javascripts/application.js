@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require masonry/jquery.masonry.min
 //= require jquery.cookie
 //= require bootstrap
 //= require bootstrap-tooltip
@@ -19,6 +20,7 @@
 //= require bootstrap-timepicker
 //= require jquery.tokeninput
 //= require rails.validations
+//= require fancybox
 //= require_tree .
 
 
@@ -27,7 +29,7 @@
 $(document).ready(function () {
 	//$("[data-behaviour~='datepicker']").datepicker({"autoclose": true, "date-format": 'mm/dd/yyyy'});
   $("[data-behaviour~='datepicker']").datepicker({
-        format: 'mm-dd-yyyy'
+        format: 'mm/dd/yyyy'
     })
   .on('changeDate', function(ev){
     $("[data-behaviour~='datepicker']").datepicker('hide');
@@ -35,6 +37,7 @@ $(document).ready(function () {
 	$("[data-behaviour~='timepicker']").timepicker();
   $("[rel=tooltip]").tooltip();
   $("[rel=popover]").popover({"trigger": 'focus'});
+  $("a.fancybox").fancybox();
 });
 
 

@@ -14,19 +14,26 @@ class User < ActiveRecord::Base
 
   has_many :apprenticeships
   has_many :workshops
-  attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :birthday, :terms_of_service, :remember_me, :host_id, :phone
-  
+
+  has_one :gallery
+  has_many :photos, :through => :gallery
+  after_create :create_gallery
+  has_attached_file :avatar, :styles => { :large => "50x50#", :medium => "30x30#", :small => "25x25#" }
+
+  attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :birthday, :terms_of_service, :remember_me, :avatar, :use_gravatar, :host_id, :phone
+
   validates :first_name,  presence: true, length: { maximum: 20 }
   validates :last_name,  presence: true, length: { maximum: 20 }
   validates_uniqueness_of :email, :case_sensitive => false, :message => 'email is already in use'
   validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :message => '
-  must be a valid email address.' 
+  must be a valid email address.'
   validates_confirmation_of :password
+
   validates :terms_of_service, acceptance: true
-  validates :birthday, :date => {:before => Proc.new {Time.now - 13.years }}
+  validates :birthday, :date => {:before => Proc.new { Time.now - 13.years }}
 
   # Include default devise modules. Others available are:
-  # :token_authenticatable, 
+  # :token_authenticatable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable, :email_regexp =>  /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
@@ -38,8 +45,18 @@ class User < ActiveRecord::Base
   end
 
   def birthday=(new_date)
-    write_attribute(:birthday, Chronic::parse(new_date).strftime("%Y-%m-%d %H:%M:%S"))
+      write_attribute(:birthday, Chronic::parse(new_date))
   end
 
+  def update_avatar=(new_avatar)
+    write_attribute(:avatar, new_avatar)
+  end
+
+
   private
+
+    def create_gallery
+      self.gallery = Gallery.new
+    end
+
 end

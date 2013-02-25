@@ -14,11 +14,12 @@
             = active_link_to 'Apprenticeships', apprenticeships_path, :wrap_tag => :li
             = active_link_to 'Workshops', workshops_path, :wrap_tag => :li
             - if signed_in?
-              = active_link_to 'Users', user_registration_path, :wrap_tag => :li
               %li.dropdown
-                %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"} Account
+                %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                  = current_user.first_name
+                  = avatar_for(current_user, size: 25, tag: 'small')
                 %ul.dropdown-menu
-                  = active_link_to 'Profile', user_registration_path, :wrap_tag => :li, :active => :exclusive
+                  = active_link_to 'Portfolio', albums_path, :wrap_tag => :li, :active => :exclusive
                   = active_link_to 'Settings', edit_user_registration_path(current_user), :wrap_tag => :li, :active => :exclusive
                   %li.divider
                   = active_link_to 'Sign out', destroy_user_session_path, :wrap_tag => :li, method: "delete"

@@ -5,6 +5,7 @@ class Event < ActiveRecord::Base
   include Rails.application.routes.url_helpers
   include ActionDispatch::Routing::UrlFor
 
+
   belongs_to :user
   has_many :signups, :dependent => :destroy
 
@@ -56,7 +57,7 @@ class Event < ActiveRecord::Base
       )
       update_attribute(:charge_id, charge.id)
       logger.info "Processed payment #{charge.id}"
-    end 
+    end
   rescue Stripe::InvalidRequestError => e
     logger.error "Stripe error while creating charge: #{e.message}"
     errors.add :base, "There was a problem with your credit card."
@@ -67,21 +68,21 @@ class Event < ActiveRecord::Base
     #how do we do this through stripe?
   end
 
-  def tba_is_blank 
-    !datetime_tba.blank? 
-  end   
+  def tba_is_blank
+    !datetime_tba.blank?
+  end
 
   state_machine :state, :initial => :started do
 
      state :started do
      end
-    
+
      state :pending do
      end
-    
+
      state :accepted do
      end
-    
+
      state :canceled do
      end
 
@@ -90,19 +91,19 @@ class Event < ActiveRecord::Base
 
      state :completed do
      end
-    
+
      event :reject do
        transition :pending => :started
      end
-    
+
      event :revoke do
        transition :accepted => :started
      end
-    
+
      event :submit do
        transition :started => :pending
       end
-      
+
       event :accept do
         transition :pending => :accepted
       end
@@ -110,14 +111,15 @@ class Event < ActiveRecord::Base
       event :resubmit do
         transition :accepted => :pending
       end
-      
+
       event :cancel do
         transition all => :canceled
-      end   
+      end
 
       event :in_progress do
         transition :accepted => :in_progress #this will need to be triggered when the apprenticeship is filled
-      end  
-  end 
+      end
+  end
 
 end
+
