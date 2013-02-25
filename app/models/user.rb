@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   has_many :apprenticeships
   has_many :workshops
 
-  has_one :gallery
+  has_one :gallery, :dependent => :destroy
   has_many :photos, :through => :gallery
   after_create :create_gallery
   has_attached_file :avatar, :styles => { :large => "50x50#", :medium => "30x30#", :small => "25x25#" }

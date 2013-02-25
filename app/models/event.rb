@@ -7,6 +7,7 @@ class Event < ActiveRecord::Base
 
 
   belongs_to :user
+  has_one :host_album, :class_name => 'EventAlbum', :dependent => :destroy
 
   validation_group :save do
     validates_presence_of :topic, :message => ' must be included in order to save your form.'
