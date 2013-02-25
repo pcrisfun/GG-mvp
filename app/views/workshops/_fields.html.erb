@@ -109,7 +109,7 @@
 			<%= f.text_area :description, :class => "span6", :placeholder => "Tell us about your workshop.", :rel => 'popover', :data => { :content => "Give a few sentences telling people what they’ll be learning and doing in the workshop, what (if anything) they’ll take home from it, and why it’s fun/awesome/useful.", "original-title" => 'Description' }  %>
 
 
-			<h3>Skills & Techniques</h3>
+			<h3>Skills & Techniques*</h3>
 			<%= f.label :skill_list, capture { %> 
 				<p>What skills and techniques will participants learn? (List each, followed by a comma)</p>
 			<% } %>
@@ -119,7 +119,7 @@
 
 			<br />
 
-			<h3>Tools & Materials</h3>
+			<h3>Tools & Materials*</h3>
 			<%= f.label :tool_list, capture { %>
 				<p>What tools and materials will participants learn to use? (List each, followed by a comma)</p> 
 			<% } %>
