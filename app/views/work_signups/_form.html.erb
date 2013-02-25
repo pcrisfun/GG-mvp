@@ -1,0 +1,86 @@
+<%= render 'shared/error_messages', :form_model => @work_signup %>
+	<hr />
+	<h4>Name:</h4>
+	<p><%= "#{current_user.first_name} #{current_user.last_name}" %></p>
+	<h4>Email:</h4>
+	<p><%= current_user.email %></p>
+	<h4>Age:</h4>
+	<p><%= current_user.age %> years old</p> 
+	<br />
+	<p>Not you? <%= link_to "Sign in as a different user.", "../../../users/sign_in" %></p>
+	<p style="color:red;">[If over 18 put a :parent checkbox here for "I'm a parent signing up for my daughter(s)", then create columns :daughter_name, :daughter_age, (and ability to add another?) and write an if statement dependent on client-side validations that shows the daughter fields when the checkbox is checked]</p>
+	<hr />
+
+	<h3>Tell us a bit more about yourself</h3>
+	<p>*Required fields</p>
+	<br />
+
+	<%= f.label :interest, capture { %>
+		<h4>Interest</h4>
+		<% } %>
+		<p>What are you most interested in learning in this workshop?</p>
+	<%= f.text_field :interest, :class => "span6", :rel => :popover, :data => { :content => "This will help the artist plan her workshop to include what you want to know.", "original-title" => 'Your interests' }  %> 
+	<br />
+
+	<br />
+	<%= f.label :experience, capture { %>
+		<h4>Experience</h4>
+		<% } %>
+		<p>Have you done this kind of making before?</p>
+	<%= f.text_field :experience, :class => "span6", :rel => :popover, :data => { :content => "If so, tell us about what you've made. If not, that's ok too!", "original-title" => 'Your experience' } %>
+	<br />
+
+	<br />
+	<h4>Phone number: *</h4>
+	<p>We'll only use this to contact you if there are last-minute changes to the workshop.</p>
+	<%= text_field_tag "user[phone]", current_user.phone %>
+	<br />
+
+	<br />
+	<% if @workshop.respect_my_style.present? %>
+		<h4>I won't copy the artist's work *</h4>
+		<div class="form-inline" >
+			<p>(Put one of those scrolly waiver boxes here)</p>
+			<%= f.check_box :respect_agreement %>
+			<%= f.label :respect_agreement, capture { %> 
+			<p>I have read and agree to respect the artist's style.</p> 
+			<% } %>
+		</div>
+	<% end %>
+
+	<% unless current_user.over_18 %>
+		<h3>The boring stuff...</h3>
+		<p>Since you're under 18, you'll need to ask your parents to finish the rest of the form.</p>
+		<br />
+
+		<%= f.label :parent_name %>
+		<%= f.text_field :parent_name %>
+
+		<%= f.label :parent_phone %>
+		<%= f.text_field :parent_phone %>
+
+		<%= f.label :parent_email %>
+		<%= f.text_field :parent_email %>
+
+		<h4>Indemnification Agreement for Minors *</h4>
+		<div class="form-inline" >
+			<p style="color:red;">[Put one of those scrolly waiver boxes here]</p>
+			<%= f.check_box :parents_waiver %>
+			<%= f.label :parents_waiver, capture { %> 
+			<p>I am the legal parent/guardian of the workshop participant, and have read and agree to this indeminification agreement.</p> 
+			<% } %>
+		</div>
+	<% end %>
+
+	<h4>Workshop Participation Waiver *</h4>
+	<div class="form-inline" >
+		<p style="color:red;">[Put one of those scrolly waiver boxes here]</p>
+		<%= f.check_box :waiver %>
+		<%= f.label :waiver, capture { %> 
+		<p>I have read and agree to the workshop participation waiver.</p> 
+		<% } %>
+	</div>
+
+	<br />
+	<p style="color:red;">[...Then there's payment. Don't panic.]</p>
+

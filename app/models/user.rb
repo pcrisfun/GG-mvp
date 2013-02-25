@@ -48,8 +48,13 @@ class User < ActiveRecord::Base
       write_attribute(:birthday, Chronic::parse(new_date))
   end
 
+  def age
+    now = Time.now.utc.to_date
+    now.year - birthday.year - ((now.month > birthday.month || (now.month == birthday.month && now.day >= birthday.day)) ? 0 : 1)
+  end
+
   def over_18
-    Proc.new { :birthday + 18.years >= Date.today }
+    age >= 18
   end
 
   def update_avatar=(new_avatar)

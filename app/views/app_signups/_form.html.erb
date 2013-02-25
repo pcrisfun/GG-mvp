@@ -1,0 +1,17 @@
+<%= render 'shared/error_messages', :form_model => @app_signup %>
+	<hr />
+	<h4>Name:</h4>
+	<p><%= "#{current_user.first_name} #{current_user.last_name}" %></p>
+	<h4>Email:</h4>
+	<p><%= "#{current_user.email}"%></p>
+	<h4>Age:</h4>
+	<p><%= distance_of_time_in_words(Date.today, current_user.birthday, :false, :only => "years") %></p>
+	<br />
+	<p>Not you? Sign in as a different user.</p>
+	<hr />
+
+	<h3>Tell us a little about yourself</h3>
+	<p>*Required fields</p>
+
+
+	<%= text_field_tag "user[phone]", current_user.phone %>
