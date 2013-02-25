@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   end
 
   def birthday=(new_date)
-    write_attribute(:birthday, Chronic::parse(new_date).strftime("%Y-%m-%d %H:%M:%S"))
+      write_attribute(:birthday, Chronic::parse(new_date))
   end
 
   def update_avatar=(new_avatar)
