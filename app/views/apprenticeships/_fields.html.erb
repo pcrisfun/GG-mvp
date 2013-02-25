@@ -110,7 +110,7 @@
 
 			<%= f.text_area :description, :class => "span6", :placeholder => "Tell us about your apprenticeship.", :rel => 'popover', :data => { :content => "Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. Based on your expectations, consider whether you plan to pay the apprentice, and if so, how much?", "original-title" => 'Description' }  %>
 
-			<h3>Skills & Techniques</h3>
+			<h3>Skills & Techniques*</h3>
 			<%= f.label :skill_list, capture { %> 
 				<p>What skills and techniques will your apprentice(s) learn? (List each, followed by a comma)</p> 
 			<% } %>
@@ -120,7 +120,7 @@
 
 			<br />
 
-			<h3>Tools & Materials</h3>
+			<h3>Tools & Materials*</h3>
 			<%= f.label :tool_list, capture { %>
 				<p>What tools and materials will your apprentice(s) use? (List each, followed by a comma)</p> 
 			<% } %>

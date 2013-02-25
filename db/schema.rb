@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130221163515) do
+ActiveRecord::Schema.define(:version => 20130225062808) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(:version => 20130221163515) do
     t.time     "ends_at_time"
     t.string   "location_nbrhood"
     t.string   "datetime_tba"
+    t.string   "respect_my_style"
   end
 
   create_table "galleries", :force => true do |t|
@@ -102,6 +103,30 @@ ActiveRecord::Schema.define(:version => 20130221163515) do
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
     t.integer  "gallery_id"
+  end
+
+  create_table "signups", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.string   "type"
+    t.text     "happywhen"
+    t.text     "collaborate"
+    t.text     "interest"
+    t.text     "experience"
+    t.text     "requirements"
+    t.string   "confirm_available"
+    t.string   "preferred_times"
+    t.string   "confirm_unpaid"
+    t.string   "confirm_fee"
+    t.string   "parent_phone"
+    t.string   "parent_name"
+    t.string   "parent_email"
+    t.string   "waiver"
+    t.string   "parents_waiver"
+    t.string   "respect_agreement"
+    t.string   "charge_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "taggings", :force => true do |t|
@@ -147,6 +172,8 @@ ActiveRecord::Schema.define(:version => 20130221163515) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.boolean  "use_gravatar",           :default => true
+    t.integer  "host_id"
+    t.string   "phone"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
