@@ -80,7 +80,7 @@
             <% end %>
           </p>
 
-          <%= link_to "Sign Up", new_apprenticeship_app_signup_path(@apprenticeship) %>
+          <%= link_to "Apply to work with #{@apprenticeship.host_firstname}", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-large btn-primary" %>
 
         </section>
       </aside>

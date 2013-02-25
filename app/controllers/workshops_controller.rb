@@ -32,7 +32,7 @@ class WorkshopsController < ApplicationController
       if @workshop.group_valid?(:save) && @workshop.save(:validate => false) && @workshop.deliver_save
         redirect_to workshops_path, :flash => { :success => "Your workshop was saved." }
       else
-        flash.now[:warning] = "Whoops! There was a problem saving your workshop. Please check all fields."
+        flash.now[:warning] = "Whoops! There was a problem saving your workshop. Please check all fields. (Because the save function is messing up!)"
         render 'new'
       end
     else
@@ -44,7 +44,7 @@ class WorkshopsController < ApplicationController
         render 'edit'
         end
       else 
-        flash.now[:warning] = "Whoops! There was a problem saving your workshop. Please check all fields."
+        flash.now[:warning] = "Whoops! There was a problem saving your workshop. Please check all fields. (Because it's trying to create instead of save)"
         render 'new'
       end
     end
@@ -53,10 +53,10 @@ class WorkshopsController < ApplicationController
   def update
 
     if params[:save_button] == "Save for Later"
-      if @workshop.group_valid?(:save) && @workshop.update_attributes(params[:workshop],:validate => false)
+      if @workshop.group_valid?(:save) && @workshop.update_attributes(params[:workshop], :validate => false)
         redirect_to workshops_path, :flash => { :success => "Nice! Your workshop was saved." }
       else
-        flash.now[:warning] = "Whoops! There was a problem saving your workshop. Please check all fields."
+        flash.now[:warning] = "Whoops! There was a problem saving your workshop. Please check all fields. (Because update is messing up)"
         render 'edit'
       end
 

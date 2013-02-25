@@ -78,4 +78,5 @@ gem 'figaro'
 gem 'hominid'
 gem 'haml'
 gem 'jquery-cookie-rails'
+gem 'dotiw'
 

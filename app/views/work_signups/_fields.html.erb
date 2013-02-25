@@ -1,0 +1,46 @@
+<%= render 'shared/error_messages', :form_model => @work_signup %>
+	<hr />
+	<h4>Name:</h4>
+	<p><%= "#{current_user.first_name} #{current_user.last_name}" %></p>
+	<h4>Email:</h4>
+	<p><%= "#{current_user.email}"%></p>
+	<h4>Age:</h4>
+	<p><%= distance_of_time_in_words(Date.today, current_user.birthday, :false, :only => "years") %></p> 
+	<br />
+	<p>Not you? <%= link_to "Sign in as a different user.", "users/sign_in" %></p>
+	<hr />
+
+	<h3>Tell us a bit more about yourself</h3>
+	<p>*Required fields</p>
+	<br />
+
+	<%= f.label :interest, capture { %>
+		<h4>What are you most interested in learning in this workshop?</h4>
+		<% } %>
+	<%= f.text_field :interest, :class => "span6", :rel => :popover, :data => { :content => "This will help the artist plan her workshop to include what you want to know.", "original-title" => 'Your interests' }  %> 
+	<br />
+
+	<br />
+	<%= f.label :experience, capture { %>
+		<h4>Have you done this kind of making before?</h4>
+		<% } %>
+	<%= f.text_field :experience, :class => "span6", :rel => :popover, :data => { :content => "If so, tell us about what you've made. If not, that's ok too!", "original-title" => 'Your experience' } %>
+	<br />
+
+	<br />
+	<h4>Phone number: *</h4>
+	<p>We'll only use this to contact you if there are last-minute changes to the workshop.</p>
+	<%= text_field_tag "user[phone]", current_user.phone %>
+	<br />
+	<br />
+
+	<% unless current_user.over_18 %>
+		<p>This is where parent info and waivers go</p>
+	<% else %>
+		<p>This is where grown-up waiver goes</p>
+	<% end %>
+
+	<p> This is where the respect agreement goes </p>
+
+	<p> Then there's payment </p>
+
