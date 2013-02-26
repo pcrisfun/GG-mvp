@@ -4,7 +4,7 @@ class Apprenticeship < Event
 
 	validates_presence_of :kind, :hours, :hours_per #, :charge_id (shouldn't need this bc we added 'update_attribute(:charge_id, charge.id)' to process_payment method)
 	validates_numericality_of :hours, :greater_than => 0
-	validates :begins_at, :date => {:after => Proc.new { Date.today + 6.day }, :message => 'Sorry! You need to plan your apprenticeship to start at least a week from today. Please check the dates you set.'}, :if => :tba_is_blank 
+	validates :begins_at, :date => {:after => Proc.new { Date.today + 6.day }, :message => 'Sorry! You need to plan your apprenticeship to start at least a week from today. Please check the dates you set.'}, :if => :tba_is_blank
 	validates :ends_at, :date => {:after => :begins_at, :message => "Oops! Please check the dates you set. Your apprenticeship can't end before it begins!"}, :if => :tba_is_blank
 
 	def default_url_options
@@ -18,7 +18,7 @@ class Apprenticeship < Event
 	def deliver_save
 		return false unless valid?
 		Pony.mail({
-			:to => "#{user.name}<#{user.email}>", 
+			:to => "#{user.name}<#{user.email}>",
       		:from => "GirlsGuild<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your apprenticeship has been saved - #{topic} with #{user.name}",
@@ -31,7 +31,7 @@ class Apprenticeship < Event
 	def deliver
 		return false unless valid?
 		Pony.mail({
-			:to => "#{user.name}<#{user.email}>", 
+			:to => "#{user.name}<#{user.email}>",
       		:from => "GirlsGuild<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your apprenticeship has been submitted! - #{topic} with #{user.name}",
@@ -39,12 +39,12 @@ class Apprenticeship < Event
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
-	end	
+	end
 
 	def deliver_resubmit
 		return false unless valid?
 		Pony.mail({
-			:to => "#{user.name}<#{user.email}>", 
+			:to => "#{user.name}<#{user.email}>",
       		:from => "GirlsGuild<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your apprenticeship has been resubmitted! - #{topic} with #{user.name}",
@@ -57,7 +57,7 @@ class Apprenticeship < Event
 	def deliver_accept
 		return false unless valid?
 		Pony.mail({
-			:to => "#{user.name}<#{user.email}>", 
+			:to => "#{user.name}<#{user.email}>",
       		:from => "GirlsGuild<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your apprenticeship has been posted! - #{topic} with #{user.name}",
@@ -65,12 +65,12 @@ class Apprenticeship < Event
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
-	end	
+	end
 
 	def deliver_cancel
 		return false unless valid?
 		Pony.mail({
-			:to => "#{user.name}<#{user.email}>", 
+			:to => "#{user.name}<#{user.email}>",
       		:from => "GirlsGuild<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your apprenticeship has been canceled - #{topic} with #{user.name}",
@@ -82,7 +82,7 @@ class Apprenticeship < Event
 		#
 		#return false unless valid?
 		#Pony.mail({
-		#	:to => the list of people signed up for the apprenticeship 
+		#	:to => the list of people signed up for the apprenticeship
       	#	:from => "GirlsGuild<hello@girlsguild.com>",
 		#	:reply_to => "GirlsGuild<hello@girlsguild.com>",
 		#	:subject => "Your apprenticeship has been canceled - #{topic} with #{user.name}",
@@ -93,13 +93,13 @@ class Apprenticeship < Event
 	end
 
 	def self.complete_apprenticeship
-	    apprenticeships = self.where(:ends_at => Date.today).all 
+	  apprenticeships = self.where(:ends_at => Date.today).all
 		apprenticeships.each {|a| a.complete}
 	end
 
 	state_machine :state, :initial => :started do
 		event :complete do
-        	transition :accepted => :completed #once signup is working this should be :in_progress => :completed
-        end 
+    	transition :accepted => :completed #once signup is working this should be :in_progress => :completed
+    end
 	end
 end

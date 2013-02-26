@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   after_create :create_gallery
   has_attached_file :avatar, :styles => { :large => "50x50#", :medium => "30x30#", :small => "25x25#" }
 
-  attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :birthday, :terms_of_service, :remember_me, :avatar, :use_gravatar, :host_id, :phone
+  attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :birthday, :terms_of_service, :remember_me, :avatar, :use_gravatar, :phone
 
   validates :first_name,  presence: true, length: { maximum: 20 }
   validates :last_name,  presence: true, length: { maximum: 20 }

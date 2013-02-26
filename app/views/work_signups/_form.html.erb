@@ -5,30 +5,43 @@
 	<h4>Email:</h4>
 	<p><%= current_user.email %></p>
 	<h4>Age:</h4>
-	<p><%= current_user.age %> years old</p> 
+	<p><%= current_user.age %> years old</p>
 	<br />
 	<p>Not you? <%= link_to "Sign in as a different user.", "../../../users/sign_out" %></p>
 	<% if current_user.age >= 18 %>
 		<div class="form-inline" >
 			<%= f.check_box :parent %>
-			<%= f.label :parent, capture { %> 
-			<p>I'm a parent signing up for my daughter.</p> 
+			<%= f.label :parent, capture { %>
+				<p>I'm a parent signing up for my daughter.</p>
 			<% } %>
 		</div>
+		<% if @work_signup.is_parent %>
+			<%= f.label :daughter_name %>
+			<%= f.text_field :daughter_name %>
+			<br/>
+			<%= f.label :daughter_age %>
+			<%= f.number_field :daughter_age %>
+		<% end %>
 	<% end %>
 
-	<p style="color:red;">[If over 18 put a :parent checkbox here for "I'm a parent signing up for my daughter(s)", then create columns :daughter_name, :daughter_age, (and ability to add another?) and write an if statement dependent on client-side validations that shows the daughter fields when the checkbox is checked]</p>
+	<p style="color:red;">[write an if statement that shows the daughter fields when the checkbox is checked - js or client-side validations?]</p>
 	<hr />
 
 	<h3>Tell us a bit more about yourself</h3>
 	<p>*Required fields</p>
 	<br />
 
+	<h4>Phone number: *</h4>
+	<p>We'll only use this to contact you if there are important or last-minute changes to the workshop.</p>
+	<%= text_field_tag "user[phone]", current_user.phone, :required => true %>
+	<br />
+
+	<br />
 	<%= f.label :interest, capture { %>
 		<h4>Interest</h4>
 		<% } %>
 		<p>What are you most interested in learning in this workshop?</p>
-	<%= f.text_field :interest, :class => "span6", :rel => :popover, :data => { :content => "This will help the artist plan her workshop to include what you want to know.", "original-title" => 'Your interests' }  %> 
+	<%= f.text_field :interest, :class => "span6", :rel => :popover, :data => { :content => "This will help the artist plan her workshop to include what you want to know.", "original-title" => 'Your interests' }  %>
 	<br />
 
 	<br />
@@ -40,19 +53,13 @@
 	<br />
 
 	<br />
-	<h4>Phone number: *</h4>
-	<p>We'll only use this to contact you if there are last-minute changes to the workshop.</p>
-	<%= text_field_tag "user[phone]", current_user.phone %>
-	<br />
-
-	<br />
 	<% if @workshop.respect_my_style.present? %>
 		<h4>I won't copy the artist's work *</h4>
 		<div class="form-inline" >
 			<p>(Put one of those scrolly waiver boxes here)</p>
 			<%= f.check_box :respect_agreement %>
-			<%= f.label :respect_agreement, capture { %> 
-			<p>I have read and agree to respect the artist's style.</p> 
+			<%= f.label :respect_agreement, capture { %>
+			<p>I have read and agree to respect the artist's style.</p>
 			<% } %>
 		</div>
 	<% end %>
@@ -75,8 +82,8 @@
 		<div class="form-inline" >
 			<p style="color:red;">[Put one of those scrolly waiver boxes here]</p>
 			<%= f.check_box :parents_waiver %>
-			<%= f.label :parents_waiver, capture { %> 
-			<p>I am the legal parent/guardian of the workshop participant, and have read and agree to this indeminification agreement.</p> 
+			<%= f.label :parents_waiver, capture { %>
+			<p>I am the legal parent/guardian of the workshop participant, and have read and agree to this indeminification agreement.</p>
 			<% } %>
 		</div>
 	<% end %>
@@ -85,12 +92,15 @@
 	<div class="form-inline" >
 		<p style="color:red;">[Put one of those scrolly waiver boxes here]</p>
 		<%= f.check_box :waiver %>
-		<%= f.label :waiver, capture { %> 
-		<p>I have read and agree to the workshop participation waiver.</p> 
+		<%= f.label :waiver, capture { %>
+		<p>I have read and agree to the workshop participation waiver.</p>
 		<% } %>
 	</div>
 
 	<br />
 	<p style="color:red;">[...Then there's payment. Plus ability to add more participants??]</p>
 
-	<p>derpdedoo</p>
+	<h3>Workshop fee</h3>
+	<%= render :partial => "shared/credit_card", :locals => { :f => f, :paid => @work_signup.charge_id.present? } %>
+
+	<br />
