@@ -17,7 +17,7 @@ class WorkSignupsController < ApplicationController
 
     if @work_signup.process_workshop_fee
       if @work_signup.save
-        if @work_signup.submit
+        if @work_signup.submit && @work_signup.deliver
           redirect_to workshops_path, :flash => { :success => "Awesome, you're all signed up to work with #{@workshop.host_firstname}." }
         else
           flash.now[:warning] = "Welp, that submit didn't work."
