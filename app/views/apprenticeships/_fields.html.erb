@@ -2,15 +2,15 @@
 
 <div class="accordion" id="accordion2">
 
-	<div class="accordion-group">  
-	  <div class="accordion-heading">  
-		<a class="accordion-toggle" data-toggle="collapse" href="#collapseOne">  
-	      1. Tell us a little about yourself  
-	    </a>  
-	  </div>  
-	  <div id="collapseOne" class="accordion-body collapse" style="height: 0px; ">  
-	    <div class="accordion-inner">  
-	      	<p>We’ll post this with your apprenticeship listing to show people who they’ll be working with.</p> 
+	<div class="accordion-group">
+	  <div class="accordion-heading">
+		<a class="accordion-toggle" data-toggle="collapse" href="#collapseOne">
+	      1. Tell us a little about yourself
+	    </a>
+	  </div>
+	  <div id="collapseOne" class="accordion-body collapse" style="height: 0px; ">
+	    <div class="accordion-inner">
+	      	<p>We’ll post this with your apprenticeship listing to show people who they’ll be working with.</p>
 
 	      	<h3>Your name + business name</h3>
 	      	<%= f.label :host_firstname, capture { %>
@@ -18,7 +18,7 @@
 				<% } %>
 			<% unless current_user.admin? %>
 				<%= f.text_field :host_firstname, :value => "#{current_user.first_name}" %>
-			<% else %> 
+			<% else %>
 				<%= f.text_field :host_firstname %>
 			<% end %>
 
@@ -30,7 +30,7 @@
 			<% else %>
 				<%= f.text_field :host_lastname %>
 			<% end %>
-				
+
 			<%= f.label :host_business, capture { %>
 				Business Name
 				<% } %>
@@ -43,7 +43,7 @@
 			<%= f.label :bio, capture { %>
 				Bio*
 				<% } %>
-			<%= f.text_area :bio, :class => "span6", :placeholder => "Give people a sense of who they'll be working with.", :rel => 'popover', :data => { :content => "Think about including: schooling, current work, recent shows, what you’re interested in as an artist and why you’re interested in teaching it - and a bit of personality, too!", "original-title" => 'Describe yourself' } %> 
+			<%= f.text_area :bio, :class => "span6", :placeholder => "Give people a sense of who they'll be working with.", :rel => 'popover', :data => { :content => "Think about including: schooling, current work, recent shows, what you’re interested in as an artist and why you’re interested in teaching it - and a bit of personality, too!", "original-title" => 'Describe yourself' } %>
 
 			<%= f.label :website, capture { %>
 				Website*
@@ -79,30 +79,30 @@
 					</a>
 				</li>
 			</ul>
-	    </div>  
-	  </div>  
-	</div> 
+	    </div>
+	  </div>
+	</div>
 
-	<div class="accordion-group">  
-	  <div class="accordion-heading">  
-	    <a class="accordion-toggle" data-toggle="collapse" href="#collapseTwo">  
-	      2. Tell us about your apprenticeship 
-	    </a>  
-	  </div>  
-	  <div id="collapseTwo" class="accordion-body collapse">  
-	    <div class="accordion-inner"> 
+	<div class="accordion-group">
+	  <div class="accordion-heading">
+	    <a class="accordion-toggle" data-toggle="collapse" href="#collapseTwo">
+	      2. Tell us about your apprenticeship
+	    </a>
+	  </div>
+	  <div id="collapseTwo" class="accordion-body collapse">
+	    <div class="accordion-inner">
 	    	<p>Give people an idea of what they'll learn and work on with you.</p>
-			
+
 			<%= f.label :topic, capture { %>
 				<h3>Apprenticeship Topic</h3>
-				<% } %>	
-			<%= f.text_field :topic, :class => 'span3', :placeholder => "Ex. 'Furniture Design'", :rel => 'popover', :data => { :content => 'What will you be teaching?', "original-title" => 'Topic' } %> 
+				<% } %>
+			<%= f.text_field :topic, :class => 'span3', :placeholder => "Ex. 'Furniture Design'", :rel => 'popover', :data => { :content => 'What will you be teaching?', "original-title" => 'Topic' } %>
 			<!--Add a host?-->
 
 			<h3>Apprenticeship Description</h3>
 			<div class="form_row" rel='popover' data-content="An event apprenticeship centers around organizing and running an event, for example: hanging a gallery show, or planning an art auction. In a production apprenticeship your apprentice helps you produce your work, for example: filling a large order, or designing a new line or series. And in an ongoing apprenticeship your apprentice helps you in your everyday practice.">
 			<p>What kind of apprenticeship will it be?</p>
-			
+
 			<p><%= f.radio_button :kind, "Event Apprenticeship" %> Event Apprenticeship</p>
 			<p><%= f.radio_button :kind, "Production Apprenticeship" %> Production Apprenticeship</p>
 			<p><%= f.radio_button :kind, "Ongoing Apprenticeship" %> Ongoing Apprenticeship</p>
@@ -111,10 +111,10 @@
 			<%= f.text_area :description, :class => "span6", :placeholder => "Tell us about your apprenticeship.", :rel => 'popover', :data => { :content => "Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. Based on your expectations, consider whether you plan to pay the apprentice, and if so, how much?", "original-title" => 'Description' }  %>
 
 			<h3>Skills & Techniques</h3>
-			<%= f.label :skill_list, capture { %> 
-				<p>What skills and techniques will your apprentice(s) learn? (List each, followed by a comma)</p> 
+			<%= f.label :skill_list, capture { %>
+				<p>What skills and techniques will your apprentice(s) learn? (List each, followed by a comma)</p>
 			<% } %>
-			<div rel='popover' data-content="Be as specific as possible to give your apprentice credit for her experience. We’ll keep track, to help her show off her skills!" data-original-title='Skills & Techniques' > 
+			<div rel='popover' data-content="Be as specific as possible to give your apprentice credit for her experience. We’ll keep track, to help her show off her skills!" data-original-title='Skills & Techniques' >
 			<%= f.text_field :skill_list, :data => { :pre => @apprenticeship.skills.map { |t|  { :id => t.name, :name => t.name } } } %>
 			</div>
 
@@ -122,7 +122,7 @@
 
 			<h3>Tools & Materials</h3>
 			<%= f.label :tool_list, capture { %>
-				<p>What tools and materials will your apprentice(s) use? (List each, followed by a comma)</p> 
+				<p>What tools and materials will your apprentice(s) use? (List each, followed by a comma)</p>
 			<% } %>
 			<div rel='popover' data-content="Be as specific as possible to give your apprentice credit for her experience. We’ll keep track, to help her show off her skills!" data-original-title='Tools & Materials' >
 			<%= f.text_field :tool_list, :data => { :pre => @apprenticeship.tools.map { |t|  { :id => t.name, :name => t.name } } }  %>
@@ -131,7 +131,7 @@
 			<br />
 
 			<h3>Requirements</h3>
-			<%= f.label :requirement_list, capture { %> 
+			<%= f.label :requirement_list, capture { %>
 				<p>Do applicants need experience with any skills, techniques, or tools before they apply? (List each, followed by a comma)</p>
 			<% } %>
 			<div rel='popover' data-content="Applicants will rate their level of experience with these skills and tools for you to see on their application." data-original-title='Requirements' >
@@ -142,14 +142,14 @@
 
 			<%= f.label :other_needs, capture { %>
 				<p>Are there other things your apprentice needs to have, like their own computer or car?<p>
-				<% } %>	
-			<%= f.text_field :other_needs, :class => 'span3', :placeholder => "Ex. Must have their own laptop", :rel => 'popover', :data => { :content => 'Applicants will confirm on their application that they have these things.', "original-title" => 'Other Needs' } %> 
-			
+				<% } %>
+			<%= f.text_field :other_needs, :class => 'span3', :placeholder => "Ex. Must have their own laptop", :rel => 'popover', :data => { :content => 'Applicants will confirm on their application that they have these things.', "original-title" => 'Other Needs' } %>
+
 			<br />
 
 			<%= f.label :begins_at, capture { %>
 				<h3>Duration</h3>
-				<% } %> 
+				<% } %>
 			<div class="row datepickerlayout">
 				<div class="input-append date span2" data-behaviour="datepicker">
 					<%= f.text_field :begins_at, :class => "span2", :value => @apprenticeship.begins_at.strftime("%m/%d/%Y")  %>
@@ -167,8 +167,8 @@
 			<p>-OR-</p>
 			<div class="form-inline" >
 				<%= f.check_box :datetime_tba %>
-				<%= f.label :datetime_tba, capture { %> 
-					<p>I'd like to gauge interest by gathering pre-registrations before I set a date range, so please list it as "TBA"</p> 
+				<%= f.label :datetime_tba, capture { %>
+					<p>I'd like to gauge interest by gathering pre-registrations before I set a date range, so please list it as "TBA"</p>
 				<% } %>
 			</div>
 
@@ -201,8 +201,8 @@
 
 			<div class="form-inline" >
 			<%= f.check_box :location_varies %>
-			<%= f.label :location_varies, capture { %> 
-			<p>The apprenticeship will take place at varying locations</p> 
+			<%= f.label :location_varies, capture { %>
+			<p>The apprenticeship will take place at varying locations</p>
 			<% } %>
 			</div>
 
@@ -212,9 +212,9 @@
 			<div class="form-inline" >
 				<%= f.label :age_min, "Min. age:" %>
 				<%= f.number_field :age_min, :class => "span1", :rel => 'popover', :data => { :content => "This is entirely up to you. We suggest a minimum age of 11 because our research has shown a need for fabulous mentors before middle school. If you need someone with a specific skill set or experience you may want to set the age higher and be clear about your needs in the apprenticeship description above.", "original-title" => 'Age Range' } %>
-				
+
 				&nbsp; to &nbsp;
-			
+
 				<%= f.label :age_max, "Max. age:" %>
 				<%= f.number_field :age_max, :class => "span1", :rel => 'popover', :data => { :content => "If you want to work specifically with youth, you can set a maximum age accordingly. If you're happy to work with adults as well, you can set the maximum to 99.", "original-title" => 'Age Range' } %>
 			</div>
@@ -229,37 +229,44 @@
 					</a>
 				</li>
 			</ul>
-	    </div>  
-	  </div>  
-	</div> 
+	    </div>
+	  </div>
+	</div>
 
 
-	<div class="accordion-group">  
-	  <div class="accordion-heading">  
-	    <a class="accordion-toggle" data-toggle="collapse" href="#collapseThree">  
-	      3. A few quick logistics  
-	    </a>  
-	  </div>  
-	  <div id="collapseThree" class="accordion-body collapse">  
-	    <div class="accordion-inner"> 
+	<div class="accordion-group">
+	  <div class="accordion-heading">
+	    <a class="accordion-toggle" data-toggle="collapse" href="#collapseThree">
+	      3. A few quick logistics
+	    </a>
+	  </div>
+	  <div id="collapseThree" class="accordion-body collapse">
+	    <div class="accordion-inner">
 
 	    	<h3>Background check</h3>
-			<%= f.label :permission, :class => "checkbox" do %>
-			  <%= f.check_box :permission, :rel => 'popover', :data => { :content => "We run background checks on all maker-mentors as part of our efforts to foster a safe community."} %>Yes, I give permission for GirlsGuild to run a background check on me.*
-			<% end %>
+				<%= f.label :permission, :class => "checkbox" do %>
+				  <%= f.check_box :permission, :rel => 'popover', :data => { :content => "We run background checks on all maker-mentors as part of our efforts to foster a safe community."} %>Yes, I give permission for GirlsGuild to run a background check on me.*
+				<% end %>
 
-			<h3>Apprenticeship listing fee</h3>
-			<%= render :partial => "shared/credit_card", :locals => { :f => f, :paid => @apprenticeship.charge_id.present? } %>
-			<ul class="icons">
-				<li>
-					<a data-toggle="collapse" data-target="#collapseThree">
-						<i class="icon-chevron-up"></i>
-					</a>
-				</li>
-			</ul>
-	    </div>  
-	  </div>  
-	</div> 
+				<h3>Don't steal my style!</h3>
+				<p>We understand that for some makers, teaching your unique techniques can feel like risking your trade secrets. If this is a concern for you, we'll ask your apprentice to sign an agreement to respect your artistic style.</p>
+				<%= f.label :respect_my_style, :class => "checkbox" do %>
+				  <%= f.check_box :respect_my_style %>Yes, please ask my apprentice to sign a respect agreement.
+				<% end %>
+
+				<h3>Apprenticeship listing fee</h3>
+				<%= render :partial => "shared/credit_card", :locals => { :f => f, :paid => @apprenticeship.charge_id.present? } %>
+
+				<ul class="icons">
+					<li>
+						<a data-toggle="collapse" data-target="#collapseThree">
+							<i class="icon-chevron-up"></i>
+						</a>
+					</li>
+				</ul>
+	    </div>
+	  </div>
+	</div>
 
 </div>
 

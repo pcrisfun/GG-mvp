@@ -31,7 +31,6 @@ class WorkSignupsController < ApplicationController
       flash.now[:notify] = "You didn't think payment would just work, did you?"
       render 'new'
     end
-
   end
 
 end

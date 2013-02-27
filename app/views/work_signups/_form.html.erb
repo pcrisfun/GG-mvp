@@ -2,12 +2,16 @@
 	<hr />
 	<h4>Name:</h4>
 	<p><%= "#{current_user.first_name} #{current_user.last_name}" %></p>
+
 	<h4>Email:</h4>
 	<p><%= current_user.email %></p>
+
 	<h4>Age:</h4>
 	<p><%= current_user.age %> years old</p>
 	<br />
-	<p>Not you? <%= link_to "Sign in as a different user.", "../../../users/sign_out" %></p>
+
+	<p>Not you? <%= link_to "Sign in as a different user.", destroy_user_session_path %></p>
+
 	<% if current_user.age >= 18 %>
 		<div class="form-inline" >
 			<%= f.check_box :parent %>
@@ -15,6 +19,7 @@
 				<p>I'm a parent signing up for my daughter.</p>
 			<% } %>
 		</div>
+
 		<% if @work_signup.is_parent %>
 			<%= f.label :daughter_name %>
 			<%= f.text_field :daughter_name %>
