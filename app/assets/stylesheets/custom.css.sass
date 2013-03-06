@@ -5,24 +5,49 @@
   box-sizing: border-box
 
 /* variables */
-$starlight: #eff6f8
-$starlighter: #f8fbfc
-$tangerinelight: #ffe6c5
-$tangerinemedium: #f9a83d
+$tangerine-light: #ffe6c5
+$tangerine-medium: #f9a83d
 $tangerine: #f99716
-$salmonlight: #fcbfb6
-$salmonmedium: #fc7859
-$salmon: #fd5a3f
-$salmonshadow: #ed503b
-$salmonblack: #411110
-$oceanlight: #c7eaf2
-$oceanmedium: #0eb3e5
-$ocean: #2092c1
-$grass: #7dbc0f
+$tangerine-shadow: #e0800e
+$tangerine-black: #5e3202
 
-/* typography */
-.kristi
-  font-family: 'Kristi', cursive
+$salmon-light: #fcbfb6
+$salmon-medium: #fc7859
+$salmon: #fd5a3f
+$salmon-shadow: #ed503b
+$salmon-black: #411110
+
+$coral-light: #fcb1b1
+$coral-medium: #fc7070
+$coral: #fc4240
+$coral-shadow: #e02d2d
+
+$ocean-light: #c7eaf2
+$ocean-medium: #0eb3e5
+$ocean: #2092c1
+$ocean-shadow: #077ca0
+$ocean-black: #01404f
+
+$grass-light: #e8f7c9
+$grass-medium: #a9db3b
+$grass: #7dbc0f
+$grass-shadow: #70a005
+$grass-black: #3f5601
+
+$star-bright: #f8fbfc
+$star-light: #eff6f8
+$star-medium: #e4edef
+$star: #d8e3e5
+$star-shadow: #c5dadd
+
+$silver-bright: #f7f7f7
+$silver-light: #efefef
+$silver-medium: #e0e0e0
+$silver: #cecece
+$silver-shadow: #b5b5b5
+$silver-dark: #939393
+$silver-black: #707070
+
 
 /* universal */
 a, a:hover, a:active, a:visited, a:focus
@@ -36,19 +61,37 @@ a, a:hover, a:active, a:visited, a:focus
 .clear-left
   clear: left
 
+.center
+  text-align: center
+  margin: 0 auto
+.left
+  text-align: left
+.right
+  text-align: right
+
+
 /* buttons */
+.btn
+  background-color: $silver-light
+  background-image: none
 .btn-warning
-  background-color: $tangerinemedium
+  background-color: $tangerine-medium
   background-image: none
 .btn-danger
-  background-color: $salmonshadow
+  background-color: $salmon-shadow
   background-image: none
 .btn-success
   background-color: $grass
   background-image: none
 .btn-primary
-  background-color: $oceanmedium
+  background-color: $ocean-medium
   background-image: none
+
+.bttn-newsletter
+  text-align: center
+  .btn
+    padding: 2px 14px
+
 
 /* header */
 #masthead .brand
@@ -85,6 +128,25 @@ a, a:hover, a:active, a:visited, a:focus
     font-size: 28px
 
 /* forms */
+.accordion-toggle
+  background-color: $ocean-medium
+.accordion-heading
+  h2
+    a
+      color: #FFF
+      text-shadow: 1px 1px 1px $ocean-shadow
+
+.accordion-inner
+  background: rgb(255, 255, 255)
+  background: rgba(255, 255, 255, .45)
+  text-shadow: 1px 2px 1px #FFF
+  h3
+    font-size: 20px
+    margin-bottom: 20px
+    margin-top: 30px
+    padding-left: 20px
+    color: $silver-shadow
+
 .fancyform
   background: #EBEBEB
   border: 1px solid #D3D3D3
@@ -94,10 +156,38 @@ a, a:hover, a:active, a:visited, a:focus
     border-color: #DDD
     border-width: 0px 0px 1px 0px
 
-.bttn-newsletter
-  text-align: center
-  .btn
-    padding: 2px 14px
+.form-horizontal
+  color: $silver-black
+  .control-label
+    width: 170px
+  .controls
+    margin-left: 190px
+  .btn-create
+    text-align: center
+    margin: 0 auto
+    display: block
+
+.control-group
+  .radio_buttons
+    padding-top: 0px
+
+.simpleform-text
+  line-height: 34px
+
+ul.token-input-list-facebook
+  clear: none
+
+.popover, .popover.arrow
+  background: #000
+.popover.right .arrow
+  border-right-color: #000
+.popover-inner
+  text-align: left
+.popover-title
+  padding: 0px
+  border-bottom: none
+.popover-content
+  color: #CCC
 
 input[type="radio"], input[type="checkbox"]
   margin: -4px 0 0
@@ -125,7 +215,6 @@ input[type="radio"], input[type="checkbox"]
     display: none
     h2
       color: #FFF
-
   .kristi
     color: #FFF
     font-weight: normal
@@ -141,13 +230,6 @@ input[type="radio"], input[type="checkbox"]
   text-align: right
   font-size: 12px
 
-
-/* faq page */
-.accordion-toggle
-  background-color: $starlight
-
-.accordion-inner
-  background-color: $starlighter
 
 
 /* miscellaneous */
@@ -176,7 +258,6 @@ input[type="radio"], input[type="checkbox"]
     -webkit-border-radius: 5px
     -moz-border-radius: 5px
     border-radius: 5px
-
 
 .description
   margin: 10px 0px 5px

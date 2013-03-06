@@ -2,13 +2,13 @@
   <%= content_tag :div, :class => "container" do %>
     <% provide(:title, @apprenticeship.title) %>
     <div class="row">
-      <aside class="span8">
+      <aside class="span12">
         <section>
           <h1>
             <%= @apprenticeship.kind %> in <%= @apprenticeship.topic %> with <%= @apprenticeship.host_firstname %> <%= @apprenticeship.host_lastname %>
               <% unless @apprenticeship.host_business.blank? %>
               of <%=@apprenticeship.host_business %>
-              <% end %>
+            <% end %>
           </h1>
 
           <h4>Bio</h4>
@@ -28,13 +28,13 @@
 
           <h4>Apprenticeship Description</h4>
           <p><%= @apprenticeship.description %></P>
-          
-          <h4>Skills</h4> 
+
+          <h4>Skills</h4>
           <p><%= @apprenticeship.skill_list %></p>
-          
+
           <h4>Tools</h4>
           <p><%= @apprenticeship.tool_list %></p>
-          
+
           <% unless @apprenticeship.requirement_list.blank? %>
             <h4>Requirements</h4>
             <p><%= @apprenticeship.requirement_list %></p>
@@ -57,10 +57,10 @@
               <%= @apprenticeship.location_address %>, <%= @apprenticeship.location_address2 %><br />
               <%= @apprenticeship.location_city %>, <%= @apprenticeship.location_state %> <%= @apprenticeship.location_zipcode %>
             <% else %>
-              <%= @apprenticeship.location_nbrhood %>        
+              <%= @apprenticeship.location_nbrhood %>
             <% end %>
           </p>
-          <p> 
+          <p>
             <% unless @apprenticeship.location_varies.blank? %>
               Note: locations for this apprenticeship will vary.
             <% end %>
@@ -73,7 +73,7 @@
             <% if @apprenticeship.started? && @apprenticeship.user == current_user %>
              (<%= link_to "Resume", edit_apprenticeship_path(@apprenticeship) %>)
             <% elsif @apprenticeship.pending? && @apprenticeship.user == current_user %>
-             (<%= link_to 'Delete', @apprenticeship, :method => :delete, :data => { :confirm => 'Are you sure you want to delete this apprenticeship? Deleting cannot be undone.' } %>)             
+             (<%= link_to 'Delete', @apprenticeship, :method => :delete, :data => { :confirm => 'Are you sure you want to delete this apprenticeship? Deleting cannot be undone.' } %>)
             <% elsif @apprenticeship.accepted? && @apprenticeship.user == current_user or current_user.admin? %>
               <%= link_to "Cancel", @apprenticeship, :method => :cancel, :data => { :confirm => "Are you sure you want to cancel this apprenticeship? It will be closed for sign-up and moved under My Canceled Apprenticeships. You will still be able to edit and resubmit it."} %>
              (<%= link_to "Edit", edit_apprenticeship_path(@apprenticeship) %>)

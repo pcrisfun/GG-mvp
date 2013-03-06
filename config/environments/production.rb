@@ -78,5 +78,15 @@ GirlsGuild::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   # According to RailsCasts #164: "This line isn’t required, but by adding it we’re adding a dependency to the gem in our application so that it gets installed when we deploy it."
- # config.gem 'whenever', :lib => false, :source => 'http://gems.github.com'
+  # config.gem 'whenever', :lib => false, :source => 'http://gems.github.com'
+
+  # Enable Amazon S3 storage
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_credentials => {
+      :bucket => ENV['AWS_BUCKET'],
+      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+    }
+  }
 end

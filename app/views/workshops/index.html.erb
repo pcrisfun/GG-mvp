@@ -2,6 +2,7 @@
 	<%= content_tag :div, :class => "container" do %>
 		<%= link_to "Offer a Workshop", new_workshop_path, :class => 'btn btn-large btn-primary' %>
 
+
 		<% unless current_user.blank? %>
 			<% if current_user.admin? %>
 				<hr />
@@ -27,7 +28,8 @@
 				<% end %>
 			<% end %>
 
-			<% unless current_user.workshops.blank? %> 
+
+			<% unless current_user.workshops.blank? %>
 				<hr />
 				<h2>My Workshops</h2>
 				<% unless @mycanceled_workshops.blank? %>
@@ -55,13 +57,15 @@
 					<%= render :partial => "workshop", :collection => @mycompleted_workshops %>
 				<% end %>
 			<% end %>
-		<% end %>	
+		<% end %>
+
 
 		<% unless @workshops.blank? %>
 			<hr />
 			<h2>All Workshops</h2>
 			<%= render :partial => "workshop", :collection => @workshops %>
 		<% end %>
+
 
 	<% end %>
 <% end %>

@@ -33,6 +33,7 @@
 				<% end %>
 			<% end %>
 
+
 			<% unless current_user.apprenticeships.blank? %>
 				<hr />
 				<h2>My Apprenticeships</h2>
@@ -65,13 +66,15 @@
 					<h4>My Completed Apprenticeships</h4>
 					<%= render :partial => "apprenticeship", :collection => @mycompleted_apprenticeships %>
 				<% end %>
-			<% end %>	
-		<% end %>		
+			<% end %>
+		<% end %>
+
 
 		<% unless @apprenticeships.blank? %>
-		<hr />
-		<h2>All Apprenticeships</h2>
-		<%= render :partial => "apprenticeship", :collection => @apprenticeships %>
+			<hr />
+			<h2>All Apprenticeships</h2>
+			<%= render :partial => "apprenticeship", :collection => @apprenticeships %>
 		<% end %>
+
 	<% end %>
 <% end %>

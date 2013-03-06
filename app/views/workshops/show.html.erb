@@ -2,7 +2,7 @@
   <%= content_tag :div, :class => "container" do %>
     <% provide(:title, @workshop.title) %>
     <div class="row">
-      <aside class="span8">
+      <aside class="span12">
         <section>
           <h1>
             <%= @workshop.topic %> Workshop with <%= @workshop.host_firstname %> <%=@workshop.host_lastname %>
@@ -28,13 +28,13 @@
 
           <h4>Workshop Description</h4>
           <p><%= @workshop.description %></P>
-          
-          <h4>Skills</h4> 
+
+          <h4>Skills</h4>
           <p><%= @workshop.skill_list %></p>
-          
+
           <h4>Tools</h4>
           <p><%= @workshop.tool_list %></p>
-          
+
           <% unless @workshop.requirement_list.blank? %>
             <h4>Requirements</h4>
             <p><%= @workshop.requirement_list %><p>
@@ -45,11 +45,11 @@
           <% end %>
 
           <h4>When</h4>
-            <% if @workshop.datetime_tba.blank? %>
-                <p><%= @workshop.begins_at.strftime("%m/%d/%Y") %>, <%= @workshop.begins_at_time.strftime("%l:%M%P") %> to <%= @workshop.ends_at_time.strftime("%l:%M%P") %></p>
-            <% else %>
-                <p>TBA</p>        
-            <% end %>
+          <% if @workshop.datetime_tba.blank? %>
+              <p><%= @workshop.begins_at.strftime("%m/%d/%Y") %>, <%= @workshop.begins_at_time.strftime("%l:%M%P") %> to <%= @workshop.ends_at_time.strftime("%l:%M%P") %></p>
+          <% else %>
+              <p>TBA</p>
+          <% end %>
 
           <h4>Where</h4>
           <p>
@@ -57,7 +57,7 @@
               <%= @workshop.location_address %>, <%= @workshop.location_address2 %><br />
               <%= @workshop.location_city %>, <%= @workshop.location_state %> <%= @workshop.location_zipcode %>
             <% else %>
-              <%= @workshop.location_nbrhood %>        
+              <%= @workshop.location_nbrhood %>
             <% end %>
           </p>
 
