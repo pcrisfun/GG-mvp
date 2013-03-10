@@ -7,7 +7,9 @@ class Event < ActiveRecord::Base
 
 
   belongs_to :user
-  has_one :host_album, :class_name => 'EventAlbum', :dependent => :destroy
+  has_one :host_album, :class_name => 'Album', :dependent => :destroy
+  after_create :create_host_album
+
 
   validation_group :save do
     validates_presence_of :topic, :message => ' must be included in order to save your form.'
@@ -21,7 +23,16 @@ class Event < ActiveRecord::Base
   validates_numericality_of :registration_min, :greater_than_or_equal_to => 0
 
   attr_accessible :title, :topic, :host_firstname, :host_lastname, :host_business, :bio, :twitter, :facebook, :website, :webshop, :permission, :payment_options, :paypal_email, :sendcheck_address, :sendcheck_address2, :sendcheck_city, :sendcheck_state, :sendcheck_zip, :kind, :description, :begins_at, :begins_at_time, :ends_at, :ends_at_time, :datetime_tba, :skill_list, :tool_list, :requirement_list, :other_needs, :hours, :hours_per, :location_address, :location_address2, :location_city, :location_state, :location_zipcode, :location_private, :location_nbrhood, :location_varies, :age_min, :age_max, :registration_min, :registration_max, :price
-  before_save :generate_title
+
+  after_create :generate_title
+  def generate_title
+    self.title = "#{self.topic} with #{self.host_firstname} #{self.host_lastname}"
+    self.save
+  end
+
+  def title_html
+    "<span class='title-topic'>#{self.topic}</span> <span class='title-name'>with #{self.host_firstname} #{self.host_lastname}</span>".html_safe
+  end
 
   attr_accessible :stripe_card_token
   attr_accessor :stripe_card_token
@@ -119,6 +130,10 @@ class Event < ActiveRecord::Base
       event :in_progress do
         transition :accepted => :in_progress #this will need to be triggered when the apprenticeship is filled
       end
+  end
+
+  def create_host_album
+    self.host_album  = Album.new(title: "Images for #{self.title}")
   end
 
 end

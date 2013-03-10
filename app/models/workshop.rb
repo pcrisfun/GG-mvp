@@ -2,21 +2,17 @@ class Workshop < Event
 
 	validates_presence_of :payment_options, :begins_at_time, :ends_at_time, :ends_at, :registration_max, :price
 	validates_numericality_of :price, :greater_than_or_equal_to => 0
-	validates_numericality_of :registration_max, :greater_than => :registration_min, :message => "must be greater than the minimum number of participants."	
-	validates :begins_at, :date => {:after => Proc.new { Date.today + 6.day }, :message => 'Sorry! You need to plan your workshop to start at least a week from today. Please check the date you set.'}, :if => :tba_is_blank 
+	validates_numericality_of :registration_max, :greater_than => :registration_min, :message => "must be greater than the minimum number of participants."
+	validates :begins_at, :date => {:after => Proc.new { Date.today + 6.day }, :message => 'Sorry! You need to plan your workshop to start at least a week from today. Please check the date you set.'}, :if => :tba_is_blank
 
 	def default_url_options
 	  { :host => 'localhost:3000'}
 	end
 
-	def generate_title
-		self.title = "#{self.topic} Workshop with #{self.host_firstname} #{self.host_lastname}"
-	end
-	
 	def deliver_save
 		return false unless valid?
 		Pony.mail({
-			:to => "#{user.name}<#{user.email}>", 
+			:to => "#{user.name}<#{user.email}>",
      		:from => "GirlsGuild<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your workshop has been saved - #{topic} with #{user.name}",
@@ -29,7 +25,7 @@ class Workshop < Event
 	def deliver
 		return false unless valid?
 		Pony.mail({
-			:to => "#{user.name}<#{user.email}>", 
+			:to => "#{user.name}<#{user.email}>",
       		:from => "GirlsGuild<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your workshop has been submitted! - #{topic} with #{user.name}",
@@ -42,7 +38,7 @@ class Workshop < Event
 	def deliver_resubmit
 		return false unless valid?
 		Pony.mail({
-			:to => "#{user.name}<#{user.email}>", 
+			:to => "#{user.name}<#{user.email}>",
       		:from => "GirlsGuild<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your workshop has been resubmitted! - #{topic} with #{user.name}",
@@ -55,7 +51,7 @@ class Workshop < Event
 	def deliver_accept
 		return false unless valid?
 		Pony.mail({
-			:to => "#{user.name}<#{user.email}>", 
+			:to => "#{user.name}<#{user.email}>",
       		:from => "GirlsGuild<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your workshop has been posted! - #{topic} with #{user.name}",
@@ -68,7 +64,7 @@ class Workshop < Event
 	def deliver_cancel
 		return false unless valid?
 		Pony.mail({
-			:to => "#{user.name}<#{user.email}>", 
+			:to => "#{user.name}<#{user.email}>",
       		:from => "GirlsGuild<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your workshop has been canceled - #{topic} with #{user.name}",
@@ -79,7 +75,7 @@ class Workshop < Event
 		#Can we enter another email into this method, like:
 		#return false unless valid?
 		#Pony.mail({
-		#	:to => the list of people signed up for the workshop 
+		#	:to => the list of people signed up for the workshop
       	#	:from => "GirlsGuild<hello@girlsguild.com>",
 		#	:reply_to => "GirlsGuild<hello@girlsguild.com>",
 		#	:subject => "Your workshop has been canceled - #{topic} with #{user.name}",
@@ -90,13 +86,13 @@ class Workshop < Event
 	end
 
 	def self.complete_workshop
-		workshops = self.where(:begins_at => Date.today).all 
+		workshops = self.where(:begins_at => Date.today).all
 		workshops.each {|w| w.complete}
 	end
 
 	state_machine :state, :initial => :started do
 		event :complete do
         	transition :accepted => :completed
-        end 
+        end
 	end
 end

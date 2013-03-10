@@ -58,6 +58,9 @@ GEM
       ffi (~> 1.0, >= 1.0.11)
     chronic (0.9.0)
     client_side_validations (3.2.2)
+    client_side_validations-simple_form (2.0.1)
+      client_side_validations (~> 3.2.0)
+      simple_form (~> 2.0.3)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.1)
@@ -102,6 +105,8 @@ GEM
     ffi (1.4.0)
     figaro (0.5.4)
       rails (~> 3.0)
+    font-awesome-rails (3.0.2.0)
+      railties (>= 3.1)
     gherkin (2.11.6)
       json (>= 1.7.6)
     grouped_validations (0.3.2)
@@ -251,6 +256,7 @@ DEPENDENCIES
   capybara (= 1.1.2)
   chronic
   client_side_validations
+  client_side_validations-simple_form
   coffee-rails (= 3.2.2)
   cucumber-rails (= 1.2.1)
   database_cleaner (= 0.7.0)
@@ -260,6 +266,7 @@ DEPENDENCIES
   faker (= 1.0.1)
   fancybox2-rails
   figaro
+  font-awesome-rails
   grouped_validations
   growl (= 1.0.3)
   haml

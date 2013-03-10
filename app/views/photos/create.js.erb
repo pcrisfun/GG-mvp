@@ -1,0 +1,7 @@
+<% if @photo.new_record? %>
+  alert("Failed to upload photo: <%= j @photo.errors.full_messages.join(', ').html_safe %>");
+<% else %>
+  var photo = "<%= j render 'photos/photo_edit', photo: @photo, size: :box %>";
+  $last = $('.upload').last().append(photo).attr('id', "photo_<%=@photo.id%>").removeClass('upload');
+<% end %>
+

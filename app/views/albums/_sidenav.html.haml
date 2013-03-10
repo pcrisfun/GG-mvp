@@ -1,16 +1,21 @@
-.span3
-  %ul.nav.nav-pills.nav-stacked.well
-    %li
-      = link_to content_tag(:i, '',:class => "icon-plus-sign")+'Add Album', '#newAlbumModal', "data-toggle"=>"modal"
-    - @albums.each do |album|
-      = active_link_to album.title, album, :wrap_tag => :li
-
-
+%ul#album_nav.nav.nav-tabs.pull-right
+  %li.dropdown
+    %a.large.dropdown-toggle{ href: '', data: {toggle: "dropdown" }}
+      %i.icon-sort-down
+      Albums
+    %dl.dl-horizontal.dropdown-menu
+      %dt= link_to content_tag(:i, '  ',class: "icon-plus"), '#newAlbumModal', data: { toggle: "modal" }
+      %dd= link_to 'Add Album', '#newAlbumModal', "data-toggle"=>"modal"
+      - @albums.each do |album|
+        %dt
+          - if !album.event_id
+            = link_to content_tag(:i, '  ',class: "icon-remove"), album, method: :delete, confirm: "Are you sure you want to delete this Album?\r\rNote: Your images will not be deleted."
+        %dd= active_link_to album.title, album
 
 / Modal
-#newAlbumModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "newAlbumModal", :role => "dialog", :tabindex => "-1"}
+#newAlbumModal.modal.hide.fade{ role: "dialog", tabindex: "-1", aria: { hidden: "true", labelledby: "newAlbumModal" } }
   .modal-header
-    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+    %button.close{"aria-hidden" => "true", :type => "button", data: { dismiss: "modal" } } ×
     %h3#newAlbumModelLabel New Album
   .modal-body
-    = render :partial => 'new'
+    = render 'albums/new'

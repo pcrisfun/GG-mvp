@@ -1,0 +1,95 @@
+= provide(:title, @workshop.title)
+= provide(:googleshim, true)
+#workshop_show
+
+  %section.title_section.section
+    .container
+      %h1= @workshop.title_html
+
+  %section#desc_section.section
+    .container
+      .row-fluid
+        .span2
+          %button.btn.btn-block.btn-primary Sign Up!
+        .span10
+          %dl.dl-horizontal
+            %dt Description
+            %dd= simple_format(@workshop.description)
+
+            %dt When
+            %dd #{@workshop.begins_at.strftime('%A, %B %d')} from #{@workshop.begins_at_time.strftime('%I:%M%P')} to #{@workshop.ends_at_time.strftime('%I:%M%P')}
+
+            %dt Where
+            %dd #{@workshop.location_private ? @workshop.location_nbrhood + ' neighborhood' : @workshop.location_address} in #{@workshop.location_city}, #{@workshop.location_state}
+
+            %dt Cost
+            %dd #{@workshop.price}
+
+            %dt Ages
+            %dd #{@workshop.age_min} - #{@workshop.age_max}
+
+  %section#tags_section.section
+    .container
+      .row-fluid
+        .span4.well
+          %h3 Skills
+          %ul.nav.nav-stacked
+            -  @workshop.skill_list.each do |skill|
+              %li
+                %a #{skill}
+        .span4.well
+          %h3 Tools
+          %ul.nav.nav-stacked
+            -  @workshop.tool_list.each do |tool|
+              %li
+                %a #{tool}
+        .span4.well
+          %h3 Prerequisites
+          %ul.nav.nav-stacked
+            -  @workshop.requirement_list.each do |requirement|
+              %li
+                %a #{requirement}
+
+  %section#album_section.section.alt
+    .container
+      .row-fluild
+        #current_album
+          #album_photos.transitions-enabled.clearfix
+            = render 'albums/album_photos', limit: 5
+
+  %section#host_section.section
+    .container
+      .row-fluid
+        .span2
+          #avatar= avatar_for(@workshop.user, tag: 'large')
+        .span10
+          %dl.dl-horizontal
+            %dt Bio
+            %dd= @workshop.bio
+
+            %dt Site
+            %dd= @workshop.website
+
+            %dt Web Shop
+            %dd= @workshop.webshop
+
+            %dt Facebook Page
+            %dd= @workshop.facebook
+
+            %dt Twitter
+            %dd= @workshop.twitter
+
+  %section#details_section.section.alt
+    .map-top-shadow
+    #map
+    .map-bottom-shadow
+
+
+
+
+
+
+
+
+
+

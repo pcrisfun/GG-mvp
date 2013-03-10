@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130221163515) do
+ActiveRecord::Schema.define(:version => 20130309030421) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -20,21 +20,23 @@ ActiveRecord::Schema.define(:version => 20130221163515) do
     t.datetime "updated_at",         :null => false
   end
 
+  create_table "album_photo_maps", :force => true do |t|
+    t.integer  "album_id"
+    t.integer  "photo_id"
+    t.integer  "position"
+    t.boolean  "featured"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "albums", :force => true do |t|
     t.string   "title"
     t.text     "description"
+    t.integer  "gallery_id"
+    t.integer  "event_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-    t.integer  "gallery_id"
   end
-
-  create_table "albums_photos", :id => false, :force => true do |t|
-    t.integer "album_id"
-    t.integer "photo_id"
-  end
-
-  add_index "albums_photos", ["album_id", "photo_id"], :name => "index_albums_photos_on_album_id_and_photo_id"
-  add_index "albums_photos", ["photo_id", "album_id"], :name => "index_albums_photos_on_photo_id_and_album_id"
 
   create_table "events", :force => true do |t|
     t.integer  "user_id"
@@ -95,13 +97,14 @@ ActiveRecord::Schema.define(:version => 20130221163515) do
 
   create_table "photos", :force => true do |t|
     t.string   "caption"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.boolean  "protected",         :default => false
+    t.integer  "gallery_id"
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.string   "file_file_name"
     t.string   "file_content_type"
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
-    t.integer  "gallery_id"
   end
 
   create_table "taggings", :force => true do |t|

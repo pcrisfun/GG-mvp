@@ -1,0 +1,84 @@
+= provide(:title, @apprenticeship.title )
+#apprenticeship_show
+
+  %section.title_section.section
+    .container
+      %h1= @apprenticeship.title_html
+
+  %section#desc_section.section
+    .container
+      .row-fluid
+        .span2
+          %button.btn.btn-block.btn-primary Sign Up!
+        .span10
+          %dl.dl-horizontal
+            %dt Description
+            %dd= simple_format(@apprenticeship.description)
+
+            %dt When
+            %dd #{@apprenticeship.begins_at.strftime('%A, %B %d')} to #{@apprenticeship.ends_at.strftime('%A, %B %d')}
+
+            %dt Where
+            %dd #{@apprenticeship.location_private ? @apprenticeship.location_nbrhood + ' neighborhood' : @apprenticeship.location_address} in #{@apprenticeship.location_city}, #{@apprenticeship.location_state}
+
+            %dt Cost
+            %dd #{@apprenticeship.price}
+
+            %dt Ages
+            %dd #{@apprenticeship.age_min} - #{@apprenticeship.age_max}
+
+  %section#tags_section.section
+    .container
+      .row-fluid
+        .span4.well
+          %h3 Skills
+          %ul.nav.nav-stacked
+            -  @apprenticeship.skill_list.each do |skill|
+              %li
+                %a #{skill}
+        .span4.well
+          %h3 Tools
+          %ul.nav.nav-stacked
+            -  @apprenticeship.tool_list.each do |tool|
+              %li
+                %a #{tool}
+        .span4.well
+          %h3 Prerequisites
+          %ul.nav.nav-stacked
+            -  @apprenticeship.requirement_list.each do |requirement|
+              %li
+                %a #{requirement}
+
+  %section#album_section.section.alt
+    .container
+      .row-fluid
+        #current_album
+          #album_photos.transitions-enabled.clearfix
+            = render 'albums/album_photos'
+
+  %section#host_section.section
+    .container
+      .row-fluid
+        .span2
+          #avatar= avatar_for(@apprenticeship.user, tag: 'large')
+        .span10
+          %dl.dl-horizontal
+            %dt Bio
+            %dd= @apprenticeship.bio
+
+            %dt Site
+            %dd= @apprenticeship.website
+
+            %dt Web Shop
+            %dd= @apprenticeship.webshop
+
+            %dt Facebook Page
+            %dd= @apprenticeship.facebook
+
+            %dt Twitter
+            %dd= @apprenticeship.twitter
+
+  %section#details_section.section.alt
+    .map-top-shadow
+    #map
+    .map-bottom-shadow

@@ -8,7 +8,7 @@ module UsersHelper
     image_tag(gravatar_url, alt: "#{user.first_name} #{user.last_name}")
   end
 
-  def avatar_for(user, options = { size: 50, tag: 'large' })
+  def avatar_for(user, options = { size: 50, tag: 'medium' })
   	if user.use_gravatar
   		gravatar_for(user, options)
   	else

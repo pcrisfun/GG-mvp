@@ -1,10 +1,4 @@
-%section.section
-  .container
-    .row-fluid
-      = render partial: 'album'
-      = render partial: 'sidenav'
-    %hr
-    .row-fluid
-      %h2 My Images
-      = render partial: 'galleries/gallery'
-
+.container
+  .row
+  #album_section
+    = render 'albums/show', sidenav: true

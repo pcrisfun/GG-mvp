@@ -1,9 +1,8 @@
-%section.section
-  .container
-    .row-fluid
-      .span9
-      = render partial: 'sidenav'
-    %hr
-    .row-fluid
-      %h2 My Images
-      = render partial: 'galleries/gallery'
+.container
+  %h1 Your Image Collections
+  .row-fluid
+    #album_section
+      - @albums.each do |album|
+        .box
+          = render 'photos/photo', photo: album.featured_photo, size: :medium, url: url_for(album)
+          %p.description= album.title

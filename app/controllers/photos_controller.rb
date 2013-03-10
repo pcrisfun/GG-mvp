@@ -36,17 +36,22 @@ class PhotosController < ApplicationController
   # POST /photos
   # POST /photos.json
   def create
-    @photo = @gallery.photos.new(params[:photo])
-
-    if @photo.save
-      respond_to do |format|
-        format.html {redirect_back_or photo_path(@photo), notice: 'Photo was successfully created.'}
-        @photos = [@photo]
-        format.json {render 'index'}
-      end
+    if params[:album_id]
+      @album = Album.find(params[:album_id])
     else
-      render 'new'
+      @album = nil
     end
+    @photo = @gallery.photos.create(params[:photo])
+
+    #if @photo.save
+    #  respond_to do |format|
+    #    format.html {redirect_back_or photo_path(@photo), notice: 'Photo was successfully created.'}
+    #    @photos = [@photo]
+    #    format.json {render 'index'}
+    #  end
+    #else
+    #  render 'new'
+    #end
 
     # respond_to do |format|
     #   if @photo.save
@@ -79,19 +84,32 @@ class PhotosController < ApplicationController
   # DELETE /photos/1
   # DELETE /photos/1.json
   def destroy
+    if params[:album_id]
+      @album = Album.find(params[:album_id])
+    end
     @photo = @gallery.photos.find(params[:id])
     @photo.file.clear
-    @photo.destroy
+    @photo = @photo.destroy
 
     respond_to do |format|
       format.html { redirect_to :back, notice: 'Image was deleted.' }
       format.json { head :no_content }
+      format.js
     end
   end
 
-  private
-  def load_user_gallery
-    @user = current_user
-    @gallery = @user.gallery
+  def sort
+    if params[:album_id] && params[:album_photo]
+      params[:album_photo].each_with_index do |photo_id, index|
+        Photo.find(photo_id).set_position(album_id: params[:album_id], position: index+1)
+      end
+    end
+    render nothing: true
   end
+
+  private
+    def load_user_gallery
+      @user = current_user
+      @gallery = @user.gallery
+    end
 end

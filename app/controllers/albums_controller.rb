@@ -64,23 +64,11 @@ class AlbumsController < ApplicationController
   def update
     @album = Album.find(params[:id])
 
-    if params[:add_photos]
-      params[:add_photos].each do |photo_id|
-        photo = Photo.find(photo_id)
-        @album.add_photo(photo)
-      end
-    end
-    if params[:remove_photos]
-      params[:remove_photos].each do |photo_id|
-        photo = Photo.find(photo_id)
-        @album.remove_photo(photo)
-      end
-    end
-
     respond_to do |format|
       if @album.update_attributes(params[:album])
-        format.html { redirect_to album_path(@album) }
-        format.json { head :no_content }
+        @albums = @gallery.albums.all
+        format.html { redirect_back_or album_path(@album) }
+        format.json { render json: @album }
       else
         format.html { render action: "edit" }
         format.json { render json: @album.errors, status: :unprocessable_entity }
@@ -100,9 +88,44 @@ class AlbumsController < ApplicationController
     end
   end
 
-  private
-  def load_user_gallery
-    @user = current_user
-    @gallery = @user.gallery
+  # POST /albums/add_photos
+  def add_photos
+    @album = Album.find(params[:id])
+    params[:add_photos].each do |photo_id|
+      @photo = Photo.find(photo_id)
+      @album.add_photo(photo: @photo)
+    end
+    respond_to do |format|
+      format.js { render 'albums/add_photo' }
+    end
   end
+
+  # POST /albums/remove_photos
+  def remove_photos
+    @album = Album.find(params[:id])
+    params[:add_photos].each do |photo_id|
+      @photo = Photo.find(photo_id)
+      @album.remove_photo(photo: @photo)
+    end
+    respond_to do |format|
+      format.js { render 'albums/remove_photo' }
+    end
+  end
+
+  # POST /albums/set_featured
+  def set_featured
+    @album = Album.find(params[:id])
+    @photo = Photo.find(params[:add_featured])
+    @old_featured = @album.featured_photo
+    @album.set_featured(photo: @photo)
+    respond_to do |format|
+      format.js { render 'albums/add_featured' }
+    end
+  end
+
+  private
+    def load_user_gallery
+      @user = current_user
+      @gallery = @user.gallery
+    end
 end

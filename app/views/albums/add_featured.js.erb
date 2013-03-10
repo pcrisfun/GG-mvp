@@ -1,0 +1,6 @@
+<% if @old_featured %>
+  var oldFeatured = "<%= j render('albums/album_photo', :photo=>@old_featured) %>";
+  $("#album_photo_<%=@old_featured.id%>").replaceWith(oldFeatured);
+<% end %>
+var newFeatured = "<%= j render('albums/album_photo', photo: @photo, featured: true)%>";
+$("#album_photo_<%=@photo.id%>").replaceWith(newFeatured);

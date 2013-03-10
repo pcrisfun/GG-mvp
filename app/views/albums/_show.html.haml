@@ -1,0 +1,17 @@
+%section#current_album.section
+  .container
+    .row-fluid
+      .span8
+        %h1
+          - if @album
+            = @album.title.html_safe
+            = link_to(content_tag(:i, '',:class=>"icon-edit"), '#editAlbumModal', "data-toggle"=>"modal", "data-backdrop"=>"static")
+      .span4
+        = render 'galleries/gallery'
+        - if sidenav ||= false
+          = render 'albums/sidenav'
+    .row-fluid
+      #album
+        -if @album
+          = render 'albums/album'
+

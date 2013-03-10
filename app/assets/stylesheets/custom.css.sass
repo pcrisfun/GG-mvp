@@ -19,6 +19,7 @@ $oceanlight: #c7eaf2
 $oceanmedium: #0eb3e5
 $ocean: #2092c1
 $grass: #7dbc0f
+$niceblue: #41B7D8
 
 /* typography */
 .kristi
@@ -30,6 +31,9 @@ a, a:hover, a:active, a:visited, a:focus
 
 .relative
   position: relative
+
+.absolute
+  position: absolute
 
 .clear-right
   clear: right
@@ -153,7 +157,7 @@ input[type="radio"], input[type="checkbox"]
   @include box_sizing
 
 /* Required for jQuery Masonry */
-.box
+.box, .box_photo, .dragging
   margin: 5px
   padding: 5px
   font-size: 11px
@@ -170,13 +174,193 @@ input[type="radio"], input[type="checkbox"]
     -webkit-border-radius: 5px
     -moz-border-radius: 5px
     border-radius: 5px
+  a
+    background-color: $starlight
 
+.box-small
+  width: 135px
+.box-large
+  width: auto
 
 .description
   margin: 10px 0px 5px
   font-size: 13px
+  height: 30px
+  overflow: hidden
 
 .masonry-brick
   .relative
     z-index: 99
+
+.progress
+  position: absolute
+
+.progress-striped
+  .bar
+    background-size: 135px 135px
+
+.clearform
+  margin: 0px
+
+.transitions-enabled
+  &.masonry
+    -webkit-transition-duration: 0.7s
+    -moz-transition-duration: 0.7s
+    -ms-transition-duration: 0.7s
+    -o-transition-duration: 0.7s
+    transition-duration: 0.7s
+    .masonry-brick
+      -webkit-transition-duration: 0.7s
+      -moz-transition-duration: 0.7s
+      -ms-transition-duration: 0.7s
+      -o-transition-duration: 0.7s
+      transition-duration: 0.7s
+      -webkit-transition-property: left, right, top
+      -moz-transition-property: left, right, top
+      -ms-transition-property: left, right, top
+      -o-transition-property: left, right, top
+      transition-property: left, right, top
+    -webkit-transition-property: height, width
+    -moz-transition-property: height, width
+    -ms-transition-property: height, width
+    -o-transition-property: height, width
+    transition-property: height, width
+
+.clearfix:before, .clearfix:after
+  content: ""
+  display: table
+.clearfix:after
+  clear: both
+
+.clearfix
+  zoom: 1
+
+#uploader
+  height: 207px
+  .fileinput-button
+    height: 133px
+    width: 133px
+    padding: 0px
+  #label
+    line-height: 120px
+  .btn-primary
+    background: $niceblue
+
+#galleryModal
+  top: 60%
+  .modal-body
+    max-height: 450px
+
+#add_photo_input
+  transform: translate(-562px, 52px) scale(4.6)
+
+.center
+  text-align: center
+
+
+// Portfolio
+.dragging
+  opacity: .6
+
+#current_album
+  h1
+    display: inline-block
+
+#album_nav
+  margin-bottom: 0px
+  [class^="icon-"], [class*=" icon-"]
+    float: left
+    margin: 1px 2px 0 0
+    padding: 0 7px 0 1px
+  .dl-horizontal
+    [class^="icon-"], [class*=" icon-"]
+      float: none
+
+.large, #album_nav a.large
+  font-size: 20px
+  line-height: 24px
+  padding: 6px
+
+.nav-tabs
+  border: none
+.nav-tabs > li > a
+  border: none
+  padding: 0px 20px 0px 10px
+.nav-tabs > li > a:hover
+  background: none
+  border: none
+  border-color: none
+.nav-tabs .dropdown-toggle .caret
+  margin-top: 14px
+.nav-tabs .open .dropdown-toggle, .nav-pills .open .dropdown-toggle, .nav > li.dropdown.open.active > a:hover
+  background-color: $niceblue
+  border: none
+.nav-tabs .dropdown-menu
+  border: none
+  border-radius: 0px 6px 6px 6px
+  a
+    display: inline
+    padding: 0px
+    margin: 0 10px
+    line-height: 30px
+.dl-horizontal
+  font-size: 16px
+  line-height: 24px
+  margin-top: 0px
+  dt
+    text-align: center
+    width: 30px
+    a
+      padding: 3px
+  dd
+    margin-left: 30px
+
+
+// Workshops & Apprenticeships
+h1
+  .title-topic
+
+  .title-name
+    text-transform: none
+    font-weight: normal
+    font-size: 25px
+
+  .title-business
+    text-transform: none
+    font-weight: normal
+    font-size: 25px
+
+.title-boxlink
+  font-size: 16px
+  font-weight: bold
+  text-transform: uppercase
+
+#workshops-index, #apprenticeships-index
+  .box
+    .title-business
+      display: none
+  .box-details
+    padding: 10px 0
+    font-size: 14px
+    line-height: 20px
+  h1
+    display: inline
+
+#workshop_show, #apprenticeship_show
+  .box
+    width: 212px
+
+  .dl-horizontal
+    margin-top: 0px
+    dt
+      width: 18%
+    dd
+      margin-left: 20.5%
+
+  #tags_section.section
+    padding-top: 0px
+    margin-top: -10px
+
+    .nav-stacked
+      text-align: center
 

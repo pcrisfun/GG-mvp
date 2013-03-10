@@ -1,8 +1,0 @@
-<p>
-	<% if workshop.started? && workshop.user == current_user %>
- 		<%= link_to "Resume", edit_workshop_path(workshop), :class => "btn btn-mini btn-warning" %> 
-		<% elsif workshop.accepted? && workshop.user == current_user or current_user.admin? %>
- 		<%= link_to "Edit", edit_workshop_path(workshop), :class => "btn btn-mini btn-warning" %> 
-	<% end %>
-	<%= link_to workshop.title, workshop_path(workshop) %>
-</p>
