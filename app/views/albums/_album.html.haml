@@ -1,5 +1,5 @@
 #album_photos.transitions-enabled.clearfix{ data: { update: { url: "#{sort_photos_url}", album: "#{@album.id}" } }}
-  = render 'albums/album_photos', featured: true
+  = render 'albums/album_photos', featured: true, desc: true, controls: true
 
 / Edit Album Modal
 #editAlbumModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "editAlbumModal", :role => "dialog", :tabindex => "-1"}

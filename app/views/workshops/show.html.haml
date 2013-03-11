@@ -55,7 +55,7 @@
       .row-fluild
         #current_album
           #album_photos.transitions-enabled.clearfix
-            = render 'albums/album_photos', limit: 5
+            = render 'albums/album_photos', limit: 5, desc: false, edit: false, controls: false
 
   %section#host_section.section
     .container

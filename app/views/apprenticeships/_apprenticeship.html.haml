@@ -1,7 +1,13 @@
 .span4
   .box.box-large
-    - if apprenticeship && apprenticeship.host_album && apprenticeship.host_album.featured_photo
-      = render 'photos/photo', photo: apprenticeship.host_album.featured_photo, size: :large, url: url_for(apprenticeship)
+    - if apprenticeship && apprenticeship.host_album
+      - if apprenticeship.host_album.featured_photo
+        = render 'photos/photo', photo: apprenticeship.host_album.featured_photo, size: :large, url: url_for(apprenticeship)
+      - elsif apprenticeship.host_album.photos.first
+        = render 'photos/photo', photo: apprenticeship.host_album.photos.sort_by { |photo| photo.position(album_id: apprenticeship.host_album.id) }.first, size: :large, url: url_for(apprenticeship)
+      - else
+        %a{ href: url_for(apprenticeship) }
+          %img.default-photo-large
     .box-details
       - if apprenticeship.started? && apprenticeship.user == current_user
         = link_to "Resume", edit_apprenticeship_path(apprenticeship), class: "btn btn-mini pull-right"

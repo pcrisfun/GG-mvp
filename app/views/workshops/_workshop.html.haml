@@ -3,8 +3,11 @@
     - if workshop && workshop.host_album
       - if workshop.host_album.featured_photo
         = render 'photos/photo', photo: workshop.host_album.featured_photo, size: :large, url: url_for(workshop)
+      - elsif workshop.host_album.photos.first
+        = render 'photos/photo', photo: workshop.host_album.photos.sort_by { |photo| photo.position(album_id: workshop.host_album.id) }.first, size: :large, url: url_for(workshop)
       - else
-        = render 'photos/photo', photo: workshop.host_album.first, size: :large, url: url_for(workshop)
+        %a{ href: url_for(workshop) }
+          %img.default-photo-large
     .box-details
       - if workshop.started? && workshop.user == current_user
         = link_to "Resume", edit_workshop_path(workshop), class: "btn btn-mini pull-right"

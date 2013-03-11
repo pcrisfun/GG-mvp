@@ -1,3 +1,3 @@
 $('[id="photo_<%=@photo.id%>"]').find("[data-behaviour~='addphotos']").remove();
-var $newAlbumPhoto = "<%= j render 'albums/album_photo', photo: @photo %>";
+var $newAlbumPhoto = "<%= j render 'albums/album_photo', photo: @photo, desc: true, controls: true %>";
 $('#album_photos').append( $newAlbumPhoto );

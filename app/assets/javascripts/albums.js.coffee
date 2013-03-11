@@ -114,7 +114,7 @@ loadAlbum = () ->
       $(".featured").animate(backgroundColor: "#DFF0D8", 1500)
 
 jQuery ->
-  $(document).imagesLoaded ->
+  $(window).load ->
     loadAlbum()
 
 
