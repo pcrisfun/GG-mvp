@@ -1,4 +1,9 @@
 class Signup < ActiveRecord::Base
+  extend ActiveModel::Naming
+  include ActiveModel::Conversion
+  include ActionView::Helpers::TextHelper
+  include Rails.application.routes.url_helpers
+  include ActionDispatch::Routing::UrlFor
 
 	belongs_to :user
 	belongs_to :event
@@ -8,19 +13,24 @@ class Signup < ActiveRecord::Base
   attr_accessible :stripe_card_token
   attr_accessor :stripe_card_token
 
-
   state_machine :state, :initial => :started do
 
     state :started do
     end
 
-    state :submitted do
+    state :pending do
     end
 
     state :accepted do
     end
 
+    state :declined do
+    end
+
     state :canceled do
+    end
+
+    state :confirmed do
     end
 
     state :in_progress do
@@ -29,25 +39,30 @@ class Signup < ActiveRecord::Base
     state :completed do
     end
 
-    event :submit do
-      transition :started => :submitted
+    event :signup do
+      transition :started => :confirmed
+    end
+
+    event :apply do
+      transition :started => :pending
     end
 
     event :accept do
-      transition :submitted => :accepted
-    end
-
-    event :resubmit do
-      transition :accepted => :submitted
+      transition :pending => :accepted
     end
 
     event :cancel do
       transition all => :canceled
     end
 
-    event :in_progress do
-      transition :accepted => :in_progress #this will need to be triggered when the apprenticeship is filled
+    event :decline do
+      transition :pending => :declined
     end
+
+    event :confirm do
+      transition :accepted => :confirmed
+    end
+
   end
 
 end

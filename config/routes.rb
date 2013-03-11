@@ -1,14 +1,8 @@
 GirlsGuild::Application.routes.draw do
-  get "app_signups/new"
-
-  get "app_signups/create"
-
-  get "work_signups_controller/new"
-
-  get "work_signups_controller/create"
 
   resources :signups
-
+  resources :app_signups
+  resources :work_signups
 
   devise_for :users, :admins
 

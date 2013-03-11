@@ -4,14 +4,6 @@
 		<h1>Apprenticeship Application</h1>
 		<br />
 
-		<% if current_user.age < @apprenticeship.age_min %>
-
-			<h3>Bummer! <%= "#{@apprenticeship.host_firstname}" %> is looking for an older apprentice this time.</h3>
-			<br />
-			<p>Sorry, it looks like you're younger than the minimum age for this apprenticeship. You can check out what else is open right now to <% link_to "find another apprenticeship", apprenticeships_path %>.</p>
-
-		<% else %>
-
 			<h3>Yes! We’re excited you want to work with <%= "#{@apprenticeship.host_firstname}" %>!</h3>
 			<br />
 			<p>Use this form to apply. When you submit it, she’ll review it and we’ll let you know her decision within two weeks. If you’re accepted, to confirm the apprenticeship and get connected to <%= "#{@apprenticeship.host_firstname}" %> you’ll pay the $29.00 matching fee.</p>
@@ -26,8 +18,6 @@
 					<% end %>
 			  </div>
 			</div>
-
-		<% end %>
 
 	<% end %>
 <% end %>

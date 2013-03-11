@@ -6,30 +6,25 @@
 	<h4>Email:</h4>
 	<p><%= current_user.email %></p>
 
-	<h4>Age:</h4>
-	<p><%= current_user.age %> years old</p>
-	<br />
+	<% if current_user.age > @workshop.age_max %>
+		<%= f.label :daughter_name, capture { %>
+			<h4>Your daughter's name</h4>
+			<% } %>
+		<%= f.text_field :daughter_name %>
+		<br/>
+		<%= f.label :daughter_age, capture { %>
+			<h4>Your daughter's age</h4>
+			<% } %>
+		<p><%= f.number_field :daughter_age, :class => "span1" %> *She must be between <%= "#{@workshop.age_min}" %> - <%= "#{@workshop.age_max}" %> years old to be eligible for this workshop.</p>
+
+	<% else %>
+		<h4>Age:</h4>
+		<p><%= current_user.age %> years old</p>
+		<br />
+	<% end %>
 
 	<p>Not you? <%= link_to "Sign in as a different user.", destroy_user_session_path %></p>
 
-	<% if current_user.age >= 18 %>
-		<div class="form-inline" >
-			<%= f.check_box :parent %>
-			<%= f.label :parent, capture { %>
-				<p>I'm a parent signing up for my daughter.</p>
-			<% } %>
-		</div>
-
-		<% if @work_signup.is_parent %>
-			<%= f.label :daughter_name %>
-			<%= f.text_field :daughter_name %>
-			<br/>
-			<%= f.label :daughter_age %>
-			<%= f.number_field :daughter_age %>
-		<% end %>
-	<% end %>
-
-	<p style="color:red;">[write an if statement that shows the daughter fields when the checkbox is checked - js or client-side validations?]</p>
 	<hr />
 
 	<h3>Tell us a bit more about yourself</h3>
@@ -58,10 +53,26 @@
 	<br />
 
 	<br />
+	<% if @workshop.requirement_list.present? %>
+			<h4>Requirements</h4>
+			<p>In order to take part in this workshop, you'll need to know the following skills, tools, and techniques: <%= "#{@workshop.requirement_list}" %></p>
+		<div class="form-inline" >
+			<%= f.check_box :requirements %>
+			<%= f.label :requirements, capture { %>
+			<p>Yup, I know these skills, tools, and techniques.</p>
+			<% } %>
+		</div>
+	<% end %>
+	<% if @workshop.other_needs.present? %>
+		<p>Don't forget, for the workshop you need to remember: <%= "#{@workshop.other_needs}" %>
+	<% end %>
+	<br />
+
+	<br />
 	<% if @workshop.respect_my_style.present? %>
 		<h4>I won't copy the artist's work *</h4>
 		<div class="form-inline" >
-			<p>(Put one of those scrolly waiver boxes here)</p>
+		<p style="color:red;">[Put one of those scrolly waiver boxes here]</p>
 			<%= f.check_box :respect_agreement %>
 			<%= f.label :respect_agreement, capture { %>
 			<p>I have read and agree to respect the artist's style.</p>
@@ -109,3 +120,4 @@
 	<%= render :partial => "shared/credit_card", :locals => { :f => f, :paid => @work_signup.charge_id.present? } %>
 
 	<br />
+

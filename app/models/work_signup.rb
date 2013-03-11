@@ -1,18 +1,16 @@
 class WorkSignup < Signup
 
-  #validates :parent, :presence => true
   validates :waiver, :acceptance => true
 
-
-  def is_parent
-    :parent == true #Figure out how the logic of how to see client side whether the checkbox is checked
+  def default_url_options
+    { :host => 'localhost:3000'}
   end
 
   def process_workshop_fee
     logger.info "Processing payment"
     unless charge_id.present?
       charge = Stripe::Charge.create(
-        :amount => self.event.price*1.2*100, # amount in cents, again
+        :amount => (self.event.price*1.2*100).to_i, # amount in cents, again
         :currency => "usd",
         :card => stripe_card_token,
         :description => "Workshop fee for #{self.event.title} from #{self.user.email}"
@@ -39,3 +37,6 @@ class WorkSignup < Signup
     return true
   end
 end
+
+
+

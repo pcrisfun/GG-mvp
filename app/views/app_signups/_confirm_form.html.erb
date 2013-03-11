@@ -8,7 +8,7 @@
   <p><%= "#{current_user.email}"%></p>
 
   <h4>Age:</h4>
-  <p><%= distance_of_time_in_words(Date.today, current_user.birthday, :false, :only => "years") %></p>
+  <p><%= current_user.age %> years old</p>
   <br />
 
   <p>Not you? <%= link_to "Sign in as a different user.", "../../../users/sign_out" %></p>
@@ -50,25 +50,25 @@
       <p style="color:red;">[Put one of those scrolly waiver boxes here]</p>
       <%= f.check_box :parents_waiver %>
       <%= f.label :parents_waiver, capture { %>
-      <p>I am the legal parent/guardian of the workshop participant, and have read and agree to this indeminification agreement.</p>
+      <p>I am the legal parent/guardian of the apprenticeship participant, and have read and agree to this indeminification agreement.</p>
       <% } %>
     </div>
   <% end %>
 
-  <h4>Workshop Participation Waiver *</h4>
+  <h4>Apprenticeship Participation Waiver *</h4>
   <div class="form-inline" >
     <p style="color:red;">[Put one of those scrolly waiver boxes here]</p>
     <%= f.check_box :waiver %>
     <%= f.label :waiver, capture { %>
-    <p>I have read and agree to the workshop participation waiver.</p>
+    <p>I have read and agree to the apprenticeship participation waiver.</p>
     <% } %>
   </div>
 
   <br />
-  <p style="color:red;">[...Then there's payment. Plus ability to add more participants??]</p>
+  <p style="color:red;">[...Then there's payment.]</p>
 
-  <h3>Workshop fee</h3>
-  <%= render :partial => "shared/credit_card", :locals => { :f => f, :paid => @work_signup.charge_id.present? } %>
+  <h3>Apprenticeship fee</h3>
+  <%= render :partial => "shared/credit_card", :locals => { :f => f, :paid => @app_signup.charge_id.present? } %>
 
   <br />
 

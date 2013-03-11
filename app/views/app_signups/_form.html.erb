@@ -7,39 +7,24 @@
 	<h4>Email:</h4>
 	<p><%= "#{current_user.email}"%></p>
 
-	<h4>Age:</h4>
-	<p><%= distance_of_time_in_words(Date.today, current_user.birthday, :false, :only => "years") %></p>
-	<br />
-
-	<p>Not you? <%= link_to "Sign in as a different user.", destroy_user_session_path %></p>
-
 	<% if current_user.age > @apprenticeship.age_max %>
-
-		<h3>Bummer! <%= "#{@apprenticeship.host_firstname}" %> is looking for a younger apprentice this time.</h3>
-		<p>Sorry, it looks like you're older than the maximum age for this apprenticeship. Try checking out what else is open right now to <% link_to "find another apprenticeship", apprenticeships_path %>.</p>
-		<br />
-
-		<div class="form-inline" >
-			<%= f.check_box :parent %>
-			<%= f.label :parent, capture { %>
-				<p>Wait! I'm a parent using my account for my daughter's application.</p>
+		<%= f.label :daughter_name, capture { %>
+			<h4>Your daughter's name</h4>
 			<% } %>
-		</div>
+		<%= f.text_field :daughter_name %>
+		<br/>
+		<%= f.label :daughter_age, capture { %>
+			<h4>Your daughter's age</h4>
+			<% } %>
+		<p><%= f.number_field :daughter_age, :class => "span1" %> *She must be between <%= "#{@apprenticeship.age_min}" %> - <%= "#{@apprenticeship.age_max}" %> years old to be eligible for this apprenticeship.</p>
 
 	<% else %>
+		<h4>Age:</h4>
+		<p><%= current_user.age %> years old</p>
+		<br />
+	<% end %>
 
-		<% if @app_signup.is_parent %>
-			<p>Got it. If your daughter is between <%= "#{@apprenticeship.age_min}" %> and <%= "#{@apprenticeship.age_max}" %> years old she's eligible to apply.</p>
-			<%= f.label :daughter_name, capture { %>
-				<h4>Your daughter's name</h4>
-				<% } %>
-			<%= f.text_field :daughter_name %>
-			<br/>
-			<%= f.label :daughter_age, capture { %>
-				<h4>Your daughter's age</h4>
-				<% } %>
-			<%= f.number_field :daughter_age %>
-		<% end %>
+	<p>Not you? <%= link_to "Sign in as a different user.", destroy_user_session_path %></p>
 
 	<hr />
 
@@ -51,28 +36,28 @@
 	<%= f.label :happywhen, capture { %>
 		<h4>I'm truly happy when I'm... *</h4>
 		<% } %>
-	<%= f.text_area :happywhen, :class => "span6", :rel => :popover, :data => { :content => "Tell us a little bit about what makes you happy and what you love to do - just to give a sense of who you are and what you like.", "original-title" => 'What makes you happy' }  %>
+	<%= f.text_area :happywhen, :class => "span6", :rows => "8", :rel => :popover, :data => { :content => "Tell us a little bit about what makes you happy and what you love to do - just to give a sense of who you are and what you like.", "original-title" => 'What makes you happy' }  %>
 	<br />
 
 	<br />
 	<%= f.label :collaborate, capture { %>
 		<h4>I like working together on projects because... *</h4>
 		<% } %>
-	<%= f.text_area :collaborate, :class => "span6", :rel => :popover, :data => { :content => "Tell us a bit about your working style and what kinds of collaboration you enjoy.", "original-title" => 'How you like to work' }  %>
+	<%= f.text_area :collaborate, :class => "span6", :rows => "8", :rel => :popover, :data => { :content => "Tell us a bit about your working style and what kinds of collaboration you enjoy.", "original-title" => 'How you like to work' }  %>
 	<br />
 
 	<br />
 	<%= f.label :interest, capture { %>
 		<h4>What’s most interesting to me about this apprenticeship is... *</h4>
 		<% } %>
-	<%= f.text_area :interest, :class => "span6", :rel => :popover, :data => { :content => "Tell us a bit about why this apprenticeship is something you want to do.", "original-title" => "What's interesting about it" }  %>
+	<%= f.text_area :interest, :class => "span6", :rows => "8", :rel => :popover, :data => { :content => "Tell us a bit about why this apprenticeship is something you want to do.", "original-title" => "What's interesting about it" }  %>
 	<br />
 
 	<br />
 	<%= f.label :experience, capture { %>
 		<h4>Experience with tools and making *</h4>
 		<% } %>
-	<%= f.text_area :experience, :class => "span6", :rel => :popover, :data => { :content => "What kinds of things have you made before? What kinds of tools or techniques have you used?", "original-title" => 'Your experience' } %>
+	<%= f.text_area :experience, :class => "span6", :rows => "8", :rel => :popover, :data => { :content => "What kinds of things have you made before? What kinds of tools or techniques have you used?", "original-title" => 'Your experience' } %>
 	<br />
 
 	<br/>
@@ -113,5 +98,5 @@
 	<br />
 	<br />
 
-<% end %>
+
 

@@ -1,0 +1,64 @@
+<%= content_tag :section, :class => "section" do %>
+  <%= content_tag :div, :class => "container" do %>
+    <% provide(:title, "Application for Apprenticeship") %>
+    <div class="row">
+      <aside class="span8">
+        <section>
+          <h1>
+            Application for <%= @app_signup.event.kind %> in <%= @app_signup.event.topic %> with <%= @app_signup.event.host_firstname %> <%= @app_signup.event.host_lastname %>
+              <% unless @app_signup.event.host_business.blank? %>
+              of <%= @app_signup.event.host_business %>
+              <% end %>
+          </h1>
+
+          <h4>Age</h4>
+          <% unless @app_signup.user.age > @app_signup.event.age_max %>
+            <p><%= @app_signup.user.age %></p>
+          <% else %>
+            <p><%= @app_signup.daughter_age %></p>
+          <% end %>
+
+          <h4>I'm truly happy when...</h4>
+          <p><%= @app_signup.happywhen %></p>
+
+          <h4>I like working together on projects because...</h4>
+          <p><%= @app_signup.collaborate %></p>
+
+          <h4>What’s most interesting to me about this apprenticeship is...</h4>
+          <p><%= @app_signup.interest %></P>
+
+          <h4>Experience with tools and making:</h4>
+          <p><%= @app_signup.experience %></p>
+
+          <p style="color:red;">Display requirements rating here</p>
+
+          <h4>Preferred meeting times:</h4>
+          <p><%= @app_signup.preferred_times %></p>
+
+          <p>
+            <% unless current_user.blank? %>
+              <% if @app_signup.started? && @app_signup.user == current_user %>
+               (<%= link_to "Resume", edit_app_signup_path(@app_signup) %>)
+              <% elsif @app_signup.pending? && @app_signup.user == current_user %>
+               (<%= link_to 'Delete', @app_signup, :method => :delete, :data => { :confirm => 'Are you sure you want to delete this application? Deleting cannot be undone.' } %>)
+              <% elsif @app_signup.accepted? && @app_signup.user == current_user %>
+                <%= link_to "Cancel application", @app_signup, :method => :cancel, :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you will not be able to resubmit it."} %>
+               (<%= link_to "Edit", edit_app_signup_path(@app_signup) %>)
+              <% end %>
+            <% end %>
+          </p>
+
+          <% if current_user == @app_signup.event.user && @app_signup.pending? %>
+            <hr />
+            <h3>Makers, it's your call</h3>
+            <%= form_for(@app_signup) do |f| %>
+              <%= f.submit "Decline this application", :name => "decline_button", :class => "btn btn-large btn-danger" %>
+              <%= f.submit "Accept this apprentice", :name => "accept_button", :class => "btn btn-large btn-success" %>
+            <% end %>
+          <% end %>
+
+        </section>
+      </aside>
+    </div>
+  <% end %>
+<% end %>
