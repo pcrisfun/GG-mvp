@@ -71,8 +71,8 @@ ActiveRecord::Schema.define(:version => 20130309030421) do
     t.string   "location_city"
     t.string   "location_state"
     t.string   "location_zipcode"
-    t.string   "location_private"
-    t.string   "location_varies"
+    t.boolean  "location_private"
+    t.boolean  "location_varies"
     t.integer  "age_min"
     t.integer  "age_max"
     t.integer  "registration_min"
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(:version => 20130309030421) do
     t.time     "begins_at_time"
     t.time     "ends_at_time"
     t.string   "location_nbrhood"
-    t.string   "datetime_tba"
+    t.boolean  "datetime_tba",                                     :default => false
   end
 
   create_table "galleries", :force => true do |t|

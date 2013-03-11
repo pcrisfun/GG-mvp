@@ -1,5 +1,5 @@
 = simple_form_for @album do |f|
   = f.input :title
-  = f.button :submit, 'Save', :class => 'btn-primary', id: "edit_album_save"
-  = link_to ' Delete', album_path(@album), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure you want to delete this album?\n\n*Note: this will not delete the images, just the album.")}", :class => 'btn btn-mini btn-danger icon-trash pull-right'
+  = f.button :submit, 'Save', class: 'btn-primary'
+  = link_to ' Delete', album_path(@album), method: "delete", confirm: "#{t("web-app-theme.confirm", default: "Are you sure you want to delete this album?\n\n*Note: this will not delete the images, just the album.")}", class: 'btn btn-mini btn-danger icon-trash pull-right'
 

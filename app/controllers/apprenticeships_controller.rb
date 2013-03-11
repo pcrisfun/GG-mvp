@@ -39,22 +39,22 @@ class ApprenticeshipsController < ApplicationController
         render 'new'
       end
     else
-      if @apprenticeship.save
-        if @apprenticeship.process_payment
+      if @apprenticeship.process_payment
+        if @apprenticeship.save
           if @apprenticeship.submit && @apprenticeship.deliver
             @apprenticeship.host_album  = Album.new(title: "Images for " + @apprenticeship.title_html )
             redirect_to apprenticeships_path, :flash => {:success => "Baller! Your apprenticeship was submitted!" }
           else
-          flash.now[:warning] = "Whoops! There was a problem creating your apprenticeship. Please check all fields."
-          render 'edit'
+            flash.now[:warning] = "Whoops! There was a problem creating your apprenticeship. Please check all fields."
+            render 'edit'
           end
         else
-          flash.now[:notify] = "Hmm, we couldn't process payment. Please try again."
-          render 'edit'
+          flash.now[:warning] = "Whoops! There was a problem saving your apprenticeship. Please check all fields."
+          render 'new'
         end
       else
-        flash.now[:warning] = "Whoops! There was a problem saving your apprenticeship. Please check all fields."
-        render 'new'
+        flash.now[:notify] = "Hmm, we couldn't process payment. Please try again."
+        render 'edit'
       end
     end
   end
