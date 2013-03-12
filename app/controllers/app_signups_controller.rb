@@ -1,6 +1,12 @@
 class AppSignupsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
+  before_filter :load_app_signup
   before_filter :owner_user, only: [:edit, :update]
+
+  def load_app_signup
+    @app_signup = AppSignup.find(params[:id]) if params[:id]
+    @apprenticeship = @app_signup.event if @app_signup
+  end
 
   def new
   	@apprenticeship = Apprenticeship.find(params[:apprenticeship_id])
@@ -38,8 +44,6 @@ class AppSignupsController < ApplicationController
   end
 
   def update
-    @app_signup = AppSignup.find(params[:id])
-    @apprenticeship = @app_signup.event
     @app_signup.event_id = @apprenticeship.id
     @app_signup.user_id = current_user.id
     current_user.update_attributes(params[:user])
@@ -51,6 +55,15 @@ class AppSignupsController < ApplicationController
         flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
         render 'new'
       end
+
+    elsif params[:reject_button]
+      @app_signup.reject
+      redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship rejected." }
+
+    elsif params[:accept_button]
+      @app_signup.accept
+      redirect_to apprenticeships_path, :flash => { :success => "Apprenticeship accepted." }
+
     else
       if @app_signup.update_attributes(params[:app_signup])
         if @app_signup.apply && @app_signup.deliver
@@ -67,12 +80,9 @@ class AppSignupsController < ApplicationController
   end
 
   def show
-    @app_signup = AppSignup.find(params[:id])
   end
 
   def edit
-    @app_signup = AppSignup.find(params[:id])
-    @apprenticeship = @app_signup.event
   end
 
   def owner_user

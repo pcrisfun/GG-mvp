@@ -7,8 +7,20 @@ GirlsGuild::Application.routes.draw do
   devise_for :users, :admins
 
   resources :galleries, only: [:new, :create, :destroy]
-  resources :albums, path: 'portfolio'
-  resources :photos, only: [:new, :create, :destroy, :show, :edit, :update]
+
+  resources :albums, path: 'portfolio' do
+    collection do
+      post :add_photos
+      post :remove_photos
+      post :set_featured
+    end
+  end
+
+  resources :photos do
+    collection do
+      post :sort
+    end
+  end
 
   resources :apprenticeships do
     resources :app_signups

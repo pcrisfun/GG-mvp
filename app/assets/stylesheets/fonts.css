@@ -1,9 +1,33 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,800|Dosis:300,400,500|Kristi);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600,800|Dosis:300,400,500|Kristi|Raleway:500,400,200);
 body {
   font-family: 'Open Sans', Arial, serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Open Sans', Arial, serif;
+  font-family: 'Open Sans', Arial, sans-serif;
   font-weight: 800;
+}
+
+.opensans {
+  font-family: 'Open Sans', Arial, sans-serif;
+}
+
+.kristi {
+  font-family: 'Kristi', Georgia, cursive;
+}
+
+.dosis3 {
+  font-family: 'Dosis', Arial, sans-serif;
+  font-weight: 300;
+ }
+.dosis4 {
+  font-family: 'Dosis', Arial, sans-serif;
+  font-weight: 400;
+ }
+.dosis5 {
+  font-family: 'Dosis', Arial, sans-serif;
+  font-weight: 500;
+ }
+.raleway {
+  font-family: 'Raleway', Arial, sans-serif;
 }

@@ -1,9 +1,20 @@
-%section.section
+%section#album_index.section
   .container
     .row-fluid
-      .span9
-      = render partial: 'sidenav'
-    %hr
+      .span8
+        %h1 Portfolio
+      .span4
+        = render 'galleries/gallery'
+        = render 'albums/sidenav'
     .row-fluid
-      %h2 My Images
-      = render partial: 'galleries/gallery'
+      #album_section
+        - @albums.each do |album|
+          .box
+            - if album.featured_photo
+              = render 'photos/photo', photo: album.featured_photo, size: :medium, url: url_for(album)
+            - elsif album.photos && album.photos.first
+              = render 'photos/photo', photo: album.photos.sort_by { |photo| photo.position(album_id: album.id) }.first, size: :medium, url: url_for(album)
+            - else
+              %a{ href: "#{url_for(album)}" }
+                %img.default-photo-medium
+            %p.description= album.title

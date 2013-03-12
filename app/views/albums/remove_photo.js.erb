@@ -1,0 +1,5 @@
+var $removedPhoto = "<%= j render 'galleries/gallery_photo', photo: @photo %>";
+$('[id="photo_<%=@photo.id%>"]').replaceWith($removedPhoto);
+$('#photos').masonry('reload');
+$('[id="album_photo_<%=@photo.id%>"]').remove();
+$('#album_photos').masonry('reload');

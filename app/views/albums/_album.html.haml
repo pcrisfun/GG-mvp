@@ -1,18 +1,10 @@
-.span9
-  %h1
-    = @album.title
-    = link_to(content_tag(:i, '',:class=>"icon-edit"), '#editAlbumModal', "data-toggle"=>"modal")
-  #photos
-    - @album.photos.each do |photo|
-      .box
-        = link_to(' ', album_path(@album, :remove_photos => [photo.id]), :class => "btn btn-mini icon-remove pull-right relative", method: 'put')
-        = link_to(image_tag(photo.file.url(:medium)), url_for(photo), :controller => 'photos', :action => 'show')
-        %p.description
-          = photo.caption
+#album_photos.transitions-enabled.clearfix{ data: { update: { url: "#{sort_photos_url}", album: "#{@album.id}" } }}
+  = render 'albums/album_photos', featured: true, desc: true, controls: true
+
 / Edit Album Modal
 #editAlbumModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "editAlbumModal", :role => "dialog", :tabindex => "-1"}
   .modal-header
     %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
     %h3#newAlbumModelLabel Edit Album
   .modal-body
-    = render partial: 'edit'
+    = render 'albums/edit'

@@ -1,11 +1,14 @@
 <%= content_tag :section, :class => "section" do %>
   <%= content_tag :div, :class => "container" do %>
     <% provide(:title, "Edit Workshop") %>
+
+    <%= render 'albums/show', :@album => @workshop.host_album %>
+
     <h1>Update your workshop</h1>
 
     <div class="row">
       <div class="span9">
-        <%= form_for(@workshop) do |f| %>
+        <%= simple_form_for(@workshop) do |f| %>
 
           <%= render 'fields', f: f %>
 
@@ -38,7 +41,6 @@
             <h3>Admin Controls</h3>
             <%= f.submit "Revoke Workshop", :name => "revoke_button", :class => "btn btn-warning" %>
           <% end %>
-
 
         <% end %>
       </div>

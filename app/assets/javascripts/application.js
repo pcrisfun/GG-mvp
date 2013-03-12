@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require masonry/jquery.masonry.min
+//= require jquery-ui
 //= require jquery.cookie
 //= require bootstrap
 //= require bootstrap-tooltip
@@ -20,50 +20,45 @@
 //= require bootstrap-timepicker
 //= require jquery.tokeninput
 //= require rails.validations
+//= require rails.validations.simple_form
 //= require fancybox
+//= require jquery-fileupload/basic
+//= require jquery-fileupload/vendor/tmpl
+//= require masonry/jquery.masonry.min
+//= require masonry/jquery.imagesloaded.min
+//= require masonry/modernizr-transitions
 //= require_tree .
 
 
 
 
 $(document).ready(function () {
-	//$("[data-behaviour~='datepicker']").datepicker({"autoclose": true, "date-format": 'mm/dd/yyyy'});
   $("[data-behaviour~='datepicker']").datepicker({
-        format: 'mm/dd/yyyy'
-    })
-  .on('changeDate', function(ev){
-    $("[data-behaviour~='datepicker']").datepicker('hide');
+    format: 'mm/dd/yyyy',
+    onClose: function(dateText, inst) { $(inst.input).change().focusout(); },
+    changeMonth: true,
+    changeYear: true
+  }).on('changeDate', function(ev) {
+    var inputs = $(this).closest('form').find(':input');
+    inputs.eq( inputs.index(this)+ 1 ).focus();
+    $(this).datepicker('hide');
   });
+
 	$("[data-behaviour~='timepicker']").timepicker();
   $("[rel=tooltip]").tooltip();
   $("[rel=popover]").popover({"trigger": 'focus'});
   $("a.fancybox").fancybox();
+
 });
 
-
-$(function () {
-  $('#apprenticeship_skill_list').tokenInput('/event_skills.json', { crossDomain: false, allowCustomEntry : true, theme: 'facebook', prePopulate: $('#apprenticeship_skill_list').data('pre') });
+  $('#apprenticeship_skill_list').tokenInput('/event_skills.json', { crossDomain: false, allowCustomEntry : true, theme: 'facebook', prePopulate: $('#apprenticeship_skill_list').data('pre'), hintText: "Separate each with a comma" });
+  $('#apprenticeship_requirement_list').tokenInput('/event_requirements.json', { crossDomain: false, 'allowCustomEntry' : true, theme: 'facebook', prePopulate: $('#apprenticeship_requirement_list').data('pre'), hintText: "Separate each with a comma" });
+  $('#apprenticeship_tool_list').tokenInput('/event_tools.json', { crossDomain: false, 'allowCustomEntry' : true,  theme: 'facebook', prePopulate: $('#apprenticeship_tool_list').data('pre'), hintText: "Separate each with a comma" });
+  $('#workshop_skill_list').tokenInput('/event_skills.json', { crossDomain: false, allowCustomEntry : true, theme: 'facebook', prePopulate: $('#workshop_skill_list').data('pre'), hintText: "Separate each with a comma" });
+  $('#workshop_requirement_list').tokenInput('/event_requirements.json', { crossDomain: false, 'allowCustomEntry' : true, theme: 'facebook', prePopulate: $('#workshop_requirement_list').data('pre'), hintText: "Separate each with a comma" });
+  $('#workshop_tool_list').tokenInput('/event_tools.json', { crossDomain: false, 'allowCustomEntry' : true,  theme: 'facebook', prePopulate: $('#workshop_tool_list').data('pre'), hintText: "Separate each with a comma" });
 });
 
-$(function () {
-  $('#apprenticeship_requirement_list').tokenInput('/event_requirements.json', { crossDomain: false, 'allowCustomEntry' : true, theme: 'facebook', prePopulate: $('#apprenticeship_requirement_list').data('pre') });
-});
-
-$(function () {
-  $('#apprenticeship_tool_list').tokenInput('/event_tools.json', { crossDomain: false, 'allowCustomEntry' : true,  theme: 'facebook', prePopulate: $('#apprenticeship_tool_list').data('pre') });
-});
-
-$(function () {
-  $('#workshop_skill_list').tokenInput('/event_skills.json', { crossDomain: false, allowCustomEntry : true, theme: 'facebook', prePopulate: $('#workshop_skill_list').data('pre') });
-});
-
-$(function () {
-  $('#workshop_requirement_list').tokenInput('/event_requirements.json', { crossDomain: false, 'allowCustomEntry' : true, theme: 'facebook', prePopulate: $('#workshop_requirement_list').data('pre') });
-});
-
-$(function () {
-  $('#workshop_tool_list').tokenInput('/event_tools.json', { crossDomain: false, 'allowCustomEntry' : true,  theme: 'facebook', prePopulate: $('#workshop_tool_list').data('pre') });
-});
 
 $(function() {
   $('#workshop_price').keyup(function() {
@@ -71,4 +66,3 @@ $(function() {
     $('#workshop_total_price').text(isNaN(total) ? "" : ("" + total));
   }).keyup();
 });
-

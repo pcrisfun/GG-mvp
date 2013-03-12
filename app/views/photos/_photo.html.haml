@@ -1,0 +1,33 @@
+-#
+  photo partial
+  options:
+    desc: boolean to display the description of the photo (default is false)
+    edit: boolean to display the controls for Adding to an album or deleting the photo (default is false)
+    size: the size of the photo image (default is :medium, refer to photo model for options)
+
+- if photo
+  = link_to(image_tag(photo.file.url(size ||= :box)), url ||= url_for(photo), controller: controller ||= 'photos', action: action ||= 'show')
+  - if desc ||= false
+    %p.description
+      = photo.caption
+  - if edit ||= false
+    / Photo Add to Current Album Button
+    - if @album && !@album.photos.include?(photo)
+      %button.btn.btn-mini.btn-success.pull-left{ data: { behaviour: 'addphotos', url: "#{add_photos_albums_url}", "album" => "#{@album.id}", "photo" => "#{photo.id}" } }
+        %i.icon-plus
+        Add
+    / Photo Delete Button
+    = simple_form_for photo, remote: true, html: {:class => "clearform"} do |b|
+      = content_tag(:input, '', name: '_method', value: "delete", type: 'hidden' )
+      - if @album
+        = content_tag(:input, '', name: 'album_id', value: @album.id, type: 'hidden' )
+      / Disable Delete if Photo is protected
+      - unless photo.protected
+        %button.btn.btn-mini.btn-danger.pull-right{type: 'submit'}
+          %i.icon-trash
+          &nbsp;Delete
+      - else
+        %button.btn.btn-mini.btn-danger.icon-trash.pull-right.disabled{type: 'button'}
+          %i.icon-trash
+          &nbsp;Delete
+

@@ -1,0 +1,11 @@
+#uploader.box_photo.box-small
+  = simple_form_for @gallery.photos.new, action: 'new', html: {class: 'form-horizontal'} do |f|
+    -if @album
+      = content_tag(:input, '', name: 'album_id', value: @album.id, type: 'hidden' )
+    %span.btn.btn-primary.fileinput-button
+      %span#label
+        %i.icon-plus.icon-white
+        Add Images
+        %input{type:'file', multiple: true, name: "photo[file]", id:"add_photo_input" }
+- @gallery.photos.order("created_at desc").each do |photo|
+  = render 'galleries/gallery_photo', photo: photo

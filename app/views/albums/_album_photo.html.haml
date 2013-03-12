@@ -1,0 +1,21 @@
+-#
+  album_photo partial
+  options:
+    id: the id for the container (default is album_photo_'photo_id')
+    featured: boolean to determine whether or not to style the featured photo differently (default is false)
+    size: the size of the photo image (default is :medium, refer to photo model for options)
+    desc: boolean, to display each photo with a description (default is true)
+    edit: boolean, to display add to album and delete buttons on each photo (default is true)
+    controls: boolean, to display album control buttons (default is false)
+
+.box{ id: (id ||= "album_photo_#{photo.id}"), class: "#{ ( (featured ||= false) && (@album.featured_photo == photo) ) ? 'featured alert-success' : ''}" }
+  - if (controls ||= false)
+    / Position button for Sorting
+    %a.btn.btn-mini.icon-move.pull-right.relative.handle{ rel: 'tooltip', data: { toggle: 'tooltip', title: "Click and Hold to reposition" } }
+    / Remove from Album button
+    %a.btn.btn-mini.icon-remove.pull-right.relative{ rel: 'tooltip', data: {toggle: 'tooltip', title: "Remove from this collection", url: "#{remove_photos_albums_url}", behaviour: "removephotos", album: "#{@album.id}", photo: "#{photo.id}"} }
+    / Feature Photo button
+    - unless @album.featured_photo == photo
+      %a.feature.btn.btn-mini.icon-star-empty.pull-right.relative{type: 'submit', rel: 'tooltip', data: {toggle: 'tooltip', title: "Feature this image", url: "#{set_featured_albums_url}", behaviour: "setfeatured", album: "#{@album.id}", photo: "#{photo.id}" }}
+  / Grab the photo
+  = render 'photos/photo', photo: photo, size: (size ||= :medium), desc: (desc ||= false), edit: (edit ||= false)

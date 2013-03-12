@@ -3,7 +3,8 @@ class WorkshopsController < ApplicationController
   before_filter :current_workshop, except: [:index, :new, :create]
   before_filter :owner_user, only: [:edit, :update]
   before_filter :current_admin, only: :destroy
-  
+  before_filter :load_user_gallery
+
   def index
     unless current_user.blank?
       @mysaved_workshops = current_user.workshops.find_all_by_state('started')
@@ -13,17 +14,17 @@ class WorkshopsController < ApplicationController
       @mycompleted_workshops = current_user.workshops.find_all_by_state('completed')
       @allpending_workshops = Workshop.find_all_by_state('pending')
       @allsaved_workshops = Workshop.find_all_by_state('started')
-      @allcanceled_workshops = Workshop.find_all_by_state('canceled')  
-      @allcompleted_workshops = Workshop.find_all_by_state('completed')    
+      @allcanceled_workshops = Workshop.find_all_by_state('canceled')
+      @allcompleted_workshops = Workshop.find_all_by_state('completed')
     end
   	@workshops = Workshop.find_all_by_state('accepted')
   end
-  
+
   def new
-  	@workshop = Workshop.new 
+  	@workshop = Workshop.new
   	@workshop.begins_at = Date.today
     @workshop.ends_at = Date.today - 1.day
-  end	
+  end
 
   def create
     @workshop = current_user.workshops.new(params[:workshop])
@@ -38,22 +39,23 @@ class WorkshopsController < ApplicationController
     else
       if @workshop.save
         if @workshop.submit && @workshop.deliver
+          @workshop.host_album  = Album.new(title: "Images for " + @workshop.title_html )
           redirect_to workshops_path, :flash => {:success => "Yatzee! Your workshop was submitted." }
         else
         flash.now[:warning] = "Whoops! There was a problem creating your workshop. Please check all fields."
         render 'edit'
         end
-      else 
-        flash.now[:warning] = "Whoops! There was a problem saving your workshop. Please check all fields. (Because it's trying to create instead of save)"
+      else
+        flash.now[:warning] = "Whoops! There was a problem saving your workshop. Please check all fields."
         render 'new'
       end
     end
   end
-  
-  def update
 
+  def update
     if params[:save_button] == "Save for Later"
-      if @workshop.group_valid?(:save) && @workshop.update_attributes(params[:workshop], :validate => false)
+      @workshop.attributes = params[:workshop]
+      if @workshop.group_valid?(:save) && @workshop.save(:validate => false)
         redirect_to workshops_path, :flash => { :success => "Nice! Your workshop was saved." }
       else
         flash.now[:warning] = "Whoops! There was a problem saving your workshop. Please check all fields. (Because update is messing up)"
@@ -70,7 +72,7 @@ class WorkshopsController < ApplicationController
         elsif params[:reject_button] && current_user.admin?
           @workshop.reject
           redirect_to workshops_path, :flash => { :warning => "Workshop rejected." }
-          
+
         elsif params[:accept_button] && current_user.admin?
           @workshop.accept
           redirect_to workshops_path, :flash => { :success => "Workshop accepted." }
@@ -79,8 +81,8 @@ class WorkshopsController < ApplicationController
           redirect_to workshops_path, :flash => { :success => "Thanks! Your workshop was resubmitted."}
 
         elsif params[:cancel_button] && @workshop.deliver_cancel
-          @workshop.cancel  
-          redirect_to workshops_path, :flash => { :warning => "Rats. Your workshop has been canceled."}  
+          @workshop.cancel
+          redirect_to workshops_path, :flash => { :warning => "Rats. Your workshop has been canceled."}
 
         else @workshop.submit && @workshop.deliver
             redirect_to workshops_path, :flash => {:success => "Yatzee! Your workshop was created!" }
@@ -92,7 +94,7 @@ class WorkshopsController < ApplicationController
       end
     end
   end
-  
+
 
   def destroy
     @workshop = Workshop.where(:id => params[:id]).first
@@ -103,18 +105,28 @@ class WorkshopsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
-  
+
+
   def show
+    #@workshop = Workshop.find(params[:id])
   end
-  
+
+
+
   def owner_user
-      redirect_to workshops_path unless current_user.admin? || current_user==@workshop.user 
+      redirect_to workshops_path unless current_user.admin? || current_user==@workshop.user
   end
-  
+
   def current_workshop
   	@workshop = Workshop.find_by_id(params[:id])
-  	redirect_to :index if @workshop.nil? 
+  	redirect_to :index if @workshop.nil?
+    @album = @workshop.host_album
   end
-  
+
+  private
+  def load_user_gallery
+    @user = current_user
+    @gallery = @user.gallery
+  end
+
 end

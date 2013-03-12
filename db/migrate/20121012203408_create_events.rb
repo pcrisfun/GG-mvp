@@ -33,8 +33,8 @@ class CreateEvents < ActiveRecord::Migration
       t.string :location_city
       t.string :location_state
       t.string :location_zipcode
-      t.string :location_private
-      t.string :location_varies
+      t.boolean :location_private, :boolean, :default => true
+      t.boolean :location_varies, :boolean, :default => false
       t.integer :age_min
       t.integer :age_max
       t.integer :registration_min

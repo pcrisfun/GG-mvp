@@ -23,9 +23,6 @@
     </div>
   </body>
 
-
-  <%= render 'layouts/googleshim' if current_page?(contact_path) %>
-
   <!-- Google Analytics -->
   <script type="text/javascript">
       var _gaq = _gaq || [];
@@ -54,7 +51,7 @@
   </script>
 
   <!-- conditional include for google map -->
-  <% if current_page?(contact_path) or params[:controller] == 'inquiries' %>
+  <% unless yield(:googleshim).empty? %>
     <%= render 'layouts/googleshim' %>
   <% end -%>
 </html>

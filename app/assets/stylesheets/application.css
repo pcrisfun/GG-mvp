@@ -19,8 +19,8 @@
  *= require token-input-facebook
  *= require token-input
  *= require users
- *= require custom
  *= require jquery.fileupload-ui
  *= require fancybox
+ *= require masonry/transitions
  *= require_tree .
  */

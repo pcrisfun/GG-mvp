@@ -1,0 +1,29 @@
+.span4
+  .box.box-large
+    - if workshop && workshop.host_album
+      - if workshop.host_album.featured_photo
+        = render 'photos/photo', photo: workshop.host_album.featured_photo, size: :large, url: url_for(workshop)
+      - elsif workshop.host_album.photos.first
+        = render 'photos/photo', photo: workshop.host_album.photos.sort_by { |photo| photo.position(album_id: workshop.host_album.id) }.first, size: :large, url: url_for(workshop)
+      - else
+        %a{ href: url_for(workshop) }
+          %img.default-photo-large
+    .box-details
+      - if workshop.started? && workshop.user == current_user
+        = link_to "Resume", edit_workshop_path(workshop), class: "btn btn-mini pull-right"
+      - elsif workshop.accepted? && workshop.user == current_user or current_user.admin?
+        = link_to "Edit", edit_workshop_path(workshop), class: "btn btn-mini pull-right"
+      = link_to workshop.title_html, workshop_path(workshop), class: "title-boxlink"
+      %br
+      Number of spots left -
+      = workshop.registration_max
+      %br
+      Ages
+      = workshop.age_min
+      to
+      = workshop.age_max
+      %br
+      From
+      = workshop.begins_at
+      to
+      = workshop.ends_at
