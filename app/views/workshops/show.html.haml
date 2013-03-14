@@ -5,12 +5,41 @@
   %section.title_section.section
     .container
       %h1= @workshop.title_html
+      %p
+        - unless current_user.blank?
+          - if @workshop.started? && @workshop.user == current_user
+            = link_to "Resume", edit_workshop_path(@workshop)
+          - elsif @workshop.pending? && @workshop.user == current_user
+            = link_to 'Delete', @workshop, :method => :delete, :data => { :confirm => 'Are you sure you want to delete this workshop? Deleting cannot be undone.'}
+          - elsif @workshop.accepted? && @workshop.user == current_user or current_user.admin?
+            %p
+              = link_to "Cancel", @workshop, :method => :cancel, :data => { :confirm => "Are you sure you want to cancel this workshop? It will be closed for sign-up and moved under My Canceled Workshops. You will still be able to edit and resubmit it."}
+              |
+              = link_to "Edit", edit_workshop_path(@workshop)
 
   %section#desc_section.section
     .container
       .row-fluid
         .span2
-          %button.btn.btn-block.btn-primary Sign Up!
+          - if @workshop.accepted?
+            - if current_user.age < @workshop.age_min
+              = link_to "Sign up!", new_workshop_work_signup_path(@workshop), :class => "btn btn-block btn-primary disabled"
+              %p
+                Sorry, it looks like you're younger than the minimum age for this workshop.
+              %br/
+              %p
+                To be notified next time she's teaching, #{link_to "pre-register with #{@workshop.host_firstname}", workshops_path}.
+            - elsif current_user.age > @workshop.age_max
+              = link_to "Sign up!", new_workshop_work_signup_path(@workshop), :class => "btn btn-block btn-primary disabled"
+              %p
+                Sorry, it looks like you're older than the maximum age for this workshop.
+              %br/
+              %p
+                To be notified next time she's teaching, #{link_to "pre-register with #{@workshop.host_firstname}", workshops_path}.
+              %p
+                Wait! I'm a parent using my account to #{link_to "sign up my daughter", new_workshop_work_signup_path(@workshop), :class => "btn btn-small btn-success"}.
+            - else
+              = link_to "Sign up!", new_workshop_work_signup_path(@workshop), :class => "btn btn-block btn-primary"
         .span10
           %dl.dl-horizontal
             %dt Description
@@ -23,7 +52,7 @@
             %dd #{@workshop.location_private ? @workshop.location_nbrhood + ' neighborhood' : @workshop.location_address} in #{@workshop.location_city}, #{@workshop.location_state}
 
             %dt Cost
-            %dd #{@workshop.price}
+            %dd #{number_to_currency(@workshop.price*1.2)}
 
             %dt Ages
             %dd #{@workshop.age_min} - #{@workshop.age_max}
@@ -78,46 +107,27 @@
 
             %dt Twitter
             %dd= @workshop.twitter
-          %p
-            - if @workshop.started? && @workshop.user == current_user
-              (#{link_to "Resume", edit_workshop_path(@workshop)})
-            - elsif @workshop.pending? && @workshop.user == current_user
-              (#{link_to 'Delete', @workshop, :method => :delete, :data => { :confirm => 'Are you sure you want to delete this workshop? Deleting cannot be undone.' }})
-            - elsif @workshop.accepted? && @workshop.user == current_user or current_user.admin?
-              (#{link_to "Cancel", @workshop, :method => :cancel, :data => { :confirm => "Are you sure you want to cancel this workshop? It will be closed for sign-up and moved under My Canceled Workshops. You will still be able to edit and resubmit it."}})
-              (#{link_to "Edit", edit_workshop_path(@workshop)})
-
-          %p
-            - if @workshop.accepted?
-              - if current_user.age < @workshop.age_min
-                #{link_to "Work with #{@workshop.host_firstname}", new_workshop_work_signup_path(@workshop), :class => "btn btn-large btn-primary disabled"} Sorry, it looks like you're younger than the minimum age for this workshop.
-                %p To be notified next time she's teaching, #{link_to "pre-register with #{@workshop.host_firstname}", workshops_path}.
-              - elsif current_user.age > @workshop.age_max
-                #{link_to "Work with #{@workshop.host_firstname}", new_workshop_work_signup_path(@workshop), :class => "btn btn-large btn-primary disabled"} Sorry, it looks like you're older than the maximum age for this workshop.
-                %p To be notified next time she's teaching, #{link_to "pre-register with #{@workshop.host_firstname}", workshops_path}.
-                %p Wait! I'm a parent using my account to #{link_to "sign up my daughter", new_workshop_work_signup_path(@workshop), :class => "btn btn-small btn-success"}.
-              - else
-                #{link_to "Work with #{@workshop.host_firstname}", new_workshop_work_signup_path(@workshop), :class => "btn btn-large btn-primary"}
-
-            - if current_user.admin? && @workshop.pending?
-              %hr
-              %h3 Admin Controls
-              - form_for(@workshop) do |f|
-                - f.submit "Reject Workshop", :name => "reject_button", :class => "btn btn-large btn-danger"
-                - f.submit "Approve Workshop", :name => "accept_button", :class => "btn btn-large btn-success"
-
-            - if current_user.admin? && @workshop.accepted?
-              %hr
-              %h3 Admin Controls
-              - form_for(@workshop) do |f|
-                - f.submit "Revoke Workshop", :name => "revoke_button", :class => "btn btn-large btn-danger"
 
   %section#details_section.section.alt
     .map-top-shadow
     #map
     .map-bottom-shadow
 
+  %section#admin_section.section
+    .container
+      .row-fluid
+        - if current_user.admin? && @workshop.pending?
+          %hr
+          %h3 Admin Controls
+          = form_for(@workshop) do |f|
+            = f.submit "Reject Workshop", :name => "reject_button", :class => "btn btn-large btn-danger"
+            = f.submit "Approve Workshop", :name => "accept_button", :class => "btn btn-large btn-success"
 
+        - if current_user.admin? && @workshop.accepted?
+          %hr
+          %h3 Admin Controls
+          = form_for(@workshop) do |f|
+            = f.submit "Revoke Workshop", :name => "revoke_button", :class => "btn btn-large btn-danger"
 
 
 
