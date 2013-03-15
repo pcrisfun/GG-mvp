@@ -33,9 +33,6 @@ class Signup < ActiveRecord::Base
     state :confirmed do
     end
 
-    state :in_progress do
-    end
-
     state :completed do
     end
 

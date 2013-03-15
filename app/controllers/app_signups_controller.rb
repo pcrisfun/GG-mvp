@@ -56,13 +56,28 @@ class AppSignupsController < ApplicationController
         render 'new'
       end
 
-    elsif params[:reject_button]
-      @app_signup.reject
-      redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship rejected." }
+    elsif params[:decline_button]
+      @app_signup.decline && @app_signup.deliver_decline
+      redirect_to apprenticeships_path, :flash => { :warning => "Application declined." }
 
     elsif params[:accept_button]
-      @app_signup.accept
+      @app_signup.accept && @app_signup.deliver_accept
       redirect_to apprenticeships_path, :flash => { :success => "Apprenticeship accepted." }
+
+    elsif params[:confirm_button]
+      if @app_signup.update_attributes(params[:app_signup])
+        #if @app_signup.process_apprent_fee
+          if @app_signup.confirm && @app_signup.deliver_confirm
+            redirect_to apprenticeships_path, :flash => { :success => "Rad! You're all confirmed to start your apprenticeship!"}
+          else
+            flash[:warning] = "Whoops! Your form is missing some info. Please check all fields."
+            render 'show'
+          end
+        #else
+          #flash.now[:notify] = "Hmm, we couldn't process payment. Please try again."
+          #render 'show'
+        #end
+      end
 
     else
       if @app_signup.update_attributes(params[:app_signup])

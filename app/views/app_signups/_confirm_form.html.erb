@@ -15,7 +15,6 @@
   <hr />
 
   <h4>Phone number: *</h4>
-  <p>We'll only use this to contact you if there are important or last-minute changes to the workshop.</p>
   <%= text_field_tag "user[phone]", current_user.phone, :required => true %>
   <br />
 
@@ -65,9 +64,8 @@
   </div>
 
   <br />
-  <p style="color:red;">[...Then there's payment.]</p>
 
-  <h3>Apprenticeship fee</h3>
+  <h3>Apprenticeship fee: $29</h3>
   <%= render :partial => "shared/credit_card", :locals => { :f => f, :paid => @app_signup.charge_id.present? } %>
 
   <br />

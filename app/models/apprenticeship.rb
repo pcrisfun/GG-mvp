@@ -92,7 +92,7 @@ class Apprenticeship < Event
 
 	state_machine :state, :initial => :started do
 		event :complete do
-      transition :accepted => :completed #once signup is working this should be :in_progress => :completed
+      transition :in_progress => :completed
     end
 	end
 end

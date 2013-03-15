@@ -36,6 +36,17 @@ class WorkSignup < Signup
     })
     return true
   end
+
+  def self.complete_work_signup
+    work_signups = self.event.where(:begins_at => Date.today).all
+    work_signups.each {|w| w.complete}
+  end
+
+  state_machine :state, :initial => :started do
+    event :complete do
+      transition :confirmed => :completed
+    end
+  end
 end
 
 
