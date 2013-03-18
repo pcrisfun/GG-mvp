@@ -230,6 +230,13 @@
 	    		Note, this information will be kept private and will not be displayed with your apprenticeship
 	    	</div>
 
+<!--DON'T STEAL MY STYLE-->
+				<h3>Don't steal my style!</h3>
+				<p>We understand that for some makers, teaching your unique techniques can feel like risking your trade secrets. If this is a concern for you, we'll ask your apprentice to sign an agreement to respect your artistic style.</p>
+				<%= f.label :respect_my_style, :class => "checkbox" do %>
+				  <%= f.check_box :respect_my_style %>Yes, please ask my apprentice to sign a respect agreement.
+				<% end %>
+
 <!--COST -->
 				<h3>Apprenticeship listing fee</h3>
 				<%= render partial: "shared/credit_card", locals: { f: f, paid: @apprenticeship.charge_id.present? } %>

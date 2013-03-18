@@ -1,0 +1,102 @@
+<%= render 'shared/error_messages', :form_model => @app_signup %>
+	<hr />
+
+	<h4>Name:</h4>
+	<p><%= "#{current_user.first_name} #{current_user.last_name}" %></p>
+
+	<h4>Email:</h4>
+	<p><%= "#{current_user.email}"%></p>
+
+	<% if current_user.age > @apprenticeship.age_max %>
+		<%= f.label :daughter_name, capture { %>
+			<h4>Your daughter's name</h4>
+			<% } %>
+		<%= f.text_field :daughter_name %>
+		<br/>
+		<%= f.label :daughter_age, capture { %>
+			<h4>Your daughter's age</h4>
+			<% } %>
+		<p><%= f.number_field :daughter_age, :class => "span1" %> *She must be between <%= "#{@apprenticeship.age_min}" %> - <%= "#{@apprenticeship.age_max}" %> years old to be eligible for this apprenticeship.</p>
+
+	<% else %>
+		<h4>Age:</h4>
+		<p><%= current_user.age %> years old</p>
+		<br />
+	<% end %>
+
+	<p>Not you? <%= link_to "Sign in as a different user.", destroy_user_session_path %></p>
+
+	<hr />
+
+	<h3>Tell us a bit more about yourself</h3>
+	<p>We'll forward this on to <%= @apprenticeship.host_firstname %> to check out and make a decision.</p>
+	<p>*Required fields</p>
+
+	<br />
+	<%= f.label :happywhen, capture { %>
+		<h4>I'm truly happy when I'm... *</h4>
+		<% } %>
+	<%= f.text_area :happywhen, :class => "span6", :rows => "8", :rel => :popover, :data => { :content => "Tell us a little bit about what makes you happy and what you love to do - just to give a sense of who you are and what you like.", "original-title" => 'What makes you happy' }  %>
+	<br />
+
+	<br />
+	<%= f.label :collaborate, capture { %>
+		<h4>I like working together on projects because... *</h4>
+		<% } %>
+	<%= f.text_area :collaborate, :class => "span6", :rows => "8", :rel => :popover, :data => { :content => "Tell us a bit about your working style and what kinds of collaboration you enjoy.", "original-title" => 'How you like to work' }  %>
+	<br />
+
+	<br />
+	<%= f.label :interest, capture { %>
+		<h4>What’s most interesting to me about this apprenticeship is... *</h4>
+		<% } %>
+	<%= f.text_area :interest, :class => "span6", :rows => "8", :rel => :popover, :data => { :content => "Tell us a bit about why this apprenticeship is something you want to do.", "original-title" => "What's interesting about it" }  %>
+	<br />
+
+	<br />
+	<%= f.label :experience, capture { %>
+		<h4>Experience with tools and making *</h4>
+		<% } %>
+	<%= f.text_area :experience, :class => "span6", :rows => "8", :rel => :popover, :data => { :content => "What kinds of things have you made before? What kinds of tools or techniques have you used?", "original-title" => 'Your experience' } %>
+	<br />
+
+	<br/>
+	<p style="color:red;">[Rate :requirements slider thingy (in an if statement - whether there are required skills .present?)]</p>
+
+	<br />
+	<h4>Confirm your availability *</h4>
+	<div class="form-inline" >
+		<%= f.check_box :confirm_available %>
+		<%= f.label :confirm_available, capture { %>
+			<p>Yes, I'm available to take on an apprenticeship for <%= "#{@apprenticeship.hours}" %> hours per <%= "#{@apprenticeship.hours_per}" %> between <%= "#{@apprenticeship.begins_at}" %> and <%= "#{@apprenticeship.ends_at}" %>.</p>
+		<% } %>
+	</div>
+
+	<br />
+	<%= f.label :preferred_times, capture { %>
+		<h4>Your preferred meeting times *</h4>
+		<% } %>
+		<p>Within the weekly times above, are you flexible? What are the best days/times for you?</p>
+ 	<%= f.text_field :preferred_times, :class => "span6", :rel => :popover, :data => { :content => "Example: “I’m flexible but prefer Mondays & Wednesdays, 4-6pm.” Or: “I’m flexible but NOT available Thursdays and Fridays.” Or: “I’m only available Sunday mornings.”", "original-title" => 'Your schedule' } %>
+ 	<br />
+
+ 	<br />
+ 	<h4>A couple of things to note *</h4>
+ 	<div class="form-inline" >
+		<%= f.check_box :confirm_unpaid %>
+		<%= f.label :confirm_unpaid, capture { %>
+			<p>I understand that this is an unpaid apprenticeship. I agree that if accepted I will work with <%= "#{@apprenticeship.host_firstname}" %> in return for the chance to learn from her.</p>
+		<% } %>
+	</div>
+ 	<div class="form-inline" >
+		<%= f.check_box :confirm_fee %>
+		<%= f.label :confirm_fee, capture { %>
+			<p>I agree that if accepted as an apprentice I will pay the $29 matching fee to GirlsGuild before being connected with <%= "#{@apprenticeship.host_firstname}" %> for the apprenticeship.</p>
+		<% } %>
+	</div>
+
+	<br />
+	<br />
+
+
+

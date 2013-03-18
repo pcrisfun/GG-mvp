@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   after_create :create_gallery
   has_attached_file :avatar, :styles => { :large => "214x214#", :medium => "50x50#", :small => "25x25#" }
 
-  attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :birthday, :terms_of_service, :remember_me, :avatar, :use_gravatar
+  attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :birthday, :terms_of_service, :remember_me, :avatar, :use_gravatar, :phone
 
   validates :first_name,  presence: true, length: { maximum: 20 }
   validates :last_name,  presence: true, length: { maximum: 20 }
@@ -46,6 +46,15 @@ class User < ActiveRecord::Base
 
   def birthday=(new_date)
       write_attribute(:birthday, Chronic::parse(new_date))
+  end
+
+  def age
+    now = Time.now.utc.to_date
+    now.year - birthday.year - ((now.month > birthday.month || (now.month == birthday.month && now.day >= birthday.day)) ? 0 : 1)
+  end
+
+  def over_18
+    age >= 18
   end
 
   def update_avatar=(new_avatar)

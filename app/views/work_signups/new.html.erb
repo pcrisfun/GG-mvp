@@ -1,0 +1,22 @@
+<%= content_tag :section, :class => "section" do %>
+	<%= content_tag :div, :class => "container" do %>
+		<% provide(:title, 'Sign Up for a Workshop') %>
+		<h1>Workshop Signup</h1>
+		<br />
+
+			<h3>Yes! We’re excited you want to work with <%= "#{@workshop.host_firstname}" %>!</h3>
+			<br />
+			<p>Use this form to register. When you submit it, we’ll send you an email to confirm and give you all the details, including the exact address for the workshop.</p>
+			<p>Still not sure? Check out our <a href="http://www.girlsguild.com/faq.html#TakingWorkshop">FAQ</a> to find out how this works, or email us if you have other questions - <a href="mailto:hello@girlsguild.com?Subject=Hello again">hello@girlsguild.com</a>.</p>
+
+			<div class="row">
+			  <div class="span9">
+					<%= form_for([@workshop, @work_signup], :validate => true ) do |f| %>
+			    	<%= render "form", f: f %>
+					<%= f.submit "Sign me up!", :name => 'create_button', :class => "btn btn-large btn-primary", :id => "cc_process" %>
+				<% end %>
+			  </div>
+			</div>
+
+	<% end %>
+<% end %>

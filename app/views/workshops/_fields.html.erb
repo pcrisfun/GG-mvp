@@ -207,6 +207,8 @@
 					</div>
 				<% end %>
 
+				<p>Total cost to participants: Your cost + 20% = $<span id="workshop_total_price" style="font-weight:bold;"></span></p>
+
 				<%= f.input :ends_at, label: "Close signups on" do %>
 					<div class="input-append date" data-behaviour="datepicker">
 					  <%= f.text_field :ends_at, class: "span3", value: @workshop.ends_at.strftime("%m/%d/%Y") %>
@@ -268,6 +270,13 @@
 				<% end %>
 
 				<hr/>
+
+<!--DON'T STEAL MY STYLE-->
+			<h3>Don't steal my style!</h3>
+			<p>We understand that for some makers, teaching your unique techniques can feel like risking your trade secrets. If this is a concern for you, we'll ask your workshop participants to sign an agreement to respect your artistic style.</p>
+			<%= f.label :respect_my_style, :class => "checkbox" do %>
+			  <%= f.check_box :respect_my_style %>Yes, please ask participants to sign a respect agreement.
+			<% end %>
 
 <!--BACKGROUND CHECK -->
 				<h3>Background check</h3>

@@ -1,5 +1,7 @@
 class Apprenticeship < Event
 
+	has_many :users, :through => :signup
+
 	validates_presence_of :kind, :hours, :hours_per #, :charge_id (shouldn't need this bc we added 'update_attribute(:charge_id, charge.id)' to process_payment method)
 	validates_numericality_of :hours, :greater_than => 0
 	validates :begins_at, :date => {:after => Proc.new { Date.today + 6.day }, :message => 'Sorry! You need to plan your apprenticeship to start at least a week from today. Please check the dates you set.'}, :if => :tba_is_blank
@@ -10,7 +12,6 @@ class Apprenticeship < Event
 	end
 
 	def deliver_save
-		return false unless valid?
 		Pony.mail({
 			:to => "#{user.name}<#{user.email}>",
    		:from => "Cheyenne & Diana<hello@girlsguild.com>",
@@ -49,7 +50,6 @@ class Apprenticeship < Event
 	end
 
 	def deliver_accept
-		return false unless valid?
 		Pony.mail({
 			:to => "#{user.name}<#{user.email}>",
    		:from => "Cheyenne & Diana<hello@girlsguild.com>",
@@ -62,7 +62,6 @@ class Apprenticeship < Event
 	end
 
 	def deliver_cancel
-		return false unless valid?
 		Pony.mail({
 			:to => "#{user.name}<#{user.email}>",
    		:from => "Cheyenne & Diana<hello@girlsguild.com>",
@@ -87,13 +86,13 @@ class Apprenticeship < Event
 	end
 
 	def self.complete_apprenticeship
-	    apprenticeships = self.where(:ends_at => Date.today).all
+	  apprenticeships = self.where(:ends_at => Date.today).all
 		apprenticeships.each {|a| a.complete}
 	end
 
 	state_machine :state, :initial => :started do
 		event :complete do
-        	transition :accepted => :completed #once signup is working this should be :in_progress => :completed
-        end
+      transition :in_progress => :completed
+    end
 	end
 end

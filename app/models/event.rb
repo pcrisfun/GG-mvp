@@ -7,9 +7,11 @@ class Event < ActiveRecord::Base
 
 
   belongs_to :user
+
+  has_many :signups, :dependent => :destroy
+
   has_one :host_album, :class_name => 'Album', :dependent => :destroy
   after_create :create_host_album
-
 
   validation_group :save do
     validates_presence_of :topic, :message => ' must be included in order to save your form.'
@@ -22,7 +24,7 @@ class Event < ActiveRecord::Base
   validates_numericality_of :age_max, :greater_than => :age_min, :message => "must be greater than the minimum age you set."
   validates_numericality_of :registration_min, :greater_than_or_equal_to => 0
 
-  attr_accessible :title, :topic, :host_firstname, :host_lastname, :host_business, :bio, :twitter, :facebook, :website, :webshop, :permission, :payment_options, :paypal_email, :sendcheck_address, :sendcheck_address2, :sendcheck_city, :sendcheck_state, :sendcheck_zip, :kind, :description, :begins_at, :begins_at_time, :ends_at, :ends_at_time, :datetime_tba, :skill_list, :tool_list, :requirement_list, :other_needs, :hours, :hours_per, :location_address, :location_address2, :location_city, :location_state, :location_zipcode, :location_private, :location_nbrhood, :location_varies, :age_min, :age_max, :registration_min, :registration_max, :price
+  attr_accessible :title, :topic, :host_firstname, :host_lastname, :host_business, :bio, :twitter, :facebook, :website, :webshop, :permission, :payment_options, :paypal_email, :sendcheck_address, :sendcheck_address2, :sendcheck_city, :sendcheck_state, :sendcheck_zip, :kind, :description, :begins_at, :begins_at_time, :ends_at, :ends_at_time, :datetime_tba, :skill_list, :tool_list, :requirement_list, :other_needs, :hours, :hours_per, :location_address, :location_address2, :location_city, :location_state, :location_zipcode, :location_private, :location_nbrhood, :location_varies, :age_min, :age_max, :registration_min, :registration_max, :price, :respect_my_style
 
   after_create :generate_title
   def generate_title
@@ -73,10 +75,6 @@ class Event < ActiveRecord::Base
     logger.error "Stripe error while creating charge: #{e.message}"
     errors.add :base, "There was a problem with your credit card."
     false
-  end
-
-  def refund_payment
-    #how do we do this through stripe?
   end
 
   def tba_is_blank

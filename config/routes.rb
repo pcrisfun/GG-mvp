@@ -1,4 +1,9 @@
 GirlsGuild::Application.routes.draw do
+
+  resources :signups
+  resources :app_signups
+  resources :work_signups
+
   devise_for :users, :admins
 
   resources :galleries, only: [:new, :create, :destroy]
@@ -17,8 +22,12 @@ GirlsGuild::Application.routes.draw do
     end
   end
 
-  resources :apprenticeships
-  resources :workshops
+  resources :apprenticeships do
+    resources :app_signups
+  end
+  resources :workshops do
+    resources :work_signups
+  end
 
   resources :event_skills, only: [:index]
   resources :event_tools, only: [:index]

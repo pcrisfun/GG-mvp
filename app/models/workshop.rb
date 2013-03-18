@@ -1,5 +1,7 @@
 class Workshop < Event
 
+	has_many :users, :through => :signup
+
 	validates_presence_of :payment_options, :begins_at_time, :ends_at_time, :ends_at, :registration_max, :price
 	validates_numericality_of :price, :greater_than_or_equal_to => 0
 	validates_numericality_of :registration_max, :greater_than => :registration_min, :message => "must be greater than the minimum number of participants."
@@ -14,7 +16,6 @@ class Workshop < Event
 	end
 
 	def deliver_save
-		return false unless valid?
 		Pony.mail({
 			:to => "#{user.name}<#{user.email}>",
    		:from => "Diana & Cheyenne<hello@girlsguild.com>",
@@ -53,7 +54,6 @@ class Workshop < Event
 	end
 
 	def deliver_accept
-		return false unless valid?
 		Pony.mail({
 			:to => "#{user.name}<#{user.email}>",
    		:from => "Diana & Cheyenne<hello@girlsguild.com>",
@@ -66,7 +66,6 @@ class Workshop < Event
 	end
 
 	def deliver_cancel
-		return false unless valid?
 		Pony.mail({
 			:to => "#{user.name}<#{user.email}>",
    		:from => "Diana & Cheyenne<hello@girlsguild.com>",
@@ -96,7 +95,7 @@ class Workshop < Event
 
 	state_machine :state, :initial => :started do
 		event :complete do
-        	transition :accepted => :completed
-        end
+      transition :accepted => :completed
+    end
 	end
 end
