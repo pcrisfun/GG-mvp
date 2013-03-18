@@ -28,12 +28,28 @@ class AppSignupsController < ApplicationController
         flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
         render 'new'
       end
+
+    elsif params[:confirm_button]
+      if @app_signup.update_attributes(params[:app_signup])
+        #if @app_signup.process_apprent_fee
+          if @app_signup.confirm && @app_signup.deliver_confirm
+            redirect_to apprenticeships_path, :flash => { :success => "Rad! You're all confirmed to start your apprenticeship!"}
+          else
+            flash[:warning] = "Whoops! Your form is missing some info. Please check all fields."
+            render 'show'
+          end
+        #else
+          #flash.now[:notify] = "Hmm, we couldn't process payment. Please try again."
+          #render 'show'
+        #end
+      end
+
     else
       if @app_signup.save
         if @app_signup.apply && @app_signup.deliver
           redirect_to apprenticeships_path, :flash => { :success => "Awesome, you've applied to work with #{@apprenticeship.host_firstname}." }
         else
-          flash.now[:warning] = "Welp, that submit didn't work."
+          flash.now[:warning] = "Welp, that submit didn't work in create."
           render 'new'
         end
       else
@@ -84,7 +100,7 @@ class AppSignupsController < ApplicationController
         if @app_signup.apply && @app_signup.deliver
           redirect_to apprenticeships_path, :flash => { :success => "Awesome, you've applied to work with #{@apprenticeship.host_firstname}." }
         else
-          flash.now[:warning] = "Welp, that submit didn't work."
+          flash.now[:warning] = "Welp, that submit didn't work in update."
           render 'new'
         end
       else
