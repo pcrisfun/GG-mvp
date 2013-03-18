@@ -71,8 +71,8 @@ ActiveRecord::Schema.define(:version => 20130309030421) do
     t.string   "location_city"
     t.string   "location_state"
     t.string   "location_zipcode"
-    t.boolean  "location_private"
-    t.boolean  "location_varies"
+    t.boolean  "location_private",                                 :default => true
+    t.boolean  "location_varies",                                  :default => false
     t.integer  "age_min"
     t.integer  "age_max"
     t.integer  "registration_min"
