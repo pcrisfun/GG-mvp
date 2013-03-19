@@ -126,7 +126,9 @@ class WorkshopsController < ApplicationController
   private
   def load_user_gallery
     @user = current_user
-    @gallery = @user.gallery
+    if @user
+      @gallery = @user.gallery
+    end
   end
 
 end
