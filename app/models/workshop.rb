@@ -11,10 +11,6 @@ class Workshop < Event
 	  { :host => 'localhost:3000'}
 	end
 
-	def generate_title
-		self.title = "#{self.topic} Workshop with #{self.host_firstname} #{self.host_lastname}"
-	end
-
 	def deliver_save
 		Pony.mail({
 			:to => "#{user.name}<#{user.email}>",
