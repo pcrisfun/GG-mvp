@@ -16,9 +16,8 @@
             <h2>APPRENTICESHIP CONFIRMATION FORM</h2>
             <%= form_for([@apprenticeship, @app_signup]) do |f| %>
               <%= render 'confirm_form', f: f %>
-              <%= f.submit "Confirm Apprenticeship", :name => "confirm_button", :class => "btn btn-primary", :id => "cc_process" %>
-            <% end %>
               <%= link_to "Cancel application", @app_signup, :method => :cancel, :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you will not be able to resubmit it."} %>
+            <% end %>
 
             <hr />
             <h2>YOUR ACCEPTED APPLICATION</h2>
