@@ -10,7 +10,7 @@
 		  		<%= f.input :birthday do %>
 					<div class="form-inline">
 						<%= f.text_field :birthday, :class => 'span4', :value=>Date.today.strftime('%m/%d/%Y'), data: {behaviour: 'datepicker'} %>
-						<a data-content="Individuals under the age of 18 must at all times use GirlsGuild's services only in conjunction with and under the supervision of a parent or legal guardian who is at least 18 years of age. In this all cases, the adult is the user and is responsible for any and all activities." data-placement="right" rel="popover" href="#" data-original-title="Why do you need my birthday?">Why? <i class='icon-question-sign small-icon'></i>
+						<a data-content="Individuals under the age of 18 must at all times use GirlsGuild's services only in conjunction with and under the supervision of a parent or legal guardian who is at least 18 years of age. In this all cases, the adult is the user and is responsible for any and all activities." data-placement="right" rel="popover" href="#" >Why? <i class='icon-question-sign small-icon'></i>
 						</a>
 					</div>
 				<% end %>

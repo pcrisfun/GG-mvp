@@ -129,11 +129,12 @@ ActiveRecord::Schema.define(:version => 20130315024632) do
     t.string   "parents_waiver"
     t.string   "respect_agreement"
     t.string   "charge_id"
-    t.datetime "created_at",                               :null => false
-    t.datetime "updated_at",                               :null => false
-    t.string   "daughter_name"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+    t.string   "daughter_firstname"
+    t.string   "daughter_lastname"
     t.string   "daughter_age"
-    t.string   "state",             :default => "started"
+    t.string   "state",              :default => "started"
   end
 
   create_table "taggings", :force => true do |t|

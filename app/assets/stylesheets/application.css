@@ -22,5 +22,6 @@
  *= require jquery.fileupload-ui
  *= require fancybox
  *= require masonry/transitions
+ *= require jquery.ui.all
  *= require_tree .
  */
