@@ -27,6 +27,9 @@ GirlsGuild::Application.routes.draw do
   end
   resources :workshops do
     resources :work_signups
+    collection do
+      get :workshop_album
+    end
   end
 
   resources :event_skills, only: [:index]
