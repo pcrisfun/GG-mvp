@@ -108,9 +108,12 @@ class WorkshopsController < ApplicationController
 
 
   def show
-    #@workshop = Workshop.find(params[:id])
+
   end
 
+  def workshop_album
+
+  end
 
 
   def owner_user
@@ -118,8 +121,8 @@ class WorkshopsController < ApplicationController
   end
 
   def current_workshop
-  	@workshop = Workshop.find_by_id(params[:id])
-  	redirect_to :index if @workshop.nil?
+  	@workshop = Workshop.find(params[:id])
+  	redirect_to action: :index if @workshop.nil?
     @album = @workshop.host_album
   end
 

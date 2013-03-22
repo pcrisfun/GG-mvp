@@ -9,6 +9,7 @@
         %a{ href: url_for(workshop) }
           %img.default-photo-large
     .box-details
+      = link_to "Add Images", {controller: :workshops, action: :workshop_album, id: workshop}, class: "btn btn-mini pull-right"
       - if workshop.started? && workshop.user == current_user
         = link_to "Resume", edit_workshop_path(workshop), class: "btn btn-mini pull-right"
       - elsif workshop.accepted? && workshop.user == current_user or current_user.admin?

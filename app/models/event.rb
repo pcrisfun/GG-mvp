@@ -11,7 +11,6 @@ class Event < ActiveRecord::Base
   has_many :signups, :dependent => :destroy
 
   has_one :host_album, :class_name => 'Album', :dependent => :destroy
-  after_create :create_host_album
 
   validation_group :save do
     validates_presence_of :topic, :message => ' must be included in order to save your form.'
@@ -130,6 +129,7 @@ class Event < ActiveRecord::Base
       end
   end
 
+  after_create :create_host_album
   def create_host_album
     self.host_album  = Album.new(title: "Images for #{self.title}")
   end

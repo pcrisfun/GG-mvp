@@ -24,8 +24,7 @@
                           %td{:align => "left", :style => "line-height:150%;font-family:Helvetica;font-size:12px;color:#333333;padding:20px", :valign => "top"}
                             %h2{:style => "font-size:22px;line-height:28px;margin:0 0 10px 0"}
                               Welcome #{@user.first_name}! Please Confirm Your Account Email
-                            %button{:style => "border-radius:3px;display:inline;font-family:'Helvetica',Arial,sans-serif;text-decoration:none;font-weight:bold;font-style:normal;font-size:15px;line-height:32px;border:none;background-color:#41b7d8;color:#ffffff;"}
-                              = link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token), { :style => "color:#FFF; text-decoration:none;"}
+                            = link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token), { :style => "border-radius:3px; display:inline; font-family:'Helvetica',Arial,sans-serif; text-decoration:none; font-weight:bold; font-style:normal; font-size:15px; line-height:32px; border:none; background-color:#41b7d8; color:#ffffff; text-decoration:none; padding:10px;" }
                             %br/
                             %div
                               %p{:style => "padding:0 0 10px 0"} If you received this email by mistake, simply delete it. Your GirlsGuild account will not be created if you don't click the confirmation link above.
