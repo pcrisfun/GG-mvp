@@ -61,9 +61,22 @@
 	<br />
 
 	<br/>
-	<p style="color:red;">[Rate :requirements slider thingy (in an if statement - whether there are required skills .present?)]</p>
+
+
+	<% if @apprenticeship.skill_list.present? %>
+		<p>
+			<label for="amount"><%= @apprenticeship.skill_list %></label>
+			<input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold; width:20px;" />
+		</p>
+		<div id="slider-range-max" class="span6"></div>
+		<p class="span6"><span>Newbie</span> <span class="pull-right">Expert</span></p>
+	<% end -%>
+	<br />
+	<br />
+	<br />
+
 	<p>
-		<label for="amount">Example Tool</label>
+		<label for="amount"><%= @apprenticeship.tool_list %></label>
 		<input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold; width:20px;" />
 	</p>
 	<div id="slider-range-max" class="span6"></div>
@@ -71,6 +84,9 @@
 	<br />
 	<br />
 	<br />
+
+
+
 	<h4>Confirm your availability *</h4>
 	<div class="form-inline" >
 		<%= f.check_box :confirm_available %>

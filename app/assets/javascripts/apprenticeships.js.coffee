@@ -2,19 +2,16 @@ jQuery ->
   Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'))
   charge.setupForm()
 
-
-
 charge =
   setupForm: ->
+    $('#stripe_error').hide()
     $('#cc_process').click ->
       $('input[type=submit]').attr('disabled', true)
-      if $('#card_number').length
-        charge.processCard()
-        false
-      else
-        true
+      charge.processCard()
 
   processCard: ->
+    console.log('Processing card')
+    $('#stripe_error').hide()
     card =
       number: $('#card_number').val()
       cvc: $('#card_code').val()
@@ -24,10 +21,12 @@ charge =
 
   handleStripeResponse: (status, response) ->
     if status == 200
-        $('#charge_stripe_card_token').val(response.id)
-        $("form")[0].submit()
+      console.log('Hooray!')
+      $('#stripe_card_token').val(response.id)
+      $("form").get(0).submit();
     else
-      $('#stripe_error').text(response.error.message)
+      console.log('Facepalm :(')
+      $('#stripe_error').show()
+      $('#stripe_error.message').text(response.error.message)
       $('input[type=submit]').attr('disabled', false)
-
 
