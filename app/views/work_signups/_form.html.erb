@@ -1,5 +1,6 @@
 <%= render 'shared/error_messages', :form_model => @work_signup %>
 	<hr />
+
 	<h4>Name:</h4>
 	<p><%= "#{current_user.first_name} #{current_user.last_name}" %></p>
 
@@ -7,10 +8,10 @@
 	<p><%= current_user.email %></p>
 
 	<% if current_user.age > @workshop.age_max %>
-		<%= f.label :daughter_name, capture { %>
-			<h4>Your daughter's name</h4>
-			<% } %>
-		<%= f.text_field :daughter_name %>
+		<h4>Your daughter's name</h4>
+		<%= f.input :daughter_firstname, 	label: "Daughter's First Name"  %>
+		<%= f.input :daughter_lastname, 	label: "Daughter's Last Name"  %>
+
 		<br/>
 		<%= f.label :daughter_age, capture { %>
 			<h4>Your daughter's age</h4>
@@ -41,7 +42,7 @@
 		<h4>Interest</h4>
 		<% } %>
 		<p>What are you most interested in learning in this workshop?</p>
-	<%= f.text_field :interest, :class => "span6", :rel => :popover, :data => { :content => "This will help the artist plan her workshop to include what you want to know.", "original-title" => 'Your interests' }  %>
+	<%= f.text_field :interest, :class => "span6", :rel => :popover, :data => { :content => "This will help the artist plan her workshop to include what you want to know."}  %>
 	<br />
 
 	<br />
@@ -49,7 +50,7 @@
 		<h4>Experience</h4>
 		<% } %>
 		<p>Have you done this kind of making before?</p>
-	<%= f.text_field :experience, :class => "span6", :rel => :popover, :data => { :content => "If so, tell us about what you've made. If not, that's ok too!", "original-title" => 'Your experience' } %>
+	<%= f.text_field :experience, :class => "span6", :rel => :popover, :data => { :content => "If so, tell us about what you've made. If not, that's ok too!" } %>
 	<br />
 
 	<br />
@@ -71,14 +72,15 @@
 	<br />
 	<% if @workshop.respect_my_style.present? %>
 		<h4>I won't copy the artist's work *</h4>
+		<textarea rows="5">This is where I agree not to reuse an artist's style for my own profit. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
 		<div class="form-inline" >
-		<p style="color:red;">[Put one of those scrolly waiver boxes here]</p>
 			<%= f.check_box :respect_agreement %>
 			<%= f.label :respect_agreement, capture { %>
 			<p>I have read and agree to respect the artist's style.</p>
 			<% } %>
 		</div>
 	<% end %>
+	<br />
 
 	<% unless current_user.over_18 %>
 		<h3>The boring stuff...</h3>
@@ -95,6 +97,7 @@
 		<%= f.text_field :parent_email %>
 
 		<h4>Indemnification Agreement for Minors *</h4>
+		<textarea rows="5">This is where the waiver goes to which you must agree to be able to sign up for the workshop. It will remove GirlsGuild from all liability as well as the artist involved in teaching. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
 		<div class="form-inline" >
 			<p style="color:red;">[Put one of those scrolly waiver boxes here]</p>
 			<%= f.check_box :parents_waiver %>
@@ -105,8 +108,8 @@
 	<% end %>
 
 	<h4>Workshop Participation Waiver *</h4>
+	<textarea rows="5">This is where the waiver goes to which you must agree to be able to sign up for the workshop. It will remove GirlsGuild from all liability as well as the artist involved in teaching. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
 	<div class="form-inline" >
-		<p style="color:red;">[Put one of those scrolly waiver boxes here]</p>
 		<%= f.check_box :waiver %>
 		<%= f.label :waiver, capture { %>
 		<p>I have read and agree to the workshop participation waiver.</p>

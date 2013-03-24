@@ -12,6 +12,7 @@
 	    <%= simple_form_for @workshop, class: 'form-horizontal', defaults: { input_html: { class: 'span6' } } do |f| %>
 	    	<%= render 'fields', f: f %>
 	      <%= f.submit "Save for Later", name:'save_button', class: "btn pull-right" %>
+	     	<%= f.submit "Create Workshop", :name => 'create_button', :class => "btn btn-primary btn-large btn-create" %>
 	    <% end %>
 	  </div>
 	<% end %>
