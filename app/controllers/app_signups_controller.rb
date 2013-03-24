@@ -64,7 +64,7 @@ class AppSignupsController < ApplicationController
       @app_signup.accept && @app_signup.deliver_accept
       redirect_to apprenticeships_path, :flash => { :success => "Apprenticeship accepted." }
 
-    elsif params[:confirm_button] == "Confirm Apprenticeship"
+    elsif params[:app_signup][:stripe_card_token].present?
       if @app_signup.update_attributes(params[:app_signup])
         if @app_signup.process_apprent_fee
           if @app_signup.confirm && @app_signup.deliver_confirm

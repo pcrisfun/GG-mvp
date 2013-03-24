@@ -10,6 +10,7 @@ charge =
       charge.processCard()
 
   processCard: ->
+    console.log('Processing card')
     $('#stripe_error').hide()
     card =
       number: $('#card_number').val()
@@ -20,9 +21,11 @@ charge =
 
   handleStripeResponse: (status, response) ->
     if status == 200
+      console.log('Hooray!')
       $('#stripe_card_token').val(response.id)
       $("form").get(0).submit();
     else
+      console.log('Facepalm :(')
       $('#stripe_error').show()
       $('#stripe_error.message').text(response.error.message)
       $('input[type=submit]').attr('disabled', false)

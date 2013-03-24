@@ -13,7 +13,7 @@
 			  <div class="span9">
 					<%= form_for([@workshop, @work_signup], :validate => true ) do |f| %>
 			    	<%= render "form", f: f %>
-					<%= f.submit "Sign me up!", :name => 'create_button', :class => "btn btn-large btn-primary", :id => "cc_process" %>
+					<%= f.submit "Sign me up!", :name => 'create_button', :class => "btn btn-large btn-primary", :id => @work_signup.charge_id.present? ? "" : "cc_process" %>
 				<% end %>
 			  </div>
 			</div>

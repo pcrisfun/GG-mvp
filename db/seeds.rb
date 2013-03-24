@@ -32,7 +32,7 @@ cheyenne.save!(validate: false)
 
 diana = User.new( first_name: "Diana",
                   last_name: "Griffin",
-                  birthday: "1983-03-07 17:00:00",
+                  birthday: "1982-03-07 17:00:00",
                   email: "dianadgriffin@gmail.com",
                   password: "password",
                   password_confirmation: "password",
