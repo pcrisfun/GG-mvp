@@ -11,13 +11,15 @@ class WorkshopsController < ApplicationController
       @mypending_workshops = current_user.workshops.find_all_by_state('pending')
       @myactive_workshops =  current_user.workshops.find_all_by_state('accepted')
       @mycanceled_workshops = current_user.workshops.find_all_by_state('canceled')
+      @myfilled_workshops = current_user.workshops.find_all_by_state('filled')
       @mycompleted_workshops = current_user.workshops.find_all_by_state('completed')
-      @allpending_workshops = Workshop.find_all_by_state('pending')
       @allsaved_workshops = Workshop.find_all_by_state('started')
+      @allpending_workshops = Workshop.find_all_by_state('pending')
       @allcanceled_workshops = Workshop.find_all_by_state('canceled')
+      @allfilled_workshops = Workshop.find_all_by_state('filled')
       @allcompleted_workshops = Workshop.find_all_by_state('completed')
     end
-  	@workshops = Workshop.find_all_by_state('accepted')
+  	@workshops = Workshop.find_all_by_state(['accepted','filled','completed'])
   end
 
   def new

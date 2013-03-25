@@ -41,7 +41,7 @@
 
             - elsif current_user && @apprenticeship.already_applied?(current_user)
               / fix link path below: should link to current user's signup
-              = link_to "View your application", apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-block btn-success"
+              = link_to "View your application", apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-block"
 
             - else
               = link_to "Apply!", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-block btn-primary"
@@ -78,9 +78,13 @@
         .span4.well
           %h3 Prerequisites
           %ul.nav.nav-stacked
-            -  @apprenticeship.requirement_list.each do |requirement|
-              %li
-                %a #{requirement}
+            - if @apprenticeship.requirement_list.present?
+              -  @apprenticeship.requirement_list.each do |requirement|
+                %li
+                  %a #{requirement}
+            - else
+              %p You're good to go!
+              %p (No prerequisites)
 
   %section#album_section.section.alt
     .container
@@ -102,14 +106,17 @@
             %dt Site
             %dd= @apprenticeship.website
 
-            %dt Web Shop
-            %dd= @apprenticeship.webshop
+            - if @apprenticeship.webshop.present?
+              %dt Web Shop
+              %dd= @apprenticeship.webshop
 
-            %dt Facebook Page
-            %dd= @apprenticeship.facebook
+            - if @apprenticeship.facebook.present?
+              %dt Facebook Page
+              %dd= @apprenticeship.facebook
 
-            %dt Twitter
-            %dd= @apprenticeship.twitter
+            - if @apprenticeship.twitter.present?
+              %dt Twitter
+              %dd= @apprenticeship.twitter
 
   %section#details_section.section.alt
     .map-top-shadow

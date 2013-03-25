@@ -100,7 +100,7 @@ class Workshop < Event
 
 	state_machine :state, :initial => :started do
 		event :complete do
-      transition :accepted => :completed
+      transition :all => :completed
     end
 	end
 end

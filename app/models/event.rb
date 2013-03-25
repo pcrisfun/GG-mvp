@@ -131,9 +131,6 @@ class Event < ActiveRecord::Base
         transition :accepted => :filled
       end
 
-      event :in_progress do
-        transition :accepted => :in_progress #this will need to be triggered when the apprenticeship is filled
-      end
   end
 
   after_create :create_host_album

@@ -30,20 +30,6 @@
             <%= f.submit "Cancel Apprenticeship", :name => "cancel_button", :class => "btn btn-small btn-danger", :data => { :confirm => "Are you sure you want to cancel this apprenticeship? It will be closed for application and moved under My Canceled Apprenticeships. You will still be able to edit and resubmit it."} %>
           <% end %>
 
-          <% if current_user.admin? && @apprenticeship.pending? %>
-            <hr />
-            <h3>Admin Controls</h3>
-              <%= f.submit "Reject Apprenticeship", :name => "reject_button", :class => "btn btn-large btn-danger" %>
-              <%= f.submit "Approve Apprenticeship", :name => "accept_button", :class => "btn btn-large btn-success" %>
-          <% end %>
-
-          <% if current_user.admin? && @apprenticeship.accepted? %>
-            <hr />
-            <h3>Admin Controls</h3>
-              <%= f.submit "Revoke Apprenticeship", :name => "revoke_button", :class => "btn btn-large btn-danger" %>
-              <%= link_to 'Delete', @apprenticeship, :method => :delete, :data => { :confirm => 'Are you sure you want to delete this apprenticeship?' } %>
-          <% end %>
-
         <% end %>
       </div>
     </div>
