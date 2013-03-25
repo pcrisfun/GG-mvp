@@ -7,9 +7,13 @@ jQuery ->
 charge =
   setupForm: ->
     $('#stripe_error').hide()
-    $('#cc_process').click ->
-      $('input[type=submit]').attr('disabled', true)
-      charge.processCard()
+    $("#new_apprenticeship").submit ->
+      $('#cc_process').attr('disabled', true)
+      if $('#card_number').length
+        charge.processCard()
+        false
+      else
+        true
 
   processCard: ->
     $('#stripe_error').hide()
@@ -27,6 +31,6 @@ charge =
     else
       $('#stripe_error').show()
       $('#stripe_error.message').text(response.error.message)
-      $('input[type=submit]').attr('disabled', false)
+      $('#cc_process').attr('disabled', false)
 
 

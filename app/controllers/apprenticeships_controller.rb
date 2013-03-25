@@ -52,9 +52,12 @@ class ApprenticeshipsController < ApplicationController
           flash.now[:warning] = "Whoops! There was a problem saving your apprenticeship. Please check all fields."
           render 'new'
         end
-      else
+      elsif @apprenticeship.save
         flash.now[:notify] = "Hmm, we couldn't process payment. Please try again."
         render 'edit'
+      else
+        flash.now[:warning] = "Whoops! There was a problem saving your apprenticeship. Please check all fields."
+        render 'new'
       end
     end
   end
