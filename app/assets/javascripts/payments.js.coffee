@@ -5,9 +5,13 @@ jQuery ->
 charge =
   setupForm: ->
     $('#stripe_error').hide()
-    $('#cc_process').click ->
-      $('input[type=submit]').attr('disabled', true)
-      charge.processCard()
+    $('.payment_form').submit ->
+      $('#cc_process').attr('disabled', true)
+      if $('#card_number').length
+        charge.processCard()
+        false
+      else
+        true
 
   processCard: ->
     console.log('Processing card')
@@ -23,10 +27,9 @@ charge =
     if status == 200
       console.log('Hooray!')
       $('#stripe_card_token').val(response.id)
-      $("form").get(0).submit();
+      $('.payment_form').get(0).submit();
     else
       console.log('Facepalm :(')
       $('#stripe_error').show()
       $('#stripe_error.message').text(response.error.message)
-      $('input[type=submit]').attr('disabled', false)
-
+      $('#cc_process').attr('disabled', false)
