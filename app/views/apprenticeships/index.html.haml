@@ -21,6 +21,10 @@
           %h4 Canceled apprenticeships Since Being Accepted
           .row
             = render :partial => "apprenticeship", :collection => @allcanceled_apprenticeships
+        - unless @allfilled_apprenticeships.blank?
+          %h4 Filled apprenticeships
+          .row
+            = render :partial => "apprenticeship", :collection => @allfilled_apprenticeships
         - unless @allcompleted_apprenticeships.blank?
           %h4 Completed apprenticeships
           .row
@@ -44,6 +48,10 @@
           %h4 My Upcoming apprenticeships
           .row
             = render :partial => "apprenticeship", :collection => @myactive_apprenticeships
+        - unless @myfilled_apprenticeships.blank?
+          %h4 My Filled apprenticeships
+          .row
+            = render :partial => "apprenticeship", :collection => @myfilled_apprenticeships
         - unless @mycompleted_apprenticeships.blank?
           %h4 My Completed apprenticeships
           .row

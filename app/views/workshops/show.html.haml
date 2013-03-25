@@ -101,14 +101,17 @@
             %dt Site
             %dd= @workshop.website
 
-            %dt Web Shop
-            %dd= @workshop.webshop
+            - if @workshop.webshop.present?
+              %dt Web Shop
+              %dd= @workshop.webshop
 
-            %dt Facebook Page
-            %dd= @workshop.facebook
+            - if @workshop.facebook.present?
+              %dt Facebook Page
+              %dd= @workshop.facebook
 
-            %dt Twitter
-            %dd= @workshop.twitter
+            - if @workshop.twitter.present?
+              %dt Twitter
+              %dd= @workshop.twitter
 
   %section#details_section.section.alt
     .map-top-shadow

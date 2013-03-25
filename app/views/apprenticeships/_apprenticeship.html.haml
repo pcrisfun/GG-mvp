@@ -10,14 +10,15 @@
           %img.default-photo-large
     .box-details
       - unless current_user.blank?
-        - if apprenticeship.started? && apprenticeship.user == current_user
-          = link_to "Resume", edit_apprenticeship_path(apprenticeship), class: "btn btn-mini pull-right"
-        - elsif apprenticeship.accepted? && apprenticeship.user == current_user or current_user.admin?
-          = link_to "Edit", edit_apprenticeship_path(apprenticeship), class: "btn btn-mini pull-right"
+        - if apprenticeship.user == current_user
+          - if apprenticeship.started?
+            = link_to "Resume", edit_apprenticeship_path(apprenticeship), class: "btn btn-mini pull-right"
+          - elsif apprenticeship.accepted?
+            = link_to "Edit", edit_apprenticeship_path(apprenticeship), class: "btn btn-mini pull-right"
       = link_to apprenticeship.title_html, apprenticeship_path(apprenticeship), class: "title-boxlink"
       %br
-      Number of spots left -
-      = apprenticeship.registration_max
+      Number of apprentices needed -
+      = apprenticeship.registration_min - apprenticeship.signups.where(:state => "confirmed").count
       %br
       Ages
       = apprenticeship.age_min
@@ -25,6 +26,6 @@
       = apprenticeship.age_max
       %br
       From
-      = apprenticeship.begins_at
+      = apprenticeship.begins_at.strftime('%A, %B %d')
       to
-      = apprenticeship.ends_at
+      = apprenticeship.ends_at.strftime('%A, %B %d')

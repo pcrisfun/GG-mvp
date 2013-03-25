@@ -98,7 +98,7 @@ class Apprenticeship < Event
 
 	state_machine :state, :initial => :started do
 		event :complete do
-      transition :in_progress => :completed
+      transition :all => :completed
     end
 	end
 end
