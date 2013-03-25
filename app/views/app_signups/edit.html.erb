@@ -5,7 +5,7 @@
 
       <div class="row">
         <div class="span6">
-          <%= form_for([@apprenticeship, @app_signup]), html: {class: "payment_form"} do |f| %>
+          <%= form_for [@apprenticeship, @app_signup], html: {class: "payment_form"} do |f| %>
 
             <%= render 'form', f: f %>
 
