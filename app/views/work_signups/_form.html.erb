@@ -70,13 +70,13 @@
 	<br />
 
 	<br />
-	<% if @workshop.respect_my_style.present? %>
+	<% if @workshop.respect_my_style == "1" %>
 		<h4>I won't copy the artist's work *</h4>
 		<textarea rows="5">This is where I agree not to reuse an artist's style for my own profit. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
 		<div class="form-inline" >
 			<%= f.check_box :respect_agreement %>
 			<%= f.label :respect_agreement, capture { %>
-			<p>I have read and agree to respect the artist's style.</p>
+			<p>I agree to respect the artist's style.</p>
 			<% } %>
 		</div>
 	<% end %>
@@ -115,10 +115,6 @@
 		<p>I have read and agree to the workshop participation waiver.</p>
 		<% } %>
 	</div>
-
-	<br />
-	<p style="color:red;">[...Ability to add more participants??]</p>
-	<br />
 
 	<h3>Workshop fee: <%=number_to_currency(@workshop.price*1.2)%></h3>
 

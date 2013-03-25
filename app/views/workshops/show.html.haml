@@ -22,14 +22,14 @@
       .row-fluid
         .span2
           - if @workshop.accepted?
-            - if current_user.age < @workshop.age_min
+            - if current_user && current_user.age < @workshop.age_min
               = link_to "Sign up!", new_workshop_work_signup_path(@workshop), :class => "btn btn-block btn-primary disabled"
               %p
                 Sorry, it looks like you're younger than the minimum age for this workshop.
               %br/
               %p
                 To be notified next time she's teaching, #{link_to "pre-register with #{@workshop.host_firstname}", workshops_path}.
-            - elsif current_user.age > @workshop.age_max
+            - elsif current_user && current_user.age > @workshop.age_max
               = link_to "Sign up!", new_workshop_work_signup_path(@workshop), :class => "btn btn-block disabled"
               %p
                 Sorry, it looks like you're older than the maximum age for this workshop.
@@ -116,14 +116,14 @@
   %section#admin_section.section
     .container
       .row-fluid
-        - if current_user.admin? && @workshop.pending?
+        - if current_user && current_user.admin? && @workshop.pending?
           %hr
           %h3 Admin Controls
           = form_for(@workshop) do |f|
             = f.submit "Reject Workshop", :name => "reject_button", :class => "btn btn-large btn-danger"
             = f.submit "Approve Workshop", :name => "accept_button", :class => "btn btn-large btn-success"
 
-        - if current_user.admin? && @workshop.accepted?
+        - if current_user && current_user.admin? && @workshop.accepted?
           %hr
           %h3 Admin Controls
           = form_for(@workshop) do |f|

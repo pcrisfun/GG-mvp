@@ -85,8 +85,17 @@ class Workshop < Event
 	end
 
 	def self.complete_workshop
-		workshops = self.where(:begins_at => Date.today).all
-		workshops.each {|w| w.complete}
+    Workshop.where('begins_at <= ?', Date.today).all.each do |workshop|
+      workshop.signups.each {|w| w.complete}
+      workshop.complete
+    end
+	end
+
+	def self.cancel_workshop
+		workshops = Workshop.where('ends_at <= ?', Date.today).all
+		workshops.each do |w|
+			w.cancel! unless w.min_capacity_met?
+		end
 	end
 
 	state_machine :state, :initial => :started do

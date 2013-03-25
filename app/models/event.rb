@@ -41,14 +41,14 @@ class Event < ActiveRecord::Base
   acts_as_taggable
   acts_as_taggable_on :skills, :tools, :requirements
 
-    before_save :fix_tags
+  before_save :fix_tags
 
-    def fix_tags
-      # OPTIMIZE: lol this is a hack to fix acts as taggable on
-      self.skill_list = self.skill_list.map { |t| t.strip.gsub(/[^,A-Z0-9 '-]/i, '') }.join(',')
-      self.tool_list = self.tool_list.map { |t| t.strip.gsub(/[^,A-Z0-9 '-]/i, '') }.join(',')
-      self.requirement_list = self.requirement_list.map { |t| t.strip.gsub(/[^,A-Z0-9 '-]/i, '') }.join(',')
-    end
+  def fix_tags
+    # OPTIMIZE: lol this is a hack to fix acts as taggable on
+    self.skill_list = self.skill_list.map { |t| t.strip.gsub(/[^,A-Z0-9 '-]/i, '') }.join(',')
+    self.tool_list = self.tool_list.map { |t| t.strip.gsub(/[^,A-Z0-9 '-]/i, '') }.join(',')
+    self.requirement_list = self.requirement_list.map { |t| t.strip.gsub(/[^,A-Z0-9 '-]/i, '') }.join(',')
+  end
 
   def begins_at=(new_date)
      write_attribute(:begins_at, Chronic::parse(new_date).strftime('%Y-%m-%d %H:%M:%S'))
@@ -94,6 +94,9 @@ class Event < ActiveRecord::Base
      state :canceled do
      end
 
+     state :filled do
+     end
+
      state :in_progress do
      end
 
@@ -124,6 +127,10 @@ class Event < ActiveRecord::Base
         transition all => :canceled
       end
 
+      event :filled do
+        transition :accepted => :filled
+      end
+
       event :in_progress do
         transition :accepted => :in_progress #this will need to be triggered when the apprenticeship is filled
       end
@@ -134,5 +141,12 @@ class Event < ActiveRecord::Base
     self.host_album  = Album.new(title: "Images for #{self.title}")
   end
 
+  def min_capacity_met?
+    self.signups.where(:state => "confirmed").count >= self.registration_min
+  end
+
+  def max_capacity_met?
+    self.signups.where(:state => "confirmed").count >= self.registration_max
+  end
 end
 

@@ -86,9 +86,15 @@ class Apprenticeship < Event
 	end
 
 	def self.complete_apprenticeship
-	  apprenticeships = self.where(:ends_at => Date.today).all
-		apprenticeships.each {|a| a.complete}
+    Apprenticeship.where('ends_at <= ?', Date.today).all.each do |app|
+      app.signups.each {|a| a.complete}
+      app.complete
+    end
 	end
+
+	def already_applied?(user)
+    self.signups.where(:user_id => user).any?
+  end
 
 	state_machine :state, :initial => :started do
 		event :complete do

@@ -14,17 +14,17 @@
           = link_to "Resume", edit_apprenticeship_path(apprenticeship), class: "btn btn-mini pull-right"
         - elsif apprenticeship.accepted? && apprenticeship.user == current_user or current_user.admin?
           = link_to "Edit", edit_apprenticeship_path(apprenticeship), class: "btn btn-mini pull-right"
-        = link_to apprenticeship.title_html, apprenticeship_path(apprenticeship), class: "title-boxlink"
-        %br
-        Number of spots left -
-        = apprenticeship.registration_max
-        %br
-        Ages
-        = apprenticeship.age_min
-        to
-        = apprenticeship.age_max
-        %br
-        From
-        = apprenticeship.begins_at
-        to
-        = apprenticeship.ends_at
+      = link_to apprenticeship.title_html, apprenticeship_path(apprenticeship), class: "title-boxlink"
+      %br
+      Number of spots left -
+      = apprenticeship.registration_max
+      %br
+      Ages
+      = apprenticeship.age_min
+      to
+      = apprenticeship.age_max
+      %br
+      From
+      = apprenticeship.begins_at
+      to
+      = apprenticeship.ends_at
