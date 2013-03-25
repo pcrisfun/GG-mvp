@@ -1,3 +1,5 @@
+#will need to be scheduled using the Heroku Scheduler tool when we deploy
+
 namespace :app do
   desc "TODO"
   task :daily_actions => :environment do
