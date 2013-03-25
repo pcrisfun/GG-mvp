@@ -43,7 +43,7 @@ class Workshop < Event
    		:from => "Diana & Cheyenne<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your workshop has been resubmitted! - #{topic} with #{user.name}",
-			:html_body => %(<h1>Nice!</h1> <p>Your workshop is currently pending while we review your changes.</p> <p>You can review the submitted workshop and add your images here - <a href="#{url_for(self)}"> #{self.title}</a></p> <p>Please note that you won't be able to edit the details of your workshop until it's been approved, at which point it will need to be approved again.),
+			:html_body => %(<h1>Nice!</h1> <p>Your workshop is currently pending while we review your changes.</p> <p>You can review the submitted workshop and add your images here - <a href="#{url_for(self)}"> #{self.title}</a></p> <p>Please note that you won't be able to edit the details of your workshop until it's been approved, at which point it will need to be approved again.</p>),
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
@@ -85,8 +85,17 @@ class Workshop < Event
 	end
 
 	def self.complete_workshop
-		workshops = self.where(:begins_at => Date.today).all
-		workshops.each {|w| w.complete}
+    Workshop.where('begins_at <= ?', Date.today).all.each do |workshop|
+      workshop.signups.each {|w| w.complete}
+      workshop.complete
+    end
+	end
+
+	def self.cancel_workshop
+		workshops = Workshop.where('ends_at <= ?', Date.today).all
+		workshops.each do |w|
+			w.cancel! unless w.min_capacity_met?
+		end
 	end
 
 	state_machine :state, :initial => :started do

@@ -19,10 +19,10 @@
   <br />
 
   <br />
-  <% if @apprenticeship.respect_my_style.present? %>
+  <% if @apprenticeship.respect_my_style == "1" %>
     <h4>I won't copy the artist's work *</h4>
+    <textarea rows="5">This is where I agree not to reuse an artist's style for my own profit. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
     <div class="form-inline" >
-      <p>(Put one of those scrolly waiver boxes here)</p>
       <%= f.check_box :respect_agreement %>
       <%= f.label :respect_agreement, capture { %>
       <p>I have read and agree to respect the artist's style.</p>
@@ -45,8 +45,8 @@
     <%= f.text_field :parent_email %>
 
     <h4>Indemnification Agreement for Minors *</h4>
+    <textarea rows="5">This is where the waiver goes to which you must agree to be able to sign up for the workshop. It will remove GirlsGuild from all liability as well as the artist involved in teaching. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
     <div class="form-inline" >
-      <p style="color:red;">[Put one of those scrolly waiver boxes here]</p>
       <%= f.check_box :parents_waiver %>
       <%= f.label :parents_waiver, capture { %>
       <p>I am the legal parent/guardian of the apprenticeship participant, and have read and agree to this indeminification agreement.</p>
@@ -55,8 +55,8 @@
   <% end %>
 
   <h4>Apprenticeship Participation Waiver *</h4>
+  <textarea rows="5">This is where the waiver goes to which you must agree to be able to sign up for the workshop. It will remove GirlsGuild from all liability as well as the artist involved in teaching. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
   <div class="form-inline" >
-    <p style="color:red;">[Put one of those scrolly waiver boxes here]</p>
     <%= f.check_box :waiver %>
     <%= f.label :waiver, capture { %>
     <p>I have read and agree to the apprenticeship participation waiver.</p>
@@ -69,4 +69,6 @@
   <%= render :partial => "shared/credit_card", :locals => { :f => f, :paid => @app_signup.charge_id.present? } %>
 
   <br />
+
+  <%= button_tag "Confirm Apprenticeship", type: 'button', name: 'confirm_button', class: "btn btn-large btn-primary btn-create", id: "cc_process" %>
 

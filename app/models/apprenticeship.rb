@@ -14,7 +14,7 @@ class Apprenticeship < Event
 	def deliver_save
 		Pony.mail({
 			:to => "#{user.name}<#{user.email}>",
-   		:from => "Cheyenne & Diana<hello@girlsguild.com>",
+   		:from => "Diana & Cheyenne<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your apprenticeship has been saved - #{topic} with #{user.name}",
 			:html_body => %(<h1>Word!</h1> <p>We're thrilled you're building an apprenticeship! If you get stuck take a look at our <a href="http://www.girlsguild.com/faq">FAQ</a>, or feel free to respond to this email with any questions you might have!</p> <p>You can edit your apprenticeship and add images here - <a href="#{url_for(self)}"> #{self.title}</a></p>),
@@ -24,13 +24,13 @@ class Apprenticeship < Event
 	end
 
 	def deliver
-		return false unless valid?
+		#return false unless valid?
 		Pony.mail({
 			:to => "#{user.name}<#{user.email}>",
-   		:from => "Cheyenne & Diana<hello@girlsguild.com>",
+   		:from => "Diana & Cheyenne<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your apprenticeship has been submitted! - #{topic} with #{user.name}",
-			:html_body => %(<h1>Thanks!</h1> <p>Your apprenticeship has been submitted and is pending until you <a href="#{url_for(self)}">upload your images</a>.</p> <p>You can review the submitted apprenticeship and add your images here - <a href="#{url_for(self)}"> #{self.title}</a></p><p>Please note that you won't be able to edit the details of your apprenticeship until it's been approved, at which point it will need to be approved again.),
+			:html_body => %(<h1>Thanks!</h1> <p>Your apprenticeship has been submitted and is pending until you <a href="#{url_for(self)}">upload your images</a>.</p> <p>You can review the submitted apprenticeship and add your images here - <a href="#{url_for(self)}"> #{self.title}</a></p> <p>Please note that you won't be able to edit the details of your apprenticeship until it's been approved, at which point it will need to be approved again.</p>),
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
@@ -40,10 +40,10 @@ class Apprenticeship < Event
 		return false unless valid?
 		Pony.mail({
 			:to => "#{user.name}<#{user.email}>",
-   		:from => "Cheyenne & Diana<hello@girlsguild.com>",
+   		:from => "Diana & Cheyenne<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your apprenticeship has been resubmitted! - #{topic} with #{user.name}",
-			:html_body => %(<h1>Nice!</h1> <p>Your apprenticeship is currently pending while we review your changes.</p> <p>You can review the submitted apprenticeship and add your images here - <a href="#{url_for(self)}"> #{self.title}</a></p> <p>Please note that you won't be able to edit the details of your apprenticeship until it's been approved, at which point it will need to be approved again.),
+			:html_body => %(<h1>Nice!</h1> <p>Your apprenticeship is currently pending while we review your changes.</p> <p>You can review the submitted apprenticeship and add your images here - <a href="#{url_for(self)}"> #{self.title}</a></p> <p>Please note that you won't be able to edit the details of your apprenticeship until it's been approved, at which point it will need to be approved again.</p>),
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
@@ -52,7 +52,7 @@ class Apprenticeship < Event
 	def deliver_accept
 		Pony.mail({
 			:to => "#{user.name}<#{user.email}>",
-   		:from => "Cheyenne & Diana<hello@girlsguild.com>",
+   		:from => "Diana & Cheyenne<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your apprenticeship has been posted! - #{topic} with #{user.name}",
 			:html_body => %(<h1>Congrats!</h1> <p>Your apprenticeship has been posted and is now live! Check it out - <a href="#{url_for(self)}"> #{self.title}</a></p> <p>Be sure to invite your friends and share it on your social networks!</p>),
@@ -64,10 +64,10 @@ class Apprenticeship < Event
 	def deliver_cancel
 		Pony.mail({
 			:to => "#{user.name}<#{user.email}>",
-   		:from => "Cheyenne & Diana<hello@girlsguild.com>",
+   		:from => "Diana & Cheyenne<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your apprenticeship has been canceled - #{topic} with #{user.name}",
-			:html_body => %(Bummer! <br/><br/>You've canceled your apprenticeship. We hope you'll consider offering it again sometime! You can edit the apprenticeship and resubmit it anytime. Find it here - <a href="#{url_for(self)}"> #{self.title}</a>),
+			:html_body => %(<h1>Bummer!</h1> <p>You've canceled your apprenticeship. We hope you'll consider offering it again sometime!</p> <p>You can edit the apprenticeship and resubmit it anytime. Find it here - <a href="#{url_for(self)}"> #{self.title}</a></p>),
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
@@ -86,9 +86,15 @@ class Apprenticeship < Event
 	end
 
 	def self.complete_apprenticeship
-	  apprenticeships = self.where(:ends_at => Date.today).all
-		apprenticeships.each {|a| a.complete}
+    Apprenticeship.where('ends_at <= ?', Date.today).all.each do |app|
+      app.signups.each {|a| a.complete}
+      app.complete
+    end
 	end
+
+	def already_applied?(user)
+    self.signups.where(:user_id => user).any?
+  end
 
 	state_machine :state, :initial => :started do
 		event :complete do

@@ -11,6 +11,7 @@ gem 'faker', '1.0.1'
 gem 'will_paginate', '3.0.3'
 gem 'bootstrap-will_paginate', '0.0.6'
 gem 'jquery-rails', '~> 2.0.0'
+gem 'jquery-ui-rails'
 gem 'stripe'
 
 
@@ -73,12 +74,12 @@ gem 'fancybox2-rails'
 gem 'masonry-rails'
 gem 'whenever'
 gem 'grouped_validations'
-gem 'rufus-scheduler'
 gem 'devise'
 gem 'pony'
 gem 'figaro'
 gem 'hominid'
 gem 'jquery-cookie-rails'
-gem "font-awesome-rails"
+gem 'font-awesome-rails'
+gem 'rufus-scheduler'
 
 

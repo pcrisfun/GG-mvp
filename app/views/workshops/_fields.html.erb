@@ -251,7 +251,7 @@
 				<%= f.input :payment_options, label: "Choose an option:" do %>
 					<%= f.radio_button :payment_options, "Paypal" %>
 					<span class="simpleform-text">Paypal payment to</span>
-					<%= f.text_field :paypal_email, value: "#{current_user.email}", class: 'span3' %>
+					<%= f.text_field :paypal_email, value: ( !current_user.admin? ? current_user.email : '' ), class: 'span3' %>
 					<br />
 					<br />
 					<%= f.radio_button :payment_options, "Check" %>
@@ -291,9 +291,6 @@
 				<br/>
 				<hr/>
 				<br/>
-
-		    <%= f.submit "Create Workshop", :name => 'create_button', :class => "btn btn-primary btn-large btn-create" %>
-
 				<ul class="icons">
 					<li>
 						<a data-toggle="collapse" data-target="#collapseThree" >

@@ -1,3 +1,5 @@
+require 'rufus-scheduler'
+
 scheduler = Rufus::Scheduler.start_new
 
 scheduler.cron '0 22 * * *' do

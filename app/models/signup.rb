@@ -31,6 +31,7 @@ class Signup < ActiveRecord::Base
     end
 
     state :confirmed do
+
     end
 
     state :completed do
@@ -60,6 +61,11 @@ class Signup < ActiveRecord::Base
       transition :accepted => :confirmed
     end
 
+    after_transition :on => :signup, :do => :check_capacity
+    after_transition :on => :confirm, :do => :check_capacity
   end
 
+  def check_capacity
+    self.event.filled! if self.event.max_capacity_met?
+  end
 end

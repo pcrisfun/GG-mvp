@@ -88,11 +88,6 @@ class AppSignup < Signup
     return true
   end
 
-  def self.complete_app_signup
-    app_signups = self.event.where(:ends_at => Date.today).all
-    app_signups.each {|a| a.complete}
-  end
-
   state_machine :state, :initial => :started do
     event :complete do
       transition :confirmed => :completed

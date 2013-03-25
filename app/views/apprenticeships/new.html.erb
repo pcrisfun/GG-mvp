@@ -13,6 +13,7 @@
 	    <%= simple_form_for @apprenticeship, class: 'form-horizontal', defaults: { input_html: { class: 'span6' } } do |f| %>
 	    	<%= render 'fields', f: f %>
 	      <%= f.submit "Save for Later", name: 'save_button', class: "btn btn-large pull-right" %>
+	      <%= f.submit "Create Apprenticeship", :name => 'create_button', :class => "btn btn-large btn-primary btn-create", :id => "cc_process" %>
 	    <% end %>
 		</div>
 	<% end %>

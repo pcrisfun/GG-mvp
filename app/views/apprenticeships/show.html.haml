@@ -19,9 +19,9 @@
   %section#desc_section.section
     .container
       .row-fluid
-        .span2
+        .span4
           - if @apprenticeship.accepted?
-            - if current_user.age < @apprenticeship.age_min
+            - if current_user && current_user.age < @apprenticeship.age_min
               = link_to "Apply!", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-block btn-primary disabled"
               %p
                 Sorry, it looks like you're younger than the minimum age for this apprenticeship.
@@ -29,20 +29,24 @@
               %p
                 To be notified next time she's teaching, #{link_to "pre-register with #{@apprenticeship.host_firstname}", apprenticeships_path}.
 
-            - elsif current_user.age > @apprenticeship.age_max
-              = link_to "Apply!", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-block btn-primary disabled"
+            - elsif current_user && current_user.age > @apprenticeship.age_max
+              = link_to "Apply!", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-block disabled"
               %p
                 Sorry, it looks like you're older than the maximum age for this apprenticeship.
               %br/
               %p
-                To be notified next time she's teaching, #{link_to "pre-register with #{@apprenticeship.host_firstname}", apprenticeships_path}.
+                To be notified next time she's teaching: #{link_to "Pre-Register with #{@apprenticeship.host_firstname}", apprenticeships_path, :class => "btn btn-block btn-small btn-warning"}
               %p
-                Wait! I'm a parent using my account to #{link_to "sign up my daughter", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-small btn-success"}.
+                Wait! I'm a parent using my account to: #{link_to "Sign my Daughter Up", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-block btn-small btn-success"}
+
+            - elsif current_user && @apprenticeship.already_applied?(current_user)
+              / fix link path below: should link to current user's signup
+              = link_to "View your application", apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-block btn-success"
 
             - else
               = link_to "Apply!", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-block btn-primary"
 
-        .span10
+        .span8
           %dl.dl-horizontal
             %dt Description
             %dd= simple_format(@apprenticeship.description)
@@ -115,14 +119,14 @@
   %section#admin_section.section
     .container
       .row-fluid
-        - if current_user.admin? && @apprenticeship.pending?
+        - if current_user && current_user.admin? && @apprenticeship.pending?
           %hr
           %h3 Admin Controls
           = form_for(@apprenticeship) do |f|
             = f.submit "Reject Apprenticeship", :name => "reject_button", :class => "btn btn-large btn-danger"
             = f.submit "Approve Apprenticeship", :name => "accept_button", :class => "btn btn-large btn-success"
 
-        - if current_user.admin? && @apprenticeship.accepted?
+        - if current_user && current_user.admin? && @apprenticeship.accepted?
           %hr
           %h3 Admin Controls
           = form_for(@apprenticeship) do |f|
