@@ -9,7 +9,7 @@
 
     <div class="row">
       <div class="span9">
-        <%= simple_form_for(@apprenticeship) do |f| %>
+        <%= simple_form_for(@apprenticeship), html: {class: "payment_form"} do |f| %>
 
           <%= render 'fields', f: f %>
 

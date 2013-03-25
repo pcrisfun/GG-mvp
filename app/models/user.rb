@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
 
   has_many :apprenticeships
   has_many :workshops
+  has_many :signups
 
   has_one :gallery, :dependent => :destroy
   has_many :photos, :through => :gallery
