@@ -243,16 +243,33 @@
 
 	  <div id="collapseThree" class="accordion-body collapse">
 	    <div class="accordion-inner">
-	    	<div class="alert alert-info">
-	    		Note, this information will be kept private and will not be displayed with your workshop
-	    	</div>
+
+<!--RESPECT MY STYLE-->
+				<br/>
+				<%= f.input :respect_my_style, label: 'Respect my Style' do %>
+				  <%= f.check_box :respect_my_style %>
+				  <span class="simpleform-text"> Please ask my apprentice to agree to respect my unique artistic style. Why</span>
+					<a href="javascript:;" rel='popover' data-placement="right" data-content="We understand that for some makers, teaching your unique techniques can feel like risking your trade secrets. If this is a concern for you, we'll ask your apprentice to sign an agreement to respect your artistic style.">
+					  <i class="icon-question-sign small-icon"></i>
+					</a>
+				<% end %>
+
+<!--BACKGROUND CHECK -->
+				<%= f.input :permission, label: 'Background Check' do %>
+					<%= f.check_box :permission %>
+					<span class="simpleform-text"> I give permission for GirlsGuild to run a background check on me. Why</span>
+					<a href="javascript:;" rel='popover' data-placement="right" data-content="We run background checks on all maker-mentors as part of our efforts to foster a safe community.">
+					  <i class="icon-question-sign small-icon"></i>
+					</a>
+				<% end -%>
+				<br/>
 
 <!--PAYMENT OPTIONS -->
 				<h3>After the workshop, we'll send your payment by:</h3>
 				<%= f.input :payment_options, label: "Choose an option:" do %>
 					<%= f.radio_button :payment_options, "Paypal" %>
 					<span class="simpleform-text">Paypal payment to</span>
-					<%= f.text_field :paypal_email, value: ( !current_user.admin? ? current_user.email : '' ), class: 'span3' %>
+					<%= f.text_field :paypal_email, value: ( !current_user.admin? ? current_user.email : '' ), class: 'span3', rel: 'popover', data: { content: "Note, this information will be kept private and will not be displayed with your workshop"} %>
 					<br />
 					<br />
 					<%= f.radio_button :payment_options, "Check" %>
@@ -270,28 +287,8 @@
 					</span>
 				<% end %>
 
-				<hr/>
 
-<!--DON'T STEAL MY STYLE-->
-			<h3>Don't steal my style!</h3>
-			<p>We understand that for some makers, teaching your unique techniques can feel like risking your trade secrets. If this is a concern for you, we'll ask your workshop participants to sign an agreement to respect your artistic style.</p>
-			<%= f.label :respect_my_style, :class => "checkbox" do %>
-			  <%= f.check_box :respect_my_style %>Yes, please ask participants to sign a respect agreement.
-			<% end %>
 
-<!--BACKGROUND CHECK -->
-				<h3>Background check</h3>
-				<%= f.input :permission, label: 'Yes' do %>
-					<%= f.check_box :permission %>
-					<span class="simpleform-text"> I give permission for GirlsGuild to run a background check on me.</span>
-						<a href="javascript:;" rel='popover' data-placement="right" data-content="We run background checks on all maker-mentors as part of our efforts to foster a safe community.">
-						  <i class="icon-question-sign small-icon"></i>
-						</a>
-				<% end -%>
-
-				<br/>
-				<hr/>
-				<br/>
 				<ul class="icons">
 					<li>
 						<a data-toggle="collapse" data-target="#collapseThree" >

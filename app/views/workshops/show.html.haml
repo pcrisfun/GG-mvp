@@ -20,27 +20,29 @@
   %section#desc_section.section
     .container
       .row-fluid
-        .span2
+        .span4
           - if @workshop.accepted?
             - if current_user && current_user.age < @workshop.age_min
-              = link_to "Sign up!", new_workshop_work_signup_path(@workshop), :class => "btn btn-block btn-primary disabled"
+              = link_to "Sign up!", new_workshop_work_signup_path(@workshop), :class => "btn btn-block disabled"
               %p
                 Sorry, it looks like you're younger than the minimum age for this workshop.
               %br/
               %p
-                To be notified next time she's teaching, #{link_to "pre-register with #{@workshop.host_firstname}", workshops_path}.
+                To be notified next time she's teaching: #{link_to "pre-register with #{@workshop.host_firstname}", workshops_path}.
+
             - elsif current_user && current_user.age > @workshop.age_max
               = link_to "Sign up!", new_workshop_work_signup_path(@workshop), :class => "btn btn-block disabled"
               %p
                 Sorry, it looks like you're older than the maximum age for this workshop.
               %br/
               %p
-                To be notified next time she's teaching, #{link_to "pre-register with #{@workshop.host_firstname}", workshops_path}.
+                To be notified next time she's teaching: #{link_to "Pre-Register with #{@workshop.host_firstname}", workshops_path, :class => "btn btn-block btn-small btn-warning"}
               %p
-                Wait! I'm a parent using my account to #{link_to "sign up my daughter", new_workshop_work_signup_path(@workshop), :class => "btn btn-small btn-success"}
+                Wait! I'm a parent using my account to #{link_to "sign my Daughter Up", new_workshop_work_signup_path(@workshop), :class => "btn btn-block btn-small btn-success"}
+
             - else
               = link_to "Sign up!", new_workshop_work_signup_path(@workshop), :class => "btn btn-block btn-primary"
-        .span10
+        .span8
           %dl.dl-horizontal
             %dt Description
             %dd= simple_format(@workshop.description)
