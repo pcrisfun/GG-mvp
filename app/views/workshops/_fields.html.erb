@@ -199,15 +199,16 @@
 
 
 <!--COST -->
-				<h3>Cost</h3>
-				<%= f.input :price, label: "Cost" do %>
+				<h3>Price</h3>
+				<%= f.input :price, label: "Price" do %>
 					<div class="input-prepend input-append">
 						<span class="add-on">$</span>
 						<%= f.text_field :price, class: "span3", rel: 'popover', data: { content: "Please list the amount per girl that you want to earn from teaching this session (remember to account for materials). We’ll add 20% on top of that to set the full fee each girl will pay. See our FAQ page for details and examples of our cost structure."} %>
 					</div>
+					<p>+ 20% = $<span id="workshop_total_price" style="font-weight:bold;"></span> TOTAL PRICE</p>
 				<% end %>
 
-				<p>Total cost to participants: Your cost + 20% = $<span id="workshop_total_price" style="font-weight:bold;"></span></p>
+
 
 				<%= f.input :ends_at, label: "Close signups on" do %>
 					<div class="input-append date" data-behaviour="datepicker">
