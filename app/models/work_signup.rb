@@ -31,7 +31,7 @@ class WorkSignup < Signup
           :from => "GirlsGuild<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You signed up for #{event.topic} with #{event.host_firstname} #{event.host_lastname}",
-      :html_body => %(<h1>Sweet!</h1> <p>You're all signed up for <a href="#{url_for(self.event)}">#{event.title}</a>. (Fill out this email with more info like: where -- link to map, when, contact info for questions, what to be prepared for, what to bring, cancellation policy, the fact that we'll send a text reminder the day before and link to change her phone number. )</p>),
+      :html_body => %(<h1>Yay #{user.firstname}!</h1> <p>You're all signed up for <a href="#{url_for(self.event)}">#{event.title}</a>. (Fill out this email with more info like: where -- link to map, when, contact info for questions, what to be prepared for, what to bring, cancellation policy, the fact that we'll send a text reminder the day before and link to change her phone number. )</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true

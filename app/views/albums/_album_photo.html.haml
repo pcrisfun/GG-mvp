@@ -18,4 +18,4 @@
     - unless @album.featured_photo == photo
       %a.feature.btn.btn-mini.icon-star-empty.pull-right.relative{type: 'submit', rel: 'tooltip', data: {toggle: 'tooltip', title: "Feature this image", url: "#{set_featured_albums_url}", behaviour: "setfeatured", album: "#{@album.id}", photo: "#{photo.id}" }}
   / Grab the photo
-  = render 'photos/photo', photo: photo, size: (size ||= :medium), desc: (desc ||= false), edit: (edit ||= false)
+  = render 'photos/photo', photo: photo, size: (size ||= :medium), description: (description ||= false), edit: (edit ||= false)
