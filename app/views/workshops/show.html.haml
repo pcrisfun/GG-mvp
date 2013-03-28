@@ -28,7 +28,7 @@
                 Sorry, it looks like you're younger than the minimum age for this workshop.
               %br/
               %p
-                To be notified next time she's teaching: #{link_to "pre-register with #{@workshop.host_firstname}", workshops_path}.
+                To be notified next time she's teaching: #{link_to "pre-register with #{@workshop.host_firstname}", workshops_path, :class => "btn btn-block btn-small btn-warning"}
 
             - elsif current_user && current_user.age > @workshop.age_max
               = link_to "Sign up!", new_workshop_work_signup_path(@workshop), :class => "btn btn-block disabled"

@@ -67,15 +67,15 @@ class WorkshopsController < ApplicationController
     else
       if @workshop.update_attributes(params[:workshop])
 
-        if params[:revoke_button] && current_user.admin?
+        if params[:revoke_button] && current_user.admin? && @workshop.deliver_revoke
           @workshop.revoke
           redirect_to workshops_path, :flash => { :warning => "Workshop revoked."}
 
-        elsif params[:reject_button] && current_user.admin?
+        elsif params[:reject_button] && current_user.admin? && @workshop.deliver_reject
           @workshop.reject
           redirect_to workshops_path, :flash => { :warning => "Workshop rejected." }
 
-        elsif params[:accept_button] && current_user.admin?
+        elsif params[:accept_button] && current_user.admin? && @workshop.deliver_accept
           @workshop.accept
           redirect_to workshops_path, :flash => { :success => "Workshop accepted." }
 
@@ -104,6 +104,16 @@ class WorkshopsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to workshops_path, :flash => { :warning => "Your workshop was deleted."} }
+      format.json { head :no_content }
+    end
+  end
+
+  def cancel
+    @workshop = Workshop.where(:id => params[:id]).first
+    @workshop.cancel
+
+    respond_to do |format|
+      format.html { redirect_to workshops_path, :flash => { :warning => "Your workshop was canceled."} }
       format.json { head :no_content }
     end
   end

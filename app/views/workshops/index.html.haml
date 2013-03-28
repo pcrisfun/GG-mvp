@@ -2,6 +2,45 @@
   .container
     %h1 Workshops
     = link_to "Offer a Workshop!", new_workshop_path, class: 'btn btn-large btn-primary pull-right'
+    %br/
+    %br/
+    /%a.toggleheader.accordion-toggle{"data-toggle" => "collapse", :href => "#collapseOne"} How it works
+    .accordion.form-horizontal#accordion2
+      .accordion-group
+        .accordion-heading
+          %h2
+          %a.accordion-toggle{"data-toggle" => "collapse", :href => "#collapseOne"}
+        #collapseOne.accordion-body.collapse
+          .accordion-inner
+            %h2 How it Works
+            %br/
+            .row-fluid
+              %ul.thumbnails.bordered
+                %li.span4
+                  .row-fluid
+                    .span4.pull-center
+                      %i.icon-beaker.enormous-icon.circled.pull-center
+                    .span8
+                      %h3 Step 1
+                      %p
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                %li.span4
+                  .row-fluid
+                    .span4.pull-center
+                      %i.icon-cloud.enormous-icon.circled.pull-center
+                    .span8
+                      %h3 Step 2
+                      %p
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                %li.span4
+                  .row-fluid
+                    .span4.pull-center
+                      %i.icon-map-marker.enormous-icon.circled.pull-center
+                    .span8
+                      %h3 Step 3
+                      %p
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
     .row
       - unless @workshops.blank?
         = render :partial => "workshop", :collection => @workshops
