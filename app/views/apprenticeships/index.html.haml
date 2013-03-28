@@ -2,12 +2,50 @@
   .container
     %h1 apprenticeships
     = link_to "Offer an apprenticeship!", new_apprenticeship_path, class: 'btn btn-large btn-primary pull-right'
+    %br/
+    %br/
+    /%a.toggleheader.accordion-toggle{"data-toggle" => "collapse", :href => "#collapseOne"} How it works
+    .accordion.form-horizontal#accordion2
+      .accordion-group
+        .accordion-heading
+          %h2
+          %a.accordion-toggle{"data-toggle" => "collapse", :href => "#collapseOne"}
+        #collapseOne.accordion-body.collapse
+          .accordion-inner
+            %h2 How it Works
+            %br/
+            .row-fluid
+              %ul.thumbnails.bordered
+                %li.span4
+                  .row-fluid
+                    .span4.pull-center
+                      %i.icon-beaker.enormous-icon.circled.pull-center
+                    .span8
+                      %h3 Step 1
+                      %p
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                %li.span4
+                  .row-fluid
+                    .span4.pull-center
+                      %i.icon-cloud.enormous-icon.circled.pull-center
+                    .span8
+                      %h3 Step 2
+                      %p
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                %li.span4
+                  .row-fluid
+                    .span4.pull-center
+                      %i.icon-map-marker.enormous-icon.circled.pull-center
+                    .span8
+                      %h3 Step 3
+                      %p
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
     .row
       - unless @apprenticeships.blank?
         = render :partial => "apprenticeship", :collection => @apprenticeships
     - unless current_user.blank?
       - if current_user.admin?
-        %hr
+        %hr/
         %h2 Admin
         - unless @allsaved_apprenticeships.blank?
           %h3 Saved apprenticeships
@@ -30,7 +68,7 @@
           .row
             = render :partial => "apprenticeship", :collection => @allcompleted_apprenticeships
       - unless current_user.apprenticeships.blank?
-        %hr
+        %hr/
         %h2 My apprenticeships
         - unless @mycanceled_apprenticeships.blank?
           %h4 My Canceled apprenticeships

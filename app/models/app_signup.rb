@@ -28,10 +28,10 @@ class AppSignup < Signup
   def deliver_save
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
-          :from => "GirlsGuild<hello@girlsguild.com>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your application has been saved - #{self.event.title}",
-      :html_body => %(<h1>Yay #{user.firstname}!</h1> <p>We're thrilled you're applying to work with #{self.event.host_firstname}! If you get stuck take a look at our <a href="http://www.girlsguild.com/faq">FAQ</a>, or feel free to respond to this email with any questions you might have!</p> <p>You can edit your application here - <a href="#{url_for(self)}"> Application for #{self.event.title}</a></p>),
+      :html_body => %(<h1>Yay #{user.first_name}!</h1> <p>We're thrilled you're applying to work with #{self.event.host_firstname}! If you get stuck take a look at our <a href="http://www.girlsguild.com/faq">FAQ</a>, or feel free to respond to this email with any questions you might have!</p> <p>You can edit your application here - <a href="#{url_for(self)}"> Application for #{self.event.title}</a></p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -41,10 +41,10 @@ class AppSignup < Signup
     return false unless valid?
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
-          :from => "GirlsGuild<hello@girlsguild.com>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Application for #{event.title}",
-      :html_body => %(<h1>Thanks #{user.firstname}!</h1> <p>You've applied for <a href=#{url_for(event)}>#{event.title}</a>. You can see your application <a href=#{url_for(self)}>here</a>. #{event.host_firstname} will review it, and we'll let you know her decision within two weeks.</p>),
+      :html_body => %(<h1>Thanks #{user.first_name}!</h1> <p>You've applied for <a href=#{url_for(event)}>#{event.title}</a>. You can see your application <a href=#{url_for(self)}>here</a>. #{event.host_firstname} will review it, and we'll let you know her decision within two weeks.</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -53,10 +53,10 @@ class AppSignup < Signup
   def deliver_decline
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
-          :from => "GirlsGuild<hello@girlsguild.com>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{self.event.host_firstname} reviewed your application",
-      :html_body => %(<p>Thanks for your application! For this apprenticeship #{self.event.host_firstname} chose a different applicant, but she was super excited that you were interested in working together. We'll let you know about other possibilities for collaboration with her in the future. In the meantime, we hope you'll find another apprenticeship you'd be interested in - check out our <a href="#{url_for(apprenticeships_path)}"> our apprenticeship listings</a></p>),
+      :html_body => %(<p>Thanks for your application #{user.first_name}! For this apprenticeship #{self.event.host_firstname} chose a different applicant, but she was super excited that you were interested in working together. We'll let you know about other possibilities for collaboration with her in the future. In the meantime, we hope you'll find another apprenticeship you'd be interested in - check out our <a href="#{url_for(apprenticeships_path)}"> our apprenticeship listings</a></p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -65,10 +65,10 @@ class AppSignup < Signup
   def deliver_accept
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
-          :from => "GirlsGuild<hello@girlsguild.com>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{self.event.host_firstname} would like to work with you!",
-      :html_body => %(<h1>Yeehaw #{user.firstname}!</h1> <p>We're excited to let you know that #{self.event.host_firstname} has reviewed your application for #{self.event.title} and would like to work with you as her apprentice! To accept the apprenticeship, please fill out the <a href=#{url_for(self)}>confirmation form</a> and submit your apprenticeship fee. If you have any questions feel free to respond to this email.</p>),
+      :html_body => %(<h1>Yeehaw #{user.first_name}!</h1> <p>We're excited to let you know that #{self.event.host_firstname} has reviewed your application for #{self.event.title} and would like to work with you as her apprentice! To accept the apprenticeship, please fill out the <a href=#{url_for(self)}>confirmation form</a> and submit your apprenticeship fee. If you have any questions feel free to respond to this email.</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -78,7 +78,7 @@ class AppSignup < Signup
     return false unless valid?
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
-          :from => "GirlsGuild<hello@girlsguild.com>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your apprenticeship is ready to start! - #{self.event.title}",
       :html_body => %(<h1>Yesss!</h1> <p>You're all confirmed for #{self.event.title}! (Fill out this email with more info)</p>),

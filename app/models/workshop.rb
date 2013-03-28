@@ -17,7 +17,7 @@ class Workshop < Event
    		:from => "Diana & Cheyenne<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your workshop has been saved - #{topic} with #{user.name}",
-			:html_body => %(<h1>Hooray #{user.firstname}!</h1> <p>We're thrilled you're building a workshop! If you get stuck take a look at our <a href="http://www.girlsguild.com/faq">FAQ</a>, or feel free to respond to this email with any questions you might have!</p> <p>You can edit your workshop and add images here - <a href="#{url_for(self)}"> #{self.title}</a></p>),
+			:html_body => %(<h1>Hooray #{user.first_name}!</h1> <p>We're thrilled you're building a workshop! If you get stuck take a look at our <a href="http://www.girlsguild.com/faq">FAQ</a>, or feel free to respond to this email with any questions you might have!</p> <p>You can edit your workshop and add images here - <a href="#{url_for(self)}"> #{self.title}</a></p>),
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
@@ -30,7 +30,7 @@ class Workshop < Event
    		:from => "Diana & Cheyenne<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your workshop has been submitted! - #{topic} with #{user.name}",
-			:html_body => %(<h1>Thanks #{user.firstname}!</h1> <p>Your workshop has been submitted and is pending until you <a href="#{url_for(self)}">upload your images</a>.</p> <p>You can review the submitted workshop and add your images here - <a href="#{url_for(self)}"> #{self.title}</a></p> <p>Please note that you won't be able to edit the details of your workshop until it's been approved, at which point it will need to be approved again.</p>),
+			:html_body => %(<h1>Thanks #{user.first_name}!</h1> <p>Your workshop has been submitted and is pending until you <a href="#{url_for(self)}">upload your images</a>.</p> <p>You can review the submitted workshop and add your images here - <a href="#{url_for(self)}"> #{self.title}</a></p> <p>Please note that you won't be able to edit the details of your workshop until it's been approved, at which point it will need to be approved again.</p>),
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
@@ -55,7 +55,7 @@ class Workshop < Event
    		:from => "Diana & Cheyenne<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your workshop has been posted! - #{topic} with #{user.name}",
-			:html_body => %(<h1>Congrats #{user.firstname}!</h1> <p>Your workshop has been posted and is now live! Check it out - <a href="#{url_for(self)}"> #{self.title}</a></p> <p>Be sure to invite your friends and share it on your social networks!</p>),
+			:html_body => %(<h1>Congrats #{user.first_namefirst_name}!</h1> <p>Your workshop has been posted and is now live! Check it out - <a href="#{url_for(self)}"> #{self.title}</a></p> <p>Be sure to invite your friends and share it on your social networks!</p>),
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
@@ -82,6 +82,30 @@ class Workshop < Event
 		#	:bcc => "hello@girlsguild.com",
 		#})
 		#return true
+	end
+
+	def deliver_reject
+		Pony.mail({
+			:to => "#{user.name}<#{user.email}>",
+   		:from => "Diana & Cheyenne<hello@girlsguild.com>",
+			:reply_to => "GirlsGuild<hello@girlsguild.com>",
+			:subject => "Your workshop has been rejected - #{topic} with #{user.name}",
+			:html_body => %(<h1>Perp-Alert!</h1> <p>We've rejected your workshop cause you're a creeper (Insert our actual reason here). We hope you'll consider offering it again sometime!</p> <p>You can edit the workshop and resubmit it anytime. Find it here - <a href="#{url_for(self)}"> #{self.title}</a></p>),
+			:bcc => "hello@girlsguild.com",
+		})
+		return true
+	end
+
+	def deliver_revoke
+		Pony.mail({
+			:to => "#{user.name}<#{user.email}>",
+   		:from => "Diana & Cheyenne<hello@girlsguild.com>",
+			:reply_to => "GirlsGuild<hello@girlsguild.com>",
+			:subject => "Your workshop has been revoked - #{topic} with #{user.name}",
+			:html_body => %(<h1>Noooooo!</h1> <p>We've rejected your workshop for some reason... (Insert our actual reason here). We hope you'll consider offering it again sometime!</p> <p>You can edit the workshop and resubmit it anytime. Find it here - <a href="#{url_for(self)}"> #{self.title}</a></p>),
+			:bcc => "hello@girlsguild.com",
+		})
+		return true
 	end
 
 	def self.complete_workshop

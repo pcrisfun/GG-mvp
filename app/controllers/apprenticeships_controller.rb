@@ -74,15 +74,15 @@ class ApprenticeshipsController < ApplicationController
     else
       if @apprenticeship.update_attributes(params[:apprenticeship])
 
-        if params[:revoke_button] && current_user.admin?
+        if params[:revoke_button] && current_user.admin? && @apprenticeship.deliver_revoke
           @apprenticeship.revoke
           redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship revoked."}
 
-        elsif params[:reject_button] && current_user.admin?
+        elsif params[:reject_button] && current_user.admin? && @apprenticeship.deliver_reject
           @apprenticeship.reject
           redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship rejected." }
 
-        elsif params[:accept_button] && current_user.admin?
+        elsif params[:accept_button] && current_user.admin? && @apprenticeship.deliver_accept
           @apprenticeship.accept
           redirect_to apprenticeships_path, :flash => { :success => "Apprenticeship accepted." }
 
@@ -123,6 +123,15 @@ class ApprenticeshipsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to apprenticeships_path, :flash => { :warning => "Your apprenticeship was deleted."} }
+      format.json { head :no_content }
+    end
+  end
+
+  def cancel
+    @apprenticeship.cancel
+
+    respond_to do |format|
+      format.html { redirect_to apprenticeships_path, :flash => { :warning => "Your apprenticeship was canceled."} }
       format.json { head :no_content }
     end
   end
