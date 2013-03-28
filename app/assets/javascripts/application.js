@@ -47,7 +47,11 @@ $(document).ready(function () {
 
 	$("[data-behaviour~='timepicker']").timepicker();
   $("[rel=tooltip]").tooltip();
-  $("[rel=popover]").popover({"trigger": 'focus'});
+  $("[rel=popover]").popover({'trigger': 'trigger'});
+  $("[rel=popover]").click(function(e) {
+     e.preventDefault();
+     $(this).focus();
+   });
   $("a.fancybox").fancybox();
   $('#apprenticeship_skill_list').tokenInput('/event_skills.json', { crossDomain: false, allowCustomEntry : true, theme: 'facebook', prePopulate: $('#apprenticeship_skill_list').data('pre'), hintText: "Separate each with a comma" });
   $('#apprenticeship_requirement_list').tokenInput('/event_requirements.json', { crossDomain: false, 'allowCustomEntry' : true, theme: 'facebook', prePopulate: $('#apprenticeship_requirement_list').data('pre'), hintText: "Separate each with a comma" });

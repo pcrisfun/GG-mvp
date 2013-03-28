@@ -18,9 +18,9 @@
       	<h3>The Basics</h3>
 
 				<%= f.input :host_firstname, 	label: 'First Name',
-																			input_html: { value: ( !current_user.admin? ? current_user.first_name : '' ) }  %>
+																			input_html: { value: ( @apprenticeship.user ? @apprenticeship.user.first_name : current_user.first_name ) }  %>
 				<%= f.input :host_lastname, 	label: 'Last Name',
-																			input_html: { value: ( !current_user.admin? ? current_user.last_name : '' ) }  %>
+																			input_html: { value: ( @apprenticeship.user ? @apprenticeship.user.last_name : current_user.last_name ) } %>
 				<%= f.input :host_business, 	label: 'Business Name',
 																			input_html: { rel: 'popover',
 																										data: { content: "If you have a line of products or a brand for your work, include it here."} } %>

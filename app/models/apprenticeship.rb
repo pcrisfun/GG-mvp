@@ -96,6 +96,14 @@ class Apprenticeship < Event
     self.signups.where(:user_id => user).any?
   end
 
+  def get_signup(user)
+  	if already_applied?(user)
+  		return self.signups.where(user_id: user).first
+  	else
+  		return nil
+  	end
+  end
+
 	state_machine :state, :initial => :started do
 		event :complete do
       transition :all => :completed
