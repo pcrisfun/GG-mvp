@@ -51,6 +51,10 @@ $silver-shadow: #b5b5b5
 $silver-dark: #939393
 $silver-black: #707070
 
+$alert-yellow: #FCF8E3
+$alert-red: #F2DEDE
+$alert-green: #DFF0D8
+$alert-blue: #D9EDF7
 
 
 /* universal */
@@ -123,6 +127,22 @@ a, a:hover, a:active, a:visited, a:focus
     img
       margin-top: -5px
 
+
+/* side nav */
+.bs-docs-sidenav
+  .icon-chevron-down
+    float: right
+    margin-right: -6px
+    margin-top: 2px
+    opacity: 0.25
+
+.nav-list
+  .nav-header
+    font-size: 18px
+.nav-list > li > a:hover
+  background-color: $grass
+  color: #FFF
+  text-shadow: 1px 1px 1px $grass-shadow
 
 /* sidebar */
 .gravatar
@@ -268,14 +288,12 @@ input[type="radio"], input[type="checkbox"]
     -webkit-border-radius: 5px
     -moz-border-radius: 5px
     border-radius: 5px
-  a
-    background-color: $star-light
 
 
 .box-small
   width: 135px
 .box-large
-  width: auto
+  width: 100%
 
 .description
   margin: 10px 0px 5px
@@ -473,4 +491,27 @@ h1
   height: 270px
   background-color: $niceblue
 
+// Event SignUps
+.dl-application
+  dt
+    width: 170px
+    margin-right: 20px
+.dl-application-review
+  dt
+    width: 550px
+    margin-right: 20px
+    font-weight: normal
+
+.row-saved .box
+  background-color: $alert-yellow
+.row-pending .box
+  background-color: $alert-yellow
+.row-canceled .box
+  background-color: $alert-red
+.row-filled .box
+  background-color: $alert-green
+.row-completed .box
+  background-color: $alert-green
+.row-upcoming .box
+  background-color: $alert-blue
 

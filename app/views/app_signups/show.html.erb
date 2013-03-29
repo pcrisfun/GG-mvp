@@ -14,7 +14,7 @@
           <% if @app_signup.accepted? && @app_signup.user == current_user %>
             <hr/>
             <h2>APPRENTICESHIP CONFIRMATION FORM</h2>
-            <%= form_for([@apprenticeship, @app_signup]) do |f| %>
+            <%= simple_form_for([@apprenticeship, @app_signup]) do |f| %>
               <%= render 'confirm_form', f: f %>
               <%= link_to "Cancel application", @app_signup, :method => :cancel, :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you will not be able to resubmit it."} %>
             <% end %>
@@ -24,29 +24,32 @@
             <hr />
           <% end %>
 
-          <h4>Age</h4>
-          <% unless @app_signup.user.age > @app_signup.event.age_max %>
-            <p><%= @app_signup.user.age %></p>
-          <% else %>
-            <p><%= @app_signup.daughter_age %></p>
-          <% end %>
+          <dl class="dl-horizontal dl-application-review">
+            <dt>Age</dt>
+            <% unless @app_signup.user.age > @app_signup.event.age_max %>
+              <dd><%= @app_signup.user.age %></dd>
+            <% else %>
+              <dd><%= @app_signup.daughter_age %></dd>
+            <% end %>
 
-          <h4>I'm truly happy when...</h4>
-          <p><%= @app_signup.happywhen %></p>
+            <dt>I'm truly happy when</dt>
+            <dd><%= @app_signup.happywhen %></dd>
 
-          <h4>I like working together on projects because...</h4>
-          <p><%= @app_signup.collaborate %></p>
+            <dt>I like working together on projects because</dt>
+            <dd><%= @app_signup.collaborate %></dd>
 
-          <h4>What’s most interesting to me about this apprenticeship is...</h4>
-          <p><%= @app_signup.interest %></P>
+            <dt>What’s most interesting to me about this apprenticeship is</dt>
+            <dd><%= @app_signup.interest %></dd>
 
-          <h4>Experience with tools and making:</h4>
-          <p><%= @app_signup.experience %></p>
+            <dt>Experience with tools and making</dt>
+            <dd><%= @app_signup.experience %></dd>
 
-          <p style="color:red;">Display requirements rating here</p>
+            <dt style="color:red;">Display requirements rating</dt>
+            <dd>here</dd>
 
-          <h4>Preferred meeting times:</h4>
-          <p><%= @app_signup.preferred_times %></p>
+            <dt>Preferred meeting times</dt>
+            <dd><%= @app_signup.preferred_times %></dd>
+          </dl>
 
           <p>
             <% unless current_user.blank? %>
@@ -64,9 +67,9 @@
           <% if current_user == @app_signup.event.user && @app_signup.pending? %>
             <hr />
             <h3>Makers, it's your call</h3>
-            <%= form_for(@app_signup) do |f| %>
-              <%= f.submit "Decline this application", :name => "decline_button", :class => "btn btn-large btn-danger" %>
-              <%= f.submit "Accept this apprentice", :name => "accept_button", :class => "btn btn-large btn-success" %>
+            <%= simple_form_for(@app_signup) do |f| %>
+              <%= f.submit "Decline this application", name: "decline_button", class: "btn btn-large btn-danger" %>
+              <%= f.submit "Accept this apprentice", name: "accept_button", class: "btn btn-large btn-success" %>
             <% end %>
           <% end %>
 

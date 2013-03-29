@@ -11,11 +11,11 @@
   <p><%= current_user.age %> years old</p>
   <br />
 
-  <p>Not you? <%= link_to "Sign in as a different user.", "../../../users/sign_out" %></p>
+  <p class="pull-right">Not you? <%= link_to "Sign in as a different user.", "../../../users/sign_out" %></p>
   <hr />
 
   <h4>Phone number: *</h4>
-  <%= text_field_tag "user[phone]", current_user.phone, :required => true %>
+  <%= text_field_tag "user[phone]", current_user.phone, :required => true, label: 'Phone Number' %>
   <br />
 
   <br />

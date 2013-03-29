@@ -24,11 +24,16 @@ GirlsGuild::Application.routes.draw do
 
   resources :apprenticeships do
     resources :app_signups
+    collection do
+      post :cancel
+    end
   end
+
   resources :workshops do
     resources :work_signups
     collection do
       get :workshop_album
+      post :cancel
     end
   end
 

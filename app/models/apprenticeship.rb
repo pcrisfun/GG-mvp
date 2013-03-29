@@ -24,13 +24,13 @@ class Apprenticeship < Event
 	end
 
 	def deliver
-		#return false unless valid?
+		return false unless valid?
 		Pony.mail({
 			:to => "#{user.name}<#{user.email}>",
    		:from => "Diana & Cheyenne<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your apprenticeship has been submitted! - #{topic} with #{user.name}",
-			:html_body => %(<h1>Thanks #{user.first_name}!</h1> <p>Your apprenticeship has been submitted and is pending until you <a href="#{url_for(self.edit)}">upload your images</a>.</p> <p>You can review the submitted apprenticeship and add your images here - <a href="#{url_for(self)}"> #{self.title}</a></p> <p>Please note that you won't be able to edit the details of your apprenticeship until it's been approved, at which point it will need to be approved again.</p>),
+			:html_body => %(<h1>Thanks #{user.first_name}!</h1> <p>Your apprenticeship has been submitted and is pending until you <a href="#{url_for(self)}">upload your images</a>.</p> <p>You can review the submitted apprenticeship and add your images here - <a href="#{url_for(self)}"> #{self.title}</a></p> <p>Please note that you won't be able to edit the details of your apprenticeship until it's been approved, at which point it will need to be approved again.</p>),
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
@@ -85,6 +85,30 @@ class Apprenticeship < Event
 		#return true
 	end
 
+	def deliver_reject
+		Pony.mail({
+			:to => "#{user.name}<#{user.email}>",
+   		:from => "Diana & Cheyenne<hello@girlsguild.com>",
+			:reply_to => "GirlsGuild<hello@girlsguild.com>",
+			:subject => "Your apprenticeship has been rejected - #{topic} with #{user.name}",
+			:html_body => %(<h1>Perp-Alert</h1> <p>We've rejected your apprenticeship cause you're a creepy perp. (Insert our actual reason here) We hope you'll consider offering it again sometime!</p> <p>You can edit the apprenticeship and resubmit it anytime. Find it here - <a href="#{url_for(self)}"> #{self.title}</a></p>),
+			:bcc => "hello@girlsguild.com",
+		})
+		return true
+	end
+
+	def deliver_revoke
+		Pony.mail({
+			:to => "#{user.name}<#{user.email}>",
+   		:from => "Diana & Cheyenne<hello@girlsguild.com>",
+			:reply_to => "GirlsGuild<hello@girlsguild.com>",
+			:subject => "Your apprenticeship has been revoked - #{topic} with #{user.name}",
+			:html_body => %(<h1>Nooooo</h1> <p>We've revoked your apprenticeship cause of some reason... (Insert our actual reason here) We hope you'll consider offering it again sometime!</p> <p>You can edit the apprenticeship and resubmit it anytime. Find it here - <a href="#{url_for(self)}"> #{self.title}</a></p>),
+			:bcc => "hello@girlsguild.com",
+		})
+		return true
+	end
+
 	def self.complete_apprenticeship
     Apprenticeship.where('ends_at <= ?', Date.today).all.each do |app|
       app.signups.each {|a| a.complete}
@@ -94,6 +118,14 @@ class Apprenticeship < Event
 
 	def already_applied?(user)
     self.signups.where(:user_id => user).any?
+  end
+
+  def get_signup(user)
+  	if already_applied?(user)
+  		return self.signups.where(user_id: user).first
+  	else
+  		return nil
+  	end
   end
 
 	state_machine :state, :initial => :started do

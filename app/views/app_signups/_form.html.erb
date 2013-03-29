@@ -1,115 +1,144 @@
 <%= render 'shared/error_messages', :form_model => @app_signup %>
-	<hr />
 
-	<h4>Name:</h4>
-	<p><%= "#{current_user.first_name} #{current_user.last_name}" %></p>
+<div class="accordion form-horizontal" id="accordion2">
+	<div class="accordion-group">
+	  <div class="accordion-heading">
+	  	<h2>
+				<a class="accordion-toggle" data-toggle="collapse" href="#collapseOne">
+		      1. My Details
+		    </a>
+		  </h2>
+	  </div>
 
-	<h4>Email:</h4>
-	<p><%= "#{current_user.email}"%></p>
+	  <div id="collapseOne" class="accordion-body collapse" style="height: 0px; ">
+	  	<div class="accordion-inner">
+	  		<br/>
+				<dl class="dl-horizontal dl-application">
+					<dt>Name:</dt>
+					<dd><%= "#{current_user.first_name} #{current_user.last_name}" %></dd>
 
-	<% if current_user.age > @apprenticeship.age_max %>
-		<h4>Your daughter's name</h4>
-		<%= f.input :daughter_firstname, 	label: "Daughter's First Name"  %>
-		<%= f.input :daughter_lastname, 	label: "Daughter's Last Name"  %>
+					<dt>Email:</dt>
+					<dd><%= "#{current_user.email}"%></dd>
 
-		<br/>
-		<%= f.label :daughter_age, capture { %>
-			<h4>Your daughter's age</h4>
-			<% } %>
-		<p><%= f.number_field :daughter_age, :class => "span1" %> *She must be between <%= "#{@apprenticeship.age_min}" %> - <%= "#{@apprenticeship.age_max}" %> years old to be eligible for this apprenticeship.</p>
+					<% if current_user.age > @apprenticeship.age_max %>
+						<dt>Your daughter's name</dt>
+						<%= f.input :daughter_firstname, 	label: "Daughter's First Name"  %>
+						<%= f.input :daughter_lastname, 	label: "Daughter's Last Name"  %>
 
-	<% else %>
-		<h4>Age:</h4>
-		<p><%= current_user.age %> years old</p>
-		<br />
-	<% end %>
+						<br/>
+						<%= f.label :daughter_age, capture { %>
+							<dt>Your daughter's age</dt>
+						<% } %>
+						<dd><%= f.number_field :daughter_age, :class => "span1" %> *She must be between <%= "#{@apprenticeship.age_min}" %> - <%= "#{@apprenticeship.age_max}" %> years old to be eligible for this apprenticeship.</dd>
 
-	<p>Not you? <%= link_to "Sign in as a different user.", destroy_user_session_path %></p>
+					<% else %>
+						<dt>Age:</dt>
+						<dd><%= current_user.age %> years old</dd>
+						<br />
+					<% end %>
+				</dl>
 
-	<hr />
-
-	<h3>Tell us a bit more about yourself</h3>
-	<p>We'll forward this on to <%= @apprenticeship.host_firstname %> to check out and make a decision.</p>
-	<p>*Required fields</p>
-
-	<br />
-	<%= f.label :happywhen, capture { %>
-		<h4>I'm truly happy when I'm... *</h4>
-		<% } %>
-	<%= f.text_area :happywhen, :class => "span6", :rows => "5", :rel => :popover, :data => { :content => "Tell us a little bit about what makes you happy and what you love to do - just to give a sense of who you are and what you like." }  %>
-	<br />
-
-	<br />
-	<%= f.label :collaborate, capture { %>
-		<h4>I like working together on projects because... *</h4>
-		<% } %>
-	<%= f.text_area :collaborate, :class => "span6", :rows => "5", :rel => :popover, :data => { :content => "Tell us a bit about your working style and what kinds of collaboration you enjoy." }  %>
-	<br />
-
-	<br />
-	<%= f.label :interest, capture { %>
-		<h4>What’s most interesting to me about this apprenticeship is... *</h4>
-		<% } %>
-	<%= f.text_area :interest, :class => "span6", :rows => "5", :rel => :popover, :data => { :content => "Tell us a bit about why this apprenticeship is something you want to do." }  %>
-	<br />
-
-	<br />
-	<%= f.label :experience, capture { %>
-		<h4>Experience with tools and making *</h4>
-		<% } %>
-	<%= f.text_area :experience, :class => "span6", :rows => "5", :rel => :popover, :data => { :content => "What kinds of things have you made before? What kinds of tools or techniques have you used?" } %>
-	<br />
+				<p class="pull-right">Not you? <%= link_to "Sign in as a different user.", destroy_user_session_path %></p>
+				<br/>
+	    </div>
+	  </div>
+	</div>
 
 	<br/>
 
+	<div class="accordion-group">
+	  <div class="accordion-heading">
+	  	<h2>
+		    <a class="accordion-toggle" data-toggle="collapse" href="#collapseTwo">
+		      2. About Me
+		    </a>
+		   </h2>
+	  </div>
 
-	<!--<% if @apprenticeship.skill_list.present? %>
-		<p>
-			<label for="amount"><%= @apprenticeship.skill_list %></label>
-			<input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold; width:20px;" />
-		</p>
-		<div id="slider-range-max" class="span6"></div>
-		<p class="span6"><span>Newbie</span> <span class="pull-right">Expert</span></p>
-	<% end -%>
-	<br />
-	<br />
-	<br />-->
+	  <div id="collapseTwo" class="accordion-body collapse">
+	    <div class="accordion-inner">
+
+				<br />
+				<%= f.input :happywhen, label: "I'm truly happy when...", input_html: { rows: "4",
+										placeholder: "Give the maker a sense of who they'll be working with.",
+										rel: 'popover',
+										data: { :content => "Tell us a little bit about what makes you happy and what you love to do - just to give a sense of who you are and what you like." }}  %>
+				<br />
+
+				<%= f.input :collaborate, label: "I like working together on projects because...", input_html: { rows: "4",
+										placeholder: "Give the maker a sense of who they'll be working with.",
+										rel: 'popover',
+										:data => { :content => "Tell us a bit about your working style and what kinds of collaboration you enjoy." }} %>
+				<br />
+
+				<%= f.input :interest, label: "What’s most interesting to me about this apprenticeship is...", input_html: { rows: "4",
+										placeholder: "Give the maker a sense of who they'll be working with.",
+										rel: 'popover',
+										data: { :content => "Tell us a bit about why this apprenticeship is something you want to do." }} %>
+				<br />
+
+				<%= f.input :experience, label: "My experience with tools and making...", input_html: { rows: "4",
+										placeholder: "Give the maker a sense of who they'll be working with.",
+										rel: 'popover',
+										data: { :content => "What kinds of things have you made before? What kinds of tools or techniques have you used?" }} %>
+				<br />
 
 
 
-	<h4>Confirm your availability *</h4>
-	<div class="form-inline" >
-		<%= f.check_box :confirm_available %>
-		<%= f.label :confirm_available, capture { %>
-			<p>Yes, I'm available to take on an apprenticeship for <%= "#{@apprenticeship.hours}" %> hours per <%= "#{@apprenticeship.hours_per}" %> between <%= "#{@apprenticeship.begins_at}" %> and <%= "#{@apprenticeship.ends_at}" %>.</p>
-		<% } %>
+				<!--<% if @apprenticeship.skill_list.present? %>
+					<p>
+						<label for="amount"><%= @apprenticeship.skill_list %></label>
+						<input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold; width:20px;" />
+					</p>
+					<div id="slider-range-max" class="span6"></div>
+					<p class="span6"><span>Newbie</span> <span class="pull-right">Expert</span></p>
+				<% end -%>
+				<br />
+				<br />
+				<br />-->
+
+
+				<%= f.input :confirm_available, label: 'Confirm your availability' do %>
+					<%= f.check_box :confirm_available %>
+					<span class="simpleform-text"> Yes, I'm available to take on an apprenticeship for <strong><%= "#{@apprenticeship.hours}" %></strong> hours per <strong><%= "#{@apprenticeship.hours_per}" %></strong>, between <strong><%= "#{@apprenticeship.begins_at.strftime('%A, %B %d')}" %></strong> and <strong><%= "#{@apprenticeship.ends_at.strftime('%A, %B %d')}" %></strong>.</span>
+				<% end %>
+
+				<br />
+
+				<%= f.input :preferred_times, label: 'Preferred meeting times',
+																			placeholder: "Flexible within the times above? What are the best days/times for you?",
+																			input_html: { rel: 'popover',
+																			:data => { :content => "Example: “I’m flexible but prefer Mondays & Wednesdays, 4-6pm.” Or: “I’m flexible but NOT available Thursdays and Fridays.” Or: “I’m only available Sunday mornings.”" }} %>
+				<br />
+	    </div>
+	  </div>
 	</div>
 
-	<br />
-	<%= f.label :preferred_times, capture { %>
-		<h4>Your preferred meeting times *</h4>
-		<% } %>
-		<p>Within the weekly times above, are you flexible? What are the best days/times for you?</p>
- 	<%= f.text_field :preferred_times, :class => "span6", :rel => :popover, :data => { :content => "Example: “I’m flexible but prefer Mondays & Wednesdays, 4-6pm.” Or: “I’m flexible but NOT available Thursdays and Fridays.” Or: “I’m only available Sunday mornings.”" } %>
- 	<br />
+	<br/>
 
- 	<br />
- 	<h4>A couple of things to note *</h4>
- 	<div class="form-inline" >
-		<%= f.check_box :confirm_unpaid %>
-		<%= f.label :confirm_unpaid, capture { %>
-			<p>I understand that this is an unpaid apprenticeship. I agree that if accepted I will work with <%= "#{@apprenticeship.host_firstname}" %> in return for the chance to learn from her.</p>
-		<% } %>
+	<div class="accordion-group">
+	  <div class="accordion-heading">
+	  	<h2>
+		    <a class="accordion-toggle" data-toggle="collapse" href="#collapseThree">
+		      3. Things to Note
+		    </a>
+		  </h2>
+	  </div>
+	  <div id="collapseThree" class="accordion-body collapse">
+	    <div class="accordion-inner">
+	    	<br />
+				<%= f.input :confirm_unpaid, label: '&nbsp;' do %>
+					<%= f.check_box :confirm_unpaid %>
+					<span class="simpleform-text">I understand that this is an unpaid apprenticeship. I agree that if accepted I will work with <%= "#{@apprenticeship.host_firstname}" %> in return for the chance to learn from her.</span>
+				<% end %>
+
+				<%= f.input :confirm_fee, label: '&nbsp;' do %>
+					<%= f.check_box :confirm_fee %>
+					<span class="simpleform-text">I agree that if accepted as an apprentice I will pay the $29 matching fee to GirlsGuild before being connected with <%= "#{@apprenticeship.host_firstname}" %> for the apprenticeship.</span>
+				<% end %>
+				<br />
+			</div>
+		</div>
 	</div>
- 	<div class="form-inline" >
-		<%= f.check_box :confirm_fee %>
-		<%= f.label :confirm_fee, capture { %>
-			<p>I agree that if accepted as an apprentice I will pay the $29 matching fee to GirlsGuild before being connected with <%= "#{@apprenticeship.host_firstname}" %> for the apprenticeship.</p>
-		<% } %>
-	</div>
-
-	<br />
-	<br />
-
-
+</div>
 
