@@ -49,49 +49,60 @@
         %hr
         %h2 Admin
         - unless @allsaved_workshops.blank?
-          %h3 Saved Workshops
-          .row
+          %br/
+          %h4 Saved Workshops
+          .row.row-saved
             = render :partial => "workshop", :collection => @allsaved_workshops
         - unless @allpending_workshops.blank?
-          %h3 Pending Workshops Needing Review
-          .row
+          %br/
+          %h4 Pending Workshops Needing Review
+          .row.row-pending
             = render :partial => "workshop", :collection => @allpending_workshops
         - unless @allcanceled_workshops.blank?
+          %br/
           %h4 Canceled Workshops Since Being Accepted
-          .row
+          .row.row-canceled
             = render :partial => "workshop", :collection => @allcanceled_workshops
         - unless @allfilled_workshops.blank?
+          %br/
           %h4 Filled Workshops
-          .row
+          .row.row-filled
             = render :partial => "workshop", :collection => @allfilled_workshops
         - unless @allcompleted_workshops.blank?
+          %br/
           %h4 Completed Workshops
-          .row
+          .row.row-completed
             = render :partial => "workshop", :collection => @allcompleted_workshops
       - unless current_user.workshops.blank?
         %hr
         %h2 My Workshops
         - unless @mycanceled_workshops.blank?
+          %br/
           %h4 My Canceled Workshops
-          .row
+          .row.row-canceled
             = render :partial => "workshop", :collection => @mycanceled_workshops
         - unless @mysaved_workshops.blank?
+          %br/
           %h4 My Saved Workshops
-          .row
+          .row.row-saved
             = render :partial => "workshop", :collection => @mysaved_workshops
         - unless @mypending_workshops.blank?
+          %br/
           %h4 My Pending Workshops
-          .row
+          .row.row-pending
             = render :partial => "workshop", :collection => @mypending_workshops
         - unless @myactive_workshops.blank?
+          %br/
           %h4 My Upcoming Workshops
-          .row
+          .row.row-upcoming
             = render :partial => "workshop", :collection => @myactive_workshops
         - unless @myfilled_workshops.blank?
+          %br/
           %h4 My Filled Workshops
-          .row
+          .row.row-filled
             = render :partial => "workshop", :collection => @myfilled_workshops
         - unless @mycompleted_workshops.blank?
+          %br/
           %h4 My Completed Workshops
-          .row
+          .row.row-completed
             = render :partial => "workshop", :collection => @mycompleted_workshops

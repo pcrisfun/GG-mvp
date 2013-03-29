@@ -1,6 +1,6 @@
 %section#apprenticeships-index.section
   .container
-    %h1 apprenticeships
+    %h1 Apprenticeships
     = link_to "Offer an apprenticeship!", new_apprenticeship_path, class: 'btn btn-large btn-primary pull-right'
     %br/
     %br/
@@ -48,49 +48,60 @@
         %hr/
         %h2 Admin
         - unless @allsaved_apprenticeships.blank?
-          %h3 Saved apprenticeships
-          .row
+          %br/
+          %h4 Saved apprenticeships
+          .row.row-saved
             = render :partial => "apprenticeship", :collection => @allsaved_apprenticeships
         - unless @allpending_apprenticeships.blank?
-          %h3 Pending apprenticeships Needing Review
-          .row
+          %br/
+          %h4 Pending apprenticeships Needing Review
+          .row.row-pending
             = render :partial => "apprenticeship", :collection => @allpending_apprenticeships
         - unless @allcanceled_apprenticeships.blank?
+          %br/
           %h4 Canceled apprenticeships Since Being Accepted
-          .row
+          .row.row-canceled
             = render :partial => "apprenticeship", :collection => @allcanceled_apprenticeships
         - unless @allfilled_apprenticeships.blank?
+          %br/
           %h4 Filled apprenticeships
-          .row
+          .row.row-filled
             = render :partial => "apprenticeship", :collection => @allfilled_apprenticeships
         - unless @allcompleted_apprenticeships.blank?
+          %br/
           %h4 Completed apprenticeships
-          .row
+          .row.row-completed
             = render :partial => "apprenticeship", :collection => @allcompleted_apprenticeships
       - unless current_user.apprenticeships.blank?
         %hr/
         %h2 My apprenticeships
         - unless @mycanceled_apprenticeships.blank?
+          %br/
           %h4 My Canceled apprenticeships
-          .row
+          .row.row-canceled
             = render :partial => "apprenticeship", :collection => @mycanceled_apprenticeships
         - unless @mysaved_apprenticeships.blank?
+          %br/
           %h4 My Saved apprenticeships
-          .row
+          .row.row-saved
             = render :partial => "apprenticeship", :collection => @mysaved_apprenticeships
         - unless @mypending_apprenticeships.blank?
+          %br/
           %h4 My Pending apprenticeships
-          .row
+          .row.row-pending
             = render :partial => "apprenticeship", :collection => @mypending_apprenticeships
         - unless @myactive_apprenticeships.blank?
+          %br/
           %h4 My Upcoming apprenticeships
-          .row
+          .row.row-upcoming
             = render :partial => "apprenticeship", :collection => @myactive_apprenticeships
         - unless @myfilled_apprenticeships.blank?
+          %br/
           %h4 My Filled apprenticeships
-          .row
+          .row.row-filled
             = render :partial => "apprenticeship", :collection => @myfilled_apprenticeships
         - unless @mycompleted_apprenticeships.blank?
+          %br/
           %h4 My Completed apprenticeships
-          .row
+          .row.row-completed
             = render :partial => "apprenticeship", :collection => @mycompleted_apprenticeships
