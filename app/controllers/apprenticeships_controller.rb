@@ -78,11 +78,11 @@ class ApprenticeshipsController < ApplicationController
           @apprenticeship.revoke
           redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship revoked."}
 
-        elsif params[:reject_button] && current_user.admin?
+        elsif params[:reject_button] && current_user.admin? && @apprenticeship.deliver_reject
           @apprenticeship.reject
           redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship rejected." }
 
-        elsif params[:accept_button] && current_user.admin?
+        elsif params[:accept_button] && current_user.admin? && @apprenticeship.deliver_accept
           @apprenticeship.accept
           redirect_to apprenticeships_path, :flash => { :success => "Apprenticeship accepted." }
 

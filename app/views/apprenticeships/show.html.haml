@@ -39,7 +39,7 @@
               %p
                 Wait! I'm a parent using my account to: #{link_to "Sign my Daughter Up", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-block btn-small btn-success"}
 
-            - elsif current_user && current_user.signups.where(event_id: @apprenticeship)
+            - elsif current_user && @apprenticeship.already_applied?(current_user)
               / fix link path below: should link to current user's signup
               = link_to "View your application", apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-block"
 

@@ -80,6 +80,5 @@ gem 'figaro'
 gem 'hominid'
 gem 'jquery-cookie-rails'
 gem 'font-awesome-rails'
-gem 'rufus-scheduler'
 
 
