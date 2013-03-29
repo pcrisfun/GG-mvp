@@ -100,7 +100,7 @@
 
 				<%= f.input :confirm_available, label: 'Confirm your availability' do %>
 					<%= f.check_box :confirm_available %>
-					<span class="simpleform-text"> Yes, I'm available to take on an apprenticeship for <strong><%= "#{@apprenticeship.hours}" %></strong> hours per <strong><%= "#{@apprenticeship.hours_per}" %></strong>, between <strong><%= "#{@apprenticeship.begins_at}" %></strong> and <strong><%= "#{@apprenticeship.ends_at}" %></strong>.</span>
+					<span class="simpleform-text"> Yes, I'm available to take on an apprenticeship for <strong><%= "#{@apprenticeship.hours}" %></strong> hours per <strong><%= "#{@apprenticeship.hours_per}" %></strong>, between <strong><%= "#{@apprenticeship.begins_at.strftime('%A, %B %d')}" %></strong> and <strong><%= "#{@apprenticeship.ends_at.strftime('%A, %B %d')}" %></strong>.</span>
 				<% end %>
 
 				<br />

@@ -128,14 +128,21 @@ a, a:hover, a:active, a:visited, a:focus
       margin-top: -5px
 
 
-/* sidenav */
+/* side nav */
 .bs-docs-sidenav
-  .icon-chevron-right
+  .icon-chevron-down
     float: right
     margin-right: -6px
     margin-top: 2px
     opacity: 0.25
 
+.nav-list
+  .nav-header
+    font-size: 18px
+.nav-list > li > a:hover
+  background-color: $grass
+  color: #FFF
+  text-shadow: 1px 1px 1px $grass-shadow
 
 /* sidebar */
 .gravatar
@@ -507,6 +514,4 @@ h1
   background-color: $alert-green
 .row-upcoming .box
   background-color: $alert-blue
-
-
 
