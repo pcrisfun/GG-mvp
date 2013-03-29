@@ -1,23 +1,36 @@
-<%= content_tag :section, :class => "section" do %>
+<%= content_tag :section, :class => "section alt" do %>
 	<%= content_tag :div, :class => "container" do %>
 		<% provide(:title, 'Apply for an Apprenticeship') %>
-		<h1>Apprenticeship Application</h1>
-		<br />
 
-			<h3>Yes! We’re excited you want to work with <%= "#{@apprenticeship.host_firstname}" %>!</h3>
-			<br />
-			<p>Use this form to apply. When you submit it, she’ll review it and we’ll let you know her decision within two weeks. If you’re accepted, to confirm the apprenticeship and get connected to <%= "#{@apprenticeship.host_firstname}" %> you’ll pay the $29.00 matching fee.</p>
-			<p>Still not sure? Check out our <a href="http://www.girlsguild.com/faq.html#Applying">FAQ</a> for tips on what works, or email us if you have other questions - <a href="mailto:hello@girlsguild.com?Subject=Hello again">hello@girlsguild.com</a>.</p>
+		<div class="row">
+			<div style="padding: 8px 0; margin-left:25px" class="well span3 pull-left affix bs-docs-sidenav">
+				<ul class="nav nav-list">
+			    <li class="nav-header">FAQ</li>
+			    <li><a href="#">What's an apprenticeship? <i class="icon-chevron-right"></i></a></li>
+			    <li><a href="#">Where does it happen? <i class="icon-chevron-right"></i></a></li>
+			    <li><a href="#">How long is it for? <i class="icon-chevron-right"></i></a></li>
+			    <li><a href="#">How does it work? <i class="icon-chevron-right"></i></a></li>
+			    <li><a href="#">How much does it cost? <i class="icon-chevron-right"></i></a></li>
+		    </ul>
+		  </div>
 
-			<div class="row">
-			  <div class="span9">
-					<%= simple_form_for [@apprenticeship, @app_signup], class: 'form-horizontal', html: {class: "payment_form"}, :validate => true, defaults: { input_html: { class: 'span6' } }  do |f| %>
-			    	<%= render "form", f: f %>
-				    <%= f.submit "Save for Later", :name => 'save_button', :class => "btn" %>
-						<%= f.submit "Submit Application", :name => 'create_button', :class => "btn btn-large btn-primary" %>
-					<% end %>
-			  </div>
-			</div>
+		  <div class="span9 pull-right">
+		  	<h1>Apprenticeship Application</h1>
+				<br />
+
+				<h3>Yes! We’re excited you want to work with <%= "#{@apprenticeship.host_firstname}" %>!</h3>
+				<br />
+				<p>Use this form to apply. When you submit it, she’ll review it and we’ll let you know her decision within two weeks. If you’re accepted, to confirm the apprenticeship and get connected to <%= "#{@apprenticeship.host_firstname}" %> you’ll pay the $29.00 matching fee.</p>
+				<p>Still not sure? Check out our <a href="http://www.girlsguild.com/faq.html#Applying">FAQ</a> for tips on what works, or email us if you have other questions - <a href="mailto:hello@girlsguild.com?Subject=Hello again">hello@girlsguild.com</a>.</p>
+				<br />
+
+				<%= simple_form_for [@apprenticeship, @app_signup], class: 'form-horizontal', html: {class: "payment_form"}, :validate => true, defaults: { input_html: { class: 'span6' } }  do |f| %>
+		    	<%= render 'form', f: f %>
+			    <%= f.submit "Save for Later", name: 'save_button', class: "btn" %>
+					<%= f.submit "Submit Application", name: 'create_button', class: "btn btn-primary" %>
+				<% end %>
+		  </div>
+		</div>
 
 	<% end %>
 <% end %>

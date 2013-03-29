@@ -14,7 +14,7 @@
           <% if @app_signup.accepted? && @app_signup.user == current_user %>
             <hr/>
             <h2>APPRENTICESHIP CONFIRMATION FORM</h2>
-            <%= form_for([@apprenticeship, @app_signup]) do |f| %>
+            <%= simple_form_for([@apprenticeship, @app_signup]) do |f| %>
               <%= render 'confirm_form', f: f %>
               <%= link_to "Cancel application", @app_signup, :method => :cancel, :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you will not be able to resubmit it."} %>
             <% end %>
@@ -64,9 +64,9 @@
           <% if current_user == @app_signup.event.user && @app_signup.pending? %>
             <hr />
             <h3>Makers, it's your call</h3>
-            <%= form_for(@app_signup) do |f| %>
-              <%= f.submit "Decline this application", :name => "decline_button", :class => "btn btn-large btn-danger" %>
-              <%= f.submit "Accept this apprentice", :name => "accept_button", :class => "btn btn-large btn-success" %>
+            <%= simple_form_for(@app_signup) do |f| %>
+              <%= f.submit "Decline this application", name: "decline_button", class: "btn btn-large btn-danger" %>
+              <%= f.submit "Accept this apprentice", name: "accept_button", class: "btn btn-large btn-success" %>
             <% end %>
           <% end %>
 
