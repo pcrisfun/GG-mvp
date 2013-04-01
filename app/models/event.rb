@@ -9,6 +9,7 @@ class Event < ActiveRecord::Base
   belongs_to :user
 
   has_many :signups, :dependent => :destroy
+  has_many :preregistrations
 
   has_one :host_album, :class_name => 'Album', :dependent => :destroy
 
