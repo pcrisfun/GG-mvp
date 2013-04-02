@@ -25,7 +25,10 @@
       to
       = apprenticeship.age_max
       %br
-      From
-      = apprenticeship.begins_at.strftime('%A, %B %d')
-      to
-      = apprenticeship.ends_at.strftime('%A, %B %d')
+      - if apprenticeship.datetime_tba == "0"
+        From
+        = apprenticeship.begins_at.strftime('%A, %B %d')
+        to
+        = apprenticeship.ends_at.strftime('%A, %B %d')
+      - else
+        Dates TBA

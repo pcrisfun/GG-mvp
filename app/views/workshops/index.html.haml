@@ -63,11 +63,11 @@
           %h4 Canceled Workshops Since Being Accepted
           .row.row-canceled
             = render :partial => "workshop", :collection => @allcanceled_workshops
-        - unless @allfilled_workshops.blank?
+        - unless @allfull_workshops.blank?
           %br/
-          %h4 Filled Workshops
-          .row.row-filled
-            = render :partial => "workshop", :collection => @allfilled_workshops
+          %h4 Full Workshops
+          .row.row-full
+            = render :partial => "workshop", :collection => @allfull_workshops
         - unless @allcompleted_workshops.blank?
           %br/
           %h4 Completed Workshops
@@ -96,11 +96,11 @@
           %h4 My Upcoming Workshops
           .row.row-upcoming
             = render :partial => "workshop", :collection => @myactive_workshops
-        - unless @myfilled_workshops.blank?
+        - unless @myfull_workshops.blank?
           %br/
-          %h4 My Filled Workshops
-          .row.row-filled
-            = render :partial => "workshop", :collection => @myfilled_workshops
+          %h4 My Full Workshops
+          .row.row-full
+            = render :partial => "workshop", :collection => @myfull_workshops
         - unless @mycompleted_workshops.blank?
           %br/
           %h4 My Completed Workshops

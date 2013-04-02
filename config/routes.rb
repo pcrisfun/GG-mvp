@@ -4,6 +4,8 @@ GirlsGuild::Application.routes.draw do
   resources :app_signups
   resources :work_signups
 
+  resources :preregs, only: [:new, :create]
+
   devise_for :users, :admins
 
   resources :galleries, only: [:new, :create, :destroy]

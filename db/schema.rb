@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(:version => 20130401043314) do
     t.boolean  "datetime_tba",                                     :default => false
     t.string   "respect_my_style"
     t.boolean  "facilitate"
-    t.integer  "preregistration_id"
+    t.integer  "prereg_id"
   end
 
   create_table "galleries", :force => true do |t|
@@ -111,7 +111,7 @@ ActiveRecord::Schema.define(:version => 20130401043314) do
     t.datetime "file_updated_at"
   end
 
-  create_table "preregistrations", :force => true do |t|
+  create_table "preregs", :force => true do |t|
     t.integer  "event_id"
     t.integer  "maker_id"
     t.integer  "user_id"
