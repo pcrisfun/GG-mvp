@@ -40,8 +40,8 @@
               %p
                 Wait! I'm a parent using my account to #{link_to "sign my Daughter Up", new_workshop_work_signup_path(@workshop), :class => "btn btn-block btn-small btn-success"}
 
-            - elsif @workshop.datetime_tba == "1" || @workshop.full || @workshop.completed
-              = link_to "I'm interested!", new_prereg_path, :class => "btn btn-block btn-small btn-warning"
+            - elsif @workshop.datetime_tba == true || @workshop.state == "filled" || @workshop.state == "completed"
+              = link_to "Keep me posted!", new_prereg_path, :class => "btn btn-block btn-small btn-warning"
 
             - else
               = link_to "Sign up!", new_workshop_work_signup_path(@workshop), :class => "btn btn-block btn-primary"

@@ -11,15 +11,15 @@ class ApprenticeshipsController < ApplicationController
   	  @mypending_apprenticeships = current_user.apprenticeships.find_all_by_state('pending')
   	  @myactive_apprenticeships = current_user.apprenticeships.find_all_by_state('accepted')
       @mycanceled_apprenticeships = current_user.apprenticeships.find_all_by_state('canceled')
-      @myfull_apprenticeships = current_user.apprenticeships.find_all_by_state('full')
+      @myfilled_apprenticeships = current_user.apprenticeships.find_all_by_state('filled')
       @mycompleted_apprenticeships = current_user.apprenticeships.find_all_by_state('completed')
       @allpending_apprenticeships = Apprenticeship.find_all_by_state('pending')
       @allsaved_apprenticeships = Apprenticeship.find_all_by_state('started')
       @allcanceled_apprenticeships = Apprenticeship.find_all_by_state('canceled')
-      @allfull_apprenticeships = Apprenticeship.find_all_by_state('full')
+      @allfilled_apprenticeships = Apprenticeship.find_all_by_state('filled')
       @allcompleted_apprenticeships = Apprenticeship.find_all_by_state('completed')
     end
-  	@apprenticeships = Apprenticeship.find_all_by_state(['accepted','full','completed'])
+  	@apprenticeships = Apprenticeship.find_all_by_state(['accepted','filled','completed'])
   end
 
   def new

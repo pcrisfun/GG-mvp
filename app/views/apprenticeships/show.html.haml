@@ -43,7 +43,7 @@
             - elsif current_user && @apprenticeship.already_applied?(current_user)
               = link_to "View your application", apprenticeship_app_signup_path(@apprenticeship, @apprenticeship.get_signup(current_user).id), :class => "btn btn-block"
 
-            - elsif @apprenticeship.datetime_tba == "1" || @apprenticeship.full || @apprenticeship.completed
+            - elsif @apprenticeship.datetime_tba == true || @apprenticeship.state == "filled" || @apprenticeship.state == "completed"
               = link_to "I'm interested!", new_prereg_path, :class => "btn btn-block btn-small btn-warning"
 
             - else

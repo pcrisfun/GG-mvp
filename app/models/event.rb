@@ -103,7 +103,7 @@ class Event < ActiveRecord::Base
      state :canceled do
      end
 
-     state :full do
+     state :filled do
      end
 
      state :in_progress do
@@ -136,8 +136,8 @@ class Event < ActiveRecord::Base
         transition all => :canceled
       end
 
-      event :filled do
-        transition :accepted => :full
+      event :fill do
+        transition :accepted => :filled
       end
 
   end
