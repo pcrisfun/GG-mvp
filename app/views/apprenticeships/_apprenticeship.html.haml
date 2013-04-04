@@ -7,7 +7,7 @@
         = render 'photos/photo', photo: apprenticeship.host_album.photos.sort_by { |photo| photo.position(album_id: apprenticeship.host_album.id) }.first, size: :large, url: url_for(apprenticeship)
       - else
         %a{ href: url_for(apprenticeship) }
-          %img.default-photo-large
+          %img.default-photo-large{ src: "/images/common/upload-photos-400px.jpg" }
     .box-details
       - unless current_user.blank?
         - if apprenticeship.user == current_user
