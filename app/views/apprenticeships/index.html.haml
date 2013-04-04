@@ -4,12 +4,12 @@
     = link_to "Offer an apprenticeship!", new_apprenticeship_path, class: 'btn btn-large btn-primary pull-right'
     %br/
     %br/
-    /%a.toggleheader.accordion-toggle{"data-toggle" => "collapse", :href => "#collapseOne"} How it works
     .accordion.form-horizontal#accordion2
       .accordion-group
         .accordion-heading
-          %h2
           %a.accordion-toggle{"data-toggle" => "collapse", :href => "#collapseOne"}
+            How it Works
+            %i.icon-chevron-down
         #collapseOne.accordion-body.collapse
           .accordion-inner
             %h2 How it Works

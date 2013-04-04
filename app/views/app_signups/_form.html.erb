@@ -1,6 +1,6 @@
 <%= render 'shared/error_messages', :form_model => @app_signup %>
 
-<div class="accordion form-horizontal" id="accordion2">
+<div class="accordion form-horizontal event-accordion" id="accordion2">
 	<div class="accordion-group">
 	  <div class="accordion-heading">
 	  	<h2>
@@ -127,14 +127,14 @@
 	  <div id="collapseThree" class="accordion-body collapse">
 	    <div class="accordion-inner">
 	    	<br />
-				<%= f.input :confirm_unpaid, label: '&nbsp;' do %>
+				<%= f.input :confirm_unpaid, label: 'Yes' do %>
 					<%= f.check_box :confirm_unpaid %>
 					<span class="simpleform-text">I understand that this is an unpaid apprenticeship. I agree that if accepted I will work with <%= "#{@apprenticeship.host_firstname}" %> in return for the chance to learn from her.</span>
 				<% end %>
 
-				<%= f.input :confirm_fee, label: '&nbsp;' do %>
+				<%= f.input :confirm_fee, label: 'Yes' do %>
 					<%= f.check_box :confirm_fee %>
-					<span class="simpleform-text">I agree that if accepted as an apprentice I will pay the $29 matching fee to GirlsGuild before being connected with <%= "#{@apprenticeship.host_firstname}" %> for the apprenticeship.</span>
+					<span class="simpleform-text">I agree that <strong>if accepted</strong> as an apprentice I will pay the <strong>$29</strong> matching fee to GirlsGuild before being connected with <%= "#{@apprenticeship.host_firstname}" %> for the apprenticeship.</span>
 				<% end %>
 				<br />
 			</div>

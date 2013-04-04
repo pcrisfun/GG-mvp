@@ -28,12 +28,12 @@ $ocean: #2092c1
 $ocean-shadow: #077ca0
 $ocean-black: #01404f
 
+$niceblue: #41B7D8
+
+$grass-slight: #F9FEEE
 $grass-light: #e8f7c9
 $grass-medium: #a9db3b
 $grass: #7dbc0f
-
-$niceblue: #41B7D8
-
 $grass-shadow: #70a005
 $grass-black: #3f5601
 
@@ -56,6 +56,9 @@ $alert-red: #F2DEDE
 $alert-green: #DFF0D8
 $alert-blue: #D9EDF7
 
+/* headers */
+h2
+  color: $tangerine-black
 
 /* universal */
 a, a:hover, a:active, a:visited, a:focus
@@ -127,28 +130,6 @@ a, a:hover, a:active, a:visited, a:focus
     img
       margin-top: -5px
 
-
-/* side nav */
-.bs-docs-sidenav
-  .icon-chevron-down
-    float: right
-    margin-right: -6px
-    margin-top: 2px
-    opacity: 0.25
-
-.nav-list
-  .nav-header
-    font-size: 18px
-.nav-list > li > a:hover
-  background-color: $grass
-  color: #FFF
-  text-shadow: 1px 1px 1px $grass-shadow
-
-/* sidebar */
-.gravatar
-  float: left
-  margin-right: 10px
-
 /* footer */
 #footer
   .kristi
@@ -157,14 +138,46 @@ a, a:hover, a:active, a:visited, a:focus
     color: #999
     font-style: normal
 
-/* forms */
-.accordion-toggle
-  background-color: $ocean-medium
-.accordion-heading
-  h2
-    a
+/* sidebar */
+.gravatar
+  float: left
+  margin-right: 10px
+
+/* accordion nav */
+.accordionFAQ
+  margin-left: 0px
+  .icon-chevron-down, .icon-envelope
+    float: right
+    margin: 5px -6px 0 0
+    opacity: 0.5
+  dt
+    font-weight: normal
+  .well
+    padding: 10px 0px
+    h3
+      padding-left: 10px
+      text-align: left
+      border-bottom: 0px
+      margin-bottom: 0px
+      box-shadow: none
+  .accordion-heading
+    border-top: 1px solid #EEE
+    a:hover
+      background-color: $grass
       color: #FFF
-      text-shadow: 1px 1px 1px $ocean-shadow
+      text-shadow: 1px 1px 1px $grass-shadow
+  .accordion-inner
+    background-color: $grass-slight
+
+/* forms */
+.event-accordion
+  .accordion-toggle
+    background-color: $ocean-medium
+  .accordion-heading
+    h2
+      a
+        color: #FFF
+        text-shadow: 1px 1px 1px $ocean-shadow
 
 .accordion-inner
   background: rgb(255, 255, 255)
@@ -424,11 +437,11 @@ input[type="radio"], input[type="checkbox"]
   margin-top: 0px
   dt
     text-align: right
-    width: 30px
+    /*width: 30px*/
     a
       padding: 3px
   dd
-    margin-left: 30px
+    /*margin-left: 30px*/
 
 
 // Workshops & Apprenticeships
@@ -498,9 +511,15 @@ h1
     margin-right: 20px
 .dl-application-review
   dt
-    width: 550px
+    width: 250px
     margin-right: 20px
     font-weight: normal
+    white-space: normal
+    padding: 5px 0
+  dd
+    margin-left: 270px
+    padding: 5px 0
+
 
 .row-saved .box
   background-color: $alert-yellow
@@ -515,3 +534,10 @@ h1
 .row-upcoming .box
   background-color: $alert-blue
 
+// how it works
+.howitworks
+  padding: 30px 0px
+  i
+    text-shadow: 1px 1px 1px #000
+  .span4
+    border: none

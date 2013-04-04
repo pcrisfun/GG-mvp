@@ -1,74 +1,120 @@
 <%= render 'shared/error_messages', :form_model => @app_signup %>
-  <hr />
-
-  <h4>Name:</h4>
-  <p><%= "#{current_user.first_name} #{current_user.last_name}" %></p>
-
-  <h4>Email:</h4>
-  <p><%= "#{current_user.email}"%></p>
-
-  <h4>Age:</h4>
-  <p><%= current_user.age %> years old</p>
-  <br />
-
-  <p class="pull-right">Not you? <%= link_to "Sign in as a different user.", "../../../users/sign_out" %></p>
-  <hr />
-
-  <h4>Phone number: *</h4>
-  <%= text_field_tag "user[phone]", current_user.phone, :required => true, label: 'Phone Number' %>
-  <br />
-
-  <br />
-  <% if @apprenticeship.respect_my_style == "1" %>
-    <h4>I won't copy the artist's work *</h4>
-    <textarea rows="5">This is where I agree not to reuse an artist's style for my own profit. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
-    <div class="form-inline" >
-      <%= f.check_box :respect_agreement %>
-      <%= f.label :respect_agreement, capture { %>
-      <p>I have read and agree to respect the artist's style.</p>
-      <% } %>
+<div class="accordion form-horizontal event-accordion" id="accordion2">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <h2>
+        <a class="accordion-toggle" data-toggle="collapse" href="#collapseOne">
+          1. My Details
+        </a>
+      </h2>
     </div>
-  <% end %>
 
-  <% unless current_user.over_18 %>
-    <h3>The boring stuff...</h3>
-    <p>Since you're under 18, you'll need to ask your parents to finish the rest of the form.</p>
-    <br />
+    <div id="collapseOne" class="accordion-body collapse" style="height: 0px; ">
+      <div class="accordion-inner">
+        <br/>
+        <dl class="dl-horizontal dl-application">
+          <dt>Name</dt>
+          <dd><%= "#{current_user.first_name} #{current_user.last_name}" %></dd>
+          <dt>Email</dt>
+          <dd><%= "#{current_user.email}"%></dd>
+          <dt>Age</dt>
+          <dd><%= current_user.age %> years old</dd>
+        </dl>
 
-    <%= f.label :parent_name %>
-    <%= f.text_field :parent_name %>
-
-    <%= f.label :parent_phone %>
-    <%= f.text_field :parent_phone %>
-
-    <%= f.label :parent_email %>
-    <%= f.text_field :parent_email %>
-
-    <h4>Indemnification Agreement for Minors *</h4>
-    <textarea rows="5">This is where the waiver goes to which you must agree to be able to sign up for the workshop. It will remove GirlsGuild from all liability as well as the artist involved in teaching. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
-    <div class="form-inline" >
-      <%= f.check_box :parents_waiver %>
-      <%= f.label :parents_waiver, capture { %>
-      <p>I am the legal parent/guardian of the apprenticeship participant, and have read and agree to this indeminification agreement.</p>
-      <% } %>
+        <p class="pull-right">Not you? <%= link_to "Sign in as a different user.", destroy_user_session_path %></p>
+        <br/>
+      </div>
     </div>
-  <% end %>
-
-  <h4>Apprenticeship Participation Waiver *</h4>
-  <textarea rows="5">This is where the waiver goes to which you must agree to be able to sign up for the workshop. It will remove GirlsGuild from all liability as well as the artist involved in teaching. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
-  <div class="form-inline" >
-    <%= f.check_box :waiver %>
-    <%= f.label :waiver, capture { %>
-    <p>I have read and agree to the apprenticeship participation waiver.</p>
-    <% } %>
   </div>
 
-  <br />
+  <br/>
 
-  <h3>Apprenticeship fee: $29</h3>
-  <%= render :partial => "shared/credit_card", :locals => { :f => f, :paid => @app_signup.charge_id.present? } %>
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <h2>
+        <a class="accordion-toggle" data-toggle="collapse" href="#collapseTwo">
+          2. A Few Details
+        </a>
+       </h2>
+    </div>
 
-  <br />
+    <div id="collapseTwo" class="accordion-body collapse">
+      <div class="accordion-inner">
 
-  <%= button_tag "Confirm Apprenticeship", type: 'button', name: 'confirm_button', class: "btn btn-large btn-primary btn-create", id: "cc_process" %>
+        <br />
+        <h4>Phone number: *</h4>
+        <%= text_field_tag "user[phone]", current_user.phone, :required => true, label: 'Phone Number' %>
+        <br />
+
+        <br />
+        <% if @apprenticeship.respect_my_style == "1" %>
+          <h4>I won't copy the artist's work *</h4>
+          <textarea rows="5">This is where I agree not to reuse an artist's style for my own profit. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
+          <div class="form-inline" >
+            <%= f.check_box :respect_agreement %>
+            <%= f.label :respect_agreement, capture { %>
+            <p>I have read and agree to respect the artist's style.</p>
+            <% } %>
+          </div>
+        <% end %>
+
+        <% unless current_user.over_18 %>
+          <h3>The boring stuff...</h3>
+          <p>Since you're under 18, you'll need to ask your parents to finish the rest of the form.</p>
+          <br />
+
+          <%= f.label :parent_name %>
+          <%= f.text_field :parent_name %>
+
+          <%= f.label :parent_phone %>
+          <%= f.text_field :parent_phone %>
+
+          <%= f.label :parent_email %>
+          <%= f.text_field :parent_email %>
+
+          <h4>Indemnification Agreement for Minors *</h4>
+          <textarea rows="5">This is where the waiver goes to which you must agree to be able to sign up for the workshop. It will remove GirlsGuild from all liability as well as the artist involved in teaching. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
+          <div class="form-inline" >
+            <%= f.check_box :parents_waiver %>
+            <%= f.label :parents_waiver, capture { %>
+            <p>I am the legal parent/guardian of the apprenticeship participant, and have read and agree to this indeminification agreement.</p>
+            <% } %>
+          </div>
+        <% end %>
+
+        <h4>Apprenticeship Participation Waiver *</h4>
+        <textarea rows="5">This is where the waiver goes to which you must agree to be able to sign up for the workshop. It will remove GirlsGuild from all liability as well as the artist involved in teaching. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
+        <div class="form-inline" >
+          <%= f.check_box :waiver %>
+          <%= f.label :waiver, capture { %>
+          <p>I have read and agree to the apprenticeship participation waiver.</p>
+          <% } %>
+        </div>
+       </div>
+    </div>
+  </div>
+
+  <br/>
+
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <h2>
+        <a class="accordion-toggle" data-toggle="collapse" href="#collapseThree">
+          3. Payment
+        </a>
+      </h2>
+    </div>
+    <div id="collapseThree" class="accordion-body collapse">
+      <div class="accordion-inner">
+
+        <h3>Apprenticeship fee: $29</h3>
+        <p>If for some reason your application is not accepted, we will refund this payment in full!</p>
+        <%= render :partial => "shared/credit_card", :locals => { :f => f, :paid => @app_signup.charge_id.present? } %>
+
+        <br />
+      </div>
+    </div>
+  </div>
+</div>
+
 
