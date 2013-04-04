@@ -49,27 +49,27 @@
         .alert
           - unless @allsaved_workshops.blank?
             %br/
-            %h4 Saved Workshops
+            %h3 Saved Workshops
             .row-fluid.row-saved
               = render :partial => "workshop-tbl", locals: {workshops: @allsaved_workshops}
           - unless @allpending_workshops.blank?
             %br/
-            %h4 Pending Workshops Needing Review
+            %h3 Pending Workshops Needing Review
             .row-fluid.row-pending
               = render :partial => "workshop-tbl", locals: {workshops: @allpending_workshops}
           - unless @allcanceled_workshops.blank?
             %br/
-            %h4 Canceled Workshops Since Being Accepted
+            %h3 Canceled Workshops Since Being Accepted
             .row-fluid.row-canceled
               = render :partial => "workshop-tbl", locals: {workshops: @allcanceled_workshops}
           - unless @allfilled_workshops.blank?
             %br/
-            %h4 Filled Workshops
+            %h3 Filled Workshops
             .row-fluid.row-filled
               = render :partial => "workshop-tbl", locals: {workshops: @allfilled_workshops}
           - unless @allcompleted_workshops.blank?
             %br/
-            %h4 Completed Workshops
+            %h3 Completed Workshops
             .row-fluid.row-completed
               = render :partial => "workshop-tbl", locals: {workshops: @allcompleted_workshops}
       - unless current_user.workshops.blank?
@@ -78,31 +78,31 @@
         .alert.alert-info
           - unless @mycanceled_workshops.blank?
             %br/
-            %h4 My Canceled Workshops
+            %h3 My Canceled Workshops
             .row-fluid.row-canceled
               = render :partial => "workshop-tbl", locals: {workshops: @mycanceled_workshops}
           - unless @mysaved_workshops.blank?
             %br/
-            %h4 My Saved Workshops
+            %h3 My Saved Workshops
             .row-fluid.row-saved
               = render :partial => "workshop-tbl", locals: {workshops: @mysaved_workshops}
           - unless @mypending_workshops.blank?
             %br/
-            %h4 My Pending Workshops
+            %h3 My Pending Workshops
             .row-fluid.row-pending
               = render :partial => "workshop-tbl", locals: {workshops: @mypending_workshops}
           - unless @myactive_workshops.blank?
             %br/
-            %h4 My Upcoming Workshops
+            %h3 My Upcoming Workshops
             .row-fluid.row-upcoming
               = render :partial => "workshop-tbl", locals: {workshops: @myactive_workshops}
           - unless @myfilled_workshops.blank?
             %br/
-            %h4 My Filled Workshops
+            %h3 My Filled Workshops
             .row-fluid.row-filled
               = render :partial => "workshop-tbl", locals: {workshops: @myfilled_workshops}
           - unless @mycompleted_workshops.blank?
             %br/
-            %h4 My Completed Workshops
+            %h3 My Completed Workshops
             .row-fluid.row-completed
               = render :partial => "workshop-tbl", locals: {workshops: @mycompleted_workshops}

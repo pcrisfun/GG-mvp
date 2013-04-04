@@ -49,60 +49,60 @@
         .alert
           - unless @allsaved_apprenticeships.blank?
             %br/
-            %h4 Saved apprenticeships
+            %h3 Saved apprenticeships
             .row-fluid.row-saved
               = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @allsaved_apprenticeships}
           - unless @allpending_apprenticeships.blank?
             %br/
-            %h4 Pending apprenticeships Needing Review
+            %h3 Pending apprenticeships Needing Review
             .row-fluid.row-pending
               = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @allpending_apprenticeships}
           - unless @allcanceled_apprenticeships.blank?
             %br/
-            %h4 Canceled apprenticeships Since Being Accepted
+            %h3 Canceled apprenticeships Since Being Accepted
             .row-fluid.row-canceled
               = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @allcanceled_apprenticeships}
           - unless @allfilled_apprenticeships.blank?
             %br/
-            %h4 Filled apprenticeships
+            %h3 Filled apprenticeships
             .row-fluid.row-filled
               = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @allfilled_apprenticeships}
           - unless @allcompleted_apprenticeships.blank?
             %br/
-            %h4 Completed apprenticeships
+            %h3 Completed apprenticeships
             .row-fluid.row-completed
               = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @allcompleted_apprenticeships}
       - unless current_user.apprenticeships.blank?
         %hr/
         %h2 My apprenticeships
-        .alert.alert-info
+        .alert.alert-success
           - unless @mycanceled_apprenticeships.blank?
             %br/
-            %h4 My Canceled apprenticeships
+            %h3 My Canceled apprenticeships
             .row-fluid.row-canceled
               = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @mycanceled_apprenticeships}
           - unless @mysaved_apprenticeships.blank?
             %br/
-            %h4 My Saved apprenticeships
+            %h3 My Saved apprenticeships
             .row-fluid.row-saved
               = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @mysaved_apprenticeships}
           - unless @mypending_apprenticeships.blank?
             %br/
-            %h4 My Pending apprenticeships
+            %h3 My Pending apprenticeships
             .row-fluid.row-pending
               = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @mypending_apprenticeships}
           - unless @myactive_apprenticeships.blank?
             %br/
-            %h4 My Upcoming apprenticeships
+            %h3 My Upcoming apprenticeships
             .row-fluid.row-upcoming
               = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @myactive_apprenticeships}
           - unless @myfilled_apprenticeships.blank?
             %br/
-            %h4 My Filled apprenticeships
+            %h3 My Filled apprenticeships
             .row-fluid.row-filled
               = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @myfilled_apprenticeships}
           - unless @mycompleted_apprenticeships.blank?
             %br/
-            %h4 My Completed apprenticeships
+            %h3 My Completed apprenticeships
             .row-fluid.row-completed
               = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @mycompleted_apprenticeships}

@@ -1,15 +1,15 @@
-%table.table.table-bordered.table-striped.table-hover
+%table.table.table-bordered.table-striped.table-hover.table-condensed
   %thead
     %tr
-      %th
+      %th.image
         Image
-      %th
+      %th.title
         Title
-      %th
-        Spots
-      %th
+      %th.spots
+        Spots Left
+      %th.ages
         Ages
-      %th
+      %th.dates
         Dates
   %tbody
     - apprenticeships.each do |apprenticeship|
@@ -35,10 +35,9 @@
           = apprenticeship.registration_min - apprenticeship.signups.where(:state => "confirmed").count
         %td
           = apprenticeship.age_min
-          to
+          &nbsp;-&nbsp;
           = apprenticeship.age_max
         %td
-          From
-          = apprenticeship.begins_at.strftime('%A, %B %d')
-          to
-          = apprenticeship.ends_at.strftime('%A, %B %d')
+          = apprenticeship.begins_at.strftime('%a, %B %d')
+          &nbsp;-&nbsp;
+          = apprenticeship.ends_at.strftime('%a, %B %d')
