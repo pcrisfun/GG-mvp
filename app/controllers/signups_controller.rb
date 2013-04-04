@@ -69,6 +69,15 @@ class SignupsController < ApplicationController
     end
   end
 
+  def cancel
+    @signup = Signup.cancel
+
+    respond_to do |format|
+      format.html { redirect_to apprenticeships_path, :flash => { :warning => "Your application was canceled."} }
+      format.json { head :no_content }
+    end
+  end
+
   # DELETE /signups/1
   # DELETE /signups/1.json
   def destroy

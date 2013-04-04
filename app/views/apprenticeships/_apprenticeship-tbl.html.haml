@@ -1,0 +1,44 @@
+%table.table.table-bordered.table-striped.table-hover
+  %thead
+    %tr
+      %th
+        Image
+      %th
+        Title
+      %th
+        Spots
+      %th
+        Ages
+      %th
+        Dates
+  %tbody
+    - apprenticeships.each do |apprenticeship|
+      %tr
+        %td
+          - if apprenticeship && apprenticeship.host_album
+            - if apprenticeship.host_album.featured_photo
+              = render 'photos/photo', photo: apprenticeship.host_album.featured_photo, size: :thumb, url: url_for(apprenticeship)
+            - elsif apprenticeship.host_album.photos.first
+              = render 'photos/photo', photo: apprenticeship.host_album.photos.sort_by { |photo| photo.position(album_id: apprenticeship.host_album.id) }.first, size: :thumb, url: url_for(apprenticeship)
+            - else
+              %a{ href: url_for(apprenticeship) }
+                %img.default-photo-thumb
+            - unless current_user.blank?
+              - if apprenticeship.user == current_user
+                - if apprenticeship.started?
+                  = link_to "Resume", edit_apprenticeship_path(apprenticeship), class: "btn btn-mini pull-right"
+                - elsif apprenticeship.accepted? or apprenticeship.canceled? or apprenticeship.filled?
+                  = link_to "Edit", edit_apprenticeship_path(apprenticeship), class: "btn btn-mini pull-right"
+        %td
+          = link_to apprenticeship.title_html, apprenticeship_path(apprenticeship), class: "title-boxlink"
+        %td
+          = apprenticeship.registration_min - apprenticeship.signups.where(:state => "confirmed").count
+        %td
+          = apprenticeship.age_min
+          to
+          = apprenticeship.age_max
+        %td
+          From
+          = apprenticeship.begins_at.strftime('%A, %B %d')
+          to
+          = apprenticeship.ends_at.strftime('%A, %B %d')

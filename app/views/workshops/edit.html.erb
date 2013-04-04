@@ -1,12 +1,15 @@
 <%= content_tag :section, id: "promo", class: "section alt" do %>
   <%= content_tag :div, class: "container" do %>
     <% provide(:title, "Edit Workshop") %>
-
     <%= render 'albums/show', :@album => @workshop.host_album %>
 
     <h1>Update your workshop</h1>
+    <br/><br/>
+    <div class="span3 pull-left accordionFAQ">
+      <%= render 'faq' %>
+    </div>
 
-    <div class="span9 offset1">
+    <div class="span9 pull-right">
       <%= simple_form_for @workshop do |f| %>
 
         <%= render 'fields', f: f %>

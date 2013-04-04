@@ -4,15 +4,14 @@
     = link_to "Offer an apprenticeship!", new_apprenticeship_path, class: 'btn btn-large btn-primary pull-right'
     %br/
     %br/
-    .accordion.form-horizontal#accordion2
+    .accordion#accordion2
       .accordion-group
         .accordion-heading
-          %a.accordion-toggle{"data-toggle" => "collapse", :href => "#collapseOne"}
+          %a.accordion-toggle{"data-toggle" => "collapse", href: "#collapseOne", class: 'pull-center' }
             How it Works
             %i.icon-chevron-down
         #collapseOne.accordion-body.collapse
           .accordion-inner
-            %h2 How it Works
             %br/
             .row-fluid
               %ul.thumbnails.bordered
@@ -21,7 +20,7 @@
                     .span4.pull-center
                       %i.icon-beaker.enormous-icon.circled.pull-center
                     .span8
-                      %h3 Step 1
+                      %h3 Find a Maker
                       %p
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 %li.span4
@@ -29,7 +28,7 @@
                     .span4.pull-center
                       %i.icon-cloud.enormous-icon.circled.pull-center
                     .span8
-                      %h3 Step 2
+                      %h3 Apply to Work
                       %p
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 %li.span4
@@ -37,7 +36,7 @@
                     .span4.pull-center
                       %i.icon-map-marker.enormous-icon.circled.pull-center
                     .span8
-                      %h3 Step 3
+                      %h3 Get Recognition
                       %p
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
     .row
@@ -47,61 +46,63 @@
       - if current_user.admin?
         %hr/
         %h2 Admin
-        - unless @allsaved_apprenticeships.blank?
-          %br/
-          %h4 Saved apprenticeships
-          .row.row-saved
-            = render :partial => "apprenticeship", :collection => @allsaved_apprenticeships
-        - unless @allpending_apprenticeships.blank?
-          %br/
-          %h4 Pending apprenticeships Needing Review
-          .row.row-pending
-            = render :partial => "apprenticeship", :collection => @allpending_apprenticeships
-        - unless @allcanceled_apprenticeships.blank?
-          %br/
-          %h4 Canceled apprenticeships Since Being Accepted
-          .row.row-canceled
-            = render :partial => "apprenticeship", :collection => @allcanceled_apprenticeships
-        - unless @allfilled_apprenticeships.blank?
-          %br/
-          %h4 Filled apprenticeships
-          .row.row-filled
-            = render :partial => "apprenticeship", :collection => @allfilled_apprenticeships
-        - unless @allcompleted_apprenticeships.blank?
-          %br/
-          %h4 Completed apprenticeships
-          .row.row-completed
-            = render :partial => "apprenticeship", :collection => @allcompleted_apprenticeships
+        .alert
+          - unless @allsaved_apprenticeships.blank?
+            %br/
+            %h4 Saved apprenticeships
+            .row-fluid.row-saved
+              = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @allsaved_apprenticeships}
+          - unless @allpending_apprenticeships.blank?
+            %br/
+            %h4 Pending apprenticeships Needing Review
+            .row-fluid.row-pending
+              = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @allpending_apprenticeships}
+          - unless @allcanceled_apprenticeships.blank?
+            %br/
+            %h4 Canceled apprenticeships Since Being Accepted
+            .row-fluid.row-canceled
+              = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @allcanceled_apprenticeships}
+          - unless @allfilled_apprenticeships.blank?
+            %br/
+            %h4 Filled apprenticeships
+            .row-fluid.row-filled
+              = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @allfilled_apprenticeships}
+          - unless @allcompleted_apprenticeships.blank?
+            %br/
+            %h4 Completed apprenticeships
+            .row-fluid.row-completed
+              = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @allcompleted_apprenticeships}
       - unless current_user.apprenticeships.blank?
         %hr/
         %h2 My apprenticeships
-        - unless @mycanceled_apprenticeships.blank?
-          %br/
-          %h4 My Canceled apprenticeships
-          .row.row-canceled
-            = render :partial => "apprenticeship", :collection => @mycanceled_apprenticeships
-        - unless @mysaved_apprenticeships.blank?
-          %br/
-          %h4 My Saved apprenticeships
-          .row.row-saved
-            = render :partial => "apprenticeship", :collection => @mysaved_apprenticeships
-        - unless @mypending_apprenticeships.blank?
-          %br/
-          %h4 My Pending apprenticeships
-          .row.row-pending
-            = render :partial => "apprenticeship", :collection => @mypending_apprenticeships
-        - unless @myactive_apprenticeships.blank?
-          %br/
-          %h4 My Upcoming apprenticeships
-          .row.row-upcoming
-            = render :partial => "apprenticeship", :collection => @myactive_apprenticeships
-        - unless @myfilled_apprenticeships.blank?
-          %br/
-          %h4 My Filled apprenticeships
-          .row.row-filled
-            = render :partial => "apprenticeship", :collection => @myfilled_apprenticeships
-        - unless @mycompleted_apprenticeships.blank?
-          %br/
-          %h4 My Completed apprenticeships
-          .row.row-completed
-            = render :partial => "apprenticeship", :collection => @mycompleted_apprenticeships
+        .alert.alert-info
+          - unless @mycanceled_apprenticeships.blank?
+            %br/
+            %h4 My Canceled apprenticeships
+            .row-fluid.row-canceled
+              = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @mycanceled_apprenticeships}
+          - unless @mysaved_apprenticeships.blank?
+            %br/
+            %h4 My Saved apprenticeships
+            .row-fluid.row-saved
+              = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @mysaved_apprenticeships}
+          - unless @mypending_apprenticeships.blank?
+            %br/
+            %h4 My Pending apprenticeships
+            .row-fluid.row-pending
+              = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @mypending_apprenticeships}
+          - unless @myactive_apprenticeships.blank?
+            %br/
+            %h4 My Upcoming apprenticeships
+            .row-fluid.row-upcoming
+              = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @myactive_apprenticeships}
+          - unless @myfilled_apprenticeships.blank?
+            %br/
+            %h4 My Filled apprenticeships
+            .row-fluid.row-filled
+              = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @myfilled_apprenticeships}
+          - unless @mycompleted_apprenticeships.blank?
+            %br/
+            %h4 My Completed apprenticeships
+            .row-fluid.row-completed
+              = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @mycompleted_apprenticeships}

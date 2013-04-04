@@ -55,7 +55,7 @@ class Workshop < Event
    		:from => "Diana & Cheyenne<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your workshop has been posted! - #{topic} with #{user.name}",
-			:html_body => %(<h1>Congrats #{user.first_namefirst_name}!</h1> <p>Your workshop has been posted and is now live! Check it out - <a href="#{url_for(self)}"> #{self.title}</a></p> <p>Be sure to invite your friends and share it on your social networks!</p>),
+			:html_body => %(<h1>Congrats #{user.first_name}!</h1> <p>Your workshop has been posted and is now live! Check it out - <a href="#{url_for(self)}"> #{self.title}</a></p> <p>Be sure to invite your friends and share it on your social networks!</p>),
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
