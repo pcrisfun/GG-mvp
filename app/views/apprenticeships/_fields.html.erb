@@ -238,6 +238,16 @@
 					</a>
 				<% end %>
 
+<!--FACILITATED FIRST MEETING-->
+				<br/>
+				<%= f.input :facilitate, label: 'Facilitate the 1st Meeting' do %>
+					<%= f.check_box :facilitate %>
+					<span class="simpleform-text"> I'd like GirlsGuild to facilitate my first meeting with my apprentice(s). Why</span>
+					<a href="javascript:;" rel='popover' data-placement="right" data-content="We've found that getting started can be the hardest part - if you'd like to hold your first meeting with your apprentice(s) with us at GirlsGuild HQ, we'd be happy to facilitate that connection!">
+						<i class="icon-question-sign small-icon"></i>
+					</a>
+				<% end %>
+
 <!--BACKGROUND CHECK -->
 				<%= f.input :permission, label: 'Background Check' do %>
 					<%= f.check_box :permission %>

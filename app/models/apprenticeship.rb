@@ -24,7 +24,7 @@ class Apprenticeship < Event
 	end
 
 	def deliver
-		#return false unless valid?
+		return false unless valid?
 		Pony.mail({
 			:to => "#{user.name}<#{user.email}>",
    		:from => "Diana & Cheyenne<hello@girlsguild.com>",
