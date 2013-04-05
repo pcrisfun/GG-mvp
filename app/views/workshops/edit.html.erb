@@ -1,6 +1,7 @@
 <%= content_tag :section, id: "promo", class: "section alt" do %>
   <%= content_tag :div, class: "container" do %>
     <% provide(:title, "Edit Workshop") %>
+
     <%= render 'albums/show', :@album => @workshop.host_album %>
 
     <h1>Update your workshop</h1>

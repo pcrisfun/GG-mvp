@@ -1,7 +1,7 @@
 class AppSignup < Signup
 
-#validates :parent, :presence => true
-#validates :waiver, :acceptance => true
+  #validates :parent, :presence => true
+  #validates :waiver, :acceptance => true
 
   def default_url_options
     { :host => 'localhost:3000'}

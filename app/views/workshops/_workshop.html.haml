@@ -6,8 +6,8 @@
       - elsif workshop.host_album.photos.first
         = render 'photos/photo', photo: workshop.host_album.photos.sort_by { |photo| photo.position(album_id: workshop.host_album.id) }.first, size: :large, url: url_for(workshop)
       - else
-        %a{ href: url_for(workshop) }
-          %img.default-photo-large
+        %a{ href: url_for(edit_workshop_path(workshop)) }
+          %img.default-photo-large{ src: "/images/common/upload-photos-400px.jpg" }
     .box-details
       - unless current_user.blank?
         - if workshop.user == current_user
