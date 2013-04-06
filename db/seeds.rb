@@ -64,6 +64,17 @@ girl = User.new( first_name: "Tina",
 girl.skip_confirmation!
 girl.save!(validate: false)
 
+kid = User.new( first_name: "Lil",
+                  last_name: "Kauffman",
+                  birthday: "2007-01-01 17:00:00",
+                  email: "kid@girlsguild.com",
+                  password: "password",
+                  password_confirmation: "password",
+                  terms_of_service: true,
+                )
+kid.skip_confirmation!
+kid.save!(validate: false)
+
 first_workshop = artist.workshops.create!(  "host_firstname"=>"Jane",
                                             "host_lastname"=>"Smith",
                                             "host_business"=>"JS Designs",

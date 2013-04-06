@@ -130,9 +130,9 @@
 					</span>
 				<% end -%>
 
-				<%= f.input :registration_min, label: 'Registrations' do %>
+				<%= f.input :registration_max, label: 'Registrations' do %>
 					<span class="simpleform-text">Close applications after I've accepted, </span>
-					<%= f.number_field :registration_min, :placeholder => "", :class => 'span1', :rel => 'popover', :data => { :content => "After receiving an application you must accept or reject it within two weeks. Your listing will remain open until you fill or cancel the apprenticeship." } %>
+					<%= f.number_field :registration_max, :placeholder => "", :class => 'span1', :rel => 'popover', :data => { :content => "After receiving an application you must accept or reject it within two weeks. Your listing will remain open until you fill or cancel the apprenticeship." } %>
 					<span class="simpleform-text">Apprentices.</span>
 				<% end -%>
 

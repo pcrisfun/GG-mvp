@@ -21,7 +21,7 @@
             - elsif apprenticeship.host_album.photos.first
               = render 'photos/photo', photo: apprenticeship.host_album.photos.sort_by { |photo| photo.position(album_id: apprenticeship.host_album.id) }.first, size: :thumb, url: url_for(apprenticeship)
             - else
-              %a{ href: url_for(apprenticeship) }
+              %a{ href: url_for(edit_apprenticeship_path(apprenticeship)) }
                 %img.default-photo-thumb
             - unless current_user.blank?
               - if apprenticeship.user == current_user

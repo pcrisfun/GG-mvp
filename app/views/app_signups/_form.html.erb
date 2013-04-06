@@ -1,5 +1,4 @@
 <%= render 'shared/error_messages', :form_model => @app_signup %>
-
 <div class="accordion form-horizontal event-accordion" id="accordion2">
 	<div class="accordion-group">
 	  <div class="accordion-heading">
@@ -14,29 +13,24 @@
 	  	<div class="accordion-inner">
 	  		<br/>
 				<dl class="dl-horizontal dl-application">
-					<dt>Name:</dt>
+					<dt>Name</dt>
 					<dd><%= "#{current_user.first_name} #{current_user.last_name}" %></dd>
-
-					<dt>Email:</dt>
+					<dt>Email</dt>
 					<dd><%= "#{current_user.email}"%></dd>
-
-					<% if current_user.age > @apprenticeship.age_max %>
-						<dt>Your daughter's name</dt>
-						<%= f.input :daughter_firstname, 	label: "Daughter's First Name"  %>
-						<%= f.input :daughter_lastname, 	label: "Daughter's Last Name"  %>
-
-						<br/>
-						<%= f.label :daughter_age, capture { %>
-							<dt>Your daughter's age</dt>
-						<% } %>
-						<dd><%= f.number_field :daughter_age, :class => "span1" %> *She must be between <%= "#{@apprenticeship.age_min}" %> - <%= "#{@apprenticeship.age_max}" %> years old to be eligible for this apprenticeship.</dd>
-
-					<% else %>
-						<dt>Age:</dt>
-						<dd><%= current_user.age %> years old</dd>
-						<br />
-					<% end %>
 				</dl>
+
+				<% if current_user.age > @apprenticeship.age_max %>
+					<%= f.input :daughter_firstname, 	label: "Daughter's First Name"  %>
+					<%= f.input :daughter_lastname, 	label: "Daughter's Last Name"  %>
+					<%= f.input :daughter_age, label: "Daughter's Age" do %>
+						<%= f.number_field :daughter_age, :class => "span1" %> (She must be between <strong><%= "#{@apprenticeship.age_min}" %> - <%= "#{@apprenticeship.age_max}" %></strong> years old to do this apprenticeship.)
+					<% end %>
+				<% else %>
+					<dl class="dl-horizontal dl-application">
+						<dt>Age</dt>
+						<dd><%= current_user.age %> years old</dd>
+					</dl>
+				<% end %>
 
 				<p class="pull-right">Not you? <%= link_to "Sign in as a different user.", destroy_user_session_path %></p>
 				<br/>
