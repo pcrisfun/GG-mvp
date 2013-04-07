@@ -32,7 +32,7 @@
         %td
           = link_to apprenticeship.title_html, apprenticeship_path(apprenticeship), class: "title-boxlink"
         %td
-          = apprenticeship.registration_min - apprenticeship.signups.where(:state => "confirmed").count
+          = apprenticeship.registration_max - apprenticeship.signups.where(:state => "confirmed").count
         %td
           = apprenticeship.age_min
           &nbsp;-&nbsp;

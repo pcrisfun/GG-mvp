@@ -18,7 +18,7 @@
       = link_to apprenticeship.title_html, apprenticeship_path(apprenticeship), class: "title-boxlink"
       %br
       Number of apprentices needed -
-      = apprenticeship.registration_min - apprenticeship.signups.where(:state => "confirmed").count
+      = apprenticeship.registration_max - apprenticeship.signups.where(:state => "confirmed").count
       %br
       Ages
       = apprenticeship.age_min

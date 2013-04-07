@@ -18,10 +18,10 @@ class Event < ActiveRecord::Base
     validates_presence_of :host_lastname, :message => ' must be included in order to save your form.'
   end
 
-  validates_presence_of :bio, :website, :permission, :description, :begins_at, :skill_list, :tool_list, :location_address, :location_city, :location_state, :location_zipcode, :age_min, :age_max, :registration_min
+  validates_presence_of :bio, :website, :permission, :description, :begins_at, :skill_list, :tool_list, :location_address, :location_city, :location_state, :location_zipcode, :age_min, :age_max, :registration_max
   validates_numericality_of :age_min, :greater_than => 0
-  validates_numericality_of :age_max, :greater_than => :age_min, :message => "must be greater than the minimum age you set."
-  validates_numericality_of :registration_min, :greater_than_or_equal_to => 0
+  validates_numericality_of :age_max, :greater_than => :age_min, :message => " must be greater than the minimum age you set."
+  validates_numericality_of :registration_max, :greater_than_or_equal_to => 1, :message => " registrations must be greater than 0."
 
   attr_accessible :title, :topic, :host_firstname, :host_lastname, :host_business,
                   :bio, :twitter, :facebook, :website, :webshop, :permission,
