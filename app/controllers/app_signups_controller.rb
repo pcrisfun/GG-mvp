@@ -8,6 +8,17 @@ class AppSignupsController < ApplicationController
     @apprenticeship = @app_signup.event if @app_signup
   end
 
+  def index
+    unless current_user.blank?
+      @mysaved_app_signups = current_user.app_signups.find_all_by_state('started')
+      @mypending_app_signups = current_user.app_signups.find_all_by_state('pending')
+      @myactive_app_signups = current_user.app_signups.find_all_by_state('accepted')
+      @mycanceled_app_signups = current_user.app_signups.find_all_by_state('canceled')
+      @myfilled_app_signups = current_user.app_signups.find_all_by_state('filled')
+      @mycompleted_app_signups = current_user.app_signups.find_all_by_state('completed')
+    end
+  end
+
   def new
   	@apprenticeship = Apprenticeship.find(params[:apprenticeship_id])
   	@app_signup = AppSignup.new
@@ -21,8 +32,8 @@ class AppSignupsController < ApplicationController
     current_user.update_attributes(params[:user])
 
     if params[:save_button] == "Save for Later"
-      #if @apprenticeship.group_valid?(:save) && @apprenticeship.save(:validate => false) && @apprenticeship.deliver_save
-      if @app_signup.save && @app_signup.deliver_save
+      if @app_signup.save(:validate => false) && @app_signup.deliver_save
+      #if @app_signup.save && @app_signup.deliver_save
         redirect_to apprenticeships_path, :flash => { :success => "Nice! Your application was saved." }
       else
         flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
@@ -49,7 +60,8 @@ class AppSignupsController < ApplicationController
     current_user.update_attributes(params[:user])
 
     if params[:save_button] == "Save for Later"
-      if @app_signup.update_attributes(params[:app_signup])
+      if @app_signup.update_attributes(params[:app_signup],:validate => false)
+      #if @app_signup.update_attributes(params[:app_signup])
         render 'show', :flash => { :success => "Nice! Your application was saved." }
       else
         flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
@@ -83,7 +95,8 @@ class AppSignupsController < ApplicationController
       end
 
     else
-      if @app_signup.update_attributes(params[:app_signup])
+      if @app_signup.group_valid?(:submit) && @app_signup.update_attributes(params[:app_signup])
+      #if @app_signup.update_attributes(params[:app_signup])
         if @app_signup.apply && @app_signup.deliver
           redirect_to apprenticeships_path, :flash => { :success => "Awesome, you've applied to work with #{@apprenticeship.host_firstname}." }
         else

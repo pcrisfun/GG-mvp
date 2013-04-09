@@ -12,7 +12,8 @@
       %th.dates
         Date Range
   %tbody
-    - apprenticeships.each do |apprenticeship|
+    - app_signups.each do |app_signup|
+    - apprenticeship = app_signup.event
       %tr
         %td
           - if apprenticeship && apprenticeship.host_album

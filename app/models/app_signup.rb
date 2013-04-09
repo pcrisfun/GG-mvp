@@ -1,7 +1,28 @@
 class AppSignup < Signup
 
-  #validates :parent, :presence => true
-  #validates :waiver, :acceptance => true
+  #validation_group :save do
+    #should be conditional - validates_presence_of :daughter_firstname
+    #should be conditional - validates_presence_of :daughter_lastname
+    #should be conditional - validates_numericality_of :daughter_age, :greater_than => :age_min, :message => "Your daughter must be older to apply for this apprenticeship."
+  #end
+  validation_group :submit do
+    validates_presence_of :happywhen, :collaborate, :interest, :experience, :confirm_available, :preferred_times, :confirm_unpaid, :confirm_fee, :message => ' must be included in order to submit your form.'
+  end
+  #validation_group :confirm do
+    #valideates_numericality_of :SOMETHING FOR PHONE!!!
+    #validates_presence_of :respect_agreement
+    #validates_presence_of :parent_name
+    #validates_presence_of :parent_phone
+    #validates_presence_of :parent_email
+    #validates_presence_of :parents_waiver
+    #validates :waiver, :acceptance => true
+    #validates :paid
+  #end
+
+  attr_accessible :daughter_firstname, :daughter_lastname, :daughter_age,
+                  :happywhen, :collaborate, :interest, :experience,
+                  :confirm_available, :preferred_times, :confirm_unpaid, :confirm_fee,
+                  :age_min
 
   def default_url_options
     { :host => 'localhost:3000'}
@@ -69,6 +90,17 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{self.event.host_firstname} would like to work with you!",
       :html_body => %(<h1>Yeehaw #{user.first_name}!</h1> <p>We're excited to let you know that #{self.event.host_firstname} has reviewed your application for #{self.event.title} and would like to work with you as her apprentice! To accept the apprenticeship, please fill out the <a href=#{url_for(self)}>confirmation form</a> and submit your apprenticeship fee. If you have any questions feel free to respond to this email.</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+  def deliver_accept_artist
+    Pony.mail({
+      :to => "#{event.user.first_name}<#{event.user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "You've accepted #{self.user.first_name} as your apprentice!",
+      :html_body => %(<h1>Hoorah!</h1> <p>You've accepted #{self.user.first_name} as your apprentice! We've asked her to accept the apprenticeship by filling out the <a href=#{url_for(self)}>confirmation form</a> and submitting her apprenticeship fee. If you have any questions feel free to respond to this email.</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true

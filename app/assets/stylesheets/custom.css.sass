@@ -1,10 +1,4 @@
-/* mixins */
-@mixin box_sizing
-  -moz-box-sizing: border-box
-  -webkit-box-sizing: border-box
-  box-sizing: border-box
-
-/* variables */
+// variables
 $tangerine-light: #ffe6c5
 $tangerine-medium: #f9a83d
 $tangerine: #f99716
@@ -56,11 +50,29 @@ $alert-red: #F2DEDE
 $alert-green: #DFF0D8
 $alert-blue: #D9EDF7
 
-/* headers */
+
+// mixins
+@mixin box_sizing
+  -moz-box-sizing: border-box
+  -webkit-box-sizing: border-box
+  box-sizing: border-box
+
+@mixin box-shadow($top, $left, $blur, $color, $inset:"")
+  -webkit-box-shadow: $top $left $blur $color #{$inset}
+  -moz-box-shadow: $top $left $blur $color #{$inset}
+  box-shadow: $top $left $blur $color #{$inset}
+
+@mixin box-shadow-silver
+  +box-shadow(1px, 1px, 3px, $silver-shadow)
+
+.box-shadow-silver
+  +box-shadow-silver
+
+// headers
 h2
   color: $tangerine-black
 
-/* universal */
+// universal
 a, a:hover, a:active, a:visited, a:focus
   outline: none
 
@@ -84,7 +96,7 @@ a, a:hover, a:active, a:visited, a:focus
   text-align: right
 
 
-/* buttons */
+// buttons
 .btn
   background-color: $silver-light
   background-image: none
@@ -107,7 +119,7 @@ a, a:hover, a:active, a:visited, a:focus
     padding: 2px 14px
 
 
-/* header */
+// header
 #masthead .brand
   background: url(gg-logo.png) no-repeat 0 0 transparent
   width: 110px
@@ -130,7 +142,7 @@ a, a:hover, a:active, a:visited, a:focus
     img
       margin-top: -5px
 
-/* footer */
+// footer
 #footer
   .kristi
     font-size: 28px
@@ -138,12 +150,12 @@ a, a:hover, a:active, a:visited, a:focus
     color: #999
     font-style: normal
 
-/* sidebar */
+// sidebar
 .gravatar
   float: left
   margin-right: 10px
 
-/* accordion nav */
+// accordion nav
 .accordionFAQ
   margin-left: 0px
   .icon-chevron-down, .icon-envelope
@@ -169,7 +181,7 @@ a, a:hover, a:active, a:visited, a:focus
   .accordion-inner
     background-color: $grass-slight
 
-/* forms */
+// forms
 .event-accordion
   .accordion-toggle
     background-color: $ocean-medium
@@ -179,16 +191,17 @@ a, a:hover, a:active, a:visited, a:focus
         color: #FFF
         text-shadow: 1px 1px 1px $ocean-shadow
 
-.accordion-inner
-  background: rgb(255, 255, 255)
-  background: rgba(255, 255, 255, .45)
-  text-shadow: 1px 2px 1px #FFF
-  h3
-    font-size: 20px
-    margin-bottom: 20px
-    margin-top: 30px
-    padding-left: 20px
-    color: $silver-shadow
+#new_apprenticeship
+  .accordion-inner
+    background: rgb(255, 255, 255)
+    background: rgba(255, 255, 255, .45)
+    text-shadow: 1px 2px 1px #FFF
+    h3
+      font-size: 20px
+      margin-bottom: 20px
+      margin-top: 30px
+      padding-left: 20px
+      color: $silver-shadow
 
 .fancyform
   background: #EBEBEB
@@ -236,7 +249,7 @@ input[type="radio"], input[type="checkbox"]
   margin: -4px 0 0
 
 
-/* home */
+// home
 .carousel
   margin-bottom: 0px
 
@@ -268,14 +281,14 @@ input[type="radio"], input[type="checkbox"]
     text-shadow: 1px 1px 1px #000
 
 
-/* newsletter page */
+// newsletter page
 .indicates-required
   text-align: right
   font-size: 12px
 
 
 
-/* miscellaneous */
+// miscellaneous
 .debug_dump /* Hartl */
   clear: both
   float: left
@@ -283,7 +296,7 @@ input[type="radio"], input[type="checkbox"]
   margin-top: 45px
   @include box_sizing
 
-/* Required for jQuery Masonry */
+// Required for jQuery Masonry
 .box, .box_photo, .dragging
   margin: 5px
   padding: 5px
@@ -301,7 +314,10 @@ input[type="radio"], input[type="checkbox"]
     -webkit-border-radius: 5px
     -moz-border-radius: 5px
     border-radius: 5px
-
+    &.avatar
+      width: auto
+      float: right
+      +box-shadow-silver
 
 .box-small
   width: 135px
@@ -462,7 +478,7 @@ h1
     font-size: 25px
 
 .title-boxlink
-  font-size: 16px
+  font-size: 15px
   font-weight: bold
   text-transform: uppercase
 
@@ -471,11 +487,20 @@ h1
     .title-business
       display: none
   .box-details
-    padding: 10px 0
+    padding: 10px 5px
     font-size: 14px
     line-height: 20px
+    color: $silver-black
+    position: relative
     .btn-mini
       margin: 0 0 0 5px
+      position: absolute
+      top: -35px
+      right: 10px
+    .badge
+      margin-top: 5px
+    .date
+      font-weight: bold
   h1
     display: inline
   .alert
@@ -491,6 +516,10 @@ h1
         width: 10%
       .dates
         width: 20%
+  .bttn-call
+    &.kristi
+      font-size: 35px
+      margin: 10px 10px 0 0
 
 #workshop_show, #apprenticeship_show
   .box

@@ -12,7 +12,7 @@ module UsersHelper
   	if user.use_gravatar
   		gravatar_for(user, options)
   	else
-  		image_tag user.avatar.url(options[:tag])
+  		image_tag user.avatar.url(options[:tag]), options
   	end
   end
 end

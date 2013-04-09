@@ -12,12 +12,13 @@
     <br />
 
     <div class="span3 pull-left accordionFAQ">
-      <%= render 'faq' %>
+      <% if current_user == @app_signup.user %>
+        <%= render 'faq' %>
+      <% end %>
     </div>
 
     <div class="span9 pull-right">
       <% if @app_signup.accepted? && @app_signup.user == current_user %>
-        <h2></h2>
         <%= simple_form_for [@apprenticeship, @app_signup], class: 'form-horizontal', html: {class: "payment_form"}, :validate => true, defaults: { input_html: { class: 'span6' } }  do |f| %>
           <%= render 'confirm_form', f: f %>
           <%= f.submit "Confirm Apprenticeship", name: 'confirm_button', class: "btn btn-large btn-primary btn-create", id: "cc_process" %>
@@ -29,72 +30,74 @@
       <% end %>
     </div>
 
-    <div class="span11 well">
-      <table class="table table-striped table-bordered">
-        <thead>
-          <tr>
-            <th>Qestion</th>
-            <th>Answer</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Age</td>
-            <td><% unless @app_signup.user.age > @app_signup.event.age_max %>
-              <%= @app_signup.user.age %>
-              <% else %>
-              <%= @app_signup.daughter_age %>
-              <% end %>
-            </td>
-          </tr>
-          <tr>
-            <td>I'm truly happy when</td>
-            <td><%= @app_signup.happywhen %></td>
-          </tr>
-          <tr>
-            <td>I like working together on projects because</td>
-            <td><%= @app_signup.collaborate %></td>
-          </tr>
-          <tr>
-            <td>What’s most interesting to me about this apprenticeship is</td>
-            <td><%= @app_signup.interest %></td>
-          </tr>
-          <tr>
-            <td>Experience with tools and making</td>
-            <td><%= @app_signup.experience %></td>
-          </tr>
-          <tr>
-            <td>Display requirements rating</td>
-            <td> </td>
-          </tr>
-          <tr>
-            <td>Preferred meeting times</td>
-            <td><%= @app_signup.preferred_times %></td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="row-fluid">
+      <div class="span12 well">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Qestion</th>
+              <th>Answer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Age</td>
+              <td><% unless @app_signup.user.age > @app_signup.event.age_max %>
+                <%= @app_signup.user.age %>
+                <% else %>
+                <%= @app_signup.daughter_age %>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td>I'm truly happy when</td>
+              <td><%= @app_signup.happywhen %></td>
+            </tr>
+            <tr>
+              <td>I like working together on projects because</td>
+              <td><%= @app_signup.collaborate %></td>
+            </tr>
+            <tr>
+              <td>What’s most interesting to me about this apprenticeship is</td>
+              <td><%= @app_signup.interest %></td>
+            </tr>
+            <tr>
+              <td>Experience with tools and making</td>
+              <td><%= @app_signup.experience %></td>
+            </tr>
+            <tr>
+              <td>Display requirements rating</td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td>Preferred meeting times</td>
+              <td><%= @app_signup.preferred_times %></td>
+            </tr>
+          </tbody>
+        </table>
 
-      <p>
-        <% unless current_user.blank? %>
+        <p>
+          <% unless current_user.blank? %>
 
-          <% if @app_signup.started? && @app_signup.user == current_user %>
-           (<%= link_to "Resume", edit_app_signup_path(@app_signup) %>)
+            <% if @app_signup.started? && @app_signup.user == current_user %>
+             (<%= link_to "Resume", edit_app_signup_path(@app_signup) %>)
 
-          <% elsif @app_signup.pending? && @app_signup.user == current_user %>
-           (<%= link_to 'Delete', @app_signup, :method => :delete, :data => { :confirm => 'Are you sure you want to delete this application? Deleting cannot be undone.' } %>)
+            <% elsif @app_signup.pending? && @app_signup.user == current_user %>
+             (<%= link_to 'Delete', @app_signup, :method => :delete, :data => { :confirm => 'Are you sure you want to delete this application? Deleting cannot be undone.' } %>)
 
+            <% end %>
+          <% end %>
+        </p>
+
+        <% if current_user == @app_signup.event.user && @app_signup.pending? %>
+          <hr />
+          <h3>Makers, it's your call</h3>
+          <%= simple_form_for(@app_signup) do |f| %>
+            <%= f.submit "Decline this application", name: "decline_button", class: "btn btn-large btn-danger" %>
+            <%= f.submit "Accept this apprentice", name: "accept_button", class: "btn btn-large btn-success" %>
           <% end %>
         <% end %>
-      </p>
-
-      <% if current_user == @app_signup.event.user && @app_signup.pending? %>
-        <hr />
-        <h3>Makers, it's your call</h3>
-        <%= simple_form_for(@app_signup) do |f| %>
-          <%= f.submit "Decline this application", name: "decline_button", class: "btn btn-large btn-danger" %>
-          <%= f.submit "Accept this apprentice", name: "accept_button", class: "btn btn-large btn-success" %>
-        <% end %>
-      <% end %>
+      </div>
     </div>
   <% end %>
 <% end %>

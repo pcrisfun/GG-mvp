@@ -24,7 +24,10 @@
       .row-fluid
         .span4
           - if @apprenticeship.accepted?
-            - if current_user && current_user.age < @apprenticeship.age_min
+            - if current_user == @apprenticeship.user
+              = link_to "Apply!", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-block disabled"
+
+            - elsif current_user && current_user.age < @apprenticeship.age_min
               = link_to "Apply!", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-block disabled"
               %p
                 Sorry, it looks like you're younger than the minimum age for this apprenticeship.
