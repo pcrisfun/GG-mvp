@@ -1,9 +1,13 @@
-class Preregistrations < ActiveRecord::Base
+class Prereg < ActiveRecord::Base
+  extend ActiveModel::Naming
+  include ActiveModel::Conversion
+  include ActionView::Helpers::TextHelper
+  include Rails.application.routes.url_helpers
+  include ActionDispatch::Routing::UrlFor
 
   belongs_to :user
-  belongs_to :maker, :class_name => "User", :foreign_key => "maker_id"
   has_one :event
 
-  attr_accessible :maker_id, :event_id, :user_id
+  attr_accessible :event_id, :user_id
 
 end

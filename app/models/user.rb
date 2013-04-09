@@ -63,6 +63,9 @@ class User < ActiveRecord::Base
     write_attribute(:avatar, new_avatar)
   end
 
+  def preregistered?(event)
+    preregs.exists?(:event_id => event.id)
+  end
 
   private
 

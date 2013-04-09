@@ -4,7 +4,7 @@ GirlsGuild::Application.routes.draw do
   resources :app_signups
   resources :work_signups
 
-  resources :preregs, only: [:new, :create]
+  resources :preregs, only: [:create]
 
   devise_for :users, :admins
 

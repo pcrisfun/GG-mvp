@@ -1,0 +1,38 @@
+:javascript
+  $(function(){
+    $('#prereg-btn').click(function(){
+      $.ajax({
+        url: '#{preregs_url(:event_id => event.id)}',
+        type: 'POST',
+        dataType: 'json',
+        error: function(xhr, status, errorThrown) {
+          if (xhr.status == 401) {
+            // login modal
+          } else {
+            alert(status + ':' + errorThrown + ':' + xhr.status);
+          }
+        },
+        success: function() {
+          // disable button and change text
+          $('#prereg-btn').attr('disabled', 'disabled').removeClass('btn-warning').text('Preregistered');
+          // show confirmation modal
+          $('#prereg-confirm').modal('show');
+        }
+      });
+    });
+  });
+
+- if current_user && current_user.preregistered?(event)
+  %button.btn.btn-small{:disabled => "disabled"} Preregistered
+- else
+  %button#prereg-btn.btn.btn-small.btn-warning Keep me posted!
+
+#prereg-confirm.modal.hide.fade
+  .modal-header
+    %button{:type => "button", :class => "close", :"data-dismiss" => "modal", :"aria-hidden" => "true"} &times;
+    %h3 Header
+  .modal-body
+    %p
+      You are preregistered
+  .modal-footer
+    %a.btn.btn-primary{:href => "#", :"data-dismiss" => "modal", :"aria-hidden" => "true"} OK

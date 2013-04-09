@@ -36,15 +36,16 @@
                 Sorry, it looks like you're older than the maximum age for this apprenticeship.
               %br/
               %p
-                To be notified next time she's teaching: #{link_to "Pre-Register with #{@apprenticeship.host_firstname}", new_prereg_path, :class => "btn btn-block btn-small btn-warning"}
+                To be notified next time she's teaching:
+                = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
               %p
                 Wait! I'm a parent using my account to: #{link_to "Sign my Daughter Up", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-block btn-small btn-success"}
 
             - elsif current_user && @apprenticeship.already_applied?(current_user)
               = link_to "View your application", apprenticeship_app_signup_path(@apprenticeship, @apprenticeship.get_signup(current_user).id), :class => "btn btn-block"
 
-            - elsif @apprenticeship.datetime_tba == true || @apprenticeship.state == "filled" || @apprenticeship.state == "completed"
-              = link_to "I'm interested!", new_prereg_path, :class => "btn btn-block btn-small btn-warning"
+            - elsif @apprenticeship.datetime_tba == true || @apprenticeship.filled? || @apprenticeship.completed?
+              = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
 
             - else
               = link_to "Apply!", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-block btn-primary"
