@@ -14,6 +14,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .kristi {
   font-family: 'Kristi', Georgia, cursive;
+  font-weight: normal;
+  text-transform: none;
 }
 
 .dosis3 {

@@ -4,12 +4,18 @@
 
 		<h1>Workshop Builder</h1>
 		<br />
-		<br />
-		<p>To complete your listing we’ll need the details about the workshop and some images to show off your work. We'll also ask for your permission to run a background check (as part of our efforts to foster a safe community). When you've submitted the form, we'll review and post your workshop.</p>
-		<p>For more about how this works, check out our <a href="http://www.girlsguild.com/faq.html#LeadingWorkshop">FAQ</a> or email us if you have other questions - <a href="mailto:hello@girlsguild.com?Subject=Hello again">hello@girlsguild.com</a>.</p>
-		<br />
+		<!--<p>To complete your listing we’ll need the details about the workshop and some images to show off your work. We'll also ask for your permission to run a background check (as part of our efforts to foster a safe community). When you've submitted the form, we'll review and post your workshop.</p>
+		<p>For more about how this works, check out our <a href="http://www.girlsguild.com/faq.html#LeadingWorkshop">FAQ</a> or email us if you have other questions - <a href="mailto:hello@girlsguild.com?Subject=Hello again">hello@girlsguild.com</a>.</p>-->
 
-	  <div class="span9 offset1">
+		<div class="howitworks">
+      <%= render 'howitworks' %>
+    </div>
+
+    <div class="span3 pull-left accordionFAQ">
+      <%= render 'faq' %>
+    </div>
+
+	  <div class="span9 pull-right">
 	    <%= simple_form_for @workshop, class: 'form-horizontal', defaults: { input_html: { class: 'span6' } } do |f| %>
 	    	<%= render 'fields', f: f %>
 	      <%= f.submit "Save for Later", name:'save_button', class: "btn pull-right" %>

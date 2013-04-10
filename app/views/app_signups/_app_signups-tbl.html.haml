@@ -1,0 +1,44 @@
+%table.table.table-bordered.table-striped.table-hover.table-condensed
+  %thead
+    %tr
+      %th.image
+        Image
+      %th.title
+        Title
+      %th.spots
+        Spots Left
+      %th.ages
+        Ages
+      %th.dates
+        Date Range
+  %tbody
+    - app_signups.each do |app_signup|
+    - apprenticeship = app_signup.event
+      %tr
+        %td
+          - if apprenticeship && apprenticeship.host_album
+            - if apprenticeship.host_album.featured_photo
+              = render 'photos/photo', photo: apprenticeship.host_album.featured_photo, size: :thumb, url: url_for(apprenticeship)
+            - elsif apprenticeship.host_album.photos.first
+              = render 'photos/photo', photo: apprenticeship.host_album.photos.sort_by { |photo| photo.position(album_id: apprenticeship.host_album.id) }.first, size: :thumb, url: url_for(apprenticeship)
+            - else
+              %a{ href: url_for(edit_apprenticeship_path(apprenticeship)) }
+                %img.default-photo-thumb
+            - unless current_user.blank?
+              - if apprenticeship.user == current_user
+                - if apprenticeship.started?
+                  = link_to "Edit", edit_apprenticeship_path(apprenticeship), class: "btn btn-mini pull-right"
+                - elsif apprenticeship.accepted? or apprenticeship.canceled? or apprenticeship.filled?
+                  = link_to "Edit", edit_apprenticeship_path(apprenticeship), class: "btn btn-mini pull-right"
+        %td
+          = link_to apprenticeship.title_html, apprenticeship_path(apprenticeship), class: "title-boxlink"
+        %td
+          = apprenticeship.registration_max - apprenticeship.signups.where(:state => "confirmed").count
+        %td
+          = apprenticeship.age_min
+          &nbsp;-&nbsp;
+          = apprenticeship.age_max
+        %td
+          = apprenticeship.begins_at.strftime('%a, %b %d')
+          &nbsp;-&nbsp;
+          = apprenticeship.ends_at.strftime('%a, %b %d')

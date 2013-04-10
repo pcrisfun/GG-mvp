@@ -1,6 +1,5 @@
 <%= render 'shared/error_messages', :form_model => @app_signup %>
-
-<div class="accordion form-horizontal" id="accordion2">
+<div class="accordion form-horizontal event-accordion" id="accordion2">
 	<div class="accordion-group">
 	  <div class="accordion-heading">
 	  	<h2>
@@ -14,29 +13,24 @@
 	  	<div class="accordion-inner">
 	  		<br/>
 				<dl class="dl-horizontal dl-application">
-					<dt>Name:</dt>
+					<dt>Name</dt>
 					<dd><%= "#{current_user.first_name} #{current_user.last_name}" %></dd>
-
-					<dt>Email:</dt>
+					<dt>Email</dt>
 					<dd><%= "#{current_user.email}"%></dd>
-
-					<% if current_user.age > @apprenticeship.age_max %>
-						<dt>Your daughter's name</dt>
-						<%= f.input :daughter_firstname, 	label: "Daughter's First Name"  %>
-						<%= f.input :daughter_lastname, 	label: "Daughter's Last Name"  %>
-
-						<br/>
-						<%= f.label :daughter_age, capture { %>
-							<dt>Your daughter's age</dt>
-						<% } %>
-						<dd><%= f.number_field :daughter_age, :class => "span1" %> *She must be between <%= "#{@apprenticeship.age_min}" %> - <%= "#{@apprenticeship.age_max}" %> years old to be eligible for this apprenticeship.</dd>
-
-					<% else %>
-						<dt>Age:</dt>
-						<dd><%= current_user.age %> years old</dd>
-						<br />
-					<% end %>
 				</dl>
+
+				<% if current_user.age > @apprenticeship.age_max %>
+					<%= f.input :daughter_firstname, 	label: "Daughter's First Name"  %>
+					<%= f.input :daughter_lastname, 	label: "Daughter's Last Name"  %>
+					<%= f.input :daughter_age, label: "Daughter's Age" do %>
+						<%= f.number_field :daughter_age, :class => "span1" %> (She must be between <strong><%= "#{@apprenticeship.age_min}" %> - <%= "#{@apprenticeship.age_max}" %></strong> years old to do this apprenticeship.)
+					<% end %>
+				<% else %>
+					<dl class="dl-horizontal dl-application">
+						<dt>Age</dt>
+						<dd><%= current_user.age %> years old</dd>
+					</dl>
+				<% end %>
 
 				<p class="pull-right">Not you? <%= link_to "Sign in as a different user.", destroy_user_session_path %></p>
 				<br/>
@@ -127,14 +121,14 @@
 	  <div id="collapseThree" class="accordion-body collapse">
 	    <div class="accordion-inner">
 	    	<br />
-				<%= f.input :confirm_unpaid, label: '&nbsp;' do %>
+				<%= f.input :confirm_unpaid, label: 'Yes' do %>
 					<%= f.check_box :confirm_unpaid %>
 					<span class="simpleform-text">I understand that this is an unpaid apprenticeship. I agree that if accepted I will work with <%= "#{@apprenticeship.host_firstname}" %> in return for the chance to learn from her.</span>
 				<% end %>
 
-				<%= f.input :confirm_fee, label: '&nbsp;' do %>
+				<%= f.input :confirm_fee, label: 'Yes' do %>
 					<%= f.check_box :confirm_fee %>
-					<span class="simpleform-text">I agree that if accepted as an apprentice I will pay the $29 matching fee to GirlsGuild before being connected with <%= "#{@apprenticeship.host_firstname}" %> for the apprenticeship.</span>
+					<span class="simpleform-text">I agree that <strong>if accepted</strong> as an apprentice I will pay the <strong>$29</strong> matching fee to GirlsGuild before being connected with <%= "#{@apprenticeship.host_firstname}" %> for the apprenticeship.</span>
 				<% end %>
 				<br />
 			</div>

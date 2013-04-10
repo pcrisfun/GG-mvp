@@ -1,10 +1,4 @@
-/* mixins */
-@mixin box_sizing
-  -moz-box-sizing: border-box
-  -webkit-box-sizing: border-box
-  box-sizing: border-box
-
-/* variables */
+// variables
 $tangerine-light: #ffe6c5
 $tangerine-medium: #f9a83d
 $tangerine: #f99716
@@ -28,12 +22,12 @@ $ocean: #2092c1
 $ocean-shadow: #077ca0
 $ocean-black: #01404f
 
+$niceblue: #41B7D8
+
+$grass-slight: #F9FEEE
 $grass-light: #e8f7c9
 $grass-medium: #a9db3b
 $grass: #7dbc0f
-
-$niceblue: #41B7D8
-
 $grass-shadow: #70a005
 $grass-black: #3f5601
 
@@ -57,7 +51,28 @@ $alert-green: #DFF0D8
 $alert-blue: #D9EDF7
 
 
-/* universal */
+// mixins
+@mixin box_sizing
+  -moz-box-sizing: border-box
+  -webkit-box-sizing: border-box
+  box-sizing: border-box
+
+@mixin box-shadow($top, $left, $blur, $color, $inset:"")
+  -webkit-box-shadow: $top $left $blur $color #{$inset}
+  -moz-box-shadow: $top $left $blur $color #{$inset}
+  box-shadow: $top $left $blur $color #{$inset}
+
+@mixin box-shadow-silver
+  +box-shadow(1px, 1px, 3px, $silver-shadow)
+
+.box-shadow-silver
+  +box-shadow-silver
+
+// headers
+h2
+  color: $tangerine-black
+
+// universal
 a, a:hover, a:active, a:visited, a:focus
   outline: none
 
@@ -81,7 +96,7 @@ a, a:hover, a:active, a:visited, a:focus
   text-align: right
 
 
-/* buttons */
+// buttons
 .btn
   background-color: $silver-light
   background-image: none
@@ -104,7 +119,7 @@ a, a:hover, a:active, a:visited, a:focus
     padding: 2px 14px
 
 
-/* header */
+// header
 #masthead .brand
   background: url(gg-logo.png) no-repeat 0 0 transparent
   width: 110px
@@ -127,29 +142,7 @@ a, a:hover, a:active, a:visited, a:focus
     img
       margin-top: -5px
 
-
-/* side nav */
-.bs-docs-sidenav
-  .icon-chevron-down
-    float: right
-    margin-right: -6px
-    margin-top: 2px
-    opacity: 0.25
-
-.nav-list
-  .nav-header
-    font-size: 18px
-.nav-list > li > a:hover
-  background-color: $grass
-  color: #FFF
-  text-shadow: 1px 1px 1px $grass-shadow
-
-/* sidebar */
-.gravatar
-  float: left
-  margin-right: 10px
-
-/* footer */
+// footer
 #footer
   .kristi
     font-size: 28px
@@ -157,25 +150,60 @@ a, a:hover, a:active, a:visited, a:focus
     color: #999
     font-style: normal
 
-/* forms */
-.accordion-toggle
-  background-color: $ocean-medium
-.accordion-heading
-  h2
-    a
-      color: #FFF
-      text-shadow: 1px 1px 1px $ocean-shadow
+// sidebar
+.gravatar
+  float: left
+  margin-right: 10px
 
-.accordion-inner
-  background: rgb(255, 255, 255)
-  background: rgba(255, 255, 255, .45)
-  text-shadow: 1px 2px 1px #FFF
-  h3
-    font-size: 20px
-    margin-bottom: 20px
-    margin-top: 30px
-    padding-left: 20px
-    color: $silver-shadow
+// accordion nav
+.accordionFAQ
+  margin-left: 0px
+  .icon-chevron-down, .icon-envelope
+    float: right
+    margin: 5px -6px 0 0
+    opacity: 0.5
+  dt
+    font-weight: normal
+  .well
+    padding: 10px 0px
+    h3
+      padding-left: 10px
+      text-align: left
+      border-bottom: 0px
+      margin-bottom: 0px
+      box-shadow: none
+  .accordion-heading
+    border-top: 1px solid #EEE
+    a:hover
+      background-color: $grass
+      color: #FFF
+      text-shadow: 1px 1px 1px $grass-shadow
+  .accordion-inner
+    background-color: $grass-slight
+
+// forms
+.event-accordion
+  .accordion-toggle
+    background-color: $ocean-medium
+  .accordion-inner
+    background-color: #FFF
+  .accordion-heading
+    h2
+      a
+        color: #FFF
+        text-shadow: 1px 1px 1px $ocean-shadow
+
+#new_apprenticeship
+  .accordion-inner
+    background: rgb(255, 255, 255)
+    background: rgba(255, 255, 255, .45)
+    text-shadow: 1px 2px 1px #FFF
+    h3
+      font-size: 20px
+      margin-bottom: 20px
+      margin-top: 30px
+      padding-left: 20px
+      color: $silver-shadow
 
 .fancyform
   background: #EBEBEB
@@ -223,7 +251,7 @@ input[type="radio"], input[type="checkbox"]
   margin: -4px 0 0
 
 
-/* home */
+// home
 .carousel
   margin-bottom: 0px
 
@@ -255,14 +283,14 @@ input[type="radio"], input[type="checkbox"]
     text-shadow: 1px 1px 1px #000
 
 
-/* newsletter page */
+// newsletter page
 .indicates-required
   text-align: right
   font-size: 12px
 
 
 
-/* miscellaneous */
+// miscellaneous
 .debug_dump /* Hartl */
   clear: both
   float: left
@@ -270,7 +298,7 @@ input[type="radio"], input[type="checkbox"]
   margin-top: 45px
   @include box_sizing
 
-/* Required for jQuery Masonry */
+// Required for jQuery Masonry
 .box, .box_photo, .dragging
   margin: 5px
   padding: 5px
@@ -288,7 +316,11 @@ input[type="radio"], input[type="checkbox"]
     -webkit-border-radius: 5px
     -moz-border-radius: 5px
     border-radius: 5px
-
+    &.avatar
+      width: auto
+      float: right
+      margin-right: -5px
+      +box-shadow-silver
 
 .box-small
   width: 135px
@@ -424,29 +456,26 @@ input[type="radio"], input[type="checkbox"]
   margin-top: 0px
   dt
     text-align: right
-    width: 30px
+    /*width: 30px*/
     a
       padding: 3px
   dd
-    margin-left: 30px
+    /*margin-left: 30px*/
+
+#my_images_link
+  margin-top: 10px
 
 
 // Workshops & Apprenticeships
-h1
-  .title-topic
-
-  .title-name
-    text-transform: none
-    font-weight: normal
-    font-size: 25px
-
-  .title-business
-    text-transform: none
-    font-weight: normal
-    font-size: 25px
+.title-topic
+.title-name
+.title-business
+.with
+  text-transform: none
+  font-weight: normal
 
 .title-boxlink
-  font-size: 16px
+  font-size: 15px
   font-weight: bold
   text-transform: uppercase
 
@@ -455,13 +484,39 @@ h1
     .title-business
       display: none
   .box-details
-    padding: 10px 0
+    padding: 10px 5px
     font-size: 14px
     line-height: 20px
+    color: $silver-black
+    position: relative
     .btn-mini
       margin: 0 0 0 5px
+      position: absolute
+      top: -35px
+      right: 10px
+    .badge
+      margin-top: 5px
+    .date
+      font-weight: bold
   h1
     display: inline
+  .alert
+    table
+      background-color: #FFF
+      .image
+        width: 15%
+      .title
+        width: 35%
+      .spots
+        width: 10%
+      .ages
+        width: 10%
+      .dates
+        width: 20%
+  .bttn-call
+    &.kristi
+      font-size: 35px
+      margin: 10px 10px 0 0
 
 #workshop_show, #apprenticeship_show
   .box
@@ -482,14 +537,17 @@ h1
       text-align: center
 
 .default-photo-large
-  width: 400px
-  height: 300px
-  background-color: $niceblue
-
+  background-color: $silver-light
 .default-photo-medium
   width: 270px
   height: 270px
-  background-color: $niceblue
+  background-color: $silver-light
+.default-photo-thumb
+  width: 50px
+  height: 50px
+  background-color: $silver-light
+  display: inline-block
+
 
 // Event SignUps
 .dl-application
@@ -498,9 +556,14 @@ h1
     margin-right: 20px
 .dl-application-review
   dt
-    width: 550px
+    width: 250px
     margin-right: 20px
     font-weight: normal
+    white-space: normal
+    padding: 5px 0
+  dd
+    margin-left: 270px
+    padding: 5px 0
 
 .row-saved .box
   background-color: $alert-yellow
@@ -515,3 +578,10 @@ h1
 .row-upcoming .box
   background-color: $alert-blue
 
+// how it works
+.howitworks
+  padding: 30px 0px
+  i
+    text-shadow: 1px 1px 1px #000
+  .span4
+    border: none

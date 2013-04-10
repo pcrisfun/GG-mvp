@@ -6,29 +6,29 @@
       - elsif apprenticeship.host_album.photos.first
         = render 'photos/photo', photo: apprenticeship.host_album.photos.sort_by { |photo| photo.position(album_id: apprenticeship.host_album.id) }.first, size: :large, url: url_for(apprenticeship)
       - else
-        %a{ href: url_for(apprenticeship) }
-          %img.default-photo-large
+        %a{ href: url_for(edit_apprenticeship_path(apprenticeship)) }
+          %img.default-photo-large{ src: "/images/common/upload-photos-400px.jpg" }
     .box-details
       - unless current_user.blank?
         - if apprenticeship.user == current_user
           - if apprenticeship.started?
-            = link_to "Resume", edit_apprenticeship_path(apprenticeship), class: "btn btn-mini pull-right"
+            = link_to "Edit", edit_apprenticeship_path(apprenticeship), class: "btn btn-mini pull-right"
           - elsif apprenticeship.accepted?
             = link_to "Edit", edit_apprenticeship_path(apprenticeship), class: "btn btn-mini pull-right"
       = link_to apprenticeship.title_html, apprenticeship_path(apprenticeship), class: "title-boxlink"
       %br
-      Number of apprentices needed -
-      = apprenticeship.registration_min - apprenticeship.signups.where(:state => "confirmed").count
-      %br
       Ages
-      = apprenticeship.age_min
-      to
-      = apprenticeship.age_max
-      %br
-      - if apprenticeship.datetime_tba == "0"
-        From
-        = apprenticeship.begins_at.strftime('%A, %B %d')
+      %span.badge
+        = apprenticeship.age_min
         to
-        = apprenticeship.ends_at.strftime('%A, %B %d')
-      - else
-        Dates TBA
+        = apprenticeship.age_max
+      %br
+      %span.date
+        - if apprenticeship.datetime_tba == "0"
+          = apprenticeship.begins_at.strftime('%a, %b %d')
+          &nbsp;-&nbsp;
+          = apprenticeship.ends_at.strftime('%a, %b %d')
+        - else
+          Dates TBA
+      = avatar_for(apprenticeship.user, class: "avatar", size: 50, tag: 'medium')
+
