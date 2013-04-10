@@ -13,17 +13,19 @@ class ApprenticeshipsController < ApplicationController
       @mycanceled_apprenticeships = current_user.apprenticeships.find_all_by_state('canceled')
       @myfilled_apprenticeships = current_user.apprenticeships.find_all_by_state('filled')
       @mycompleted_apprenticeships = current_user.apprenticeships.find_all_by_state('completed')
+
       @allpending_apprenticeships = Apprenticeship.find_all_by_state('pending')
       @allsaved_apprenticeships = Apprenticeship.find_all_by_state('started')
       @allcanceled_apprenticeships = Apprenticeship.find_all_by_state('canceled')
       @allfilled_apprenticeships = Apprenticeship.find_all_by_state('filled')
       @allcompleted_apprenticeships = Apprenticeship.find_all_by_state('completed')
+
       @mysaved_app_signups = current_user.app_signups.find_all_by_state('started')
       @mypending_app_signups = current_user.app_signups.find_all_by_state('pending')
       @myactive_app_signups = current_user.app_signups.find_all_by_state('accepted')
       @mycanceled_app_signups = current_user.app_signups.find_all_by_state('canceled')
-      @myfilled_app_signups = current_user.app_signups.find_all_by_state('filled')
       @mycompleted_app_signups = current_user.app_signups.find_all_by_state('completed')
+      @myconfirmed_app_signups = current_user.app_signups.find_all_by_state('confirmed')
     end
   	@apprenticeships = Apprenticeship.find_all_by_state(['accepted','filled','completed'])
   end

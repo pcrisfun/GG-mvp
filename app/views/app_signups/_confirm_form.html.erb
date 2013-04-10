@@ -40,53 +40,43 @@
 
     <div id="collapseTwo" class="accordion-body collapse">
       <div class="accordion-inner">
-
         <br />
-        <h4>Phone number: *</h4>
+        <p>Phone Number (Work on this)</p>
         <%= text_field_tag "user[phone]", current_user.phone, :required => true, label: 'Phone Number' %>
         <br />
-
         <br />
-        <% if @apprenticeship.respect_my_style == "1" %>
-          <h4>I won't copy the artist's work *</h4>
-          <textarea rows="5">This is where I agree not to reuse an artist's style for my own profit. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
-          <div class="form-inline" >
-            <%= f.check_box :respect_agreement %>
-            <%= f.label :respect_agreement, capture { %>
-            <p>I have read and agree to respect the artist's style.</p>
-            <% } %>
-          </div>
-        <% end %>
-
         <% unless current_user.over_18 %>
-          <h3>The boring stuff</h3>
-          <p>Since you're under 18, you'll need to ask your parents to finish the rest of the form.</p>
+          <div class="alert">Since you're under 18, you'll need to ask your parents to finish the rest of the form.</div>
           <br />
 
-          <%= f.input :parent_name, label: "Parent's first name" %>
+          <%= f.input :parent_name, label: "Parent's name" %>
           <%= f.input :parent_phone, label: "Parent's phone" %>
           <%= f.input :parent_email, label: "Parent's email" %>
 
-
-          <h4>Indemnification Agreement for Minors *</h4>
-          <textarea rows="5">This is where the waiver goes to which you must agree to be able to sign up for the workshop. It will remove GirlsGuild from all liability as well as the artist involved in teaching. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
-          <div class="form-inline" >
+          <%= f.input :parents_waiver, label: "Indemnification Agreement for Minors" do %>
+            <textarea readonly="true" rows="3" class="span6">This is where the waiver goes to which you must agree to be able to sign up for the workshop. It will remove GirlsGuild from all liability as well as the artist involved in teaching. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
+            <br/>
             <%= f.check_box :parents_waiver %>
-            <%= f.label :parents_waiver, capture { %>
-            <p>I am the legal parent/guardian of the apprenticeship participant, and have read and agree to this indeminification agreement.</p>
-            <% } %>
-          </div>
+            <span class="simpleform-text"> I am the legal parent/guardian of the participant, and have read and agree to this indeminification agreement.</span>
+          <% end %>
         <% end %>
 
-        <h4>Apprenticeship Participation Waiver *</h4>
-        <textarea rows="5">This is where the waiver goes to which you must agree to be able to sign up for the workshop. It will remove GirlsGuild from all liability as well as the artist involved in teaching. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
-        <div class="form-inline" >
+        <%= f.input :waiver, label: "Participation Waiver" do %>
+          <textarea readonly="true" rows="3" class="span6">This is where the waiver goes to which you must agree to be able to sign up for the workshop. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
+          <br/>
           <%= f.check_box :waiver %>
-          <%= f.label :waiver, capture { %>
-          <p>I have read and agree to the apprenticeship participation waiver.</p>
-          <% } %>
-        </div>
-       </div>
+          <span class="simpleform-text"> I have read and agree to the apprenticeship participation waiver.</span>
+        <% end %>
+
+        <% if @apprenticeship.respect_my_style == "1" %>
+          <%= f.input :respect_agreement, label: "Style Agreement" do %>
+            <textarea readonly="true" rows="3" class="span6">This is where I agree not to reuse an artist's style for my own profit. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
+            <br/>
+            <%= f.check_box :respect_agreement %>
+            <span class="simpleform-text"> I have read and agree to respect the artist's style.</span>
+          <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 
@@ -102,10 +92,10 @@
     </div>
     <div id="collapseThree" class="accordion-body collapse">
       <div class="accordion-inner">
-
+        <br/>
         <h3>Apprenticeship fee: $29</h3>
+        <br/>
         <%= render :partial => "shared/credit_card", :locals => { :f => f, :paid => @app_signup.charge_id.present? } %>
-
         <br />
       </div>
     </div>

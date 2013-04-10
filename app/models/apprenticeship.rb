@@ -60,17 +60,6 @@ class Apprenticeship < Event
 		})
 		return true
 	end
-	def deliver_accept_artist
-		Pony.mail({
-			:to => "#{user.name}<#{user.email}>",
-   		:from => "Diana & Cheyenne<hello@girlsguild.com>",
-			:reply_to => "GirlsGuild<hello@girlsguild.com>",
-			:subject => "Your apprenticeship has been posted! - #{topic} with #{user.name}",
-			:html_body => %(<h1>Congrats #{user.first_name}!</h1> <p>Your apprenticeship has been posted and is now live! Check it out - <a href="#{url_for(self)}"> #{self.title}</a></p> <p>Be sure to invite your friends and share it on your social networks!</p>),
-			:bcc => "hello@girlsguild.com",
-		})
-		return true
-	end
 
 	def deliver_cancel
 		Pony.mail({

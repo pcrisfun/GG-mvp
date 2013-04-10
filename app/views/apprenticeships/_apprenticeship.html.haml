@@ -24,7 +24,7 @@
         = apprenticeship.age_max
       %br
       %span.date
-        = apprenticeship.begins_at.strftime('%a, %B %d')
+        = apprenticeship.begins_at.strftime('%a, %b %d')
         &nbsp;-&nbsp;
-        = apprenticeship.ends_at.strftime('%a, %B %d')
+        = apprenticeship.ends_at.strftime('%a, %b %d')
       = avatar_for(apprenticeship.user, class: "avatar", size: 50, tag: 'medium')

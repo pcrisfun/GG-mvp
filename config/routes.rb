@@ -1,7 +1,13 @@
 GirlsGuild::Application.routes.draw do
 
   resources :signups
-  resources :app_signups
+  resources :app_signups do
+    collection do
+      post :accept
+      post :decline
+      post :confirm
+    end
+  end
   resources :work_signups
 
   devise_for :users, :admins

@@ -40,7 +40,7 @@ class Event < ActiveRecord::Base
   end
 
   def title_html
-    "<span class='title-topic'>#{self.topic}</span> <span class='title-name'>with #{self.host_firstname} #{self.host_lastname}</span>".html_safe
+    "<span class='title-topic'>#{self.topic}</span> <span class='with'>with</span><span class='title-name'> #{self.host_firstname} #{self.host_lastname}</span>".html_safe
   end
 
   attr_accessible :stripe_card_token

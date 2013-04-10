@@ -20,7 +20,7 @@
                 %li.span4
                   .row-fluid
                     .span4.pull-center
-                      %i.icon-beaker.enormous-icon.circled.pull-center
+                      %i.icon-bolt.enormous-icon.circled.pull-center
                     .span8
                       %h3 Find a Maker
                       %p
@@ -28,7 +28,7 @@
                 %li.span4
                   .row-fluid
                     .span4.pull-center
-                      %i.icon-cloud.enormous-icon.circled.pull-center
+                      %i.icon-check.enormous-icon.circled.pull-center
                     .span8
                       %h3 Apply to Work
                       %p
@@ -36,7 +36,7 @@
                 %li.span4
                   .row-fluid
                     .span4.pull-center
-                      %i.icon-map-marker.enormous-icon.circled.pull-center
+                      %i.icon-heart.enormous-icon.circled.pull-center
                     .span8
                       %h3 Get Recognition
                       %p
@@ -88,6 +88,10 @@
             %h3 My Accepted Applications
             .row-fluid.row-filled
               = render :partial => "app_signups/app_signups-tbl", locals: {app_signups: @myaccepted_app_signups}
+          - unless @myconfirmed_app_signups.blank?
+            %h3 My Confirmed Apprenticeships
+            .row-fluid.row-completed
+              = render :partial => "app_signups/app_signups-tbl", locals: {app_signups: @myconfirmed_app_signups}
           - unless @mycompleted_app_signups.blank?
             %h3 My Completed Apprenticeships
             .row-fluid.row-completed
