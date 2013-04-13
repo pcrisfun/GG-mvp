@@ -6,18 +6,18 @@ class PreregsController < ApplicationController
   end
 
   def new
-
     @prereg = Prereg.new
   end
 
   def create
-    @prereg = Prereg.find_or_create_by_user_id_and_event_id(
+    prereg = Prereg.find_or_create_by_user_id_and_event_id!(
       :user_id => current_user.id,
       :event_id => params[:event_id])
 
-    respond_to do |format|
-      format.json { head :no_content }
-    end
+    flash[:info] = "Thanks! We'll send you an email next time #{prereg.event.host_firstname} is teaching."
+    redirect_to prereg.event.is_a?(Workshop) ?
+                    workshop_url(params[:event_id]) :
+                    apprenticeship_url(params[:event_id])
   end
 
   def destroy

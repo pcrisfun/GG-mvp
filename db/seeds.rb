@@ -42,7 +42,7 @@ diana.skip_confirmation!
 diana.admin = true
 diana.save!(validate: false)
 
-artist = User.new( first_name: "Jane",
+artist = User.new( first_name: "Martha",
                   last_name: "Smith",
                   birthday: "1980-08-08 17:00:00",
                   email: "artist@girlsguild.com",
@@ -75,14 +75,14 @@ kid = User.new( first_name: "Lil",
 kid.skip_confirmation!
 kid.save!(validate: false)
 
-first_workshop = artist.workshops.create!(  "host_firstname"=>"Jane",
+first_workshop = artist.workshops.create!(  "host_firstname"=>"Martha",
                                             "host_lastname"=>"Smith",
-                                            "host_business"=>"JS Designs",
+                                            "host_business"=>"MS Designs",
                                             "bio"=>"Vivamus ut accumsan nulla. Maecenas consequat vestibulum dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at purus urna. Sed adipiscing risus non elit molestie eget tempus massa porta. Ut in ligula elit. ",
-                                            "website"=>"jsdesigns.com",
-                                            "webshop"=>"shop.jsdesigns.com",
-                                            "facebook"=>"janesmith",
-                                            "twitter"=>"janesmith",
+                                            "website"=>"msdesigns.com",
+                                            "webshop"=>"shop.msdesigns.com",
+                                            "facebook"=>"marthasmith",
+                                            "twitter"=>"marthasmith",
                                             "topic"=>"Sculpture with Paper",
                                             "description"=>" Nam hendrerit eleifend tristique. Donec sed odio orci. Phasellus eu nibh eros, ut malesuada dui. Vestibulum ac convallis ante. Aliquam placerat aliquet mauris ac pellentesque. Suspendisse non turpis in erat fermentum sollicitudin sed ac lectus. Ut vitae bibendum quam. Pellentesque at dui sem. Ut vitae risus leo, at commodo risus. Nulla interdum molestie imperdiet. Nam ut gravida leo. Nunc sit amet nisl nibh, quis mattis mi. Fusce et pharetra mi. Mauris magna lectus, posuere in aliquam nec, sodales eget enim. Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
                                             "skill_list"=>"'sketching','critical analysis'",
@@ -116,14 +116,14 @@ first_workshop = artist.workshops.create!(  "host_firstname"=>"Jane",
                                             "permission"=>"1"
                                           )
 
-first_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Jane",
+first_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
                                                         "host_lastname"=>"Smith",
-                                                        "host_business"=>"JS Designs",
+                                                        "host_business"=>"MS Designs",
                                                         "bio"=>"Vivamus ut accumsan nulla. Maecenas consequat vestibulum dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at purus urna. Sed adipiscing risus non elit molestie eget tempus massa porta. Ut in ligula elit. ",
-                                                        "website"=>"jsdesigns.com",
-                                                        "webshop"=>"shop.jedesigns.com",
-                                                        "facebook"=>"janesmith",
-                                                        "twitter"=>"jane_smith",
+                                                        "website"=>"msdesigns.com",
+                                                        "webshop"=>"shop.msdesigns.com",
+                                                        "facebook"=>"marthasmith",
+                                                        "twitter"=>"martha_smith",
                                                         "topic"=>"Sculpture Creation",
                                                         "kind"=>"Production Apprenticeship",
                                                         "description"=>"Quisque in ligula id arcu fringilla gravida a vel purus. Etiam tempus hendrerit augue, vel luctus metus egestas quis. Morbi sit amet felis non purus rutrum adipiscing. Proin aliquet sapien at tellus hendrerit eget cursus orci cursus. Donec turpis sem, ullamcorper eget sodales non, vulputate nec dolor. Proin tortor metus, fringilla eget tristique eu, gravida nec mi. Quisque vitae quam magna, hendrerit sollicitudin metus. Nulla quis purus justo, eget porttitor turpis. Donec fringilla ullamcorper risus vitae lobortis. Sed vitae lacus neque, adipiscing eleifend nisl. Phasellus faucibus erat eget justo luctus consectetur. Curabitur sed venenatis nisi. Suspendisse potenti. ",

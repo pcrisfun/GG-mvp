@@ -29,7 +29,8 @@
                 Sorry, it looks like you're younger than the minimum age for this workshop.
               %br/
               %p
-                To be notified next time she's teaching: #{link_to "pre-register with #{@workshop.host_firstname}", new_prereg_path, :class => "btn btn-block btn-small btn-warning"}
+                Want to be notified next time #{@workshop.host_firstname}'s teaching?
+                = render :partial => "shared/prereg", :locals => {:event => @workshop}
 
             - elsif current_user && current_user.age > @workshop.age_max
               = link_to "Sign up!", new_workshop_work_signup_path(@workshop), :class => "btn btn-block disabled"
@@ -37,7 +38,8 @@
                 Sorry, it looks like you're older than the maximum age for this workshop.
               %br/
               %p
-                To be notified next time she's teaching: #{link_to "Pre-Register with #{@workshop.host_firstname}", new_prereg_path, :class => "btn btn-block btn-small btn-warning"}
+                Want to be notified next time #{@workshop.host_firstname}'s teaching?
+                = render :partial => "shared/prereg", :locals => {:event => @workshop}
               %p
                 Wait! I'm a parent using my account to #{link_to "sign my Daughter Up", new_workshop_work_signup_path(@workshop), :class => "btn btn-block btn-small btn-success"}
 
@@ -52,7 +54,7 @@
             %dd= simple_format(@workshop.description)
 
             %dt When
-            - if @workshop.datetime_tba == "0"
+            - if @workshop.datetime_tba == false
               %dd #{@workshop.begins_at.strftime('%A, %B %d')} from #{@workshop.begins_at_time.strftime('%I:%M%P')} to #{@workshop.ends_at_time.strftime('%I:%M%P')}
             - else
               %dd TBA - Pre-register to be notified when the date is set.

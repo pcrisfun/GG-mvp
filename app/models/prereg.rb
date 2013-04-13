@@ -6,7 +6,7 @@ class Prereg < ActiveRecord::Base
   include ActionDispatch::Routing::UrlFor
 
   belongs_to :user
-  has_one :event
+  belongs_to :event
 
   attr_accessible :event_id, :user_id
 

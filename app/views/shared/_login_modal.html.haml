@@ -1,0 +1,36 @@
+#login-modal.modal.hide.fade
+  .modal-header
+    %button{:type => "button", :class => "close", :"data-dismiss" => "modal", :"aria-hidden" => "true"} &times;
+    %h3 Thanks!
+  .modal-body
+    .container
+      .row
+        .span8.fancyform
+          = simple_form_for(User.new, :as => :user, :url => session_path(:user), :html => {:id => "login-form"}) do |f|
+            = f.input :email, :required => false, :autofocus => true
+            = f.input :password, :required => false
+            = f.input :remember_me, :as => :boolean
+  .modal-footer
+    %a.btn{:href => "#", :"data-dismiss" => "modal", :"aria-hidden" => "true"} Cancel
+    %a.btn.btn-primary{:href => "#"} Login
+
+:javascript
+  $('#login-modal .btn-primary').click(function(){
+    var form = $('#login-form');
+    $.ajax({
+      type: 'POST',
+      url: form.attr('action'),
+      dataType: 'html',
+      data: form.serialize(),
+      success: function(data) {
+        console.log("success: " + data);
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        //alert(jqXHR.responseText);
+        console.log("error textStatus: " + textStatus);
+        console.log("error errorThrown: " + errorThrown);
+        console.log("error response: " + jqXHR.responseText);
+      }
+    });
+    return false;
+  });

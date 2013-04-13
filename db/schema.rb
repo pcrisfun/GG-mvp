@@ -113,11 +113,12 @@ ActiveRecord::Schema.define(:version => 20130401043314) do
 
   create_table "preregs", :force => true do |t|
     t.integer  "event_id"
-    t.integer  "maker_id"
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "preregs", ["event_id", "user_id"], :name => "index_preregs_on_event_id_and_user_id", :unique => true
 
   create_table "signups", :force => true do |t|
     t.integer  "user_id"
