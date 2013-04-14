@@ -6,6 +6,7 @@ GirlsGuild::Application.routes.draw do
       post :accept
       post :decline
       post :confirm
+      post :cancel
     end
   end
   resources :work_signups
@@ -32,9 +33,6 @@ GirlsGuild::Application.routes.draw do
 
   resources :apprenticeships do
     resources :app_signups
-    collection do
-      post :cancel
-    end
   end
 
   resources :workshops do

@@ -24,7 +24,7 @@
         = apprenticeship.age_max
       %br
       %span.date
-        - if apprenticeship.datetime_tba == "0"
+        - if apprenticeship.datetime_tba == false
           = apprenticeship.begins_at.strftime('%a, %b %d')
           &nbsp;-&nbsp;
           = apprenticeship.ends_at.strftime('%a, %b %d')

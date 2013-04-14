@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   has_many :workshops
   has_many :signups
   has_many :app_signups
+  has_many :work_signups
   has_many :preregs
 
   has_one :gallery, :dependent => :destroy

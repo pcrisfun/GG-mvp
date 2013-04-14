@@ -21,10 +21,6 @@ class AppSignupsController < ApplicationController
 
   end
 
-  def save
-
-  end
-
   def create
     @apprenticeship = Apprenticeship.find(params[:apprenticeship_id])
     @app_signup = AppSignup.new(params[:app_signup])
@@ -100,6 +96,11 @@ class AppSignupsController < ApplicationController
 
     @app_signup.accept && @app_signup.deliver_accept && @app_signup.deliver_accept_maker
     redirect_to apprenticeships_path, :flash => { :success => "Apprenticeship accepted." }
+  end
+
+  def cancel
+    @app_signup.cancel
+    redirect_to apprenticeships_path, :flash => { :warning => "Your application has been canceled."}
   end
 
   def confirm
