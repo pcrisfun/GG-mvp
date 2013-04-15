@@ -14,6 +14,7 @@ class PreregsController < ApplicationController
       :user_id => current_user.id,
       :event_id => params[:event_id])
 
+    prereg.deliver_prereg
     flash[:info] = "Thanks! We'll send you an email next time #{prereg.event.host_firstname} is teaching."
     redirect_to prereg.event.is_a?(Workshop) ?
                     workshop_url(params[:event_id]) :

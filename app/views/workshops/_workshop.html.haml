@@ -29,7 +29,7 @@
         = workshop.age_max
       %br
       - if workshop.begins_at && workshop.begins_at_time && workshop.ends_at_time
-        - if workshop.datetime_tba == "0"
+        - if workshop.datetime_tba == false
           = workshop.begins_at.strftime('%A, %B %d')
           from
           = workshop.begins_at_time.strftime('%I:%M%P')

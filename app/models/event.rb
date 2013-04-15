@@ -129,7 +129,7 @@ class Event < ActiveRecord::Base
       end
 
       event :resubmit do
-        transition :accepted => :pending
+        transition all => :pending
       end
 
       event :cancel do
