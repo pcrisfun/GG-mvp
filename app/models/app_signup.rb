@@ -248,6 +248,48 @@ class AppSignup < Signup
     return true
   end
 
+  def deliver_reminder
+    return false unless valid?
+    Pony.mail({
+        :to => "#{user.name}<#{user.email}>, #{event.user.name}<#{event.user.email}>",
+        :from => "Diana & Cheyenne<hello@girlsguild.com>",
+        :reply_to => "GirlsGuild<hello@girlsguild.com>",
+        :subject => "Your apprenticeship is set to start soon! - #{self.event.title}",
+        :html_body => %(<h1>We're stoked you'll be working together soon!</h1> <p>Just a reminder that your apprenticeship should be starting in a few days (if you haven't connected already). (Fill out this email with more info)</p>),
+        :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_followup
+    return false unless valid?
+    Pony.mail({
+        :to => "#{user.name}<#{user.email}>, #{event.user.name}<#{event.user.email}>",
+        :from => "Diana & Cheyenne<hello@girlsguild.com>",
+        :reply_to => "GirlsGuild<hello@girlsguild.com>",
+        :subject => "How's it going? - #{self.event.title}",
+        :html_body => %(<h1>Hey #{user.first_name} & #{event.user.first_name}!</h1> <p>How's your apprenticeship going so far? (Fill out this email with more info)</p>),
+        :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def self.reminder
+    AppSignup.all.each do |app_signup|
+      if app_signup.confirmed? && (app_signup.event.begins_at) == (Date.today + 3.days)
+        app_signup.deliver_reminder
+      end
+    end
+  end
+
+  def self.followup
+    AppSignup.all.each do |app_signup|
+      if app_signup.confirmed? && (app_signup.event.begins_at) == (Date.today - 7.days)
+        app_signup.deliver_followup
+      end
+    end
+  end
+
   state_machine :state, :initial => :started do
     state :started do
     end

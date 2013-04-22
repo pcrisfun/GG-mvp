@@ -6,9 +6,12 @@ GirlsGuild::Application.routes.draw do
       post :accept
       post :decline
       post :confirm
+      post :cancel
     end
   end
   resources :work_signups
+
+  match '/preregs/create', to: 'preregs#create'
 
   devise_for :users, :admins
     #get 'users/avatar.:id' => 'devise/registrations#avatar'
@@ -32,9 +35,6 @@ GirlsGuild::Application.routes.draw do
 
   resources :apprenticeships do
     resources :app_signups
-    collection do
-      post :cancel
-    end
   end
 
   resources :workshops do

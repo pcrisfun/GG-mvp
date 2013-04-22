@@ -1,6 +1,7 @@
 class Apprenticeship < Event
 
 	has_many :users, :through => :signup
+	has_many :users, :through => :prereg
 
 	validates_presence_of :kind, :hours, :hours_per #, :charge_id (shouldn't need this bc we added 'update_attribute(:charge_id, charge.id)' to process_payment method)
 	validates_numericality_of :hours, :greater_than => 0

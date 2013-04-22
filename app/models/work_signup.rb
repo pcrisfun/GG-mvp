@@ -37,6 +37,69 @@ class WorkSignup < Signup
     return true
   end
 
+  def deliver_first_reminder
+    return false unless valid?
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Your workshop is coming up! - #{self.event.title}",
+      :html_body => %(<h1>Just a few days!</h1> <p>Just a reminder that you're signed up for #{self.event.title} on #{self.event.begins_at}. (Fill out this email with more info)</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_second_reminder
+    return false unless valid?
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Your workshop is tomorrow! - #{self.event.title}",
+      :html_body => %(<h1>Almost time!</h1> <p>Just a reminder that your workshop with #{self.event.user.name} is tomorrow. (Fill out this email with more info)</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_followup
+    return false unless valid?
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "How was your workshop? - #{self.event.title}",
+      :html_body => %(<h1>Hey #{user.first_name}!</h1> <p>What did you think of #{self.event.title}? (Fill out this email with more info)</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def self.first_reminder
+    WorkSignup.all.each do |work|
+      if (work.event.begins_at) == (Date.today + 3.days)
+        work.deliver_first_reminder
+      end
+    end
+  end
+
+  def self.second_reminder
+    WorkSignup.all.each do |work|
+      if (work.event.begins_at) == (Date.today + 1.day)
+        work.deliver_second_reminder
+      end
+    end
+  end
+
+  def self.followup
+    WorkSignup.all.each do |work|
+      if (work.event.begins_at) == (Date.today - 3.days)
+        work.deliver_followup
+      end
+    end
+  end
+
   state_machine :state, :initial => :started do
     event :complete do
       transition :confirmed => :completed

@@ -23,7 +23,7 @@
           <%= render 'confirm_form', f: f %>
           <%= f.hidden_field :id, value: @app_signup.id %>
           <%= f.submit "Confirm Apprenticeship", name: 'confirm_button', class: "btn btn-large btn-primary btn-create", id: "cc_process" %>
-          <%= link_to "Cancel application", @app_signup, :method => :cancel, :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you will not be able to resubmit it."} %>
+          <%= link_to "Cancel application", {controller: 'app_signups', action: 'cancel', :id => @app_signup.id}, :method => 'post', :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you will not be able to resubmit it."} %>
         <% end %>
 
         <hr />
@@ -36,7 +36,7 @@
         <table class="table table-striped table-bordered">
           <thead>
             <tr>
-              <th>Qestion</th>
+              <th>Question</th>
               <th>Answer</th>
             </tr>
           </thead>

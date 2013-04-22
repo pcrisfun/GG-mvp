@@ -28,7 +28,7 @@
                 = link_to "Add Images", {controller: :workshops, action: :workshop_album, id: workshop}, class: "btn btn-mini pull-right"
                 - if workshop.started?
                   = link_to "Resume", edit_workshop_path(workshop), class: "btn btn-mini pull-right"
-                - elsif workshop.accepted?
+                - elsif workshop.accepted? || workshop.canceled?
                   = link_to "Edit", edit_workshop_path(workshop), class: "btn btn-mini pull-right"
         %td
           = link_to workshop.title_html, workshop_path(workshop), class: "title-boxlink"

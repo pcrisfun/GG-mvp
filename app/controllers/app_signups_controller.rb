@@ -118,6 +118,11 @@ class AppSignupsController < ApplicationController
     redirect_to apprenticeships_path, :flash => { :success => "Apprenticeship accepted." }
   end
 
+  def cancel
+    @app_signup.cancel
+    redirect_to apprenticeships_path, :flash => { :warning => "Your application has been canceled."}
+  end
+
   def confirm
     #add phone? current_user.update_attributes(params[:user])
     if @app_signup.parent?

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130328160808) do
+ActiveRecord::Schema.define(:version => 20130401043314) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(:version => 20130328160808) do
     t.boolean  "datetime_tba",                                     :default => false
     t.string   "respect_my_style"
     t.boolean  "facilitate"
+    t.integer  "prereg_id"
   end
 
   create_table "galleries", :force => true do |t|
@@ -109,6 +110,15 @@ ActiveRecord::Schema.define(:version => 20130328160808) do
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
   end
+
+  create_table "preregs", :force => true do |t|
+    t.integer  "event_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "preregs", ["event_id", "user_id"], :name => "index_preregs_on_event_id_and_user_id", :unique => true
 
   create_table "signups", :force => true do |t|
     t.integer  "user_id"

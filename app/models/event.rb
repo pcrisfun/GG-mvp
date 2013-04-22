@@ -9,6 +9,7 @@ class Event < ActiveRecord::Base
   belongs_to :user
 
   has_many :signups, :dependent => :destroy
+  has_many :preregs
 
   has_one :host_album, :class_name => 'Album', :dependent => :destroy
 
@@ -85,7 +86,7 @@ class Event < ActiveRecord::Base
   end
 
   def tba_is_blank
-    !datetime_tba.blank?
+    datetime_tba.blank?
   end
 
   state_machine :state, :initial => :started do
@@ -128,14 +129,14 @@ class Event < ActiveRecord::Base
       end
 
       event :resubmit do
-        transition :accepted => :pending
+        transition all => :pending
       end
 
       event :cancel do
         transition all => :canceled
       end
 
-      event :filled do
+      event :fill do
         transition :accepted => :filled
       end
 
