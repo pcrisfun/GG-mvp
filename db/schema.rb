@@ -132,9 +132,10 @@ ActiveRecord::Schema.define(:version => 20130328160808) do
     t.string   "charge_id"
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
+    t.string   "parent"
     t.string   "daughter_firstname"
     t.string   "daughter_lastname"
-    t.string   "daughter_age"
+    t.integer  "daughter_age"
     t.string   "state",              :default => "started"
   end
 

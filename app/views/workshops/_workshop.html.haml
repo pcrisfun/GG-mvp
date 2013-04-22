@@ -24,10 +24,12 @@
       %br
       - if workshop.age_min && workshop.age_max
         Ages
-        = workshop.age_min
-        to
-        = workshop.age_max
+        %span.badge
+          = workshop.age_min
+          to
+          = workshop.age_max
       %br
+      %span.date
       - if workshop.begins_at && workshop.begins_at_time && workshop.ends_at_time
         = workshop.begins_at.strftime('%a, %b %d')
         from

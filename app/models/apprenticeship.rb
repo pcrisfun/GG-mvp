@@ -117,7 +117,7 @@ class Apprenticeship < Event
 	end
 
 	def already_applied?(user)
-    self.signups.where(:user_id => user).any?
+    self.signups.where(:user_id => user.id).any?
   end
 
   def get_signup(user)

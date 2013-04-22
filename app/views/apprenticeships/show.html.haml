@@ -24,35 +24,37 @@
       .row-fluid
         .span4
           - if @apprenticeship.accepted?
-            - if current_user == @apprenticeship.user
-              = link_to "Apply!", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-block disabled"
+            - if current_user && @apprenticeship.already_applied?(current_user)
+              = link_to "View your application", apprenticeship_app_signup_path(@apprenticeship, @apprenticeship.get_signup(current_user).id), :class => "btn"
+              %br/
+              %br/
+              = link_to "Sign Another Daughter Up", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-small btn-success"
+            - elsif current_user == @apprenticeship.user
+              = link_to "Apply!", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn disabled"
 
             - elsif current_user && current_user.age < @apprenticeship.age_min
-              = link_to "Apply!", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-block disabled"
+              = link_to "Apply!", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn disabled"
               %p
                 Sorry, it looks like you're younger than the minimum age for this apprenticeship.
               %br/
               %p
-                To be notified next time she's teaching: #{link_to "Pre-register with #{@apprenticeship.host_firstname}", apprenticeships_path, :class => "btn btn-block btn-small btn-warning"}
+                To be notified next time she's teaching: #{link_to "Pre-register with #{@apprenticeship.host_firstname}", apprenticeships_path, :class => "btn btn-small btn-warning"}
 
             - elsif current_user && current_user.age > @apprenticeship.age_max
-              = link_to "Apply!", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-block disabled"
+              = link_to "Apply!", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn disabled"
               %p
                 Sorry, it looks like you're older than the maximum age for this apprenticeship.
               %br/
               %p
-                To be notified next time she's teaching: #{link_to "Pre-Register with #{@apprenticeship.host_firstname}", apprenticeships_path, :class => "btn btn-block btn-small btn-warning"}
+                Wait! I'm a parent using my account to: #{link_to "Sign my Daughter Up", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-small btn-success"}
               %p
-                Wait! I'm a parent using my account to: #{link_to "Sign my Daughter Up", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-block btn-small btn-success"}
-
-            - elsif current_user && @apprenticeship.already_applied?(current_user)
-              = link_to "View your application", apprenticeship_app_signup_path(@apprenticeship, @apprenticeship.get_signup(current_user).id), :class => "btn btn-block"
+                To be notified next time she's teaching: #{link_to "Pre-Register with #{@apprenticeship.host_firstname}", apprenticeships_path, :class => "btn btn-small btn-warning"}
 
             - elsif @apprenticeship.datetime_tba == "1" || @apprenticeship.filled? || @apprenticeship.completed?
-              = link_to "Pre-Register", apprenticeships_path, :class => "btn btn-block btn-small btn-warning"
+              = link_to "Pre-Register", apprenticeships_path, :class => "btn btn-small btn-warning"
 
             - else
-              = link_to "Apply!", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-block btn-primary"
+              = link_to "Apply!", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-primary"
 
         .span8
           %dl.dl-horizontal

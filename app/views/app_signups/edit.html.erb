@@ -8,8 +8,8 @@
       <%= render 'faq' %>
     </div>
 
-    <div class="span6 pull-right">
-      <%= form_for [@apprenticeship, @app_signup], html: {class: "payment_form"} do |f| %>
+    <div class="span9 pull-right">
+      <%= simple_form_for [@apprenticeship, @app_signup], class: 'form-horizontal', html: {class: "payment_form"}, :validate => false, defaults: { input_html: { class: 'span6' } }  do |f| %>
 
         <%= render 'form', f: f %>
 

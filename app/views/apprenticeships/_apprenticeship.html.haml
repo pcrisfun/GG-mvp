@@ -16,7 +16,7 @@
           - elsif apprenticeship.accepted?
             = link_to "Edit", edit_apprenticeship_path(apprenticeship), class: "btn btn-mini pull-right"
       = link_to apprenticeship.title_html, apprenticeship_path(apprenticeship), class: "title-boxlink"
-      %br
+
       Ages
       %span.badge
         = apprenticeship.age_min

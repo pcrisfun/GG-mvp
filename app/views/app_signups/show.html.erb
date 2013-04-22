@@ -1,4 +1,4 @@
-<%= content_tag :section, :class => "section alt" do %>
+<%= content_tag :section, :class => "section alt", :id => 'apply' do %>
   <%= content_tag :div, :class => "container" do %>
     <% provide(:title, "Application for Apprenticeship") %>
 
@@ -81,10 +81,10 @@
           <% unless current_user.blank? %>
 
             <% if @app_signup.started? && @app_signup.user == current_user %>
-             (<%= link_to "Resume", edit_app_signup_path(@app_signup) %>)
+              <%= link_to 'Resume', edit_app_signup_path(@app_signup), class: "btn btn-large btn-warning" %>
 
             <% elsif @app_signup.pending? && @app_signup.user == current_user %>
-             (<%= link_to 'Delete', @app_signup, :method => :delete, :data => { :confirm => 'Are you sure you want to delete this application? Deleting cannot be undone.' } %>)
+              <%= link_to 'Delete', @app_signup, :method => :delete, class: "btn btn-large btn-danger", :data => { :confirm => 'Are you sure you want to delete this application? Deleting cannot be undone.' } %>
 
             <% end %>
           <% end %>

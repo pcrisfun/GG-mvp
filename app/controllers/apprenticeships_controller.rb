@@ -22,7 +22,7 @@ class ApprenticeshipsController < ApplicationController
 
       @mysaved_app_signups = current_user.app_signups.find_all_by_state('started')
       @mypending_app_signups = current_user.app_signups.find_all_by_state('pending')
-      @myactive_app_signups = current_user.app_signups.find_all_by_state('accepted')
+      @myaccepted_app_signups = current_user.app_signups.find_all_by_state('accepted')
       @mycanceled_app_signups = current_user.app_signups.find_all_by_state('canceled')
       @mycompleted_app_signups = current_user.app_signups.find_all_by_state('completed')
       @myconfirmed_app_signups = current_user.app_signups.find_all_by_state('confirmed')

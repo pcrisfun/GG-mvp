@@ -3,13 +3,13 @@
 	<div class="accordion-group">
 	  <div class="accordion-heading">
 	  	<h2>
-				<a class="accordion-toggle" data-toggle="collapse" href="#collapseOne">
+				<a class="accordion-toggle" >
 		      1. My Details
 		    </a>
 		  </h2>
 	  </div>
 
-	  <div id="collapseOne" class="accordion-body collapse" style="height: 0px; ">
+	  <div class="accordion-body ">
 	  	<div class="accordion-inner">
 	  		<br/>
 				<dl class="dl-horizontal dl-application">
@@ -20,6 +20,7 @@
 				</dl>
 
 				<% if current_user.age > @apprenticeship.age_max %>
+					<%= f.hidden_field :parent, value: 'true' %>
 					<%= f.input :daughter_firstname, 	label: "Daughter's First Name"  %>
 					<%= f.input :daughter_lastname, 	label: "Daughter's Last Name"  %>
 					<%= f.input :daughter_age, label: "Daughter's Age" do %>
@@ -43,13 +44,13 @@
 	<div class="accordion-group">
 	  <div class="accordion-heading">
 	  	<h2>
-		    <a class="accordion-toggle" data-toggle="collapse" href="#collapseTwo">
+		    <a class="accordion-toggle" >
 		      2. About Me
 		    </a>
 		   </h2>
 	  </div>
 
-	  <div id="collapseTwo" class="accordion-body collapse">
+	  <div class="accordion-body ">
 	    <div class="accordion-inner">
 
 				<br />
@@ -113,12 +114,12 @@
 	<div class="accordion-group">
 	  <div class="accordion-heading">
 	  	<h2>
-		    <a class="accordion-toggle" data-toggle="collapse" href="#collapseThree">
+		    <a class="accordion-toggle">
 		      3. Things to Note
 		    </a>
 		  </h2>
 	  </div>
-	  <div id="collapseThree" class="accordion-body collapse">
+	  <div class="accordion-body ">
 	    <div class="accordion-inner">
 	    	<br />
 				<%= f.input :confirm_unpaid, label: 'Yes' do %>

@@ -31,13 +31,13 @@ class Signup < ActiveRecord::Base
     end
 
     state :confirmed do
-
     end
 
     state :completed do
     end
 
-    event :signup do
+
+    event :signup do #This is when someone submits a workshop signup
       transition :started => :confirmed
     end
 

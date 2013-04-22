@@ -3,6 +3,6 @@ class AddParentToSignup < ActiveRecord::Migration
     add_column :signups, :parent, :string
     add_column :signups, :daughter_firstname, :string
     add_column :signups, :daughter_lastname, :string
-    add_column :signups, :daughter_age, :string
+    add_column :signups, :daughter_age, :integer
   end
 end

@@ -1,4 +1,4 @@
-// variables
+// Variables
 $tangerine-light: #ffe6c5
 $tangerine-medium: #f9a83d
 $tangerine: #f99716
@@ -50,8 +50,10 @@ $alert-red: #F2DEDE
 $alert-green: #DFF0D8
 $alert-blue: #D9EDF7
 
+$radius: 5px
 
-// mixins
+
+// Mixins
 @mixin box_sizing
   -moz-box-sizing: border-box
   -webkit-box-sizing: border-box
@@ -61,20 +63,45 @@ $alert-blue: #D9EDF7
   -webkit-box-shadow: $top $left $blur $color #{$inset}
   -moz-box-shadow: $top $left $blur $color #{$inset}
   box-shadow: $top $left $blur $color #{$inset}
-
 @mixin box-shadow-silver
   +box-shadow(1px, 1px, 3px, $silver-shadow)
-
 .box-shadow-silver
   +box-shadow-silver
 
-// headers
+@mixin roundcorners($radius: 5px)
+  -moz-border-radius: $radius // firefox
+  -webkit-border-radius: $radius // safari/chrome
+  border-radius: $radius // CSS3, works in IE9
+.rounded
+  +roundcorners(5px)
+
+
+// Layout
+.alt-grey
+  background-color: #EFEFEF
+  .nav
+    background-color: #FFF
+    overflow: hidden
+    +roundcorners
+    +box-shadow-silver
+    li
+      padding: 10px 0 5px
+      margin: 0px
+      font-size: 16px
+      color: $silver
+      line-height: 22px
+
+// Headers
 h2
   color: $tangerine-black
 
-// universal
+
+// Universal
 a, a:hover, a:active, a:visited, a:focus
   outline: none
+
+.inline-block
+  display: inline-block
 
 .relative
   position: relative
@@ -96,7 +123,7 @@ a, a:hover, a:active, a:visited, a:focus
   text-align: right
 
 
-// buttons
+// Buttons
 .btn
   background-color: $silver-light
   background-image: none
@@ -119,7 +146,7 @@ a, a:hover, a:active, a:visited, a:focus
     padding: 2px 14px
 
 
-// header
+// Header
 #masthead .brand
   background: url(gg-logo.png) no-repeat 0 0 transparent
   width: 110px
@@ -142,7 +169,7 @@ a, a:hover, a:active, a:visited, a:focus
     img
       margin-top: -5px
 
-// footer
+// Footer
 #footer
   .kristi
     font-size: 28px
@@ -150,12 +177,12 @@ a, a:hover, a:active, a:visited, a:focus
     color: #999
     font-style: normal
 
-// sidebar
+// Sidebar
 .gravatar
   float: left
   margin-right: 10px
 
-// accordion nav
+// Accordion Nav
 .accordionFAQ
   margin-left: 0px
   .icon-chevron-down, .icon-envelope
@@ -181,7 +208,7 @@ a, a:hover, a:active, a:visited, a:focus
   .accordion-inner
     background-color: $grass-slight
 
-// forms
+// Forms
 .event-accordion
   .accordion-toggle
     background-color: $ocean-medium
@@ -205,14 +232,18 @@ a, a:hover, a:active, a:visited, a:focus
       padding-left: 20px
       color: $silver-shadow
 
-.fancyform
+.fancyform, .fancyform-light
   background: #EBEBEB
   border: 1px solid #D3D3D3
   padding: 30px
   margin-bottom: 30px
+  +roundcorners
+  +box-shadow-silver
   hr
     border-color: #DDD
     border-width: 0px 0px 1px 0px
+.fancyform-light
+  background: $silver-bright
 
 .form-horizontal
   color: $silver-black
@@ -220,10 +251,30 @@ a, a:hover, a:active, a:visited, a:focus
     width: 170px
   .controls
     margin-left: 190px
+    .help-block
+      margin-top: 0px
+      color: $silver-shadow
   .btn-create
     text-align: center
     margin: 0 auto
     display: block
+
+#admin
+  .fancyform-light
+    padding: 30px 0px 0px 0px
+    .control-group
+      padding: 30px
+      margin-bottom: 0px
+      border-bottom: 1px solid #DDD
+    form
+      margin-bottom: 0px
+    .form-actions
+      border-top: none
+      margin: 0px
+      padding-left: 220px
+      padding-right: 40px
+      background-color: $silver-light
+      +roundcorners
 
 .control-group
   .radio_buttons
@@ -250,8 +301,12 @@ ul.token-input-list-facebook
 input[type="radio"], input[type="checkbox"]
   margin: -4px 0 0
 
+.help-block
+  font-size: 13px
+  margin-top: -10px
 
-// home
+
+// Home
 .carousel
   margin-bottom: 0px
 
@@ -283,20 +338,11 @@ input[type="radio"], input[type="checkbox"]
     text-shadow: 1px 1px 1px #000
 
 
-// newsletter page
+// Newsletter page
 .indicates-required
   text-align: right
   font-size: 12px
 
-
-
-// miscellaneous
-.debug_dump /* Hartl */
-  clear: both
-  float: left
-  width: 100%
-  margin-top: 45px
-  @include box_sizing
 
 // Required for jQuery Masonry
 .box, .box_photo, .dragging
@@ -320,6 +366,7 @@ input[type="radio"], input[type="checkbox"]
       width: auto
       float: right
       margin-right: -5px
+      margin-top: -20px
       +box-shadow-silver
 
 .box-small
@@ -475,9 +522,12 @@ input[type="radio"], input[type="checkbox"]
   font-weight: normal
 
 .title-boxlink
-  font-size: 15px
+  font-size: 17px
   font-weight: bold
   text-transform: uppercase
+  height: 44px
+  overflow: hidden
+  display: block
 
 #workshops-index, #apprenticeships-index
   .box
@@ -549,7 +599,11 @@ input[type="radio"], input[type="checkbox"]
   display: inline-block
 
 
-// Event SignUps
+// SignUps
+#apply
+  h2
+    text-transform: none
+    font-weight: 600
 .dl-application
   dt
     width: 170px
@@ -578,10 +632,19 @@ input[type="radio"], input[type="checkbox"]
 .row-upcoming .box
   background-color: $alert-blue
 
-// how it works
+// How it works
 .howitworks
   padding: 30px 0px
   i
     text-shadow: 1px 1px 1px #000
   .span4
     border: none
+
+
+// Miscellaneous
+.debug_dump /* Hartl */
+  clear: both
+  float: left
+  width: 100%
+  margin-top: 45px
+  @include box_sizing
