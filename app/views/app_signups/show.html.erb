@@ -2,7 +2,7 @@
   <%= content_tag :div, :class => "container" do %>
     <% provide(:title, "Application for Apprenticeship") %>
 
-    <h1>Confirm Your Apprenticeship</h1>
+    <h1>Apprenticeship Application</h1>
     <br />
     <h2><%= @app_signup.event.kind %> in <%= @app_signup.event.topic %> with <%= @app_signup.event.host_firstname %> <%= @app_signup.event.host_lastname %>
         <% unless @app_signup.event.host_business.blank? %>

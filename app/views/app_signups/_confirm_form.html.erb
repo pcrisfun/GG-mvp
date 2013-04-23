@@ -13,12 +13,21 @@
       <div class="accordion-inner">
         <br/>
         <dl class="dl-horizontal dl-application">
-          <dt>Name</dt>
-          <dd><%= "#{current_user.first_name} #{current_user.last_name}" %></dd>
-          <dt>Email</dt>
-          <dd><%= "#{current_user.email}"%></dd>
-          <dt>Age</dt>
-          <dd><%= current_user.age %> years old</dd>
+          <% unless @app_signup.parent? %>
+            <dt>Name</dt>
+            <dd><%= "#{current_user.first_name} #{current_user.last_name}" %></dd>
+            <dt>Email</dt>
+            <dd><%= "#{current_user.email}"%></dd>
+            <dt>Age</dt>
+            <dd><%= current_user.age %> years old</dd>
+          <% else %>
+            <dt>Apprentice's Name</dt>
+            <dd><%= "#{@app_signup.daughter_firstname} #{@app_signup.daughter_lastname}" %></dd>
+            <dt>Apprentice's Age</dt>
+            <dd><%= "#{@app_signup.daughter_age}" %></dd>
+            <dt>Contact Email</dt>
+            <dd><%= "#{current_user.email}"%></dd>
+          <% end %>
         </dl>
 
         <p class="pull-right">Not you? <%= link_to "Sign in as a different user.", destroy_user_session_path %></p>
