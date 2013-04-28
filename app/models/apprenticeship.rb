@@ -24,9 +24,10 @@ class Apprenticeship < Event
 		return true
 	end
 
-	def deliver
+	def deliver(opts={})
 		return false unless valid?
-		Pony.mail({
+    payment = opts[:payment]
+    Pony.mail({
 			:to => "#{user.name}<#{user.email}>",
    		:from => "Diana & Cheyenne<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",

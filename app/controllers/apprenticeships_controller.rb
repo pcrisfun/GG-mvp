@@ -103,7 +103,7 @@ class ApprenticeshipsController < ApplicationController
           redirect_to apprenticeships_path, :flash => { :warning => "Rats. Your apprenticeship has been canceled."}
 
         elsif @apprenticeship.process_payment
-          if @apprenticeship.submit && @apprenticeship.deliver
+          if @apprenticeship.submit
             redirect_to apprenticeships_path, :flash => {:success => "Baller! Your apprenticeship was submitted!" }
           else
             flash[:warning] = "Whoops! Your apprenticeship submission is missing some info. Please check all fields."

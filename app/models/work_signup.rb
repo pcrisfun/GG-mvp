@@ -24,14 +24,18 @@ class WorkSignup < Signup
     false
   end
 
-  def deliver
+  def deliver_confirm(opts={})
     return false unless valid?
+
+    payment = opts[:payment]
+
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
           :from => "GirlsGuild<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You signed up for #{event.topic} with #{event.host_firstname} #{event.host_lastname}",
-      :html_body => %(<h1>Yay #{user.first_name}!</h1> <p>You're all signed up for <a href="#{url_for(self.event)}">#{event.title}</a>. (Fill out this email with more info like: where -- link to map, when, contact info for questions, what to be prepared for, what to bring, cancellation policy, the fact that we'll send a text reminder the day before and link to change her phone number. )</p>),
+      :html_body => %(<h1>Yay #{user.first_name}!</h1> <p>You're all signed up for <a href="#{url_for(self.event)}">#{event.title}</a>. (Fill out this email with more info like: where -- link to map, when, contact info for questions, what to be prepared for, what to bring, cancellation policy, the fact that we'll send a text reminder the day before and link to change her phone number. )</p>
+    <p>You paid: #{sprintf('$%0.2f', payment.amount.to_f / 100.0)}</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
