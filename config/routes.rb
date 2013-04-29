@@ -35,7 +35,14 @@ GirlsGuild::Application.routes.draw do
 
   resources :apprenticeships do
     resources :app_signups
+    collection do
+      post :cancel
+      get :info
+    end
   end
+  match 'apprenticeships/:id/private' => 'apprenticeships#private', as: :private_apprenticeship
+  match 'apprenticeships/:id/payment' => 'apprenticeships#payment', as: :payment_apprenticeship
+  match 'apprenticeships/:id/confirmation' => 'apprenticeships#payment_confirmation', as: :payment_confirmation_apprenticeship
 
   resources :workshops do
     resources :work_signups
@@ -54,6 +61,8 @@ GirlsGuild::Application.routes.draw do
   end
 
   root to: 'static_pages#home'
+
+  match '/stripe/webhook', to: 'stripe#webhook'
 
   match '/faq', to: 'static_pages#faq'
   match '/about', to: 'static_pages#about'

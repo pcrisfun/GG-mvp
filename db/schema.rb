@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130401043314) do
+ActiveRecord::Schema.define(:version => 20130428221021) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20130401043314) do
     t.integer  "event_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "limit"
   end
 
   create_table "events", :force => true do |t|
@@ -91,7 +92,10 @@ ActiveRecord::Schema.define(:version => 20130401043314) do
     t.string   "respect_my_style"
     t.boolean  "facilitate"
     t.integer  "prereg_id"
+    t.boolean  "gender",                                           :default => false
   end
+
+  add_index "events", ["charge_id"], :name => "index_events_on_charge_id"
 
   create_table "galleries", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -148,6 +152,8 @@ ActiveRecord::Schema.define(:version => 20130401043314) do
     t.integer  "daughter_age"
     t.string   "state",              :default => "started"
   end
+
+  add_index "signups", ["charge_id"], :name => "index_signups_on_charge_id"
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"

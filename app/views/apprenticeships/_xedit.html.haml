@@ -1,0 +1,255 @@
+- show = (params[:action] == 'show')
+
+#public
+  #msg.alert.hide
+  %section.section
+    .container
+      - unless show
+        %h1#page-header Design your Apprenticeship
+        #top-buttons
+          %ul.nav.nav-pills
+            %li.active
+              = link_to '1. Design', '#'
+            %li
+              = link_to '2. Private Info', '#'
+            %li
+              = link_to '3. Payment', '#'
+
+      #top
+        .row-fluid
+          - unless show
+            .pull-right
+              #preview-buttons-top
+                = link_to 'Preview', apprenticeship_path(@apprenticeship), id: 'preview-btn', class: 'btn', target: '_blank'
+          #banner
+            #avatar.field
+              - if !show
+                = link_to(avatar_for(current_user, size: 50, tag: :medium), edit_user_registration_path(current_user), id: 'avatar-edit', target: '_blank', confirm: 'Would you like to change your avatar?')
+              - else
+                = avatar_for(@apprenticeship.user, size: 50, tag: :medium)
+
+            %br
+            #title.field.text
+              = editable_link_to 'Topic of Your Apprenticeship', field: :topic, resource: @apprenticeship, type: :text
+            %br
+            with
+            #first-name.field.text
+              = editable_link_to 'Your First Name', field: :host_firstname, resource: @apprenticeship, type: :text
+            #last-name.field.text
+              = editable_link_to 'Your Last Name', field: :host_lastname, resource: @apprenticeship, type: :text
+            - if !show || @apprenticeship.host_business
+              of
+              #business.field.text.optional
+                = editable_link_to 'Your Business', field: :host_business, resource: @apprenticeship, type: :text
+            %br
+            #kind.field.label.label-info
+              = editable_link_to 'Type of Apprenticeship', field: :kind, resource: @apprenticeship, type: :select, data: {source: "{'Event':'Event', 'Production':'Production','Ongoing':'Ongoing' }"}
+            %br
+            #description.field.textarea
+              = editable_link_to "Tell us about your apprenticeship. Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. Based on your expectations, consider whether you plan to pay the apprentice, and if so, how much? (Make this a WYSIWYG?)", field: :description, resource: @apprenticeship, type: :textarea
+
+= render 'host_album', show: show
+
+%section.section
+  .container
+    #bottom
+      .row-fluid
+        %span#details.pull-left
+          %dl.dl-horizontal
+            %dt
+              When
+            %dd
+              - if !show || @apprenticeship.datetime_tba
+                #tba.field.checkbox.optional
+                  = editable_link_to "Date Options", field: :datetime_tba, resource: @apprenticeship, type: :select, link_text: @apprenticeship.datetime_tba ? "TBA" : "Schedule",  data: { source: '{false : "Schedule", true : "TBA"}'}
+              - if !show || !@apprenticeship.datetime_tba
+                #from{class: (show || @apprenticeship.datetime_tba) ?  'hidden' : '' }
+                  this Apprenticeship from
+                #dates{class: @apprenticeship.datetime_tba ?  'hidden' : '' }
+                  #begins-at.field.combodate.optional
+                    = editable_link_to "Starting date", field: :begins_at, resource: @apprenticeship, type: :combodate, link_text: get_formated_date(@apprenticeship.begins_at), data: { viewformat: 'MMMM D, YYYY', template: 'MMMM / D / YYYY'}
+                  to
+                  #ends-at.field.combodate.optional
+                    = editable_link_to "Ending date", field: :ends_at, resource: @apprenticeship, type: :combodate,link_text: get_formated_date(@apprenticeship.ends_at), data: { viewformat: 'MMMM D, YYYY', template: 'MMMM / D / YYYY'}
+              - if !show
+                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:'If you would like to gauge interest first before anouncing a date, choose "TBA"'} }
+                  %i.icon-question-sign.small-icon
+              %br
+            %dt
+              Frequency
+            %dd
+              #frequency.field.text
+                = editable_link_to "How many?", field: :hours, resource: @apprenticeship, type: :text
+              hours per week.
+            %dt
+              Where
+            %dd
+              - if !show || !@apprenticeship.location_private
+                #address
+                  #address1.field.address
+                    = editable_link_to "Street Address", field: :location_address, resource: @apprenticeship, type: :text
+                  #city.field.address
+                    = editable_link_to "City", field: :location_city, resource: @apprenticeship, type: :text
+                  ,
+                  #state.field.address
+                    = editable_link_to "State", field: :location_state, resource: @apprenticeship, type: :text
+                  #zip.field.address
+                    = editable_link_to "Zip", field: :location_zipcode, resource: @apprenticeship, type: :text
+                  %br
+              - if !show || @apprenticeship.location_private
+                This is a
+                #private-address.field.select
+                  - if @apprenticeship.location_private == true
+                    - private_text = "Private"
+                  - elsif @apprenticeship.location_private == false
+                    - private_text = "Public"
+                  = editable_link_to "Public/Private", field: :location_private, resource: @apprenticeship, type: :select, link_text: @apprenticeship.location_private.nil? ? nil : private_text , data: { source: '{true : "Private", false : "Public"}'}
+                address
+                #nbrhood-toggle{class: !@apprenticeship.location_private ?  'hidden' : '' }
+                  in the
+                  - if !show || @apprenticeship.location_private
+                    #nbrhood.field.text.optional
+                      = editable_link_to "__________", field: :location_nbrhood, resource: @apprenticeship, type: :text
+                    neighborhood.
+                - if !show
+                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:'A "Public" address will be displayed on the apprenticeship page with a map of the exact location, while a "Private" address will only display a map of the neighborhood.'} }
+                    %i.icon-question-sign.small-icon
+
+            %dt
+              Who
+            %dd
+              #gender.field.checkbox
+                - if @apprenticeship.gender == true
+                  - gender_text = "Open to all gender identities"
+                - elsif @apprenticeship.gender == false
+                  - gender_text = "Girls/Women"
+                = editable_link_to "Describe your apprentice(s)", field: :gender, resource: @apprenticeship, type: :select, link_text: gender_text, data: {mode: 'popup', placement: 'right', source: '{"false" : "Girls/Women", "true" : "Open to all gender identities"}'}
+              , ages
+              #min-age.field.select
+                = editable_link_to "Min Age", field: :age_min, resource: @apprenticeship, type: :number
+              to
+              #max-age.field.select
+                = editable_link_to "Max Age", field: :age_max, resource: @apprenticeship, type: :number
+
+            %dt
+              How Many
+            %dd
+              I'd like to work with up to
+              #registration-max.field.number
+                = editable_link_to "_", field: :registration_max, resource: @apprenticeship, type: :text
+              Apprentice(s).
+            %dt
+              Skills
+            %dd
+              #skills.field.tags
+                = editable_link_to 'Which skills and techniques will you be teaching?', field: :skill_list, resource: @apprenticeship, type: :select2, data: { select2: {tags: [], tokenSeparators: [',']} }
+            %dt
+              Tools
+            %dd
+              #tools.field.tags
+                = editable_link_to 'Which tools and materials will you be teaching and using?', field: :tool_list, resource: @apprenticeship, type: :select2, data: { select2: {tags: [], tokenSeparators: [',']} }
+            - if !show || !@apprenticeship.requirement_list.empty?
+              %dt
+                Prerequisites
+              %dd
+                #prequisites.field.tags.optional
+                  = editable_link_to 'Are there prerequisites your apprentice should meet?', field: :requirement_list, resource: @apprenticeship, type: :select2, data: { select2: {tags: [], tokenSeparators: [',']} }
+            - if !show || @apprenticeship.other_needs
+              %dt
+                Preparations
+              %dd
+                #preparations.field.tags.optional
+                  = editable_link_to 'Ex: "Must have their own laptop"', field: :other_needs, resource: @apprenticeship, type: :text
+            %dt
+              Bio
+            %dd
+              #bio.field.textarea
+                = editable_link_to "Give people a sense of who they'll be working with. Think about including: schooling, current work, recent shows, what you’re interested in as an artist and why you’re interested in teaching it - and a bit of personality, too! (Make this a WYSIWYG?)", field: :bio, resource: @apprenticeship, type: :textarea
+            - if !show || @apprenticeship.website
+              %dt
+                Website
+              %dd
+                www.
+                #website.field.text.optional
+                  = editable_link_to '_________', field: :website, resource: @apprenticeship, type: :text
+            - if !show || @apprenticeship.webshop
+              %dt
+                Webshop
+              %dd
+                www.
+                #website.field.text.optional
+                  = editable_link_to '_________', field: :webshop, resource: @apprenticeship, type: :text
+            - if !show || @apprenticeship.facebook
+              %dt
+                Facebook
+              %dd
+                www.facebook.com/
+                #website.field.text.optional
+                  = editable_link_to '_________', field: :facebook, resource: @apprenticeship, type: :text
+            - if !show || @apprenticeship.twitter
+              %dt
+                Twitter
+              %dd
+                www.twitter.com/
+                #website.field.text.optional
+                  = editable_link_to '_________', field: :twitter, resource: @apprenticeship, type: :text
+      - if !show
+        .row-fluid
+          #preview-buttons-bottom
+            = link_to 'Preview', apprenticeship_path(@apprenticeship), id: 'preview-btn', class: 'btn', target: '_blank'
+            #proceed.preview-hide
+              = link_to 'Proceed', private_apprenticeship_path(@apprenticeship), method: :get, class: 'btn btn-primary'
+
+- if show
+  %section#apply_section.section
+    .container
+      .row-fluid
+        - if @apprenticeship.accepted?
+          - if current_user && current_user.age < @apprenticeship.age_min
+            = link_to "Apply!", new_apprenticeship_app_signup_path(@apprenticeship), class: "btn btn-block disabled"
+            %p
+              Sorry, it looks like you're younger than the minimum age for this apprenticeship.
+            %br/
+            %p
+              To be notified next time she's teaching: #{link_to "pre-register with #{@apprenticeship.host_firstname}", apprenticeships_path, :class => "btn btn-block btn-small btn-warning"}
+
+          - elsif current_user && current_user.age > @apprenticeship.age_max
+            = link_to "Apply!", new_apprenticeship_app_signup_path(@apprenticeship), class: "btn btn-block disabled"
+            %p
+              Sorry, it looks like you're older than the maximum age for this apprenticeship.
+            %br/
+            %p
+              To be notified next time she's teaching: #{link_to "Pre-Register with #{@apprenticeship.host_firstname}", apprenticeships_path, class: "btn btn-block btn-small btn-warning"}
+            %p
+              Wait! I'm a parent using my account to: #{link_to "Sign my Daughter Up", new_apprenticeship_app_signup_path(@apprenticeship), class: "btn btn-block btn-small btn-success"}
+
+          - elsif current_user && @apprenticeship.already_applied?(current_user)
+            / fix link path below: should link to current user's signup
+            = link_to "View your application", apprenticeship_app_signup_path(@apprenticeship, @apprenticeship.get_signup(current_user).id), class: "btn btn-block"
+
+          - else
+            = link_to "Apply!", new_apprenticeship_app_signup_path(@apprenticeship), class: "btn btn-primary"
+
+  %section#admin_section.section
+    .container
+      .row-fluid
+        - if current_user && current_user.admin? && @apprenticeship.pending?
+          %hr
+          %h3 Admin Controls
+          = form_for(@apprenticeship) do |f|
+            = f.submit "Reject Apprenticeship", name: "reject_button", class: "btn btn-large btn-danger"
+            = f.submit "Approve Apprenticeship", name: "accept_button", class: "btn btn-large btn-success"
+
+        - if current_user && current_user.admin? && @apprenticeship.accepted?
+          %hr
+          %h3 Admin Controls
+          = form_for(@apprenticeship) do |f|
+            = f.submit "Revoke Apprenticeship", name: "revoke_button", class: "btn btn-large btn-danger"
+
+- if show
+  %section#map_section.section.alt
+    = render 'layouts/googleshim', address: @apprenticeship.google_address
+    .map-top-shadow
+    #map
+    .map-bottom-shadow
+

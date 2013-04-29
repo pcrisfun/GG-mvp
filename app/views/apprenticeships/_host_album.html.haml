@@ -1,0 +1,36 @@
+- show ||= false
+%section.section#host-images{class: "#{show ? 'alt' : ''}"}
+  .container
+    #middle
+      / My Images Modal
+      #galleryModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "galleryModal", :role => "dialog", :tabindex => "-1"}
+        .modal-header
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+          %h3#galleryModalLabel My Images
+        .modal-body
+          #photos.transitions-enabled.clearfix
+            #uploader.box_photo.box-small
+              = simple_form_for @gallery.photos.new, action: 'new', html: {class: 'form-horizontal'} do |f|
+                -if @album
+                  = content_tag(:input, '', name: 'album_id', value: @album.id, type: 'hidden' )
+                %span.btn.btn-primary.fileinput-button
+                  %span#label
+                    %i.icon-plus.icon-white
+                    Add Images
+                    %input{type:'file', multiple: true, name: "photo[file]", id:"add_photo_input" }
+            - @gallery.photos.order("created_at desc").each do |photo|
+              .box_photo.box-small.masonry-brick{id: "photo_#{photo.id}"}
+                = render 'photos/photo', photo: photo, size: :box, desc: true, edit: true
+
+        :erb
+          <script id="template-upload" type="text/x-tmpl">
+          <div id="" class="upload box_photo box-small masonry-brick" style="width:135px; height:208px;">
+            <div class="progress progress-info progress-striped active" style="height:135px; width:135px; margin-bottom:0px">
+              <div class="bar" style="width:0px;max-width:135px;"></div>
+            </div>
+          </div>
+          </script>
+      .row-fluid
+        .span12
+          #album_section
+            = render 'albums/album', limit: 5, controls: !show, featured: !show

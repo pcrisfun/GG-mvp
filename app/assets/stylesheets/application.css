@@ -23,5 +23,8 @@
  *= require fancybox
  *= require masonry/transitions
  *= require jquery.ui.all
+ *= require bootstrap-editable
+ *= require select2
  *= require_tree .
+ *= require custom
  */

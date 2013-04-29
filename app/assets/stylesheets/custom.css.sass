@@ -24,6 +24,7 @@ $ocean-black: #01404f
 
 $niceblue: #41B7D8
 
+
 $grass-slight: #F9FEEE
 $grass-light: #e8f7c9
 $grass-medium: #a9db3b
@@ -50,7 +51,11 @@ $alert-red: #F2DEDE
 $alert-green: #DFF0D8
 $alert-blue: #D9EDF7
 
+$opensans: 'Open Sans'
+$kristi: 'Kristi'
+$dosis: 'Dosis'
 $radius: 5px
+
 
 
 // Mixins
@@ -599,6 +604,188 @@ input[type="radio"], input[type="checkbox"]
   display: inline-block
 
 
+.btn
+  &:focus
+    outline: none
+
+// Apprenticeship Design Page
+#apprenticeship-design, #apprenticeship-show
+  margin-top: 40px
+  //font-family: Georgia
+  line-height: 20px
+  section
+    margin: 0
+    padding: 0
+  #top-buttons
+    ul
+      padding-left: 30px
+      margin: 0px
+      li
+        a
+          cursor: default
+          &:hover
+            background-color: inherit
+        &.active
+          a
+            color: #FFFFFF
+            &:hover
+              background-color: $niceblue
+  #top
+    border: 2px solid #CCC
+    border-bottom: none
+    border-radius: 4px 4px 0 0
+    &.no-border
+      border: none
+  #middle
+    border: 2px solid #CCC
+    border-top: none
+    border-bottom: none
+    padding: 20px 0
+    &.no-border
+      border: none
+  #bottom
+    border: 2px solid #CCC
+    border-top: none
+    border-radius: 0 0 4px 4px
+    margin-bottom: 30px
+    padding: 30px 0
+    &.no-border
+      border: none
+  .field
+    display: inline-block
+    border: 1px solid #CCC
+    border-radius: 6px
+    padding: 1px 8px
+    a, span
+      line-height: 35px
+    &.textarea
+      a
+        font-style: italic
+      & .preview
+        font-style: normal
+    & .preview
+      color: #333333
+      cursor: default
+      &.editable-empty-disabled
+        color: red
+  #avatar
+    margin-bottom: 10px
+    img
+      border-radius: 500px 500px 500px 500px
+    &.field
+      border-radius: 500px  500px  500px  500px
+      padding: 8px
+  #preview-buttons-top, #preview-buttons-bottom
+    margin: 5px 5px 0 0
+  #banner
+    width: 70%
+    margin-left: 15%
+    font-size: 20px
+    text-align: center
+    padding-top: 30px
+    a, span
+      line-height: 40px
+    #title
+      font-family: $opensans
+      font-weight: bold
+      font-style: none
+      font-size: 30px
+      line-height: 55px
+      margin-bottom: 5px
+      a, span
+        text-transform: uppercase
+    #kind
+      margin-top: 10px
+      &.label
+        a, span
+          line-height: 22px
+          font-family: $opensans
+          color: #FFF
+        & .preview
+          color: #FFF
+    #description
+      margin-top: 15px
+      font-size: 16px
+      text-align: center
+      &.field
+        a, span
+          line-height: 30px
+  #dates, #from, #address, #nbrhood-toggle
+    display: inline
+    &.hidden
+      display: none
+  #host-images
+    margin: 0px
+    text-align: center
+    .box
+      width: 18.1%
+      margin: 0 0.5%
+      a
+        float: right
+    .placeholder
+      width: 18.1%
+      margin: 0 0.5%
+      img
+        width: inherit
+  #map-box
+    width: 18.5%
+    text-align: center
+    margin: 0 1.1%
+  #details, #private-details
+    width: 78.5%
+    .dl-horizontal
+      dt
+        line-height: 37px
+        width: 25%
+        margin-bottom: 4px
+        font-family: $opensans
+      dd
+        line-height: 37px
+        margin-left: 26.5%
+        width: 73.5%
+        margin-bottom: 4px
+  #proceed
+    text-align: center
+    display: inline
+    a
+      color: #FFFFFF
+  #preview-buttons-bottom
+    text-align:  center
+  #private-details
+    margin-top: 30px
+  #private-main
+    border: 2px solid  #CCC
+    border-radius: 4px
+  #map_section
+    width: 100%
+    text-align: center
+  .optional-hide
+    display: inline
+  .no-border
+    border: none
+  .hidden
+    display: none
+  .editable-empty, .editable-empty:hover
+    font-style: normal
+    color: $niceblue
+  .editable-click, a.editable-click, a.editable-click:hover
+    border-bottom: 1px dashed #CCCCCC
+  #apply_section
+    text-align: center
+
+#apprenticeship-show
+  #preview-btn
+    display: none
+  .field
+    border: none
+  .preview-hide
+    display: none
+  .preview-show
+    display: block
+  #top, #middle, #bottom
+    border: none
+
+// Event SignUps
 // SignUps
 #apply
   h2

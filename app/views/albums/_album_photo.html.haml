@@ -1,12 +1,12 @@
--#
-  album_photo partial
-  options:
-    id: the id for the container (default is album_photo_'photo_id')
-    featured: boolean to determine whether or not to style the featured photo differently (default is false)
-    size: the size of the photo image (default is :medium, refer to photo model for options)
-    desc: boolean, to display each photo with a description (default is true)
-    edit: boolean, to display add to album and delete buttons on each photo (default is true)
-    controls: boolean, to display album control buttons (default is false)
+/
+/  album_photo partial
+/  options:
+/    id: the id for the container (default is album_photo_'photo_id')
+/    featured: boolean to determine whether or not to style the featured photo differently (default is false)
+/    size: the size of the photo image (default is :medium, refer to photo model for options)
+/    desc: boolean, to display each photo with a description (default is true)
+/    edit: boolean, to display add to album and delete buttons on each photo (default is true)
+/    controls: boolean, to display album control buttons (default is false)
 
 .box{ id: (id ||= "album_photo_#{photo.id}"), class: "#{ ( (featured ||= false) && (@album.featured_photo == photo) ) ? 'featured alert-success' : ''}" }
   - if (controls ||= false)

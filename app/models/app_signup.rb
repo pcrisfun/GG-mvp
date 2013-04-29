@@ -107,6 +107,7 @@ class AppSignup < Signup
     })
     return true
   end
+
   def deliver_maker
     return false unless valid?
     Pony.mail({
@@ -131,6 +132,7 @@ class AppSignup < Signup
     })
     return true
   end
+
   def deliver_destroy_parent
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
@@ -154,6 +156,7 @@ class AppSignup < Signup
     })
     return true
   end
+
   def deliver_decline_parent
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
@@ -165,6 +168,7 @@ class AppSignup < Signup
     })
     return true
   end
+
   def deliver_decline_maker
     Pony.mail({
       :to => "#{event.user.name}<#{event.user.email}>",
@@ -188,6 +192,7 @@ class AppSignup < Signup
     })
     return true
   end
+
   def deliver_accept_parent
     Pony.mail({
       :to => "#{self.user.name}<#{self.user.email}>",
@@ -199,6 +204,7 @@ class AppSignup < Signup
     })
     return true
   end
+
   def deliver_accept_maker
     Pony.mail({
       :to => "#{event.user.first_name}<#{event.user.email}>",
@@ -211,8 +217,13 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_confirm
+  def deliver_confirm(opts={})
+    parent? ? deliver_confirm_parent(opts) : deliver_confirm_self(opts)
+  end
+
+  def deliver_confirm_self(opts={})
     return false unless valid?
+    payment = opts[:payment]
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
@@ -223,8 +234,10 @@ class AppSignup < Signup
     })
     return true
   end
-  def deliver_confirm_parent
+
+  def deliver_confirm_parent(opts={})
     return false unless valid?
+    payment = opts[:payment]
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
@@ -235,6 +248,7 @@ class AppSignup < Signup
     })
     return true
   end
+
   def deliver_confirm_maker
     return false unless valid?
     Pony.mail({
