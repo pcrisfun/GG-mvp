@@ -57,6 +57,7 @@ GirlsGuild::Application.routes.draw do
 
   match '/faq', to: 'static_pages#faq'
   match '/about', to: 'static_pages#about'
+  match '/whyjoin', to: 'static_pages#whyjoin'
   match '/contact', to: 'static_pages#contact'
   match '/thankyou', to: 'static_pages#thankyou'
   match '/newsletter', to: 'static_pages#newsletter'
