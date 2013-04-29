@@ -6,8 +6,8 @@
       - elsif workshop.host_album.photos.first
         = render 'photos/photo', photo: workshop.host_album.photos.sort_by { |photo| photo.position(album_id: workshop.host_album.id) }.first, size: :large, url: url_for(workshop)
       - else
-        %a{ href: url_for(workshop) }
-          %img.default-photo-large
+        %a{ href: url_for(edit_workshop_path(workshop)) }
+          %img.default-photo-large{ src: "/images/common/upload-photos-400px.jpg" }
     .box-details
       - unless current_user.blank?
         - if workshop.user == current_user
@@ -24,13 +24,18 @@
       %br
       - if workshop.age_min && workshop.age_max
         Ages
-        = workshop.age_min
-        to
-        = workshop.age_max
+        %span.badge
+          = workshop.age_min
+          to
+          = workshop.age_max
       %br
+      %span.date
       - if workshop.begins_at && workshop.begins_at_time && workshop.ends_at_time
-        = workshop.begins_at.strftime('%A, %B %d')
-        from
-        = workshop.begins_at_time.strftime('%I:%M%P')
-        to
-        = workshop.ends_at_time.strftime('%I:%M%P')
+        - if workshop.datetime_tba == false
+          = workshop.begins_at.strftime('%A, %B %d')
+          from
+          = workshop.begins_at_time.strftime('%I:%M%P')
+          to
+          = workshop.ends_at_time.strftime('%I:%M%P')
+        - else
+          Date & time TBA

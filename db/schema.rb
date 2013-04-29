@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130427174159) do
+ActiveRecord::Schema.define(:version => 20130428221021) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -91,8 +91,11 @@ ActiveRecord::Schema.define(:version => 20130427174159) do
     t.boolean  "datetime_tba",                                     :default => false
     t.string   "respect_my_style"
     t.boolean  "facilitate"
+    t.integer  "prereg_id"
     t.boolean  "gender",                                           :default => false
   end
+
+  add_index "events", ["charge_id"], :name => "index_events_on_charge_id"
 
   create_table "galleries", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -111,6 +114,15 @@ ActiveRecord::Schema.define(:version => 20130427174159) do
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
   end
+
+  create_table "preregs", :force => true do |t|
+    t.integer  "event_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "preregs", ["event_id", "user_id"], :name => "index_preregs_on_event_id_and_user_id", :unique => true
 
   create_table "signups", :force => true do |t|
     t.integer  "user_id"
@@ -134,11 +146,14 @@ ActiveRecord::Schema.define(:version => 20130427174159) do
     t.string   "charge_id"
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
+    t.string   "parent"
     t.string   "daughter_firstname"
     t.string   "daughter_lastname"
-    t.string   "daughter_age"
+    t.integer  "daughter_age"
     t.string   "state",              :default => "started"
   end
+
+  add_index "signups", ["charge_id"], :name => "index_signups_on_charge_id"
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"

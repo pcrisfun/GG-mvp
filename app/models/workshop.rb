@@ -1,6 +1,7 @@
 class Workshop < Event
 
 	has_many :users, :through => :signup
+	has_many :users, :through => :prereg
 
 	validates_presence_of :payment_options, :begins_at_time, :ends_at_time, :ends_at, :registration_max, :price
 	validates_numericality_of :price, :greater_than_or_equal_to => 0
@@ -55,7 +56,7 @@ class Workshop < Event
    		:from => "Diana & Cheyenne<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your workshop has been posted! - #{topic} with #{user.name}",
-			:html_body => %(<h1>Congrats #{user.first_namefirst_name}!</h1> <p>Your workshop has been posted and is now live! Check it out - <a href="#{url_for(self)}"> #{self.title}</a></p> <p>Be sure to invite your friends and share it on your social networks!</p>),
+			:html_body => %(<h1>Congrats #{user.first_name}!</h1> <p>Your workshop has been posted and is now live! Check it out - <a href="#{url_for(self)}"> #{self.title}</a></p> <p>Be sure to invite your friends and share it on your social networks!</p>),
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
@@ -106,7 +107,31 @@ class Workshop < Event
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
-	end
+  end
+
+  def deliver_maker_reminder
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Your workshop is coming up! - #{self.title}",
+      :html_body => %(<h1>3, 2, 1... it's almost time!</h1> <p>Just a reminder that your workshop is happening on #{self.begins_at}. (Fill out this email with more info)</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_maker_followup
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "How was your workshop? - #{self.title}",
+      :html_body => %(<h1>Hey #{user.first_name}!</h1> <p>How did your workshop go? We'd love to hear your feedback on the teaching experience. (Fill out this email with more info)</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
 
 	def self.complete_workshop
     Workshop.where('begins_at <= ?', Date.today).all.each do |workshop|
@@ -121,6 +146,22 @@ class Workshop < Event
 			w.cancel! unless w.min_capacity_met?
 		end
 	end
+
+  def self.maker_reminder
+    Workshop.all.each do |work|
+      if (work.begins_at) == (Date.today + 3.days)
+        work.deliver_maker_reminder
+      end
+    end
+  end
+
+  def self.maker_followup
+    Workshop.all.each do |work|
+      if (work.begins_at) == (Date.today - 3.days)
+        work.deliver_maker_followup
+      end
+    end
+  end
 
 	state_machine :state, :initial => :started do
 		event :complete do

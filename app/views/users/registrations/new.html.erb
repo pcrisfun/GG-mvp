@@ -21,10 +21,10 @@
 			    <%= f.input :password, :required => true, :validate => true %>
 			    <%= f.input :password_confirmation, :required => true, :validate => true %>
 			  <div class="form-inline">
-				<%= f.check_box :terms_of_service %>
-				<%= f.label :terms_of_service, capture { %>
-					<p>I have read the <%= active_link_to 'terms and conditions', termsandconditions_path, :target => '_blank' %></p>
-				<% } %>
+					<%= f.check_box :terms_of_service %>
+					<%= f.label :terms_of_service, capture { %>
+						<p>I have read the <%= active_link_to 'terms and conditions', termsandconditions_path, :target => '_blank' %></p>
+					<% } %>
 			  </div>
 			  <br/>
 		      <%= f.button :submit, "Sign up", :class => "btn btn-primary" %>

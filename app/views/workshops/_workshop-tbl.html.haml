@@ -1,0 +1,51 @@
+%table.table.table-bordered.table-striped.table-hover.table-condensed
+  %thead
+    %tr
+      %th.image
+        Image
+      %th.title
+        Title
+      %th.spots
+        Spots Left
+      %th.ages
+        Ages
+      %th.dates
+        Dates
+  %tbody
+    - workshops.each do |workshop|
+      %tr
+        %td
+          - if workshop && workshop.host_album
+            - if workshop.host_album.featured_photo
+              = render 'photos/photo', photo: workshop.host_album.featured_photo, size: :thumb, url: url_for(workshop)
+            - elsif workshop.host_album.photos.first
+              = render 'photos/photo', photo: workshop.host_album.photos.sort_by { |photo| photo.position(album_id: workshop.host_album.id) }.first, size: :thumb, url: url_for(workshop)
+            - else
+              %a{ href: url_for(workshop) }
+                %img.default-photo-thumb
+            - unless current_user.blank?
+              - if workshop.user == current_user
+                = link_to "Add Images", {controller: :workshops, action: :workshop_album, id: workshop}, class: "btn btn-mini pull-right"
+                - if workshop.started?
+                  = link_to "Resume", edit_workshop_path(workshop), class: "btn btn-mini pull-right"
+                - elsif workshop.accepted? || workshop.canceled?
+                  = link_to "Edit", edit_workshop_path(workshop), class: "btn btn-mini pull-right"
+        %td
+          = link_to workshop.title_html, workshop_path(workshop), class: "title-boxlink"
+        %td
+          - if workshop.registration_max
+            Number of spots left -
+            = workshop.registration_max - workshop.signups.where(:state => "confirmed").count
+        %td
+          - if workshop.age_min && workshop.age_max
+            Ages
+            = workshop.age_min
+            to
+            = workshop.age_max
+        %td
+          - if workshop.begins_at && workshop.begins_at_time && workshop.ends_at_time
+            = workshop.begins_at.strftime('%a, %b %d')
+            from
+            = workshop.begins_at_time.strftime('%I:%M%P')
+            to
+            = workshop.ends_at_time.strftime('%I:%M%P')

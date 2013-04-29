@@ -9,6 +9,7 @@ class Event < ActiveRecord::Base
   belongs_to :user
 
   has_many :signups, :dependent => :destroy
+  has_many :preregs
 
   has_one :host_album, :class_name => 'Album', :dependent => :destroy
 
@@ -18,10 +19,10 @@ class Event < ActiveRecord::Base
     validates_presence_of :host_lastname, :message => ' must be included in order to save your form.'
   end
 
-  #validates_presence_of :bio, :website, :permission, :description, :begins_at, :skill_list, :tool_list, :location_address, :location_city, :location_state, :location_zipcode, :age_min, :age_max, :registration_min
+  #validates_presence_of :bio, :website, :permission, :description, :begins_at, :skill_list, :tool_list, :location_address, :location_city, :location_state, :location_zipcode, :age_min, :age_max, :registration_max
   #validates_numericality_of :age_min, :greater_than => 0
-  #validates_numericality_of :age_max, :greater_than => :age_min, :message => "must be greater than the minimum age you set."
-  #validates_numericality_of :registration_min, :greater_than_or_equal_to => 0
+  #validates_numericality_of :age_max, :greater_than => :age_min, :message => " must be greater than the minimum age you set."
+  #validates_numericality_of :registration_max, :greater_than_or_equal_to => 1, :message => " registrations must be greater than 0."
 
   attr_accessible :title, :topic, :host_firstname, :host_lastname, :host_business,
                   :bio, :twitter, :facebook, :website, :webshop, :permission,
@@ -40,7 +41,7 @@ class Event < ActiveRecord::Base
   end
 
   def title_html
-    "<span class='title-topic'>#{self.topic}</span> <span class='title-name'>with #{self.host_firstname} #{self.host_lastname}</span>".html_safe
+    "<span class='title-topic'>#{self.topic}</span> <span class='with'>with</span><span class='title-name'> #{self.host_firstname} #{self.host_lastname}</span>".html_safe
   end
 
   attr_accessible :stripe_card_token
@@ -84,7 +85,7 @@ class Event < ActiveRecord::Base
   end
 
   def tba_is_blank
-    !datetime_tba.blank?
+    datetime_tba.blank?
   end
 
   def google_address
@@ -169,14 +170,14 @@ class Event < ActiveRecord::Base
     end
 
     event :resubmit do
-      transition :accepted => :pending
+      transition all => :pending
     end
 
     event :cancel do
       transition all => :canceled
     end
 
-    event :filled do
+    event :fill do
       transition :accepted => :filled
     end
 
@@ -201,12 +202,5 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def self.valid_attribute?(attr, value)
-    mock = self.new(attr => value)
-    unless mock.valid?
-      return mock.errors.has_key?(attr)
-    end
-    true
-  end
 end
 

@@ -1,11 +1,16 @@
 <%= content_tag :section, class: "section alt" do %>
   <%= content_tag :div, class: "container" do %>
     <% provide(:title, "Edit Apprenticeship") %>
+
     <%= render 'albums/show', :@album => @apprenticeship.host_album %>
 
     <h1>Update your Apprenticeship</h1>
+    <br/><br/>
+    <div class="span3 pull-left accordionFAQ">
+      <%= render 'faq' %>
+    </div>
 
-    <div class="span9 offset1">
+    <div class="span9 pull-right">
       <%= simple_form_for @apprenticeship, html: {class: "payment_form"}  do |f| %>
 
         <%= render 'fields', f: f %>

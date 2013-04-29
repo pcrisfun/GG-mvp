@@ -31,13 +31,13 @@ class Signup < ActiveRecord::Base
     end
 
     state :confirmed do
-
     end
 
     state :completed do
     end
 
-    event :signup do
+
+    event :signup do #This is when someone submits a workshop signup
       transition :started => :confirmed
     end
 
@@ -66,6 +66,6 @@ class Signup < ActiveRecord::Base
   end
 
   def check_capacity
-    self.event.filled! if self.event.max_capacity_met?
+    self.event.fill! if self.event.max_capacity_met?
   end
 end

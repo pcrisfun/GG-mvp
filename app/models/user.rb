@@ -15,13 +15,16 @@ class User < ActiveRecord::Base
   has_many :apprenticeships
   has_many :workshops
   has_many :signups
+  has_many :app_signups
+  has_many :work_signups
+  has_many :preregs
 
   has_one :gallery, :dependent => :destroy
   has_many :photos, :through => :gallery
   after_create :create_gallery
   has_attached_file :avatar, :styles => { :large => "214x214#", :medium => "50x50#", :small => "25x25#" }
 
-  attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :birthday, :terms_of_service, :remember_me, :avatar, :use_gravatar, :phone
+  attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :birthday, :terms_of_service, :remember_me, :avatar, :use_gravatar, :phone, :maker_id
 
   validates :first_name,  presence: true, length: { maximum: 20 }
   validates :last_name,  presence: true, length: { maximum: 20 }
@@ -62,6 +65,9 @@ class User < ActiveRecord::Base
     write_attribute(:avatar, new_avatar)
   end
 
+  def preregistered?(event)
+    preregs.exists?(:event_id => event.id)
+  end
 
   private
 

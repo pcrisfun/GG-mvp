@@ -1,10 +1,21 @@
 GirlsGuild::Application.routes.draw do
 
   resources :signups
-  resources :app_signups
+  resources :app_signups do
+    collection do
+      post :accept
+      post :decline
+      post :confirm
+      post :cancel
+    end
+  end
   resources :work_signups
 
+  match '/preregs/create', to: 'preregs#create'
+
   devise_for :users, :admins
+    #get 'users/avatar.:id' => 'devise/registrations#avatar'
+
 
   resources :galleries, only: [:new, :create, :destroy]
 
@@ -51,13 +62,16 @@ GirlsGuild::Application.routes.draw do
 
   root to: 'static_pages#home'
 
-  match '/faq',    to: 'static_pages#faq'
-  match '/about',   to: 'static_pages#about'
+  match '/stripe/webhook', to: 'stripe#webhook'
+
+  match '/faq', to: 'static_pages#faq'
+  match '/about', to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'
+  match '/thankyou', to: 'static_pages#thankyou'
   match '/newsletter', to: 'static_pages#newsletter'
-  match '/thankyou',  to: 'static_pages#thankyou'
-  match '/termsandconditions', to:'static_pages#termsandconditions'
+  match '/testimonials', to: 'static_pages#testimonials'
   match '/privacypolicy', to:'static_pages#privacypolicy'
+  match '/termsandconditions', to:'static_pages#termsandconditions'
 
 
   # The priority is based upon order of creation:

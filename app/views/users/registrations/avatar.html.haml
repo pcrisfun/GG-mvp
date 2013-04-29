@@ -1,0 +1,66 @@
+- provide(:title, 'Edit account')
+%section#promo.section.alt-grey
+  .container
+    .row
+      .span3.pull-left
+        %ul.nav.nav-list
+          %li.header
+            My Settings
+          %li
+            %a
+              %i.icon-user
+              Avatar
+          %li
+            %a
+              %i.icon-lock
+              Password
+      .span9.pull-right
+        .fancyform-light
+          = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), defaults: { input_html: { class: 'span5' } }, html: { :method => :put } ) do |f|
+            = f.error_notification
+            %br
+            = f.input :birthday do
+              .form-inline
+                .input-append.date{"data-behaviour" => "datepicker"}
+                  = f.text_field :birthday, :class => "span4", :value=>@user.birthday.strftime("%m/%d/%Y")
+                  %span.add-on
+                    %i.icon-th
+                %a{"data-content" => "Individuals under the age of 18 must at all times use GirlsGuild's services only in conjunction with and under the supervision of a parent or legal guardian who is at least 18 years of age. In this all cases, the adult is the user and is responsible for any and all activities.", "data-placement" => "right", :href => "#", :rel => "popover"}
+                  Why?
+                  %i.icon-question-sign.small-icon
+
+            = f.input :first_name
+
+            = f.input :last_name
+
+            = f.input :email, :required => true
+
+            - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+              %p
+                Currently waiting confirmation for: #{resource.unconfirmed_email}
+            = f.input :password, label: 'New Password', input_html:{ autocomplete: "off"}, :required => false#, :hint => "leave it blank if you don't want to change it"
+
+            = f.input :password_confirmation, label: 'Retype New Password', :required => false
+
+            = f.input :use_gravatar, label: 'Avatar' do
+              .form-inline
+                %input{id: 'user_use_gravatar_true',name: "user[use_gravatar]", type: 'radio', value: 'true', :checked => (@user.use_gravatar ? "checked" : false) }
+                .input-append
+                  = gravatar_for(@user)
+                %label.collection_radio_buttons{:for => 'user_use_gravatar_true'} Use
+                %a{href: 'http://gravatar.com/emails'} Gravatar
+              %br
+              .form-inline
+                %input{id: 'user_use_gravatar_false',name: "user[use_gravatar]", type: 'radio', value: 'false',  :checked => (!@user.use_gravatar ? "checked" : false) }
+                .input-append
+                  = image_tag(@user.avatar.url(:medium))
+                %label.collection_radio_buttons{:for => 'user_use_gravatar_false'} Upload an Avatar
+                = f.file_field :avatar
+
+            = f.input :current_password, :required => true, :hint => "we need your current password to confirm your changes"
+            .form-actions
+              %br
+              = f.button :submit, "Save!", :class => "btn btn-large btn-primary"
+              %p
+                Unhappy? #{link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete}.
+              %p.pull-right= link_to "Back", :back

@@ -1,10 +1,4 @@
-/* mixins */
-@mixin box_sizing
-  -moz-box-sizing: border-box
-  -webkit-box-sizing: border-box
-  box-sizing: border-box
-
-/* variables */
+// Variables
 $tangerine-light: #ffe6c5
 $tangerine-medium: #f9a83d
 $tangerine: #f99716
@@ -30,6 +24,8 @@ $ocean-black: #01404f
 
 $niceblue: #41B7D8
 
+
+$grass-slight: #F9FEEE
 $grass-light: #e8f7c9
 $grass-medium: #a9db3b
 $grass: #7dbc0f
@@ -58,11 +54,59 @@ $alert-blue: #D9EDF7
 $opensans: 'Open Sans'
 $kristi: 'Kristi'
 $dosis: 'Dosis'
+$radius: 5px
 
 
-/* universal */
+
+// Mixins
+@mixin box_sizing
+  -moz-box-sizing: border-box
+  -webkit-box-sizing: border-box
+  box-sizing: border-box
+
+@mixin box-shadow($top, $left, $blur, $color, $inset:"")
+  -webkit-box-shadow: $top $left $blur $color #{$inset}
+  -moz-box-shadow: $top $left $blur $color #{$inset}
+  box-shadow: $top $left $blur $color #{$inset}
+@mixin box-shadow-silver
+  +box-shadow(1px, 1px, 3px, $silver-shadow)
+.box-shadow-silver
+  +box-shadow-silver
+
+@mixin roundcorners($radius: 5px)
+  -moz-border-radius: $radius // firefox
+  -webkit-border-radius: $radius // safari/chrome
+  border-radius: $radius // CSS3, works in IE9
+.rounded
+  +roundcorners(5px)
+
+
+// Layout
+.alt-grey
+  background-color: #EFEFEF
+  .nav
+    background-color: #FFF
+    overflow: hidden
+    +roundcorners
+    +box-shadow-silver
+    li
+      padding: 10px 0 5px
+      margin: 0px
+      font-size: 16px
+      color: $silver
+      line-height: 22px
+
+// Headers
+h2
+  color: $tangerine-black
+
+
+// Universal
 a, a:hover, a:active, a:visited, a:focus
   outline: none
+
+.inline-block
+  display: inline-block
 
 .relative
   position: relative
@@ -84,7 +128,7 @@ a, a:hover, a:active, a:visited, a:focus
   text-align: right
 
 
-/* buttons */
+// Buttons
 .btn
   background-color: $silver-light
   background-image: none
@@ -107,7 +151,7 @@ a, a:hover, a:active, a:visited, a:focus
     padding: 2px 14px
 
 
-/* header */
+// Header
 #masthead .brand
   background: url(gg-logo.png) no-repeat 0 0 transparent
   width: 110px
@@ -130,29 +174,7 @@ a, a:hover, a:active, a:visited, a:focus
     img
       margin-top: -5px
 
-
-/* side nav */
-.bs-docs-sidenav
-  .icon-chevron-down
-    float: right
-    margin-right: -6px
-    margin-top: 2px
-    opacity: 0.25
-
-.nav-list
-  .nav-header
-    font-size: 18px
-.nav-list > li > a:hover
-  background-color: $grass
-  color: #FFF
-  text-shadow: 1px 1px 1px $grass-shadow
-
-/* sidebar */
-.gravatar
-  float: left
-  margin-right: 10px
-
-/* footer */
+// Footer
 #footer
   .kristi
     font-size: 28px
@@ -160,34 +182,73 @@ a, a:hover, a:active, a:visited, a:focus
     color: #999
     font-style: normal
 
-/* forms */
-.accordion-toggle
-  background-color: $ocean-medium
-.accordion-heading
-  h2
-    a
+// Sidebar
+.gravatar
+  float: left
+  margin-right: 10px
+
+// Accordion Nav
+.accordionFAQ
+  margin-left: 0px
+  .icon-chevron-down, .icon-envelope
+    float: right
+    margin: 5px -6px 0 0
+    opacity: 0.5
+  dt
+    font-weight: normal
+  .well
+    padding: 10px 0px
+    h3
+      padding-left: 10px
+      text-align: left
+      border-bottom: 0px
+      margin-bottom: 0px
+      box-shadow: none
+  .accordion-heading
+    border-top: 1px solid #EEE
+    a:hover
+      background-color: $grass
       color: #FFF
-      text-shadow: 1px 1px 1px $ocean-shadow
+      text-shadow: 1px 1px 1px $grass-shadow
+  .accordion-inner
+    background-color: $grass-slight
 
-.accordion-inner
-  background: rgb(255, 255, 255)
-  background: rgba(255, 255, 255, .45)
-  text-shadow: 1px 2px 1px #FFF
-  h3
-    font-size: 20px
-    margin-bottom: 20px
-    margin-top: 30px
-    padding-left: 20px
-    color: $silver-shadow
+// Forms
+.event-accordion
+  .accordion-toggle
+    background-color: $ocean-medium
+  .accordion-inner
+    background-color: #FFF
+  .accordion-heading
+    h2
+      a
+        color: #FFF
+        text-shadow: 1px 1px 1px $ocean-shadow
 
-.fancyform
+#new_apprenticeship
+  .accordion-inner
+    background: rgb(255, 255, 255)
+    background: rgba(255, 255, 255, .45)
+    text-shadow: 1px 2px 1px #FFF
+    h3
+      font-size: 20px
+      margin-bottom: 20px
+      margin-top: 30px
+      padding-left: 20px
+      color: $silver-shadow
+
+.fancyform, .fancyform-light
   background: #EBEBEB
   border: 1px solid #D3D3D3
   padding: 30px
   margin-bottom: 30px
+  +roundcorners
+  +box-shadow-silver
   hr
     border-color: #DDD
     border-width: 0px 0px 1px 0px
+.fancyform-light
+  background: $silver-bright
 
 .form-horizontal
   color: $silver-black
@@ -195,10 +256,30 @@ a, a:hover, a:active, a:visited, a:focus
     width: 170px
   .controls
     margin-left: 190px
+    .help-block
+      margin-top: 0px
+      color: $silver-shadow
   .btn-create
     text-align: center
     margin: 0 auto
     display: block
+
+#admin
+  .fancyform-light
+    padding: 30px 0px 0px 0px
+    .control-group
+      padding: 30px
+      margin-bottom: 0px
+      border-bottom: 1px solid #DDD
+    form
+      margin-bottom: 0px
+    .form-actions
+      border-top: none
+      margin: 0px
+      padding-left: 220px
+      padding-right: 40px
+      background-color: $silver-light
+      +roundcorners
 
 .control-group
   .radio_buttons
@@ -225,8 +306,12 @@ ul.token-input-list-facebook
 input[type="radio"], input[type="checkbox"]
   margin: -4px 0 0
 
+.help-block
+  font-size: 13px
+  margin-top: -10px
 
-/* home */
+
+// Home
 .carousel
   margin-bottom: 0px
 
@@ -258,22 +343,13 @@ input[type="radio"], input[type="checkbox"]
     text-shadow: 1px 1px 1px #000
 
 
-/* newsletter page */
+// Newsletter page
 .indicates-required
   text-align: right
   font-size: 12px
 
 
-
-/* miscellaneous */
-.debug_dump /* Hartl */
-  clear: both
-  float: left
-  width: 100%
-  margin-top: 45px
-  @include box_sizing
-
-/* Required for jQuery Masonry */
+// Required for jQuery Masonry
 .box, .box_photo, .dragging
   margin: 5px
   padding: 5px
@@ -291,7 +367,12 @@ input[type="radio"], input[type="checkbox"]
     -webkit-border-radius: 5px
     -moz-border-radius: 5px
     border-radius: 5px
-
+    &.avatar
+      width: auto
+      float: right
+      margin-right: -5px
+      margin-top: -20px
+      +box-shadow-silver
 
 .box-small
   width: 135px
@@ -427,44 +508,70 @@ input[type="radio"], input[type="checkbox"]
   margin-top: 0px
   dt
     text-align: right
-    width: 30px
+    /*width: 30px*/
     a
       padding: 3px
   dd
-    margin-left: 30px
+    /*margin-left: 30px*/
+
+#my_images_link
+  margin-top: 10px
 
 
 // Workshops & Apprenticeships
-h1
-  .title-topic
-
-  .title-name
-    text-transform: none
-    font-weight: normal
-    font-size: 25px
-
-  .title-business
-    text-transform: none
-    font-weight: normal
-    font-size: 25px
+.title-topic
+.title-name
+.title-business
+.with
+  text-transform: none
+  font-weight: normal
 
 .title-boxlink
-  font-size: 16px
+  font-size: 17px
   font-weight: bold
   text-transform: uppercase
+  height: 44px
+  overflow: hidden
+  display: block
 
 #workshops-index, #apprenticeships-index
   .box
     .title-business
       display: none
   .box-details
-    padding: 10px 0
+    padding: 10px 5px
     font-size: 14px
     line-height: 20px
+    color: $silver-black
+    position: relative
     .btn-mini
       margin: 0 0 0 5px
+      position: absolute
+      top: -35px
+      right: 10px
+    .badge
+      margin-top: 5px
+    .date
+      font-weight: bold
   h1
     display: inline
+  .alert
+    table
+      background-color: #FFF
+      .image
+        width: 15%
+      .title
+        width: 35%
+      .spots
+        width: 10%
+      .ages
+        width: 10%
+      .dates
+        width: 20%
+  .bttn-call
+    &.kristi
+      font-size: 35px
+      margin: 10px 10px 0 0
 
 #workshop_show, #apprenticeship_show
   .box
@@ -485,14 +592,17 @@ h1
       text-align: center
 
 .default-photo-large
-  width: 400px
-  height: 300px
-  background-color: $niceblue
-
+  background-color: $silver-light
 .default-photo-medium
   width: 270px
   height: 270px
-  background-color: $niceblue
+  background-color: $silver-light
+.default-photo-thumb
+  width: 50px
+  height: 50px
+  background-color: $silver-light
+  display: inline-block
+
 
 .btn
   &:focus
@@ -676,15 +786,25 @@ h1
     border: none
 
 // Event SignUps
+// SignUps
+#apply
+  h2
+    text-transform: none
+    font-weight: 600
 .dl-application
   dt
     width: 170px
     margin-right: 20px
 .dl-application-review
   dt
-    width: 550px
+    width: 250px
     margin-right: 20px
     font-weight: normal
+    white-space: normal
+    padding: 5px 0
+  dd
+    margin-left: 270px
+    padding: 5px 0
 
 .row-saved .box
   background-color: $alert-yellow
@@ -699,3 +819,19 @@ h1
 .row-upcoming .box
   background-color: $alert-blue
 
+// How it works
+.howitworks
+  padding: 30px 0px
+  i
+    text-shadow: 1px 1px 1px #000
+  .span4
+    border: none
+
+
+// Miscellaneous
+.debug_dump /* Hartl */
+  clear: both
+  float: left
+  width: 100%
+  margin-top: 45px
+  @include box_sizing

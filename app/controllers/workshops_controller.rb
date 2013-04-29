@@ -13,11 +13,14 @@ class WorkshopsController < ApplicationController
       @mycanceled_workshops = current_user.workshops.find_all_by_state('canceled')
       @myfilled_workshops = current_user.workshops.find_all_by_state('filled')
       @mycompleted_workshops = current_user.workshops.find_all_by_state('completed')
+
       @allsaved_workshops = Workshop.find_all_by_state('started')
       @allpending_workshops = Workshop.find_all_by_state('pending')
       @allcanceled_workshops = Workshop.find_all_by_state('canceled')
       @allfilled_workshops = Workshop.find_all_by_state('filled')
       @allcompleted_workshops = Workshop.find_all_by_state('completed')
+
+      @mycompleted_work_signups = current_user.app_signups.find_all_by_state('completed')
     end
   	@workshops = Workshop.find_all_by_state(['accepted','filled','completed'])
   end
@@ -80,6 +83,7 @@ class WorkshopsController < ApplicationController
           redirect_to workshops_path, :flash => { :success => "Workshop accepted." }
 
         elsif params[:resubmit_button] && @workshop.deliver_resubmit
+          @workshop.resubmit
           redirect_to workshops_path, :flash => { :success => "Thanks! Your workshop was resubmitted."}
 
         elsif params[:cancel_button] && @workshop.deliver_cancel

@@ -1,6 +1,7 @@
 class Apprenticeship < Event
 
 	has_many :users, :through => :signup
+	has_many :users, :through => :prereg
 
 	# validates_presence_of :kind, :hours, :hours_per #, :charge_id (shouldn't need this bc we added 'update_attribute(:charge_id, charge.id)' to process_payment method)
 	# validates_numericality_of :hours, :greater_than => 0
@@ -23,9 +24,10 @@ class Apprenticeship < Event
 		return true
 	end
 
-	def deliver
+	def deliver(opts={})
 		return false unless valid?
-		Pony.mail({
+    payment = opts[:payment]
+    Pony.mail({
 			:to => "#{user.name}<#{user.email}>",
    		:from => "Diana & Cheyenne<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
@@ -117,7 +119,7 @@ class Apprenticeship < Event
 	end
 
 	def already_applied?(user)
-    self.signups.where(:user_id => user).any?
+    self.signups.where(:user_id => user.id).any?
   end
 
   def get_signup(user)
