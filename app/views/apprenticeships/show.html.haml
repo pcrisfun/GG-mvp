@@ -1,5 +1,6 @@
 = provide(:title, @apprenticeship.title )
-= provide(:googleshim, true)
+- if @apprenticeship.location_nbrhood
+  = render 'layouts/googleshim', address: @apprenticeship.location_nbrhood + ' Austin TX'
 #apprenticeship_show
 
   %section.title_section.section

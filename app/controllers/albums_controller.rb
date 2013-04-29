@@ -92,8 +92,14 @@ class AlbumsController < ApplicationController
   def add_photos
     @album = Album.find(params[:id])
     params[:add_photos].each do |photo_id|
-      @photo = Photo.find(photo_id)
-      @album.add_photo(photo: @photo)
+      if @album.limit && !(@album.limit > @album.photos.size)
+        respond_to do |format|
+          format.js { render 'albums/over_limit' and return }
+        end
+      else
+        @photo = Photo.find(photo_id)
+        @album.add_photo(photo: @photo)
+      end
     end
     respond_to do |format|
       format.js { render 'albums/add_photo' }

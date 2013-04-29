@@ -1,5 +1,5 @@
 = provide(:title, @workshop.title)
-= provide(:googleshim, true)
+= render 'layouts/googleshim', address: @workshop.location_nbrhood + ' Austin TX'
 #workshop_show
 
   %section.title_section.section

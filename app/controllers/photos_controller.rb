@@ -42,27 +42,6 @@ class PhotosController < ApplicationController
       @album = nil
     end
     @photo = @gallery.photos.create(params[:photo])
-
-    #if @photo.save
-    #  respond_to do |format|
-    #    format.html {redirect_back_or photo_path(@photo), notice: 'Photo was successfully created.'}
-    #    @photos = [@photo]
-    #    format.json {render 'index'}
-    #  end
-    #else
-    #  render 'new'
-    #end
-
-    # respond_to do |format|
-    #   if @photo.save
-    #     format.html { redirect_to @gallery, notice: 'Photo was successfully created.' }
-    #     format.json { render json: @photo, status: :created, location: gallery_photo_url(@gallery, @photo)}
-    #     # format.json {status: :created}
-    #   else
-    #     format.html { render action: "new" }
-    #     format.json { render json: @photo.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   # PUT /photos/1

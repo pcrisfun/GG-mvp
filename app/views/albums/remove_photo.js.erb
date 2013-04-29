@@ -2,4 +2,8 @@ var $removedPhoto = "<%= j render 'galleries/gallery_photo', photo: @photo %>";
 $('[id="photo_<%=@photo.id%>"]').replaceWith($removedPhoto);
 $('#photos').masonry('reload');
 $('[id="album_photo_<%=@photo.id%>"]').remove();
+if (<%= @album.limit ? @album.limit : false %>) {
+  var $emptyslot = "<%= j render 'albums/emptyslot', controls: true %>";
+  $('#album_photos').append($emptyslot);
+}
 $('#album_photos').masonry('reload');

@@ -15,17 +15,18 @@
             = link_to "Resume", edit_apprenticeship_path(apprenticeship), class: "btn btn-mini pull-right"
           - elsif apprenticeship.accepted?
             = link_to "Edit", edit_apprenticeship_path(apprenticeship), class: "btn btn-mini pull-right"
-      = link_to apprenticeship.title_html, apprenticeship_path(apprenticeship), class: "title-boxlink"
+      = link_to apprenticeship.title_html ? apprenticeship.title_html : 'No title', apprenticeship_path(apprenticeship), class: "title-boxlink"
       %br
       Number of apprentices needed -
-      = apprenticeship.registration_min - apprenticeship.signups.where(:state => "confirmed").count
+      - if apprenticeship.registration_max
+        = apprenticeship.registration_max - apprenticeship.signups.where(:state => "confirmed").count
       %br
       Ages
-      = apprenticeship.age_min
+      = apprenticeship.age_min ? apprenticeship.age_min : '_'
       to
-      = apprenticeship.age_max
+      = apprenticeship.age_max ? apprenticeship.age_max : '_'
       %br
       From
-      = apprenticeship.begins_at.strftime('%A, %B %d')
+      = apprenticeship.begins_at ? apprenticeship.begins_at.strftime('%A, %B %d') : '_'
       to
-      = apprenticeship.ends_at.strftime('%A, %B %d')
+      = apprenticeship.ends_at ? apprenticeship.ends_at.strftime('%A, %B %d') : '_'

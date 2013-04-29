@@ -1,15 +1,24 @@
--#
-  album_photos partial
-  options:
-    limit: integer, the number of album photos to be displayed (default is all photos are displayed).  Album photos will be displayed according to their sort order.
-    featured: boolean, to display the featured photo with special styling (default is false)
-    desc: boolean, to display each photo with a description (default is false)
-    edit: to display editing buttons on each photo (default is false)
+/
+/  album_photos partial
+/  options:
+/    limit: integer, the number of album photos to be displayed (default is all photos are displayed).  Album photos will be displayed according to their sort order.
+/    featured: boolean, to display the featured photo with special styling (default is false)
+/    desc: boolean, to display each photo with a description (default is false)
+/    edit: to display editing buttons on each photo (default is false)
+- limit ||= false
+- if limit && @album.limit
+  - if limit > @album.limit
+    - limit = @album.limit
+- elsif @album.limit
+  - limit = @album.limit
 
 - if @album.photos
-  -if limit ||= false
+  -if limit
     - @sorted_photos = @album.photos.sort_by { |photo| photo.position(album_id: @album.id) }.first(limit)
   - else
     - @sorted_photos = @album.photos.sort_by { |photo| photo.position(album_id: @album.id) }
   - @sorted_photos.each do |photo|
     = render 'albums/album_photo', photo: photo,  featured: (featured ||= false), desc: (desc ||= false), edit: (edit ||= false), controls: (controls ||= false)
+  -if limit
+    - (limit - @sorted_photos.count).times do |i|
+      = render 'albums/emptyslot', controls: (controls||=false)

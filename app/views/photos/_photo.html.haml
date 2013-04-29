@@ -6,7 +6,8 @@
     size: the size of the photo image (default is :medium, refer to photo model for options)
 
 - if photo
-  = link_to(image_tag(photo.file.url(size ||= :box)), url ||= url_for(photo), controller: controller ||= 'photos', action: action ||= 'show')
+  /= link_to(image_tag(photo.file.url(size ||= :box)), url ||= url_for(photo), controller: controller ||= 'photos', action: action ||= 'show')
+  = image_tag(photo.file.url(size ||= :box))
   - if desc ||= false
     %p.description
       = photo.caption

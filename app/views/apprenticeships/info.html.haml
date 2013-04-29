@@ -1,0 +1,14 @@
+%section#apprenticeship-info.section
+  .container
+    .row-fluid
+      .hero-unit.well
+        %h1 Apprenticeships
+        %br
+        %p
+          Info here about offering an apprenticeship.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis dolor dolor. Pellentesque nibh dolor, accumsan vitae condimentum vel, mollis non turpis. Mauris sit amet ipsum nulla. Proin viverra eleifend purus et tempus. Mauris eget tellus ligula. Pellentesque eros urna, fringilla quis suscipit vitae, placerat quis est. Nam quis neque purus, blandit pharetra metus. Phasellus bibendum posuere mauris, at lacinia nisi pulvinar a.
+        %br
+        %br
+        #buttons
+          = link_to "Let's start one!", { controller: :apprenticeships, action: :create, save_button: 'Save for Later' } , {method: :post, style: 'button', class: 'btn btn-large btn-primary' }
+          = link_to "No thanks", '#', style: 'button', class: 'btn btn-large'

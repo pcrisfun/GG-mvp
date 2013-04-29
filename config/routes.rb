@@ -26,8 +26,12 @@ GirlsGuild::Application.routes.draw do
     resources :app_signups
     collection do
       post :cancel
+      get :info
     end
   end
+  match 'apprenticeships/:id/private' => 'apprenticeships#private', as: :private_apprenticeship
+  match 'apprenticeships/:id/payment' => 'apprenticeships#payment', as: :payment_apprenticeship
+  match 'apprenticeships/:id/confirmation' => 'apprenticeships#payment_confirmation', as: :payment_confirmation_apprenticeship
 
   resources :workshops do
     resources :work_signups

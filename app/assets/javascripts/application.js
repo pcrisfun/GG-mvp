@@ -28,6 +28,9 @@
 //= require masonry/jquery.masonry.min
 //= require masonry/jquery.imagesloaded.min
 //= require masonry/modernizr-transitions
+//= require bootstrap-editable
+//= require select2
+//= require moment
 //= require_tree .
 
 
