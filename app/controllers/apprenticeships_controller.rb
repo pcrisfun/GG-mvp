@@ -49,8 +49,8 @@ class ApprenticeshipsController < ApplicationController
   end
 
   def update
-    if @apprenticeship.started?
-      if params[:name] && params[:value] && @apprenticeship.respond_to?(params[:name])
+    if params[:name] && params[:value]
+      if @apprenticeship.respond_to?(params[:name])
         if params[:value] == ""
           params[:value] = nil
         end
@@ -61,7 +61,7 @@ class ApprenticeshipsController < ApplicationController
           @apprenticeship.generate_title
         end
         respond_to do |format|
-          format.json { render json: @apprenticeship.send(params[:name]), status: :ok }
+          format.json { render json: @apprenticeship }
         end
       end
     else

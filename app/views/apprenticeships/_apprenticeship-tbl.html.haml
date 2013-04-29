@@ -32,12 +32,13 @@
         %td
           = link_to apprenticeship.title_html, apprenticeship_path(apprenticeship), class: "title-boxlink"
         %td
-          = apprenticeship.registration_max - apprenticeship.signups.where(:state => "confirmed").count
+          - if apprenticeship.registration_max
+            = apprenticeship.registration_max - apprenticeship.signups.where(:state => "confirmed").count
         %td
-          = apprenticeship.age_min
+          = apprenticeship.age_min ? apprenticeship.age_min : '_'
           &nbsp;-&nbsp;
-          = apprenticeship.age_max
+          = apprenticeship.age_max ? apprenticeship.age_max : '_'
         %td
-          = apprenticeship.begins_at.strftime('%a, %b %d')
+          = apprenticeship.begins_at ? apprenticeship.begins_at.strftime('%A, %B %d') : '_'
           &nbsp;-&nbsp;
-          = apprenticeship.ends_at.strftime('%a, %b %d')
+          = apprenticeship.ends_at ? apprenticeship.ends_at.strftime('%A, %B %d') : '_'

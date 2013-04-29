@@ -5,7 +5,7 @@ jQuery ->
     ajaxOptions:
       type: 'put'
       dataType: 'json'
-    success: ->
+    success: (response)->
       $(this).parent('.field').css "opacity", "0"
       $(this).parent('.field').animate(opacity: "1", 1500)
 
@@ -37,7 +37,7 @@ jQuery ->
         type: 'put'
         dataType: 'json'
       success: (response)->
-        if (response == true)
+        if (response.datetime_tba == true)
           $('#dates, #from').addClass('hidden')
         else
           $('#dates, #from').removeClass('hidden')
@@ -51,7 +51,7 @@ jQuery ->
         type: 'put'
         dataType: 'json'
       success: (response)->
-        if (response == true)
+        if (response.location_private == true)
           $('#nbrhood-toggle').removeClass('hidden')
         else
           $('#nbrhood-toggle').addClass('hidden')
