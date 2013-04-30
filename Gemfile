@@ -80,5 +80,9 @@ gem 'figaro'
 gem 'hominid'
 gem 'jquery-cookie-rails'
 gem 'font-awesome-rails'
+gem 'bootstrap-x-editable-rails'
+gem 'select2-rails'
+gem 'momentjs-rails'
+
 
 

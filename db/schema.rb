@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20130428221021) do
     t.integer  "event_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "limit"
   end
 
   create_table "events", :force => true do |t|
@@ -91,6 +92,7 @@ ActiveRecord::Schema.define(:version => 20130428221021) do
     t.string   "respect_my_style"
     t.boolean  "facilitate"
     t.integer  "prereg_id"
+    t.boolean  "gender",                                           :default => false
   end
 
   add_index "events", ["charge_id"], :name => "index_events_on_charge_id"

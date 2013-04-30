@@ -15,19 +15,20 @@
             = link_to "Edit", edit_apprenticeship_path(apprenticeship), class: "btn btn-mini pull-right"
           - elsif apprenticeship.accepted?
             = link_to "Edit", edit_apprenticeship_path(apprenticeship), class: "btn btn-mini pull-right"
+
       = link_to apprenticeship.title_html, apprenticeship_path(apprenticeship), class: "title-boxlink"
 
       Ages
       %span.badge
-        = apprenticeship.age_min
+        = apprenticeship.age_min ? apprenticeship.age_min : '_'
         to
-        = apprenticeship.age_max
+        = apprenticeship.age_max ? apprenticeship.age_max : '_'
       %br
       %span.date
         - if apprenticeship.datetime_tba == false
-          = apprenticeship.begins_at.strftime('%a, %b %d')
+          = apprenticeship.begins_at ? apprenticeship.begins_at.strftime('%A, %B %d') : '_'
           &nbsp;-&nbsp;
-          = apprenticeship.ends_at.strftime('%a, %b %d')
+          = apprenticeship.ends_at ? apprenticeship.ends_at.strftime('%A, %B %d') : '_'
         - else
           Dates TBA
       = avatar_for(apprenticeship.user, class: "avatar", size: 50, tag: 'medium')

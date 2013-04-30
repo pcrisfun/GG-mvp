@@ -1,5 +1,5 @@
 class Album < ActiveRecord::Base
-  attr_accessible :description, :title, :photos_attributes
+  attr_accessible :description, :title, :photos_attributes, :limit
   validates_presence_of :title
 
   has_many :photos, through: :album_photo_maps

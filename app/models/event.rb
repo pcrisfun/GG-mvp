@@ -19,10 +19,10 @@ class Event < ActiveRecord::Base
     validates_presence_of :host_lastname, :message => ' must be included in order to save your form.'
   end
 
-  validates_presence_of :bio, :website, :permission, :description, :begins_at, :skill_list, :tool_list, :location_address, :location_city, :location_state, :location_zipcode, :age_min, :age_max, :registration_max
-  validates_numericality_of :age_min, :greater_than => 0
-  validates_numericality_of :age_max, :greater_than => :age_min, :message => " must be greater than the minimum age you set."
-  validates_numericality_of :registration_max, :greater_than_or_equal_to => 1, :message => " registrations must be greater than 0."
+  #validates_presence_of :bio, :website, :permission, :description, :begins_at, :skill_list, :tool_list, :location_address, :location_city, :location_state, :location_zipcode, :age_min, :age_max, :registration_max
+  #validates_numericality_of :age_min, :greater_than => 0
+  #validates_numericality_of :age_max, :greater_than => :age_min, :message => " must be greater than the minimum age you set."
+  #validates_numericality_of :registration_max, :greater_than_or_equal_to => 1, :message => " registrations must be greater than 0."
 
   attr_accessible :title, :topic, :host_firstname, :host_lastname, :host_business,
                   :bio, :twitter, :facebook, :website, :webshop, :permission,
@@ -32,9 +32,9 @@ class Event < ActiveRecord::Base
                   :skill_list, :tool_list, :requirement_list, :other_needs, :hours, :hours_per,
                   :location_address, :location_address2, :location_city, :location_state, :location_zipcode,
                   :location_private, :location_nbrhood, :location_varies, :age_min, :age_max,
-                  :registration_min, :registration_max, :price, :respect_my_style, :facilitate
+                  :registration_min, :registration_max, :price, :respect_my_style, :facilitate, :gender
 
-  after_create :generate_title
+  after_create
   def generate_title
     self.title = "#{self.topic} with #{self.host_firstname} #{self.host_lastname}"
     self.save
@@ -51,7 +51,6 @@ class Event < ActiveRecord::Base
   acts_as_taggable_on :skills, :tools, :requirements
 
   before_save :fix_tags
-
   def fix_tags
     # OPTIMIZE: lol this is a hack to fix acts as taggable on
     self.skill_list = self.skill_list.map { |t| t.strip.gsub(/[^,A-Z0-9 '-]/i, '') }.join(',')
@@ -89,62 +88,104 @@ class Event < ActiveRecord::Base
     datetime_tba.blank?
   end
 
+  def google_address
+    if self.location_private && self.location_nbrhood
+      return "#{self.location_nbrhood} #{self.location_city} #{self.location_state} #{self.location_zipcode}"
+    elsif !self.location_private && self.location_address && self.location_zipcode
+      return "#{self.location_address} #{self.location_city} #{self.location_state} #{self.location_zipcode}"
+    else
+      return "Austin, TX"
+    end
+  end
+
+
   state_machine :state, :initial => :started do
 
-     state :started do
+    state :started do
+      Rails.logger.info("STATE: started")
+    end
+
+     state :private do
+      Rails.logger.info("STATE: private")
+      validates_presence_of :bio, :website, :description, :begins_at, :skill_list, :tool_list, :location_address, :location_city, :location_state, :location_zipcode, :age_min, :age_max, :registration_max
+      validates_numericality_of :age_min, :greater_than => 0
+      validates_numericality_of :age_max, :greater_than => :age_min, :message => "must be greater than the minimum age you set."
+      validates_numericality_of :registration_max, :greater_than_or_equal_to => 0
+      validate :host_album_limit
      end
 
-     state :pending do
-     end
+    state :payment do
+      Rails.logger.info("STATE: payment")
+      validates_presence_of :permission
+    end
 
-     state :accepted do
-     end
+    state :pending do
+    end
 
-     state :canceled do
-     end
+    state :accepted do
+    end
 
-     state :filled do
-     end
+    state :canceled do
+    end
 
-     state :in_progress do
-     end
+    state :filled do
+    end
 
-     state :completed do
-     end
+    state :in_progress do
+    end
 
-     event :reject do
-       transition :pending => :started
-     end
+    state :completed do
+    end
 
-     event :revoke do
-       transition :accepted => :started
-     end
+    event :reject do
+      transition :pending => :started
+    end
 
-     event :submit do
-       transition :started => :pending
-      end
+    event :revoke do
+      transition :accepted => :started
+    end
 
-      event :accept do
-        transition :pending => :accepted
-      end
+    event :designed do
+      transition :started => :private
+    end
 
-      event :resubmit do
-        transition all => :pending
-      end
+    event :private_complete do
+        transition :private => :payment
+    end
 
-      event :cancel do
-        transition all => :canceled
-      end
+    event :paid do
+      transition :payment => :pending
+    end
 
-      event :fill do
-        transition :accepted => :filled
-      end
+    event :edit_design do
+      transition [:payment, :private] => :started
+    end
+
+    event :edit_private do
+      transition :payment => :private
+    end
+
+    event :accept do
+      transition :pending => :accepted
+    end
+
+    event :resubmit do
+      transition all => :pending
+    end
+
+    event :cancel do
+      transition all => :canceled
+    end
+
+    event :fill do
+      transition :accepted => :filled
+    end
 
   end
 
   after_create :create_host_album
   def create_host_album
-    self.host_album  = Album.new(title: "Images for #{self.title}")
+    self.host_album  = Album.new(title: "Images for #{self.title}", limit: 5)
   end
 
   def min_capacity_met?
@@ -154,5 +195,12 @@ class Event < ActiveRecord::Base
   def max_capacity_met?
     self.signups.where(:state => "confirmed").count >= self.registration_max
   end
+
+  def host_album_limit
+    if self.host_album.limit && ( self.host_album.photos.size < self.host_album.limit )
+      errors.add(:images, "please include exactly 5 images.")
+    end
+  end
+
 end
 

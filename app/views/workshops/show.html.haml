@@ -1,5 +1,5 @@
 = provide(:title, @workshop.title)
-= provide(:googleshim, true)
+= render 'layouts/googleshim', address: @workshop.google_address
 
 #workshop_show
 
@@ -142,11 +142,3 @@
           %h3 Admin Controls
           = form_for(@workshop) do |f|
             = f.submit "Revoke Workshop", :name => "revoke_button", :class => "btn btn-large btn-danger"
-
-
-
-
-
-
-
-

@@ -1,0 +1,21 @@
+%section#private-info.section
+  .container
+    .row-fluid
+      %h1 Payment
+      #top-buttons.preview-hide
+        %ul.nav.nav-pills
+          %li
+            = link_to '1. Design', '#'
+          %li
+            = link_to '2. Private Info', '#'
+          %li.active
+            = link_to '3. Payment', '#'
+      .span9
+        = simple_form_for @apprenticeship, html: { class: 'form-horizontal payment_form' }, validate: false do |f|
+          = render 'shared/error_messages', form_model: @apprenticeship
+          = render partial: "shared/credit_card", locals: { f: f, paid: @apprenticeship.charge_id.present? }
+          - if @apprenticeship.charge_id.present?
+            = link_to "Payment Confirmation", payment_confirmation_apprenticeship_path(@apprenticeship)
+            %br
+          - else
+            = f.submit 'Submit Payment', class: 'btn btn-large btn-primary', id: 'cc_process'
