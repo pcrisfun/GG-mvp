@@ -870,7 +870,7 @@
   }
 
   .dl-horizontal dt {
-    float: none;
+    /*float: none; - removed this over-write so that the text can still float: left on apprenticeship show pages - cw 5/3/13 */
     clear: none;
     width: auto;
     text-align: left;

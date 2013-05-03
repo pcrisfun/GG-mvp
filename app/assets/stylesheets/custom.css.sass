@@ -231,6 +231,11 @@ a, a:hover, a:active, a:visited, a:focus
   .accordion-inner
     background-color: $grass-slight
 
+// FAQ
+#FAQ
+  .accordion
+    margin-bottom: 5px
+
 // Forms
 .event-accordion
   .accordion-toggle
@@ -276,7 +281,7 @@ a, a:hover, a:active, a:visited, a:focus
     margin-left: 190px
     .help-block
       margin-top: 0px
-      color: $silver-shadow
+      color: $silver-dark
   .btn-create
     text-align: center
     margin: 0 auto
@@ -298,6 +303,11 @@ a, a:hover, a:active, a:visited, a:focus
       padding-right: 40px
       background-color: $silver-light
       +roundcorners
+    .currentpassword
+      padding-top: 30px
+      background-color: $silver-light
+      .control-group
+        border-bottom: none
 
 .control-group
   .radio_buttons
@@ -626,14 +636,14 @@ input[type="radio"], input[type="checkbox"]
   &:focus
     outline: none
 
+
 // Apprenticeship Design Page
-#apprenticeship-design, #apprenticeship-show
-  margin-top: 40px
-  //font-family: Georgia
-  line-height: 20px
-  section
-    margin: 0
-    padding: 0
+#apprenticeship-design, #apprenticeship-show, #private-info
+  #page-header
+    font-family: kristi
+    font-size: 45px
+    font-weight: normal
+    text-transform: none
   #top-buttons
     ul
       padding-left: 30px
@@ -641,28 +651,42 @@ input[type="radio"], input[type="checkbox"]
       li
         a
           cursor: default
+          background-color: $silver-light
+          font-size: 20px
+          color: $silver-shadow
           &:hover
-            background-color: inherit
+            background-color: $silver-light
         &.active
           a
             color: #FFFFFF
+            background-color: $plum-shadow
             &:hover
-              background-color: $niceblue
+              background-color: $plum-shadow
+
+#apprenticeship-design, #apprenticeship-show
+  margin-top: 40px
+  line-height: 20px
+  section
+    margin: 0
+    padding: 0
   #top
-    border: 2px solid #CCC
+    border: 3px dashed #CCC
+    background-color: $silver-bright
     border-bottom: none
     border-radius: 4px 4px 0 0
     &.no-border
       border: none
   #middle
-    border: 2px solid #CCC
+    border: 3px dashed #CCC
+    background-color: $silver-bright
     border-top: none
     border-bottom: none
     padding: 20px 0
     &.no-border
       border: none
   #bottom
-    border: 2px solid #CCC
+    border: 3px dashed #CCC
+    background-color: $silver-bright
     border-top: none
     border-radius: 0 0 4px 4px
     margin-bottom: 30px
@@ -672,6 +696,7 @@ input[type="radio"], input[type="checkbox"]
   .field
     display: inline-block
     border: 1px solid #CCC
+    background-color: #FFF
     border-radius: 6px
     padding: 1px 8px
     a, span
@@ -682,7 +707,8 @@ input[type="radio"], input[type="checkbox"]
       & .preview
         font-style: normal
     & .preview
-      color: #333333
+      color: #666
+      font-size: 12px
       cursor: default
       &.editable-empty-disabled
         color: red
@@ -714,6 +740,7 @@ input[type="radio"], input[type="checkbox"]
         text-transform: uppercase
     #kind
       margin-top: 10px
+      background-color: #666
       &.label
         a, span
           line-height: 22px
@@ -722,12 +749,17 @@ input[type="radio"], input[type="checkbox"]
         & .preview
           color: #FFF
     #description
+      font-family: georgia
       margin-top: 15px
       font-size: 16px
       text-align: center
+      .editable-empty
+        font-style: italic
       &.field
         a, span
           line-height: 30px
+  #private-address
+    margin-top: 5px
   #dates, #from, #address, #nbrhood-toggle
     display: inline
     &.hidden
@@ -735,22 +767,35 @@ input[type="radio"], input[type="checkbox"]
   #host-images
     margin: 0px
     text-align: center
+    .alert-success
+      background-color: #CCC
     .box
       width: 18.1%
       margin: 0 0.5%
       a
         float: right
+      .handle
+        position: absolute
+        background: url(bkg-drag.png) repeat-x 0 0 transparent
+        cursor: pointer
+        display: block
+        float: left
+        height: 25px
+        width: 75%
     .placeholder
       width: 18.1%
       margin: 0 0.5%
       img
         width: inherit
+  #bio
+    a
+      font-style: normal
   #map-box
     width: 18.5%
     text-align: center
     margin: 0 1.1%
   #details, #private-details
-    width: 78.5%
+    //width: 78.5%
     .dl-horizontal
       dt
         line-height: 37px
@@ -791,10 +836,30 @@ input[type="radio"], input[type="checkbox"]
   #apply_section
     text-align: center
 
+
 #apprenticeship-show
+  #banner
+    padding-top: 0px
+    #title
+      margin-bottom: -15px
+    #description
+      font-style: italic
+      color: $silver-dark
+      padding-bottom: 30px
+    #kind
+      padding: 1px 8px
+  #private-address
+    margin-top: 0px
+  #details, #private-details
+    .dl-horizontal
+      dt, dd
+        margin-bottom: 0px
+  #bio
+    line-height: 25px
   #preview-btn
     display: none
   .field
+    padding: 0px
     border: none
   .preview-hide
     display: none
@@ -802,6 +867,7 @@ input[type="radio"], input[type="checkbox"]
     display: block
   #top, #middle, #bottom
     border: none
+    background-color: transparent
 
 // Event SignUps
 // SignUps

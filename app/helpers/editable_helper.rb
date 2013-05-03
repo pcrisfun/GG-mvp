@@ -49,7 +49,7 @@ module EditableHelper
     end
     unless params[:action] == 'edit'
       if link_text.blank?
-        return content_tag(:span, "empty!", class: 'editable-empty')
+        return content_tag(:span, "required", class: 'editable-empty', style: 'font-style: italic')
       else
         return content_tag(:span, link_text)
       end
