@@ -111,7 +111,7 @@ loadAlbum = () ->
     , ->
       $(".featured").css "background-color", "#7dbc0f"
       reloadAlbum()
-      $(".featured").animate(backgroundColor: "#DFF0D8", 1500)
+      $(".featured").animate(backgroundColor: "#CCC", 1500)
 
 jQuery ->
   $(window).load ->

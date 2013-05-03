@@ -1,18 +1,18 @@
 / app/views/static_pages/_inquiryform.html.erb
-= simple_form_for inquiry, :html => {:class => "form-horizontal"}, :validate => true do |f|
+= simple_form_for inquiry, html: {class: "form-horizontal"}, validate: true do |f|
   %fieldset
     .control-group
-      = f.label :name, :class => "control-label"
+      = f.label :name, class: "control-label"
       .controls
-        = f.text_field :name, :class => 'input-xlarge', :rel => 'popover'
+        = f.text_field :name, class: 'input-xlarge', rel: 'popover'
     .control-group
-      = f.label :email, :class => "control-label"
+      = f.label :email, class: "control-label"
       .controls
-        = f.text_field :email, :class => 'input-xlarge'
+        = f.text_field :email, class: 'input-xlarge'
     .control-group
-      = f.label :message, :class => "control-label"
+      = f.label :message, class: "control-label"
       .controls
-        = f.text_area :message, :class => 'input-xlarge', :rows=>'3'
+        = f.text_area :message, class: 'input-xlarge', rows: '3'
     .control-group
       .controls
-        = f.submit "Send mail", :class => 'btn btn-primary'
+        = f.submit "Send Mail", class: 'btn btn-primary'

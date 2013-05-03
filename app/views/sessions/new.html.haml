@@ -1,0 +1,14 @@
+- provide(:title, "Sign in")
+%section#promo.section
+  .container
+    %h1 Sign in
+    .row
+      .span6.fancyform
+        = form_for(:session, url: sessions_path) do |f|
+          = f.label :email
+          = f.text_field :email, class: "span6"
+          = f.label :password
+          = f.password_field :password, class: "span6"
+          = f.submit "Sign in", class: "btn btn-large btn-primary"
+        %p.pull-right
+          New user? #{link_to "SIGN UP NOW!", signup_path}

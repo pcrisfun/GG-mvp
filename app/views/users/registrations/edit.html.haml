@@ -56,8 +56,8 @@
                   = image_tag(@user.avatar.url(:medium))
                 %label.collection_radio_buttons{:for => 'user_use_gravatar_false'} Upload an Avatar
                 = f.file_field :avatar
-
-            = f.input :current_password, :required => true, :hint => "we need your current password to confirm your changes"
+            .form-inline.currentpassword
+              = f.input :current_password, :required => true, :hint => "We need your current password to confirm your changes"
             .form-actions
               %br
               = f.button :submit, "Save!", :class => "btn btn-large btn-primary"

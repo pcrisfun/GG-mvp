@@ -1,15 +1,15 @@
 %section#private-info.section
   .container
     .row-fluid
-      %h1 Private Details
+      %h1#page-header.pull-right Private Details
       #top-buttons.preview-hide
         %ul.nav.nav-pills
           %li
-            = link_to '1. Design', '#'
+            = link_to '1. DESIGN', '#'
           %li.active
-            = link_to '2. Private Info', '#'
+            = link_to '2. PRIVATE INFO', '#'
           %li
-            = link_to '3. Payment', '#'
+            = link_to '3. PAYMENT', '#'
       .span9
         = simple_form_for @apprenticeship, class: 'form-horizontal', validate: false do |f|
           = render 'shared/error_messages', form_model: @apprenticeship
@@ -17,22 +17,26 @@
           %br/
           = f.input :respect_my_style, label: 'Respect my Style' do
             = f.check_box :respect_my_style
-            %span.simpleform-text Please ask my apprentice to agree to respect my unique artistic style. Why
+            %span.simpleform-text Please ask my apprentice to agree to respect my artistic style.
             %a{"data-content" => "We understand that for some makers, teaching your unique techniques can feel like risking your trade secrets. If this is a concern for you, we'll ask your apprentice to sign an agreement to respect your artistic style.", "data-placement" => "right", :href => "javascript:;", :rel => "popover"}
+              Why
               %i.icon-question-sign.small-icon
           / FACILITATED FIRST MEETING
           %br/
           = f.input :facilitate, label: 'Facilitate the 1st Meeting' do
             = f.check_box :facilitate
-            %span.simpleform-text I'd like GirlsGuild to facilitate my first meeting with my apprentice(s). Why
+            %span.simpleform-text I'd like GirlsGuild to facilitate my first meeting with my apprentice(s).
             %a{"data-content" => "We've found that getting started can be the hardest part - if you'd like to hold your first meeting with your apprentice(s) with us at GirlsGuild HQ, we'd be happy to facilitate that connection!", "data-placement" => "right", :href => "javascript:;", :rel => "popover"}
+              Why
               %i.icon-question-sign.small-icon
           / BACKGROUND CHECK
           %br/
           = f.input :permission, label: 'Background Check' do
             = f.check_box :permission
-            %span.simpleform-text I give permission for GirlsGuild to run a background check on me. Why
+            %span.simpleform-text I give permission for GirlsGuild to run a background check on me.
             %a{"data-content" => "We run background checks on all maker-mentors as part of our efforts to foster a safe community.", "data-placement" => "right", :href => "javascript:;", :rel => "popover"}
+              Why
               %i.icon-question-sign.small-icon
-
+          %br
+          %br
           = f.submit 'Proceed', class: 'btn btn-large btn-primary'

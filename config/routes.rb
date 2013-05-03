@@ -1,5 +1,6 @@
 GirlsGuild::Application.routes.draw do
 
+
   resources :signups
   resources :app_signups do
     collection do
@@ -66,6 +67,7 @@ GirlsGuild::Application.routes.draw do
 
   match '/faq', to: 'static_pages#faq'
   match '/about', to: 'static_pages#about'
+  match '/why_join', to: 'static_pages#why_join'
   match '/contact', to: 'static_pages#contact'
   match '/thankyou', to: 'static_pages#thankyou'
   match '/newsletter', to: 'static_pages#newsletter'
@@ -130,4 +132,8 @@ GirlsGuild::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
+end
+
+unless #Rails.application.config.consider_all_requests_local
+  match '*not_found', to: 'errors#error_404'
 end
