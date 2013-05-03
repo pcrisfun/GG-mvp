@@ -1,4 +1,6 @@
 // Variables
+$plum-shadow: #673c58
+
 $tangerine-light: #ffe6c5
 $tangerine-medium: #f9a83d
 $tangerine: #f99716
@@ -98,7 +100,7 @@ $radius: 5px
 
 // Headers
 h2
-  color: $tangerine-black
+  color: $plum-shadow
 
 
 // Universal
@@ -152,11 +154,14 @@ a, a:hover, a:active, a:visited, a:focus
 
 
 // Header
-#masthead .brand
-  background: url(gg-logo.png) no-repeat 0 0 transparent
-  width: 110px
-  height: 80px
-  padding: 0px
+#masthead
+  .brand
+    background: url(gg-logo.png) no-repeat 0 0 transparent
+    width: 110px
+    height: 80px
+    padding: 0px
+  h1
+    display: none
 
 .navbar .nav > .active > a,
 .navbar .nav > .active > a:hover,
@@ -166,9 +171,6 @@ a, a:hover, a:active, a:visited, a:focus
 .navbar .nav li.dropdown.open.active > .dropdown-toggle
   background-color: transparent
 
-#masthead .brand h1
-  display: none
-
 .nav
   .dropdown
     img
@@ -176,11 +178,27 @@ a, a:hover, a:active, a:visited, a:focus
 
 // Footer
 #footer
+  .brand
+    background: url(gg-logo-footer.png) no-repeat 0 0 transparent
+    width: 80px
+    height: 77px
+    padding: 0px
+    display: block
+    float: left
+  h1
+    display: none
+
+#footer
   .kristi
-    font-size: 28px
+    font-size: 37px
+    color: #646363
   small
-    color: #999
+    color: #646363
     font-style: normal
+    display: inline
+    margin-left: -5px
+  .tagline
+    padding-top: 5px
 
 // Sidebar
 .gravatar
