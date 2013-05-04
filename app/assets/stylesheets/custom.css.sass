@@ -153,6 +153,11 @@ a, a:hover, a:active, a:visited, a:focus
     padding: 2px 14px
 
 
+// Icons
+.enormous-icon.circled
+  line-height: 1.6em
+
+
 // Header
 #masthead
   .brand
@@ -795,7 +800,7 @@ input[type="radio"], input[type="checkbox"]
     text-align: center
     margin: 0 1.1%
   #details, #private-details
-    //width: 78.5%
+    width: 78.5%
     .dl-horizontal
       dt
         line-height: 37px
@@ -833,9 +838,9 @@ input[type="radio"], input[type="checkbox"]
     color: $niceblue
   .editable-click, a.editable-click, a.editable-click:hover
     border-bottom: 1px dashed #CCCCCC
-  #apply_section
+  #admin_section
+    padding: 30px 0px
     text-align: center
-
 
 #apprenticeship-show
   #banner
@@ -868,6 +873,15 @@ input[type="radio"], input[type="checkbox"]
   #top, #middle, #bottom
     border: none
     background-color: transparent
+
+  #applysidebar
+    padding-top: 30px
+    width: 20%
+    float: right
+    .small
+      font-size: 13px
+      color: $silver-dark
+      padding: 10px
 
 // Event SignUps
 // SignUps
@@ -919,3 +933,6 @@ input[type="radio"], input[type="checkbox"]
   width: 100%
   margin-top: 45px
   @include box_sizing
+
+#map
+  margin: -30px -0px 0 -20px
