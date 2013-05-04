@@ -151,7 +151,7 @@ first_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Marth
                                                         "stripe_card_token"=>"",
                                                         "permission"=>"1"
                                                      )
-second_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Jane",
+second_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
                                                         "host_lastname"=>"Smith",
                                                         "host_business"=>"JS Designs",
                                                         "bio"=>"Vivamus ut accumsan nulla. Maecenas consequat vestibulum dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at purus urna. Sed adipiscing risus non elit molestie eget tempus massa porta. Ut in ligula elit. ",
@@ -186,7 +186,7 @@ second_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Jane
                                                         "stripe_card_token"=>"",
                                                         "permission"=>"1"
                                                      )
-third_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Jane",
+third_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
                                                         "host_lastname"=>"Smith",
                                                         "host_business"=>"JS Designs",
                                                         "bio"=>"Vivamus ut accumsan nulla. Maecenas consequat vestibulum dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at purus urna. Sed adipiscing risus non elit molestie eget tempus massa porta. Ut in ligula elit. ",
@@ -221,7 +221,7 @@ third_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Jane"
                                                         "stripe_card_token"=>"",
                                                         "permission"=>"1"
                                                      )
-fourth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Jane",
+fourth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
                                                         "host_lastname"=>"Smith",
                                                         "host_business"=>"JS Designs",
                                                         "bio"=>"Vivamus ut accumsan nulla. Maecenas consequat vestibulum dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at purus urna. Sed adipiscing risus non elit molestie eget tempus massa porta. Ut in ligula elit. ",
@@ -256,7 +256,7 @@ fourth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Jane
                                                         "stripe_card_token"=>"",
                                                         "permission"=>"1"
                                                      )
-fifth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Jane",
+fifth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
                                                         "host_lastname"=>"Smith",
                                                         "host_business"=>"JS Designs",
                                                         "bio"=>"Vivamus ut accumsan nulla. Maecenas consequat vestibulum dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at purus urna. Sed adipiscing risus non elit molestie eget tempus massa porta. Ut in ligula elit. ",
@@ -291,7 +291,7 @@ fifth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Jane"
                                                         "stripe_card_token"=>"",
                                                         "permission"=>"1"
                                                      )
-sixth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Jane",
+sixth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
                                                         "host_lastname"=>"Smith",
                                                         "host_business"=>"JS Designs",
                                                         "bio"=>"Vivamus ut accumsan nulla. Maecenas consequat vestibulum dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at purus urna. Sed adipiscing risus non elit molestie eget tempus massa porta. Ut in ligula elit. ",
