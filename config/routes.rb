@@ -75,7 +75,7 @@ GirlsGuild::Application.routes.draw do
   match '/privacypolicy', to:'static_pages#privacypolicy'
   match '/termsandconditions', to:'static_pages#termsandconditions'
 
-  # unless Rails.application.config.consider_all_requests_local
-  match '*not_found', to: 'errors#error_404'
-  # end
+  unless Rails.application.config.consider_all_requests_local
+    match '*not_found', to: 'errors#error_404'
+  end
 end
