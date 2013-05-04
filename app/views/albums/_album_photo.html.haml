@@ -11,7 +11,7 @@
 .box{ id: (id ||= "album_photo_#{photo.id}"), class: "#{ ( (featured ||= false) && (@album.featured_photo == photo) ) ? 'featured alert-success' : ''}" }
   - if (controls ||= false)
     / Position button for Sorting
-    %a.btn.btn-mini.icon-move.pull-right.relative.handle{ rel: 'tooltip', data: { toggle: 'tooltip', title: "Click and Hold to reposition" } }
+    %a.handle{ rel: 'tooltip', data: { toggle: 'tooltip', title: "Click and Hold to reposition" } }
     / Remove from Album button
     %a.btn.btn-mini.icon-remove.pull-right.relative{ rel: 'tooltip', data: {toggle: 'tooltip', title: "Remove from this collection", url: "#{remove_photos_albums_url}", behaviour: "removephotos", album: "#{@album.id}", photo: "#{photo.id}"} }
     / Feature Photo button

@@ -2,8 +2,30 @@
 %footer#footer.section{:role => "contentinfo"}
   .container
     .row-fluid
+      / Modal
+      #myModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+        .modal-header
+          %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+          %h3#myModalLabel Sign Up!
+        .modal-body
+          / Begin MailChimp Signup Form
+          #mc_embed_signup
+            %form#mc-embedded-subscribe-form.validate.input-append.bttn-newsletter{:action => "http://girlsguild.us4.list-manage.com/subscribe/post?u=9f2de43ebd5f4d79e3d803fb9&id=aea5bd62bf", :method => "post", :name => "mc-embedded-subscribe-form", :novalidate => ""}
+              %label{:for => "mce-EMAIL"} For our rad monthly newsletters!
+              %input#mce-EMAIL.span5.email{:name => "EMAIL", :placeholder => "Your Email", :required => "", :type => "email"}/
+              %button#mc-embedded-subscribe.btn.btn-primary.button{:name => "subscribe", :type => "submit", :value => "Subscribe"} Sign up
+          / End mc_embed_signup
+        .modal-footer
+          %a{"aria-hidden" => "true", "data-dismiss" => "modal"} I'll do this later
+      %br
+      %form#mc-embedded-subscribe-form.validate.input-append.bttn-newsletter{:action => "http://girlsguild.us4.list-manage.com/subscribe/post?u=9f2de43ebd5f4d79e3d803fb9&id=aea5bd62bf", :method => "post", :name => "mc-embedded-subscribe-form", :novalidate => "", :target => "_blank"}
+        %input#mce-EMAIL.span3.email{:name => "EMAIL", :placeholder => "Your Email", :required => "", :type => "email"}/
+        %button#mc-embedded-subscribe.btn.btn-primary.button{:name => "subscribe", :type => "submit", :value => "Subscribe"} Sign up for our Newsletter!
+      %br
+
+    .row-fluid
       .span4
-        %h3 Join us online
+        %h3 Socialize
         %ul.icons
           %li
             %i.icon-twitter
@@ -14,6 +36,9 @@
           %li
             %i.icon-facebook
             %a{:href => "http://facebook.com/girlsguild", :target => "_blank"} Facebook
+          %li
+            %i.icon-github
+            %a{:href => "https://github.com/ddgriffin/GG-mvp", :target => "_blank"} GitHub
           %li
             .fb-like{"data-colorscheme" => "dark", "data-href" => "http://www.facebook.com/GirlsGuild", "data-layout" => "button_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "450", :style => "margin:2px 0px 5px 40px;"}
           %li
@@ -29,13 +54,14 @@
             %i.icon-bolt
             = link_to "About", about_path
           %li
+            %i.icon-heart
+            = link_to "Why Join?", why_join_path
+          %li
             %i.icon-bookmark-empty
             = link_to "FAQ", faq_path
+          //%li %i.icon-envelope %a{"data-toggle" => "modal", :href => "#myModal"} Newsletter
           %li
-            %i.icon-envelope
-            %a{"data-toggle" => "modal", :href => "#myModal"} Newsletter
-          %li
-            %i.icon-comments
+            %i.icon-comments-alt
             = link_to "Testimonials", testimonials_path
       .span4
         %h3 Hecho en Austin
@@ -46,8 +72,11 @@
           %li
             %i.icon-bullhorn
             = link_to "Privacy Policy", privacypolicy_path
-        %ul.icons
+        %a.brand{:href => root_path}
+          %h1#logo GirlsGuild
+        %ul.icons.tagline
           %li
             %span.kristi For girls, by girls
           %li
-            %small © 2012 GirlsGuild Co. All Rights Reversed.
+            %small © 2012 GirlsGuild, All Rights Reserved.
+

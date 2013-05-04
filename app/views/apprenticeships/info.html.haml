@@ -1,14 +1,26 @@
-%section#apprenticeship-info.section
+%section#apprenticeship-info.section.alt-grey
   .container
     .row-fluid
       .hero-unit.well
         %h1 Apprenticeships
         %br
-        %p
-          Info here about offering an apprenticeship.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam mattis dolor dolor. Pellentesque nibh dolor, accumsan vitae condimentum vel, mollis non turpis. Mauris sit amet ipsum nulla. Proin viverra eleifend purus et tempus. Mauris eget tellus ligula. Pellentesque eros urna, fringilla quis suscipit vitae, placerat quis est. Nam quis neque purus, blandit pharetra metus. Phasellus bibendum posuere mauris, at lacinia nisi pulvinar a.
-        %br
+        %p We're excited you want to join GirlsGuild as an Maker! Your apprenticeship can be event-based, production-based, or ongoing. We'll review and post the apprenticeship once you've completed your listing and submitted the listing payment.
+        %p We charge $9 to promote it to the GirlsGuild community, collect applications for you to review, and connect you with an apprentice. We'll also ask your permission to run a background check, as part of our efforts to foster a safe community.
+
         %br
         #buttons
           = link_to "Let's start one!", { controller: :apprenticeships, action: :create, save_button: 'Save for Later' } , {method: :post, style: 'button', class: 'btn btn-large btn-primary' }
-          = link_to "No thanks", '#', style: 'button', class: 'btn btn-large'
+
+        %br
+        %br
+        %ul.icons
+          %li
+            %i.icon-bookmark
+            For more info check out the
+            %a{href: "/faq"}
+              FAQ
+          %li
+            %i.icon-envelope
+            Email us with any questions
+            %a{href: "mailto:hello@girlsguild.com?Subject=Howdy"}
+              hello@girlsguild.com

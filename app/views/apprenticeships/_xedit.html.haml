@@ -5,16 +5,17 @@
   %section.section
     .container
       - unless show
-        %h1#page-header Design your Apprenticeship
+        %h1#page-header.pull-right Build your Apprenticeship
+        %br
         #top-buttons
           %ul.nav.nav-pills
             %li.active
-              = link_to '1. Design', edit_apprenticeship_path(@apprenticeship)
+              = link_to '1. DESIGN', '#'
             %li
-              = link_to '2. Private Info', private_apprenticeship_path(@apprenticeship)
+              = link_to '2. PRIVATE INFO', '#'
             %li
-              = link_to '3. Payment', payment_apprenticeship_path(@apprenticeship)
-
+              = link_to '3. PAYMENT', '#'
+      %br
       #top
         .row-fluid
           - unless show
@@ -42,12 +43,14 @@
               #business.field.text.optional
                 = editable_link_to 'Your Business', field: :host_business, resource: @apprenticeship, type: :text
             %br
-            #kind.field.label.label-info
+            #kind.field.label.label-inverse
               = editable_link_to 'Type of Apprenticeship', field: :kind, resource: @apprenticeship, type: :select, data: {source: "{'Event':'Event', 'Production':'Production','Ongoing':'Ongoing' }"}
+              Apprenticeship
             %br
             #description.field.textarea
-              = editable_link_to "Tell us about your apprenticeship. Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. Based on your expectations, consider whether you plan to pay the apprentice, and if so, how much? (Make this a WYSIWYG?)", field: :description, resource: @apprenticeship, type: :textarea
-
+              = editable_link_to "Tell us about your apprenticeship. Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. Based on your expectations, consider whether you plan to pay the apprentice, and if so, how much?", field: :description, resource: @apprenticeship, type: :textarea
+            %br
+            %br
 = render 'host_album', show: show
 
 %section.section
@@ -80,7 +83,7 @@
             %dd
               #frequency.field.text
                 = editable_link_to "How many?", field: :hours, resource: @apprenticeship, type: :text
-              hours per week.
+              hours per week
             %dt
               Where
             %dd
@@ -110,7 +113,7 @@
                   - if !show || @apprenticeship.location_private
                     #nbrhood.field.text.optional
                       = editable_link_to "__________", field: :location_nbrhood, resource: @apprenticeship, type: :text
-                    neighborhood.
+                    neighborhood
                 - if !show
                   %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:'A "Public" address will be displayed on the apprenticeship page with a map of the exact location, while a "Private" address will only display a map of the neighborhood.'} }
                     %i.icon-question-sign.small-icon
@@ -134,10 +137,10 @@
             %dt
               How Many
             %dd
-              I'd like to work with up to
+              Up to
               #registration-max.field.number
                 = editable_link_to "_", field: :registration_max, resource: @apprenticeship, type: :text
-              Apprentice(s).
+              Apprentice(s)
             %dt
               Skills
             %dd
@@ -160,6 +163,9 @@
               %dd
                 #preparations.field.tags.optional
                   = editable_link_to 'Ex: "Must have their own laptop"', field: :other_needs, resource: @apprenticeship, type: :text
+
+            %hr
+
             %dt
               Bio
             %dd
@@ -183,16 +189,25 @@
               %dt
                 Facebook
               %dd
-                www.facebook.com/
+                facebook.com/
                 #website.field.text.optional
                   = editable_link_to '_________', field: :facebook, resource: @apprenticeship, type: :text
             - if !show || @apprenticeship.twitter
               %dt
                 Twitter
               %dd
-                www.twitter.com/
+                twitter.com/
                 #website.field.text.optional
                   = editable_link_to '_________', field: :twitter, resource: @apprenticeship, type: :text
+            - if show
+              %dt
+
+              %dd
+                %br
+                %span.st_facebook_hcount{:displaytext => "Facebook"}
+                %span.st_twitter_hcount{:displaytext => "Tweet"}
+                %span.st_pinterest_hcount{:displaytext => "Pinterest"}
+                %span.st_email_hcount{:displaytext => "Email"}
       - if !show
         .row-fluid
           #preview-buttons-bottom
