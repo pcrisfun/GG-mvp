@@ -58,6 +58,16 @@ jQuery ->
         $(this).parent('.field').css "opacity", "0"
         $(this).parent('.field').animate(opacity: "1", 1500)
 
+  childWindow = undefined
+  $(".preview-btn").click ->
+    if childWindow
+      childWindow.history.go(0)
+      childWindow.focus
+    else
+      childWindow = window.open $(this).data('url')
+
+
+
 
 
 

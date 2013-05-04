@@ -12,16 +12,18 @@
             %li.active
               = link_to '1. DESIGN', '#'
             %li
-              = link_to '2. PRIVATE INFO', '#'
+              = link_to '2. PRIVATE INFO', private_apprenticeship_path(@apprenticeship)
             %li
-              = link_to '3. PAYMENT', '#'
+              = link_to '3. PAYMENT', payment_apprenticeship_path(@apprenticeship)
       %br
       #top
         .row-fluid
           - unless show
             .pull-right
               #preview-buttons-top
-                = link_to 'Preview', apprenticeship_path(@apprenticeship), id: 'preview-btn', class: 'btn', target: '_blank'
+                = link_to 'Preview', '#', class: 'btn preview-btn', data: { url: apprenticeship_path(@apprenticeship) }
+
+          //Banner //////////////////
           #banner
             #avatar.field
               - if !show
@@ -44,19 +46,25 @@
                 = editable_link_to 'Your Business', field: :host_business, resource: @apprenticeship, type: :text
             %br
             #kind.field.label.label-inverse
-              = editable_link_to 'Type of Apprenticeship', field: :kind, resource: @apprenticeship, type: :select, data: {source: "{'Event':'Event', 'Production':'Production','Ongoing':'Ongoing' }"}
+              = editable_link_to 'Type of', field: :kind, resource: @apprenticeship, type: :select, data: {source: "{'Event':'Event', 'Production':'Production','Ongoing':'Ongoing' }"}
               Apprenticeship
             %br
             #description.field.textarea
               = editable_link_to "Tell us about your apprenticeship. Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. Based on your expectations, consider whether you plan to pay the apprentice, and if so, how much?", field: :description, resource: @apprenticeship, type: :textarea
             %br
             %br
+
+
+//Images Section //////////////////
 = render 'host_album', show: show
+
 
 %section.section
   .container
     #bottom
       .row-fluid
+
+        //Details Section //////////////////
         %span#details.pull-left
           %dl.dl-horizontal
             %dt
@@ -208,43 +216,47 @@
                 %span.st_twitter_hcount{:displaytext => "Tweet"}
                 %span.st_pinterest_hcount{:displaytext => "Pinterest"}
                 %span.st_email_hcount{:displaytext => "Email"}
+
+        //Apply Sidebar //////////////////
+        - if show
+          %span#applysidebar.pull-right
+            - if @apprenticeship.accepted?
+              - if current_user && current_user.age < @apprenticeship.age_min
+                = link_to "Work with #{@apprenticeship.host_firstname}!", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-large btn-block disabled"
+                %p.small
+                  Sorry, it looks like you're younger than the minimum age for this apprenticeship.
+                %br/
+                //%p.small Want to be notified next time #{@apprenticeship.host_firstname}'s teaching?
+                = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
+
+              - elsif current_user && current_user.age > @apprenticeship.age_max
+                = link_to "Work with #{@apprenticeship.host_firstname}!", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-large btn-block disabled"
+                %p.small
+                  Sorry, it looks like you're older than the maximum age for this apprenticeship.
+                %br/
+                //%p.small Want to be notified next time #{@apprenticeship.host_firstname}'s teaching?
+                = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
+
+                %br
+                %p
+                  #{link_to "Sign up my Daughter", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-block btn-small btn-primary"}
+
+              - elsif @apprenticeship.datetime_tba == true || @apprenticeship.filled? || @apprenticeship.completed?
+                = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
+
+              - else
+                = link_to "Sign up!", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-block btn-primary"
+
+      //Preview & Next //////////////////
       - if !show
         .row-fluid
           #preview-buttons-bottom
-            = link_to 'Preview', apprenticeship_path(@apprenticeship), id: 'preview-btn', class: 'btn', target: '_blank'
+            = link_to 'Preview', '#', class: 'btn preview-btn', data: { url: apprenticeship_path(@apprenticeship) }
             #proceed.preview-hide
-              = link_to 'Proceed', private_apprenticeship_path(@apprenticeship), method: :get, class: 'btn btn-primary'
+              = link_to 'Next', private_apprenticeship_path(@apprenticeship), method: :get, class: 'btn btn-primary'
 
-- if show
-  %section#apply_section.section
-    .container
-      .row-fluid
-        - if @apprenticeship.accepted?
-          - if current_user && current_user.age < @apprenticeship.age_min
-            = link_to "Apply!", new_apprenticeship_app_signup_path(@apprenticeship), class: "btn btn-block disabled"
-            %p
-              Sorry, it looks like you're younger than the minimum age for this apprenticeship.
-            %br/
-            %p
-              To be notified next time she's teaching: #{link_to "pre-register with #{@apprenticeship.host_firstname}", apprenticeships_path, :class => "btn btn-block btn-small btn-warning"}
 
-          - elsif current_user && current_user.age > @apprenticeship.age_max
-            = link_to "Apply!", new_apprenticeship_app_signup_path(@apprenticeship), class: "btn btn-block disabled"
-            %p
-              Sorry, it looks like you're older than the maximum age for this apprenticeship.
-            %br/
-            %p
-              To be notified next time she's teaching: #{link_to "Pre-Register with #{@apprenticeship.host_firstname}", apprenticeships_path, class: "btn btn-block btn-small btn-warning"}
-            %p
-              Wait! I'm a parent using my account to: #{link_to "Sign my Daughter Up", new_apprenticeship_app_signup_path(@apprenticeship), class: "btn btn-block btn-small btn-success"}
-
-          - elsif current_user && @apprenticeship.already_applied?(current_user)
-            / fix link path below: should link to current user's signup
-            = link_to "View your application", apprenticeship_app_signup_path(@apprenticeship, @apprenticeship.get_signup(current_user).id), class: "btn btn-block"
-
-          - else
-            = link_to "Apply!", new_apprenticeship_app_signup_path(@apprenticeship), class: "btn btn-primary"
-
+  //Admin Controls //////////////////
   %section#admin_section.section
     .container
       .row-fluid
@@ -261,6 +273,7 @@
           = form_for(@apprenticeship) do |f|
             = f.submit "Revoke Apprenticeship", name: "revoke_button", class: "btn btn-large btn-danger"
 
+//Map //////////////////
 - if show
   %section#map_section.section.alt
     = render 'layouts/googleshim', address: @apprenticeship.google_address

@@ -1,0 +1,10 @@
+$('[id="photo_<%=@photo.id%>"]').find("[data-behaviour~='addphotos']").remove();
+var $newAlbumPhoto = "<%= j render 'albums/album_photo', photo: @photo, desc: true, controls: true %>";
+if ($('.emptyslot').size() > 0){
+  $('.emptyslot').first().replaceWith($newAlbumPhoto);
+}
+else {
+  $('#album_photos').append( $newAlbumPhoto );
+}
+$("[data-behaviour~='addphotos']").css('opacity', '1');
+$('#galleryModal').modal('hide');

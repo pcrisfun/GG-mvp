@@ -105,14 +105,14 @@ class Event < ActiveRecord::Base
       Rails.logger.info("STATE: started")
     end
 
-     state :private do
-      Rails.logger.info("STATE: private")
-      validates_presence_of :bio, :website, :description, :begins_at, :skill_list, :tool_list, :location_address, :location_city, :location_state, :location_zipcode, :age_min, :age_max, :registration_max
-      validates_numericality_of :age_min, :greater_than => 0
-      validates_numericality_of :age_max, :greater_than => :age_min, :message => "must be greater than the minimum age you set."
-      validates_numericality_of :registration_max, :greater_than_or_equal_to => 0
-      validate :host_album_limit
-     end
+    state :private do
+     Rails.logger.info("STATE: private")
+     validates_presence_of :topic, :host_firstname, :host_lastname, :bio, :website, :description, :begins_at, :skill_list, :tool_list, :location_address, :location_city, :location_state, :location_zipcode, :age_min, :age_max, :registration_max, :kind
+     validates_numericality_of :age_min, :greater_than => 0
+     validates_numericality_of :age_max, :greater_than => :age_min, :message => "must be greater than the minimum age you set."
+     validates_numericality_of :registration_max, :greater_than_or_equal_to => 0
+     validate :host_album_limit
+    end
 
     state :payment do
       Rails.logger.info("STATE: payment")
@@ -139,6 +139,10 @@ class Event < ActiveRecord::Base
 
     event :reject do
       transition :pending => :started
+    end
+
+    event :restart do
+      transition all => :started
     end
 
     event :revoke do

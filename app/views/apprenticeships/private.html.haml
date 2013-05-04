@@ -5,11 +5,11 @@
       #top-buttons.preview-hide
         %ul.nav.nav-pills
           %li
-            = link_to '1. DESIGN', '#'
+            = link_to '1. DESIGN', edit_apprenticeship_path(@apprenticeship)
           %li.active
             = link_to '2. PRIVATE INFO', '#'
           %li
-            = link_to '3. PAYMENT', '#'
+            = link_to '3. PAYMENT', payment_apprenticeship_path(@apprenticeship)
       .span9
         = simple_form_for @apprenticeship, class: 'form-horizontal', validate: false do |f|
           = render 'shared/error_messages', form_model: @apprenticeship
@@ -39,4 +39,4 @@
               %i.icon-question-sign.small-icon
           %br
           %br
-          = f.submit 'Proceed', class: 'btn btn-large btn-primary'
+          = f.submit 'Next', class: 'btn btn-large btn-primary'

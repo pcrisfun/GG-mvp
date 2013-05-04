@@ -26,7 +26,7 @@
                 %span.blocked Do a Studio Visit
               %h2.pricing-table-price
                 %span $
-                29
+                15
               %ul.pricing-table-list
                 %li 5 projects
                 %li 10 GB Storage
@@ -39,7 +39,7 @@
                 %span.blocked List an Apprenticeship
               %h2.pricing-table-price
                 %span $
-                29
+                9
               %ul.pricing-table-list
                 %li 10 projects
                 %li 50 GB Storage
@@ -194,3 +194,19 @@
               %h3 Do an Ongoing Apprenticeship
               %p
                 Work with a creative by assisting her with her day-to-day studio tasks. Help her create work and learn what it's like to own and operate a small creative business.
+
+%section#promo.section.alt
+  .container.pull-center
+    %br
+    %h2.pull-center Cool right? Help us offer more!
+    %p.pull-center
+      Donate to the scholarship fund to help provide apprenticeship opportunities like these in partnership with
+      %br youth advocacy organizations and programs for at-risk youth.
+
+    %form{:action => "https://www.paypal.com/cgi-bin/webscr", :method => "post"}
+      %input{:name => "cmd", :type => "hidden", :value => "_s-xclick"}/
+      %input{:name => "hosted_button_id", :type => "hidden", :value => "8GLHRBAARGK2J"}/
+      %input{:alt => "Donate a Scholarship", :border => "0", :name => "submit", :class => "btn btn-large btn-success", :type => "image"}/
+      %img{:alt => "Donate a Scholarship", :border => "0", :height => "1", :src => "https://www.paypalobjects.com/en_US/i/scr/pixel.gif", :width => "1"}/
+    %br
+    %br

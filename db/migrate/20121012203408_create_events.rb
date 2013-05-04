@@ -14,7 +14,7 @@ class CreateEvents < ActiveRecord::Migration
       t.string :facebook
       t.string :website
       t.string :webshop
-      t.string :permission
+      t.boolean :permission, :boolean, :default => false
       t.string :payment_options
       t.string :paypal_email
       t.string :sendcheck_address

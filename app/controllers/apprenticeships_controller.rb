@@ -54,14 +54,17 @@ class ApprenticeshipsController < ApplicationController
         if params[:value] == ""
           params[:value] = nil
         end
-        @apprenticeship.update_attribute(params[:name], params[:value])
-        @apprenticeship.state = 'started'
-        @apprenticeship.save
-        if ['topic', 'host_firstname', 'host_lastname'].include? params[:name]
-          @apprenticeship.generate_title
-        end
-        respond_to do |format|
-          format.json { render json: @apprenticeship }
+        if @apprenticeship.update_attribute(params[:name], params[:value])
+          @apprenticeship.restart
+          @apprenticeship.save
+          if ['topic', 'host_firstname', 'host_lastname'].include? params[:name]
+            @apprenticeship.generate_title
+          end
+          respond_to do |format|
+            format.json { render json: @apprenticeship }
+          end
+        else
+          render 'edit', flash: { warning: "There was a problem updating that field: #{@apprenticeship.error.full_messages}" } and return
         end
       end
     else
@@ -70,38 +73,38 @@ class ApprenticeshipsController < ApplicationController
           if params[:apprenticeship][:stripe_card_token] && ( params[:apprenticeship][:stripe_card_token] != "" )
             if @apprenticeship.process_payment
               @apprenticeship.paid
-              redirect_to payment_confirmation_apprenticeship_path(@apprenticeship)
+              redirect_to payment_confirmation_apprenticeship_path(@apprenticeship) and return
             else
-              redirect_to payment_apprenticeship_path(@apprenticeship), :flash => { warning: "There was a problem processing your payment: #{@apprenticeship.errors.full_messages}" }
+              redirect_to payment_apprenticeship_path(@apprenticeship), :flash => { warning: "There was a problem processing your payment: #{@apprenticeship.errors.full_messages}" } and return
             end
           else
-            redirect_to payment_apprenticeship_path(@apprenticeship)
+            redirect_to payment_apprenticeship_path(@apprenticeship) and return
           end
         else
-          redirect_to private_apprenticeship_path(@apprenticeship), :flash => { warning: "Please check all fields. You cannot pay until the following have been corrected: #{@apprenticeship.errors.full_messages}" }
+          redirect_to private_apprenticeship_path(@apprenticeship), :flash => { warning: "Please check all fields. You cannot pay until the following have been corrected: #{@apprenticeship.errors.full_messages}" } and return
         end
       else
         if params[:revoke_button] && current_user.admin? && @apprenticeship.deliver_revoke
          @apprenticeship.revoke
-         redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship revoked."}
+         redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship revoked."} and return
 
         elsif params[:reject_button] && current_user.admin? && @apprenticeship.deliver_reject
           @apprenticeship.reject
-          redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship rejected." }
+          redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship rejected." } and return
 
         elsif params[:accept_button] && current_user.admin? && @apprenticeship.deliver_accept
           @apprenticeship.accept
-          redirect_to apprenticeships_path, :flash => { :success => "Apprenticeship accepted." }
+          redirect_to apprenticeships_path, :flash => { :success => "Apprenticeship accepted." } and return
 
         elsif params[:resubmit_button] && @apprenticeship.deliver_resubmit
           @apprenticeship.resubmit
-          redirect_to apprenticeships_path, :flash => { :success => "Thanks! Your apprenticeship was resubmitted."}
+          redirect_to apprenticeships_path, :flash => { :success => "Thanks! Your apprenticeship was resubmitted."} and return
 
         elsif params[:cancel_button] && @apprenticeship.deliver_cancel
           @apprenticeship.cancel
-          redirect_to apprenticeships_path, :flash => { :warning => "Rats. Your apprenticeship has been canceled."}
+          redirect_to apprenticeships_path, :flash => { :warning => "Rats. Your apprenticeship has been canceled."} and return
         else
-          redirect_to private_apprenticeship_path(@apprenticeship), :flash => { warning: "Please check all fields. You cannot pay until the following have been corrected: #{@apprenticeship.errors.full_messages}" }
+          redirect_to private_apprenticeship_path(@apprenticeship), :flash => { warning: "Please check all fields. You cannot pay until the following have been corrected: #{@apprenticeship.errors.full_messages}" } and return
         end
       end
     end
@@ -126,27 +129,23 @@ class ApprenticeshipsController < ApplicationController
   end
 
   def private
-     if !@apprenticeship.started?
-       if !@apprenticeship.edit_design
-        redirect_to apprenticeships_path
-       end
-     elsif !@apprenticeship.designed
-       redirect_to edit_apprenticeship_path(@apprenticeship), flash: { warning: "Please check all fields: #{@apprenticeship.errors.full_messages}" }
-     end
+    if @apprenticeship.started?
+      unless @apprenticeship.designed
+        redirect_to edit_apprenticeship_path(@apprenticeship), flash: { warning: "Please check all fields: #{@apprenticeship.errors.full_messages}" }
+      end
+    end
   end
 
   def payment
-    if !@apprenticeship.private?
-      if !@apprenticeship.edit_design
-        redirect_to apprenticeships_path
-      elsif @apprenticeship.designed
-        redirect_to edit_apprenticeship_path(@apprenticeship), flash: { warning: "Please check all fields: #{@apprenticeship.errors.full_messages}" }
+    if @apprenticeship.started?
+      unless @apprenticeship.designed
+        redirect_to edit_apprenticeship_path(@apprenticeship), flash: { warning: "Please check all fields. You cannot pay until the following have been completed: #{@apprenticeship.errors.full_messages}" } and return
       end
-    elsif !@apprenticeship.private_complete
-      redirect_to private_apprenticeship_path(@apprenticeship), flash: { warning: "Please check all fields. You cannot pay until the following have been corrected: : #{@apprenticeship.errors.full_messages}" }
     end
-    if @apprenticeship.charge_id.present?
-      @apprenticeship.paid
+    if @apprenticeship.private?
+      unless @apprenticeship.private_complete
+        redirect_to private_apprenticeship_path(@apprenticeship), flash: { warning: "Please check all fields. You cannot pay until the following have been completed: #{@apprenticeship.errors.full_messages}" } and return
+      end
     end
   end
 

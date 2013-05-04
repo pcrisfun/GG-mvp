@@ -1,4 +1,4 @@
 - if current_user && current_user.preregistered?(event)
-  %button.btn.btn-small{:disabled => "disabled"} We'll let you know!
+  %button.btn.btn-small.btn-block{:disabled => "disabled"} We'll let you know!
 - else
-  %a{:href => "/preregs/create?event_id=#{event.id}", :class => "btn btn-small btn-warning"} Keep me posted!
+  %a{:href => "/preregs/create?event_id=#{event.id}", :class => "btn btn-small btn-block btn-primary"} Keep me posted!

@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   include UsersHelper
 
-  unless #Rails.application.config.consider_all_requests_local
+  unless Rails.application.config.consider_all_requests_local
     rescue_from Exception, with: lambda { |exception| render_error 500, exception }
     rescue_from ActionController::RoutingError, ActionController::UnknownController, ::AbstractController::ActionNotFound, ActiveRecord::RecordNotFound, with: lambda { |exception| render_error 404, exception }
   end
@@ -15,5 +15,4 @@ class ApplicationController < ActionController::Base
       format.all { render nothing: true, status: status }
     end
   end
-
 end
