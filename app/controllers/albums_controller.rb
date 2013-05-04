@@ -100,9 +100,14 @@ class AlbumsController < ApplicationController
         @photo = Photo.find(photo_id)
         @album.add_photo(photo: @photo)
       end
-    end
-    respond_to do |format|
-      format.js { render 'albums/add_photo' }
+      if @album.limit && (@album.limit == @album.photos.size)
+        respond_to do |format|
+          format.js { render 'albums/add_last_photo' and return}
+        end
+      end
+      respond_to do |format|
+        format.js { render 'albums/add_photo' and return}
+      end
     end
   end
 

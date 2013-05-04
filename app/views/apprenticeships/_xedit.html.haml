@@ -21,7 +21,7 @@
           - unless show
             .pull-right
               #preview-buttons-top
-                = link_to 'Preview', apprenticeship_path(@apprenticeship), id: 'preview-btn', class: 'btn', target: '_blank'
+                = link_to 'Preview', '#', class: 'btn preview-btn', data: { url: apprenticeship_path(@apprenticeship) }
 
           //Banner //////////////////
           #banner
@@ -251,7 +251,7 @@
       - if !show
         .row-fluid
           #preview-buttons-bottom
-            = link_to 'Preview', apprenticeship_path(@apprenticeship), id: 'preview-btn', class: 'btn', target: '_blank'
+            = link_to 'Preview', '#', class: 'btn preview-btn', data: { url: apprenticeship_path(@apprenticeship) }
             #proceed.preview-hide
               = link_to 'Next', private_apprenticeship_path(@apprenticeship), method: :get, class: 'btn btn-primary'
 
