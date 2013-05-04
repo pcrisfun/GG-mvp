@@ -26,9 +26,9 @@
       %br
       %span.date
         - if apprenticeship.datetime_tba == false
-          = apprenticeship.begins_at ? apprenticeship.begins_at.strftime('%A, %B %d') : '_'
+          = apprenticeship.begins_at ? apprenticeship.begins_at.strftime('%a, %b %d') : '_'
           &nbsp;-&nbsp;
-          = apprenticeship.ends_at ? apprenticeship.ends_at.strftime('%A, %B %d') : '_'
+          = apprenticeship.ends_at ? apprenticeship.ends_at.strftime('%a, %b %d') : '_'
         - else
           Dates TBA
       = avatar_for(apprenticeship.user, class: "avatar", size: 50, tag: 'medium')
