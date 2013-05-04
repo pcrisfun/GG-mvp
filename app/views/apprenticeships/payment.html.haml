@@ -5,11 +5,11 @@
       #top-buttons.preview-hide
         %ul.nav.nav-pills
           %li
-            = link_to '1. Design', '#'
+            = link_to '1. Design', edit_apprenticeship_path(@apprenticeship)
           %li
-            = link_to '2. Private Info', '#'
+            = link_to '2. Private Info', private_apprenticeship_path(@apprenticeship)
           %li.active
-            = link_to '3. Payment', '#'
+            = link_to '3. Payment', payment_apprenticeship_path(@apprenticeship)
       .span9
         = simple_form_for @apprenticeship, html: { class: 'form-horizontal payment_form' }, validate: false do |f|
           = render 'shared/error_messages', form_model: @apprenticeship

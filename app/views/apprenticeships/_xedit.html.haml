@@ -9,18 +9,18 @@
         #top-buttons
           %ul.nav.nav-pills
             %li.active
-              = link_to '1. Design', '#'
+              = link_to '1. Design', edit_apprenticeship_path(@apprenticeship)
             %li
-              = link_to '2. Private Info', '#'
+              = link_to '2. Private Info', private_apprenticeship_path(@apprenticeship)
             %li
-              = link_to '3. Payment', '#'
+              = link_to '3. Payment', payment_apprenticeship_path(@apprenticeship)
 
       #top
         .row-fluid
           - unless show
             .pull-right
               #preview-buttons-top
-                = link_to 'Preview', apprenticeship_path(@apprenticeship), id: 'preview-btn', class: 'btn', target: '_blank'
+                = link_to 'Preview', '#', class: 'btn preview-btn', data: { url: apprenticeship_path(@apprenticeship) }
           #banner
             #avatar.field
               - if !show
@@ -196,7 +196,7 @@
       - if !show
         .row-fluid
           #preview-buttons-bottom
-            = link_to 'Preview', apprenticeship_path(@apprenticeship), id: 'preview-btn', class: 'btn', target: '_blank'
+            = link_to 'Preview', '#', class: 'btn preview-btn', data: { url: apprenticeship_path(@apprenticeship) }
             #proceed.preview-hide
               = link_to 'Proceed', private_apprenticeship_path(@apprenticeship), method: :get, class: 'btn btn-primary'
 
