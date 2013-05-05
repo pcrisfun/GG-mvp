@@ -28,17 +28,17 @@
         %h3 Socialize
         %ul.icons
           %li
-            %i.icon-twitter
-            %a{:href => "http://twitter.com/thegirlsguild/", :target => "_blank"} Twitter
+            %i.icon-github
+            %a{:href => "https://github.com/ddgriffin/GG-mvp", :target => "_blank"} GitHub
           %li
             %i.icon-pinterest
             %a{:href => "http://pinterest.com/girlsguild", :target => "_blank"} Pinterest
           %li
+            %i.icon-twitter
+            %a{:href => "http://twitter.com/thegirlsguild/", :target => "_blank"} Twitter
+          %li
             %i.icon-facebook
             %a{:href => "http://facebook.com/girlsguild", :target => "_blank"} Facebook
-          %li
-            %i.icon-github
-            %a{:href => "https://github.com/ddgriffin/GG-mvp", :target => "_blank"} GitHub
           %li
             .fb-like{"data-colorscheme" => "dark", "data-href" => "http://www.facebook.com/GirlsGuild", "data-layout" => "button_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "450", :style => "margin:2px 0px 5px 40px;"}
           %li
@@ -54,15 +54,18 @@
             %i.icon-bolt
             = link_to "About", about_path
           %li
-            %i.icon-heart
-            = link_to "Why Join?", why_join_path
-          %li
             %i.icon-bookmark-empty
             = link_to "FAQ", faq_path
           //%li %i.icon-envelope %a{"data-toggle" => "modal", :href => "#myModal"} Newsletter
           %li
+            %i.icon-certificate
+            = link_to "Get Involved", get_involved_path
+          %li
             %i.icon-comments-alt
             = link_to "Testimonials", testimonials_path
+          %li
+            %i.icon-gift
+            = link_to "Donate", testimonials_path
       .span4
         %h3 Hecho en Austin
         %ul.unstyled
