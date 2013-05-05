@@ -39,7 +39,7 @@ class ApprenticeshipsController < ApplicationController
     @apprenticeship.begins_at ||= Date.today
     @apprenticeship.ends_at ||= Date.tomorrow
 
-    if @apprenticeship.group_valid?(:save) && @apprenticeship.save #&& @apprenticeship.deliver_save
+    if @apprenticeship.group_valid?(:save) && @apprenticeship.save && @apprenticeship.deliver_save
       redirect_to edit_apprenticeship_path(@apprenticeship), :flash => { :success => "Nice! Let's Start by designing your apprenticeship." }
     else
       flash.now[:warning] = "Whoops! There was a problem starting your apprenticeship: #{@apprenticeship.errors.full_messages}"
