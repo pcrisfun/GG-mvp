@@ -4,6 +4,7 @@ class Event < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
   include Rails.application.routes.url_helpers
   include ActionDispatch::Routing::UrlFor
+  include ApplicationHelper
 
 
   belongs_to :user
@@ -13,16 +14,87 @@ class Event < ActiveRecord::Base
 
   has_one :host_album, :class_name => 'Album', :dependent => :destroy
 
-  validation_group :save do
-    validates_presence_of :topic, :message => ' must be included in order to save your form.'
-    validates_presence_of :host_firstname, :message => ' must be included in order to save your form.'
-    validates_presence_of :host_lastname, :message => ' must be included in order to save your form.'
+  validation_group :design do
+    validates_presence_of :topic
+    validates_presence_of :host_firstname
+    validates_presence_of :host_lastname
+    validates_presence_of :kind
+    validates_presence_of :description
+    validates_presence_of :bio
+    validates_presence_of :website
+    validates_presence_of :begins_at
+    validates_presence_of :skill_list
+    validates_presence_of :tool_list
+    validates_presence_of :location_address
+    validates_presence_of :location_city
+    validates_presence_of :location_state
+    validates_presence_of :location_zipcode
+    validates_presence_of :age_min
+    validates_presence_of :age_max
+    validates_presence_of :registration_max
+    validates_numericality_of :age_min, :greater_than => 0
+    validates_numericality_of :age_max, :greater_than => :age_min, :message => " must be greater than the minimum age you set."
+    validates_numericality_of :registration_max, :greater_than_or_equal_to => 1, :message => " registrations must be greater than 0."
+    validate :host_album_limit
   end
 
-  #validates_presence_of :bio, :website, :permission, :description, :begins_at, :skill_list, :tool_list, :location_address, :location_city, :location_state, :location_zipcode, :age_min, :age_max, :registration_max
-  #validates_numericality_of :age_min, :greater_than => 0
-  #validates_numericality_of :age_max, :greater_than => :age_min, :message => " must be greater than the minimum age you set."
-  #validates_numericality_of :registration_max, :greater_than_or_equal_to => 1, :message => " registrations must be greater than 0."
+  validation_group :private do
+    validates_presence_of :permission
+  end
+  validation_group :topic do
+    validates_presence_of :topic
+  end
+  validation_group :host_firstname do
+    validates_presence_of :host_firstname
+  end
+  validation_group :host_lastname do
+    validates_presence_of :host_lastname
+  end
+  validation_group :kind do
+    validates_presence_of :kind
+  end
+  validation_group :description do
+    validates_presence_of :description
+  end
+  validation_group :bio do
+    validates_presence_of :bio
+  end
+  validation_group :website do
+    validates_presence_of :website
+  end
+  validation_group :begins_at do
+    validates_presence_of :begins_at
+  end
+  validation_group :skill_list do
+    validates_presence_of :skill_list
+  end
+  validation_group :tool_list do
+    validates_presence_of :tool_list
+  end
+  validation_group :location_address do
+    validates_presence_of :location_address
+  end
+  validation_group :location_city do
+    validates_presence_of :location_city
+  end
+  validation_group :location_state do
+    validates_presence_of :location_state
+  end
+  validation_group :location_zipcode do
+    validates_presence_of :location_zipcode
+  end
+  validation_group :age_min do
+    validates_presence_of :age_min
+    validates_numericality_of :age_min, :greater_than => 0
+  end
+  validation_group :age_max do
+    validates_presence_of :age_max
+    validates_numericality_of :age_max, :greater_than => :age_min, :message => " must be greater than the minimum age you set."
+  end
+  validation_group :registration_max do
+    validates_presence_of :registration_max
+    validates_numericality_of :registration_max, :greater_than_or_equal_to => 1, :message => " registrations must be greater than 0."
+  end
 
   attr_accessible :title, :topic, :host_firstname, :host_lastname, :host_business,
                   :bio, :twitter, :facebook, :website, :webshop, :permission,
@@ -34,10 +106,9 @@ class Event < ActiveRecord::Base
                   :location_private, :location_nbrhood, :location_varies, :age_min, :age_max,
                   :registration_min, :registration_max, :price, :respect_my_style, :facilitate, :gender
 
-  after_create
   def generate_title
     self.title = "#{self.topic} with #{self.host_firstname} #{self.host_lastname}"
-    self.save
+    self.save(validate: false)
   end
 
   def title_html
@@ -105,20 +176,6 @@ class Event < ActiveRecord::Base
       Rails.logger.info("STATE: started")
     end
 
-    state :private do
-     Rails.logger.info("STATE: private")
-     validates_presence_of :topic, :host_firstname, :host_lastname, :bio, :website, :description, :begins_at, :skill_list, :tool_list, :location_address, :location_city, :location_state, :location_zipcode, :age_min, :age_max, :registration_max, :kind
-     validates_numericality_of :age_min, :greater_than => 0
-     validates_numericality_of :age_max, :greater_than => :age_min, :message => "must be greater than the minimum age you set."
-     validates_numericality_of :registration_max, :greater_than_or_equal_to => 0
-     validate :host_album_limit
-    end
-
-    state :payment do
-      Rails.logger.info("STATE: payment")
-      validates_presence_of :permission
-    end
-
     state :pending do
     end
 
@@ -149,24 +206,8 @@ class Event < ActiveRecord::Base
       transition :accepted => :started
     end
 
-    event :designed do
-      transition :started => :private
-    end
-
-    event :private_complete do
-        transition :private => :payment
-    end
-
     event :paid do
-      transition :payment => :pending
-    end
-
-    event :edit_design do
-      transition [:payment, :private] => :started
-    end
-
-    event :edit_private do
-      transition :payment => :private
+      transition :started => :pending
     end
 
     event :accept do
@@ -201,9 +242,41 @@ class Event < ActiveRecord::Base
   end
 
   def host_album_limit
-    if self.host_album.limit && ( self.host_album.photos.size < self.host_album.limit )
-      errors.add(:images, "please include exactly 5 images.")
+    if self.host_album && self.host_album.limit && ( self.host_album.photos.size != self.host_album.limit )
+      errors.add(:images, "please include exactly #{self.host_album.limit} images.")
     end
+  end
+
+  def xeditable_update(attribute, value)
+    if self.pending?
+      return false
+    end
+    if value == ""
+      value = nil
+    end
+    self.send("#{attribute}=", value)
+    if validations?(self, attribute.to_sym)
+      if self.group_valid?(attribute.to_sym) && self.update_attribute(attribute, value)
+        if ['topic', 'host_firstname', 'host_lastname'].include?(attribute)
+          self.generate_title
+        end
+        if !self.started? && required?(self, attribute.to_sym)
+          self.resubmit
+          self.deliver_resubmit
+        end
+        return true
+      else
+        return false
+      end
+    elsif self.update_attribute(attribute, value)
+      if ['topic', 'host_firstname', 'host_lastname'].include?(attribute)
+        self.generate_title
+      end
+      return true
+    else
+      return false
+    end
+    return false
   end
 
 end

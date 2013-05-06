@@ -10,4 +10,15 @@ module ApplicationHelper
     end
   end
 
+  def validations?(obj, attribute)
+    target = (obj.class == Class) ? obj : obj.class
+    return !target.validators_on(attribute).map(&:class).empty?
+  end
+
+  def required?(obj, attribute)
+    target = (obj.class == Class) ? obj : obj.class
+    target.validators_on(attribute).map(&:class).include?(
+    ActiveModel::Validations::PresenceValidator)
+  end
+
 end

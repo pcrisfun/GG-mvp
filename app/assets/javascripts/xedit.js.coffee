@@ -1,4 +1,33 @@
+# request the state of the event from the server
+# update the appropriate checkmarks
+$.updateCheckmarks = ->
+  $.ajax
+    url: $('#checkmarks-url').data('url')
+    type: 'get'
+    dataType: 'json'
+    data: "id=" + $('#checkmarks-url').data('id')
+    success: (checkmarks)->
+      if checkmarks.design
+        $('#number-design').addClass('hidden')
+        $('#checkmark-design').removeClass('hidden')
+      else
+        $('#number-design').removeClass('hidden')
+        $('#checkmark-design').addClass('hidden')
+      if checkmarks.private
+        $('#number-private').addClass('hidden')
+        $('#checkmark-private').removeClass('hidden')
+      else
+        $('#number-private').removeClass('hidden')
+        $('#checkmark-private').addClass('hidden')
+      if checkmarks.payment
+        $('#number-payment').addClass('hidden')
+        $('#checkmark-payment').removeClass('hidden')
+      else
+        $('#number-payment').removeClass('hidden')
+        $('#checkmark-payment').addClass('hidden')
+
 jQuery ->
+  # editable initialization
   $('.editable').editable
     mode: 'inline'
     onblur: 'submit'
@@ -6,11 +35,14 @@ jQuery ->
       type: 'put'
       dataType: 'json'
     success: (response)->
+      if response.errors
+        return response.errors
       $(this).parent('.field').css "opacity", "0"
       $(this).parent('.field').animate(opacity: "1", 1500)
+      $.updateCheckmarks
 
+    # editable tag fields
     $('.tags').children(".editable").editable
-      source: {'true': 'TBA'}
       mode: 'inline'
       onblur: 'submit'
       ajaxOptions:
@@ -26,10 +58,14 @@ jQuery ->
           else
             return []
         return data
-      success: ->
+      success: (response)->
+        if response.errors
+          return response.errors
         $(this).parent('.field').css "opacity", "0"
         $(this).parent('.field').animate(opacity: "1", 1500)
+        $.updateCheckmarks
 
+    # TBA customizations
     $('#tba').children(".editable").editable
       mode: 'inline'
       onblur: 'submit'
@@ -44,6 +80,7 @@ jQuery ->
         $(this).parent('.field').css "opacity", "0"
         $(this).parent('.field').animate(opacity: "1", 1500)
 
+    # private address customization
     $('#private-address').children(".editable").editable
       mode: 'inline'
       onblur: 'submit'
@@ -58,13 +95,16 @@ jQuery ->
         $(this).parent('.field').css "opacity", "0"
         $(this).parent('.field').animate(opacity: "1", 1500)
 
+  # preview window
   childWindow = undefined
   $(".preview-btn").click ->
     if childWindow
-      childWindow.history.go(0)
-      childWindow.focus
-    else
-      childWindow = window.open $(this).data('url')
+      childWindow.close()
+    childWindow = window.open $(this).data('url')
+
+
+
+
 
 
 

@@ -7,3 +7,4 @@ if (<%= @album.limit ? @album.limit : false %>) {
   $('#album_photos').append($emptyslot);
 }
 $('#album_photos').masonry('reload');
+$.updateCheckmarks();

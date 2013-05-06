@@ -2,17 +2,10 @@
   .container
     .row-fluid
       %h1#page-header.pull-right Private Details
-      #top-buttons.preview-hide
-        %ul.nav.nav-pills
-          %li
-            = link_to '1. DESIGN', edit_apprenticeship_path(@apprenticeship)
-          %li.active
-            = link_to '2. PRIVATE INFO', '#'
-          %li
-            = link_to '3. PAYMENT', payment_apprenticeship_path(@apprenticeship)
+      %br
+      = render 'checkmark_nav'
       .span9
         = simple_form_for @apprenticeship, class: 'form-horizontal', validate: false do |f|
-          = render 'shared/error_messages', form_model: @apprenticeship
           / RESPECT MY STYLE
           %br/
           = f.input :respect_my_style, label: 'Respect my Style' do

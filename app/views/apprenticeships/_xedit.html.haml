@@ -1,5 +1,4 @@
 - show = (params[:action] == 'show')
-
 #public
   #msg.alert.hide
   %section.section
@@ -7,14 +6,7 @@
       - unless show
         %h1#page-header.pull-right Build your Apprenticeship
         %br
-        #top-buttons
-          %ul.nav.nav-pills
-            %li.active
-              = link_to '1. DESIGN', '#'
-            %li
-              = link_to '2. PRIVATE INFO', private_apprenticeship_path(@apprenticeship)
-            %li
-              = link_to '3. PAYMENT', payment_apprenticeship_path(@apprenticeship)
+        = render 'checkmark_nav'
       %br
       #top
         .row-fluid
@@ -32,12 +24,18 @@
                 = avatar_for(@apprenticeship.user, size: 50, tag: :medium)
 
             %br
+            - if !show
+              %i.icon-asterisk
             #title.field.text
               = editable_link_to 'Topic of Your Apprenticeship', field: :topic, resource: @apprenticeship, type: :text
             %br
             with
+            - if !show
+              %i.icon-asterisk
             #first-name.field.text
               = editable_link_to 'Your First Name', field: :host_firstname, resource: @apprenticeship, type: :text
+            - if !show
+              %i.icon-asterisk
             #last-name.field.text
               = editable_link_to 'Your Last Name', field: :host_lastname, resource: @apprenticeship, type: :text
             - if !show || @apprenticeship.host_business
@@ -45,10 +43,14 @@
               #business.field.text.optional
                 = editable_link_to 'Your Business', field: :host_business, resource: @apprenticeship, type: :text
             %br
+            - if !show
+              %i.icon-asterisk
             #kind.field.label.label-inverse
               = editable_link_to 'Type of', field: :kind, resource: @apprenticeship, type: :select, data: {source: "{'Event':'Event', 'Production':'Production','Ongoing':'Ongoing' }"}
               Apprenticeship
             %br
+            - if !show
+              %i.icon-asterisk
             #description.field.textarea
               = editable_link_to "Tell us about your apprenticeship. Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. Based on your expectations, consider whether you plan to pay the apprentice, and if so, how much?", field: :description, resource: @apprenticeship, type: :textarea
             %br
@@ -68,6 +70,8 @@
         %span#details.pull-left
           %dl.dl-horizontal
             %dt
+              - if !show
+                %i.icon-asterisk
               When
             %dd
               - if !show || @apprenticeship.datetime_tba
@@ -87,12 +91,16 @@
                   %i.icon-question-sign.small-icon
               %br
             %dt
+              - if !show
+                %i.icon-asterisk
               Frequency
             %dd
               #frequency.field.text
                 = editable_link_to "How many?", field: :hours, resource: @apprenticeship, type: :text
               hours per week
             %dt
+              - if !show
+                %i.icon-asterisk
               Where
             %dd
               - if !show || !@apprenticeship.location_private
@@ -127,6 +135,8 @@
                     %i.icon-question-sign.small-icon
 
             %dt
+              - if !show
+                %i.icon-asterisk
               Who
             %dd
               #gender.field.checkbox
@@ -134,7 +144,7 @@
                   - gender_text = "Open to all gender identities"
                 - elsif @apprenticeship.gender == false
                   - gender_text = "Girls/Women"
-                = editable_link_to "Describe your apprentice(s)", field: :gender, resource: @apprenticeship, type: :select, link_text: gender_text, data: {mode: 'popup', placement: 'right', source: '{"false" : "Girls/Women", "true" : "Open to all gender identities"}'}
+                = editable_link_to "Describe your apprentice(s)", field: :gender, resource: @apprenticeship, type: :select, link_text: gender_text, data: { source: '{"false" : "Girls/Women", "true" : "Open to all gender identities"}'}
               , ages
               #min-age.field.select
                 = editable_link_to "Min Age", field: :age_min, resource: @apprenticeship, type: :number
@@ -143,6 +153,8 @@
                 = editable_link_to "Max Age", field: :age_max, resource: @apprenticeship, type: :number
 
             %dt
+              - if !show
+                %i.icon-asterisk
               How Many
             %dd
               Up to
@@ -150,11 +162,15 @@
                 = editable_link_to "_", field: :registration_max, resource: @apprenticeship, type: :text
               Apprentice(s)
             %dt
+              - if !show
+                %i.icon-asterisk
               Skills
             %dd
               #skills.field.tags
                 = editable_link_to 'Which skills and techniques will you be teaching?', field: :skill_list, resource: @apprenticeship, type: :select2, data: { select2: {tags: [], tokenSeparators: [',']} }
             %dt
+              - if !show
+                %i.icon-asterisk
               Tools
             %dd
               #tools.field.tags
@@ -175,12 +191,16 @@
             %hr
 
             %dt
+              - if !show
+                %i.icon-asterisk
               Bio
             %dd
               #bio.field.textarea
                 = editable_link_to "Give people a sense of who they'll be working with. Think about including: schooling, current work, recent shows, what you’re interested in as an artist and why you’re interested in teaching it - and a bit of personality, too! (Make this a WYSIWYG?)", field: :bio, resource: @apprenticeship, type: :textarea
             - if !show || @apprenticeship.website
               %dt
+                - if !show
+                  %i.icon-asterisk
                 Website
               %dd
                 www.
