@@ -1,5 +1,7 @@
 // Variables
+$plum: #923052
 $plum-shadow: #673c58
+$plum-black: #3d1121
 
 $tangerine-light: #ffe6c5
 $tangerine-medium: #f9a83d
@@ -18,21 +20,23 @@ $coral-medium: #fc7070
 $coral: #fc4240
 $coral-shadow: #e02d2d
 
-$ocean-light: #c7eaf2
-$ocean-medium: #0eb3e5
-$ocean: #2092c1
-$ocean-shadow: #077ca0
-$ocean-black: #01404f
+$ocean-light: #87c7fd
+$ocean-medium: #59a8eb
+$ocean: #4193d8
+$ocean-shadow: #2f6a9c
+$ocean-black: #133552
 
 $niceblue: #41B7D8
 
 
-$grass-slight: #F9FEEE
-$grass-light: #e8f7c9
-$grass-medium: #a9db3b
-$grass: #7dbc0f
-$grass-shadow: #70a005
-$grass-black: #3f5601
+$grass-slight: #d0fdec
+$grass-light: #69fdc4
+$grass-medium: #1dd38c
+$grass: #0fbc79
+$grass-shadow: #049f63
+$grass-black: #017c4c
+
+$mint-light: #e7f5f0
 
 $star-bright: #f8fbfc
 $star-light: #eff6f8
@@ -47,6 +51,8 @@ $silver: #cecece
 $silver-shadow: #b5b5b5
 $silver-dark: #939393
 $silver-black: #707070
+
+$grey-black: #343434
 
 $alert-yellow: #FCF8E3
 $alert-red: #F2DEDE
@@ -82,6 +88,13 @@ $radius: 5px
 .rounded
   +roundcorners(5px)
 
+@mixin dosis-caps
+  font-family: 'Dosis'
+  text-transform: uppercase
+  font-weight: 500
+
+@mixin textshadow-light
+  text-shadow: 1px 1px #FFF
 
 // Layout
 .alt-grey
@@ -132,20 +145,33 @@ a, a:hover, a:active, a:visited, a:focus
 
 // Buttons
 .btn
+  font-family: $dosis
+  text-transform: uppercase
+  font-weight: 500
   background-color: $silver-light
   background-image: none
+  text-shadow: 1px 1px 1px #FFF
 .btn-warning
   background-color: $tangerine-medium
   background-image: none
+  text-shadow: 1px 1px 1px $silver-black
 .btn-danger
   background-color: $salmon-shadow
   background-image: none
+  text-shadow: 1px 1px 1px $silver-black
 .btn-success
   background-color: $grass
   background-image: none
+  text-shadow: 1px 1px 1px $silver-black
 .btn-primary
   background-color: $ocean-medium
   background-image: none
+  text-shadow: 1px 1px 1px $silver-black
+.btn-callout
+  background-color: $plum
+  background-image: none
+  text-shadow: 1px 1px 1px $plum-black
+  color: #FFF
 
 .bttn-newsletter
   text-align: center
@@ -156,14 +182,16 @@ a, a:hover, a:active, a:visited, a:focus
 // Icons
 .enormous-icon.circled
   line-height: 1.6em
-
+.btn
+  &[class^="icon-"], &[class*=" icon-"]
+    font-family: 'FontAwesome'
 
 // Header
 #masthead
   .brand
     background: url(gg-logo.png) no-repeat 0 0 transparent
-    width: 110px
-    height: 80px
+    width: 77px
+    height: 77px
     padding: 0px
   h1
     display: none
@@ -345,42 +373,133 @@ input[type="radio"], input[type="checkbox"]
 
 
 // Home
-.carousel
-  margin-bottom: 0px
-
-.valueprop
-  list-style: none
-  padding: 5px 0px
-  li
-    padding: 2px 0px
-    .btn
-      margin-top: 15px
-
-.keypoints
-  background-color: #333
-  .dontforget
-    background: url('../../../images/dontforgetto.png') no-repeat center left transparent
-    margin-left: 180px
-    height: 40px
+#hmpg
+  .hmpg-spotlight
+    background: url(banners/hmpg-spotlight-01.png) repeat-x top center transparent
     p
-    display: none
-    h2
+      text-transform: uppercase
+      font-size: 27px
+      letter-spacing: 3px
+      margin: 20px 0
+    .btn-primary
+      font-size: 22px
+      font-weight: 500
+  .carousel
+    margin-bottom: 0px
+  #goals
+    padding: 0 0
+    position: static
+    .calloutbubble
+      position: relative
+      z-index: 99
+      margin-top: -5px
+      margin-bottom: -5px
+      .well
+        background-color: $mint-light
+        +textshadow-light
+        margin-bottom: 0px
+      .kristi
+        display: inline
+        font-size: 40px
+      .smaller
+        font-size: 38px
+        display: inline
+      h2
+        +dosis-caps
+        color: $grey-black
+        font-size: 50px
+      h3
+        color: $silver-shadow
+        font-size: 26px
+        line-height: 26px
+        .kristi
+          color: $silver-shadow
+    .valueprop
+      +dosis-caps
+      font-weight: 500
+      color: $silver-dark
+      list-style: none
+      padding: 5px 0px
+      font-size: 15px
+      letter-spacing: 2px
+      h2
+        +dosis-caps
+        color: $coral
+        font-size: 50px
+        margin: 10px 0
+      li
+        padding: 2px 0px
+        .btn
+          margin-top: 15px
+        .learnmore
+          margin-top: 15px
+          display: block
+          font-size: 13px
+          font-weight: 500
+  #newsletter
+    background-color: #323232
+    .getthedrop
+      background: url(getthedrop.png) no-repeat center right transparent
+      width: 439px
+      height: 85px
+    .signup
+      margin-top: 25px
+      .bttn-newsletter
+        text-align: left
+    .kristi
       color: #FFF
-  .kristi
-    color: #FFF
-    font-weight: normal
-    text-transform: none
-    font-size: 40px
-    text-align: center
-    margin-top: -15px
-    text-shadow: 1px 1px 1px #000
-
+      font-weight: normal
+      text-transform: none
+      font-size: 40px
+      text-align: center
+      margin-top: -15px
+      text-shadow: 1px 1px 1px #000
+  #mission
+    .well
+      background: #FFF
+      background: rgba(255, 255, 255, .25)
+    h4
+      +dosis-caps
+      font-size: 35px
+    p
+      background-color: #4193D8
+      color: #FFF
+      display: inline
+      font-size: 20px
+      line-height: 35px
+      margin: 5px 0
+      padding: 1px 0px
+      text-shadow: none
 
 // Newsletter page
 .indicates-required
   text-align: right
   font-size: 12px
 
+// Get Involved
+#getinvolved
+  .enormous-icon
+    .kristi
+      font-size: 70px
+      font-style: normal
+      color: $grass
+      line-height: 110px
+    .small
+      font-size: 45px
+  .commingsoon
+    background-color: #CCC
+    .kristi
+      color: $silver-light
+  .commingsoon-text
+    color: #939393
+    font-family: "Kristi"
+    font-size: 40px
+    font-weight: normal
+    line-height: 20px
+    margin-left: -25px
+    margin-top: -110px
+    text-transform: none
+    width: 170px
 
 // Required for jQuery Masonry
 .box, .box_photo, .dragging
@@ -425,12 +544,13 @@ input[type="radio"], input[type="checkbox"]
   .relative
     z-index: 99
 
-.progress
-  position: absolute
+#galleryModal
+  .progress
+    position: absolute
 
-.progress-striped
-  .bar
-    background-size: 135px 135px
+  .progress-striped
+    .bar
+      background-size: 135px 135px
 
 .clearform
   margin: 0px

@@ -53,8 +53,7 @@ ActiveRecord::Schema.define(:version => 20130428221021) do
     t.string   "facebook"
     t.string   "website"
     t.string   "webshop"
-    t.boolean  "permission",                                       :default => false
-    t.boolean  "boolean",                                          :default => false
+    t.string   "permission"
     t.string   "payment_options"
     t.string   "paypal_email"
     t.string   "sendcheck_address"
@@ -74,6 +73,7 @@ ActiveRecord::Schema.define(:version => 20130428221021) do
     t.string   "location_state"
     t.string   "location_zipcode"
     t.boolean  "location_private",                                 :default => true
+    t.boolean  "boolean",                                          :default => false
     t.boolean  "location_varies",                                  :default => false
     t.integer  "age_min"
     t.integer  "age_max"
