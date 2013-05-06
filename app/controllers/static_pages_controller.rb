@@ -24,6 +24,6 @@ class StaticPagesController < ApplicationController
   def privacypolicy
   end
 
-  def why_join
+  def get_involved
   end
 end

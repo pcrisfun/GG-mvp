@@ -29,12 +29,12 @@ $ocean-black: #133552
 $niceblue: #41B7D8
 
 
-$grass-slight: #F9FEEE
-$grass-light: #e8f7c9
-$grass-medium: #a9db3b
-$grass: #7dbc0f
-$grass-shadow: #70a005
-$grass-black: #3f5601
+$grass-slight: #d0fdec
+$grass-light: #69fdc4
+$grass-medium: #1dd38c
+$grass: #0fbc79
+$grass-shadow: #049f63
+$grass-black: #017c4c
 
 $mint-light: #e7f5f0
 
@@ -154,16 +154,19 @@ a, a:hover, a:active, a:visited, a:focus
 .btn-warning
   background-color: $tangerine-medium
   background-image: none
+  text-shadow: 1px 1px 1px $silver-black
 .btn-danger
   background-color: $salmon-shadow
   background-image: none
+  text-shadow: 1px 1px 1px $silver-black
 .btn-success
   background-color: $grass
   background-image: none
+  text-shadow: 1px 1px 1px $silver-black
 .btn-primary
   background-color: $ocean-medium
   background-image: none
-  text-shadow: 1px 1px 1px $silver-dark
+  text-shadow: 1px 1px 1px $silver-black
 .btn-callout
   background-color: $plum
   background-image: none
@@ -179,14 +182,16 @@ a, a:hover, a:active, a:visited, a:focus
 // Icons
 .enormous-icon.circled
   line-height: 1.6em
-
+.btn
+  &[class^="icon-"], &[class*=" icon-"]
+    font-family: 'FontAwesome'
 
 // Header
 #masthead
   .brand
     background: url(gg-logo.png) no-repeat 0 0 transparent
-    width: 110px
-    height: 80px
+    width: 77px
+    height: 77px
     padding: 0px
   h1
     display: none
@@ -536,12 +541,13 @@ input[type="radio"], input[type="checkbox"]
   .relative
     z-index: 99
 
-.progress
-  position: absolute
+#galleryModal
+  .progress
+    position: absolute
 
-.progress-striped
-  .bar
-    background-size: 135px 135px
+  .progress-striped
+    .bar
+      background-size: 135px 135px
 
 .clearform
   margin: 0px
