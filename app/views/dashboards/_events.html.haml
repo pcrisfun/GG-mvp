@@ -1,0 +1,34 @@
+-if (events||=false)
+  %table.table.table-bordered.table-striped.table-hover.table-condensed
+    %thead
+      %tr
+        %th.image
+          Image
+        %th.title
+          Title
+        %th.spots
+          Spots Left
+        %th.ages
+          Ages
+        %th.dates
+          Date Range
+    %tbody
+      - events.each do |event|
+        %tr
+          %td
+            - if event && event.host_album
+              - if event.host_album.featured_photo
+                = render 'photos/photo', photo: event.host_album.featured_photo, size: :thumb, url: url_for(event)
+              - elsif event.host_album.photos.first
+                = render 'photos/photo', photo: event.host_album.photos.sort_by { |photo| photo.position(album_id: event.host_album.id) }.first, size: :thumb, url: url_for(event)
+              - else
+                %a{ href: url_for(event) }
+                  %img.default-photo-thumb
+              - unless current_user.blank?
+                - if event.user == current_user
+                  - if event.started?
+                    = link_to "Edit", eval("edit_apprenticeship_path(event)"), class: "btn btn-mini pull-right"
+                  - elsif event.accepted? or event.canceled? or event.filled?
+                    = link_to "Edit", eval(""), class: "btn btn-mini pull-right"
+          %td
+            = link_to event.title_html, event_path(event), class: "title-boxlink"

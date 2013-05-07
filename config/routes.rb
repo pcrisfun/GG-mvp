@@ -61,6 +61,9 @@ GirlsGuild::Application.routes.draw do
     get 'static_pages/thanks', :on => :collection
   end
 
+  match '/dashboard', to: 'dashboards#display'
+  match '/avatar', to: 'users#avatar'
+
   root to: 'static_pages#home'
 
   match '/stripe/webhook', to: 'stripe#webhook'

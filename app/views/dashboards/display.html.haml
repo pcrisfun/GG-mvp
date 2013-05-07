@@ -1,0 +1,4 @@
+- if current_user
+  - if @events && !@events.empty?
+    %p What I'm Learning
+    = render 'events', events: @events
