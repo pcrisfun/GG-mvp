@@ -513,7 +513,7 @@ input[type="radio"], input[type="checkbox"]
   border-radius: 5px
   box-shadow: 0px 1px 5px #ccc
   width: 270px
-  img
+  img, .emptyimg
     display: block
     width: 100%
     -webkit-border-radius: 5px
@@ -525,6 +525,9 @@ input[type="radio"], input[type="checkbox"]
       margin-right: -5px
       margin-top: -20px
       +box-shadow-silver
+  .emptyimg
+    padding: 60px 0
+    background-color: #FFF
 
 .box-small
   width: 135px
@@ -613,6 +616,18 @@ input[type="radio"], input[type="checkbox"]
 // Portfolio
 .dragging
   opacity: .6
+
+.handle
+  position: absolute
+  background: url(bkg-drag.png) repeat-x 0 0 transparent
+  cursor: pointer
+  display: block
+  float: left
+  height: 25px
+  width: 82.5%
+  &.emptyslot
+    .emptyimg
+      color: #CCC
 
 #current_album
   h1
@@ -761,7 +776,6 @@ input[type="radio"], input[type="checkbox"]
   &:focus
     outline: none
 
-
 // Apprenticeship Design Page
 #apprenticeship-design, #apprenticeship-show, #private-info
   #page-header
@@ -771,22 +785,34 @@ input[type="radio"], input[type="checkbox"]
     text-transform: none
   #top-buttons
     ul
-      padding-left: 30px
-      margin: 0px
       li
+        margin: 0 15px
+        width: 16%
         a
-          cursor: default
-          background-color: $silver-light
-          font-size: 20px
-          color: $silver-shadow
-          &:hover
-            background-color: $silver-light
-        &.active
-          a
-            color: #FFFFFF
-            background-color: $plum-shadow
+          display: inline-block
+          line-height: 24px
+          vertical-align: top
+          &.disabled
+            cursor: default
             &:hover
-              background-color: $plum-shadow
+              background-color: none
+              cursor: default
+        .number-circle
+          padding: 5px 12px
+          margin: 0 6px
+          border-radius: 30px
+          border: 3px solid #CCC
+          display: inline-block
+          width: 12px
+          height: 24px
+          position: relative
+          font-size: 24px
+          i
+            position: absolute
+            left: -6px
+            top: -4px
+
+
 
 #apprenticeship-design, #apprenticeship-show
   margin-top: 40px
@@ -826,6 +852,7 @@ input[type="radio"], input[type="checkbox"]
     padding: 1px 8px
     a, span
       line-height: 35px
+      font-family: "Open Sans"
     &.textarea
       a
         font-style: italic
@@ -837,6 +864,9 @@ input[type="radio"], input[type="checkbox"]
       cursor: default
       &.editable-empty-disabled
         color: red
+    .editable-error-block
+      margin-top: 5px
+      text-align: left
   #avatar
     margin-bottom: 10px
     img
@@ -878,6 +908,7 @@ input[type="radio"], input[type="checkbox"]
       margin-top: 15px
       font-size: 16px
       text-align: center
+      width: 95%
       .editable-empty
         font-style: italic
       &.field
@@ -907,11 +938,9 @@ input[type="radio"], input[type="checkbox"]
         float: left
         height: 25px
         width: 82.5%
-    .placeholder
-      width: 18.1%
-      margin: 0 0.5%
-      img
-        width: inherit
+      &.emptyslot
+        .emptyimg
+          color: #CCC
   #bio
     a
       font-style: normal

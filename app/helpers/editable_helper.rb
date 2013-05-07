@@ -33,6 +33,10 @@ module EditableHelper
           link_text = options[:resource].send(options[:field])
         else
           options[:class] << " editable-empty"
+          #add class for required fields
+          if required?(options[:resource], options[:field])
+            options[:class] << " editable-empty-required"
+          end
         end
       end
       options.delete(:resource)

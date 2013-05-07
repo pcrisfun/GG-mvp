@@ -39,6 +39,7 @@ GirlsGuild::Application.routes.draw do
     collection do
       post :cancel
       get :info
+      get :checkmarks
     end
   end
   match 'apprenticeships/:id/private' => 'apprenticeships#private', as: :private_apprenticeship

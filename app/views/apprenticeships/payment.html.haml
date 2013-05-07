@@ -2,15 +2,8 @@
   .container
     .row-fluid
       %h1#page-header.pull-right Payment
-      #top-buttons.preview-hide
-        %ul.nav.nav-pills
-          %li
-
-            = link_to '1. DESIGN', edit_apprenticeship_path(@apprenticeship)
-          %li
-            = link_to '2. PRIVATE INFO', private_apprenticeship_path(@apprenticeship)
-          %li.active
-            = link_to '3. PAYMENT', '#'
+      %br
+      = render 'checkmark_nav'
       %br
       %br
       .span9
