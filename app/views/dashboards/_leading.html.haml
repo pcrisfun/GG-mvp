@@ -3,22 +3,23 @@
     %thead
       %tr
         %th.image
-          Image
         %th.title
           Title
         %th.spots
           Spots Left
-        %th.ages
-          Ages
+        %th.state
+          State
         %th.dates
-          Date Range
+          Dates
+        %th.countdown
+          Countdown
     %tbody
       - events.each do |event|
         %tr
           %td
             - if event && event.host_album
               - if event.host_album.featured_photo
-                = render 'photos/photo', photo: event.host_album.featured_photo, size: :thumb, url: url_for(event)
+                = render 'photos/photo', photo: event.host_album.featured_photo, size: :thumb
               - elsif event.host_album.photos.first
                 = render 'photos/photo', photo: event.host_album.photos.sort_by { |photo| photo.position(album_id: event.host_album.id) }.first, size: :thumb, url: url_for(event)
               - else
@@ -27,8 +28,17 @@
               - unless current_user.blank?
                 - if event.user == current_user
                   - if event.started?
-                    = link_to "Edit", eval("edit_apprenticeship_path(event)"), class: "btn btn-mini pull-right"
+                    = link_to "Edit", url_for(controller: event.class.name.underscore.pluralize, action: 'edit', id: event.id ), class: "btn btn-mini pull-right"
                   - elsif event.accepted? or event.canceled? or event.filled?
-                    = link_to "Edit", eval(""), class: "btn btn-mini pull-right"
+                    = link_to "Edit", url_for(controller: event.class.name.underscore.pluralize, action: 'edit', id: event.id ), class: "btn btn-mini pull-right"
           %td
-            = link_to event.title_html, event_path(event), class: "title-boxlink"
+            = link_to event.title_html, url_for(controller: event.class.name.underscore.pluralize, action: 'show', id: event.id ), class: "title-boxlink"
+          %td
+            = event.signups.count
+          %td
+            %span.label{class: event.state_label_class}
+              = event.state
+          %td
+            = event.nice_dates
+          %td
+            "Countdown Message"

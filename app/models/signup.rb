@@ -68,4 +68,17 @@ class Signup < ActiveRecord::Base
   def check_capacity
     self.event.fill! if self.event.max_capacity_met?
   end
+
+  def state_label_class
+    labels = { started: "label-info",
+               pending: "label-warning",
+               accepted: "label-success",
+               declined: "",
+               canceled: "label-important",
+               confirmed: "label-success",
+               completed: "label-inverse"
+             }
+    return labels[self.state.to_sym]
+  end
+
 end

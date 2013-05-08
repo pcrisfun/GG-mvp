@@ -279,5 +279,35 @@ class Event < ActiveRecord::Base
     return false
   end
 
+  def nice_dates(format = '%a, %b %d')
+    if self.datetime_tba
+      return 'TBA'
+    elsif self.begins_at && self.ends_at
+      return "#{self.begins_at.strftime(format)} to #{self.ends_at.strftime(format)}"
+    else
+      return ""
+    end
+  end
+
+  def state_label_class
+    labels = { started: "label-info",
+               pending: "label-warning",
+               accepted: "label-success",
+               canceled: "label-important",
+               filled: "label-success",
+               in_progress: "label-success",
+               completed: "label-inverse"
+             }
+    return labels[self.state.to_sym]
+  end
+
+  def spots_left
+    if self.filled?
+      return "Full"
+    else
+      return "#{self.registration_max - self.signups.where(:state => "confirmed").count}"
+    end
+  end
+
 end
 

@@ -19,9 +19,19 @@
           #banner
             #avatar.field
               - if !show
-                = link_to(avatar_for(current_user, size: 50, tag: :medium), edit_user_registration_path(current_user), id: 'avatar-edit', target: '_blank', confirm: 'Would you like to change your avatar?')
+                = link_to(avatar_for(current_user, size: 50, tag: :medium), '#avatarModal', id: 'avatar-edit', data: {toggle: "modal"} )
+
               - else
                 = avatar_for(@apprenticeship.user, size: 50, tag: :medium)
+              - if !show
+                #avatarModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "avatarModal", :role => "dialog", :tabindex => "-1"}
+                  .modal-header
+                    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                    %h3#galleryModalLabel My Avatar
+                  .modal-body
+                    .fancyform-light
+                      = simple_form_for(@user, :url => update_avatar_path, defaults: { input_html: { class: 'span5' } }, html: { :method => :put } ) do |f|
+                        = render 'dashboards/avatar_fields', f: f
 
             %br
             - if !show

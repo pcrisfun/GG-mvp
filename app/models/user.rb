@@ -12,6 +12,7 @@
 
 class User < ActiveRecord::Base
 
+  has_many :events
   has_many :apprenticeships
   has_many :workshops
   has_many :signups

@@ -49,6 +49,7 @@ $(document).ready(function () {
   });
 
 	$("[data-behaviour~='timepicker']").timepicker();
+  $("[data-behaviour~='combodate']").combodate();
   $("[rel=tooltip]").tooltip();
   $("[rel=popover]").popover({'trigger': 'trigger'});
   $("[rel=popover]").click(function(e) {

@@ -15,8 +15,6 @@ GirlsGuild::Application.routes.draw do
   match '/preregs/create', to: 'preregs#create'
 
   devise_for :users, :admins
-    #get 'users/avatar.:id' => 'devise/registrations#avatar'
-
 
   resources :galleries, only: [:new, :create, :destroy]
 
@@ -63,7 +61,8 @@ GirlsGuild::Application.routes.draw do
   end
 
   match '/dashboard', to: 'dashboards#display'
-  match '/avatar', to: 'users#avatar'
+  match 'users/avatar', to: 'dashboards#avatar', as: :avatar
+  match 'users/update_avatar', to: 'dashboards#update_avatar', as: :update_avatar
 
   root to: 'static_pages#home'
 

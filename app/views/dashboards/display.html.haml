@@ -1,4 +1,16 @@
-- if current_user
-  - if @events && !@events.empty?
-    %p What I'm Learning
-    = render 'events', events: @events
+- provide(:title, 'My Events')
+%section#dashboard-display.section.alt-grey
+  .container
+    .row-fluid
+      .span3.pull-left
+        = render 'dashboards/nav'
+      .span9.pull-right
+        %h1 My Events
+        %hr
+        - if current_user
+          - if @events && !@events.empty?
+            %h2 I'm Leading
+            = render 'leading', events: @events
+          - if @signups && !@signups.empty?
+            %h2 I'm Learning
+            = render 'learning', signups: @signups

@@ -1,0 +1,39 @@
+-if (signups||=false)
+  %table.table.table-bordered.table-striped.table-hover.table-condensed
+    %thead
+      %tr
+        %th.image
+        %th.title
+          Title
+        %th.spots
+          Spots Left
+        %th.state
+          State
+        %th.dates
+          Dates
+        %th.countdown
+          Countdown
+    %tbody
+      - signups.each do |signup|
+        %tr
+          %td
+            - if signup.event && signup.event.host_album
+              - if signup.event.host_album.featured_photo
+                = render 'photos/photo', photo: signup.event.host_album.featured_photo, size: :thumb
+              - elsif event.host_album.photos.first
+                = render 'photos/photo', photo: signup.event.host_album.photos.sort_by { |photo| photo.position(album_id: signup.event.host_album.id) }.first, size: :thumb
+              - else
+                %a
+                  %img.default-photo-thumb
+          %td
+            = link_to signup.event.title_html, url_for(controller: signup.event.class.name.underscore.pluralize, action: 'show', id: signup.event.id ), class: "title-boxlink"
+          %td
+            = signup.event.spots_left
+          %td
+            %span.label{class: signup.state_label_class}
+              = signup.state
+          %td
+            = signup.event.nice_dates
+          %td
+            "Countdown Message"
+
