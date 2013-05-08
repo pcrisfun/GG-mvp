@@ -1,17 +1,22 @@
-%section#private-info.section
-  .container
-    .row-fluid
+#private-info
+  %section.section
+    .container
       %h1#page-header.pull-right Payment
       %br
       = render 'checkmark_nav'
       %br
-      %br
-      .span9
-        = simple_form_for @apprenticeship, html: { class: 'form-horizontal payment_form' }, validate: false do |f|
-          = render 'shared/error_messages', form_model: @apprenticeship
-          = render partial: "shared/credit_card", locals: { f: f, paid: @apprenticeship.charge_id.present? }
-          - if @apprenticeship.charge_id.present?
-            = link_to "Payment Confirmation", payment_confirmation_apprenticeship_path(@apprenticeship)
+      #full
+        .row-fluid
+          .span12
             %br
-          - else
-            = f.submit 'Submit Payment', class: 'btn btn-large btn-primary', id: 'cc_process'
+            = simple_form_for @apprenticeship, html: { class: 'form-horizontal payment_form' }, validate: false do |f|
+              = render 'shared/error_messages', form_model: @apprenticeship
+              = render partial: "shared/credit_card", locals: { f: f, paid: @apprenticeship.charge_id.present? }
+              - if @apprenticeship.charge_id.present?
+                = link_to "Payment Confirmation", payment_confirmation_apprenticeship_path(@apprenticeship)
+                %br
+              - else
+                %br
+                %br
+                #preview-buttons-bottom.pull-center
+                  = f.submit 'Submit Payment', class: 'btn btn-large btn-primary', id: 'cc_process'

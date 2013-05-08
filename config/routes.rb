@@ -76,6 +76,7 @@ GirlsGuild::Application.routes.draw do
   match '/get_involved', to: 'static_pages#get_involved'
   match '/testimonials', to: 'static_pages#testimonials'
   match '/privacypolicy', to:'static_pages#privacypolicy'
+  match '/copyrightpolicy', to: 'static_pages#copyrightpolicy'
   match '/termsandconditions', to:'static_pages#termsandconditions'
 
   unless Rails.application.config.consider_all_requests_local

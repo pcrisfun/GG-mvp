@@ -24,6 +24,9 @@ class StaticPagesController < ApplicationController
   def privacypolicy
   end
 
+  def copyrightpolicy
+  end
+
   def get_involved
   end
 end

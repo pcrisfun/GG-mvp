@@ -65,7 +65,7 @@
             = link_to "Testimonials", testimonials_path
           %li
             %i.icon-gift
-            = link_to "Donate", testimonials_path
+            = link_to "Donate", get_involved_path
       .span4
         %h3 Hecho en Austin
         %ul.unstyled
@@ -75,6 +75,9 @@
           %li
             %i.icon-bullhorn
             = link_to "Privacy Policy", privacypolicy_path
+          %li
+            %i.icon-thumbs-up
+            = link_to "Copyright Policy", copyrightpolicy_path
         %a.brand{:href => root_path}
           %h1#logo GirlsGuild
         %ul.icons.tagline
