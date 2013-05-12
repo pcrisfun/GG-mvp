@@ -79,6 +79,7 @@ GirlsGuild::Application.routes.draw do
   match '/copyrightpolicy', to: 'static_pages#copyrightpolicy'
   match '/termsandconditions', to:'static_pages#termsandconditions'
 
+
   unless Rails.application.config.consider_all_requests_local
     match '*not_found', to: 'errors#error_404'
   end
