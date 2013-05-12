@@ -1,27 +1,14 @@
 %section#private-info.section
   .container
     .row-fluid
-      .span3.pull-left
-        %ul.nav.nav-list
-          %li.header
-            My Dashboard
-          %li
-            %a
-              %i.icon-lock
-              Settings
-          %li
-            %a
-              %i.icon-user
-              Avatar
-          %li
-            %a
-              %i.icon-calendar
-              My Events
-      .span9
+      .span12
         %h1
           %icon.icon-check
           Awesome!
         %p We'll review your apprenticeship proposal and let you know as soon as it's been posted live!
+        %p
+          You can check on the status of your proposal any time by visiting your
+          = link_to "Dashboard Page", dashboard_path
         .alert.alert-warning
           %strong
             Note:

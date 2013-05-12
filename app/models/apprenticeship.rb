@@ -7,6 +7,87 @@ class Apprenticeship < Event
 	# validates_numericality_of :hours, :greater_than => 0
 	# validates :begins_at, :date => {:after => Proc.new { Date.today + 6.day }, :message => 'Sorry! You need to plan your apprenticeship to start at least a week from today. Please check the dates you set.'}, :if => :tba_is_blank
 	# validates :ends_at, :date => {:after => :begins_at, :message => "Oops! Please check the dates you set. Your apprenticeship can't end before it begins!"}, :if => :tba_is_blank
+  validation_group :design do
+    validates_presence_of :topic
+    validates_presence_of :host_firstname
+    validates_presence_of :host_lastname
+    validates_presence_of :kind
+    validates_presence_of :description
+    validates_presence_of :bio
+    validates_presence_of :website
+    validates_presence_of :begins_at
+    validates_presence_of :skill_list
+    validates_presence_of :tool_list
+    validates_presence_of :location_address
+    validates_presence_of :location_city
+    validates_presence_of :location_state
+    validates_presence_of :location_zipcode
+    validates_presence_of :age_min
+    validates_presence_of :age_max
+    validates_presence_of :registration_max
+    validates_numericality_of :age_min, :greater_than => 0
+    validates_numericality_of :age_max, :greater_than => :age_min, :message => " must be greater than the minimum age you set."
+    validates_numericality_of :registration_max, :greater_than_or_equal_to => 1, :message => " registrations must be greater than 0."
+    validate :host_album_limit
+  end
+
+  validation_group :private do
+    validates_presence_of :permission
+  end
+  validation_group :topic do
+    validates_presence_of :topic
+  end
+  validation_group :host_firstname do
+    validates_presence_of :host_firstname
+  end
+  validation_group :host_lastname do
+    validates_presence_of :host_lastname
+  end
+  validation_group :kind do
+    validates_presence_of :kind
+  end
+  validation_group :description do
+    validates_presence_of :description
+  end
+  validation_group :bio do
+    validates_presence_of :bio
+  end
+  validation_group :website do
+    validates_presence_of :website
+  end
+  validation_group :begins_at do
+    validates_presence_of :begins_at
+  end
+  validation_group :skill_list do
+    validates_presence_of :skill_list
+  end
+  validation_group :tool_list do
+    validates_presence_of :tool_list
+  end
+  validation_group :location_address do
+    validates_presence_of :location_address
+  end
+  validation_group :location_city do
+    validates_presence_of :location_city
+  end
+  validation_group :location_state do
+    validates_presence_of :location_state
+  end
+  validation_group :location_zipcode do
+    validates_presence_of :location_zipcode
+  end
+  validation_group :age_min do
+    validates_presence_of :age_min
+    validates_numericality_of :age_min, :greater_than => 0
+  end
+  validation_group :age_max do
+    validates_presence_of :age_max
+    validates_numericality_of :age_max, :greater_than => :age_min, :message => " must be greater than the minimum age you set."
+  end
+  validation_group :registration_max do
+    validates_presence_of :registration_max
+    validates_numericality_of :registration_max, :greater_than_or_equal_to => 1, :message => " registrations must be greater than 0."
+  end
 
 	def default_url_options
 	  { :host => 'localhost:3000'}
@@ -144,4 +225,43 @@ class Apprenticeship < Event
       transition :all => :completed
     end
 	end
+
+  def countdown_message
+    if self.started?
+      return ''
+
+    elsif self.pending?
+      return "GirlsGuild is lookin it over."
+
+    elsif self.accepted?
+      if !self.confirmed_signups.empty?
+        if self.datetime_tba
+          return "#{self.confirmed_signups.count} of #{self.registration_max} Apprentices confirmed."
+        elsif self.begins_at && Date.today < self.begins_at
+          return "#{self.confirmed_signups.count} of #{self.registration_max} Apprentices confirmed.<br/><strong>#{(self.begins_at.mjd - Date.today.mjd)}</strong> days until it begins!".html_safe
+        elsif self.ends_at && Date.today < self.ends_at
+          return "#{self.ends_at - Date.today} more days of your Apprenticeship"
+        else
+          return ''
+        end
+      else
+        return "Open for Applications"
+      end
+    elsif self.canceled?
+    elsif self.filled?
+        if self.datetime_tba
+          return "Apprenticeship"
+        elsif self.begins_at && Date.today < self.begins_at
+          return "<strong>#{(self.begins_at.mjd - Date.today.mjd)}</strong> days until it begins!".html_safe
+        elsif self.ends_at && Date.today < self.ends_at
+          return "#{self.ends_at - Date.today} more days of your Apprenticeship"
+        else
+          return ''
+        end
+    elsif self.in_progress?
+    elsif self.completed?
+    end
+    return ''
+  end
+
 end

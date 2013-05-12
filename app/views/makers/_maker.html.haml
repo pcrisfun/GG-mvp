@@ -1,0 +1,10 @@
+- event = maker.events.where(:state => ['accepted', 'filled', 'in_progress', 'completed']).last
+.box
+  .avatar
+    = avatar_for(maker, size: 214, tag: 'large')
+  .name
+    = maker.name
+  .event
+    = link_to event.topic, url_for(controller: event.class.name.underscore.pluralize, action: 'show', id: event.id )
+  .prereg
+    = render :partial => "shared/prereg", :locals => {:event => event}

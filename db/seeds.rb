@@ -119,6 +119,7 @@ first_workshop = artist.workshops.create!(  "host_firstname"=>"Martha",
 first_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
                                                         "host_lastname"=>"Smith",
                                                         "host_business"=>"MS Designs",
+                                                        "kind" => "event",
                                                         "bio"=>"Vivamus ut accumsan nulla. Maecenas consequat vestibulum dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at purus urna. Sed adipiscing risus non elit molestie eget tempus massa porta. Ut in ligula elit. ",
                                                         "website"=>"msdesigns.com",
                                                         "webshop"=>"shop.msdesigns.com",
@@ -154,6 +155,7 @@ first_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Marth
 second_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
                                                         "host_lastname"=>"Smith",
                                                         "host_business"=>"MS Designs",
+                                                        "kind" => "production",
                                                         "bio"=>"Vivamus ut accumsan nulla. Maecenas consequat vestibulum dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at purus urna. Sed adipiscing risus non elit molestie eget tempus massa porta. Ut in ligula elit. ",
                                                         "website"=>"msdesigns.com",
                                                         "webshop"=>"shop.msdesigns.com",
@@ -189,6 +191,7 @@ second_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Mart
 third_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
                                                         "host_lastname"=>"Smith",
                                                         "host_business"=>"MS Designs",
+                                                        "kind" => "ongoing",
                                                         "bio"=>"Vivamus ut accumsan nulla. Maecenas consequat vestibulum dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at purus urna. Sed adipiscing risus non elit molestie eget tempus massa porta. Ut in ligula elit. ",
                                                         "website"=>"msdesigns.com",
                                                         "webshop"=>"shop.msdesigns.com",
@@ -224,6 +227,7 @@ third_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Marth
 fourth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
                                                         "host_lastname"=>"Smith",
                                                         "host_business"=>"MS Designs",
+                                                        "kind" => "event",
                                                         "bio"=>"Vivamus ut accumsan nulla. Maecenas consequat vestibulum dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at purus urna. Sed adipiscing risus non elit molestie eget tempus massa porta. Ut in ligula elit. ",
                                                         "website"=>"msdesigns.com",
                                                         "webshop"=>"shop.msdesigns.com",
@@ -259,6 +263,7 @@ fourth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Mart
 fifth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
                                                         "host_lastname"=>"Smith",
                                                         "host_business"=>"MS Designs",
+                                                        "kind" => "event",
                                                         "bio"=>"Vivamus ut accumsan nulla. Maecenas consequat vestibulum dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at purus urna. Sed adipiscing risus non elit molestie eget tempus massa porta. Ut in ligula elit. ",
                                                         "website"=>"msdesigns.com",
                                                         "webshop"=>"shop.msdesigns.com",
@@ -294,6 +299,7 @@ fifth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Marth
 sixth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
                                                         "host_lastname"=>"Smith",
                                                         "host_business"=>"MS Designs",
+                                                        "kind" => "production",
                                                         "bio"=>"Vivamus ut accumsan nulla. Maecenas consequat vestibulum dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at purus urna. Sed adipiscing risus non elit molestie eget tempus massa porta. Ut in ligula elit. ",
                                                         "website"=>"msdesigns.com",
                                                         "webshop"=>"shop.msdesigns.com",
@@ -326,4 +332,8 @@ sixth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Marth
                                                         "stripe_card_token"=>"",
                                                         "permission"=>"1"
                                                      )
+Event.all.each do |event|
+  event.generate_title
+end
+
 

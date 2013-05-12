@@ -11,90 +11,9 @@ class Event < ActiveRecord::Base
 
   has_many :signups, :dependent => :destroy
   has_many :preregs
+  has_many :state_stamps
 
   has_one :host_album, :class_name => 'Album', :dependent => :destroy
-
-  validation_group :design do
-    validates_presence_of :topic
-    validates_presence_of :host_firstname
-    validates_presence_of :host_lastname
-    validates_presence_of :kind
-    validates_presence_of :description
-    validates_presence_of :bio
-    validates_presence_of :website
-    validates_presence_of :begins_at
-    validates_presence_of :skill_list
-    validates_presence_of :tool_list
-    validates_presence_of :location_address
-    validates_presence_of :location_city
-    validates_presence_of :location_state
-    validates_presence_of :location_zipcode
-    validates_presence_of :age_min
-    validates_presence_of :age_max
-    validates_presence_of :registration_max
-    validates_numericality_of :age_min, :greater_than => 0
-    validates_numericality_of :age_max, :greater_than => :age_min, :message => " must be greater than the minimum age you set."
-    validates_numericality_of :registration_max, :greater_than_or_equal_to => 1, :message => " registrations must be greater than 0."
-    validate :host_album_limit
-  end
-
-  validation_group :private do
-    validates_presence_of :permission
-  end
-  validation_group :topic do
-    validates_presence_of :topic
-  end
-  validation_group :host_firstname do
-    validates_presence_of :host_firstname
-  end
-  validation_group :host_lastname do
-    validates_presence_of :host_lastname
-  end
-  validation_group :kind do
-    validates_presence_of :kind
-  end
-  validation_group :description do
-    validates_presence_of :description
-  end
-  validation_group :bio do
-    validates_presence_of :bio
-  end
-  validation_group :website do
-    validates_presence_of :website
-  end
-  validation_group :begins_at do
-    validates_presence_of :begins_at
-  end
-  validation_group :skill_list do
-    validates_presence_of :skill_list
-  end
-  validation_group :tool_list do
-    validates_presence_of :tool_list
-  end
-  validation_group :location_address do
-    validates_presence_of :location_address
-  end
-  validation_group :location_city do
-    validates_presence_of :location_city
-  end
-  validation_group :location_state do
-    validates_presence_of :location_state
-  end
-  validation_group :location_zipcode do
-    validates_presence_of :location_zipcode
-  end
-  validation_group :age_min do
-    validates_presence_of :age_min
-    validates_numericality_of :age_min, :greater_than => 0
-  end
-  validation_group :age_max do
-    validates_presence_of :age_max
-    validates_numericality_of :age_max, :greater_than => :age_min, :message => " must be greater than the minimum age you set."
-  end
-  validation_group :registration_max do
-    validates_presence_of :registration_max
-    validates_numericality_of :registration_max, :greater_than_or_equal_to => 1, :message => " registrations must be greater than 0."
-  end
 
   attr_accessible :title, :topic, :host_firstname, :host_lastname, :host_business,
                   :bio, :twitter, :facebook, :website, :webshop, :permission,
@@ -169,29 +88,44 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def make_stamp
+    self.state_stamps.create(state: self.state, stamp: Date.today)
+  end
+
+  def countdown_message
+
+  end
 
   state_machine :state, :initial => :started do
+    after_transition any => any do |event|
+      event.make_stamp
+    end
 
     state :started do
-      Rails.logger.info("STATE: started")
     end
 
     state :pending do
+
     end
 
     state :accepted do
+
     end
 
     state :canceled do
+
     end
 
     state :filled do
+
     end
 
     state :in_progress do
+
     end
 
     state :completed do
+
     end
 
     event :reject do
@@ -283,7 +217,7 @@ class Event < ActiveRecord::Base
     if self.datetime_tba
       return 'TBA'
     elsif self.begins_at && self.ends_at
-      return "#{self.begins_at.strftime(format)} to #{self.ends_at.strftime(format)}"
+      return "#{self.begins_at.strftime(format)} - #{self.ends_at.strftime(format)}"
     else
       return ""
     end
@@ -299,6 +233,14 @@ class Event < ActiveRecord::Base
                completed: "label-inverse"
              }
     return labels[self.state.to_sym]
+  end
+
+  def submitted_signups
+    return self.signups.where(:state => ["pending", "accepted", "confirmed", "completed"])
+  end
+
+  def confirmed_signups
+    return self.signups.where(:state => "confirmed")
   end
 
   def spots_left

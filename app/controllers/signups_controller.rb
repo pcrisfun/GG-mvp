@@ -1,4 +1,5 @@
 class SignupsController < ApplicationController
+  before_filter :authenticate_user!
   # GET /signups
   # GET /signups.json
   def index

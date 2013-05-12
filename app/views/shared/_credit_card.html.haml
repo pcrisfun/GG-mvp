@@ -8,21 +8,25 @@
     %noscript JavaScript is not enabled and is required for this form. First enable it in your web browser settings.
   .control-group
     .control-label
-      = label_tag :card_number
-      %icon.icon-credit-card
+      = label_tag :card_number do
+        %i.icon-credit-card
+        Card Number
     .controls
       = text_field_tag :card_number, nil, name: nil, class: "span6"
 
   .control-group
     .control-label
-      = label_tag :card_code, "Security Code on Card"
-      %icon.icon-lock
+      = label_tag :card_code do
+        %i.icon-lock
+        Card Security Code
     .controls
       = text_field_tag :card_code, nil, name: nil, class: "span1"
 
   .control-group
     .control-label
-      = label_tag :card_month, "Card Expiration"
+      = label_tag :card_month do
+        %i.icon-warning-sign
+        Card Expiration
     .controls
       = select_month nil, {add_month_numbers_true: true}, {name: nil, id: "card_month", class: "span2" }
       = select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year", class: "span2" }

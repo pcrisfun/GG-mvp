@@ -27,7 +27,7 @@ class AppSignup < Signup
   end
 
   def respect_valid
-    if self.event.respect_my_style && !respect_agreement
+    if self.event.respect_my_style == "1" && !respect_agreement
       errors.add(:respect_agreement, "You must agree to respect the artist's style")
     end
   end
@@ -337,5 +337,43 @@ class AppSignup < Signup
     event :complete do
       transition :confirmed => :completed
     end
+  end
+
+  def countdown_message
+    if self.started?
+    elsif self.pending?
+        return "Your application is being reviewed.<br/>You should hear back by <strong>#{(self.state_stamps.last.stamp + 14.days).strftime("%b %d")}</strong>".html_safe
+    elsif self.accepted?
+        return "Your application has been accepted!<br/><a href=#{url_for(self)} class='btn btn-success'>Confirm</a> your apprenticeship!".html_safe
+    elsif self.declined?
+    elsif self.canceled?
+    elsif self.confirmed?
+        if self.event.datetime_tba
+          return ''
+        elsif self.event.begins_at && Date.today < self.event.begins_at
+          return "<strong>#{(self.event.begins_at.mjd - Date.today.mjd)}</strong> days until your apprenticeship begins!".html_safe
+        elsif self.event.ends_at && Date.today < self.event.ends_at
+          return "#{self.event.ends_at - Date.today} more days of your Apprenticeship"
+        else
+          return false
+        end
+    elsif self.completed?
+    else
+    end
+    return ''
+  end
+
+  def countdown_message_maker
+    if self.started?
+    elsif self.pending?
+      return "#{(self.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days left to <a href=#{url_for(self)} class='btn btn-success'>review</a> this application!".html_safe
+    elsif self.accepted?
+    elsif self.declined?
+    elsif self.canceled?
+    elsif self.confirmed?
+    elsif self.completed?
+    else
+    end
+    return ''
   end
 end

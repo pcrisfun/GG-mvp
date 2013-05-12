@@ -66,6 +66,7 @@ GirlsGuild::Application.routes.draw do
 
   root to: 'static_pages#home'
 
+  match '/makers', to: 'makers#show'
   match '/stripe/webhook', to: 'stripe#webhook'
 
   match '/faq', to: 'static_pages#faq'

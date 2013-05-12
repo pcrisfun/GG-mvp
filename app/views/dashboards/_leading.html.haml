@@ -1,5 +1,5 @@
--if (events||=false)
-  %table.table.table-bordered.table-striped.table-hover.table-condensed
+- if (events||=false)
+  %table.table.table-bordered.table-hover.table-condensed
     %thead
       %tr
         %th.image
@@ -7,17 +7,20 @@
           Title
         %th.spots
           Spots Left
-        %th.state
-          State
         %th.dates
           Dates
+        %th.state
+          State
         %th.countdown
           Countdown
     %tbody
       - events.each do |event|
+        - submitted_signups = event.submitted_signups
         %tr
           %td
-            - if event && event.host_album
+            - if !submitted_signups.empty?
+              %i.icon-plus
+            - if event.host_album
               - if event.host_album.featured_photo
                 = render 'photos/photo', photo: event.host_album.featured_photo, size: :thumb
               - elsif event.host_album.photos.first
@@ -34,11 +37,37 @@
           %td
             = link_to event.title_html, url_for(controller: event.class.name.underscore.pluralize, action: 'show', id: event.id ), class: "title-boxlink"
           %td
-            = event.signups.count
+            = event.spots_left
+          %td
+            = event.nice_dates
           %td
             %span.label{class: event.state_label_class}
               = event.state
           %td
-            = event.nice_dates
-          %td
-            "Countdown Message"
+            = event.countdown_message
+        - if !submitted_signups.empty?
+          %tr
+            %td.nested-table{ colspan: 6 }
+              %table.table.table-bordered.table-hover.table-condensed.table-subtable
+                %thead
+                  %tr
+                    %th.image
+                    %th.name
+                      Name
+                    %th.state
+                      State
+                    %th.countdown
+                      Countdown
+                %tbody
+                  - submitted_signups.each do |signup|
+                    %tr
+                      %td
+                        = avatar_for(signup.user, size: 50, tag: :medium)
+                      %td
+                        = signup.user.name
+                      %td
+                        %span.label{class: signup.state_label_class}
+                          = signup.state
+                      %td
+                        = signup.countdown_message_maker
+

@@ -1,5 +1,5 @@
 class AppSignupsController < ApplicationController
-  before_filter :authenticate_user!, except: [:index, :show]
+  before_filter :authenticate_user!, except: [:index]
   before_filter :load_app_signup
   before_filter :owner_user, only: [:edit, :update]
 
@@ -142,8 +142,15 @@ class AppSignupsController < ApplicationController
         flash[:warning] = "04 Snap, there was a problem saving your form. Please check all fields and try again."
         render 'show'
       end
+    elsif @app_signup.charge_id.present?
+      if @app_signup.confirm && @app_signup.deliver_confirm_maker
+        redirect_to apprenticeships_path, :flash => {:success => "05 Rad! You're all confirmed to start your apprenticeship!"}
+      else
+        flash[:warning] = "06 Snap, there was a problem saving your form. Please check all fields and try again."
+        render 'show'
+      end
     else
-      flash[:warning] = "05 Snap, there was a problem saving your form. Please check all fields and try again."
+      flash[:warning] = "07 Snap, there was a problem saving your form. Please check all fields and try again."
       render 'show'
     end
   end

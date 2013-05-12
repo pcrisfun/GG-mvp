@@ -7,13 +7,22 @@ class Signup < ActiveRecord::Base
 
 	belongs_to :user
 	belongs_to :event
+  has_many :state_stamps
 
 	attr_accessible :collaborate, :happywhen, :interest, :experience, :requirements, :confirm_available, :preferred_times, :confirm_unpaid, :confirm_fee, :parent_phone, :parent_name, :parent_email, :waiver, :parents_waiver, :respect_agreement, :charge_id, :parent, :daughter_name, :daughter_age
 
   attr_accessible :stripe_card_token
   attr_accessor :stripe_card_token
 
+  def make_stamp
+    self.state_stamps.create(state: self.state, stamp: Date.today)
+  end
+
   state_machine :state, :initial => :started do
+
+    after_transition any => any do |event|
+      event.make_stamp
+    end
 
     state :started do
     end

@@ -2,9 +2,9 @@
 %section#promo.section.alt-grey#admin
   .container
     .row-fluid
-      .span3.pull-left
+      .span2.pull-left
         = render 'dashboards/nav'
-      .span9.pull-right
+      .span10.pull-right
         .fancyform-light.form-horizontal
           = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), defaults: { input_html: { class: 'span5' } }, html: { :method => :put } ) do |f|
             = f.error_notification

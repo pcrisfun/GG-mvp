@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130428221021) do
+ActiveRecord::Schema.define(:version => 20130509135923) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -53,7 +53,8 @@ ActiveRecord::Schema.define(:version => 20130428221021) do
     t.string   "facebook"
     t.string   "website"
     t.string   "webshop"
-    t.string   "permission"
+    t.boolean  "permission",                                       :default => false
+    t.boolean  "boolean",                                          :default => false
     t.string   "payment_options"
     t.string   "paypal_email"
     t.string   "sendcheck_address"
@@ -73,7 +74,6 @@ ActiveRecord::Schema.define(:version => 20130428221021) do
     t.string   "location_state"
     t.string   "location_zipcode"
     t.boolean  "location_private",                                 :default => true
-    t.boolean  "boolean",                                          :default => false
     t.boolean  "location_varies",                                  :default => false
     t.integer  "age_min"
     t.integer  "age_max"
@@ -154,6 +154,15 @@ ActiveRecord::Schema.define(:version => 20130428221021) do
   end
 
   add_index "signups", ["charge_id"], :name => "index_signups_on_charge_id"
+
+  create_table "state_stamps", :force => true do |t|
+    t.string   "state"
+    t.date     "stamp"
+    t.integer  "event_id"
+    t.integer  "signup_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"

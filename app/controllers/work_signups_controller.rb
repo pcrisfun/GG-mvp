@@ -1,5 +1,5 @@
 class WorkSignupsController < ApplicationController
-  before_filter :authenticate_user!, except: [:index, :show]
+  before_filter :authenticate_user!, except: [:index]
 
   def new
   	@workshop = Workshop.find(params[:workshop_id])
