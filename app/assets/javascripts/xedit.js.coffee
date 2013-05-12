@@ -27,6 +27,61 @@ $.updateCheckmarks = ->
         $('#checkmark-payment').addClass('hidden')
 
 jQuery ->
+  # editable tag fields
+  $('.tags').children(".editable").editable
+    mode: 'inline'
+    onblur: 'submit'
+    ajaxOptions:
+      type: 'put'
+      dataType: 'json'
+    params: (params)->
+      data = {}
+      data['id'] = params.pk
+      data['name'] = params.name
+      data['value'] = ->
+        if params.value
+          return params.value
+        else
+          return []
+      return data
+    success: (response)->
+      if response.errors
+        return response.errors
+      else
+        $(this).parent('.field').css "opacity", "0"
+        $(this).parent('.field').animate(opacity: "1", 1500)
+        $.updateCheckmarks
+
+  # TBA customizations
+  $('#tba').children(".editable").editable
+    mode: 'inline'
+    onblur: 'submit'
+    ajaxOptions:
+      type: 'put'
+      dataType: 'json'
+    success: (response)->
+      if (response.datetime_tba == true)
+        $('#dates, #from').addClass('hidden')
+      else
+        $('#dates, #from').removeClass('hidden')
+      $(this).parent('.field').css "opacity", "0"
+      $(this).parent('.field').animate(opacity: "1", 1500)
+
+  # private address customization
+  $('#private-address').children(".editable").editable
+    mode: 'inline'
+    onblur: 'submit'
+    ajaxOptions:
+      type: 'put'
+      dataType: 'json'
+    success: (response)->
+      if (response.location_private == true)
+        $('#nbrhood-toggle').removeClass('hidden')
+      else
+        $('#nbrhood-toggle').addClass('hidden')
+      $(this).parent('.field').css "opacity", "0"
+      $(this).parent('.field').animate(opacity: "1", 1500)
+
   # editable initialization
   $('.editable').editable
     mode: 'inline'
@@ -37,63 +92,10 @@ jQuery ->
     success: (response)->
       if response.errors
         return response.errors
-      $(this).parent('.field').css "opacity", "0"
-      $(this).parent('.field').animate(opacity: "1", 1500)
-      $.updateCheckmarks
-
-    # editable tag fields
-    $('.tags').children(".editable").editable
-      mode: 'inline'
-      onblur: 'submit'
-      ajaxOptions:
-        type: 'put'
-        dataType: 'json'
-      params: (params)->
-        data = {}
-        data['id'] = params.pk
-        data['name'] = params.name
-        data['value'] = ->
-          if params.value
-            return params.value
-          else
-            return []
-        return data
-      success: (response)->
-        if response.errors
-          return response.errors
+      else
         $(this).parent('.field').css "opacity", "0"
         $(this).parent('.field').animate(opacity: "1", 1500)
         $.updateCheckmarks
-
-    # TBA customizations
-    $('#tba').children(".editable").editable
-      mode: 'inline'
-      onblur: 'submit'
-      ajaxOptions:
-        type: 'put'
-        dataType: 'json'
-      success: (response)->
-        if (response.datetime_tba == true)
-          $('#dates, #from').addClass('hidden')
-        else
-          $('#dates, #from').removeClass('hidden')
-        $(this).parent('.field').css "opacity", "0"
-        $(this).parent('.field').animate(opacity: "1", 1500)
-
-    # private address customization
-    $('#private-address').children(".editable").editable
-      mode: 'inline'
-      onblur: 'submit'
-      ajaxOptions:
-        type: 'put'
-        dataType: 'json'
-      success: (response)->
-        if (response.location_private == true)
-          $('#nbrhood-toggle').removeClass('hidden')
-        else
-          $('#nbrhood-toggle').addClass('hidden')
-        $(this).parent('.field').css "opacity", "0"
-        $(this).parent('.field').animate(opacity: "1", 1500)
 
   # preview window
   childWindow = undefined
@@ -101,6 +103,7 @@ jQuery ->
     if childWindow
       childWindow.close()
     childWindow = window.open $(this).data('url')
+
 
 
 
