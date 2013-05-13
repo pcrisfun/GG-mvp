@@ -104,6 +104,9 @@ jQuery ->
       childWindow.close()
     childWindow = window.open $(this).data('url')
 
+  $('.real-file-upload').change ->
+    $('.dummy-file-upload').val( $(this).val().replace(/^C:\\fakepath\\/i, '') )
+    $('#user_use_gravatar_false').prop("checked", true)
 
 
 

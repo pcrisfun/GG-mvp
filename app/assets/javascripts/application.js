@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require jquery.cookie
-//= require jquery.ui.all
 //= require bootstrap
 //= require bootstrap-tooltip
 //= require bootstrap-datepicker
@@ -65,7 +64,6 @@ $(document).ready(function () {
   $('#workshop_tool_list').tokenInput('/event_tools.json', { crossDomain: false, 'allowCustomEntry' : true,  theme: 'facebook', prePopulate: $('#workshop_tool_list').data('pre'), hintText: "Separate each with a comma" });
   $( "#slider-range-max" ).slider({ range: "max", min: 1, max: 10, value: 2, slide: function( event, ui ) { $( "#amount" ).val( ui.value );} }); $( "#amount" ).val( $( "#slider-range-max" ).slider( "value" ) );
 });
-
 
 $(function() {
   $('#workshop_price').keyup(function() {

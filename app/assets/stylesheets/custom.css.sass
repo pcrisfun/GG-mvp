@@ -317,6 +317,9 @@ a, a:hover, a:active, a:visited, a:focus
     margin: 0 auto
     display: block
 
+.modal
+  outline: none
+
 #admin
   .fancyform-light
     padding: 30px 0px 0px 0px
@@ -375,6 +378,7 @@ input[type="radio"], input[type="checkbox"]
 #hmpg
   .hmpg-spotlight
     background: url(banners/hmpg-spotlight-01.png) repeat-x top center transparent
+    background-size: auto
     p
       text-transform: uppercase
       font-size: 27px
@@ -544,6 +548,11 @@ input[type="radio"], input[type="checkbox"]
     z-index: 99
 
 #galleryModal
+  top: 50%
+  width: 80%
+  margin-left: -40%
+  .modal-body
+    max-height: 450px
   .progress
     position: absolute
 
@@ -597,13 +606,6 @@ input[type="radio"], input[type="checkbox"]
     line-height: 120px
   .btn-primary
     background: $niceblue
-
-#galleryModal
-  top: 50%
-  width: 80%
-  margin-left: -40%
-  .modal-body
-    max-height: 450px
 
 #add_photo_input
   transform: translate(-562px, 52px) scale(4.6)
@@ -882,12 +884,19 @@ input[type="radio"], input[type="checkbox"]
       padding: 8px
   #avatarModal
     width: 100%
-    max-width: 700px
+    max-width: 600px
+    padding: 0
     .modal-body
       text-align: left
       max-height: 450px
-      .fancyform-light
+      padding: 0
+      form
         margin-bottom: 0px
+        .control-group
+          padding: 0px 30px
+        .form-actions
+          margin-bottom: 0px
+
 
   #preview-buttons-top, #preview-buttons-bottom
     margin: 5px 5px 0 0
@@ -1134,6 +1143,28 @@ input[type="radio"], input[type="checkbox"]
   .span4
     border: none
 
+// Avatar
+.file-upload
+  display: inline-block
+  position: relative
+  width: 308px
+  margin-left: 4px
+  .dummy-file-upload
+    position: absolute
+    z-index: 1
+    top: 0
+    border-radius: 3px 0 0 3px
+  .dummy-button-upload
+    position: absolute
+    z-index: 1
+    top: 0
+    left: 222px
+    border-radius: 0 3px 3px 0
+  .real-file-upload
+    position: absolute
+    z-index: 2
+    opacity: 0
+    top: 2px
 
 // Miscellaneous
 .debug_dump /* Hartl */

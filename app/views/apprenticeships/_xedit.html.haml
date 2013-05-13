@@ -25,9 +25,8 @@
                     %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
                     %h3#galleryModalLabel My Avatar
                   .modal-body
-                    .fancyform-light
-                      = simple_form_for(@user, :url => update_avatar_path, defaults: { input_html: { class: 'span5' } }, html: { :method => :put } ) do |f|
-                        = render 'dashboards/avatar_fields', f: f
+                    = simple_form_for(@user, :url => update_avatar_path, defaults: { input_html: { class: 'span5' } }, html: { :method => :put } ) do |f|
+                      = render 'dashboards/avatar_fields', f: f
               - else
                 = avatar_for(@apprenticeship.user, size: 50, tag: :medium)
 
