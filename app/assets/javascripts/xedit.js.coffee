@@ -26,6 +26,7 @@ $.updateCheckmarks = ->
         $('#number-payment').removeClass('hidden')
         $('#checkmark-payment').addClass('hidden')
 
+
 jQuery ->
   # editable tag fields
   $('.tags').children(".editable").editable
@@ -97,6 +98,13 @@ jQuery ->
         $(this).parent('.field').animate(opacity: "1", 1500)
         $.updateCheckmarks
 
+  # convert to real links
+  $(".link").each ->
+    text = undefined
+    text = $(this).text().trim().replace(/\s\s[ \t\r]+/g,"")
+    $(this).empty()
+    $(this).append "<a href='http://" + text + "' target='_blank'>" + text + "</a>"
+
   # preview window
   childWindow = undefined
   $(".preview-btn").click ->
@@ -107,6 +115,8 @@ jQuery ->
   $('.real-file-upload').change ->
     $('.dummy-file-upload').val( $(this).val().replace(/^C:\\fakepath\\/i, '') )
     $('#user_use_gravatar_false').prop("checked", true)
+
+
 
 
 

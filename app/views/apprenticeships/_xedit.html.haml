@@ -253,7 +253,7 @@
                 - if !show
                   %i.icon-asterisk
                 Website
-              %dd
+              %dd{class: show ? 'link' : ''}
                 www.
                 #website.field.text.optional
                   = editable_link_to '_________', field: :website, resource: @apprenticeship, type: :text
@@ -263,14 +263,14 @@
             - if !show || @apprenticeship.webshop
               %dt
                 Webshop
-              %dd
+              %dd{class: show ? 'link' : ''}
                 www.
                 #website.field.text.optional
                   = editable_link_to '_________', field: :webshop, resource: @apprenticeship, type: :text
             - if !show || @apprenticeship.facebook
               %dt
                 Facebook
-              %dd
+              %dd{class: show ? 'link' : ''}
                 facebook.com/
                 #website.field.text.optional
                   = editable_link_to '_________', field: :facebook, resource: @apprenticeship, type: :text
@@ -280,7 +280,7 @@
             - if !show || @apprenticeship.twitter
               %dt
                 Twitter
-              %dd
+              %dd{class: show ? 'link' : ''}
                 twitter.com/
                 #website.field.text.optional
                   = editable_link_to '_________', field: :twitter, resource: @apprenticeship, type: :text
