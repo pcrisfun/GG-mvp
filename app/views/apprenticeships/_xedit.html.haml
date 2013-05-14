@@ -25,9 +25,8 @@
                     %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
                     %h3#galleryModalLabel My Avatar
                   .modal-body
-                    .fancyform-light
-                      = simple_form_for(@user, :url => update_avatar_path, defaults: { input_html: { class: 'span5' } }, html: { :method => :put } ) do |f|
-                        = render 'dashboards/avatar_fields', f: f
+                    = simple_form_for(@user, :url => update_avatar_path, defaults: { input_html: { class: 'span5' } }, html: { :method => :put } ) do |f|
+                      = render 'dashboards/avatar_fields', f: f
               - else
                 = avatar_for(@apprenticeship.user, size: 50, tag: :medium)
 
@@ -254,7 +253,7 @@
                 - if !show
                   %i.icon-asterisk
                 Website
-              %dd
+              %dd{class: show ? 'link' : ''}
                 www.
                 #website.field.text.optional
                   = editable_link_to '_________', field: :website, resource: @apprenticeship, type: :text
@@ -264,14 +263,14 @@
             - if !show || @apprenticeship.webshop
               %dt
                 Webshop
-              %dd
+              %dd{class: show ? 'link' : ''}
                 www.
                 #website.field.text.optional
                   = editable_link_to '_________', field: :webshop, resource: @apprenticeship, type: :text
             - if !show || @apprenticeship.facebook
               %dt
                 Facebook
-              %dd
+              %dd{class: show ? 'link' : ''}
                 facebook.com/
                 #website.field.text.optional
                   = editable_link_to '_________', field: :facebook, resource: @apprenticeship, type: :text
@@ -281,7 +280,7 @@
             - if !show || @apprenticeship.twitter
               %dt
                 Twitter
-              %dd
+              %dd{class: show ? 'link' : ''}
                 twitter.com/
                 #website.field.text.optional
                   = editable_link_to '_________', field: :twitter, resource: @apprenticeship, type: :text
