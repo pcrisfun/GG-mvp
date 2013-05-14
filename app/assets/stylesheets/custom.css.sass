@@ -96,24 +96,18 @@ $radius: 5px
 @mixin textshadow-light
   text-shadow: 1px 1px #FFF
 
+
 // Layout
 .alt-grey
   background-color: #EFEFEF
-  .nav
-    background-color: #FFF
-    overflow: hidden
-    padding: 10px 15px
-    +roundcorners
-    +box-shadow-silver
-    li
-      color: $silver
+
 
 // Headers
 h2
   color: $plum-shadow
 
 
-// Universal
+// Defaults
 a, a:hover, a:active, a:visited, a:focus
   outline: none
 
@@ -176,6 +170,18 @@ a, a:hover, a:active, a:visited, a:focus
     padding: 2px 14px
 
 
+// Badges & Labels
+.label-success, .badge-success
+  background-color: $grass
+.label-warning, .badge-warning
+  background-color: $tangerine
+.label-important, .badge-important
+  background-color: $salmon
+.label-info, .badge-info
+  background-color: $ocean
+
+
+
 // Icons
 .enormous-icon.circled
   line-height: 1.6em
@@ -205,6 +211,11 @@ a, a:hover, a:active, a:visited, a:focus
   .dropdown
     img
       margin-top: -5px
+  .signin-nav
+    border-left: 1px solid $silver-light
+    padding-left: 5px
+    margin-left: 5px
+
 
 // Footer
 #footer
@@ -234,6 +245,18 @@ a, a:hover, a:active, a:visited, a:focus
 .gravatar
   float: left
   margin-right: 10px
+
+.nav-list
+  font-size: 15px
+  background-color: #FFF
+  overflow: hidden
+  padding: 10px 15px
+  +roundcorners
+  +box-shadow-silver
+  .header
+    color: $silver-dark
+    padding-bottom: 5px
+    border-bottom: 1px solid $silver-light
 
 // Accordion Nav
 .accordionFAQ
@@ -374,12 +397,13 @@ input[type="radio"], input[type="checkbox"]
 // Home
 #hmpg
   .hmpg-spotlight
-    background: url(banners/hmpg-spotlight-01.png) repeat-x top center transparent
+    background: url(banners/hmpg-spotlight-01.png) repeat-x center center transparent
     p
       text-transform: uppercase
       font-size: 27px
       letter-spacing: 3px
       margin: 20px 0
+      font-weight: 500
     .btn-primary
       font-size: 22px
       font-weight: 500
@@ -405,10 +429,8 @@ input[type="radio"], input[type="checkbox"]
         display: inline
       h2
         +dosis-caps
-        color: $grey-black
         font-size: 50px
       h3
-        color: $silver-shadow
         font-size: 26px
         line-height: 26px
         .kristi
@@ -419,7 +441,7 @@ input[type="radio"], input[type="checkbox"]
       color: $silver-dark
       list-style: none
       padding: 5px 0px
-      font-size: 15px
+      font-size: 16px
       letter-spacing: 2px
       h2
         +dosis-caps
@@ -433,7 +455,7 @@ input[type="radio"], input[type="checkbox"]
         .learnmore
           margin-top: 15px
           display: block
-          font-size: 13px
+          font-size: 15px
           font-weight: 500
   #newsletter
     background-color: #323232
@@ -504,7 +526,7 @@ input[type="radio"], input[type="checkbox"]
 .box, .box_photo, .dragging
   margin: 5px
   padding: 5px
-  font-size: 11px
+  font-size: 14px
   line-height: 1.4em
   float: left
   -webkit-border-radius: 5px
@@ -1066,19 +1088,24 @@ input[type="radio"], input[type="checkbox"]
 
 // Dashboard
 #dashboard-display
+  font-size: 14px
+  .label
+    font-size: 12px
   table
     background-color: #FFF
     .image
       width: 50px
     .title
+      .title-boxlink
+        font-size: 14px
     .spots
-      width: 10px
+      width: 75px
     .state
       width: 80px
     .dates
       width: 100px
     .countdown
-      // width: 120px
+      width: 180px
     .nested-table
       padding: 0px
       border: none
@@ -1087,10 +1114,12 @@ input[type="radio"], input[type="checkbox"]
       background-color: $silver-light
       border-left: 0px
       border-right: 0px
-    td
-      .icon-plus
-        margin-left: -22px
-        padding-right: 5px
+    .nested-table
+      table
+        border-radius: 0px
+      td
+        &.name, &.state, &.countdown
+          border-left: 0px
 
 // Event SignUps
 // SignUps
@@ -1134,6 +1163,18 @@ input[type="radio"], input[type="checkbox"]
   .span4
     border: none
 
+// Makers Page
+#makers_show
+  .name
+    padding-top: 5px
+  .event
+    padding: 5px 0
+
+// About Page
+#about
+  h4
+    font-size: 13px
+    color: $plum
 
 // Miscellaneous
 .debug_dump /* Hartl */

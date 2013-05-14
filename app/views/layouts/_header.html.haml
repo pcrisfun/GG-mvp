@@ -15,7 +15,7 @@
             = active_link_to 'Workshops', workshops_path, :wrap_tag => :li
             = active_link_to 'Makers', makers_path, :wrap_tag => :li
             - if signed_in?
-              %li.dropdown
+              %li.dropdown.signin-nav
                 %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
                   = current_user.first_name
                   = avatar_for(current_user, size: 25, tag: 'small')
@@ -27,4 +27,4 @@
                   %li.divider
                   = active_link_to 'Sign out', destroy_user_session_path, :wrap_tag => :li, method: "delete"
             - else
-              = active_link_to 'Sign in', new_user_session_path, :wrap_tag => :li
+              = active_link_to 'Sign in', new_user_session_path, :wrap_tag => :li, class: 'signin-nav'
