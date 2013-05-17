@@ -14,6 +14,8 @@ gem 'jquery-rails', '~> 2.0.0'
 gem 'jquery-ui-rails'
 gem 'stripe'
 
+gem 'dotenv-rails'
+
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'

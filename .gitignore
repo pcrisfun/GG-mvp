@@ -28,3 +28,5 @@ bundler_stubs/
 # Ignore system image files
 /public/system/*
 .idea
+
+.env
