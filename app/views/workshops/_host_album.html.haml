@@ -1,0 +1,19 @@
+- show ||= false
+%section.section#host-images{class: "#{show ? 'alt' : ''}"}
+  .container
+    #middle
+      - if current_user
+        = render 'galleries/gallery'
+
+        :erb
+          <script id="template-upload" type="text/x-tmpl">
+          <div id="" class="upload box_photo box-small masonry-brick" style="width:135px; height:208px;">
+            <div class="progress progress-info progress-striped active" style="height:135px; width:135px; margin-bottom:0px">
+              <div class="bar" style="width:0px;max-width:135px;"></div>
+            </div>
+          </div>
+          </script>
+      .row-fluid
+        .span12
+          #album_section
+            = render 'albums/album', limit: 5, controls: !show, featured: !show

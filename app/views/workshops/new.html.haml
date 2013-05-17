@@ -1,0 +1,26 @@
+%section#workshop-info.section.alt-grey
+  .container
+    .row-fluid
+      .hero-unit.well
+        %h1 Workshops
+        %br
+        %p We're excited you want to join GirlsGuild as an Maker! We'll review and post the workshop once you've completed your listing.
+        %p We charge INFO HERE to promote it to the GirlsGuild community. We'll also ask your permission to run a background check, as part of our efforts to foster a safe community.
+
+        %br
+        #buttons
+          = link_to "Let's start one!", { controller: :workshops, action: :create, save_button: 'Save for Later' } , {method: :post, style: 'button', class: 'btn btn-large btn-primary' }
+
+        %br
+        %br
+        %ul.icons
+          %li
+            %i.icon-bookmark
+            For more info check out the
+            %a{href: "/faq"}
+              FAQ
+          %li
+            %i.icon-envelope
+            Email us with any questions
+            %a{href: "mailto:hello@girlsguild.com?Subject=Howdy"}
+              hello@girlsguild.com

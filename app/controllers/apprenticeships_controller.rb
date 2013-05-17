@@ -1,6 +1,6 @@
 class ApprenticeshipsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
-  before_filter :current_apprenticeship, except: [:index, :info, :create, :save]
+  before_filter :current_apprenticeship, except: [:index, :new, :create, :save]
   before_filter :owner_user, only: [:edit, :private, :payment, :payment_confirmation, :update]
   before_filter :current_admin, only: :destroy
   before_filter :load_user_gallery
@@ -54,7 +54,7 @@ class ApprenticeshipsController < ApplicationController
       if @apprenticeship.respond_to?(params[:name])
         if @apprenticeship.xeditable_update(params[:name], params[:value])
           respond_to do |format|
-            format.json { render json: @apprenticeship and return }
+            format.json { render json: {event: @apprenticeship, checkmarks: @apprenticeship.checkmarks} and return }
           end
         else
           respond_to do |format|
@@ -117,7 +117,7 @@ class ApprenticeshipsController < ApplicationController
     end
   end
 
-  def info
+  def new
   end
 
   def private

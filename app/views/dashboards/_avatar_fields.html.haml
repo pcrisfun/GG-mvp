@@ -1,6 +1,6 @@
 = f.error_notification
 %br
-= f.input :use_gravatar, label: 'Avatar' do
+= f.input :use_gravatar, label: false do
   .form-inline
     %input{id: 'user_use_gravatar_true',name: "user[use_gravatar]", type: 'radio', value: 'true', :checked => (@user.use_gravatar ? "checked" : false) }
     .input-append

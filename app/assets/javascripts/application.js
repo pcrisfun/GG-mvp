@@ -47,7 +47,7 @@ $(document).ready(function () {
     $(this).datepicker('hide');
   });
 
-	$("[data-behaviour~='timepicker']").timepicker();
+  $("[data-behaviour~='timepicker']").timepicker();
   $("[data-behaviour~='combodate']").combodate();
   $("[rel=tooltip]").tooltip();
   $("[rel=popover]").popover({'trigger': 'trigger'});

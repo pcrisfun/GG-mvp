@@ -36,7 +36,6 @@ GirlsGuild::Application.routes.draw do
     resources :app_signups
     collection do
       post :cancel
-      get :info
       get :checkmarks
     end
   end
@@ -47,10 +46,13 @@ GirlsGuild::Application.routes.draw do
   resources :workshops do
     resources :work_signups
     collection do
-      get :workshop_album
       post :cancel
+      get :checkmarks
     end
   end
+  match 'workshops/:id/private' => 'workshops#private', as: :private_workshop
+  match 'workshops/:id/confirmation' => 'workshops#confirmation', as: :confirmation_workshop
+
 
   resources :event_skills, only: [:index]
   resources :event_tools, only: [:index]

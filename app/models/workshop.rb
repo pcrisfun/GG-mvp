@@ -3,10 +3,52 @@ class Workshop < Event
 	has_many :users, :through => :signup
 	has_many :users, :through => :prereg
 
-	validates_presence_of :payment_options, :begins_at_time, :ends_at_time, :ends_at, :registration_max, :price
-	validates_numericality_of :price, :greater_than_or_equal_to => 0
-	validates_numericality_of :registration_max, :greater_than => :registration_min, :message => "must be greater than the minimum number of participants."
-	validates :begins_at, :date => {:after => Proc.new { Date.today + 6.day }, :message => 'Sorry! You need to plan your workshop to start at least a week from today. Please check the date you set.'}, :if => :tba_is_blank
+
+  validation_group :design do
+    validates_presence_of :begins_at_time, :ends_at_time, :registration_max, :price
+    validates_numericality_of :price, :greater_than_or_equal_to => 0
+    validates_numericality_of :registration_max, :greater_than => :registration_min, :message => "Must be greater than the minimum number of participants."
+    validates_numericality_of :age_max, :greater_than => :age_min, :message => "Must be greater than the minimum age."
+    validates :begins_at, :date => {:after => Proc.new { Date.today + 6.day }, :message => 'Sorry! You need to plan your workshop to start at least a week from today. Please check the date you set.'}, :if => :tba_is_blank
+    validates :ends_at, :date => {:before_or_equal_to => :begins_at, :message => 'You must close registrations prior to the planned date of the workshop.' }, :if => :tba_is_blank
+    validate :host_album_limit
+  end
+
+  validation_group :begins_at do
+    validates :begins_at, :date => {:after => Proc.new { Date.today + 6.day }, :message => 'Sorry! You need to plan your workshop to start at least a week from today. Please check the date you set.'}, :if => :tba_is_blank
+  end
+
+  validation_group :begins_at_time do
+    validates_presence_of :begins_at_time
+  end
+
+  validation_group :ends_at_time do
+    validates_presence_of :ends_at_time
+  end
+
+  validation_group :ends_at do
+    validates :ends_at, :date => {:before_or_equal_to => :begins_at, :message => 'You must close registrations prior to the planned date of the workshop.' }, :if => :tba_is_blank
+  end
+
+  validation_group :age_max do
+    validates_numericality_of :age_max, :greater_than => :age_min, :message => "Must be greater than the minimum age."
+  end
+
+  validation_group :registration_max do
+    validates_presence_of :registration_max
+    validates_numericality_of :registration_max
+    validates_numericality_of :registration_max, :greater_than => :registration_min, :message => "Must be greater than the minimum number of participants."
+  end
+
+  validation_group :price do
+    validates_presence_of :price
+    validates_numericality_of :price, :greater_than_or_equal_to => 0
+  end
+
+
+  validation_group :private do
+    validates_presence_of :payment_options, :permission
+  end
 
 	def default_url_options
 	  { :host => 'localhost:3000'}
@@ -163,9 +205,62 @@ class Workshop < Event
     end
   end
 
+  def total_price
+    unless self.price
+      return '___'
+    end
+    return (self.price*1.2).round.to_s
+  end
+
+  def checkmarks
+    checkmarks = {}
+    checkmarks[:design] = self.group_valid?(:design)
+    checkmarks[:private] = self.group_valid?(:private)
+    self.errors.clear
+    return checkmarks
+  end
+
+  def countdown_message
+    if self.started?
+      return ''
+
+    elsif self.pending?
+      return "GirlsGuild is lookin it over."
+
+    elsif self.accepted?
+      if !self.confirmed_signups.empty?
+        if self.datetime_tba
+          return "#{self.confirmed_signups.count} of #{self.registration_max} participants confirmed."
+        elsif self.begins_at && Date.today < self.begins_at
+          return "#{self.confirmed_signups.count} of #{self.registration_max} participants confirmed.<br/><strong>#{(self.ends_at.mjd - Date.today.mjd)}</strong> days for people to sign up.".html_safe
+        else
+          return ''
+        end
+      else
+        return "Open for Applications"
+      end
+    elsif self.canceled?
+    elsif self.filled?
+      if self.datetime_tba
+        return "Workshop"
+      elsif self.begins_at && Date.today < self.begins_at
+        return "<strong>#{(self.begins_at.mjd - Date.today.mjd)}</strong> days until the Workshop!".html_safe
+      else
+        return ''
+      end
+    elsif self.in_progress?
+    elsif self.completed?
+    end
+    return ''
+  end
+
 	state_machine :state, :initial => :started do
 		event :complete do
       transition :all => :completed
+    end
+
+    event :submit do
+      transition :started => :pending
     end
 	end
 end
