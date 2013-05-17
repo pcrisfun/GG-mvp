@@ -173,8 +173,8 @@ class Apprenticeship < Event
 			:to => "#{user.name}<#{user.email}>",
    		:from => "Diana & Cheyenne<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
-			:subject => "Your apprenticeship has been rejected - #{topic} with #{user.name}",
-			:html_body => %(<h1>Perp-Alert</h1> <p>We've rejected your apprenticeship cause you're a creepy perp. (Insert our actual reason here) We hope you'll consider offering it again sometime!</p> <p>You can edit the apprenticeship and resubmit it anytime. Find it here - <a href="#{edit_apprenticeship_url(self)}"> #{self.title}</a></p>),
+			:subject => "We couldn't post your apprenticeship - #{topic} with #{user.name}",
+			:html_body => %(<h1>Whoops, we couldn't post your apprenticeship.</h1> <p>We've sent your apprenticeship back into edit-mode because we noticed something wrong. We'll follow up with you about the error shortly, at which point you can make any corrections and resubmit it.  You can find it here - <a href="#{edit_apprenticeship_url(self)}"> #{self.title}</a></p>),
 			:bcc => "hello@girlsguild.com",
 		})
 		return true

@@ -342,9 +342,9 @@ class AppSignup < Signup
   def countdown_message
     if self.started?
     elsif self.pending?
-        return "Your application is being reviewed.<br/>You should hear back by <strong>#{(self.state_stamps.last.stamp + 14.days).strftime("%b %d")}</strong>".html_safe
+        return "Your application is being reviewed. You should hear back by <strong>#{(self.state_stamps.last.stamp + 14.days).strftime("%b %d")}</strong>".html_safe
     elsif self.accepted?
-        return "Your application has been accepted!<br/><a href=#{url_for(self)} class='btn btn-success'>Confirm</a> your apprenticeship!".html_safe
+        return "Your application has been accepted!<br/><a href=#{url_for(self)} class='btn btn-success btn-mini'>Confirm</a> your apprenticeship!".html_safe
     elsif self.declined?
     elsif self.canceled?
     elsif self.confirmed?
@@ -366,7 +366,7 @@ class AppSignup < Signup
   def countdown_message_maker
     if self.started?
     elsif self.pending?
-      return "#{(self.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days left to <a href=#{url_for(self)} class='btn btn-success'>review</a> this application!".html_safe
+      return "#{(self.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days left to <a href=#{url_for(self)} class='btn btn-primary btn-mini'>review</a> ".html_safe
     elsif self.accepted?
     elsif self.declined?
     elsif self.canceled?
