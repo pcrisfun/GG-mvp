@@ -38,7 +38,7 @@ class WorkSignup < Signup
       <p>You're all signed up for <a href="#{url_for(self.event)}">#{event.title}</a>.
       <p>We received your payment of #{sprintf('$%0.2f', payment.amount.to_f / 100.0)}</p>
       <p>(Fill out this email with more info like: where -- link to map, when, contact info for questions, what to be prepared for, what to bring, cancellation policy, the fact that we'll send a text reminder the day before and link to change her phone number. )</p>,
-      :bcc => "hello@girlsguild.com",
+      ), :bcc => "hello@girlsguild.com",
     })
     return true
   end
