@@ -1,0 +1,33 @@
+%section#private-info.section
+  .container
+    .row-fluid
+      .span12
+        %h1
+          %icon.icon-check
+          Awesome!
+        %p We'll review your workshop proposal and let you know as soon as it's been posted live!
+        %p
+          You can check on the status of your proposal any time by visiting your
+          = link_to "Dashboard Page", dashboard_path
+        .alert.alert-warning
+          %strong
+            Note:
+          You will not be able to edit your workshop until we've had a chance to approve it. Then any edits will need to be re-approved.
+
+        %br
+        .fancyform-light.form-horizontal
+          Thanks for submitting a workshop!
+          %br A confirmation will be sent to your email.
+        %br
+
+        %ul.icons
+          %li
+            %i.icon-bookmark
+            For more info check out the
+            %a{href: "/faq"}
+              FAQ
+          %li
+            %i.icon-envelope
+            Email us with any questions
+            %a{href: "mailto:hello@girlsguild.com?Subject=Howdy"}
+              hello@girlsguild.com

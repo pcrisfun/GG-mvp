@@ -1,0 +1,55 @@
+#private-info
+  %section.section
+    .container
+      %h1#page-header.pull-right Private Details
+      %br
+      = render 'checkmark_nav'
+      %br
+      #full
+        .row-fluid
+          = simple_form_for @workshop, class: 'form-horizontal', validate: false do |f|
+            / RESPECT MY STYLE
+            %br
+            = f.input :respect_my_style, label: 'Respect my Style' do
+              = f.check_box :respect_my_style
+              %span.simpleform-text Please ask my apprentice to agree to respect my artistic style.
+              %a{"data-content" => "We understand that for some makers, teaching your unique techniques can feel like risking your trade secrets. If this is a concern for you, we'll ask your apprentice to sign an agreement to respect your artistic style.", "data-placement" => "right", :href => "javascript:;", :rel => "popover"}
+                Why
+                %i.icon-question-sign.small-icon
+            / BACKGROUND CHECK
+            %br
+            = f.input :permission, label: 'Background Check' do
+              = f.check_box :permission
+              %span.simpleform-text I give permission for GirlsGuild to run a background check on me.
+              %a{"data-content" => "We run background checks on all maker-mentors as part of our efforts to foster a safe community.", "data-placement" => "right", :href => "javascript:;", :rel => "popover"}
+                Why
+                %i.icon-question-sign.small-icon
+            %br
+            // PAYMENT OPTIONS
+            %h3 After the workshop, we'll send your payment by:
+            = f.input :payment_options, label: "Choose an option:" do
+              = f.radio_button :payment_options, "Paypal"
+              %span.simpleform-text Paypal payment to
+              = f.text_field :paypal_email, value: ( !current_user.admin? ? current_user.email : '' ), rel: 'popover', data: { content: "Note, this information will be kept private and will not be displayed with your workshop"}
+              %br
+              %br
+              = f.radio_button :payment_options, "Check"
+              %span.simpleform-text
+                Check mailed to
+                .row-fluid
+                  .span6
+                    = f.text_field :sendcheck_address, placeholder: 'Address Line 1', class: 'span12'
+                .row-fluid
+                  .span6
+                    = f.text_field :sendcheck_address2, placeholder: 'Address Line 2', class: 'span12'
+                .row-fluid
+                  .span3
+                    = f.text_field :sendcheck_city, :placeholder => 'City', class: 'span12'
+                  .span1
+                    = f.text_field :sendcheck_state, :placeholder => 'State', class: 'span12'
+                  .span2
+                    = f.text_field :sendcheck_zip, :placeholder => 'Zip', class: 'span12'
+            %br
+            .row-fluid
+              #preview-buttons-bottom.pull-center
+                = f.submit 'Next', class: 'btn btn-large btn-primary'

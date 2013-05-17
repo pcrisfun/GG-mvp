@@ -25,7 +25,6 @@
                 %img.default-photo-thumb
             - unless current_user.blank?
               - if workshop.user == current_user
-                = link_to "Add Images", {controller: :workshops, action: :workshop_album, id: workshop}, class: "btn btn-mini pull-right"
                 - if workshop.started?
                   = link_to "Resume", edit_workshop_path(workshop), class: "btn btn-mini pull-right"
                 - elsif workshop.accepted? || workshop.canceled?

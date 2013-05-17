@@ -778,7 +778,7 @@ input[type="radio"], input[type="checkbox"]
     outline: none
 
 // Apprenticeship Design Page
-#apprenticeship-design, #apprenticeship-show, #private-info
+#apprenticeship-design, #apprenticeship-show, #private-info, #workshop-design, #workshop-show
   #page-header
     font-family: kristi
     font-size: 45px
@@ -813,7 +813,7 @@ input[type="radio"], input[type="checkbox"]
           font-size: 24px
           i
             position: absolute
-            left: -1px
+            left: 5px
             top: 7px
             color: $grass
             font-size: 30px
@@ -821,7 +821,7 @@ input[type="radio"], input[type="checkbox"]
             color: #CCC
 
 
-#apprenticeship-design, #apprenticeship-show
+#apprenticeship-design, #apprenticeship-show, #workshop-design, #workshop-show
   margin-top: 40px
   line-height: 20px
   section
@@ -875,6 +875,8 @@ input[type="radio"], input[type="checkbox"]
     .editable-error-block
       margin-top: 5px
       text-align: left
+    .select2-input
+      cursor: text
   #avatar
     margin-bottom: 10px
     img
@@ -1018,7 +1020,7 @@ input[type="radio"], input[type="checkbox"]
     padding: 30px 0px
     text-align: center
 
-#apprenticeship-show
+#apprenticeship-show, #workshop-show
   #banner
     padding-top: 0px
     #title
@@ -1072,6 +1074,16 @@ input[type="radio"], input[type="checkbox"]
     border-radius: 4px
     clear: both
     padding: 30px
+
+#workshop-design, #workshop-show
+  #price-details
+    display: inline
+  #close-registrations
+    margin-top: 4px
+
+#workshop-show
+  #total-price
+    margin-left: -3px
 
 // Dashboard
 #dashboard-display
@@ -1164,7 +1176,8 @@ input[type="radio"], input[type="checkbox"]
     position: absolute
     z-index: 2
     opacity: 0
-    top: 2px
+    height: 34px
+    width: 308px
 
 // Miscellaneous
 .debug_dump /* Hartl */
