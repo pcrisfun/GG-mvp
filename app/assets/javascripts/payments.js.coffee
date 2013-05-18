@@ -31,5 +31,5 @@ charge =
     else
       console.log('Facepalm :(')
       $('#stripe_error').show()
-      $('#stripe_error.message').text(response.error.message)
+      $('#stripe_error').find('.message').text(response.error.message)
       $('#cc_process').attr('disabled', false)

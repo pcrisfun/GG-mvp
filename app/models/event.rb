@@ -65,13 +65,18 @@ class Event < ActiveRecord::Base
         :card => stripe_card_token,
         :description => "Apprenticeship payment from #{self.user.email}"
       )
+      logger.debug(charge)
       update_attribute(:charge_id, charge.id)
       logger.info "Processed payment #{charge.id}"
     end
-  rescue Stripe::InvalidRequestError => e
-    logger.error "Stripe error while creating charge: #{e.message}"
-    errors.add :base, "There was a problem with your credit card."
-    false
+    rescue Stripe::CardError => e
+      logger.error "Stripe error while creating charge: #{e.message}"
+      errors.add :base, e.message
+      false
+    rescue Stripe::InvalidRequestError => e
+      logger.error "Stripe error while creating charge: #{e.message}"
+      errors.add :base, "There was a problem with your credit card."
+      false
   end
 
   def tba_is_blank
