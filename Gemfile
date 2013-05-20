@@ -15,7 +15,9 @@ gem 'jquery-ui-rails'
 gem 'stripe'
 
 gem 'dotenv-rails'
-
+gem 'honeybadger'
+gem 'unicorn'
+gem 'newrelic_rpm'
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'
