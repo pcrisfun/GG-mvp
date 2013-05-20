@@ -172,6 +172,7 @@ class Workshop < Event
       :html_body => %(<h1>Hey #{user.first_name}!</h1> <p>How did your workshop go? We'd love to hear your feedback on the teaching experience. (Fill out this email with more info)</p>),
       :bcc => "hello@girlsguild.com",
     })
+    self.update_column(:follow_up_sent, true)
     return true
   end
 
@@ -198,10 +199,8 @@ class Workshop < Event
   end
 
   def self.maker_followup
-    Workshop.all.each do |work|
-      if (work.begins_at) == (Date.today - 3.days)
-        work.deliver_maker_followup
-      end
+    Workshop.where('begins_at <= ?', 3.days.ago).where(:follow_up_sent => false).each do |work|
+      work.deliver_maker_followup
     end
   end
 
