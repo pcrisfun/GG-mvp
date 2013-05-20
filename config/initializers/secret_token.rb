@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-GirlsGuild::Application.config.secret_token = '86739f51a643785499ae605e04298dfd91acdcf5b97842343e4d850ac16907aec09f1e23ca9efad5a803bf78e3fcb72bf7c997b1176418d4a72164ba5e61eff5'
+GirlsGuild::Application.config.secret_token = ENV['SECRET_TOKEN'] || 'fallback_token_for_development'
