@@ -1,6 +1,6 @@
 #will need to be scheduled using the Heroku Scheduler tool when we deploy (schedule for each evening)
 
-namespace :app do
+namespace :scheduler do
   desc "TODO"
   task :daily_actions => :environment do
     Apprenticeship.complete_apprenticeship
