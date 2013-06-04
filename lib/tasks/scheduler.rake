@@ -9,9 +9,10 @@ namespace :scheduler do
     Workshop.maker_reminder
     Workshop.maker_followup
     AppSignup.reminder
+    AppSignup.followup
+    AppSignup.followup_maker
     WorkSignup.first_reminder
     WorkSignup.second_reminder
-    AppSignup.followup
     WorkSignup.followup
   end
 end
