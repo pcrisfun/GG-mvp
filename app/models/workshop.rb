@@ -193,7 +193,7 @@ class Workshop < Event
 	end
 
   def self.maker_reminder
-    Workshop.where('state = "accepted" OR state = "filled"').where('begins_at >= ?', 3.days).where(:reminder_sent => false).each do |work|
+    Workshop.where(:state => ["accepted", "filled"]).where('begins_at >= ?', 3.days).where(:reminder_sent => false).each do |work|
       work.deliver_maker_reminder
     end
   end
