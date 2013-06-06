@@ -87,6 +87,6 @@ gem 'font-awesome-rails'
 gem 'bootstrap-x-editable-rails'
 gem 'select2-rails'
 gem 'momentjs-rails'
-gem 'google-webfonts'
+gem 'google-webfonts-rails'
 
 
