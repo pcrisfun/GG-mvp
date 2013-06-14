@@ -53,6 +53,9 @@ GirlsGuild::Application.routes.draw do
   match 'workshops/:id/private' => 'workshops#private', as: :private_workshop
   match 'workshops/:id/confirmation' => 'workshops#confirmation', as: :confirmation_workshop
 
+  resources :events, path: 'learn' do
+  end
+
 
   resources :event_skills, only: [:index]
   resources :event_tools, only: [:index]
