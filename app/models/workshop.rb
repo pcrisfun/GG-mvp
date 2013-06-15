@@ -157,9 +157,12 @@ class Workshop < Event
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your workshop is coming up! - #{self.title}",
-      :html_body => %(<h1>3, 2, 1... it's almost time!</h1> <p>Just a reminder that your workshop is happening on #{self.begins_at}. (Fill out this email with more info)</p>),
+      :html_body => %(<h1>3, 2, 1... it's almost time!</h1>
+        <p>Just a reminder that your workshop is happening on #{self.begins_at}.</p>
+        <p>So far, #{self.signups.where(:state => 'confirmed').count} people have signed up, and registration closes on #{self.ends_at}. We'll let you know if anyone new signs up before then.</p>),
       :bcc => "hello@girlsguild.com",
     })
+    self.update_column(:reminder_sent, true)
     return true
   end
 
@@ -172,6 +175,7 @@ class Workshop < Event
       :html_body => %(<h1>Hey #{user.first_name}!</h1> <p>How did your workshop go? We'd love to hear your feedback on the teaching experience. (Fill out this email with more info)</p>),
       :bcc => "hello@girlsguild.com",
     })
+    self.update_column(:follow_up_sent, true)
     return true
   end
 
@@ -183,6 +187,7 @@ class Workshop < Event
 	end
 
 	def self.cancel_workshop
+    #Note: ends_at is the registration close date on workshops
 		workshops = Workshop.where('ends_at <= ?', Date.today).all
 		workshops.each do |w|
 			w.cancel! unless w.min_capacity_met?
@@ -190,18 +195,14 @@ class Workshop < Event
 	end
 
   def self.maker_reminder
-    Workshop.all.each do |work|
-      if (work.begins_at) == (Date.today + 3.days)
-        work.deliver_maker_reminder
-      end
+    Workshop.where(:state => ["accepted", "filled"]).where('begins_at >= ?', 3.days).where(:reminder_sent => false).each do |work|
+      work.deliver_maker_reminder
     end
   end
 
   def self.maker_followup
-    Workshop.all.each do |work|
-      if (work.begins_at) == (Date.today - 3.days)
-        work.deliver_maker_followup
-      end
+    Workshop.where(:state => 'completed').where('begins_at <= ?', 3.days.ago).where(:follow_up_sent => false).each do |work|
+      work.deliver_maker_followup
     end
   end
 

@@ -8,6 +8,7 @@
     <%= csrf_meta_tags %>
     <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
     <%= render 'layouts/shim' %>
+    <%= google_webfonts_init({google: ['Open Sans', 'Dosis', 'Kristi']}) %>
 
   </head>
 

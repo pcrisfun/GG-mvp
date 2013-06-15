@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130509135923) do
+ActiveRecord::Schema.define(:version => 20130603220612) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -93,6 +93,8 @@ ActiveRecord::Schema.define(:version => 20130509135923) do
     t.boolean  "facilitate"
     t.integer  "prereg_id"
     t.boolean  "gender",                                           :default => false
+    t.boolean  "follow_up_sent",                                   :default => false,     :null => false
+    t.boolean  "reminder_sent",                                    :default => false,     :null => false
   end
 
   add_index "events", ["charge_id"], :name => "index_events_on_charge_id"
@@ -144,13 +146,19 @@ ActiveRecord::Schema.define(:version => 20130509135923) do
     t.string   "parents_waiver"
     t.string   "respect_agreement"
     t.string   "charge_id"
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
+    t.datetime "created_at",                                       :null => false
+    t.datetime "updated_at",                                       :null => false
     t.string   "parent"
     t.string   "daughter_firstname"
     t.string   "daughter_lastname"
     t.integer  "daughter_age"
-    t.string   "state",              :default => "started"
+    t.string   "state",                     :default => "started"
+    t.boolean  "app_reminder_sent",         :default => false,     :null => false
+    t.boolean  "app_followup_sent",         :default => false,     :null => false
+    t.boolean  "app_followup_maker_sent",   :default => false,     :null => false
+    t.boolean  "work_first_reminder_sent",  :default => false,     :null => false
+    t.boolean  "work_second_reminder_sent", :default => false,     :null => false
+    t.boolean  "work_followup_sent",        :default => false,     :null => false
   end
 
   add_index "signups", ["charge_id"], :name => "index_signups_on_charge_id"

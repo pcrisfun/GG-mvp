@@ -16,35 +16,13 @@
           .row-fluid
             .span4.pull-center
               %i.enormous-icon.circled.pull-center
-                .kristi $9
-            .span8
-              %h3 Post an Idea & Get Listed
-              %p
-                We want to get you involved! Post an idea, leave the dates TBA, upload a few images, and we'll notify you when someone wants to work with you!
-                %br
-              = link_to "Post an Idea", apprenticeships_path, class: "btn btn-small pull-right btn-success"
-          %hr/
-          .row-fluid
-            .span4.pull-center
-              %i.enormous-icon.circled.pull-center
                 .kristi $0
             .span8
-              %h3 Pre-register with a Maker
+              %h3 Get Updates on Makers You Like
               %p
-                Let a maker know that you're interested in working with them by joining their guild. You'll be the first to know when they schedule an event.
+                Let a maker know that you're interested in working with them by signing up for updates. We'll keep you posted when they schedule an event.
                 %br
-              = link_to "Browse Makers", apprenticeships_path, class: "btn btn-small pull-right btn-success"
-          %hr/
-          .row-fluid
-            .span4.pull-center
-              %i.enormous-icon.circled.pull-center.commingsoon
-                .kristi $0
-                .commingsoon-text Comming Soon!
-            .span8
-              %h3 Do a Studio Visit
-              %p
-                There's no better way to create and refine your own opinions than by talking about them with smart people. Request or host a studio visit with someone you respect in the community.
-              = link_to "Register", apprenticeships_path, class: "btn btn-small pull-right btn-success disabled"
+              = link_to "Browse Makers", makers_path, class: "btn btn-small pull-right btn-success"
           %hr/
           .row-fluid
             .span4.pull-center
@@ -53,45 +31,20 @@
             .span8
               %h3 Take a Workshop
               %p
-                Play with new materials and techniques, or refine your already awesome skills by taking a workshop taught by someone who's work you love.
+                Play with new materials and techniques, or refine your already awesome skills by taking a workshop taught by someone whose work you love.
                 %br
-              = link_to "Browse Workshops", apprenticeships_path, class: "btn btn-small pull-right btn-success"
+              = link_to "Browse Workshops", workshops_path, class: "btn btn-small pull-right btn-success"
           %hr/
           .row-fluid
             .span4.pull-center
-              %i.enormous-icon.circled.pull-center
-                .kristi.small Earn $
+              %i.enormous-icon.circled.pull-center.commingsoon
+                .kristi $0
+                .commingsoon-text Coming Soon!
             .span8
-              %h3 Host a Workshop
+              %h3 Do a Studio Visit
               %p
-                Play with new materials and techniques, or refine your already awesome skills by taking a workshop taught by someone who's work you love.
-                %br
-              = link_to "Build a Workshop", apprenticeships_path, class: "btn btn-small pull-right btn-success"
-              %br
-
-
-        %li.span6
-          .row-fluid
-            .span4.pull-center
-              %i.enormous-icon.circled.pull-center
-                .kristi $9
-            .span8
-              %h3 Host an Apprenticeship
-              %p
-                Stuck with a huge order an event, or just need help with your day-to-day practice? Find the help you need by posting an apprenticeship!
-                %br
-              = link_to "Build an Apprenticeship", apprenticeships_path, class: "btn btn-small pull-right btn-success"
-          %hr/
-          .row-fluid
-            .span4.pull-center
-              %i.enormous-icon.circled.pull-center
-                .kristi $29
-            .span8
-              %h3 Do an Event Apprenticeship
-              %p
-                Help a maker out with organizing, running, curating, or facilitating an event! Learn first hand what it takes to hang a show, or organize a gala.
-                %br
-              = link_to "Browse Apprenticeships", apprenticeships_path, class: "btn btn-small pull-right btn-success"
+                There's no better way to create and refine your own ideas than by talking about them with smart people. Request or host a studio visit with someone you respect in the community.
+              = link_to "Register", apprenticeships_path, class: "btn btn-small pull-right btn-success disabled"
           %hr/
           .row-fluid
             .span4.pull-center
@@ -108,6 +61,53 @@
               %i.enormous-icon.circled.pull-center
                 .kristi $29
             .span8
+              %h3 Do an Event Apprenticeship
+              %p
+                Help a maker out with organizing, running, curating, or facilitating an event! Learn first hand what it takes to hang a show, or organize a gala.
+                %br
+              = link_to "Browse Apprenticeships", apprenticeships_path, class: "btn btn-small pull-right btn-success"
+              %br
+
+
+        %li.span6
+          .row-fluid
+            .span4.pull-center
+              %i.enormous-icon.circled.pull-center
+                .kristi $9
+            .span8
+              %h3 Post an Idea & Get Listed
+              %p
+                We want to get you involved! Post an idea for a topic you'll teach, leave the dates TBA, upload a few images, and we'll notify you when someone wants to work with you!
+                %br
+              = link_to "Post an Idea", apprenticeships_path, class: "btn btn-small pull-right btn-success"
+          %hr/
+          .row-fluid
+            .span4.pull-center
+              %i.enormous-icon.circled.pull-center
+                .kristi $9
+            .span8
+              %h3 Host an Apprenticeship
+              %p
+                Stuck with a huge order, an event, or just need help with your day-to-day practice? Find the help you need by posting an apprenticeship!
+                %br
+              = link_to "Build an Apprenticeship", apprenticeships_path, class: "btn btn-small pull-right btn-success"
+          %hr/
+          .row-fluid
+            .span4.pull-center
+              %i.enormous-icon.circled.pull-center
+                .kristi.small Earn $
+            .span8
+              %h3 Host a Workshop
+              %p
+                Connect with your community! Take a few hours to teach your tools and share your skills with a group of girls who love what you do and want to learn how to do it.
+                %br
+              = link_to "Build a Workshop", workshops_path, class: "btn btn-small pull-right btn-success"
+          %hr/
+          .row-fluid
+            .span4.pull-center
+              %i.enormous-icon.circled.pull-center
+                .kristi $29
+            .span8
               %h3 Do an Ongoing Apprenticeship
               %p
                 Work with a creative by assisting her with her day-to-day studio tasks. Help her create work and learn what it's like to own and operate a small creative business.
@@ -117,7 +117,7 @@
             .span4.pull-center
               %i.enormous-icon.circled.pull-center.commingsoon
                 .kristi $45
-                .commingsoon-text Comming Soon!
+                .commingsoon-text Coming Soon!
             .span8
               %h3 Do a 1-Day Apprenticeship
               %p
@@ -130,7 +130,7 @@
   .container.pull-center
 
     %br
-    %h2.pull-center Cool right? Help us offer more!
+    %h2.pull-center Cool, right? Help us offer more!
     %p.pull-center
       Donate to the scholarship fund to help provide apprenticeship opportunities like these in partnership with
       %br youth advocacy organizations and programs for at-risk youth.

@@ -53,6 +53,7 @@ class WorkSignup < Signup
       :html_body => %(<h1>Just a few days!</h1> <p>Just a reminder that you're signed up for #{self.event.title} on #{self.event.begins_at}. (Fill out this email with more info)</p>),
       :bcc => "hello@girlsguild.com",
     })
+    self.update_column(:work_first_reminder_sent, true)
     return true
   end
 
@@ -66,6 +67,7 @@ class WorkSignup < Signup
       :html_body => %(<h1>Almost time!</h1> <p>Just a reminder that your workshop with #{self.event.user.name} is tomorrow. (Fill out this email with more info)</p>),
       :bcc => "hello@girlsguild.com",
     })
+    self.update_column(:work_second_reminder_sent, true)
     return true
   end
 
@@ -79,30 +81,25 @@ class WorkSignup < Signup
       :html_body => %(<h1>Hey #{user.first_name}!</h1> <p>What did you think of #{self.event.title}? (Fill out this email with more info)</p>),
       :bcc => "hello@girlsguild.com",
     })
+    self.update_column(:work_followup_sent, true)
     return true
   end
 
   def self.first_reminder
-    WorkSignup.all.each do |work|
-      if (work.event.begins_at) == (Date.today + 3.days)
-        work.deliver_first_reminder
-      end
+    WorkSignup.where(:state => 'confirmed').where('event.begins_at >= ?', 3.days).where(:work_first_reminder_sent => false).each do |work|
+      work.deliver_first_reminder
     end
   end
 
   def self.second_reminder
-    WorkSignup.all.each do |work|
-      if (work.event.begins_at) == (Date.today + 1.day)
-        work.deliver_second_reminder
-      end
+    WorkSignup.where(:state => 'confirmed').where('event.begins_at >= ?', 1.day).where(:work_second_reminder_sent => false).each do |work|
+      work.deliver_second_reminder
     end
   end
 
   def self.followup
-    WorkSignup.all.each do |work|
-      if (work.event.begins_at) == (Date.today - 3.days)
-        work.deliver_followup
-      end
+    WorkSignup.where(:state => 'confirmed').where('event.begins_at <= ?', 3.days.ago).where(:work_followup_sent => false).each do |work|
+      work.deliver_followup
     end
   end
 

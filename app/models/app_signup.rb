@@ -272,35 +272,61 @@ class AppSignup < Signup
         :html_body => %(<h1>We're stoked you'll be working together soon!</h1> <p>Just a reminder that your apprenticeship should be starting in a few days (if you haven't connected already). (Fill out this email with more info)</p>),
         :bcc => "hello@girlsguild.com",
     })
+    self.update_column(:app_reminder_sent, true)
     return true
   end
 
   def deliver_followup
     return false unless valid?
     Pony.mail({
-        :to => "#{user.name}<#{user.email}>, #{event.user.name}<#{event.user.email}>",
+        :to => "#{user.name}<#{user.email}>",
         :from => "Diana & Cheyenne<hello@girlsguild.com>",
         :reply_to => "GirlsGuild<hello@girlsguild.com>",
         :subject => "How's it going? - #{self.event.title}",
-        :html_body => %(<h1>Hey #{user.first_name} & #{event.user.first_name}!</h1> <p>How's your apprenticeship going so far? (Fill out this email with more info)</p>),
+        :html_body => %(<h1>Hey #{user.first_name}!</h1>
+          <p>We just wanted to check in and see how your apprenticeship is going. Do you have any feedback, good or bad, about the process so far? We'd love to hear it.</p>
+          <p>And of course, if you have any questions or concerns, don't hesitate to ask!</p>
+          <p>Thanks,</p>
+          <p>the GirlsGuild team</p>),
         :bcc => "hello@girlsguild.com",
     })
+    self.update_column(:app_followup_sent, true)
+    return true
+  end
+
+  def deliver_followup_maker
+    return false unless valid?
+    Pony.mail({
+        :to => "#{event.user.name}<#{event.user.email}>",
+        :from => "Diana & Cheyenne<hello@girlsguild.com>",
+        :reply_to => "GirlsGuild<hello@girlsguild.com>",
+        :subject => "How's it going? - #{self.event.title}",
+        :html_body => %(<h1>Hey #{event.user.first_name}!</h1>
+          <p>We just wanted to check in and see how your apprenticeship is going. Do you have any feedback, good or bad, about the process so far? We'd love to hear it.</p>
+          <p>And of course, if you have any questions or concerns, don't hesitate to ask!</p>
+          <p>Thanks,</p>
+          <p>the GirlsGuild team</p>),
+        :bcc => "hello@girlsguild.com",
+    })
+    self.update_column(:app_followup_maker_sent, true)
     return true
   end
 
   def self.reminder
-    AppSignup.all.each do |app_signup|
-      if app_signup.confirmed? && (app_signup.event.begins_at) == (Date.today + 3.days)
-        app_signup.deliver_reminder
-      end
+    AppSignup.where(:state => 'confirmed').where('event.begins_at >= ?', 3.days).where(:app_reminder_sent => false).each do |app|
+      app.deliver_reminder
     end
   end
 
   def self.followup
-    AppSignup.all.each do |app_signup|
-      if app_signup.confirmed? && (app_signup.event.begins_at) == (Date.today - 7.days)
-        app_signup.deliver_followup
-      end
+    AppSignup.where(:state => 'confirmed').where('event.begins_at <= ?', 7.days.ago).where(:app_followup_sent => false).each do |app|
+      app.deliver_followup
+    end
+  end
+
+  def self.followup_maker
+    AppSignup.where(:state => 'confirmed').where('event.begins_at <= ?', 7.days.ago).where(:app_followup_maker_sent => false).each do |app|
+      app.deliver_followup_maker
     end
   end
 

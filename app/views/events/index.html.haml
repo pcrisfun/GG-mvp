@@ -1,0 +1,51 @@
+%section#apprenticeships-index.section
+  .container
+    %h1 Learn
+    = link_to "Build an Apprenticeship!", new_apprenticeship_path, class: 'btn btn-large btn-primary pull-right'
+    = link_to "Build a Workshop!", new_workshop_path, class: 'btn btn-large btn-primary pull-right'
+    %span.bttn-call.kristi.pull-right
+      Hey Makers!
+    %br/
+    %br/
+    .accordion#accordion2
+      .accordion-group
+        .accordion-heading
+          %a.accordion-toggle{"data-toggle" => "collapse", href: "#collapseOne", class: 'pull-center' }
+            How it Works
+            %i.icon-chevron-down
+        #collapseOne.accordion-body.collapse
+          .accordion-inner
+            %br/
+            .row-fluid
+              %ul.thumbnails.bordered
+                %li.span4
+                  .row-fluid
+                    .span4.pull-center
+                      %i.icon-certificate.enormous-icon.circled.pull-center
+                    .span8
+                      %h3 Join a Guild
+                      %p
+                        Check out the list of brilliant Makers below and pre-register to show your interest in working together. We'll let you know when they schedule a workshop or apprenticeship.
+                %li.span4
+                  .row-fluid
+                    .span4.pull-center
+                      %i.icon-check.enormous-icon.circled.pull-center
+                    .span8
+                      %h3 Sign up to Learn
+                      %p
+                        Find a workshop or apprenticeship you're stoked about? Sign up! Prices for workshops vary, and for apprenticeships you only pay the $29 matching fee if the maker accepts your application.
+                %li.span4
+                  .row-fluid
+                    .span4.pull-center
+                      %i.icon-heart.enormous-icon.circled.pull-center
+                    .span8
+                      %h3 Get Recognition
+                      %p
+                        We'll keep track of the skills, tools, and techniques you're learning to begin to build out an incredible portfolio. Pretty soon you'll be hosting your own apprenticeship!
+    .row
+      - unless @events.blank?
+        = render :partial => "events", :collection => @events
+    %hr
+
+
+
