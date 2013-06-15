@@ -150,7 +150,7 @@ first_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Marth
                                                         "location_varies"=>"0",
                                                         "respect_my_style"=>"1",
                                                         "stripe_card_token"=>"",
-                                                        "permission"=>"1"
+                                                        "permission"=>"1",
                                                         "availability"=>"M-F, 3-7pm. Flexible on weekend days."
                                                      )
 second_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
@@ -187,7 +187,7 @@ second_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Mart
                                                         "location_varies"=>"0",
                                                         "respect_my_style"=>"1",
                                                         "stripe_card_token"=>"",
-                                                        "permission"=>"1"
+                                                        "permission"=>"1",
                                                         "availability"=>"Mondays, Wednesdays, and Thursdays, in the afternoon. Usually free on weekend days."
                                                      )
 third_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
@@ -224,7 +224,7 @@ third_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Marth
                                                         "location_varies"=>"0",
                                                         "respect_my_style"=>"1",
                                                         "stripe_card_token"=>"",
-                                                        "permission"=>"1"
+                                                        "permission"=>"1",
                                                         "availability"=>"M-F, 3-7pm. Flexible on weekend days."
                                                      )
 fourth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
@@ -261,7 +261,7 @@ fourth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Mart
                                                         "location_varies"=>"0",
                                                         "respect_my_style"=>"1",
                                                         "stripe_card_token"=>"",
-                                                        "permission"=>"1"
+                                                        "permission"=>"1",
                                                         "availability"=>"M-F, 3-7pm. Flexible on weekend days."
                                                      )
 fifth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
@@ -298,7 +298,7 @@ fifth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Marth
                                                         "location_varies"=>"0",
                                                         "respect_my_style"=>"1",
                                                         "stripe_card_token"=>"",
-                                                        "permission"=>"1"
+                                                        "permission"=>"1",
                                                         "availability"=>"M-F, 3-7pm. Flexible on weekend days."
                                                      )
 sixth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
@@ -335,7 +335,7 @@ sixth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Marth
                                                         "location_varies"=>"0",
                                                         "respect_my_style"=>"1",
                                                         "stripe_card_token"=>"",
-                                                        "permission"=>"1"
+                                                        "permission"=>"1",
                                                         "availability"=>"M-F, 3-7pm. Flexible on weekend days."
                                                      )
 Event.all.each do |event|
