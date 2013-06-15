@@ -126,9 +126,12 @@
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"How often will you meet?"} }
                   %i.icon-question-sign.small-icon
             %dt
+              - if !show
+                %i.icon-asterisk
               Availability
             %dd
-              Are you flexible? If so we'll assume that you're willing to work with the apprentice's schedule. If you are not flexible then let us know what days and times you are available.
+              #availability.field.text
+                =editable_link_to "Are you flexible? If so we'll assume that you're willing to work with the apprentice's schedule. If you are not flexible then let us know what days and times you are available.", field: :availability, resource: @apprenticeship, type: :text
             %dt
               - if !show
                 %i.icon-asterisk

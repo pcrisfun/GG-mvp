@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :message => 'must be a valid email address.'
   validates_confirmation_of :password
 
-  validates :terms_of_service, acceptance: true, presence: true
+  validates :terms_of_service, acceptance: true
   validates :birthday, :date => {:before => Proc.new { Time.now - 13.years }}
 
   # Include default devise modules. Others available are:

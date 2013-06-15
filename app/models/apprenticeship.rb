@@ -14,6 +14,7 @@ class Apprenticeship < Event
     validates_presence_of :kind
     validates_presence_of :description
     validates_presence_of :bio
+    validates_presence_of :availability
     validates_presence_of :website
     validates_presence_of :begins_at
     validates_presence_of :skill_list
@@ -51,6 +52,9 @@ class Apprenticeship < Event
   end
   validation_group :bio do
     validates_presence_of :bio
+  end
+  validation_group :availability do
+    validates_presence_of :availability
   end
   validation_group :website do
     validates_presence_of :website

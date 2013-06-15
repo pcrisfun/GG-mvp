@@ -8,7 +8,8 @@ class Workshop < Event
     validates_presence_of :begins_at_time, :ends_at_time, :registration_max, :price
     validates_numericality_of :price, :greater_than_or_equal_to => 0
     validates_numericality_of :registration_max, :greater_than => :registration_min, :message => "Must be greater than the minimum number of participants."
-    validates_numericality_of :age_max, :greater_than => :age_min, :message => "Must be greater than the minimum age."
+    validates_numericality_of :age_min, :greater_than => 0
+    validates_numericality_of :age_max, :greater_than => :age_min, :message => " must be greater than the minimum age you set."
     validates :begins_at, :date => {:after => Proc.new { Date.today + 6.day }, :message => 'Sorry! You need to plan your workshop to start at least a week from today. Please check the date you set.'}, :if => :tba_is_blank
     validates :ends_at, :date => {:before_or_equal_to => :begins_at, :message => 'You must close registrations prior to the planned date of the workshop.' }, :if => :tba_is_blank
     validate :host_album_limit
@@ -28,6 +29,10 @@ class Workshop < Event
 
   validation_group :ends_at do
     validates :ends_at, :date => {:before_or_equal_to => :begins_at, :message => 'You must close registrations prior to the planned date of the workshop.' }, :if => :tba_is_blank
+  end
+
+  validation_group :age_min do
+    validates_numericality_of :age_min, :greater_than => 0
   end
 
   validation_group :age_max do
