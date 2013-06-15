@@ -17,6 +17,8 @@
 
           //Banner //////////////////
           #banner
+            - if !show
+              .small Upload an Avatar
             #avatar.field
               - if !show
                 = link_to(avatar_for(current_user, size: 50, tag: :medium), '#avatarModal', id: 'avatar-edit', data: {toggle: "modal"} )

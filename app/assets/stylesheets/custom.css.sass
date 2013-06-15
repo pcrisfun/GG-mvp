@@ -204,6 +204,11 @@ a, a:hover, a:active, a:visited, a:focus
     padding: 0px
   h1
     display: none
+  ul.nav
+    li.dropdown:hover > ul.dropdown-menu
+      display: block
+  .dropdown-menu
+    margin-top: 0px
 
 .navbar .nav > .active > a,
 .navbar .nav > .active > a:hover,
@@ -942,6 +947,9 @@ input[type="radio"], input[type="checkbox"]
     padding-top: 30px
     a, span
       line-height: 40px
+    .small
+      display: inline
+      margin-left: -90px
     #title
       font-family: $opensans
       font-weight: bold
