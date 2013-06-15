@@ -70,14 +70,14 @@
             - if !show
               %i.icon-asterisk
             #description.field.textarea
-              = editable_link_to "Tell us about your apprenticeship. Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. Based on your expectations, consider whether you plan to pay the apprentice, and if so, how much?", field: :description, resource: @apprenticeship, type: :textarea
+              = editable_link_to "Tell us about your apprenticeship. Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. Will this be more of a mentorship, or more of an internship? Based on your expectations, consider whether you plan to pay the apprentice, and if so, how much?", field: :description, resource: @apprenticeship, type: :textarea
             - if !show
-              %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. Based on your expectations, consider whether you plan to pay the apprentice, and if so, how much?"} }
+              %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. Will this be more of a mentorship, or more of an internship? Based on your expectations, consider whether you plan to pay the apprentice, and if so, how much?"} }
                 %i.icon-question-sign.small-icon
             %br
             %br
-            %p.images-desc.small Upload 5 images of your studio & your work as it pertains to the apprenticeship.
-
+            - if !show
+              %p.images-desc.small Upload 5 images of your studio & your work as it pertains to the apprenticeship.
 
 //Images Section //////////////////
 = render 'host_album', show: show
