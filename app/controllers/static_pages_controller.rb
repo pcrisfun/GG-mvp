@@ -2,7 +2,10 @@ class StaticPagesController < ApplicationController
   def home
   end
 
-  def faq
+  def faq_makers
+  end
+
+  def faq_girls
   end
 
   def about
@@ -27,6 +30,11 @@ class StaticPagesController < ApplicationController
   def copyrightpolicy
   end
 
-  def get_involved
+  def get_involved_makers
   end
+
+  def get_involved_girls
+  end
+
+
 end
