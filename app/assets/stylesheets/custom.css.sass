@@ -204,6 +204,11 @@ a, a:hover, a:active, a:visited, a:focus
     padding: 0px
   h1
     display: none
+  ul.nav
+    li.dropdown:hover > ul.dropdown-menu
+      display: block
+  .dropdown-menu
+    margin-top: 0px
 
 .navbar .nav > .active > a,
 .navbar .nav > .active > a:hover,
@@ -658,7 +663,7 @@ input[type="radio"], input[type="checkbox"]
   width: 82.5%
   &.emptyslot
     .emptyimg
-      color: #CCC
+      color: #41B7D8
 
 #current_album
   h1
@@ -807,8 +812,10 @@ input[type="radio"], input[type="checkbox"]
   &:focus
     outline: none
 
-// Apprenticeship Design Page
+// Apprenticeship & Workshop Design Pages
 #apprenticeship-design, #apprenticeship-show, #private-info, #workshop-design, #workshop-show
+  .editable-cancel
+    display: none //////////////////// this x button is hidden to see if it helps usability!
   #page-header
     font-family: kristi
     font-size: 45px
@@ -940,6 +947,9 @@ input[type="radio"], input[type="checkbox"]
     padding-top: 30px
     a, span
       line-height: 40px
+    .small
+      display: inline
+      margin-left: -90px
     #title
       font-family: $opensans
       font-weight: bold
@@ -962,6 +972,8 @@ input[type="radio"], input[type="checkbox"]
     #description
       margin-top: 15px
       width: 90%
+      font-size: 14px
+      font-family: georgia
       span
         font-family: georgia
         font-size: 16px
@@ -972,6 +984,9 @@ input[type="radio"], input[type="checkbox"]
       &.field
         a, span
           line-height: 30px
+  .images-desc
+    font-size: 14px
+    margin-bottom: 0px
   #private-address
     margin-top: 5px
   #dates, #from, #address, #nbrhood-toggle
@@ -998,7 +1013,7 @@ input[type="radio"], input[type="checkbox"]
         width: 82.5%
       &.emptyslot
         .emptyimg
-          color: #CCC
+          color: #41B7D8
   #bio
     width: 94%
     a
