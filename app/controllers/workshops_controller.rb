@@ -59,12 +59,12 @@ class WorkshopsController < ApplicationController
       if @workshop.respond_to?(params[:name])
         if @workshop.xeditable_update(params[:name], params[:value])
           respond_to do |format|
-            format.html { redirect_to @workshop, notice: "Success!" }
+            # format.html { redirect_to @workshop, notice: "Success!" }
             format.json { render json: {event: @workshop, checkmarks: @workshop.checkmarks} and return }
           end
         else
           respond_to do |format|
-              format.html { render :edit }
+              # format.html { render :edit }
               format.json { render json: { errors: @workshop.errors[params[:name].to_sym].first } and return }
           end
         end
@@ -74,7 +74,7 @@ class WorkshopsController < ApplicationController
         @workshop.attributes = params[:workshop]
         @workshop.save(validate: false)
         unless @workshop.group_valid?(:design)
-          redirect_to edit_workshop_path(@apprenticeship), flash: { warning: "Please correct the following: #{@workshop.errors.full_messages}"} and return
+          redirect_to edit_workshop_path(@workshop), flash: { warning: "Please correct the following: #{@workshop.errors.full_messages}"} and return
         end
         unless @workshop.group_valid?(:private)
           redirect_to private_workshop_path(@workshop), :flash => { warning: "Please correct the following: #{@workshop.errors.full_messages}" } and return
