@@ -26,6 +26,8 @@ group :development, :test do
   # gem 'guard-spork', '1.2.0'
   # gem 'spork', '0.9.2'
   gem 'annotate', '~> 2.4.1.beta'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 # Gems used only for assets and not required
@@ -88,5 +90,3 @@ gem 'bootstrap-x-editable-rails'
 gem 'select2-rails'
 gem 'momentjs-rails'
 gem 'google-webfonts-rails'
-
-
