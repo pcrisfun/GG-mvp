@@ -6,7 +6,20 @@
         %br
         %p We're excited you want to join GirlsGuild as a Maker! We'll review and post the workshop once you've completed your listing. We'll also need your consent to run a background check, to keep our community safe.
         %p Once your workshop is posted, we'll promote it to the GirlsGuild community and keep you updated when people sign up.
-
+        %h2 Tips for designing a great workshop
+        .row
+          .well.span3
+            %h3 1. Challenge
+            The students should be learning new things frequently enough to stay challenged, but don't forget to have them also practice what they're learning.
+          .well.span3
+            %h3 2. World View
+            Think about giving the students a feel for what its like to run your small business, OR why you choose not to.
+          .well.span3
+            %h3 3. Feedback
+            Remeber to give gentle but constructive feedback. Help them learn from their mistakes which is often the best way to gain experience.
+          .well.span3
+            %h3 4. Encouragement
+            Get to know your students goals and dreams! We want to help you build a mentor network because we're all stronger when we're learning from eachother.
         %br
         #buttons
           = link_to "Let's start one!", { controller: :workshops, action: :create, save_button: 'Save for Later' } , {method: :post, style: 'button', class: 'btn btn-large btn-primary' }
