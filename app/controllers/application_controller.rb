@@ -16,6 +16,6 @@ class ApplicationController < ActionController::Base
       logger.error(formatted_exception)
       format.html { render template: "errors/error_#{status}", layout: 'layouts/application', status: status }
       format.all { render nothing: true, status: status }
-    end
+    end 
   end
 end
