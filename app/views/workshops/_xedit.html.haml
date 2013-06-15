@@ -303,7 +303,7 @@
           %span#applysidebar.pull-right
             - if @workshop.accepted?
               - if current_user && current_user.age < @workshop.age_min
-                = link_to "Work with #{@workshop.host_firstname}!", new_apprenticeship_app_signup_path(@workshop), :class => "btn btn-large btn-block disabled"
+                = link_to "Work with #{@workshop.host_firstname}!", new_workshop_work_signup_path(@workshop), :class => "btn btn-large btn-block disabled"
                 %p.small
                   Sorry, it looks like you're younger than the minimum age for this workshop.
                 %br/
