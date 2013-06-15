@@ -334,7 +334,7 @@
       - if !show
         .row-fluid
           #preview-buttons-bottom
-            = link_to 'Preview', '#', class: 'btn preview-btn btn-large', data: { url: apprenticeship_path(@apprenticeship) }
+            = link_to "Preview #{content_tag(:i, "", class: "icon-external-link")}".html_safe, '#', class: 'btn btn-large preview-btn', data: { url: apprenticeship_path(@apprenticeship) }
             #proceed.preview-hide
               = link_to 'Next', private_apprenticeship_path(@apprenticeship), method: :get, class: 'btn btn-primary btn-large'
 
