@@ -7,10 +7,8 @@
           .hero-unit
             %h1 Join the Maker Community
             %p.dosis5 Apprenticeships for girls, by girls.
-            %div{:style => "display:inline;"}
-              = link_to "JOIN US FOR FREE", new_user_registration_path, class: "btn btn-large btn-primary"
-            .fb-like{"data-href" => "http://www.facebook.com/GirlsGuild", "data-layout" => "button_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "450", :style => "float:right; margin:5px;"}
-            %div{:style => "float:right; margin:9px;"}
+            .fb-like{"data-href" => "http://www.facebook.com/GirlsGuild", "data-layout" => "button_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "450", :style => "margin:5px;"}
+            %div{:style => "margin:9px;"}
               %a.twitter-follow-button{"data-lang" => "en", "data-show-count" => "false", :href => "https://twitter.com/TheGirlsGuild"} Follow @TheGirlsGuild
 
     %section.section#goals
@@ -19,45 +17,40 @@
           .span4
             .row-fluid
               %ul.pull-center.valueprop
-                %h2 Share
-                %li Find Help
-                %li Share your Skills
-                %li Expand Production
-                %li Build your Network
-                %li Collaborate & Learn Together
+                %h2
+                  = link_to "Learn", apprenticeships_path
+                %li Work with Amazing Makers
+                %li Learn a Technique
+                %li Build a Portfolio
+                %li Understand Small Business
                 %li
-                  = link_to "Get Involved »", get_involved_path, class: "learnmore"
+                  = link_to "Start Learning »", get_involved_path, class: "btn btn-mini btn-primary"
 
           .span4.calloutbubble
             .row-fluid
               .well
                 %ul.pull-center
-                  %h2
-                    Help us
-                    %br
-                    .smaller Launch
-                    .kristi The
-                    .smaller Beta App
                   %h3
-                    Come kick the tires
+                    Learn skills & tools
                     %br
-                    at a Maker's Party
-                    .kristi or
-                    Post an Idea NOW!
-
-                  = link_to "Get Started", get_involved_path, class: "btn btn-large btn-callout"
+                    or teach your craft
+                    %br
+                    in workshops & apprenticeships
+                    %br
+                    .kristi
+                      for girls of all ages.
 
           .span4
             .row-fluid
               %ul.pull-center.valueprop
-                %h2 Learn
-                %li Work with Amazing Makers
-                %li Learn a Technique
-                %li Build a Portfolio
-                %li Be part of a Community
-                %li Understand Small Business
+                %h2
+                  = link_to "Lead", get_involved_path
+                %li Share your Skills
+                %li Expand Production
+                %li Build your Network
+                %li Collaborate & Learn Together
                 %li
-                  = link_to "Get Involved »", get_involved_path, class: "learnmore"
+                  = link_to "Get Involved as a maker »", get_involved_path, class: "btn btn-mini btn-primary"
 
     %section.section#newsletter
       .container
@@ -79,34 +72,13 @@
               %a{"aria-hidden" => "true", "data-dismiss" => "modal"} I'll do this later
 
           .span6.getthedrop
-            %p get the drop on it!
+            %p get first dibs!
           .span6.signup
             %form#mc-embedded-subscribe-form.validate.input-append.bttn-newsletter{:action => "http://girlsguild.us4.list-manage.com/subscribe/post?u=9f2de43ebd5f4d79e3d803fb9&id=aea5bd62bf", :method => "post", :name => "mc-embedded-subscribe-form", :novalidate => "", :target => "_blank"}
               %input#mce-EMAIL.span6.email{:name => "EMAIL", :placeholder => "Your Email", :required => "", :type => "email"}/
               %button#mc-embedded-subscribe.btn.btn-primary.button{:name => "subscribe", :type => "submit", :value => "Subscribe"} Sign up for our Newsletter!
           %br
-    %section.section.alt#mission
-      .container
-        .row-fluid
-          .span4
-            .well
-              %h4
-                1. Play
-                %i.icon-beaker
-              %p Discover new skills, connect with others, and collaborate.
 
-          .span4
-            .well
-              %h4
-                2. Passion
-                %i.icon-bolt
-              %p Build skills, grow your passion, & make strong connections.
-          .span4
-            .well
-              %h4
-                3. Purpose
-                %i.icon-bullhorn
-              %p Refine skills, find your voice & influence others.
     %section
       .container
         .page-header
