@@ -126,9 +126,12 @@
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"How often will you meet?"} }
                   %i.icon-question-sign.small-icon
             %dt
+              - if !show
+                %i.icon-asterisk
               Availability
             %dd
-              Are you flexible? If so we'll assume that you're willing to work with the apprentice's schedule. If you are not flexible then let us know what days and times you are available.
+              #availability.field.text
+                =editable_link_to "Are you flexible? If so we'll assume that you're willing to work with the apprentice's schedule. If you are not flexible then let us know what days and times you are available.", field: :availability, resource: @apprenticeship, type: :text
             %dt
               - if !show
                 %i.icon-asterisk
@@ -204,32 +207,29 @@
               Skills
             %dd
               #skills.field.tags
-                = editable_link_to 'Which skills and techniques will you be teaching?', field: :skill_list, resource: @apprenticeship, type: :select2, data: { select2: {tags: [], tokenSeparators: [',']} }
+                = editable_link_to 'Which skills and techniques will you be teaching?', field: :skill_list, resource: @apprenticeship, type: :select2
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Be as specific as possible so that we can give your apprentice credit for learning new skills allow her to show them off in her portfolio!"} }
                   %i.icon-question-sign.small-icon
-                .small Note! Separate tags with commas or tabs.
             %dt
               - if !show
                 %i.icon-asterisk
               Tools
             %dd
               #tools.field.tags
-                = editable_link_to 'Which tools and materials will you be teaching and using?', field: :tool_list, resource: @apprenticeship, type: :select2, data: { select2: {tags: [], tokenSeparators: [',']} }
+                = editable_link_to 'Which tools and materials will you be teaching and using?', field: :tool_list, resource: @apprenticeship, type: :select2
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Be as specific as possible so that we can give your apprentice credit for learning new tools and allow her to show them off in her portfolio!"} }
                   %i.icon-question-sign.small-icon
-                .small Note! Separate tags with commas or tabs.
             - if !show || !@apprenticeship.requirement_list.empty?
               %dt
                 Prerequisites
               %dd
                 #prequisites.field.tags.optional
-                  = editable_link_to 'Are there prerequisites your apprentice should meet?', field: :requirement_list, resource: @apprenticeship, type: :select2, data: { select2: {tags: [], tokenSeparators: [',']} }
+                  = editable_link_to 'Are there prerequisites your apprentice should meet?', field: :requirement_list, resource: @apprenticeship, type: :select2
                 - if !show
                   %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Is this apprenticeship more collaborative, or more directed? Be honest about the help that you need right from the begining. Example: chopsaw, welding, javascript"} }
                     %i.icon-question-sign.small-icon
-                  .small Note! Separate tags with commas or tabs.
             - if !show || @apprenticeship.other_needs
               %dt
                 Preparations

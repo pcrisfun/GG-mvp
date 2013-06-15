@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130603220612) do
+ActiveRecord::Schema.define(:version => 20130615154714) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -67,7 +67,6 @@ ActiveRecord::Schema.define(:version => 20130603220612) do
     t.date     "ends_at"
     t.integer  "hours"
     t.string   "hours_per",                                        :default => "week"
-    t.string   "availability"
     t.string   "location_address"
     t.string   "location_address2"
     t.string   "location_city"
@@ -95,6 +94,7 @@ ActiveRecord::Schema.define(:version => 20130603220612) do
     t.boolean  "gender",                                           :default => false
     t.boolean  "follow_up_sent",                                   :default => false,     :null => false
     t.boolean  "reminder_sent",                                    :default => false,     :null => false
+    t.text     "availability"
   end
 
   add_index "events", ["charge_id"], :name => "index_events_on_charge_id"

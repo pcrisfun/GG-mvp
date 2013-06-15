@@ -19,7 +19,7 @@ class Event < ActiveRecord::Base
                   :bio, :twitter, :facebook, :website, :webshop, :permission,
                   :payment_options, :paypal_email, :sendcheck_address, :sendcheck_address2,
                   :sendcheck_city, :sendcheck_state, :sendcheck_zip, :kind, :description,
-                  :begins_at, :begins_at_time, :ends_at, :ends_at_time, :datetime_tba,
+                  :begins_at, :begins_at_time, :ends_at, :ends_at_time, :datetime_tba, :availability,
                   :skill_list, :tool_list, :requirement_list, :other_needs, :hours, :hours_per,
                   :location_address, :location_address2, :location_city, :location_state, :location_zipcode,
                   :location_private, :location_nbrhood, :location_varies, :age_min, :age_max,
