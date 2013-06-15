@@ -12,7 +12,7 @@
         .nav-collapse
           %ul.nav.pull-right
             %li.dropdown
-              %a{"data-target" => "#", :href => "/apprenticeships"}
+              %a{"data-target" => "#", :href => "/get_involved_girls"}
                 Learn
               %ul.dropdown-menu
                 = active_link_to( content_tag(:i, '')+ ' Apprenticeships', apprenticeships_path, :wrap_tag => :li, :active => :exclusive )
@@ -20,7 +20,7 @@
                 = active_link_to( content_tag(:i, '', class: 'icon-bookmark')+ ' FAQ for Girls', faq_girls_path, :wrap_tag => :li, :active => :exclusive )
 
             %li.dropdown
-              %a{"data-target" => "#", :href => "/get_involved"}
+              %a{"data-target" => "#", :href => "/get_involved_makers"}
                 Lead
               %ul.dropdown-menu
                 = active_link_to( content_tag(:i, '')+ ' Post an Apprenticeship', new_apprenticeship_path, :wrap_tag => :li, :active => :exclusive )

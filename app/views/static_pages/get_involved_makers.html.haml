@@ -1,0 +1,86 @@
+- provide(:title, 'Get Involved - Makers')
+%section#promo.section.alt
+  .container
+    .hero-unit.kristi-title
+      %h1 Get Involved
+      .kristi as a Maker
+
+%section.section#getinvolved
+  .container
+    .page-header
+      %h2
+        Become a Maker-mentor today!
+        %small
+    .row-fluid
+      %ul.thumbnails.bordered
+        %li.span6
+
+          .row-fluid
+            .span4.pull-center
+              %i.enormous-icon.circled.pull-center
+                .kristi $9
+            .span8
+              %h3 Post an Idea & Get Listed
+              %p
+                We want to get you involved! Post an idea for a topic you'll teach, leave the dates TBA, upload a few images, and we'll notify you when someone wants to work with you!
+                %br
+                %br
+              = link_to "Post an Idea", new_apprenticeship_path, class: "btn btn-small pull-right btn-success"
+          %hr/
+
+          .row-fluid
+            .span4.pull-center
+              %i.enormous-icon.circled.pull-center
+                .kristi.small Earn $
+            .span8
+              %h3 Host a Workshop
+              %p
+                Connect with your community! Take a few hours to teach your tools and share your skills with a group of girls who love what you do and want to learn how to do it. You set the price!
+                %br
+              = link_to "Build a Workshop", new_workshop_path, class: "btn btn-small pull-right btn-success"
+          %hr/
+
+
+        %li.span6
+          .row-fluid
+            .span4.pull-center
+              %i.enormous-icon.circled.pull-center
+                .kristi $9
+            .span8
+              %h3 Host an Apprenticeship
+              %p
+                Become a Maker-mentor and share your knowledge! Get help with a big order, an event, or just with your day-to-day practice. List an apprenticeship and choose the right person from those who apply.
+                %br
+              = link_to "Build an Apprenticeship", new_apprenticeship_path, class: "btn btn-small pull-right btn-success"
+          %hr/
+
+          .row-fluid
+            .span4.pull-center
+              %i.enormous-icon.circled.pull-center.commingsoon
+                .kristi $0
+                .commingsoon-text Coming Soon!
+            .span8
+              %h3 Host a Studio Visit
+              %p
+                There's no better way to create and refine your own ideas than by talking about them with smart people. Request or host a studio visit with someone you respect in the community.
+              = link_to "Register", apprenticeships_path, class: "btn btn-small pull-right btn-success disabled"
+          %hr/
+
+
+
+%section#promo.section.alt
+  .container.pull-center
+
+    %br
+    %h2.pull-center Cool, right? Help us offer more!
+    %p.pull-center
+      Donate to the scholarship fund to help provide apprenticeship opportunities like these in partnership with
+      %br youth advocacy organizations and programs for at-risk youth.
+
+    %form{:action => "https://www.paypal.com/cgi-bin/webscr", :method => "post"}
+      %input{:name => "cmd", :type => "hidden", :value => "_s-xclick"}/
+      %input{:name => "hosted_button_id", :type => "hidden", :value => "8GLHRBAARGK2J"}/
+      %input{:alt => "Donate a Scholarship", :border => "0", :name => "submit", :class => "btn btn-large btn-primary", :type => "image"}/
+      %img{:alt => "Donate a Scholarship", :border => "0", :height => "1", :src => "https://www.paypalobjects.com/en_US/i/scr/pixel.gif", :width => "1"}/
+    %br
+    %br

@@ -105,6 +105,12 @@ $radius: 5px
   p
     line-height: 24px
 
+.kristi-title
+  h1
+    display: inline
+  .kristi
+    font-size: 45px
+    display: inline
 
 // Headers
 h2
@@ -449,9 +455,18 @@ input[type="radio"], input[type="checkbox"]
         font-size: 50px
       h3
         font-size: 26px
-        line-height: 26px
+        line-height: 39px
         .kristi
-          color: $silver-shadow
+          color: $plum-shadow
+        .left
+          position: absolute
+          left: -80px
+        .right
+          position: absolute
+        a
+          color: $silver-black
+          &:hover
+            color: $silver-dark
     .valueprop
       +dosis-caps
       font-weight: 500
@@ -476,8 +491,8 @@ input[type="radio"], input[type="checkbox"]
           font-weight: 500
   #newsletter
     background-color: #323232
-    .getthedrop
-      background: url(getthedrop.png) no-repeat center right transparent
+    .getfirstdibs
+      background: url(getfirstdibs.png) no-repeat center right transparent
       width: 439px
       height: 85px
     .signup

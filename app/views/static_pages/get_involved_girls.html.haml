@@ -1,15 +1,16 @@
-- provide(:title, 'Get Involved')
+- provide(:title, 'Get Involved - Girls')
 %section#promo.section.alt
   .container
-    .hero-unit
+    .hero-unit.kristi-title
       %h1 Get Involved
+      .kristi as a Girl
 
 %section.section#getinvolved
   .container
     .page-header
       %h2
-        We think you're kind of a big deal,
-        %small and we wanna help get the word out!
+        We think you're kind of a big deal
+        %small
     .row-fluid
       %ul.thumbnails.bordered
         %li.span6
@@ -24,6 +25,7 @@
                 %br
               = link_to "Browse Makers", makers_path, class: "btn btn-small pull-right btn-success"
           %hr/
+
           .row-fluid
             .span4.pull-center
               %i.enormous-icon.circled.pull-center
@@ -35,6 +37,7 @@
                 %br
               = link_to "Browse Workshops", workshops_path, class: "btn btn-small pull-right btn-success"
           %hr/
+
           .row-fluid
             .span4.pull-center
               %i.enormous-icon.circled.pull-center.commingsoon
@@ -45,7 +48,11 @@
               %p
                 There's no better way to create and refine your own ideas than by talking about them with smart people. Request or host a studio visit with someone you respect in the community.
               = link_to "Register", apprenticeships_path, class: "btn btn-small pull-right btn-success disabled"
-          %hr/
+          %br
+
+
+
+        %li.span6
           .row-fluid
             .span4.pull-center
               %i.enormous-icon.circled.pull-center
@@ -56,6 +63,7 @@
                 Learn the skills, tools, and techniques unique to the artist's creative process while helping a maker create an edition of her work for an order, a sale, or a show.
               = link_to "Browse Apprenticeships", apprenticeships_path, class: "btn btn-small pull-right btn-success"
           %hr/
+
           .row-fluid
             .span4.pull-center
               %i.enormous-icon.circled.pull-center
@@ -66,43 +74,8 @@
                 Help a maker out with organizing, running, curating, or facilitating an event! Learn first hand what it takes to hang a show, or organize a gala.
                 %br
               = link_to "Browse Apprenticeships", apprenticeships_path, class: "btn btn-small pull-right btn-success"
-              %br
+          %hr/
 
-
-        %li.span6
-          .row-fluid
-            .span4.pull-center
-              %i.enormous-icon.circled.pull-center
-                .kristi $9
-            .span8
-              %h3 Post an Idea & Get Listed
-              %p
-                We want to get you involved! Post an idea for a topic you'll teach, leave the dates TBA, upload a few images, and we'll notify you when someone wants to work with you!
-                %br
-              = link_to "Post an Idea", apprenticeships_path, class: "btn btn-small pull-right btn-success"
-          %hr/
-          .row-fluid
-            .span4.pull-center
-              %i.enormous-icon.circled.pull-center
-                .kristi $9
-            .span8
-              %h3 Host an Apprenticeship
-              %p
-                Stuck with a huge order, an event, or just need help with your day-to-day practice? Find the help you need by posting an apprenticeship!
-                %br
-              = link_to "Build an Apprenticeship", apprenticeships_path, class: "btn btn-small pull-right btn-success"
-          %hr/
-          .row-fluid
-            .span4.pull-center
-              %i.enormous-icon.circled.pull-center
-                .kristi.small Earn $
-            .span8
-              %h3 Host a Workshop
-              %p
-                Connect with your community! Take a few hours to teach your tools and share your skills with a group of girls who love what you do and want to learn how to do it.
-                %br
-              = link_to "Build a Workshop", workshops_path, class: "btn btn-small pull-right btn-success"
-          %hr/
           .row-fluid
             .span4.pull-center
               %i.enormous-icon.circled.pull-center
@@ -113,6 +86,7 @@
                 Work with a creative by assisting her with her day-to-day studio tasks. Help her create work and learn what it's like to own and operate a small creative business.
               = link_to "Browse Apprenticeships", apprenticeships_path, class: "btn btn-small pull-right btn-success"
           %hr/
+
           .row-fluid
             .span4.pull-center
               %i.enormous-icon.circled.pull-center.commingsoon
@@ -125,6 +99,8 @@
                 %br
               = link_to "Browse Apprenticeships", apprenticeships_path, class: "btn btn-small pull-right btn-success disabled"
               %a{name: "donate"}
+
+
 
 %section#promo.section.alt
   .container.pull-center
