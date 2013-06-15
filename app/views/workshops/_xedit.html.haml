@@ -311,7 +311,7 @@
                 = render :partial => "shared/prereg", :locals => {:event => @workshop}
 
               - elsif current_user && current_user.age > @workshop.age_max
-                = link_to "Work with #{@workshop.host_firstname}!", new_apprenticeship_app_signup_path(@workshop), :class => "btn btn-large btn-block disabled"
+                = link_to "Work with #{@workshop.host_firstname}!", new_workshop_work_signup_path(@workshop), :class => "btn btn-large btn-block disabled"
                 %p.small
                   Sorry, it looks like you're older than the maximum age for this workshop.
                 %br/
@@ -320,13 +320,13 @@
 
                 %br
                 %p
-                  #{link_to "Sign up my Daughter", new_apprenticeship_app_signup_path(@workshop), :class => "btn btn-block btn-small btn-primary"}
+                  #{link_to "Sign up my Daughter", new_workshop_work_signup_path(@workshop), :class => "btn btn-block btn-small btn-primary"}
 
               - elsif @workshop.datetime_tba == true || @workshop.filled? || @workshop.completed?
                 = render :partial => "shared/prereg", :locals => {:event => @workshop}
 
               - else
-                = link_to "Sign up!", new_apprenticeship_app_signup_path(@workshop), :class => "btn btn-block btn-primary"
+                = link_to "Sign up!", new_workshop_work_signup_path(@workshop), :class => "btn btn-block btn-primary"
 
       //Preview & Next //////////////////
       - if !show
