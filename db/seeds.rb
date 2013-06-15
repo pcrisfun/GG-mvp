@@ -151,6 +151,7 @@ first_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Marth
                                                         "respect_my_style"=>"1",
                                                         "stripe_card_token"=>"",
                                                         "permission"=>"1"
+                                                        "availability"=>"M-F, 3-7pm. Flexible on weekend days."
                                                      )
 second_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
                                                         "host_lastname"=>"Smith",
@@ -187,6 +188,7 @@ second_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Mart
                                                         "respect_my_style"=>"1",
                                                         "stripe_card_token"=>"",
                                                         "permission"=>"1"
+                                                        "availability"=>"Mondays, Wednesdays, and Thursdays, in the afternoon. Usually free on weekend days."
                                                      )
 third_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
                                                         "host_lastname"=>"Smith",
@@ -223,6 +225,7 @@ third_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Marth
                                                         "respect_my_style"=>"1",
                                                         "stripe_card_token"=>"",
                                                         "permission"=>"1"
+                                                        "availability"=>"M-F, 3-7pm. Flexible on weekend days."
                                                      )
 fourth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
                                                         "host_lastname"=>"Smith",
@@ -259,6 +262,7 @@ fourth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Mart
                                                         "respect_my_style"=>"1",
                                                         "stripe_card_token"=>"",
                                                         "permission"=>"1"
+                                                        "availability"=>"M-F, 3-7pm. Flexible on weekend days."
                                                      )
 fifth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
                                                         "host_lastname"=>"Smith",
@@ -295,6 +299,7 @@ fifth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Marth
                                                         "respect_my_style"=>"1",
                                                         "stripe_card_token"=>"",
                                                         "permission"=>"1"
+                                                        "availability"=>"M-F, 3-7pm. Flexible on weekend days."
                                                      )
 sixth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
                                                         "host_lastname"=>"Smith",
@@ -331,6 +336,7 @@ sixth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Marth
                                                         "respect_my_style"=>"1",
                                                         "stripe_card_token"=>"",
                                                         "permission"=>"1"
+                                                        "availability"=>"M-F, 3-7pm. Flexible on weekend days."
                                                      )
 Event.all.each do |event|
   event.generate_title
