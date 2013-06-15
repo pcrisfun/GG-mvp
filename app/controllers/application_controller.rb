@@ -11,9 +11,11 @@ class ApplicationController < ActionController::Base
   private
   def render_error(status, exception)
     respond_to do |format|
-      logger.error("== #{exception.message} \n #{exception.backtrace}")
+      formatted_exception = "== #{exception.message} \n #{exception.backtrace}"
+      puts formatted_exception
+      logger.error(formatted_exception)
       format.html { render template: "errors/error_#{status}", layout: 'layouts/application', status: status }
       format.all { render nothing: true, status: status }
-    end
+    end 
   end
 end
