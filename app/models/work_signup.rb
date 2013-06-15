@@ -103,6 +103,32 @@ class WorkSignup < Signup
     end
   end
 
+  # TODO: Since this is directly reproduced in AppSignup, we probably need a parent class for the two to house
+  # these methods.
+  def countdown_message
+    if self.started?
+    elsif self.pending?
+      return "Your application is being reviewed. You should hear back by <strong>#{(self.state_stamps.last.stamp + 14.days).strftime("%b %d")}</strong>".html_safe
+    elsif self.accepted?
+      return "Your application has been accepted!<br/><a href=#{url_for(self)} class='btn btn-success btn-mini'>Confirm</a> your apprenticeship!".html_safe
+    elsif self.declined?
+    elsif self.canceled?
+    elsif self.confirmed?
+      if self.event.datetime_tba
+        return ''
+      elsif self.event.begins_at && Date.today < self.event.begins_at
+        return "<strong>#{(self.event.begins_at.mjd - Date.today.mjd)}</strong> days until your apprenticeship begins!".html_safe
+      elsif self.event.ends_at && Date.today < self.event.ends_at
+        return "#{self.event.ends_at - Date.today} more days of your Apprenticeship"
+      else
+        return false
+      end
+    elsif self.completed?
+    else
+    end
+    return ''
+  end
+
   state_machine :state, :initial => :started do
     event :complete do
       transition :confirmed => :completed
