@@ -34,7 +34,7 @@
                 = active_link_to( content_tag(:i, '', class: 'icon-bolt')+ ' About', about_path, :wrap_tag => :li, :active => :exclusive )
                 = active_link_to( content_tag(:i, '', class: 'icon-comments-alt')+ ' Testimonials', testimonials_path, :wrap_tag => :li, :active => :exclusive )
                 = active_link_to( content_tag(:i, '', class: 'icon-map-marker')+ ' Contact', contact_path, :wrap_tag => :li, :active => :exclusive )
-                = active_link_to content_tag(:i, '', class: 'icon-gift') + ' Donate', get_involved_path+"#donate", :wrap_tag => :li, :active => :exclusive
+                = active_link_to content_tag(:i, '', class: 'icon-gift') + ' Donate', get_involved_girls_path+"#donate", :wrap_tag => :li, :active => :exclusive
 
             - if signed_in?
               %li.dropdown.signin-nav

@@ -13,7 +13,7 @@
           - unless show
             .pull-right
               #preview-buttons-top
-                = link_to 'Preview', '#', class: 'btn preview-btn', data: { url: apprenticeship_path(@apprenticeship) }
+                = link_to "Preview #{content_tag(:i, "", class: "icon-external-link")}".html_safe, '#', class: 'btn preview-btn', data: { url: apprenticeship_path(@apprenticeship) }
 
           //Banner //////////////////
           #banner

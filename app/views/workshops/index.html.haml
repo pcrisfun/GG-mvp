@@ -70,37 +70,4 @@
               %h3 Completed Workshops
               .row-fluid.row-completed
                 = render :partial => "workshop-tbl", locals: {workshops: @allcompleted_workshops}
-/      - unless current_user.workshops.blank?
-/        %hr
-/        %h2 My Workshops
-/        .alert.alert-info
-/          - unless @mycanceled_workshops.blank?
-/            %br/
-/            %h3 My Canceled Workshops
-/            .row-fluid.row-canceled
-/              = render :partial => "workshop-tbl", locals: {workshops: @mycanceled_workshops}
-/          - unless @mysaved_workshops.blank?
-/            %br/
-/            %h3 My Saved Workshops
-/            .row-fluid.row-saved
-/              = render :partial => "workshop-tbl", locals: {workshops: @mysaved_workshops}
-/          - unless @mypending_workshops.blank?
-/            %br/
-/            %h3 My Pending Workshops
-/            .row-fluid.row-pending
-/              = render :partial => "workshop-tbl", locals: {workshops: @mypending_workshops}
-/          - unless @myactive_workshops.blank?
-/            %br/
-/            %h3 My Upcoming Workshops
-/            .row-fluid.row-upcoming
-/              = render :partial => "workshop-tbl", locals: {workshops: @myactive_workshops}
-/          - unless @myfilled_workshops.blank?
-/            %br/
-/            %h3 My Filled Workshops
-/            .row-fluid.row-filled
-/              = render :partial => "workshop-tbl", locals: {workshops: @myfilled_workshops}
-/          - unless @mycompleted_workshops.blank?
-/            %br/
-/            %h3 My Completed Workshops
-/            .row-fluid.row-completed
-/              = render :partial => "workshop-tbl", locals: {workshops: @mycompleted_workshops}
+
