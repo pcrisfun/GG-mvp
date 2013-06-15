@@ -59,10 +59,12 @@ class WorkshopsController < ApplicationController
       if @workshop.respond_to?(params[:name])
         if @workshop.xeditable_update(params[:name], params[:value])
           respond_to do |format|
+            format.html { redirect_to @workshop, notice: "Success!" }
             format.json { render json: {event: @workshop, checkmarks: @workshop.checkmarks} and return }
           end
         else
           respond_to do |format|
+              format.html { render :edit }
               format.json { render json: { errors: @workshop.errors[params[:name].to_sym].first } and return }
           end
         end
