@@ -1,8 +1,20 @@
+class PaymentError < StandardError; end
+class SignupError < StandardError; end
+
 class WorkSignup < Signup
 
   validates :waiver, :acceptance => true
 
   include Emailable
+
+  # Creates a sign up object, processes payment, and marks sign up
+  # process as completed on the sign up object.
+  #
+  # Returns true if sign up completed successfully, raises exception otherwise.
+  def process_signup!
+    raise PaymentError unless process_workshop_fee
+    raise SignupError  unless signup
+  end
 
   def process_workshop_fee
     logger.info "Processing payment"
