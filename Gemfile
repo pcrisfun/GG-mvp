@@ -28,6 +28,7 @@ group :development, :test do
   gem 'annotate', '~> 2.4.1.beta'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'rails-dev-boost', :git => 'git://github.com/thedarkone/rails-dev-boost.git'
 end
 
 # Gems used only for assets and not required
