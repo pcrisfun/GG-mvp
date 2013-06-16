@@ -13,6 +13,7 @@ class WorkSignupsController < ApplicationController
     @work_signup.user_id = current_user.id
   	current_user.update_attributes(params[:user])
 
+    @workshop
     if @work_signup.save
       if @work_signup.process_workshop_fee
         if @work_signup.signup
@@ -26,7 +27,7 @@ class WorkSignupsController < ApplicationController
         render 'new'
       end
     else
-      flash.now[:notify] = "Graaaaarchkflkgjd paymeeeeeent"
+      flash.now[:notify] = "There was an error signing up."
       render 'new'
     end
   end
