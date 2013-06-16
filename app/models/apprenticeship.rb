@@ -93,9 +93,7 @@ class Apprenticeship < Event
     validates_numericality_of :registration_max, :greater_than_or_equal_to => 1, :message => " registrations must be greater than 0."
   end
 
-	def default_url_options
-	  { :host => 'localhost:3000'}
-	end
+  include Emailable
 
 	def deliver_save
 		Pony.mail({

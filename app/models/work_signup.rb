@@ -2,9 +2,7 @@ class WorkSignup < Signup
 
   validates :waiver, :acceptance => true
 
-  def default_url_options
-    { :host => 'localhost:3000'}
-  end
+  include Emailable
 
   def process_workshop_fee
     logger.info "Processing payment"

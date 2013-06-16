@@ -10,9 +10,7 @@ class Prereg < ActiveRecord::Base
 
   attr_accessible :event_id, :user_id
 
-  def default_url_options
-    { :host => 'localhost:3000'}
-  end
+  include Emailable
 
   def deliver_prereg
     return false unless valid?

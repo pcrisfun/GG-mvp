@@ -55,9 +55,7 @@ class Workshop < Event
     validates_presence_of :payment_options, :permission
   end
 
-	def default_url_options
-	  { :host => 'localhost:3000'}
-	end
+  include Emailable
 
 	def deliver_save
 		Pony.mail({

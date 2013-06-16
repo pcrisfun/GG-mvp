@@ -22,9 +22,7 @@ class AppSignup < Signup
                   :confirm_available, :preferred_times, :confirm_unpaid, :confirm_fee,
                   :parent, :parent_name, :parent_phone, :parent_email, :parents_waiver, :respect_agreement, :waiver
 
-  def default_url_options
-    { :host => 'localhost:3000'}
-  end
+  include Emailable
 
   def respect_valid
     if self.event.respect_my_style == "1" && !respect_agreement
