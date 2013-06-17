@@ -5,12 +5,9 @@
       .span4
         %h3 Socialize
         %ul.icons
-          %li
-            %i.icon-github
-            %a{:href => "https://github.com/ddgriffin/GG-mvp", :target => "_blank"} GitHub
-          %li
-            %i.icon-pinterest
-            %a{:href => "http://pinterest.com/girlsguild", :target => "_blank"} Pinterest
+          /%li
+          /  %i.icon-github
+          /  %a{:href => "https://github.com/ddgriffin/GG-mvp", :target => "_blank"} GitHub
           %li
             %i.icon-twitter
             %a{:href => "http://twitter.com/thegirlsguild/", :target => "_blank"} Twitter
@@ -18,7 +15,13 @@
             %i.icon-facebook
             %a{:href => "http://facebook.com/girlsguild", :target => "_blank"} Facebook
           %li
-            .fb-like{"data-colorscheme" => "dark", "data-href" => "http://www.facebook.com/GirlsGuild", "data-layout" => "button_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "450", :style => "margin:2px 0px 5px 40px;"}
+            %i.icon-pinterest
+            %a{:href => "http://pinterest.com/girlsguild", :target => "_blank"} Pinterest
+          %li
+            %i.icon-instagram
+            %a{:href => "http://instagram.com/girlsguild", :target => "_blank"} Instagram
+          %li
+            .fb-like{"data-colorscheme" => "dark", "data-href" => "http://www.facebook.com/GirlsGuild", "data-layout" => "button_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "450", :style => "margin:5px 0px 0px 47px;"}
           %li
             %div{:style => "margin:5px 0px 5px 15px;"}
               %a.twitter-follow-button{"data-lang" => "en", "data-show-count" => "false", :href => "https://twitter.com/TheGirlsGuild"} Follow @thegirlsguild
@@ -45,7 +48,7 @@
             = link_to "Donate", get_involved_girls_path+"#donate"
       .span4
         %h3 Hecho en Austin
-        %ul.unstyled
+        %ul.icons
           %li
             %i.icon-legal
             = link_to "Terms and Conditions", termsandconditions_path
@@ -61,5 +64,8 @@
           %li
             %span.kristi For girls, by girls
           %li
-            %small © 2012 GirlsGuild, All Rights Reserved.
+            %small
+              ©
+              = Time.now.year
+              GirlsGuild, All Rights Reserved.
 

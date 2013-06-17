@@ -63,7 +63,7 @@ class Workshop < Event
    		:from => "Diana & Cheyenne<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your workshop has been saved - #{topic} with #{user.name}",
-			:html_body => %(<h1>Hooray #{user.first_name}!</h1> <p>We're thrilled you're building a workshop! If you get stuck take a look at our <a href="http://www.girlsguild.com/faq">FAQ</a>, or feel free to respond to this email with any questions you might have!</p> <p>You can edit your workshop and add images here - <a href="#{url_for(self)}"> #{self.title}</a></p>),
+			:html_body => %(<h1>Hooray #{user.first_name}!</h1> <p>We're thrilled you're building a workshop! If you get stuck take a look at our <a href="http://www.girlsguild.com/faq_makers">FAQ for Makers</a>, or feel free to respond to this email with any questions you might have!</p> <p>You can edit your workshop and add images here - <a href="#{url_for(self)}"> #{self.title}</a></p>),
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
