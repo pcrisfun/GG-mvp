@@ -1,4 +1,5 @@
 // Variables
+$plum-medium: #ad3961
 $plum: #923052
 $plum-shadow: #673c58
 $plum-black: #3d1121
@@ -294,6 +295,8 @@ a, a:hover, a:active, a:visited, a:focus
       box-shadow: none
   .accordion-heading
     border-top: 1px solid #EEE
+    a
+      font-size: 18px
     a:hover
       background-color: $grass
       color: #FFF
@@ -305,10 +308,21 @@ a, a:hover, a:active, a:visited, a:focus
 #FAQ
   .accordion
     margin-bottom: 5px
+    .well
+      background-color: $silver-light
 .faqlinknav
   font-size: 45px
 
+
+
 // Forms
+.simple_form, #apprenticeship-design, #workshop-design
+  .icon-asterisk:before
+    font-size: 10px
+    vertical-align: middle
+  label
+    line-height: 15px
+
 .event-accordion
   .accordion-toggle
     background-color: $ocean-medium
@@ -339,9 +353,14 @@ a, a:hover, a:active, a:visited, a:focus
   margin-bottom: 30px
   +roundcorners
   +box-shadow-silver
+  .help-inline
+    padding-bottom: 6px
   hr
     border-color: #DDD
     border-width: 0px 0px 1px 0px
+  a.sign-link
+    font-size: 20px
+    font-weight: bold
 .fancyform-light
   background: $silver-bright
 
@@ -464,9 +483,9 @@ input[type="radio"], input[type="checkbox"]
         .right
           position: absolute
         a
-          color: $silver-black
+          color: $plum
           &:hover
-            color: $silver-dark
+            color: $plum-medium
     .valueprop
       +dosis-caps
       font-weight: 500
@@ -738,6 +757,12 @@ input[type="radio"], input[type="checkbox"]
 
 
 // Workshops & Apprenticeships
+.newevent
+  p, .well
+    font-size: 14px
+  h2
+    text-transform: none
+    font-weight: normal
 .title-topic
 .title-name
 .title-business
@@ -880,6 +905,7 @@ input[type="radio"], input[type="checkbox"]
     margin: 0
     padding: 0
   #top
+    margin: 0 -3px
     border: 3px dashed #CCC
     background-color: $silver-bright
     border-bottom: none
@@ -888,6 +914,7 @@ input[type="radio"], input[type="checkbox"]
     &.no-border
       border: none
   #middle
+    margin: 0 -3px
     border: 3px dashed #CCC
     background-color: $silver-bright
     border-top: none
@@ -896,6 +923,7 @@ input[type="radio"], input[type="checkbox"]
     &.no-border
       border: none
   #bottom
+    margin: 0 -3px
     border: 3px dashed #CCC
     background-color: $silver-bright
     border-top: none
@@ -1076,7 +1104,7 @@ input[type="radio"], input[type="checkbox"]
     display: none
   .editable-empty, .editable-empty:hover
     font-style: normal
-    color: $niceblue
+    color: $tangerine-shadow
   .editable-click, a.editable-click, a.editable-click:hover
     border-bottom: 1px dashed #CCCCCC
   #admin_section
@@ -1275,4 +1303,4 @@ input[type="radio"], input[type="checkbox"]
   @include box_sizing
 
 #map
-  margin: -30px -0px 0 -20px
+  margin: -30px 0px -30px -20px

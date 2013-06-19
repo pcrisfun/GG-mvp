@@ -10,112 +10,59 @@
   .container
     .row-fluid
       .span9
-        %article.blog-post
-          %h2
-            Being Open for 1-day Apprenticeships
-            %small
-          %p
-          .accordion
-            .accordion-group
-              .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q16"}
-                  %strong Why just 1 day?
-              #q16.accordion-body.collapse
-                .accordion-inner
-                  Because we know how busy you are - we created a framework for 1-day apprenticeships to give you a low-commitment way to get involved in the GirlsGuild community. When you list on our website as open for 1-day apprenticeship, you don't have to schedule anything until a girl requests it. When you get a request, you suggest a few date/time options for a 3-4 hour apprenticeship session, and the girl chooses the option that works for her.
-          .accordion
-            .accordion-group
-              .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q17"}
-                  %strong How do I do it?
-              #q17.accordion-body.collapse
-                .accordion-inner
-                  When a girl visits your studio on the agreed day, you show her your workspace, tools, and materials, explain and demonstrate some of your process, let her try it, and most importantly, talk with her about why she's interested in it. This is different from a workshop where you're teaching a specific project or technique; a 1-day apprenticeship should give an overview of your practice as a whole.
-          .accordion
-            .accordion-group
-              .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q18"}
-                  %strong How does the cost work?
-              #q18.accordion-body.collapse
-                .accordion-inner
-                  Apprentices pay a fee of $45 for 1-day apprenticeships. You get 83.3% of that, or $37.50, while GirlsGuild takes 16.6%, or $7.50. (There's some math that explains those percentages, related to our workshop cost structure - see below.)
-        %article.blog-post
-          %h2
-            Leading a Workshop
-            %small
-          %p
-          .accordion
-            .accordion-group
-              .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q19"}
-                  %strong How much should it cost?
-              #q19.accordion-body.collapse
-                .accordion-inner
-                  We believe that the maker is the best person to determine the cost of their workshop based on materials, length of the session, and effort. That's why we leave the cost up to you. Sometimes that means it will be too high and you will get fewer registrants, or if it's too low, you may feel like it wasn't quite worth the effort. So to give you some basic guidelines, when we spoke to parents they were comfortable paying between $40-60 for a 2-3 hour workshop. The cost of materials should be included in the cost you set for your workshop. Sometimes the materials can be expensive, so let that show by listing the materials in the class description! Generally, it's up to the maker to source and provide materials (depending on what you plan to teach).
-                  %br/
-                  %br/
-                  We want to make GirlsGuild a viable way to make supplementary income, so we encourage you not to sell yourself short. Even if you'd be happy to teach a workshop for free, we've found that putting a small cost ($5-10 or so) actually gets better attendance - people see it as more valuable, and more of a commitment, when they've paid for it.
-          .accordion
-            .accordion-group
-              .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q20"}
-                  %strong What's the cost split?
-              #q20.accordion-body.collapse
-                .accordion-inner
-                  GirlsGuild workshop cost structure:
-                  %ol
-                    %li You set the cost - Example: $45.00 per person
-                    %li We add 20% - Example: 45 x 1.2 = $54.00 per person
-                    %li
-                      Of that new total cost per person, GirlsGuild takes 16.7%, and the maker takes 83.3%
-                      = succeed "Example:" do
-                        %br/
-                      total cost = $54, GirlsGuild takes $9, the artists takes $45.
-          .accordion
-            .accordion-group
-              .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q21"}
-                  %strong When should it happen?
-              #q21.accordion-body.collapse
-                .accordion-inner
-                  The date/time of the workshop is up to you! It helps to consider your audience; if you're leading a workshop for teens or children, after-school hours or weekends will be best. If you're teaching a workshop for adults, evenings might be a good option. Whatever time you choose, it's always best to schedule the date far enough in advance to give us 4 weeks or more to promote it, and give people a chance to sign up.
-                  %br/
-                  %br/
-                  If you're not quite ready to set a date, we can add the workshop with a pre-register link to let girls sign up to be notified when the date is set.
-          .accordion
-            .accordion-group
-              .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q22"}
-                  %strong What about tools?
-              #q22.accordion-body.collapse
-                .accordion-inner
-                  If you need help sourcing enough tools for the workshop, we'll do our best to help. Another suggestion is to put out a request for tools on our Facebook page.
-          .accordion
-            .accordion-group
-              .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q23"}
-                  %strong How do I protect my style?
-              #q23.accordion-body.collapse
-                .accordion-inner
-                  We're committed to protecting our artists' style, and we recognize that copying can sometimes feel like it's not the best form of flattery. Which is why we ask everyone who signs up to take a workshop to agree not to replicate the individual styles of our amazing artists, although they should feel free to use the techniques they learn to develop their own style. This is a checkbox that comes right before purchasing the registration. We also make forms available to each artist to hand out at the beginning of the workshop on the same form as the waiver to get that agreement in writing as well.
-          .accordion
-            .accordion-group
-              .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q31"}
-                  %strong Can I open my event up to all gender identities?
-              #q31.accordion-body.collapse
-                .accordion-inner
-                  Absolutely!  Though we want to create a space for learning where girls and women feel safe and confident, we also want to be inclusive of everyone who would appreciate this space as well.  We give you the option to specify your workshop or apprenticeship be opened to all gender identities.
+
         %article.blog-post
           %h2
             Offering an Apprenticeship
             %small
-          %p
+
+
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q23"}
+                  %strong
+                    %i.icon-angle-up
+                    Tips for running a great apprenticeship
+              #q23.accordion-body.collapse.in
+                .accordion-inner
+                  .row-fluid
+                    .well.span3
+                      %h3
+                        %i.icon-fire.inline
+                        Challenge
+                      The apprentice should be learning new things frequently enough to stay challenged, but don't forget to have them also practice what they're learning.
+                    .well.span3
+                      %h3
+                        %i.icon-globe.inline
+                        World View
+                      Think about giving the apprentice a feel for what its like to run a small business, OR why you choose not to.
+                      %br
+                      %br
+                      %br
+                      %br
+                    .well.span3
+                      %h3
+                        %i.icon-refresh.inline
+                        Feedback
+                      Remeber to give gentle but constructive feedback. Help her learn from her mistakes which is often the best way to gain experience.
+                      %br
+                      %br
+                    .well.span3
+                      %h3
+                        %i.icon-thumbs-up.inline
+                        Encourage
+                      Get to know each others goals and dreams! We want to help you build a mentor network because we're all stronger when we learn togeather.
+                      %br
+                      %br
+
           .accordion
             .accordion-group
               .accordion-heading
                 %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q24"}
-                  %strong How do these work?
+                  %strong
+                    %i.icon-angle-down
+                    How do these work?
               #q24.accordion-body.collapse
                 .accordion-inner
                   We've tried to keep our framework for apprenticeships broad, so you can offer an apprenticeship that will truly meet your needs. However, we've found that most apprenticeships fall into three main categories; Production, Event, and Ongoing.
@@ -138,7 +85,9 @@
             .accordion-group
               .accordion-heading
                 %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q25"}
-                  %strong How much does it cost?
+                  %strong
+                    %i.icon-angle-down
+                    How much does it cost?
               #q25.accordion-body.collapse
                 .accordion-inner
                   There's a listing fee of $9 for us to list your apprenticeship on our site, promote it to the community, accept applications for you to review, and connect you with the apprentice you choose..
@@ -146,7 +95,9 @@
             .accordion-group
               .accordion-heading
                 %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q26"}
-                  %strong Do I pay her, or get paid?
+                  %strong
+                    %i.icon-angle-down
+                    Do I pay her, or get paid?
               #q26.accordion-body.collapse
                 .accordion-inner
                   In most cases, the give and take of teaching and working will likely balance out; you teach your process and skills in return for her assistance with your work. However, we leave it up to you to decide whether the level of work you expect your apprentice to do should be paid, or whether you'll be taking on a level of teaching that merits payment. Either way, payment would be a matter between you and the apprentice, and would not be managed by GirlsGuild. If you do plan to pay, or ask for payment, you should explain that in the description of your apprenticeship when you propose it.
@@ -154,7 +105,9 @@
             .accordion-group
               .accordion-heading
                 %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q27"}
-                  %strong How long is it for?
+                  %strong
+                    %i.icon-angle-down
+                    How long is it for?
               #q27.accordion-body.collapse
                 .accordion-inner
                   It's up to you, based on your needs. Some apprenticeships might be as short as a few weeks, but we think the most rewarding will be for a longer period of a few months or more. That way you'll have time to teach your apprentice the skills and techniques she needs, and see her progress in the work she's doing with you.
@@ -162,7 +115,9 @@
             .accordion-group
               .accordion-heading
                 %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q28"}
-                  %strong Can I interview candidates prior to selection?
+                  %strong
+                    %i.icon-angle-down
+                    Can I interview candidates prior to selection?
               #q28.accordion-body.collapse
                 .accordion-inner
                   Sure. What we'll do is forward you the applications as we receive them and when you see someone you'd like to interview just let us know what dates you're available to meet up with her. We'll email her to see if she's available and CC you on the email so that you have each other's contact info in case there are any questions about directions, etc.
@@ -170,7 +125,9 @@
             .accordion-group
               .accordion-heading
                 %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q29"}
-                  %strong If we don't find a good match are we obligated to choose someone?
+                  %strong
+                    %i.icon-angle-down
+                    If we don't find a good match are we obligated to choose someone?
               #q29.accordion-body.collapse
                 .accordion-inner
                   Nope.  It's totally up to you, we just want to facilitate a good connection for both of you.
@@ -178,13 +135,190 @@
             .accordion-group
               .accordion-heading
                 %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q30"}
-                  %strong What if it really isn't working out?
+                  %strong
+                    %i.icon-angle-down
+                    What if it really isn't working out?
               #q30.accordion-body.collapse
                 .accordion-inner
                   If your apprentice isn't working out for any reason, just let us know and we'd be happy to gently end it early.  We think that being honest and clear about expectations from the apprentice is the best way to find someone who's committed.  And of course it will always be our priority to help out if you have any difficulty along the way.
+
+
+        %hr
+
+
+        %article.blog-post
+          %h2
+            Leading a Workshop
+            %small
+          %p
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q32"}
+                  %strong
+                    %i.icon-angle-up
+                    Tips for running a great workshop
+              #q32.accordion-body.collapse.in
+                .accordion-inner
+                  .row-fluid
+                    .well.span3
+                      %h3
+                        %i.icon-bolt.inline
+                        Share Skills
+                      The students should be learning new things frequently enough to stay challenged, but don't forget to have them also practice what they're learning.
+                    .well.span3
+                      %h3
+                        %i.icon-wrench.inline
+                        Teach Tools
+                      Think about giving the students a feel for what its like to run your small business, OR why you choose not to.
+                      %br
+                      %br
+                      %br
+                      %br
+                    .well.span3
+                      %h3
+                        %i.icon-compass.inline
+                        Explore
+                      Remeber to give gentle but constructive feedback. Help them learn from their mistakes which is often the best way to gain experience.
+                    .well.span3
+                      %h3
+                        %i.icon-rocket.inline
+                        Inspire
+                      Get to know each others goals and dreams! We want to help you build a mentor network because we're all stronger when we learn togeather.
+                      %br
+                      %br
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q19"}
+                  %strong
+                    %i.icon-angle-down
+                    How much should it cost?
+              #q19.accordion-body.collapse
+                .accordion-inner
+                  We believe that the maker is the best person to determine the cost of their workshop based on materials, length of the session, and effort. That's why we leave the cost up to you. Sometimes that means it will be too high and you will get fewer registrants, or if it's too low, you may feel like it wasn't quite worth the effort. So to give you some basic guidelines, when we spoke to parents they were comfortable paying between $40-60 for a 2-3 hour workshop. The cost of materials should be included in the cost you set for your workshop. Sometimes the materials can be expensive, so let that show by listing the materials in the class description! Generally, it's up to the maker to source and provide materials (depending on what you plan to teach).
+                  %br/
+                  %br/
+                  We want to make GirlsGuild a viable way to make supplementary income, so we encourage you not to sell yourself short. Even if you'd be happy to teach a workshop for free, we've found that putting a small cost ($5-10 or so) actually gets better attendance - people see it as more valuable, and more of a commitment, when they've paid for it.
+
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q20"}
+                  %strong
+                    %i.icon-angle-down
+                    What's the cost split?
+              #q20.accordion-body.collapse
+                .accordion-inner
+                  GirlsGuild workshop cost structure:
+                  %ol
+                    %li You set the cost - Example: $45.00 per person
+                    %li We add 20% - Example: 45 x 1.2 = $54.00 per person
+                    %li
+                      Of that new total cost per person, GirlsGuild takes 16.7%, and the maker takes 83.3%
+                      = succeed "Example:" do
+                        %br/
+                      total cost = $54, GirlsGuild takes $9, the artists takes $45.
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q21"}
+                  %strong
+                    %i.icon-angle-down
+                    When should it happen?
+              #q21.accordion-body.collapse
+                .accordion-inner
+                  The date/time of the workshop is up to you! It helps to consider your audience; if you're leading a workshop for teens or children, after-school hours or weekends will be best. If you're teaching a workshop for adults, evenings might be a good option. Whatever time you choose, it's always best to schedule the date far enough in advance to give us 4 weeks or more to promote it, and give people a chance to sign up.
+                  %br/
+                  %br/
+                  If you're not quite ready to set a date, we can add the workshop with a pre-register link to let girls sign up to be notified when the date is set.
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q22"}
+                  %strong
+                    %i.icon-angle-down
+                    What about tools?
+              #q22.accordion-body.collapse
+                .accordion-inner
+                  If you need help sourcing enough tools for the workshop, we'll do our best to help. Another suggestion is to put out a request for tools on our Facebook page.
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q33"}
+                  %strong
+                    %i.icon-angle-down
+                    What's the cancellation policy?
+              #q33.accordion-body.collapse
+                .accordion-inner
+                  We offer students a full refund if they let us know 7 days before the workshop. We do this so that you know a full week before the event to prepare for the full number of students.
+
+
+        %hr
+
+
+        %article.blog-post
+          %h2
+            General Questions
+            %small
+          %p
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q31"}
+                  %strong
+                    %i.icon-angle-down
+                    Can I open my event up to all gender identities?
+              #q31.accordion-body.collapse
+                .accordion-inner
+                  Absolutely!  Though we want to create a space for learning where girls and women feel safe and confident, we also want to be inclusive of everyone who would appreciate this space as well.  We give you the option to specify your workshop or apprenticeship be opened to all gender identities.
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q23"}
+                  %strong
+                    %i.icon-angle-down
+                    How do I protect my style?
+              #q23.accordion-body.collapse
+                .accordion-inner
+                  We're committed to protecting our artists' style, and we recognize that copying can sometimes feel like it's not the best form of flattery. Which is why we ask everyone who signs up to take a workshop to agree not to replicate the individual styles of our amazing artists, although they should feel free to use the techniques they learn to develop their own style. This is a checkbox that comes right before purchasing the registration. We also make forms available to each artist to hand out at the beginning of the workshop on the same form as the waiver to get that agreement in writing as well.
+
+
+
+
+        /%article.blog-post
+        /  %h2
+        /    Being Open for 1-day Apprenticeships
+        /    %small
+        /  %p
+        /  .accordion
+        /    .accordion-group
+        /      .accordion-heading
+        /        %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q16"}
+        /          %strong Why just 1 day?
+        /      #q16.accordion-body.collapse
+        /        .accordion-inner
+        /          Because we know how busy you are - we created a framework for 1-day apprenticeships to give you a low-commitment way to get involved in the GirlsGuild community. When you list on our website as open for 1-day apprenticeship, you don't have to schedule anything until a girl requests it. When you get a request, you suggest a few date/time options for a 3-4 hour apprenticeship session, and the girl chooses the option that works for her.
+        /  .accordion
+        /    .accordion-group
+        /      .accordion-heading
+        /        %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q17"}
+        /          %strong How do I do it?
+        /      #q17.accordion-body.collapse
+        /        .accordion-inner
+        /          When a girl visits your studio on the agreed day, you show her your workspace, tools, and materials, explain and demonstrate some of your process, let her try it, and most importantly, talk with her about why she's interested in it. This is different from a workshop where you're teaching a specific project or technique; a 1-day apprenticeship should give an overview of your practice as a whole.
+        /  .accordion
+        /    .accordion-group
+        /      .accordion-heading
+        /        %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q18"}
+        /          %strong How does the cost work?
+        /      #q18.accordion-body.collapse
+        /        .accordion-inner
+        /          Apprentices pay a fee of $45 for 1-day apprenticeships. You get 83.3% of that, or $37.50, while GirlsGuild takes 16.6%, or $7.50. (There's some math that explains those percentages, related to our workshop cost structure - see below.)
+
       %aside.span3.sidebar
         .sidebar-widget
-          %h2.sidebar-header Other Burning Questions?
+          %h3.sidebar-header Other Burning Questions?
           %p
             We hope that all helps! If you have any questions or just want to talk with us more about GirlsGuild and how it works, we'd love to sit down to chat with you sometime. Let us know if you'd like to schedule a time to meet up!
             %br/

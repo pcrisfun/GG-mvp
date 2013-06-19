@@ -1,37 +1,45 @@
-%section#apprenticeship-info.section.alt-grey
+%section#apprenticeship-info.section.alt-grey.newevent
   .container
     .row-fluid
       .hero-unit.well
         %h1 Apprenticeships
         %br
-        %p We're excited you want to join GirlsGuild as an Maker! Your apprenticeship can be event-based, production-based, or ongoing. We'll review and post the apprenticeship once you've completed your listing and submitted the listing payment.
-        %p We charge $9 to promote it to the GirlsGuild community, collect applications for you to review, and connect you with an apprentice. We'll also need your consent to run a background check to keep our community safe.
-        %h2 Tips for building a great apprenticeship
-        .row
+        %h2 Woohoo! Here's how it works...
+        .row-fluid
           .well.span3
-            %h3 1. Challenge
-            The apprentice should be learning new things frequently enough to stay challenged, but don't forget to have them also practice what they're learning.
+            %h3
+              %i.icon-magic.inline
+              Create it
+            %p It can be <a href="/get_involved_makers">event-based</a>, <a href="/get_involved_makers">production-based</a>, or <a href="/get_involved_makers">ongoing</a>. We charge you a $9 listing fee, and the apprentice a $29 connection fee.
           .well.span3
-            %h3 2. World View
-            Think about giving the apprentice a feel for what its like to run a small business, OR why you choose not to.
+            %h3
+              %i.icon-check.inline
+              We Review
+            %p
+              We'll review your listing once you've submitted it. We also do background checks on all our Makers to keep our community safe.
           .well.span3
-            %h3 3. Feedback
-            Remeber to give gentle but constructive feedback. Help her learn from her mistakes which is often the best way to gain experience.
+            %h3
+              %i.icon-heart-empty.inline
+              You Choose
+            %p
+              We promote it to the GirlsGuild community, collect applications for you to choose from, and connect you with a fabulous apprentice.
           .well.span3
-            %h3 4. Encouragement
-            Get to know each others goals and dreams! We want to help you build a mentor network because we're all stronger when we're learning from eachother.
+            %h3
+              %i.icon-trophy.inline
+              We Track
+            %p
+              We'll keep track of the skills, tools, and techniques you and your apprentice are learning to begin to build out your incredible portfolios.
+
         %br
         #buttons
           = link_to "Let's start one!", { controller: :apprenticeships, action: :create, save_button: 'Save for Later' } , {method: :post, style: 'button', class: 'btn btn-large btn-primary' }
 
         %br
-        %br
         %ul.icons
           %li
             %i.icon-bookmark
             For more info check out the
-            %a{href: "/faq"}
-              FAQ
+            = link_to "FAQ", faq_makers_path
           %li
             %i.icon-envelope
             Email us with any questions

@@ -48,7 +48,7 @@ $(document).ready(function () {
   });
 
   $("[data-behaviour~='timepicker']").timepicker();
-  $("[data-behaviour~='combodate']").combodate();
+  $("[data-behaviour~='combodate']").combodate({ minYear: 1920, maxYear: 2013 });
   $("[rel=tooltip]").tooltip();
   $("[rel=popover]").popover({'trigger': 'trigger'});
   $("[rel=popover]").click(function(e) {

@@ -13,10 +13,12 @@
           - unless show
             .pull-right
               #preview-buttons-top
-                = link_to 'Preview', '#', class: 'btn preview-btn', data: { url: workshop_path(@workshop) }
+                = link_to "Preview #{content_tag(:i, "", class: "icon-external-link")}".html_safe, '#', class: 'btn preview-btn', data: { url: workshop_path(@workshop) }
 
           //Banner //////////////////
           #banner
+            - if !show
+              .small Upload an Avatar
             #avatar.field
               - if !show
                 = link_to(avatar_for(current_user, size: 50, tag: :medium), '#avatarModal', id: 'avatar-edit', data: {toggle: "modal"} )
@@ -61,13 +63,14 @@
             - if !show
               %i.icon-asterisk
             #description.field.textarea
-              = editable_link_to "Tell us about your workshop. Describe what you'll be doing as well as your expectations of those attending.", field: :description, resource: @workshop, type: :textarea
+              = editable_link_to "Tell us about your workshop. Describe what you'll be doing, what level of experience you're teaching, as well as any expectations of those attending.", field: :description, resource: @workshop, type: :textarea
             - if !show
               %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Tell us about your workshop. Describe what you'll be doing as well as your expectations of those attending."} }
                 %i.icon-question-sign.small-icon
             %br
             %br
-
+            - if !show
+              %p.images-desc.small Upload 5 images of your studio & your work as it pertains to the apprenticeship.
 
 //Images Section //////////////////
 = render 'host_album', show: show
@@ -332,7 +335,7 @@
       - if !show
         .row-fluid
           #preview-buttons-bottom
-            = link_to 'Preview', '#', class: 'btn preview-btn btn-large', data: { url: workshop_path(@workshop) }
+            = link_to "Preview #{content_tag(:i, "", class: "icon-external-link")}".html_safe, '#', class: 'btn preview-btn btn-large', data: { url: workshop_path(@workshop) }
             #proceed.preview-hide
               = link_to 'Next', private_workshop_path(@workshop), method: :get, class: 'btn btn-primary btn-large'
 
