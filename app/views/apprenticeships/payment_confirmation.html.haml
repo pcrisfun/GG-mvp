@@ -1,25 +1,23 @@
 %section#private-info.section
   .container
-    .row-fluid
+    .row
+
       .span12
         %h1
           %icon.icon-check
           Awesome!
-        %p We'll review your apprenticeship proposal and let you know as soon as it's been posted live!
-        %p
-          You can check on the status of your proposal any time by visiting your
-          = link_to "Dashboard Page", dashboard_path
-        .alert.alert-warning
-          %strong
-            Note:
-          You will not be able to edit your apprenticeship until we've had a chance to approve it. Then any edits will need to be re-approved.
 
-        %br
+      .span8
         .fancyform-light.form-horizontal
-          Thanks for paying the $9.00 apprenticeship listing fee!
-          %br The receipt will be sent to your email.
-        %br
+          %p Thanks for paying the $9.00 apprenticeship listing fee!  The receipt will be sent to your email.
+          %p We'll review your apprenticeship proposal and let you know as soon as it's been posted live! You can check on the status of your proposal any time by visiting your #{link_to "Dashboard Page", dashboard_path}
+          %br
+          .alert.alert-info
+            %strong
+              Note:
+            You will not be able to edit your apprenticeship until we've had a chance to approve it. Then any edits will need to be re-approved.
 
+      .span4
         %ul.icons
           %li
             %i.icon-bookmark
@@ -31,3 +29,31 @@
             Email us with any questions
             %a{href: "mailto:hello@girlsguild.com?Subject=Howdy"}
               hello@girlsguild.com
+
+      .span12
+        %hr
+        %br
+        %h2 Tips for running a great apprenticeship
+        .row-fluid
+          .well.span3
+            %h3
+              %i.icon-fire.inline
+              Challenge
+            The apprentice should be learning new things frequently enough to stay challenged, but don't forget to have them also practice what they're learning.
+          .well.span3
+            %h3
+              %i.icon-globe.inline
+              World View
+            Think about giving the apprentice a feel for what its like to run a small business, OR why you choose not to.
+            %br
+            %br
+          .well.span3
+            %h3
+              %i.icon-refresh.inline
+              Feedback
+            Remeber to give gentle but constructive feedback. Help her learn from her mistakes which is often the best way to gain experience.
+          .well.span3
+            %h3
+              %i.icon-thumbs-up.inline
+              Encourage
+            Get to know each others goals and dreams! We want to help you build a mentor network because we're all stronger when we learn togeather.
