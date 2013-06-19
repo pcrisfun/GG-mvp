@@ -19,15 +19,15 @@ class WorkSignupsController < ApplicationController
         if @work_signup.signup
           redirect_to workshops_path, :flash => { :success => "Awesome, you're all signed up to work with #{@workshop.host_firstname}." }
         else
-          flash.now[:warning] = "Welp, that submit didn't work."
+          flash.now[:warning] = "Oops! There was a problem submitting your registration. Please check all fields."
           render 'new'
         end
       else
-        flash.now[:warning] = "Glurphhh, that save didn't work."
+        flash.now[:warning] = "Oops! There was a problem submitting your registration. Please check all fields."
         render 'new'
       end
     else
-      flash.now[:notify] = "There was an error signing up."
+      flash.now[:notify] = "Whoops! There was an error signing up."
       render 'new'
     end
   end

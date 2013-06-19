@@ -33,10 +33,16 @@ class WorkSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You signed up for #{event.topic} with #{event.host_firstname} #{event.host_lastname}",
       :html_body => %(<h1>Yay #{user.first_name}!</h1>
-      <p>You're all signed up for <a href="#{url_for(self.event)}">#{event.title}</a>.
-      <p>We received your payment of #{sprintf('$%0.2f', payment.amount.to_f / 100.0)}</p>
-      <p>(Fill out this email with more info like: where -- link to map, when, contact info for questions, what to be prepared for, what to bring, cancellation policy, the fact that we'll send a text reminder the day before and link to change her phone number. )</p>,
-      ), :bcc => "hello@girlsguild.com",
+        <p>You're all signed up for <a href="#{url_for(self.event)}">#{event.title}</a>.
+        <p>We received your payment of #{sprintf('$%0.2f', payment.amount.to_f / 100.0)}</p>
+        <p>Here are the workshop details to remember:</p>
+        <p>When: #{event.begins_at_time} - #{event.ends_at_time}, #{event.begins_at}</p>
+        <p>Where: #{event.location_address} #{event.location_address2}, #{event.location_city}, #{event.location_state}</p>
+        <p>You can review the <a href="#{url_for(self.event)}">workshop details page</a> for more info on what to expect and prepare for, and if by some bad luck it turns out you can't make it, you can cancel your registration there too (note that you'll need to cancel at least 7 days in advance to have your fee refunded).</p>
+        <p>Let us know if you have any questions!</p>
+        <p>Thanks and Happy Making!</p>
+        <p>the GirlsGuild team</p>),
+      :bcc => "hello@girlsguild.com",
     })
     return true
   end
@@ -45,10 +51,15 @@ class WorkSignup < Signup
     return false unless valid?
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
-      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :from => "GirlsGuild<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your workshop is coming up! - #{self.event.title}",
-      :html_body => %(<h1>Just a few days!</h1> <p>Just a reminder that you're signed up for #{self.event.title} on #{self.event.begins_at}. (Fill out this email with more info)</p>),
+      :html_body => %(<h1>Just a few days!</h1>
+        <p>Just a reminder that you're signed up for <a href="#{url_for(self.event)}">#{event.title}</a>.</p>
+        <p>It's happening on #{self.event.begins_at} from #{self.event.begins_at_time} to #{self.event.ends_at_time}, at #{self.event.location_address} #{self.event.location_address2} in #{self.event.location_city}.</p>
+        <p>Double check the <a href="#{url_for(self.event)}">workshop details page</a> for more info on what to expect and prepare for.</p>
+        <p>Thanks and Happy Making!</p>
+        <p>the GirlsGuild team</p>),
       :bcc => "hello@girlsguild.com",
     })
     self.update_column(:work_first_reminder_sent, true)
@@ -59,10 +70,15 @@ class WorkSignup < Signup
     return false unless valid?
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
-      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :from => "GirlsGuild<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your workshop is tomorrow! - #{self.event.title}",
-      :html_body => %(<h1>Almost time!</h1> <p>Just a reminder that your workshop with #{self.event.user.name} is tomorrow. (Fill out this email with more info)</p>),
+      :html_body => %(<h1>Almost time!</h1>
+        <p>Just one more reminder that your workshop with #{self.event.user.name} is tomorrow, #{self.event.begins_at} from #{self.event.begins_at_time} to #{self.event.ends_at_time}.</p>
+        <p>The address is: #{self.event.location_address} #{self.event.location_address2}, #{self.event.location_city}.</p>
+        <p>Wondering what to expect? The <a href="#{url_for(self.event)}">workshop details page</a> has all the info.</p>
+        <p>Thanks and Happy Making!</p>
+        <p>the GirlsGuild team</p>),
       :bcc => "hello@girlsguild.com",
     })
     self.update_column(:work_second_reminder_sent, true)
@@ -73,10 +89,14 @@ class WorkSignup < Signup
     return false unless valid?
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
-      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :from => "GirlsGuild<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "How was your workshop? - #{self.event.title}",
-      :html_body => %(<h1>Hey #{user.first_name}!</h1> <p>What did you think of #{self.event.title}? (Fill out this email with more info)</p>),
+      :html_body => %(<h1>Hey #{user.first_name}!</h1>
+        <p>What did you think of #{self.event.title}? Do you have any feedback, good or bad, about the experience? We'd love to hear it.</p>
+        <p>And of course, if you have any questions or concerns, don't hesitate to ask!</p>
+        <p>Thanks and Happy Making!</p>
+        <p>the GirlsGuild team</p>),
       :bcc => "hello@girlsguild.com",
     })
     self.update_column(:work_followup_sent, true)
@@ -101,15 +121,8 @@ class WorkSignup < Signup
     end
   end
 
-  # TODO: Since this is directly reproduced in AppSignup, we probably need a parent class for the two to house
-  # these methods.
   def countdown_message
     if self.started?
-    elsif self.pending?
-      return "Your application is being reviewed. You should hear back by <strong>#{(self.state_stamps.last.stamp + 14.days).strftime("%b %d")}</strong>".html_safe
-    elsif self.accepted?
-      return "Your application has been accepted!<br/><a href=#{url_for(self)} class='btn btn-success btn-mini'>Confirm</a> your apprenticeship!".html_safe
-    elsif self.declined?
     elsif self.canceled?
     elsif self.confirmed?
       if self.event.datetime_tba
