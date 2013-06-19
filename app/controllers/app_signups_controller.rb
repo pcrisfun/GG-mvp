@@ -51,7 +51,7 @@ class AppSignupsController < ApplicationController
         end
         redirect_to apprenticeships_path, :flash => { :success => "Awesome, you've applied to work with #{@apprenticeship.host_firstname}." }
       else
-        flash.now[:warning] = "Glurphhh, that save didn't work."
+        flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
         render 'new'
       end
     end
@@ -91,11 +91,11 @@ class AppSignupsController < ApplicationController
           end
           redirect_to apprenticeships_path, :flash => { :success => "Awesome, you've applied to work with #{@apprenticeship.host_firstname}." }
         else
-          flash.now[:warning] = "Welp, that submit didn't work (app_signups controller > update)."
+          flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
           render 'new'
         end
       else
-        flash.now[:warning] = "Glurphhh, that save didn't work."
+        flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
         render 'new'
       end
     end
@@ -129,28 +129,28 @@ class AppSignupsController < ApplicationController
       if @app_signup.update_attributes(params[:app_signup])
         if @app_signup.process_apprent_fee
           if @app_signup.confirm && @app_signup.deliver_confirm_maker
-            redirect_to apprenticeships_path, :flash => {:success => "01 Rad! You're all confirmed to start your apprenticeship!"}
+            redirect_to apprenticeships_path, :flash => {:success => "Rad! You're all confirmed to start your apprenticeship!"}
           else
-            flash[:warning] = "02 Snap, there was a problem saving your form. Please check all fields and try again."
+            flash[:warning] = "Snap, there was a problem saving your form. Please check all fields and try again."
             render 'show'
           end
         else
-          flash[:warning] = "03 Hmm, we couldn't process payment. Please try again."
+          flash[:warning] = "Hmm, we couldn't process payment. Please try again."
           render 'show'
         end
       else
-        flash[:warning] = "04 Snap, there was a problem saving your form. Please check all fields and try again."
+        flash[:warning] = "Snap, there was a problem saving your form. Please check all fields and try again."
         render 'show'
       end
     elsif @app_signup.charge_id.present?
       if @app_signup.confirm && @app_signup.deliver_confirm_maker
         redirect_to apprenticeships_path, :flash => {:success => "05 Rad! You're all confirmed to start your apprenticeship!"}
       else
-        flash[:warning] = "06 Snap, there was a problem saving your form. Please check all fields and try again."
+        flash[:warning] = "Snap, there was a problem saving your form. Please check all fields and try again."
         render 'show'
       end
     else
-      flash[:warning] = "07 Snap, there was a problem saving your form. Please check all fields and try again."
+      flash[:warning] = "Snap, there was a problem saving your form. Please check all fields and try again."
       render 'show'
     end
   end
