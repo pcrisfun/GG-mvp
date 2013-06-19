@@ -65,10 +65,10 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your application has been saved - #{self.event.title}",
       :html_body => %(<h1>Yay #{user.first_name}!</h1>
-      <p>We're thrilled you're applying to work with #{self.event.user.first_name}! If you get stuck take a look at our <a href="http://www.girlsguild.com/faq_girls">FAQ for Girls</a>, or feel free to respond to this email with any questions you might have!</p>
-      <p>You can edit your application here - <a href="#{url_for(self)}"> Application for #{self.event.title}</a></p>
-      <p>Thanks,</p>
-      <p>the GirlsGuild team</p>),
+        <p>We're thrilled you're applying to work with #{self.event.user.first_name}! If you get stuck take a look at our <a href="http://www.girlsguild.com/faq_girls">FAQ for Girls</a>, or feel free to respond to this email with any questions you might have!</p>
+        <p>You can edit your application here - <a href="#{url_for(self)}"> Application for #{self.event.title}</a></p>
+        <p>Thanks,</p>
+        <p>the GirlsGuild team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -80,10 +80,10 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your daughter's application has been saved - #{self.event.title}",
       :html_body => %(<h1>Yay #{user.first_name}!</h1>
-      <p>We're thrilled you're helping your daughter apply to work with #{self.event.user.first_name}! If you get stuck take a look at our <a href="http://www.girlsguild.com/faq_girls">FAQ for Girls</a>, or feel free to respond to this email with any questions you might have!</p>
-      <p>You can edit your application here - <a href="#{url_for(self)}"> Application for #{self.event.title}</a></p>
-      <p>Thanks,</p>
-      <p>the GirlsGuild team</p>),
+        <p>We're thrilled you're helping your daughter apply to work with #{self.event.user.first_name}! If you get stuck take a look at our <a href="http://www.girlsguild.com/faq_girls">FAQ for Girls</a>, or feel free to respond to this email with any questions you might have!</p>
+        <p>You can edit your application here - <a href="#{url_for(self)}"> Application for #{self.event.title}</a></p>
+        <p>Thanks,</p>
+        <p>the GirlsGuild team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -97,9 +97,9 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Thanks for applying for #{event.title}",
       :html_body => %(<h1>Thanks #{user.first_name}!</h1>
-      <p>You've applied for <a href=#{url_for(event)}>#{event.title}</a>. You can see your application <a href=#{url_for(self)}>here</a>. #{event.host_firstname} will review it, and we'll let you know her decision within two weeks.</p>
-      <p>Thanks,</p>
-      <p>the GirlsGuild team</p>),
+        <p>You've applied for <a href=#{url_for(event)}>#{event.title}</a>. You can see your application <a href=#{url_for(self)}>here</a>. #{event.host_firstname} will review it, and we'll let you know her decision within two weeks.</p>
+        <p>Thanks,</p>
+        <p>the GirlsGuild team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -112,9 +112,9 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Thanks for helping your daughter apply for #{event.title}",
       :html_body => %(<h1>Thanks #{user.first_name}!</h1>
-      <p>Thanks for helping your daughter, #{self.daughter_firstname} apply for <a href=#{url_for(event)}>#{event.title}</a>. You can see her application <a href=#{url_for(self)}>here</a>. #{event.host_firstname} will review it, and we'll let you know her decision within two weeks.</p>
-      <p>Thanks,</p>
-      <p>the GirlsGuild team</p>),
+        <p>Thanks for helping your daughter, #{self.daughter_firstname} apply for <a href=#{url_for(event)}>#{event.title}</a>. You can see her application <a href=#{url_for(self)}>here</a>. #{event.host_firstname} will review it, and we'll let you know her decision within two weeks.</p>
+        <p>Thanks,</p>
+        <p>the GirlsGuild team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -128,9 +128,9 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{user.first_name} has applied to work with you!",
       :html_body => %(<h1>Yippee #{event.user.first_name}!</h1>
-      <p>#{user.first_name} has applied to apprentice with you! You can review her application <a href=#{url_for(self)}>here</a>. We've notified #{user.first_name} that you will either accept or decline the application within 2 weeks.</p>
-      <p>Thanks,</p>
-      <p>the GirlsGuild team</p>),
+        <p>#{user.first_name} has applied to apprentice with you! You can review her application and accept or decline it <a href=#{url_for(self)}>here</a>. We've notified #{user.first_name} that you'll make your decision on the application within 2 weeks.</p>
+        <p>Thanks,</p>
+        <p>the GirlsGuild team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -143,10 +143,10 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your application has been deleted - #{event.topic} with #{user.name}",
       :html_body => %(<h1>Bummer!</h1>
-      <p>You've deleted your application to work with #{self.event.user.first_name}. We hope you'll re-consider applying to work with #{self.event.user.first_name} or someone else.</p>
-      <p>Please let us know if there's a way we can help make this application process easier by simply replying to this email. We would really appreciate your feedback!</a></p>
-      <p>Thanks,</p>
-      <p>the GirlsGuild team</p>),
+        <p>You've deleted your application to work with #{self.event.user.first_name}. We hope you'll re-consider applying to work with #{self.event.user.first_name} or someone else.</p>
+        <p>Please let us know if there's a way we can help make this application process easier by simply replying to this email. We would really appreciate your feedback!</p>
+        <p>Thanks,</p>
+        <p>the GirlsGuild team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -159,10 +159,10 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your daughter's application has been deleted - #{event.topic} with #{user.name}",
       :html_body => %(<h1>Bummer!</h1>
-      <p>You've deleted your daughter's application to work with #{self.event.user.first_name}. We hope you'll re-consider helping her apply to work with #{self.event.user.first_name} or someone else.</p>
-      <p>Please let us know if there's a way we can help make this application process easier by simply replying to this email. We would really appreciate your feedback!</a></p>
-      <p>Thanks,</p>
-      <p>the GirlsGuild team</p>),
+        <p>You've deleted your daughter's application to work with #{self.event.user.first_name}. We hope you'll re-consider helping her apply to work with #{self.event.user.first_name} or someone else.</p>
+        <p>Please let us know if there's a way we can help make this application process easier by simply replying to this email. We would really appreciate your feedback!</p>
+        <p>Thanks,</p>
+        <p>the GirlsGuild team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -174,9 +174,10 @@ class AppSignup < Signup
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{self.event.user.first_name} reviewed your application",
-      :html_body => %(<p>Thanks for your application #{user.first_name}! For this apprenticeship #{self.event.user.first_name} chose a different applicant, but she was super excited that you were interested in working together. We'll let you know about other possibilities for collaboration with her in the future. In the meantime, we hope you'll find another apprenticeship you'd be interested in - check out our <a href="#{url_for(apprenticeships_path)}"> our apprenticeship listings</a></p>
-      <p>Thanks,</p>
-      <p>the GirlsGuild team</p>),
+      :html_body => %(<p>Thanks for your application #{user.first_name}! For this apprenticeship #{self.event.user.first_name} chose a different applicant, but she was super excited that you were interested in working together. We'll let you know about other possibilities for collaboration with her in the future.</p>
+        <p>In the meantime, we hope you'll find another apprenticeship you'd be interested in - check out our <a href="#{url_for(apprenticeships_path)}"> our apprenticeship listings</a> to see what's available.</p>
+        <p>Thanks,</p>
+        <p>the GirlsGuild team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -188,9 +189,10 @@ class AppSignup < Signup
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{self.event.user.first_name} reviewed your daughter's application",
-      :html_body => %(<p>Thanks for #{self.daughter_firstname}'s application! For this apprenticeship #{self.event.user.first_name} chose a different applicant, but she was super excited that you were interested in working together. We'll let you know about other possibilities for collaboration with her in the future. In the meantime, we hope you and #{self.daughter_firstname} will find another apprenticeship you'd be interested in - check out our <a href="#{url_for(apprenticeships_path)}"> our apprenticeship listings</a></p>
+      :html_body => %(<p>Thanks for #{self.daughter_firstname}'s application! For this apprenticeship #{self.event.user.first_name} chose a different applicant, but she was super excited that your daughter was interested in working together. We'll let you know about other possibilities for collaboration with her in the future.</p>
+        <p>In the meantime, we hope you and #{self.daughter_firstname} will find another apprenticeship you'd be interested in - check out our <a href="#{url_for(apprenticeships_path)}"> our apprenticeship listings</a> to see what's available.</p>
         <p>Thanks,</p>
-      <p>the GirlsGuild team</p>),
+        <p>the GirlsGuild team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -202,9 +204,9 @@ class AppSignup < Signup
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "We've notified #{user.first_name} of your decision",
-      :html_body => %(<p>Thanks for making that tough decision. We've notified #{user.first_name} that you chose a different applicant, but that you were honored that she was interested in working together and that we'll let her know about other possibilities for collaboration with you in the future.</p>
+      :html_body => %(<p>Thanks for making that tough decision. We've notified #{user.first_name} that you chose a different applicant, but that you were honored that she was interested in working together and we'll let her know about other possibilities for collaboration with you in the future.</p>
         <p>Thanks,</p>
-      <p>the GirlsGuild team</p>),
+        <p>the GirlsGuild team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -217,9 +219,11 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{self.event.user.first_name} would like to work with you!",
       :html_body => %(<h1>Yeehaw #{self.user.first_name}!</h1>
-      <p>We're excited to let you know that #{self.event.user.first_name} has reviewed your application for #{self.event.title} and would like to work with you as her apprentice! To accept the apprenticeship, please fill out the <a href=#{url_for(self)}>confirmation form</a> and submit the $29.00 apprenticeship fee. If you have any questions feel free to respond to this email.</p>
-      <p>Thanks,</p>
-      <p>the GirlsGuild team</p>),
+        <p>We're excited to let you know that #{self.event.user.first_name} has reviewed your application for #{self.event.title} and would like to work with you as her apprentice!</p>
+        <p>To accept the apprenticeship, please fill out the <a href=#{url_for(self)}>confirmation form</a> and submit the $29.00 apprenticeship fee. Just so you know, your confirmation is your commitment to take on the apprenticeship, so once you've paid, we don't offer a refund.</p>
+        <p>If you have any questions feel free to respond to this email.</p>
+        <p>Thanks and Happy Making!</p>
+        <p>the GirlsGuild team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -232,9 +236,11 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{self.event.user.first_name} would like to work with #{self.daughter_firstname}!",
       :html_body => %(<h1>Yeehaw!</h1>
-      <p>We're excited to let you know that #{self.event.user.first_name} has reviewed your daughter's application for #{self.event.title} and would like to work with #{self.daughter_firstname} as her apprentice! To accept the apprenticeship, please fill out the <a href=#{url_for(self)}>confirmation form</a> and submit the $29.00 apprenticeship fee. If you have any questions feel free to respond to this email.</p>
-      <p>Thanks,</p>
-      <p>the GirlsGuild team</p>),
+        <p>We're excited to let you know that #{self.event.user.first_name} has reviewed your daughter's application for #{self.event.title} and would like to work with #{self.daughter_firstname} as her apprentice!</p>
+        <p>To accept the apprenticeship, please fill out the <a href=#{url_for(self)}>confirmation form</a> and submit the $29.00 apprenticeship fee. Just so you know, your daughter's confirmation is her commitment to take on the apprenticeship, so once you've paid, we don't offer a refund.</p>
+        <p>If you have any questions feel free to respond to this email.</p>
+        <p>Thanks,</p>
+        <p>the GirlsGuild team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -247,9 +253,10 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You've accepted #{user.first_name} as your apprentice!",
       :html_body => %(<h1>Hoorah!</h1>
-      <p>You've accepted #{user.first_name} as your apprentice! We've asked her to accept the apprenticeship by filling out the <a href=#{url_for(self)}>confirmation form</a> and submitting her apprenticeship fee. If you have any questions feel free to respond to this email.</p>
-      <p>Thanks,</p>
-      <p>the GirlsGuild team</p>),
+        <p>You've accepted #{user.first_name} as your apprentice! We've asked her to confirm her commitment by submitting her apprenticeship fee. Once she confirms, we'll put you two in touch to get started!</p>
+        <p>If you have any questions feel free to respond to this email.</p>
+        <p>Thanks and Happy Making!</p>
+        <p>the GirlsGuild team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -268,7 +275,8 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your apprenticeship is ready to start! - #{self.event.title}",
       :html_body => %(<h1>Yesss!</h1>
-        <p>You're all confirmed for #{self.event.title}! You can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan your first meeting together.</p>
+        <p>You're all set for #{self.event.title}! We received your confirmation and your payment of $29.</p>
+        <p>You can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan your first meeting together.</p>
         <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
         <p>Thanks and Happy Making!</p>
         <p>the GirlsGuild team</p>),
@@ -285,7 +293,9 @@ class AppSignup < Signup
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your apprenticeship is ready to start! - #{self.event.title}",
-      :html_body => %(<h1>Yesss!</h1> <p>#{self.daughter_firstname} is all confirmed for #{self.event.title}! You can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan their first meeting together.</p>
+      :html_body => %(<h1>Yesss!</h1>
+        <p>#{self.daughter_firstname} is all set for #{self.event.title}! We received your confirmation and your payment of $29.</p>
+        <p>You can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan their first meeting together.</p>
         <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
         <p>Thanks and Happy Making!</p>
         <p>the GirlsGuild team</p>),

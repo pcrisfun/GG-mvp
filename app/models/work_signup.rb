@@ -124,6 +124,7 @@ class WorkSignup < Signup
   def countdown_message
     if self.started?
     elsif self.canceled?
+        return ''
     elsif self.confirmed?
       if self.event.datetime_tba
         return ''
