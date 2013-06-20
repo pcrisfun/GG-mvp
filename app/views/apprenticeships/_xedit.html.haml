@@ -19,7 +19,7 @@
           #banner
             - if !show
               .small Upload an Avatar
-            #avatar.field
+            #avatar.field{ rel: 'popover', data: {placement: "right", content:'Upload an image of yourself that shows a little of your personality'} }
               - if !show
                 = link_to(avatar_for(current_user, size: 50, tag: :medium), '#avatarModal', id: 'avatar-edit', data: {toggle: "modal"} )
                 #avatarModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "avatarModal", :role => "dialog", :tabindex => "-1"}
@@ -31,10 +31,6 @@
                       = render 'dashboards/avatar_fields', f: f
               - else
                 = avatar_for(@apprenticeship.user, size: 50, tag: :medium)
-
-            - if !show
-              %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:'Upload an image of yourself that shows a little of your personality'} }
-                %i.icon-question-sign.small-icon
 
 
             %br
@@ -230,15 +226,15 @@
                 - if !show
                   %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Is this apprenticeship more collaborative, or more directed? Be honest about the help that you need right from the begining. Example: chopsaw, welding, javascript"} }
                     %i.icon-question-sign.small-icon
-            - if !show || @apprenticeship.other_needs
-              %dt
-                Preparations
-              %dd
-                #preparations.field.tags.optional
-                  = editable_link_to 'Ex: "Must have their own laptop"', field: :other_needs, resource: @apprenticeship, type: :text
-                - if !show
-                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Let the apprentice know what she should prepare to bring, wear, or read before you get started working together. Example: a car, a cellphone, a computer, a sense of humor."} }
-                    %i.icon-question-sign.small-icon
+            /- if !show || @apprenticeship.other_needs
+            /  %dt
+            /    Preparations
+            /  %dd
+            /    #preparations.field.tags.optional
+            /      = editable_link_to 'Ex: "Must have their own laptop"', field: :other_needs, resource: @apprenticeship, type: :text
+            /    - if !show
+            /      %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Let the apprentice know what she should prepare to bring, wear, or read before you get started working together. Example: a car, a cellphone, a computer, a sense of humor."} }
+            /        %i.icon-question-sign.small-icon
             %hr
 
             %dt
