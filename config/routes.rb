@@ -1,6 +1,5 @@
 GirlsGuild::Application.routes.draw do
 
-
   resources :signups
   resources :app_signups do
     collection do
@@ -10,6 +9,7 @@ GirlsGuild::Application.routes.draw do
       post :cancel
     end
   end
+
   resources :work_signups
 
   match '/preregs/create', to: 'preregs#create'
@@ -33,7 +33,6 @@ GirlsGuild::Application.routes.draw do
   end
 
   resources :apprenticeships do
-    resources :app_signups
     collection do
       post :cancel
       get :checkmarks
@@ -44,7 +43,6 @@ GirlsGuild::Application.routes.draw do
   match 'apprenticeships/:id/confirmation' => 'apprenticeships#payment_confirmation', as: :payment_confirmation_apprenticeship
 
   resources :workshops do
-    resources :work_signups
     collection do
       post :cancel
       get :checkmarks
