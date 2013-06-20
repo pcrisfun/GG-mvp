@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130615154714) do
+ActiveRecord::Schema.define(:version => 20130620202632) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -89,7 +89,6 @@ ActiveRecord::Schema.define(:version => 20130615154714) do
     t.string   "location_nbrhood"
     t.boolean  "datetime_tba",                                     :default => false
     t.string   "respect_my_style"
-    t.boolean  "facilitate"
     t.integer  "prereg_id"
     t.boolean  "gender",                                           :default => false
     t.boolean  "follow_up_sent",                                   :default => false,     :null => false
