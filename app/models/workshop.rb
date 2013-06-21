@@ -55,7 +55,7 @@ class Workshop < Event
     validates_presence_of :payment_options, :permission
   end
 
-  include Emailable
+ include Emailable
 
 	def deliver_save
 		Pony.mail({
