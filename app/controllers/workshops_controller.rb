@@ -98,7 +98,7 @@ class WorkshopsController < ApplicationController
           redirect_to workshops_path, :flash => { :warning => "Rats. Your workshop has been canceled."}
 
         else @workshop.submit && @workshop.deliver
-            redirect_to workshops_path, :flash => {:success => "Yatzee! Your workshop was created!" }
+          redirect_to workshops_path, :flash => {:success => "Yatzee! Your workshop was created!" }
         end
       end
     end

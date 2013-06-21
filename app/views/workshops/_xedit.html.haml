@@ -302,8 +302,16 @@
                 %span.st_email_hcount{:displaytext => "Email"}
 
         //Apply Sidebar //////////////////
-        - if show
-          %span#applysidebar.pull-right
+        %span#applysidebar.pull-right
+          //Map //////////////////
+          - if show
+            #map-box
+              = render 'layouts/googleshim', address: @apprenticeship.google_address
+              .map-top-shadow
+              #map
+              .map-bottom-shadow
+
+          - if show
             - if @workshop.accepted?
               - if current_user && current_user.age < @workshop.age_min
                 = link_to "Work with #{@workshop.host_firstname}!", new_workshop_work_signup_path(@workshop), :class => "btn btn-large btn-block disabled"
@@ -357,11 +365,4 @@
           = simple_form_for(@workshop) do |f|
             = f.submit "Revoke Workshop", name: "revoke_button", class: "btn btn-large btn-danger", data: { :confirm => "Are you sure?" }
 
-//Map //////////////////
-- if show
-  %section#map_section.section.alt
-    = render 'layouts/googleshim', address: @workshop.google_address
-    .map-top-shadow
-    #map
-    .map-bottom-shadow
 

@@ -1061,7 +1061,7 @@ input[type="radio"], input[type="checkbox"]
         width: 82.5%
       &.emptyslot
         .emptyimg
-          color: #41B7D8
+          color: $tangerine-shadow
   #bio
     width: 94%
     a
@@ -1069,10 +1069,13 @@ input[type="radio"], input[type="checkbox"]
   .small
     font-size: 13px
     color: $silver-dark
-  #map-box
-    width: 18.5%
+  #map-box  // use this for a smaller map in the sidebar
+    width: 90%
     text-align: center
     margin: 0 1.1%
+    #map
+      margin: 0px -15px 0 0
+
   #details, #private-details
     width: 78.5%
     .dl-horizontal

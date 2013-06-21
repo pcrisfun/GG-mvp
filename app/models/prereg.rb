@@ -4,13 +4,21 @@ class Prereg < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
   include Rails.application.routes.url_helpers
   include ActionDispatch::Routing::UrlFor
+  include ApplicationHelper
 
   belongs_to :user
   belongs_to :event
 
   attr_accessible :event_id, :user_id
 
-  include Emailable
+
+  def default_url_options
+    if Rails.env.development?
+      { :host => 'localhost:3000'}
+    else
+      { :host => 'girlsguild.com'}
+    end
+  end
 
   def deliver_prereg
     return false unless valid?
@@ -19,7 +27,7 @@ class Prereg < ActiveRecord::Base
                   :from => "GirlsGuild<hello@girlsguild.com>",
                   :reply_to => "GirlsGuild<hello@girlsguild.com>",
                   :subject => "#{user.first_name} wants to work with you!",
-                  :html_body => %(<h1>Yay #{event.user.first_name}!</h1> <p>She's a #{user.age}-year-old interested in learning <a href="#{url_for(self.event)}">#{event.topic}</a> with you. That makes #{event.preregs.count} girl(s) who are interested in working with you.</p>),
+                  :html_body => %(<h1>Yay #{event.host_firstname}!</h1> <p>She's a #{user.age}-year-old interested in learning <a href="#{url_for(controller: event.class.name.underscore.pluralize, action: 'show', id: event.id)}">#{event.topic}</a> with you. That makes #{event.preregs.count} girl(s) who are interested in working with you.</p>),
                   :bcc => "hello@girlsguild.com",
               })
     return true

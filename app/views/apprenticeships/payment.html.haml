@@ -7,8 +7,9 @@
       %br
       #full
         .row-fluid
-          .span12
-            %br
+          .span9
+            %h2 Payment
+            %hr
             = simple_form_for @apprenticeship, html: { class: 'form-horizontal payment_form' }, validate: false do |f|
               = render 'shared/error_messages', form_model: @apprenticeship
               = render partial: "shared/credit_card", locals: { f: f, paid: @apprenticeship.charge_id.present? }
@@ -20,3 +21,10 @@
                 %br
                 #preview-buttons-bottom.pull-center
                   = f.submit 'Submit Payment', class: 'btn btn-large btn-primary', id: 'cc_process'
+          .span3
+            %br
+            %br
+            %ul.nav.nav-list
+              %li.header
+                Your Payment is Secure
+              All transactions on GirlsGuild are over a certified secure connection and we use Stripe; a respected third party service to fulfil payments, refunds, and security.

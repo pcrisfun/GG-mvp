@@ -127,7 +127,12 @@
               Availability
             %dd
               #availability.field.text
-                =editable_link_to "Are you flexible? If so we'll assume that you're willing to work with the apprentice's schedule. If you are not flexible then let us know what days and times you are available.", field: :availability, resource: @apprenticeship, type: :text
+                = editable_link_to "What's your availability?", field: :availability, resource: @apprenticeship, type: :text
+              - if !show
+                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content: "Are you flexible? If so we'll assume that you're willing to work with the apprentice's schedule. If you are not flexible then let us know what days and times you are available."} }
+                  %i.icon-question-sign.small-icon
+
+
             %dt
               - if !show
                 %i.icon-asterisk
@@ -297,11 +302,11 @@
                 %span.st_email_hcount{:displaytext => "Email"}
 
         //Apply Sidebar //////////////////
-        - if show
-          %span#applysidebar.pull-right
+        %span#applysidebar.pull-right
+          - if show
             - if @apprenticeship.accepted?
               - if current_user && current_user.age < @apprenticeship.age_min
-                = link_to "Work with #{@apprenticeship.host_firstname}!", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-large btn-block disabled"
+                = link_to "Work with #{@apprenticeship.host_firstname}!", new_app_signup_path(@apprenticeship), :class => "btn btn-large btn-block disabled"
                 %p.small
                   Sorry, it looks like you're younger than the minimum age for this apprenticeship.
                 %br/
@@ -309,7 +314,7 @@
                 = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
 
               - elsif current_user && current_user.age > @apprenticeship.age_max
-                = link_to "Work with #{@apprenticeship.host_firstname}!", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-large btn-block disabled"
+                = link_to "Work with #{@apprenticeship.host_firstname}!", new_app_signup_path(@apprenticeship), :class => "btn btn-large btn-block disabled"
                 %p.small
                   Sorry, it looks like you're older than the maximum age for this apprenticeship.
                 %br/
@@ -318,13 +323,23 @@
 
                 %br
                 %p
-                  #{link_to "Sign up my Daughter", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-block btn-small btn-primary"}
+                  #{link_to "Sign up my Daughter", new_app_signup_path(@apprenticeship), :class => "btn btn-block btn-small btn-primary"}
 
               - elsif @apprenticeship.datetime_tba == true || @apprenticeship.filled? || @apprenticeship.completed?
                 = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
 
               - else
-                = link_to "Sign up!", new_apprenticeship_app_signup_path(@apprenticeship), :class => "btn btn-block btn-primary"
+                = link_to "Sign up!", new_app_signup_path(@apprenticeship), :class => "btn btn-block btn-primary"
+              %br
+
+          //Map //////////////////
+          - if show
+            #map-box
+              = render 'layouts/googleshim', address: @apprenticeship.google_address
+              .map-top-shadow
+              #map
+              .map-bottom-shadow
+
 
       //Preview & Next //////////////////
       - if !show
@@ -352,11 +367,5 @@
           = form_for(@apprenticeship) do |f|
             = f.submit "Revoke Apprenticeship", name: "revoke_button", class: "btn btn-large btn-danger", data: { :confirm => "Are you sure?" }
 
-//Map //////////////////
-- if show
-  %section#map_section.section.alt
-    = render 'layouts/googleshim', address: @apprenticeship.google_address
-    .map-top-shadow
-    #map
-    .map-bottom-shadow
+
 
