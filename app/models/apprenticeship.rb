@@ -13,9 +13,7 @@ class Apprenticeship < Event
     validates_presence_of :host_lastname
     validates_presence_of :kind
     validates_presence_of :description
-    validates_presence_of :bio
     validates_presence_of :availability
-    validates_presence_of :website
     validates_presence_of :begins_at
     validates_presence_of :skill_list
     validates_presence_of :tool_list
@@ -50,14 +48,8 @@ class Apprenticeship < Event
   validation_group :description do
     validates_presence_of :description
   end
-  validation_group :bio do
-    validates_presence_of :bio
-  end
   validation_group :availability do
     validates_presence_of :availability
-  end
-  validation_group :website do
-    validates_presence_of :website
   end
   validation_group :begins_at do
     validates_presence_of :begins_at

@@ -242,64 +242,32 @@
                     %i.icon-question-sign.small-icon
             %hr
 
-            %dt
-              - if !show
-                %i.icon-asterisk
-              Bio
-            %dd
-              #bio.field.textarea
-                = editable_link_to "Give people a sense of who they'll be working with. Think about including: schooling, current work, recent shows or events, what you’re interested in as maker and why you’re interested in sharing it - and a bit of personality, too!", field: :bio, resource: @workshop, type: :textarea
-              - if !show
-                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Give people a sense of who they'll be working with. Think about including: schooling, current work, recent shows or events, what you’re interested in as maker and why you’re interested in sharing it - and a bit of personality, too!"} }
-                  %i.icon-question-sign.small-icon
-            - if !show || @workshop.website
+            - if @workshop.user.bio.present?
               %dt
-                - if !show
-                  %i.icon-asterisk
+                Bio
+              %dd
+                = @workshop.user.bio
+            - if @workshop.user.website.present?
+              %dt
                 Website
-              %dd{class: show ? 'link' : ''}
-                www.
-                #website.field.text.optional
-                  = editable_link_to '_________', field: :website, resource: @workshop, type: :text
-                - if !show
-                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Show off a little!"} }
-                    %i.icon-question-sign.small-icon
-            - if !show || @workshop.webshop
+              %dd
+                = @workshop.user.website
+            - if @workshop.user.webshop.present?
               %dt
                 Webshop
-              %dd{class: show ? 'link' : ''}
-                www.
-                #website.field.text.optional
-                  = editable_link_to '_________', field: :webshop, resource: @workshop, type: :text
-            - if !show || @workshop.facebook
+              %dd
+                = @workshop.user.webshop
+            - if @workshop.user.facebook.present?
               %dt
                 Facebook
-              %dd{class: show ? 'link' : ''}
-                facebook.com/
-                #website.field.text.optional
-                  = editable_link_to '_________', field: :facebook, resource: @workshop, type: :text
-                - if !show
-                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"We'll include a link to your page when we promote this opportunity! It shows everyone how warm, open, and transparent we know you are!"} }
-                    %i.icon-question-sign.small-icon
-            - if !show || @workshop.twitter
+              %dd
+                = @workshop.user.facebook
+            - if @workshop.user.twitter.present?
               %dt
                 Twitter
-              %dd{class: show ? 'link' : ''}
-                twitter.com/
-                #website.field.text.optional
-                  = editable_link_to '_________', field: :twitter, resource: @workshop, type: :text
-                - if !show
-                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"We'll include your hashtag when we promote this opportunity! It shows everyone how warm, open, and transparent we know you are!"} }
-                    %i.icon-question-sign.small-icon
-            - if show
-              %dt
-
               %dd
-                %br
-                %span.st_facebook_hcount{:displaytext => "Facebook"}
-                %span.st_twitter_hcount{:displaytext => "Tweet"}
-                %span.st_pinterest_hcount{:displaytext => "Pinterest"}
-                %span.st_email_hcount{:displaytext => "Email"}
+                = @workshop.user.twitter
+
 
         //Apply Sidebar //////////////////
         %span#applysidebar.pull-right

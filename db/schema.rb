@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130620202632) do
+ActiveRecord::Schema.define(:version => 20130621172753) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -216,6 +216,11 @@ ActiveRecord::Schema.define(:version => 20130620202632) do
     t.boolean  "use_gravatar",           :default => true
     t.integer  "host_id"
     t.string   "phone"
+    t.text     "bio"
+    t.string   "website"
+    t.string   "webshop"
+    t.string   "facebook"
+    t.string   "twitter"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
