@@ -19,7 +19,7 @@
 
     <div class="span9 pull-right">
       <% if @app_signup.accepted? && @app_signup.user == current_user %>
-        <%= simple_form_for [@apprenticeship, @app_signup], class: 'form-horizontal', html: {class: "payment_form"}, url: confirm_app_signups_path, method: :post, :validate => true, defaults: { input_html: { class: 'span6' } }  do |f| %>
+        <%= simple_form_for @app_signup, class: 'form-horizontal', html: {class: "payment_form"}, url: confirm_app_signups_path, method: :post, :validate => true, defaults: { input_html: { class: 'span6' } }  do |f| %>
           <%= render 'confirm_form', f: f %>
           <%= f.hidden_field :id, value: @app_signup.id %>
           <%= f.submit "Confirm Apprenticeship", name: 'confirm_button', class: "btn btn-large btn-primary btn-create", id: "cc_process" %>
