@@ -22,6 +22,16 @@
 
             = f.input :email, :required => true
 
+            = f.input :bio, :as => :text, :input_html => {:rows => 8}
+
+            = f.input :website
+
+            = f.input :webshop
+
+            = f.input :facebook
+
+            = f.input :twitter
+
             - if devise_mapping.confirmable? && resource.pending_reconfirmation?
               %p
                 Currently waiting confirmation for: #{resource.unconfirmed_email}
