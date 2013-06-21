@@ -20,6 +20,10 @@
                   - elsif event.accepted? or event.canceled? or event.filled?
                     = link_to "Edit", url_for(controller: event.class.name.underscore.pluralize, action: 'edit', id: event.id ), class: "btn btn-mini pull-right"
           %td.title
+            - if event.type == "Apprenticeship"
+              .span{:class => "label"}= Apprenticeship
+            - elsif event.type == "Workshop"
+              .span{:class => "label"}= Workshop
             = link_to event.title_html, url_for(controller: event.class.name.underscore.pluralize, action: 'show', id: event.id ), class: "title-boxlink"
           %td.spots
             = event.spots_left
