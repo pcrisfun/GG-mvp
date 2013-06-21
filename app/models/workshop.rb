@@ -60,7 +60,7 @@ class Workshop < Event
 	def deliver_save
 		Pony.mail({
 			:to => "#{user.name}<#{user.email}>",
-   		:from => "GirlsGuild<hello@girlsguild.com>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your workshop has been saved - #{topic} with #{user.name}",
 			:html_body => %(<h1>Hooray #{user.first_name}!</h1>
@@ -77,7 +77,7 @@ class Workshop < Event
 		return false unless valid?
 		Pony.mail({
 			:to => "#{user.name}<#{user.email}>",
-   		:from => "GirlsGuild<hello@girlsguild.com>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your workshop has been submitted! - #{topic} with #{user.name}",
 			:html_body => %(<h1>Thanks #{user.first_name}!</h1>
@@ -95,7 +95,7 @@ class Workshop < Event
 		return false unless valid?
 		Pony.mail({
 			:to => "#{user.name}<#{user.email}>",
-   		:from => "GirlsGuild<hello@girlsguild.com>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your workshop has been resubmitted! - #{topic} with #{user.name}",
 			:html_body => %(<h1>Nice!</h1>
@@ -112,7 +112,7 @@ class Workshop < Event
 	def deliver_accept
 		Pony.mail({
 			:to => "#{user.name}<#{user.email}>",
-   		:from => "GirlsGuild<hello@girlsguild.com>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your workshop has been posted! - #{topic} with #{user.name}",
 			:html_body => %(<h1>Congrats #{user.first_name}!</h1>
@@ -131,7 +131,7 @@ class Workshop < Event
 	def deliver_cancel
 		Pony.mail({
 			:to => "#{user.name}<#{user.email}>",
-   		:from => "GirlsGuild<hello@girlsguild.com>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your workshop has been canceled - #{topic} with #{user.name}",
 			:html_body => %(<h1>Bummer!</h1>
@@ -159,11 +159,11 @@ class Workshop < Event
 	def deliver_reject
 		Pony.mail({
 			:to => "#{user.name}<#{user.email}>",
-   		:from => "GirlsGuild<hello@girlsguild.com>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "We couldn't post your workshop - #{topic} with #{user.name}",
 			:html_body => %(<h1>Sorry.</h1>
-        <p>We can't post your workshop because there was a problem your submission:</p>
+        <p>We can't post your workshop because there was a problem with your submission:</p>
         <p>[pull in reject_reason here].</p>
         <p>If the problem is with the formatting or content of the workshop, you can edit and resubmit it anytime. Find it here - <a href="#{edit_workshop_url(self)}"> #{self.title}</a></p>
         <p>Please let us know if you have any questions.</p>
@@ -177,7 +177,7 @@ class Workshop < Event
 	def deliver_revoke
 		Pony.mail({
 			:to => "#{user.name}<#{user.email}>",
-   		:from => "GirlsGuild<hello@girlsguild.com>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your workshop has been revoked - #{topic} with #{user.name}",
 			:html_body => %(<h1>Sorry.</h1>
@@ -195,7 +195,7 @@ class Workshop < Event
   def deliver_maker_reminder
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
-      :from => "GirlsGuild<hello@girlsguild.com>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your workshop is coming up! - #{self.title}",
       :html_body => %(<h1>3, 2, 1... it's almost time!</h1>
@@ -212,7 +212,7 @@ class Workshop < Event
   def deliver_maker_followup
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
-      :from => "GirlsGuild<hello@girlsguild.com>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "How was your workshop? - #{self.title}",
       :html_body => %(<h1>Hey #{user.first_name}!</h1>

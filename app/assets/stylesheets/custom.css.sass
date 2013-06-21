@@ -756,7 +756,8 @@ input[type="radio"], input[type="checkbox"]
   margin-top: 10px
 
 
-// Workshops & Apprenticeships
+// Apprenticeships & Workshops
+// ================================================================================================
 .newevent
   p, .well
     font-size: 14px
@@ -852,10 +853,15 @@ input[type="radio"], input[type="checkbox"]
   &:focus
     outline: none
 
-// Apprenticeship & Workshop Design Pages
-#apprenticeship-design, #apprenticeship-show, #private-info, #workshop-design, #workshop-show
+
+// A&W DESIGN Pages --------------------------
+#apprenticeship-design, #workshop-design
+
+
+// A&W DESIGN & SHOW Pages ---------------------------
+#private-info, #apprenticeship-design, #apprenticeship-show, #workshop-design, #workshop-show
   .editable-cancel
-    display: none //////////////////// this x button is hidden to see if it helps usability!
+    display: none // this x button is hidden for usability
   #page-header
     font-family: kristi
     font-size: 45px
@@ -1003,13 +1009,12 @@ input[type="radio"], input[type="checkbox"]
       a, span
         text-transform: uppercase
     #kind
+      color: #333
       margin-top: 10px
-      background-color: #666
       &.label
         a, span
           line-height: 22px
           font-family: $opensans
-          color: #FFF
         & .preview
           color: #FFF
     #description
@@ -1122,6 +1127,8 @@ input[type="radio"], input[type="checkbox"]
       padding-bottom: 30px
     #kind
       padding: 1px 8px
+      color: #FFF
+      background-color: #999
   #private-address
     margin-top: 0px
   #details, #private-details

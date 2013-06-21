@@ -37,4 +37,5 @@
               %br
               %br
               %p.inline-block
-                Unhappy? #{link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete}.
+                Unhappy? #{link_to "Cancel my account", registration_path(resource_name), :data => { confirm: "You sure? You'll lose your portfolio along with the skills and tools you've tracked so far by deleting your account." }, :method => :delete}
+                /| Or #{link_to "manage my newsletter settings", registration_path(resource_name)}

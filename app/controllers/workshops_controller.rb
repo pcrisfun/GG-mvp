@@ -82,24 +82,19 @@ class WorkshopsController < ApplicationController
         @workshop.submit && @workshop.deliver
         redirect_to confirmation_workshop_path(@workshop), flash: { warning: "Awesome! Your Workshop was submitted."}
       else
-        if params[:revoke_button] && current_user.admin? && @workshop.deliver_revoke
-          @workshop.revoke
+        if params[:revoke_button] && current_user.admin? && @workshop.revoke && @workshop.deliver_revoke
           redirect_to workshops_path, :flash => { :warning => "Workshop revoked."}
 
-        elsif params[:reject_button] && current_user.admin? && @workshop.deliver_reject
-          @workshop.reject
+        elsif params[:reject_button] && current_user.admin? && @workshop.reject && @workshop.deliver_reject
           redirect_to workshops_path, :flash => { :warning => "Workshop rejected." }
 
-        elsif params[:accept_button] && current_user.admin? && @workshop.deliver_accept
-          @workshop.accept
+        elsif params[:accept_button] && current_user.admin? && @workshop.accept && @workshop.deliver_accept
           redirect_to workshops_path, :flash => { :success => "Workshop accepted." }
 
-        elsif params[:resubmit_button] && @workshop.deliver_resubmit
-          @workshop.resubmit
+        elsif params[:resubmit_button] && @workshop.resubmit && @workshop.deliver_resubmit
           redirect_to workshops_path, :flash => { :success => "Thanks! Your workshop was resubmitted."}
 
-        elsif params[:cancel_button] && @workshop.deliver_cancel
-          @workshop.cancel
+        elsif params[:cancel_button] && @workshop.cancel && @workshop.deliver_cancel
           redirect_to workshops_path, :flash => { :warning => "Rats. Your workshop has been canceled."}
 
         else @workshop.submit && @workshop.deliver

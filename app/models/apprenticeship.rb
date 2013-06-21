@@ -202,7 +202,7 @@ class Apprenticeship < Event
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "We couldn't post your apprenticeship - #{topic} with #{user.name}",
 			:html_body => %(<h1>Sorry.</h1>
-        <p>We can't post your apprenticeship because there was a problem your submission:</p>
+        <p>We can't post your apprenticeship because there was a problem with your submission:</p>
         <p>[pull in reject_reason here].</p>
         <p>If the problem is with the formatting or content of the apprenticeship, you can edit and resubmit it anytime. Find it here - <a href="#{edit_apprenticeship_url(self)}"> #{self.title}</a></p>
         <p>Please let us know if you have any questions.</p>

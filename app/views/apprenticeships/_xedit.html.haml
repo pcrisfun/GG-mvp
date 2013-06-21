@@ -39,7 +39,7 @@
             #title.field.text
               = editable_link_to 'Topic of Your Apprenticeship', field: :topic, resource: @apprenticeship, type: :text
             - if !show
-              %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Give a snappy title for the apprenticeship. You could include the type of apprenticeship in the name. Example: 'Production Apprenticeship for Fab.com', or you could focus on what you'll be doing; 'Soldering and Casting Apprenticeship' "} }
+              %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Give a snappy title for the apprenticeship. You could include the type of apprenticeship in the name. Example: 'Jewelry Apprenticeship for Fab.com', or you could focus on what you'll be doing; 'Soldering and Casting Apprenticeship' "} }
                 %i.icon-question-sign.small-icon
             %br
             with
@@ -59,7 +59,7 @@
             - if !show
               %i.icon-asterisk
             #kind.field.label.label-inverse
-              = editable_link_to 'Type of', field: :kind, resource: @apprenticeship, type: :select, data: {source: "{'Event':'Event', 'Production':'Production','Ongoing':'Ongoing' }"}
+              = editable_link_to 'Kind of', field: :kind, resource: @apprenticeship, type: :select, data: {source: "{'Event':'Event', 'Production':'Production','Ongoing':'Ongoing' }"}
               Apprenticeship
             - if !show
               %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Is this an Event Apprenticeship with a specific timeline? Is it a Production Apprenticeship, where you need help making a run or building something in particular? Or is it an Ongoing Apprenticeship, through which you share your knowledge and creative practice for help with day-to-day business and the timeline is less set (though we suggest an initial 3 month timeline)?"} }
@@ -68,7 +68,7 @@
             - if !show
               %i.icon-asterisk
             #description.field.textarea
-              = editable_link_to "Tell us about your apprenticeship. Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. Will this be more of a mentorship, or more of an internship? Based on your expectations, consider whether you plan to pay the apprentice, and if so, how much?", field: :description, resource: @apprenticeship, type: :textarea
+              = editable_link_to "Tell us about your apprenticeship. Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. Will this be more of a mentorship, or more of an internship?", field: :description, resource: @apprenticeship, type: :textarea
             - if !show
               %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. Will this be more of a mentorship, or more of an internship? Based on your expectations, consider whether you plan to pay the apprentice, and if so, how much?"} }
                 %i.icon-question-sign.small-icon
@@ -222,7 +222,7 @@
                 Prerequisites
               %dd
                 #prequisites.field.tags.optional
-                  = editable_link_to 'Are there prerequisites your apprentice should meet?', field: :requirement_list, resource: @apprenticeship, type: :select2
+                  = editable_link_to 'Are there skills & tools your apprentice should have experience with?', field: :requirement_list, resource: @apprenticeship, type: :select2
                 - if !show
                   %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Is this apprenticeship more collaborative, or more directed? Be honest about the help that you need right from the begining. Example: chopsaw, welding, javascript"} }
                     %i.icon-question-sign.small-icon
@@ -343,14 +343,14 @@
           %hr
           %h3 Admin Controls
           = form_for(@apprenticeship) do |f|
-            = f.submit "Reject Apprenticeship", name: "reject_button", class: "btn btn-large btn-danger"
+            = f.submit "Reject Apprenticeship", name: "reject_button", class: "btn btn-large btn-danger", data: { :confirm => "Are you sure?" }
             = f.submit "Approve Apprenticeship", name: "accept_button", class: "btn btn-large btn-success"
 
         - if current_user && current_user.admin? && @apprenticeship.accepted?
           %hr
           %h3 Admin Controls
           = form_for(@apprenticeship) do |f|
-            = f.submit "Revoke Apprenticeship", name: "revoke_button", class: "btn btn-large btn-danger"
+            = f.submit "Revoke Apprenticeship", name: "revoke_button", class: "btn btn-large btn-danger", data: { :confirm => "Are you sure?" }
 
 //Map //////////////////
 - if show

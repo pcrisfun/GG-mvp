@@ -348,14 +348,14 @@
           %hr
           %h3 Admin Controls
           = simple_form_for(@workshop) do |f|
-            = f.submit "Reject Workshop", name: "reject_button", class: "btn btn-large btn-danger"
+            = f.submit "Reject Workshop", name: "reject_button", class: "btn btn-large btn-danger", data: { :confirm => "Are you sure?" }
             = f.submit "Approve Workshop", name: "accept_button", class: "btn btn-large btn-success"
 
         - if current_user && current_user.admin? && @workshop.accepted?
           %hr
           %h3 Admin Controls
           = simple_form_for(@workshop) do |f|
-            = f.submit "Revoke Workshop", name: "revoke_button", class: "btn btn-large btn-danger"
+            = f.submit "Revoke Workshop", name: "revoke_button", class: "btn btn-large btn-danger", data: { :confirm => "Are you sure?" }
 
 //Map //////////////////
 - if show
