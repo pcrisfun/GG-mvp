@@ -65,7 +65,7 @@ class Workshop < Event
 			:subject => "Your workshop has been saved - #{topic} with #{user.name}",
 			:html_body => %(<h1>Hooray #{user.first_name}!</h1>
         <p>We're thrilled you're building a workshop! If you get stuck take a look at our <a href="http://www.girlsguild.com/faq_makers">FAQ for Makers</a>, or feel free to respond to this email with any questions you might have!</p>
-        <p>You can edit your workshop here - <a href="#{url_for(self)}"> #{self.title}</a></p>
+        <p>You can edit your workshop here - <a href="#{url_for(self)}"> #{self.title}</a> or monitor signups from <a href="#{dashboard_url}">your dashboard</a></p>
         <p>Thanks,</p>
         <p>the GirlsGuild team</p>),
 			:bcc => "hello@girlsguild.com",
@@ -82,7 +82,7 @@ class Workshop < Event
 			:subject => "Your workshop has been submitted! - #{topic} with #{user.name}",
 			:html_body => %(<h1>Thanks #{user.first_name}!</h1>
         <p>Your workshop has been submitted and is pending while we take a look at it.</p>
-        <p>You can review the submitted workshop here - <a href="#{url_for(self)}"> #{self.title}</a></p>
+        <p>You can review the submitted workshop here - <a href="#{url_for(self)}"> #{self.title}</a> or monitor signups from <a href="#{dashboard_url}">your dashboard</a></p>
         <p>Please note that you won't be able to edit the details of your workshop until it's been approved. Then if you make changes, we'll need to review it again.</p>
         <p>Thanks,</p>
         <p>the GirlsGuild team</p>),
@@ -100,7 +100,7 @@ class Workshop < Event
 			:subject => "Your workshop has been resubmitted! - #{topic} with #{user.name}",
 			:html_body => %(<h1>Nice!</h1>
         <p>Your workshop is currently pending while we take a look at your changes.</p>
-        <p>You can review the updated workshop here - <a href="#{url_for(self)}"> #{self.title}</a></p>
+        <p>You can review the updated workshop here - <a href="#{url_for(self)}"> #{self.title}</a> or monitor signups from <a href="#{dashboard_url}">your dashboard</a></p>
         <p>Just like last time, you won't be able to edit the details of your workshop until it's been approved, at which point any edits will need to be reviewed again.</p>
         <p>Thanks,</p>
         <p>the GirlsGuild team</p>),
@@ -119,7 +119,7 @@ class Workshop < Event
         <p>Your workshop has been posted and is now live! Check it out - <a href="#{url_for(self)}"> #{self.title}</a></p>
         <p>Be sure to invite your friends and share it on your social networks!</p>
         <p>We'll let you know whenever someone signs up. Registrations will be closed when #{self.registration_max} people have signed up, or on #{self.ends_at}, whichever happens first.</p>
-        <p>If by some bad luck you need to cancel your workshop, you can do so from <a href="#{url_for(dashboard_path)}">your dashboard</a> - but we're crossing our fingers that won't happen! Likewise, if it turns out fewer than your minimum #{self.registration_min} participants sign up, the workshop will automatically be canceled on #{self.ends_at}. We think it's going to rock, though!</p>
+        <p>If by some bad luck you need to cancel your workshop, you can do so from <a href="#{dashboard_url}">your dashboard</a> - but we're crossing our fingers that won't happen! Likewise, if it turns out fewer than your minimum #{self.registration_min} participants sign up, the workshop will automatically be canceled on #{self.ends_at}. We think it's going to rock, though!</p>
         <p>Let us know if you have any questions!</p>
         <p>Thanks and Happy Making!</p>
         <p>the GirlsGuild team</p>),
@@ -136,7 +136,7 @@ class Workshop < Event
 			:subject => "Your workshop has been canceled - #{topic} with #{user.name}",
 			:html_body => %(<h1>Bummer!</h1>
         <p>You've canceled your workshop. We hope you'll consider offering it again sometime!</p>
-        <p>You can edit the workshop and resubmit it anytime. Find it here - <a href="#{url_for(self)}"> #{self.title}</a></p>
+        <p>You can edit the workshop and resubmit it anytime. Find it here - <a href="#{url_for(self)}"> #{self.title}</a> or from <a href="#{dashboard_url}">your dashboard</a></p>
         <p>Thanks,</p>
         <p>the GirlsGuild team</p>),
 			:bcc => "hello@girlsguild.com",
@@ -165,7 +165,7 @@ class Workshop < Event
 			:html_body => %(<h1>Sorry.</h1>
         <p>We can't post your workshop because there was a problem with your submission:</p>
         <p>[pull in reject_reason here].</p>
-        <p>If the problem is with the formatting or content of the workshop, you can edit and resubmit it anytime. Find it here - <a href="#{edit_workshop_url(self)}"> #{self.title}</a></p>
+        <p>If the problem is with the formatting or content of the workshop, you can edit and resubmit it anytime. Find it here - <a href="#{edit_workshop_url(self)}"> #{self.title}</a> or from <a href="#{dashboard_url}">your dashboard</a></p>
         <p>Please let us know if you have any questions.</p>
         <p>Thanks,</p>
         <p>the GirlsGuild team</p>),
@@ -183,7 +183,7 @@ class Workshop < Event
 			:html_body => %(<h1>Sorry.</h1>
         <p>We've had to revoke your workshop because of an issue:</p>
         <p>[pull in revoke_reason here].</p>
-        <p>If the problem is with the formatting or content of the workshop, you can edit and resubmit it anytime. Find it here - <a href="#{edit_workshop_url(self)}"> #{self.title}</a></p>
+        <p>If the problem is with the formatting or content of the workshop, you can edit and resubmit it anytime. Find it here - <a href="#{edit_workshop_url(self)}"> #{self.title}</a> or from <a href="#{dashboard_url}">your dashboard</a></p>
         <p>Please let us know if you have any questions.</p>
         <p>Thanks,</p>
         <p>the GirlsGuild team</p>),
@@ -200,7 +200,7 @@ class Workshop < Event
       :subject => "Your workshop is coming up! - #{self.title}",
       :html_body => %(<h1>3, 2, 1... it's almost time!</h1>
         <p>Just a reminder that your workshop is happening on #{self.begins_at}.</p>
-        <p>So far, #{self.signups.where(:state => 'confirmed').count} people have signed up, and registration closes on #{self.ends_at}. We'll let you know if anyone new signs up before then!</p>
+        <p>So far, #{self.signups.where(:state => 'confirmed').count} people have signed up, and registration closes on #{self.ends_at}. We'll let you know if anyone new signs up before then! You can also view who has signed up from <a href="#{dashboard_url}">your dashboard</a></p>
         <p>Thanks and Happy Making!</p>
         <p>the GirlsGuild team</p>),
       :bcc => "hello@girlsguild.com",

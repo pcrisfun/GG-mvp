@@ -231,15 +231,15 @@
                 - if !show
                   %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", trigger: "hover", content:"Is this workshop more collaborative, or more directed? Be honest about the help that you need right from the begining. Example: chopsaw, welding, javascript"} }
                     %i.icon-question-sign.small-icon
-            - if !show || @workshop.other_needs
-              %dt
-                Preparations
-              %dd
-                #preparations.field.tags.optional
-                  = editable_link_to 'Ex: "Must have their own laptop"', field: :other_needs, resource: @workshop, type: :text
-                - if !show
-                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Let the apprentice know what she should prepare to bring, wear, or read before you get started working together. Example: a car, a cellphone, a computer, a sense of humor."} }
-                    %i.icon-question-sign.small-icon
+            /- if !show || @workshop.other_needs
+            /  %dt
+            /    Preparations
+            /  %dd
+            /    #preparations.field.tags.optional
+            /      = editable_link_to 'Ex: "Must have their own laptop"', field: :other_needs, resource: @workshop, type: :text
+            /    - if !show
+            /      %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Let the apprentice know what she should prepare to bring, wear, or read before you get started working together. Example: a car, a cellphone, a computer, a sense of humor."} }
+            /        %i.icon-question-sign.small-icon
             %hr
 
             - if @workshop.user.bio.present?
