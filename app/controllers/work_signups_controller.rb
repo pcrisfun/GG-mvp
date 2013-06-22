@@ -21,6 +21,7 @@ class WorkSignupsController < ApplicationController
   end
 
   def create
+    @workshop = Workshop.find(params[:workshop_id])
     @work_signup = WorkSignup.new(params[:work_signup])
     @work_signup.event_id = @workshop.id
     @work_signup.user_id = current_user.id
