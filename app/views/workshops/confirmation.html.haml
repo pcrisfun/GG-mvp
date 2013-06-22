@@ -9,7 +9,10 @@
 
       .span8
         .fancyform-light.form-horizontal
-          %p Thanks for submitting a workshop! A confirmation will be sent to your email.
+          %p
+            Thanks for submitting your workshop:
+            = link_to @workshop.title, workshop_path(@workshop)
+            A confirmation will be sent to your email.
           %p We'll review your workshop proposal and let you know as soon as it's been posted live! You can check on the status of your proposal any time by visiting your #{link_to "Dashboard Page", dashboard_path}
           %br
           .alert.alert-info

@@ -274,7 +274,7 @@
           - if show
             - if @apprenticeship.accepted?
               - if current_user && current_user.age < @apprenticeship.age_min
-                = link_to "Work with #{@apprenticeship.host_firstname}!", new_app_signup_path(@apprenticeship), :class => "btn btn-large btn-block disabled"
+                = link_to "Work with #{@apprenticeship.host_firstname}!", new_app_signup_path(apprenticeship_id: @apprenticeship), :class => "btn btn-large btn-block disabled"
                 %p.small
                   Sorry, it looks like you're younger than the minimum age for this apprenticeship.
                 %br/
@@ -282,7 +282,7 @@
                 = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
 
               - elsif current_user && current_user.age > @apprenticeship.age_max
-                = link_to "Work with #{@apprenticeship.host_firstname}!", new_app_signup_path(@apprenticeship), :class => "btn btn-large btn-block disabled"
+                = link_to "Work with #{@apprenticeship.host_firstname}!", new_app_signup_path(apprenticeship_id: @apprenticeship), :class => "btn btn-large btn-block disabled"
                 %p.small
                   Sorry, it looks like you're older than the maximum age for this apprenticeship.
                 %br/
@@ -291,13 +291,13 @@
 
                 %br
                 %p
-                  #{link_to "Sign up my Daughter", new_app_signup_path(@apprenticeship), :class => "btn btn-block btn-small btn-primary"}
+                  #{link_to "Sign up my Daughter", new_app_signup_path(apprenticeship_id: @apprenticeship), :class => "btn btn-block btn-small btn-primary"}
 
               - elsif @apprenticeship.datetime_tba == true || @apprenticeship.filled? || @apprenticeship.completed?
                 = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
 
               - else
-                = link_to "Sign up!", new_app_signup_path(@apprenticeship), :class => "btn btn-block btn-primary"
+                = link_to "Sign up!", new_app_signup_path(apprenticeship_id: @apprenticeship), :class => "btn btn-block btn-primary"
               %br
 
           //Map //////////////////

@@ -1,9 +1,23 @@
 class WorkSignupsController < ApplicationController
   before_filter :authenticate_user!, except: [:index]
-  before_filter :fetch_workshop
+  before_filter :load_work_signup
+
+  def load_work_signup
+    if params[:work_signup] && params[:work_signup][:id]
+      @work_signup = WorkSignup.find(params[:work_signup][:id])
+    else
+      @work_signup = WorkSignup.find(params[:id]) if params[:id]
+    end
+    @workshop = @work_signup.event if @work_signup
+  end
 
   def new
-  	@work_signup = WorkSignup.new
+  	@workshop = Workshop.find(params[:workshop_id])
+    @work_signup = WorkSignup.new
+    @work_signup.event_id = @workshop.id
+    if params[:parent]
+      @work_signup.parent = params[:parent]
+    end
   end
 
   def create
@@ -21,7 +35,6 @@ class WorkSignupsController < ApplicationController
   end
 
   def update
-    @work_signup = WorkSignup.find(params[:id])
     current_user.update_attributes(params[:user])
 
     if @work_signup.update_attributes(params[:work_signup])
@@ -48,7 +61,4 @@ class WorkSignupsController < ApplicationController
     end
   end
 
-  def fetch_workshop
-    @workshop = Workshop.find(params[:workshop_id])
-  end
 end
