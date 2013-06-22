@@ -3,6 +3,7 @@
     %table.table.table-bordered.table-hover.table-condensed
       %tbody
         - submitted_signups = event.submitted_signups
+        - submitted_preregs = event.submitted_preregs
         %tr
           %td.image
             - if event.host_album
@@ -21,9 +22,9 @@
                     = link_to "Edit", url_for(controller: event.class.name.underscore.pluralize, action: 'edit', id: event.id ), class: "btn btn-mini pull-right"
           %td.title
             - if event.type == "Apprenticeship"
-              .span{:class => "label"}= Apprenticeship
+              .label.label-info.pull-right Apprenticeship
             - elsif event.type == "Workshop"
-              .span{:class => "label"}= Workshop
+              .label.label-info.pull-right Workshop
             = link_to event.title_html, url_for(controller: event.class.name.underscore.pluralize, action: 'show', id: event.id ), class: "title-boxlink"
           %td.spots
             = event.spots_left
@@ -51,4 +52,20 @@
                           = signup.state
                       %td.countdown
                         = signup.countdown_message_maker
+        - if !submitted_preregs.empty?
+          %tr
+            %td.nested-table{ colspan: 6 }
+              %table.table.table-bordered.table-hover.table-condensed.table-subtable
+                %tbody
+                  - submitted_preregs.each_with_index do |prereg, index|
+                    %tr
+                      %td.image
+                        = index + 1
+                      %td.name
+                        = avatar_for(prereg.user, size: 25, tag: :small)
+                        = prereg.user.name
+                      %td.state
+                        %span.label
+                          following
+                      %td.countdown
 

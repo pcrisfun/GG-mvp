@@ -6,6 +6,7 @@ class DashboardsController < ApplicationController
     if current_user
       @events = current_user.events
       @signups = current_user.signups
+      @preregs = current_user.preregs
     end
   end
 

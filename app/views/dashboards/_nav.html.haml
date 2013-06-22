@@ -1,6 +1,6 @@
 %ul.nav.nav-list
   %li.header
     My Dashboard
+  = active_link_to( content_tag(:i, '', class: 'icon-calendar')+ 'My Events', dashboard_path, :wrap_tag => :li, :active => :exclusive )
   = active_link_to( content_tag(:i, '', class: 'icon-lock')+ 'Settings', edit_user_registration_path(current_user), :wrap_tag => :li, :active => :exclusive )
   = active_link_to( content_tag(:i, '', class: 'icon-user')+ 'Avatar', avatar_path, :wrap_tag => :li, :active => :exclusive )
-  = active_link_to( content_tag(:i, '', class: 'icon-calendar')+ 'My Events', dashboard_path, :wrap_tag => :li, :active => :exclusive )

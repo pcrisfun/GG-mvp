@@ -1,22 +1,27 @@
-<%= content_tag :section, :class => "section" do %>
+<%= content_tag :section, :class => "section alt" do %>
 	<%= content_tag :div, :class => "container" do %>
 		<% provide(:title, 'Sign Up for a Workshop') %>
+
 		<h1>Workshop Signup</h1>
-		<br />
+		<p>Yes! We’re excited you want to work with <%= "#{@workshop.host_firstname}" %>! When you sign up, we’ll send you an email to give you all the details, including the exact address.</p>
+		<br/>
+		<!--
+		<div class="howitworks">
+      <%= render 'howitworks' %>
+    </div>-->
 
-			<h3>Yes! We’re excited you want to work with <%= "#{@workshop.host_firstname}" %>!</h3>
-			<br />
-			<p>Use this form to register. When you submit it, we’ll send you an email to confirm and give you all the details, including the exact address for the workshop.</p>
-			<p>Still not sure? Check out our <a href="http://www.girlsguild.com/faq_girls.html#TakingWorkshop">FAQ for Girls</a> to find out how this works, or email us if you have other questions - <a href="mailto:hello@girlsguild.com?Subject=Hello again">hello@girlsguild.com</a>.</p>
-
-			<div class="row">
-			  <div class="span9">
-					<%= simple_form_for @work_signup, class: 'form-horizontal', html: {class: "payment_form"}, :validate => true, defaults: { input_html: { class: 'span6' } } do |f| %>
-			    	<%= render "form", f: f %>
+    <div class="row-fluid">
+			<div class="span9">
+				<%= simple_form_for @work_signup, class: 'form-horizontal', html: {class: "payment_form"}, :validate => true, defaults: { input_html: { class: 'span6' } } do |f| %>
+		    	<%= render "form", f: f %>
 					<%= f.submit "Sign me up!", :name => 'create_button', :class => "btn btn-large btn-primary", :id => @work_signup.charge_id.present? ? "" : "cc_process" %>
 				<% end %>
-			  </div>
 			</div>
+
+			<div class="span3 accordionFAQ">
+	      <%= render 'faq' %>
+	    </div>
+	  </div>
 
 	<% end %>
 <% end %>

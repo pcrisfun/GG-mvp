@@ -1192,12 +1192,16 @@ input[type="radio"], input[type="checkbox"]
   .label
     font-size: 12px
   table
+    margin-bottom: 14px
     background-color: #FFF
+    td
+      line-height: 17px
     .image
       width: 50px
     .title
       .title-boxlink
         font-size: 14px
+        min-height: inherit
     .spots
       width: 75px
     .state
@@ -1218,6 +1222,8 @@ input[type="radio"], input[type="checkbox"]
     .nested-table
       table
         border-radius: 0px
+        tr
+          background-color: $silver-light
       td
         &.name, &.state, &.countdown
           border-left: 0px

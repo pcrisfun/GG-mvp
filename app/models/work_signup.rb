@@ -153,6 +153,19 @@ class WorkSignup < Signup
     return ''
   end
 
+  def countdown_message_maker
+    if self.started?
+    elsif self.pending?
+    elsif self.accepted?
+    elsif self.declined?
+    elsif self.canceled?
+    elsif self.confirmed?
+    elsif self.completed?
+    else
+    end
+    return ''
+  end
+
   state_machine :state, :initial => :started do
     event :complete do
       transition :confirmed => :completed

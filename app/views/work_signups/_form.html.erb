@@ -1,124 +1,166 @@
 <%= render 'shared/error_messages', :form_model => @work_signup %>
 <%= hidden_field_tag :workshop_id, @workshop.id %>
-	<hr />
+<div class="accordion form-horizontal event-accordion" id="accordion2">
+	<div class="accordion-group">
+	  <div class="accordion-heading">
+	  	<h2>
+				<a class="accordion-toggle" >
+		      1. My Details
+		    </a>
+		  </h2>
+	  </div>
 
-	<h4>Name:</h4>
-	<p><%= "#{current_user.first_name} #{current_user.last_name}" %></p>
+	  <div class="accordion-body ">
+	  	<div class="accordion-inner">
+	  		<br/>
+				<dl class="dl-horizontal dl-application">
+					<dt>Name</dt>
+					<dd><%= "#{current_user.first_name} #{current_user.last_name}" %></dd>
+					<dt>Email</dt>
+					<dd><%= "#{current_user.email}"%></dd>
+				</dl>
 
-	<h4>Email:</h4>
-	<p><%= current_user.email %></p>
+				<% if current_user.age > @workshop.age_max %>
+					<%= f.hidden_field :parent, value: 'true' %>
+					<%= f.input :daughter_firstname, 	label: "Daughter's First Name"  %>
+					<%= f.input :daughter_lastname, 	label: "Daughter's Last Name"  %>
+					<%= f.input :daughter_age, label: "Daughter's Age" do %>
+						<%= f.number_field :daughter_age, :class => "span1" %> (She must be between <strong><%= "#{@workshop.age_min}" %> - <%= "#{@workshop.age_max}" %></strong> years old to do this workshop.)
+					<% end %>
+				<% else %>
+					<dl class="dl-horizontal dl-application">
+						<dt>Age</dt>
+						<dd><%= current_user.age %> years old</dd>
+					</dl>
+				<% end %>
 
-	<% if current_user.age > @workshop.age_max %>
-		<h4>Your daughter's name</h4>
-		<%= f.input :daughter_firstname, 	label: "Daughter's First Name"  %>
-		<%= f.input :daughter_lastname, 	label: "Daughter's Last Name"  %>
-
-		<br/>
-		<%= f.label :daughter_age, capture { %>
-			<h4>Your daughter's age</h4>
-			<% } %>
-		<p><%= f.number_field :daughter_age, :class => "span1" %> *She must be between <%= "#{@workshop.age_min}" %> - <%= "#{@workshop.age_max}" %> years old to be eligible for this workshop.</p>
-
-	<% else %>
-		<h4>Age:</h4>
-		<p><%= current_user.age %> years old</p>
-		<br />
-	<% end %>
-
-	<p>Not you? <%= link_to "Sign in as a different user.", destroy_user_session_path %></p>
-
-	<hr />
-
-	<h3>Tell us a bit more about yourself</h3>
-	<p>*Required fields</p>
-	<br />
-
-	<h4>Phone number: *</h4>
-	<p>We'll only use this to contact you if there are important or last-minute changes to the workshop.</p>
-	<%= text_field_tag "user[phone]", current_user.phone, :required => true %>
-	<br />
-
-	<br />
-	<%= f.label :interest, capture { %>
-		<h4>Interest</h4>
-		<% } %>
-		<p>What are you most interested in learning in this workshop?</p>
-	<%= f.text_field :interest, :class => "span6", :rel => :popover, :data => { :content => "This will help the artist plan her workshop to include what you want to know."}  %>
-	<br />
-
-	<br />
-	<%= f.label :experience, capture { %>
-		<h4>Experience</h4>
-		<% } %>
-		<p>Have you done this kind of making before?</p>
-	<%= f.text_field :experience, :class => "span6", :rel => :popover, :data => { :content => "If so, tell us about what you've made. If not, that's ok too!" } %>
-	<br />
-
-	<br />
-	<% if @workshop.requirement_list.present? %>
-			<h4>Requirements</h4>
-			<p>In order to take part in this workshop, you'll need to know the following skills, tools, and techniques: <%= "#{@workshop.requirement_list}" %></p>
-		<div class="form-inline" >
-			<%= f.check_box :requirements %>
-			<%= f.label :requirements, capture { %>
-			<p>Yup, I know these skills, tools, and techniques.</p>
-			<% } %>
-		</div>
-	<% end %>
-	<% if @workshop.other_needs.present? %>
-		<p>Don't forget, for the workshop you need to remember: <%= "#{@workshop.other_needs}" %>
-	<% end %>
-	<br />
-
-	<br />
-	<% if @workshop.respect_my_style == "1" %>
-		<h4>I won't copy the artist's work *</h4>
-		<textarea rows="5">This is where I agree not to reuse an artist's style for my own profit. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
-		<div class="form-inline" >
-			<%= f.check_box :respect_agreement %>
-			<%= f.label :respect_agreement, capture { %>
-			<p>I agree to respect the artist's style.</p>
-			<% } %>
-		</div>
-	<% end %>
-	<br />
-
-	<% unless current_user.over_18 %>
-		<h3>The boring stuff...</h3>
-		<p>Since you're under 18, you'll need to ask your parents to finish the rest of the form.</p>
-		<br />
-
-		<%= f.label :parent_name %>
-		<%= f.text_field :parent_name %>
-
-		<%= f.label :parent_phone %>
-		<%= f.text_field :parent_phone %>
-
-		<%= f.label :parent_email %>
-		<%= f.text_field :parent_email %>
-
-		<h4>Indemnification Agreement for Minors *</h4>
-		<textarea rows="5">This is where the waiver goes to which you must agree to be able to sign up for the workshop. It will remove GirlsGuild from all liability as well as the artist involved in teaching. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
-		<div class="form-inline" >
-			<%= f.check_box :parents_waiver %>
-			<%= f.label :parents_waiver, capture { %>
-			<p>I am the legal parent/guardian of the workshop participant, and have read and agree to this indeminification agreement.</p>
-			<% } %>
-		</div>
-	<% end %>
-
-	<h4>Workshop Participation Waiver *</h4>
-	<textarea rows="5">This is where the waiver goes to which you must agree to be able to sign up for the workshop. It will remove GirlsGuild from all liability as well as the artist involved in teaching. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
-	<div class="form-inline" >
-		<%= f.check_box :waiver %>
-		<%= f.label :waiver, capture { %>
-		<p>I have read and agree to the workshop participation waiver.</p>
-		<% } %>
+				<p class="pull-right">Not you? <%= link_to "Sign in as a different user.", destroy_user_session_path %></p>
+				<br/>
+	    </div>
+	  </div>
 	</div>
 
-	<h3>Workshop fee: <%=number_to_currency(@workshop.price*1.2)%></h3>
+	<br/>
 
-	<%= render :partial => "shared/credit_card", :locals => { :f => f, :paid => @work_signup.charge_id.present? } %>
+	<div class="accordion-group">
+	  <div class="accordion-heading">
+	  	<h2>
+		    <a class="accordion-toggle" >
+		      2. About Me
+		    </a>
+		   </h2>
+	  </div>
 
-	<br />
+	  <div class="accordion-body ">
+	    <div class="accordion-inner">
+
+				<br />
+				<%= f.input :interest, label: "Interest", input_html: { rows: "2",
+										placeholder: "What are you most interested in learning in this workshop?",
+										rel: 'popover',
+										data: { :content => "This will help the artist plan her workshop to include what you want to know." }}  %>
+				<br />
+
+				<%= f.input :experience, label: "Experience", input_html: { rows: "2",
+										placeholder: "Have you done this kind of making before?",
+										rel: 'popover',
+										:data => { :content => "If so, tell us about what you've made. If not, that's ok too!" }} %>
+				<br />
+
+				<% if @workshop.requirement_list.present? %>
+					<%= f.input :requirements, label: "Requirements", input_html: { rows: "2",
+											placeholder: "In order to take part in this workshop, you'll need to know the following skills, tools, and techniques: [fill in]",
+											rel: 'popover',
+											:data => { :content => "If so, tell us about what you've made. If not, that's ok too!" }} %>
+					<div class="form-inline" >
+						<%= f.check_box :requirements %>
+						<%= f.label :requirements, capture { %>
+							<p>Yup, I know these skills, tools, and techniques.</p>
+						<% } %>
+					</div>
+				<% end %>
+				<br />
+
+				<% if @workshop.other_needs.present? %>
+					<p>Don't forget, for the workshop you need to remember: <%= "#{@workshop.other_needs}" %>
+				<% end %>
+
+				<h4>Phone number: *</h4>
+				<p>We'll only use this to contact you if there are important or last-minute changes to the workshop.</p>
+				<%= text_field_tag "user[phone]", current_user.phone, :required => true %>
+
+
+				<br />
+				<% if @workshop.respect_my_style == "1" %>
+					<h4>I won't copy the artist's work *</h4>
+					<textarea rows="5">This is where I agree not to reuse an artist's style for my own profit. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
+					<div class="form-inline" >
+						<%= f.check_box :respect_agreement %>
+						<%= f.label :respect_agreement, capture { %>
+						<p>I agree to respect the artist's style.</p>
+						<% } %>
+					</div>
+				<% end %>
+				<br />
+
+				<% unless current_user.over_18 %>
+					<h3>The boring stuff...</h3>
+					<p>Since you're under 18, you'll need to ask your parents to finish the rest of the form.</p>
+					<br />
+
+					<%= f.label :parent_name %>
+					<%= f.text_field :parent_name %>
+
+					<%= f.label :parent_phone %>
+					<%= f.text_field :parent_phone %>
+
+					<%= f.label :parent_email %>
+					<%= f.text_field :parent_email %>
+
+					<h4>Indemnification Agreement for Minors *</h4>
+					<textarea rows="5">This is where the waiver goes to which you must agree to be able to sign up for the workshop. It will remove GirlsGuild from all liability as well as the artist involved in teaching. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
+					<div class="form-inline" >
+						<%= f.check_box :parents_waiver %>
+						<%= f.label :parents_waiver, capture { %>
+						<p>I am the legal parent/guardian of the workshop participant, and have read and agree to this indeminification agreement.</p>
+						<% } %>
+					</div>
+				<% end %>
+
+				<h4>Workshop Participation Waiver *</h4>
+				<textarea rows="5">This is where the waiver goes to which you must agree to be able to sign up for the workshop. It will remove GirlsGuild from all liability as well as the artist involved in teaching. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
+				<div class="form-inline" >
+					<%= f.check_box :waiver %>
+					<%= f.label :waiver, capture { %>
+					<p>I have read and agree to the workshop participation waiver.</p>
+					<% } %>
+				</div>
+
+	    </div>
+	  </div>
+	</div>
+
+	<br/>
+
+	<div class="accordion-group">
+	  <div class="accordion-heading">
+	  	<h2>
+		    <a class="accordion-toggle">
+		      3. Payment
+		    </a>
+		  </h2>
+	  </div>
+	  <div class="accordion-body ">
+	    <div class="accordion-inner">
+	    	<br />
+				<h3>Workshop fee: <%=number_to_currency(@workshop.price*1.2)%></h3>
+				<br />
+				<%= render :partial => "shared/credit_card", :locals => { :f => f, :paid => @work_signup.charge_id.present? } %>
+				<br />
+			</div>
+		</div>
+	</div>
+</div>
+
+
 

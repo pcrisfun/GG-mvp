@@ -248,6 +248,10 @@ class Event < ActiveRecord::Base
     return self.signups.where(:state => "confirmed")
   end
 
+  def submitted_preregs
+    return self.preregs
+  end
+
   def spots_left
     if self.filled?
       return "Full"

@@ -11,9 +11,14 @@
           - if @events && !@events.empty?
             %h2 I'm Leading
             = render 'leading', events: @events
+            %br
           - if @signups && !@signups.empty?
             %h2 I'm Learning
             = render 'learning', signups: @signups
+            %br
+          - if @preregs && !@preregs.empty?
+            %h2 I'm Following
+            = render 'following', preregs: @preregs
         - if @events && @events.empty? && @signups && @signups.empty?
           %p You haven't hosted or signed up for any events yet. Go for it!
           #{ link_to "Sign up for an apprenticeship", apprenticeships_path, class: "btn btn-small btn-primary" } - OR - #{ link_to "Sign up for a workshop", workshops_path, class: "btn btn-small btn-primary" }
