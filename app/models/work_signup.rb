@@ -3,9 +3,44 @@ class SignupError < StandardError; end
 
 class WorkSignup < Signup
 
-  validates :waiver, :acceptance => true
+  attr_accessible :waiver, :interest, :experience,
+                  :requirements, :respect_agreement,
+                  :daughter_firstname, :daughter_lastname, :daughter_age,
+                  :daughter_age_is_valid,
+                  :parent_name, :parent_phone, :parent_email, :parents_waiver
+
+  validates_presence_of :interest, :experience, :requirements, :respect_agreement, :message => ' must be included in order to submit your form.'
+  validates_acceptance_of :waiver, :requirements, :respect_agreement, :message => ' must agree to submit your form.'
+
+  validates_presence_of :daughter_firstname, :daughter_lastname, :daughter_age, :parents_waiver, :if => :parent?
+  validates_acceptance_of :parents_waiver, :if => :parent?
+  validate :daughter_age_is_valid, :if => :parent?
+
+  #validates_numericality_of :phone
+  validates_presence_of :parent_name, :parent_phone, :parent_email, :parents_waiver, :if => :minor?
+  validates_acceptance_of :parents_waiver, :if => :minor?
 
   include Emailable
+
+  def respect_valid
+    if self.event.respect_my_style == "1" && !respect_agreement
+      errors.add(:respect_agreement, "You must agree to respect the artist's style")
+    end
+  end
+
+  def daughter_age_is_valid
+    unless daughter_age && daughter_age >= self.event.age_min && daughter_age <= self.event.age_max
+      errors.add(:daughter_age, "Your daughter must be between #{self.event.age_min} - #{self.event.age_max} to apply for this apprenticeship.")
+    end
+  end
+
+  def parent?
+    return self.parent == 'true'
+  end
+
+  def minor?
+    return !self.user.over_18
+  end
 
   # Creates a sign up object, processes payment, and marks sign up
   # process as completed on the sign up object.

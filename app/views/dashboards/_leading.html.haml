@@ -46,7 +46,16 @@
                         = index + 1
                       %td.name
                         = avatar_for(signup.user, size: 25, tag: :small)
-                        = signup.user.name
+                        - if signup.parent?
+                          #{signup.user.name}'s daughter #{signup.daughter_firstname}
+                        - else
+                          = signup.user.name
+                        ( age
+                        - if signup.parent?
+                          = signup.daughter_age
+                        - else
+                          = signup.user.age
+                        )
                       %td.state
                         %span.label{class: signup.state_label_class}
                           = signup.state
@@ -64,6 +73,9 @@
                       %td.name
                         = avatar_for(prereg.user, size: 25, tag: :small)
                         = prereg.user.name
+                        ( age
+                        = prereg.user.age
+                        )
                       %td.state
                         %span.label
                           following

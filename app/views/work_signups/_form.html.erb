@@ -5,7 +5,7 @@
 	  <div class="accordion-heading">
 	  	<h2>
 				<a class="accordion-toggle" >
-		      1. My Details
+		      1. About Me
 		    </a>
 		  </h2>
 	  </div>
@@ -15,7 +15,7 @@
 	  		<br/>
 				<dl class="dl-horizontal dl-application">
 					<dt>Name</dt>
-					<dd><%= "#{current_user.first_name} #{current_user.last_name}" %></dd>
+					<dd><%= "#{current_user.first_name} #{current_user.last_name}" %> <span class="pull-right">Not you? <%= link_to "Sign in as a different user.", destroy_user_session_path %></span></dd>
 					<dt>Email</dt>
 					<dd><%= "#{current_user.email}"%></dd>
 				</dl>
@@ -34,27 +34,8 @@
 					</dl>
 				<% end %>
 
-				<p class="pull-right">Not you? <%= link_to "Sign in as a different user.", destroy_user_session_path %></p>
 				<br/>
-	    </div>
-	  </div>
-	</div>
 
-	<br/>
-
-	<div class="accordion-group">
-	  <div class="accordion-heading">
-	  	<h2>
-		    <a class="accordion-toggle" >
-		      2. About Me
-		    </a>
-		   </h2>
-	  </div>
-
-	  <div class="accordion-body ">
-	    <div class="accordion-inner">
-
-				<br />
 				<%= f.input :interest, label: "Interest", input_html: { rows: "2",
 										placeholder: "What are you most interested in learning in this workshop?",
 										rel: 'popover',
@@ -68,16 +49,20 @@
 				<br />
 
 				<% if @workshop.requirement_list.present? %>
-					<%= f.input :requirements, label: "Requirements", input_html: { rows: "2",
-											placeholder: "In order to take part in this workshop, you'll need to know the following skills, tools, and techniques: [fill in]",
-											rel: 'popover',
-											:data => { :content => "If so, tell us about what you've made. If not, that's ok too!" }} %>
-					<div class="form-inline" >
-						<%= f.check_box :requirements %>
-						<%= f.label :requirements, capture { %>
-							<p>Yup, I know these skills, tools, and techniques.</p>
-						<% } %>
-					</div>
+					<%= f.input :requirements do %>
+						<%= content_tag(:span, rel: 'popover', :data => { :content => "In order to take part in this workshop, you'll need to know the following skills, tools, and techniques." }) do %>
+							<% @workshop.requirement_list.each do |req| %>
+								<span class="label"><%= req %></span>
+							<% end -%>
+							<br/>
+							<span class="form-inline" >
+								<%= f.check_box :requirements %>
+								<%= f.label :requirements, capture { %>
+									<p>Yup, I know these skills, tools, and techniques.</p>
+								<% } %>
+							</span>
+						<% end -%>
+					<% end -%>
 				<% end %>
 				<br />
 
@@ -85,25 +70,29 @@
 					<p>Don't forget, for the workshop you need to remember: <%= "#{@workshop.other_needs}" %>
 				<% end %>
 
-				<h4>Phone number: *</h4>
+				<!--<h4>Phone number: *</h4>
 				<p>We'll only use this to contact you if there are important or last-minute changes to the workshop.</p>
-				<%= text_field_tag "user[phone]", current_user.phone, :required => true %>
+				<%= text_field_tag "user[phone]", current_user.phone, :required => true %>-->
 
 
-				<br />
 				<% if @workshop.respect_my_style == "1" %>
-					<h4>I won't copy the artist's work *</h4>
-					<textarea rows="5">This is where I agree not to reuse an artist's style for my own profit. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
-					<div class="form-inline" >
-						<%= f.check_box :respect_agreement %>
-						<%= f.label :respect_agreement, capture { %>
-						<p>I agree to respect the artist's style.</p>
-						<% } %>
-					</div>
-				<% end %>
+					<%= f.input :respect_agreement do %>
+						<%= content_tag(:span, rel: 'popover', data: { content: ""}) do %>
+							<textarea rows="3" class="span6">Teaching your unique techniques can sometimes feel like risking trade secrets. For this reason we as all of our apprentices to agree to respect the maker's proprietary techniques by not directly copying their work.</textarea>
+						<% end -%>
+						<br/>
+						<span class="form-inline">
+							<%= f.check_box :respect_agreement %>
+							<%= f.label :respect_agreement, capture { %>
+								<p>I agree to respect the Maker's proprietary techniques</p>
+							<% } %>
+						</span>
+					<% end -%>
+				<% end -%>
 				<br />
 
-				<% unless current_user.over_18 %>
+
+				<% if @work_signup.minor? %>
 					<h3>The boring stuff...</h3>
 					<p>Since you're under 18, you'll need to ask your parents to finish the rest of the form.</p>
 					<br />
@@ -116,25 +105,57 @@
 
 					<%= f.label :parent_email %>
 					<%= f.text_field :parent_email %>
-
-					<h4>Indemnification Agreement for Minors *</h4>
-					<textarea rows="5">This is where the waiver goes to which you must agree to be able to sign up for the workshop. It will remove GirlsGuild from all liability as well as the artist involved in teaching. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
-					<div class="form-inline" >
-						<%= f.check_box :parents_waiver %>
-						<%= f.label :parents_waiver, capture { %>
-						<p>I am the legal parent/guardian of the workshop participant, and have read and agree to this indeminification agreement.</p>
-						<% } %>
-					</div>
 				<% end %>
 
-				<h4>Workshop Participation Waiver *</h4>
-				<textarea rows="5">This is where the waiver goes to which you must agree to be able to sign up for the workshop. It will remove GirlsGuild from all liability as well as the artist involved in teaching. Blah blah bla wheoreoyroweyr e ayeasy fays fyasiduf yiasyfiuaysoifyaos dfias ydfoiyasoid foia sdfio isudfy oiasy dfoiua ysofiyaosdfyiosy foisy dfoasodfyoi asydfi asyfo asof ysoid.</textarea>
-				<div class="form-inline" >
-					<%= f.check_box :waiver %>
-					<%= f.label :waiver, capture { %>
-					<p>I have read and agree to the workshop participation waiver.</p>
-					<% } %>
-				</div>
+				<% if !@work_signup.minor? || @work_signup.parent? %>
+					<%= f.input :parents_waiver do %>
+						<%= content_tag(:span, rel: 'popover', data: { content: ""}) do %>
+							<textarea rows="3" class="span6">INDEMNIFICATION AGREEMENT FOR MINOR.  In consideration for ______________________ (print name), age _____ (the “Minor”), being permitted by GirlsGuild to participate in the apprenticeship titled “___________________________________________” (the “Apprenticeship”) taking place between ________ and ________ , ____, and contemporaneously with and as part of the execution of that certain Participation Waiver and Release Agreement by the undersigned parent or guardian (hereinafter referred to as the “Agreement”, the terms defined therein and not otherwise defined herein, being used herein as therein defined), I agree to the following WAIVER, RELEASE, AND INDEMNIFICATION: The undersigned parent and guardian of the minor, for themselves and on behalf of the minor, join in the foregoing WAIVER AND RELEASE and stipulates and agrees that it does KNOWINGLY AND INTENTIONALLY WAIVE AND RELEASE, INDEMNIFY AND HOLD HARMLESS GIRLSGUILD AND ANY OF ITS OFFICERS, AGENTS, SERVANTS, EMPLOYEES, CONTRACTORS, ASSIGNS, AND ALL PERSONS, NATURAL OR CORPORATE, IN PRIVITY WITH GIRLSGUILD OR ANY OF FOREGOING PERSONS from and against any and all claims, actions, damages, liability, costs, and expenses, in connection with any loss of life, any injury or damage to person or property or any other type of injury or damage (including reasonable attorney’s fees) of any kind or nature whatsoever, whether foreseen or unforeseen, arising directly or indirectly out of or resulting from the Minor’s participation in the Apprenticeship, including without limitation, any damage to my property or the property of the Minor, or any injury or death to the Minor, REGARDLESS OF WHETHER ANY SUCH LOSS, LIABILITY, CLAIM OR DAMAGE RESULTS FROM THE SOLE, CONTRIBUTORY, PARTIAL, JOINT, COMPARATIVE OR CONCURRENT NEGLIGENCE OF GIRLSGUILD OR ANY OF ITS OFFICERS, AGENTS, SERVANTS, EMPLOYEES, CONTRACTORS, ASSIGNS, ALL PERSONS NATURAL OR CORPORATE, IN PRIVITY WITH GIRLSGUILD OR ANY OF THE FOREGOING PERSONS, OR ANY OTHER PERSON PARTICIPATING IN THE APPRENTICESHIP UNDER THE EXPRESS OR IMPLIED INVITATION OF GIRLSGUILD, AND REGARDLESS OF WHETHER THE MINOR IS ACCOMPANIED OR UNACCOMPANIED AT THE FACILITY BY THE UNDERSIGNED. I HEREBY REPRESENT THAT THE MINOR IS IN GOOD HEALTH, THAT THERE ARE NO SPECIAL PROBLEMS ASSOCIATED WITH THE CARE OF THE MINOR, AND THAT I HAVE LEFT NO SPECIAL INSTRUCTIONS REGARDING THE MINOR.</textarea>
+						<% end -%>
+						<br/>
+						<span class="form-inline">
+							<%= f.check_box :parents_waiver %>
+							<%= f.label :parents_waiver, capture { %>
+								<p style="margin-top:8px;">I am the legal parent/guardian of the workshop participant, <br/>and have read and agree to this indeminification agreement.</p>
+							<% } %>
+						</span>
+					<% end -%>
+
+				<% else %>
+					<%= f.input :waiver do %>
+						<%= content_tag(:span, rel: 'popover', data: { content: ""}) do %>
+							<textarea rows="3" class="span6">PARTICIPATION WAIVER AND RELEASE AGREEMENT.  PLEASE READ CAREFULLY BEFORE SIGNING. THIS IS A RELEASE OF LIABILITY AND WAIVER OF CERTAIN LEGAL RIGHTS.
+	In consideration for my being permitted by GirlsGuild to participate in the apprenticeship titled “___________________” (the “Apprenticeship”) taking place between __________ through _________, ____, I hereby agree to the following waiver and release:
+
+	1. I understand that my participation in the Apprenticeship may include the use and operation of inherently dangerous tools, equipment, machines, chemicals and other hazardous materials and/or substances.
+
+	2. I agree to follow any applicable safety regulations and instructions, and will not operate any equipment or use any materials without first familiarizing myself without their safe use. I agree that under no circumstances will I operate or use any tools, equipment, machinery or any other materials or substances at the location of the Apprenticeship which have not been expressly mentioned as being included and associated with participation in the Apprenticeship. If I believe anything to be unsafe, I will immediately notify a member of the GirlsGuild staff.
+
+	3. I, ON BEHALF OF MYSELF AND EACH OF MY HEIRS, LEGAL REPRESENTATIVES, SUCCESSORS AND ANYONE ELSE WHO MAY ACT ON MY BEHALF, KNOWINGLY AND INTENTIONALLY WAIVE AND RELEASE, INDEMNIFY AND HOLD HARMLESS GIRLSGUILD AND ANY OF ITS OFFICERS, AGENTS, SERVANTS, EMPLOYEES, CONTRACTORS, ASSIGNS, AND ALL PERSONS, NATURAL OR CORPORATE, IN PRIVITY WITH GIRLSGUILD from and against any and all claims, actions, damages, liability, costs, and expenses, in connection with any loss of life, any injury or damage to person or property or any other type of injury or damage (including reasonable attorney’s fees) of any kind or nature whatsoever, whether foreseen or unforeseen, arising directly or indirectly out of or resulting from my participation in the Apprenticeship, including without limitation, any damage to my property or any injury or death to me, REGARDLESS OF WHETHER ANY SUCH LOSS, LIABILITY, CLAIM OR DAMAGE RESULTS FROM THE SOLE, CONTRIBUTORY, PARTIAL, JOINT, COMPARATIVE OR CONCURRENT NEGLIGENCE OF GIRLSGUILD OR ANY OF ITS OFFICERS, AGENTS, SERVANTS, EMPLOYEES, CONTRACTORS, ASSIGNS, ALL PERSONS NATURAL OR CORPORATE, IN PRIVITY WITH GIRLSGUILD OR ANY OF THE FOREGOING PERSONS, OR ANY OTHER PERSON PARTICIPATING IN THE APPRENTICESHIP UNDER THE EXPRESS OR IMPLIED INVITATION OF GIRLSGUILD.
+
+	4. I will exercise the highest degree of care in my use of all tools, equipment, machinery, and other materials and/or substances to avoid damages to all equipment used during my participation in the Apprenticeship and to avoid damage to the location of the Apprenticeship and all fixtures and contents therein. I agree to indemnify and reimburse GirlsGuild and/or the owner of the location of the Apprenticeship, as applicable, for all damage that I cause to any equipment, infrastructure or any other improvements and facilities.
+
+	5. I understand that GirlsGuild is under no duty to supervise or monitor my own actions or the actions of any other Apprenticeship participant.
+
+	6. I understand that I may be asked to leave the Apprenticeship for violating any provision of this Agreement or for any other reason within the sole discretion of the GirlsGuild staff, and upon such request, I will immediately vacate the location of the Apprenticeship.
+
+	7. I confirm that there are no mental or physical problems or limitations associated with my participation in the Apprenticeship which I have not disclosed in writing to GirlsGuild. I AM VOLUNTARILY PARTICIPATING IN THE APPRENTICESHIP WITH FULL KNOWLEDGE OF THE INHERENT RISKS INVOLVED AND ASSUME AND ACCEPT ANY AND ALL RISKS OR INJURY OR DEATH IN ENGAGING IN SUCH ACTIVITIES.
+
+	I HAVE CAREFULLY READ, CLEARLY UNDERSTAND AND VOLUNTARILY SIGN THIS WAIVER
+	AND RELEASE AGREEMENT, BINDING MYSELF, MY HEIRS, LEGAL REPRESENTATIVES,
+	SUCCESSORS, OR ANYONE WHO MAY ACT ON MY BEHALF.
+	The undersigned individual hereby accepts the terms of this Release and Waiver of Liability and Indemnity Agreement.</textarea>
+						<% end -%>
+						<br/>
+						<span class="form-inline">
+							<%= f.check_box :waiver %>
+							<%= f.label :waiver, capture { %>
+								<p>I have read and agree to the workshop participation waiver.</p>
+							<% } %>
+						</span>
+					<% end -%>
+				<% end -%>
+
 
 	    </div>
 	  </div>
@@ -146,7 +167,7 @@
 	  <div class="accordion-heading">
 	  	<h2>
 		    <a class="accordion-toggle">
-		      3. Payment
+		      2. Payment
 		    </a>
 		  </h2>
 	  </div>
