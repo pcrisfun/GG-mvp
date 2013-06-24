@@ -1,22 +1,8 @@
 class AppSignup < Signup
 
-#  validation_group :parent_save do
-#    validates_presence_of :daughter_firstname, :daughter_lastname, :daughter_age
-#    validate :daughter_age_is_valid
-#  end
   validation_group :save do
   end
-#  validation_group :submit do
-#    validates_presence_of :happywhen, :collaborate, :interest, :experience, :confirm_available, :preferred_times, :confirm_unpaid, :confirm_fee, :message => ' must be included in order to submit your form.'
-#  end
-#  validation_group :confirm do
-#    #validates_numericality_of :phone
-#    validates_presence_of :waiver
-#    validate :respect_valid
-#  end
-#  validation_group :parent_confirm do
-#    validates_presence_of :parent_name, :parent_phone, :parent_email, :parents_waiver
-#  end
+
   attr_accessible :daughter_firstname, :daughter_lastname, :daughter_age,
                   :happywhen, :collaborate, :interest, :experience,
                   :confirm_available, :preferred_times, :confirm_unpaid, :confirm_fee,
@@ -38,6 +24,10 @@ class AppSignup < Signup
 
   def parent?
     return self.parent == 'true'
+  end
+
+  def minor?
+    return !self.user.over_18
   end
 
   def process_apprent_fee
@@ -174,7 +164,7 @@ class AppSignup < Signup
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{self.event.user.first_name} reviewed your application",
-      :html_body => %(<p>Thanks for your application #{user.first_name}! For this apprenticeship #{self.event.user.first_name} chose a different applicant, but she was super excited that you were interested in working together. We'll let you know about other possibilities for collaboration with her in the future.</p>
+      :html_body => %(<p>Thanks for your application #{user.first_name}. For this apprenticeship #{self.event.user.first_name} chose a different applicant, but she was honored that you were interested in working together. We'll let you know about other possibilities for collaboration with her in the future!</p>
         <p>In the meantime, we hope you'll find another apprenticeship you'd be interested in - check out our <a href="#{url_for(apprenticeships_path)}"> our apprenticeship listings</a> to see what's available.</p>
         <p>Thanks,</p>
         <p>the GirlsGuild team</p>),

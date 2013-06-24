@@ -65,7 +65,7 @@ class Workshop < Event
 			:subject => "Your workshop has been saved - #{topic} with #{user.name}",
 			:html_body => %(<h1>Hooray #{user.first_name}!</h1>
         <p>We're thrilled you're building a workshop! If you get stuck take a look at our <a href="http://www.girlsguild.com/faq_makers">FAQ for Makers</a>, or feel free to respond to this email with any questions you might have!</p>
-        <p>You can edit your workshop here - <a href="#{url_for(self)}"> #{self.title}</a> or monitor signups from <a href="#{dashboard_url}">your dashboard</a></p>
+        <p>You can edit your workshop here - <a href="#{url_for(self)}"> #{self.title}</a> or monitor it from <a href="#{dashboard_url}">your dashboard</a></p>
         <p>Thanks,</p>
         <p>the GirlsGuild team</p>),
 			:bcc => "hello@girlsguild.com",
@@ -100,7 +100,7 @@ class Workshop < Event
 			:subject => "Your workshop has been resubmitted! - #{topic} with #{user.name}",
 			:html_body => %(<h1>Nice!</h1>
         <p>Your workshop is currently pending while we take a look at your changes.</p>
-        <p>You can review the updated workshop here - <a href="#{url_for(self)}"> #{self.title}</a> or monitor signups from <a href="#{dashboard_url}">your dashboard</a></p>
+        <p>You can review the updated workshop here - <a href="#{url_for(self)}"> #{self.title}</a> or monitor it from <a href="#{dashboard_url}">your dashboard</a></p>
         <p>Just like last time, you won't be able to edit the details of your workshop until it's been approved, at which point any edits will need to be reviewed again.</p>
         <p>Thanks,</p>
         <p>the GirlsGuild team</p>),
@@ -119,7 +119,7 @@ class Workshop < Event
         <p>Your workshop has been posted and is now live! Check it out - <a href="#{url_for(self)}"> #{self.title}</a></p>
         <p>Be sure to invite your friends and share it on your social networks!</p>
         <p>We'll let you know whenever someone signs up. Registrations will be closed when #{self.registration_max} people have signed up, or on #{self.ends_at}, whichever happens first.</p>
-        <p>If by some bad luck you need to cancel your workshop, you can do so from <a href="#{dashboard_url}">your dashboard</a> - but we're crossing our fingers that won't happen! Likewise, if it turns out fewer than your minimum #{self.registration_min} participants sign up, the workshop will automatically be canceled on #{self.ends_at}. We think it's going to rock, though!</p>
+        <p>If by some bad luck you need to cancel your workshop, you can do so from <a href="#{dashboard_url}">your dashboard</a>. Likewise, if it turns out fewer than your minimum #{self.registration_min} participants sign up, the workshop will automatically be canceled on #{self.ends_at}. We think it's going to rock, though!</p>
         <p>Let us know if you have any questions!</p>
         <p>Thanks and Happy Making!</p>
         <p>the GirlsGuild team</p>),

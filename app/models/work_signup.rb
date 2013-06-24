@@ -48,7 +48,7 @@ class WorkSignup < Signup
   # Returns true if sign up completed successfully, raises exception otherwise.
   def process_signup!
     raise PaymentError unless process_workshop_fee
-    raise SignupError  unless signup
+    #raise SignupError  unless signup
   end
 
   def process_workshop_fee
@@ -69,14 +69,11 @@ class WorkSignup < Signup
     false
   end
 
-  def deliver_confirm(opts={})
-    return false unless valid?
-
+  def deliver(opts={})
     payment = opts[:payment]
-
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
-          :from => "GirlsGuild<hello@girlsguild.com>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You signed up for #{event.topic} with #{event.host_firstname} #{event.host_lastname}",
       :html_body => %(<h1>Yay #{user.first_name}!</h1>
@@ -94,11 +91,87 @@ class WorkSignup < Signup
     return true
   end
 
-  def deliver_first_reminder
-    return false unless valid?
+  def deliver_parent(opts={})
+    payment = opts[:payment]
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
-      :from => "GirlsGuild<hello@girlsguild.com>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "You signed up for #{event.topic} with #{event.host_firstname} #{event.host_lastname}",
+      :html_body => %(<h1>Yay #{user.first_name}!</h1>
+        <p>Thanks for helping your daughter, #{self.daughter_firstname} sign up for <a href=#{url_for(event)}>#{event.title}</a>.
+        <p>We received your payment of #{sprintf('$%0.2f', payment.amount.to_f / 100.0)}</p>
+        <p>Here are the workshop details to remember:</p>
+        <p>When: #{event.begins_at_time} - #{event.ends_at_time}, #{event.begins_at}</p>
+        <p>Where: #{event.location_address} #{event.location_address2}, #{event.location_city}, #{event.location_state}</p>
+        <p>You can review the <a href="#{url_for(self.event)}">workshop details page</a> for more info on what to expect and prepare for, and if by some bad luck it turns out #{self.daughter_firstname} can't make it, you can cancel her registration there too (note that you'll need to cancel at least 7 days in advance to have your fee refunded).</p>
+        <p>Let us know if you have any questions!</p>
+        <p>Thanks and Happy Making!</p>
+        <p>the GirlsGuild team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_maker
+    Pony.mail({
+      :to => "#{event.user.name}<#{event.user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "#{user.first_name} has signed up for your workshop #{event.topic}",
+      :html_body => %(<h1>Woooo #{event.user.first_name}!</h1>
+        <p>Congrats, #{user.first_name} signed up for <a href="#{url_for(self.event)}">#{event.title}</a>.
+        <p>Here are the workshop details to remember:</p>
+        <p>When: #{event.begins_at_time} - #{event.ends_at_time}, #{event.begins_at}</p>
+        <p>Where: #{event.location_address} #{event.location_address2}, #{event.location_city}, #{event.location_state}</p>
+        <p>You can review the <a href="#{url_for(self.event)}">workshop details page</a> or check out <a href="#{dashboard_url}">your dashboard</a> to keep tabs on who's signing up, and if by some bad luck it turns out you can't make it, you can cancel your workshop there too (note that you'll need to cancel at least 7 days in advance so that we can notify your students).</p>
+        <p>Let us know if you have any questions!</p>
+        <p>Thanks and Happy Making!</p>
+        <p>the GirlsGuild team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_destroy
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Your workshop signup has been canceled - #{event.topic} with #{user.name}",
+      :html_body => %(<h1>Bummer!</h1>
+        <p>You've canceled your workshop signup to work with #{self.event.user.first_name}. We hope you'll consider working with #{self.event.user.first_name} or someone else soon.</p>
+        <p>Please let us know if there's a way we can help make this signup process easier by simply replying to this email. We would really appreciate your feedback!</p>
+        <p>Thanks,</p>
+        <p>the GirlsGuild team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_destroy_parent
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Your daughter's workshop signup has been canceled - #{event.topic} with #{user.name}",
+      :html_body => %(<h1>Bummer!</h1>
+        <p>You've deleted your daughter's signup to work with #{self.event.user.first_name}. We hope you'll consider helping her apply to work with #{self.event.user.first_name} or someone else soon.</p>
+        <p>Please let us know if there's a way we can help make this signup process easier by simply replying to this email. We would really appreciate your feedback!</p>
+        <p>Thanks,</p>
+        <p>the GirlsGuild team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+
+
+
+  def deliver_first_reminder
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your workshop is coming up! - #{self.event.title}",
       :html_body => %(<h1>Just a few days!</h1>
@@ -114,10 +187,9 @@ class WorkSignup < Signup
   end
 
   def deliver_second_reminder
-    return false unless valid?
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
-      :from => "GirlsGuild<hello@girlsguild.com>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your workshop is tomorrow! - #{self.event.title}",
       :html_body => %(<h1>Almost time!</h1>
@@ -133,10 +205,9 @@ class WorkSignup < Signup
   end
 
   def deliver_followup
-    return false unless valid?
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
-      :from => "GirlsGuild<hello@girlsguild.com>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "How was your workshop? - #{self.event.title}",
       :html_body => %(<h1>Hey #{user.first_name}!</h1>

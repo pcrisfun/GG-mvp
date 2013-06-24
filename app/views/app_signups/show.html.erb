@@ -2,7 +2,9 @@
   <%= content_tag :div, :class => "container" do %>
     <% provide(:title, "Application for Apprenticeship") %>
 
-    <h1>Apprenticeship Application</h1>
+    <h1>Apprenticeship Confirmation</h1>
+    <p>Congratulations! We’re so happy you'll be working with <%= "#{@apprenticeship.host_firstname}" %>.</p>
+
     <br />
     <h2><%= @app_signup.event.kind %> in <%= @app_signup.event.topic %> with <%= @app_signup.event.host_firstname %> <%= @app_signup.event.host_lastname %>
         <% unless @app_signup.event.host_business.blank? %>
@@ -11,24 +13,26 @@
     </h2>
     <br />
 
-    <div class="span3 pull-left accordionFAQ">
-      <% if current_user == @app_signup.user %>
-        <%= render 'faq' %>
-      <% end %>
-    </div>
+    <div class="row-fluid">
+      <div class="span9 pull-left">
+        <% if @app_signup.accepted? && @app_signup.user == current_user %>
+          <%= simple_form_for @app_signup, class: 'form-horizontal', html: {class: "payment_form"}, url: confirm_app_signups_path, method: :post, :validate => true, defaults: { input_html: { class: 'span6' } }  do |f| %>
+            <%= render 'confirm_form', f: f %>
+            <%= f.hidden_field :id, value: @app_signup.id %>
+            <%= f.submit "Confirm Apprenticeship", name: 'confirm_button', class: "btn btn-large btn-primary btn-create", id: "cc_process" %>
+            <%= link_to "Cancel application", {controller: 'app_signups', action: 'cancel', :id => @app_signup.id}, :method => 'post', :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you will not be able to resubmit it."} %>
+          <% end %>
 
-    <div class="span9 pull-right">
-      <% if @app_signup.accepted? && @app_signup.user == current_user %>
-        <%= simple_form_for @app_signup, class: 'form-horizontal', html: {class: "payment_form"}, url: confirm_app_signups_path, method: :post, :validate => true, defaults: { input_html: { class: 'span6' } }  do |f| %>
-          <%= render 'confirm_form', f: f %>
-          <%= f.hidden_field :id, value: @app_signup.id %>
-          <%= f.submit "Confirm Apprenticeship", name: 'confirm_button', class: "btn btn-large btn-primary btn-create", id: "cc_process" %>
-          <%= link_to "Cancel application", {controller: 'app_signups', action: 'cancel', :id => @app_signup.id}, :method => 'post', :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you will not be able to resubmit it."} %>
+          <hr />
+          <h2>Your Accepted Application</h2>
         <% end %>
+      </div>
 
-        <hr />
-        <h2>Your Accepted Application</h2>
-      <% end %>
+      <div class="span3 pull-right accordionFAQ">
+        <% if current_user == @app_signup.user %>
+          <%= render 'faq' %>
+        <% end %>
+      </div>
     </div>
 
     <div class="row-fluid">
@@ -41,6 +45,16 @@
             </tr>
           </thead>
           <tbody>
+            <tr>
+              <td>Name</td>
+              <td>
+                <%- if @app_signup.parent? %>
+                  #{@app_signup.user.name}'s daughter #{@app_signup.daughter_firstname}
+                <%- else %>
+                  <%= @app_signup.user.name %>
+                <% end -%>
+              </td>
+            </tr>
             <tr>
               <td>Age</td>
               <td><% unless @app_signup.user.age > @app_signup.event.age_max %>
@@ -66,10 +80,11 @@
               <td>Experience with tools and making</td>
               <td><%= @app_signup.experience %></td>
             </tr>
+            <!--
             <tr>
               <td>Display requirements rating</td>
               <td> </td>
-            </tr>
+            </tr>-->
             <tr>
               <td>Preferred meeting times</td>
               <td><%= @app_signup.preferred_times %></td>
@@ -90,12 +105,14 @@
           <% end %>
         </p>
 
-        <% if current_user == @app_signup.event.user && @app_signup.pending? %>
-          <hr />
-          <h3>Makers, it's your call</h3>
-          <%= button_to "Decline this application", {:action => "decline", id: @app_signup, :controller => "app_signups"}, :method => :post, class: "btn btn-large btn-danger" %>
-          <%= button_to "Accept this application", {:action => "accept", id: @app_signup, :controller => "app_signups"}, :method => :post, class: "btn btn-large btn-success" %>
-        <% end %>
+        <div class="pull-center">
+          <% if current_user == @app_signup.event.user && @app_signup.pending? %>
+            <hr />
+            <h3>Makers, it's your call</h3>
+            <%= link_to "Decline this application", {:action => "decline", id: @app_signup, :controller => "app_signups"}, :method => :post, class: "btn btn-large btn-danger pull-left", :data => { :confirm => 'Are you sure you want to decline this applicant? Declining cannot be undone.'} %>
+            <%= link_to "Accept this application", {:action => "accept", id: @app_signup, :controller => "app_signups"}, :method => :post, class: "btn btn-large btn-success pull-right", :data => { :confirm => 'Are you sure you want to accept this application? Accepting cannot be undone.'} %>
+          <% end %>
+        </div>
       </div>
     </div>
   <% end %>
