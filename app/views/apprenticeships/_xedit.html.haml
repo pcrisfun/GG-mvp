@@ -208,7 +208,7 @@
               Skills
             %dd
               #skills.field.tags
-                = editable_link_to 'Which skills and techniques will you be teaching?', field: :skill_list, resource: @apprenticeship, type: :select2
+                = editable_link_to 'Skills and techniques will you be teaching', field: :skill_list, resource: @apprenticeship, type: :select2
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Be as specific as possible so that we can give your apprentice credit for learning new skills allow her to show them off in her portfolio!"} }
                   %i.icon-question-sign.small-icon
@@ -218,16 +218,16 @@
               Tools
             %dd
               #tools.field.tags
-                = editable_link_to 'Which tools and materials will you be teaching and using?', field: :tool_list, resource: @apprenticeship, type: :select2
+                = editable_link_to 'Tools and materials will you be teaching or using', field: :tool_list, resource: @apprenticeship, type: :select2
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Be as specific as possible so that we can give your apprentice credit for learning new tools and allow her to show them off in her portfolio!"} }
                   %i.icon-question-sign.small-icon
             - if !show || !@apprenticeship.requirement_list.empty?
               %dt
-                Prerequisites
+                Requirements
               %dd
                 #prequisites.field.tags.optional
-                  = editable_link_to 'Are there skills & tools your apprentice should have experience with?', field: :requirement_list, resource: @apprenticeship, type: :select2
+                  = editable_link_to 'Any required skills or tools your apprentice should have experience with?', field: :requirement_list, resource: @apprenticeship, type: :select2
                 - if !show
                   %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Is this apprenticeship more collaborative, or more directed? Be honest about the help that you need right from the begining. Example: chopsaw, welding, javascript"} }
                     %i.icon-question-sign.small-icon

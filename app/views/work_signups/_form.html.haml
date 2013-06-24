@@ -64,10 +64,10 @@
                 = f.check_box :requirements
                 = f.label :requirements do
                   %p Yup, I know these skills, tools, and techniques.
-        %br/
-        - if @workshop.other_needs.present?
-          %p
-            Don't forget, for the workshop you need to remember: #{"#{@workshop.other_needs}"}
+        /%br/
+        /- if @workshop.other_needs.present?
+        /  %p
+        /    Don't forget, for the workshop you need to remember: #{"#{@workshop.other_needs}"}
         /
           <br />
           <p>Phone Number (Work on this)</p>

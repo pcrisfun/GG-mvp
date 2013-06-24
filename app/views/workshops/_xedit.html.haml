@@ -60,6 +60,11 @@
               #business.field.text.optional
                 = editable_link_to 'Your Business', field: :host_business, resource: @workshop, type: :text
             %br
+
+            #kind.field.label.label-inverse
+              Workshop
+            %br
+
             - if !show
               %i.icon-asterisk
             #description.field.textarea
@@ -176,10 +181,10 @@
               How Many
             %dd
               #registration-min.field.number
-                = editable_link_to "Min. Participants", field: :registration_min, resource: @workshop, type: :text
+                = editable_link_to "Min", field: :registration_min, resource: @workshop, type: :text
               to
               #registration-max.field.number
-                = editable_link_to "Max. Participants", field: :registration_max, resource: @workshop, type: :text
+                = editable_link_to "Max", field: :registration_max, resource: @workshop, type: :text
               participants.
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"What is the minimum number of participants you need to run the workshop? If fewer than this number have signed up by the time registration closes, the workshop will be cancelled. What is the maximum number of participants you can accommodate in the workshop? Once this many people have signed up, we will close registration for the workshop."} }
@@ -208,7 +213,7 @@
               Skills
             %dd
               #skills.field.tags
-                = editable_link_to 'Which skills and techniques will you be teaching?', field: :skill_list, resource: @workshop, type: :select2
+                = editable_link_to 'Skills and techniques will you be teaching', field: :skill_list, resource: @workshop, type: :select2
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", trigger: "hover", content:"Be as specific as possible so that we can give your apprentice credit for learning new skills allow her to show them off in her portfolio!"} }
                   %i.icon-question-sign.small-icon
@@ -218,16 +223,16 @@
               Tools
             %dd
               #tools.field.tags
-                = editable_link_to 'Which tools and materials will you be teaching and using?', field: :tool_list, resource: @workshop, type: :select2
+                = editable_link_to 'Tools and materials will you be teaching or using', field: :tool_list, resource: @workshop, type: :select2
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", trigger: "hover", content:"Be as specific as possible so that we can give your apprentice credit for learning new tools and allow her to show them off in her portfolio!"} }
                   %i.icon-question-sign.small-icon
             - if !show || !@workshop.requirement_list.empty?
               %dt
-                Prerequisites
+                Requirements
               %dd
                 #prequisites.field.tags.optional
-                  = editable_link_to 'Are there prerequisites your apprentice should meet?', field: :requirement_list, resource: @workshop, type: :select2
+                  = editable_link_to 'Any required skills or tools your apprentice should have experience with?', field: :requirement_list, resource: @workshop, type: :select2
                 - if !show
                   %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", trigger: "hover", content:"Is this workshop more collaborative, or more directed? Be honest about the help that you need right from the begining. Example: chopsaw, welding, javascript"} }
                     %i.icon-question-sign.small-icon

@@ -54,7 +54,7 @@
           rel: 'popover',                                                                                               |
           data: { :content => "Tell us a bit about your working style and what kinds of collaboration you enjoy." }} |
         %br/
-        = f.input :interest, label: "What’s most interesting to me about this apprenticeship is...", input_html: { rows: "3", |
+        = f.input :interest, label: "What’s most interesting to me about this apprenticeship...", input_html: { rows: "3", |
           placeholder: "Give the maker a sense of who they'll be working with.",                                              |
           rel: 'popover',                                                                                                     |
           data: { :content => "Tell us a bit about why this apprenticeship is something you want to do." }}                   |
@@ -64,6 +64,16 @@
           rel: 'popover',                                                                                                      |
           data: { :content => "What kinds of things have you made before? What kinds of tools or techniques have you used?" }} |
         %br/
+        - if @apprenticeship.requirement_list.present?
+          = f.input :requirements do
+            = content_tag(:span, rel: 'popover', :data => { :content => "In order to take part in this workshop, you'll need to know the following skills, tools, and techniques." }) do
+              - @apprenticeship.requirement_list.each do |req|
+                %span.label= req
+              %br/
+              %span.form-inline
+                = f.check_box :requirements
+                = f.label :requirements do
+                  %p Yup, I know these skills, tools, and techniques.
         = f.input :confirm_available, label: 'Confirm your availability' do
           = f.check_box :confirm_available
           %span.simpleform-text
