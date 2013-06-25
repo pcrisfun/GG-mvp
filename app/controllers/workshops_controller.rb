@@ -46,7 +46,7 @@ class WorkshopsController < ApplicationController
     @workshop.generate_title
 
     if @workshop.save(validate: false) && @workshop.deliver_save
-      redirect_to edit_workshop_path(@workshop), :flash => { :success => "Nice! Let's Start by designing your workshop." }
+      redirect_to edit_workshop_path(@workshop), :flash => { :success => "Nice! Let's start by designing your workshop. We'll save this form as you go so you can come back to it at any time." }
     else
       flash.now[:warning] = "Whoops! There was a problem starting your workshop: #{@workshop.errors.full_messages}"
       flash.now[:error] = @workshop.errors.full_messages

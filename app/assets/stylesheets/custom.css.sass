@@ -197,7 +197,7 @@ a, a:hover, a:active, a:visited, a:focus
 
 // Icons
 .enormous-icon.circled
-  line-height: 1.6em
+  line-height: 1.4em
 .btn
   &[class^="icon-"], &[class*=" icon-"]
     font-family: 'FontAwesome'
@@ -324,15 +324,20 @@ a, a:hover, a:active, a:visited, a:focus
     line-height: 15px
 
 .event-accordion
+  .accordion-group
+    +box-shadow-silver
+    +roundcorners(5px)
   .accordion-toggle
-    background-color: $ocean-medium
+    background-color: #AAA
+    padding: 0px 15px
   .accordion-inner
     background-color: #FFF
   .accordion-heading
     h2
+      line-height: 38px
       a
         color: #FFF
-        text-shadow: 1px 1px 1px $ocean-shadow
+        text-shadow: 1px 1px 1px #999
 
 #new_apprenticeship
   .accordion-inner

@@ -41,7 +41,7 @@ class ApprenticeshipsController < ApplicationController
     @apprenticeship.generate_title
 
     if @apprenticeship.save(validate: false) && @apprenticeship.deliver_save
-      redirect_to edit_apprenticeship_path(@apprenticeship), :flash => { :success => "Nice! Let's Start by designing your apprenticeship." }
+      redirect_to edit_apprenticeship_path(@apprenticeship), :flash => { :success => "Nice! Let's start by designing your apprenticeship. We'll save this form as you go so you can come back to it at any time." }
     else
       flash.now[:warning] = "Whoops! There was a problem starting your apprenticeship: #{@apprenticeship.errors.full_messages}"
       flash.now[:error] = @apprenticeship.errors.full_messages
