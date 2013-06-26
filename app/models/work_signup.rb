@@ -14,6 +14,7 @@ class WorkSignup < Signup
 
   validates_acceptance_of :requirements, :if => :requirements?
   validates_acceptance_of :respect_agreement, :if => :respect_agreement?
+
   validates_presence_of :daughter_firstname, :daughter_lastname, :daughter_age, :parents_waiver, :if => :parent?
   validates_acceptance_of :parents_waiver, :if => :parent?
   validate :daughter_age_is_valid, :if => :parent?
