@@ -1,4 +1,5 @@
 class Workshop < Event
+include EventHelper
 
 	has_many :users, :through => :signup
 	has_many :users, :through => :prereg
@@ -120,8 +121,8 @@ class Workshop < Event
 			:html_body => %(<h1>Congrats #{user.first_name}!</h1>
         <p>Your workshop has been posted and is now live! Check it out - <a href="#{url_for(self)}"> #{self.title}</a></p>
         <p>Be sure to invite your friends and share it on your social networks!</p>
-        <p>We'll let you know whenever someone signs up. Registrations will be closed when #{self.registration_max} people have signed up, or on #{self.ends_at}, whichever happens first.</p>
-        <p>If by some bad luck you need to cancel your workshop, you can do so from your <a href="#{dashboard_url}">Events Dashboard</a>. Likewise, if it turns out fewer than your minimum #{self.registration_min} participants sign up, the workshop will automatically be canceled on #{self.ends_at}. We think it's going to rock, though!</p>
+        <p>We'll let you know whenever someone signs up. Registrations will be closed when #{self.registration_max} people have signed up, or on #{get_formated_date(event.ends_at, format: "%b %e, %Y")}, whichever happens first.</p>
+        <p>If by some bad luck you need to cancel your workshop, you can do so from your <a href="#{dashboard_url}">Events Dashboard</a>. Likewise, if it turns out fewer than your minimum #{self.registration_min} participants sign up, the workshop will automatically be canceled on #{get_formated_date(event.ends_at, format: "%b %e, %Y")}. We think it's going to rock, though!</p>
         <p>Let us know if you have any questions!</p>
         <p>Thanks and Happy Making!</p>
         <p>the GirlsGuild team</p>),
@@ -202,7 +203,7 @@ class Workshop < Event
       :subject => "Your workshop is coming up! - #{self.title}",
       :html_body => %(<h1>3, 2, 1... it's almost time!</h1>
         <p>Just a reminder that your workshop is happening on #{self.begins_at}.</p>
-        <p>So far, #{self.signups.where(:state => 'confirmed').count} people have signed up, and registration closes on #{self.ends_at}. We'll let you know if anyone new signs up before then! You can also view who has signed up from your <a href="#{dashboard_url}">Events Dashboard</a></p>
+        <p>So far, #{self.signups.where(:state => 'confirmed').count} people have signed up, and registration closes on #{get_formated_date(event.ends_at, format: "%b %e, %Y")}. We'll let you know if anyone new signs up before then! You can also view who has signed up from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>Thanks and Happy Making!</p>
         <p>the GirlsGuild team</p>),
       :bcc => "hello@girlsguild.com",

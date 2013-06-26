@@ -2,6 +2,7 @@ class PaymentError < StandardError; end
 class SignupError < StandardError; end
 
 class WorkSignup < Signup
+include EventHelper
 
   attr_accessible :waiver, :interest, :experience,
                   :requirements, :respect_agreement,
@@ -91,7 +92,7 @@ class WorkSignup < Signup
         <p>You're all signed up for <a href="#{url_for(self.event)}">#{event.title}</a>.
         <p>We received your payment of #{sprintf('$%0.2f', payment.amount.to_f / 100.0)}</p>
         <p>Here are the workshop details to remember:</p>
-        <p>When: #{event.begins_at_time} - #{event.ends_at_time}, #{event.begins_at}</p>
+        <p>When: #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}</p>
         <p>Where: #{event.location_address} #{event.location_address2}, #{event.location_city}, #{event.location_state}</p>
         <p>You can review the <a href="#{url_for(self.event)}">workshop details page</a> for more info on what to expect and prepare for, and if by some bad luck it turns out you can't make it, you can cancel your registration there too (note that you'll need to cancel at least 7 days in advance to have your fee refunded).</p>
         <p>Let us know if you have any questions!</p>
@@ -113,7 +114,7 @@ class WorkSignup < Signup
         <p>Thanks for helping your daughter, #{self.daughter_firstname} sign up for <a href=#{url_for(event)}>#{event.title}</a>.
         <p>We received your payment of #{sprintf('$%0.2f', payment.amount.to_f / 100.0)}</p>
         <p>Here are the workshop details to remember:</p>
-        <p>When: #{event.begins_at_time} - #{event.ends_at_time}, #{event.begins_at}</p>
+        <p>When: #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}</p>
         <p>Where: #{event.location_address} #{event.location_address2}, #{event.location_city}, #{event.location_state}</p>
         <p>You can review the <a href="#{url_for(self.event)}">workshop details page</a> for more info on what to expect and prepare for, and if by some bad luck it turns out #{self.daughter_firstname} can't make it, you can cancel her registration there too (note that you'll need to cancel at least 7 days in advance to have your fee refunded).</p>
         <p>Let us know if you have any questions!</p>
@@ -133,7 +134,7 @@ class WorkSignup < Signup
       :html_body => %(<h1>Woooo #{event.user.first_name}!</h1>
         <p>Congrats, #{user.first_name} signed up for <a href="#{url_for(self.event)}">#{event.title}</a>.
         <p>Here are the workshop details to remember:</p>
-        <p>When: #{event.begins_at_time} - #{event.ends_at_time}, #{event.begins_at}</p>
+        <p>When: #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}</p>
         <p>Where: #{event.location_address} #{event.location_address2}, #{event.location_city}, #{event.location_state}</p>
         <p>You can review the <a href="#{url_for(self.event)}">workshop details page</a> or check out <a href="#{dashboard_url}">your dashboard</a> to keep tabs on who's signing up, and if by some bad luck it turns out you can't make it, you can cancel your workshop there too (note that you'll need to cancel at least 7 days in advance so that we can notify your students).</p>
         <p>Let us know if you have any questions!</p>
@@ -187,7 +188,8 @@ class WorkSignup < Signup
       :subject => "Your workshop is coming up! - #{self.event.title}",
       :html_body => %(<h1>Just a few days!</h1>
         <p>Just a reminder that you're signed up for <a href="#{url_for(self.event)}">#{event.title}</a>.</p>
-        <p>It's happening on #{self.event.begins_at} from #{self.event.begins_at_time} to #{self.event.ends_at_time}, at #{self.event.location_address} #{self.event.location_address2} in #{self.event.location_city}.</p>
+        <p>When: #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}</p>
+        <p>Where: #{event.location_address} #{event.location_address2}, #{event.location_city}, #{event.location_state}</p>
         <p>Double check the <a href="#{url_for(self.event)}">workshop details page</a> for more info on what to expect and prepare for.</p>
         <p>Thanks and Happy Making!</p>
         <p>the GirlsGuild team</p>),
@@ -204,8 +206,9 @@ class WorkSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your workshop is tomorrow! - #{self.event.title}",
       :html_body => %(<h1>Almost time!</h1>
-        <p>Just one more reminder that your workshop with #{self.event.user.name} is tomorrow, #{self.event.begins_at} from #{self.event.begins_at_time} to #{self.event.ends_at_time}.</p>
-        <p>The address is: #{self.event.location_address} #{self.event.location_address2}, #{self.event.location_city}.</p>
+        <p>Just one more reminder that your workshop with #{self.event.user.name} is tomorrow!
+        <p>When: #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}</p>
+        <p>Where: #{event.location_address} #{event.location_address2}, #{event.location_city}, #{event.location_state}</p>
         <p>Wondering what to expect? The <a href="#{url_for(self.event)}">workshop details page</a> has all the info.</p>
         <p>Thanks and Happy Making!</p>
         <p>the GirlsGuild team</p>),

@@ -6,7 +6,8 @@
 #galleryModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "galleryModal", :role => "dialog", :tabindex => "-1"}
   .modal-header
     %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
-    %h3#galleryModalLabel My Images
+    %h3#galleryModalLabel My Image Gallery
+    %p Upload as many images as you wish, then choose 5 images to add to your event.
   .modal-body
     #photos.transitions-enabled.clearfix
       = render 'galleries/gallery_photos'
