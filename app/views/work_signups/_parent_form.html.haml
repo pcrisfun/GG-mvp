@@ -1,0 +1,134 @@
+= render 'shared/error_messages', :form_model => @work_signup
+= hidden_field_tag :workshop_id, @workshop.id
+#accordion2.accordion.form-horizontal.event-accordion
+  .accordion-group
+    .accordion-heading
+      %h2
+        %a.accordion-toggle
+          1. My Details
+    .accordion-body
+      .accordion-inner
+        %br/
+        %dl.dl-horizontal.dl-application
+          %dt Your Name
+          %dd
+            = "#{current_user.first_name} #{current_user.last_name}"
+            %span.pull-right
+              Not you? #{link_to "Sign in as a different user.", destroy_user_session_path}
+              %br/
+              Or, you can #{link_to "sign yourself up.", new_work_signup_path(workshop_id: @workshop)}
+          %dt Your Email
+          %dd= "#{current_user.email}"
+          %br/
+          = f.hidden_field :parent, value: 'true'
+          = f.input :daughter_firstname,   label: "Daughter's First Name"
+          = f.input :daughter_lastname,   label: "Daughter's Last Name"
+          = f.input :daughter_age, label: "Daughter's Age" do
+            = f.number_field :daughter_age, :class => "span2"
+            (She must be between
+            %strong
+              = "#{@workshop.age_min}"
+              \- #{"#{@workshop.age_max}"}
+            years old to do this workshop.)
+        %br/
+  %br/
+  .accordion-group
+    .accordion-heading
+      %h2
+        %a.accordion-toggle
+          2. About Me
+    .accordion-body
+      .accordion-inner
+        %br/
+        = f.input :interest, label: "Interest", input_html: { rows: "2",
+          placeholder: "What are you most interested in learning in this workshop?",
+          rel: 'popover',
+          data: { :content => "This will help the artist plan her workshop to include what you want to know." }}
+        %br/
+        = f.input :experience, label: "Experience", input_html: { rows: "2",
+          placeholder: "Have you done this kind of making before?",
+          rel: 'popover',
+          data: { :content => "If so, tell us about what you've made. If not, that's ok too!" }}
+        %br/
+        - if @workshop.requirement_list.present?
+          = f.input :requirements do
+            = content_tag(:span, rel: 'popover', :data => { :content => "In order to take part in this workshop, you'll need to know the following skills, tools, and techniques." }) do
+              - @workshop.requirement_list.each do |req|
+                %span.label= req
+              %br/
+              %span.form-inline
+                = f.check_box :requirements
+                = f.label :requirements do
+                  %p Yup, I know these skills, tools, and techniques.
+        /%br/
+        /- if @workshop.other_needs.present?
+        /  %p
+        /    Don't forget, for the workshop you need to remember: #{"#{@workshop.other_needs}"}
+        /
+          <br />
+          <p>Phone Number (Work on this)</p>
+          <haml:loud> text_field_tag &quot;user[phone]&quot;, current_user.phone, :required =&gt; true, label: 'Phone Number' </haml:loud>
+          <br />
+
+        - if @workshop.respect_my_style == "1"
+          = f.input :respect_agreement, label: "Respect Agreement" do
+            %textarea.span6{:readonly => "true", :rows => "3"}
+              Teaching your unique techniques can sometimes feel like risking trade secrets. For this reason we ask all of our guild members to agree to respect the maker's proprietary techniques by not directly copying their work.
+            %br/
+            = f.check_box :respect_agreement
+            %span.simpleform-text I have read and agree to respect the maker's proprietary techniques.
+        %br/
+        = f.input :parents_waiver, label: "Indemnification Agreement for Minors" do
+          %textarea.span6{:readonly => "true", :rows => "3"}
+            INDEMNIFICATION AGREEMENT FOR MINOR
+            In consideration for #{self.current_user.name}'s daughter, (the “Minor”), being permitted by GirlsGuild to participate in the class titled #{@work_signup.event.title} (the “Session”) being held at #{@work_signup.event.location_address} #{@work_signup.event.location_address2} #{@work_signup.event.location_city} #{@work_signup.event.location_state} #{@work_signup.event.location_zipcode} (the “Facility”), and contemporaneously with and as part of the execution of that certain Participation Waiver and Release Agreement by the undersigned parent or guardian (hereinafter referred to as the “Agreement”, the terms defined therein and not otherwise defined herein, being used herein as therein defined), I agree to the following WAIVER, RELEASE, AND INDEMNIFICATION:
+
+            The undersigned parent and guardian of the minor, for themselves and on behalf of the minor, join in the foregoing WAIVER AND RELEASE and stipulates and agrees that it does KNOWINGLY AND INTENTIONALLY WAIVE AND RELEASE, INDEMNIFY AND HOLD HARMLESS GIRLSGUILD AND ANY OF ITS OFFICERS, AGENTS, SERVANTS, EMPLOYEES, CONTRACTORS, ASSIGNS, AND ALL PERSONS, NATURAL OR CORPORATE, IN PRIVITY WITH GIRLS UILD OR ANY OF FOREGOING PERSONS from and against any and all claims, actions, damages, liability, costs, and expenses, in connection with any loss of life, any injury or damage to person or property or any other type of injury or damage (including reasonable attorney’s fees) of any kind or nature whatsoever, whether foreseen or unforeseen, arising directly or indirectly out of or resulting from the Minor’s participation in the Session, including without limitation, any damage to my property or the property of the Minor, or any injury or death to the Minor, REGARDLESS OF WHETHER ANY SUCH LOSS, LIABILITY, CLAIM OR DAMAGE RESULTS FROM THE SOLE, CONTRIBUTORY, PARTIAL, JOINT, COMPARATIVE OR CONCURRENT NEGLIGENCE OF GIRLSGUILD OR ANY OF ITS OFFICERS, AGENTS, SERVANTS, EMPLOYEES, CONTRACTORS, ASSIGNS, ALL PERSONS NATURAL OR CORPORATE, IN PRIVITY WITH GIRLSGUILD OR ANY OF THE FOREGOING PERSONS, OR ANY OTHER PERSON PARTICIPATING IN THE SESSION UNDER THE EXPRESS OR IMPLIED INVITATION OF GIRLSGUILD, AND REGARDLESS OF WHETHER THE MINOR IS ACCOMPANIED OR UNACCOMPANIED AT THE FACILITY BY THE UNDERSIGNED.
+
+            I HEREBY REPRESENT THAT THE MINOR IS IN GOOD HEALTH, THAT THERE ARE NO SPECIAL PROBLEMS ASSOCIATED WITH THE CARE OF THE MINOR, AND THAT I HAVE LEFT NO SPECIAL INSTRUCTIONS REGARDING THE MINOR.
+          %br/
+          %span.form-inline
+            = f.check_box :parents_waiver
+            = f.label :parents_waiver do
+              %p{:style => "margin-top:8px;"}
+                I am the legal parent/guardian of the workshop participant,
+                %br/
+                and have read and agree to this indeminification agreement.
+        %br/
+        = f.input :waiver, label: "Participation Waiver" do
+          %textarea.span6{:readonly => "true", :rows => "3"}
+            PARTICIPATION WAIVER AND RELEASE AGREEMENT PLEASE READ CAREFULLY BEFORE SIGNING. THIS IS A RELEASE OF LIABILITY AND WAIVER OF CERTAIN LEGAL RIGHTS.
+            In consideration for my being permitted by GirlsGuild to participate in the workshop titled #{@work_signup.event.title} (the “Session”) being held at #{@work_signup.event.location_address} #{@work_signup.event.location_address2} #{@work_signup.event.location_city} #{@work_signup.event.location_state} #{@work_signup.event.location_zipcode} (the “Facility”), I hereby agree to the following waiver and release:
+
+            1. I understand that my participation in the Session may include the use and operation of inherently dangerous tools, equipment, machines, chemicals and other hazardous materials and/or substances.
+
+            2. I agree to attend the safety orientation at the beginning of the Session and will not operate any equipment or use any materials without first familiarizing myself without their safe use. I agree that under no circumstances will I operate or use any tools, equipment, machinery or any other materials or substances at the Facility which have not been expressly mentioned during the safety orientation as being included and associated with participation in the Session. If I believe anything to be unsafe, I will immediately notify a member of the GirlsGuild staff.
+
+            3. I, ON BEHALF OF MYSELF AND EACH OF MY HEIRS, LEGAL REPRESENTATIVES, SUCCESSORS AND ANYONE ELSE WHO MAY ACT ON MY BEHALF, KNOWINGLY AND INTENTIONALLY WAIVE AND RELEASE, INDEMNIFY AND HOLD HARMLESS GIRLSGUILD AND ANY OF ITS OFFICERS, AGENTS, SERVANTS, EMPLOYEES, CONTRACTORS, ASSIGNS, AND ALL PERSONS, NATURAL OR CORPORATE, IN PRIVITY WITH GIRLSGUILD from and against any and all claims, actions, damages, liability, costs, and expenses, in connection with any loss of life, any injury or damage to person or property or any other type of injury or damage (including reasonable attorney’s fees) of any kind or nature whatsoever, whether foreseen or unforeseen, arising directly or indirectly out of or resulting from my participation in the Session, including without limitation, any damage to my property or any injury or death to me, REGARDLESS OF WHETHER ANY SUCH LOSS, LIABILITY, CLAIM OR DAMAGE RESULTS FROM THE SOLE, CONTRIBUTORY, PARTIAL, JOINT, COMPARATIVE OR CONCURRENT NEGLIGENCE OF GIRLSGUILD OR ANY OF ITS OFFICERS, AGENTS, SERVANTS, EMPLOYEES, CONTRACTORS, ASSIGNS, ALL PERSONS NATURAL OR CORPORATE, IN PRIVITY WITH GIRLSGUILD OR ANY OF THE FOREGOING PERSONS, OR ANY OTHER PERSON PARTICIPATING IN THE SESSION UNDER THE EXPRESS OR IMPLIED INVITATION OF GIRLSGUILD.
+
+            4. I will exercise the highest degree of care in my use of all tools, equipment, machinery, and other materials and/or substances to avoid damages to all equipment used during my participation in the Session and to avoid damage to the Facility and all fixtures and contents therein. I agree to indemnify and reimburse GirlsGuild and/or the owner of the Facility, as applicable, for all damage that I cause to any equipment, infrastructure or any other improvements and facilities.
+
+            5. I understand that GirlsGuild is under no duty to supervise or monitor my own actions or the actions of any other Session participant.
+
+            6. I understand that I may be asked to leave the Session for violating any provision of this Agreement or for any other reason within the sole discretion of the GirlsGuild staff, and upon such request, I will immediately vacate the Facility.
+
+            7. I confirm that there are no mental or physical problems or limitations associated with my participation in the Session which I have not disclosed in writing to GirlsGuild.
+
+            I AM VOLUNTARILY PARTICIPATING IN THE SESSION WITH FULL KNOWLEDGE OF THE INHERENT RISKS INVOLVED AND ASSUME AND ACCEPT ANY AND ALL RISKS OR INJURY OR DEATH IN ENGAGING IN SUCH ACTIVITIES.
+            I HAVE CAREFULLY READ, CLEARLY UNDERSTAND AND VOLUNTARILY SIGN THIS WAIVER AND RELEASE AGREEMENT, BINDING MYSELF, MY HEIRS, LEGAL REPRESENTATIVES, SUCCESSORS, OR ANYONE WHO MAY ACT ON MY BEHALF.
+          %br/
+          = f.check_box :waiver
+          %span.simpleform-text I have read and agree to the workshop participation waiver.
+  %br/
+  .accordion-group
+    .accordion-heading
+      %h2
+        %a.accordion-toggle
+          2. Payment
+    .accordion-body
+      .accordion-inner
+        %br/
+        %h3 Workshop fee: #{number_to_currency(@workshop.price*1.2)}
+        %br/
+        = render :partial => "shared/credit_card", :locals => { :f => f, :paid => @work_signup.charge_id.present? }
+        %br/

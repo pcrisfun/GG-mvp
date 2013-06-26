@@ -16,9 +16,14 @@ class WorkSignupsController < ApplicationController
     @work_signup = WorkSignup.new
     @work_signup.event_id = @workshop.id
     @work_signup.user_id = current_user.id
-    if params[:parent]
-      @work_signup.parent = params[:parent]
-    end
+  end
+
+  def new_parent
+    @workshop = Workshop.find(params[:workshop_id])
+    @work_signup = WorkSignup.new
+    @work_signup.event_id = @workshop.id
+    @work_signup.user_id = current_user.id
+    @work_signup.parent = true
   end
 
   def create
@@ -29,10 +34,14 @@ class WorkSignupsController < ApplicationController
   	current_user.update_attributes(params[:user])
 
     if @work_signup.save
-      process_signup
+      process_signup && @work_signup.signup
     else
       flash.now[:notify] = 'There was an error signing up.'
-      render 'new'
+      if @work_signup.parent?
+        render 'new_parent'
+      else
+        render 'new'
+      end
     end
   end
 
