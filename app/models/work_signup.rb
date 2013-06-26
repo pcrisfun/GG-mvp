@@ -11,12 +11,13 @@ class WorkSignup < Signup
 
   validates_presence_of :interest, :experience, :message => ' must be included in order to submit your form.'
   validates_acceptance_of :waiver, :message => ' must agree to submit your form.'
-#:requirements, :respect_agreement,
+
+  validates_acceptance_of :requirements, :if => :requirements?
+  validates_acceptance_of :respect_agreement, :if => :respect_agreement?
   validates_presence_of :daughter_firstname, :daughter_lastname, :daughter_age, :parents_waiver, :if => :parent?
   validates_acceptance_of :parents_waiver, :if => :parent?
   validate :daughter_age_is_valid, :if => :parent?
 
-  #validates_numericality_of :phone
   validates_presence_of :parent_name, :parent_phone, :parent_email, :parents_waiver, :if => :minor?
   validates_acceptance_of :parents_waiver, :if => :minor?
 
@@ -40,6 +41,14 @@ class WorkSignup < Signup
 
   def minor?
     return !self.user.over_18
+  end
+
+  def requirements?
+    return self.event.requirement_list.present?
+  end
+
+  def respect_agreement?
+    return self.event.respect_my_style == 'true'
   end
 
   # Creates a sign up object, processes payment, and marks sign up

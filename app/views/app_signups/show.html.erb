@@ -1,34 +1,35 @@
-<%= content_tag :section, :class => "section alt", :id => 'apply' do %>
+<%= content_tag :section, :class => "section alt-grey", :id => 'apply' do %>
   <%= content_tag :div, :class => "container" do %>
     <% provide(:title, "Application for Apprenticeship") %>
 
     <h1>Apprenticeship Confirmation</h1>
-    <p>Congratulations! We’re so happy you'll be working with <%= "#{@apprenticeship.host_firstname}" %>.</p>
+    <p>Congratulations! We’re so happy to connect with <%= "#{@apprenticeship.host_firstname}" %>.
+      <br/>After you confirm this apprenticeship below, <%= link_to @app_signup.event.topic %>, we’ll send you an email with all the details, including <%= "#{@apprenticeship.host_firstname}" %>'s direct contact info.
+    </p>
+    <br/>
 
-    <br />
-    <h2><%= @app_signup.event.kind %> in <%= @app_signup.event.topic %> with <%= @app_signup.event.host_firstname %> <%= @app_signup.event.host_lastname %>
-        <% unless @app_signup.event.host_business.blank? %>
-        of <%= @app_signup.event.host_business %>
-        <% end %>
-    </h2>
-    <br />
+    <!--
+    <div class="howitworks">
+      <%= render 'howitworks' %>
+    </div>-->
 
     <div class="row-fluid">
-      <div class="span9 pull-left">
+      <div class="span9">
         <% if @app_signup.accepted? && @app_signup.user == current_user %>
           <%= simple_form_for @app_signup, class: 'form-horizontal', html: {class: "payment_form"}, url: confirm_app_signups_path, method: :post, :validate => true, defaults: { input_html: { class: 'span6' } }  do |f| %>
             <%= render 'confirm_form', f: f %>
             <%= f.hidden_field :id, value: @app_signup.id %>
             <%= f.submit "Confirm Apprenticeship", name: 'confirm_button', class: "btn btn-large btn-primary btn-create", id: "cc_process" %>
-            <%= link_to "Cancel application", {controller: 'app_signups', action: 'cancel', :id => @app_signup.id}, :method => 'post', :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you will not be able to resubmit it."} %>
+            <%= link_to "Cancel application", {controller: 'app_signups', action: 'cancel', :id => @app_signup.id}, class: "btn btn-large btn-danger btn-create", :method => 'post', :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you will not be able to resubmit it."} %>
           <% end %>
 
-          <hr />
+          <br/>
+          <br/>
           <h2>Your Accepted Application</h2>
         <% end %>
       </div>
 
-      <div class="span3 pull-right accordionFAQ">
+      <div class="span3 accordionFAQ">
         <% if current_user == @app_signup.user %>
           <%= render 'faq' %>
         <% end %>

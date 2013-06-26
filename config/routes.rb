@@ -10,12 +10,12 @@ GirlsGuild::Application.routes.draw do
     end
   end
 
-  resources :work_signups
+  resources :preregs
 
   match '/new_parent', to: 'work_signups#new_parent'
   match '/parent_new', to: 'app_signups#parent_new'
 
-  match '/preregs/create', to: 'preregs#create'
+  resources :work_signups
 
   devise_for :users, :admins
 

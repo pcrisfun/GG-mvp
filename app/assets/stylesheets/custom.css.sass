@@ -176,6 +176,9 @@ a, a:hover, a:active, a:visited, a:focus
   color: #FFF
   &:hover
     background-color: $plum
+.btn-following
+  &:hover
+    background-color: $coral
 
 .bttn-newsletter
   text-align: center
@@ -197,7 +200,7 @@ a, a:hover, a:active, a:visited, a:focus
 
 // Icons
 .enormous-icon.circled
-  line-height: 1.6em
+  line-height: 1.4em
 .btn
   &[class^="icon-"], &[class*=" icon-"]
     font-family: 'FontAwesome'
@@ -324,15 +327,20 @@ a, a:hover, a:active, a:visited, a:focus
     line-height: 15px
 
 .event-accordion
+  .accordion-group
+    +box-shadow-silver
+    +roundcorners(5px)
   .accordion-toggle
-    background-color: $ocean-medium
+    background-color: #AAA
+    padding: 0px 15px
   .accordion-inner
     background-color: #FFF
   .accordion-heading
     h2
+      line-height: 38px
       a
         color: #FFF
-        text-shadow: 1px 1px 1px $ocean-shadow
+        text-shadow: 1px 1px 1px #999
 
 #new_apprenticeship
   .accordion-inner
@@ -1199,16 +1207,17 @@ input[type="radio"], input[type="checkbox"]
     .image
       width: 50px
     .title
+      width: 420px
       .title-boxlink
         font-size: 14px
-        min-height: inherit
+        height: inherit
     .spots
       width: 75px
-    .state
-      width: 80px
-      text-align: center
     .dates
       width: 100px
+    .state
+      width: 75px
+      text-align: center
     .countdown
       width: 180px
     .nested-table

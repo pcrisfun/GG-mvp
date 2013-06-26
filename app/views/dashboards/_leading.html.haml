@@ -22,9 +22,9 @@
                     = link_to "Edit", url_for(controller: event.class.name.underscore.pluralize, action: 'edit', id: event.id ), class: "btn btn-mini pull-right"
           %td.title
             - if event.type == "Apprenticeship"
-              .label.label-info.pull-right Apprenticeship
+              .label.pull-right Apprenticeship
             - elsif event.type == "Workshop"
-              .label.label-info.pull-right Workshop
+              .label.pull-right Workshop
             = link_to event.title_html, url_for(controller: event.class.name.underscore.pluralize, action: 'show', id: event.id ), class: "title-boxlink"
           %td.spots
             = event.spots_left
@@ -77,7 +77,7 @@
                         = prereg.user.age
                         )
                       %td.state
-                        %span.label
-                          following
+                        %icon.icon-eye-open.icon-2x
+                        /Following
                       %td.countdown
 
