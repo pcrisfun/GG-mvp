@@ -15,15 +15,15 @@
                   %img.default-photo-thumb
           %td.title
             - if event.type == "Apprenticeship"
-              .label.label-info.pull-right Apprenticeship
+              .label.pull-right Apprenticeship
             - elsif event.type == "Workshop"
-              .label.label-info.pull-right Workshop
+              .label.pull-right Workshop
             = link_to event.title_html, url_for(controller: event.class.name.underscore.pluralize, action: 'show', id: event.id ), class: "title-boxlink"
           %td.spots
             = event.spots_left
           %td.dates
             = event.nice_dates
           %td.state
-            %span.label
-              following
+            Following
+            =link_to( "Unfollow", prereg, method: 'DELETE')
           %td.countdown

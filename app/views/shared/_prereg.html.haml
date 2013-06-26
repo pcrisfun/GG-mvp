@@ -1,4 +1,6 @@
 - if current_user && current_user.preregistered?(event)
-  %button.btn.btn-small.btn-block{:disabled => "disabled"} We'll let you know!
+  - prereg = Prereg.where(user_id: current_user.id, event_id: event.id).first
+  =link_to( "You're following".html_safe, prereg, method: 'DELETE', class: 'btn btn-success btn-block btn-following')
+
 - else
-  %a{:href => "/preregs/create?event_id=#{event.id}", :class => "btn btn-small btn-block btn-primary"} Keep me posted on this Maker!
+  =link_to( "Follow this event #{content_tag(:i, "", class: "icon-eye-open")}".html_safe, preregs_path(event_id: event), method: 'POST', class: 'btn btn-primary btn-block')

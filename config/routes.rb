@@ -10,9 +10,9 @@ GirlsGuild::Application.routes.draw do
     end
   end
 
-  resources :work_signups
+  resources :preregs
 
-  match '/preregs/create', to: 'preregs#create'
+  resources :work_signups
 
   devise_for :users, :admins
 
