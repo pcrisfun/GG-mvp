@@ -38,13 +38,10 @@
           2. A Few Details
     .accordion-body
       .accordion-inner
-        /
-          <br />
-          <p>Phone Number (Work on this)</p>
-          <haml:loud> text_field_tag &quot;user[phone]&quot;, current_user.phone, :required =&gt; true, label: 'Phone Number' </haml:loud>
-          <br />
         %br
-
+        Phone Number
+        <haml:loud> text_field_tag &quot;user[phone]&quot;, current_user.phone, :required =&gt; true, label: 'Phone Number' </haml:loud>
+        %br
         - if @apprenticeship.respect_my_style == "1"
           = f.input :respect_agreement, label: "Respect Agreement" do
             %textarea.span6{:readonly => "true", :rows => "3"}
