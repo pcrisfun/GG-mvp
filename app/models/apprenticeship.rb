@@ -260,7 +260,7 @@ class Apprenticeship < Event
 
   def countdown_message
     if self.started?
-      return ''
+      return "Your apprenticeship is saved"
 
     elsif self.pending?
       return "GirlsGuild is lookin it over."

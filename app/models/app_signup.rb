@@ -419,6 +419,7 @@ class AppSignup < Signup
 
   def countdown_message
     if self.started?
+        return "Your application is saved"
     elsif self.pending?
         return "Your application is being reviewed. You should hear back by <strong>#{(self.state_stamps.last.stamp + 14.days).strftime("%b %d")}</strong>".html_safe
     elsif self.accepted?

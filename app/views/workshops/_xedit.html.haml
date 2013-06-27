@@ -100,7 +100,7 @@
                   = editable_link_to "Date Options", field: :datetime_tba, resource: @workshop, type: :select, link_text: @workshop.datetime_tba ? "TBA" : "Schedule",  data: { source: '{false : "Schedule", true : "TBA"}'}
               - if !show || !@workshop.datetime_tba
                 #from{class: (show || @workshop.datetime_tba) ?  'hidden' : '' }
-                  this Workshop is on
+                  this Workshop on
                 #dates{class: @workshop.datetime_tba ?  'hidden' : '' }
                   #begins-at.field.combodate.optional
                     = editable_link_to "Date", field: :begins_at, resource: @workshop, type: :combodate, link_text: get_formated_date(@workshop.begins_at), data: { viewformat: 'MMMM D, YYYY', template: 'MMMM / D / YYYY'}
@@ -111,7 +111,7 @@
                   #ends-at-time.field.combodate.optional
                     = editable_link_to "End Time", field: :ends_at_time, resource: @workshop, type: :combodate, link_text: get_formated_date(@workshop.ends_at_time, format: "%l:%M %P"), data: { viewformat: 'h:mm a', template: 'h:mm a', format: "DD-MM-YYYY h:mm a"}
               - if !show
-                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"If you would like to gauge interest for this idea first before anouncing a date, choose 'TBA'. We'll let you know when people pre-register to show their interest in working with you."} }
+                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"If you would like to gauge interest for this idea first before anouncing a date, choose 'TBA'. We'll let you know when people 'follow it' to show their interest in working with you."} }
                   %i.icon-question-sign.small-icon
               - if !show
                 #close-registrations{class: (show || @workshop.datetime_tba) ?  'hidden' : '' }

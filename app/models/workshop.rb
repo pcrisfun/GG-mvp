@@ -121,7 +121,7 @@ include EventHelper
 			:html_body => %(<h1>Congrats #{user.first_name}!</h1>
         <p>Your workshop has been posted and is now live! Check it out - <a href="#{url_for(self)}"> #{self.title}</a></p>
         <p>Be sure to invite your friends and share it on your social networks!</p>
-        <p>We'll let you know whenever someone signs up. Registrations will be closed when #{self.registration_max} people have signed up, or on #{get_formated_date(event.ends_at, format: "%b %e, %Y")}, whichever happens first.</p>
+        <p>If it's posted as TBA we'll email you when someone follows it. If you set a date, we'll let you know whenever someone signs up. Registrations will be closed when #{self.registration_max} people have signed up or on the date you set. </p>
         <p>If by some bad luck you need to cancel your workshop, you can do so from your <a href="#{dashboard_url}">Events Dashboard</a>. Likewise, if it turns out fewer than your minimum #{self.registration_min} participants sign up, the workshop will automatically be canceled on #{get_formated_date(event.ends_at, format: "%b %e, %Y")}. We think it's going to rock, though!</p>
         <p>Let us know if you have any questions!</p>
         <p>Thanks and Happy Making!</p>
@@ -274,22 +274,22 @@ include EventHelper
 
   def countdown_message
     if self.started?
-      return ''
+      return "Your workshop is saved"
 
     elsif self.pending?
-      return "GirlsGuild is lookin it over."
+      return "GirlsGuild is lookin it over"
 
     elsif self.accepted?
       if !self.confirmed_signups.empty?
         if self.datetime_tba
-          return "#{self.confirmed_signups.count} of #{self.registration_max} participants confirmed."
+          return "Posted as TBA, set a date when you're ready"
         elsif self.begins_at && Date.today < self.begins_at
           return "#{self.confirmed_signups.count} of #{self.registration_max} participants confirmed.<br/><strong>#{(self.ends_at.mjd - Date.today.mjd)}</strong> days for people to sign up.".html_safe
         else
-          return ''
+          return "Passed"
         end
       else
-        return "Open for Applications"
+        return "Open for Signups"
       end
     elsif self.canceled?
     elsif self.filled?
