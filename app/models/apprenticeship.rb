@@ -276,10 +276,14 @@ class Apprenticeship < Event
       return "GirlsGuild is lookin it over"
 
     elsif self.accepted?
-      if !self.confirmed_signups.empty?
-        if self.datetime_tba
-          return "#{self.confirmed_signups.count} of #{self.registration_max} Apprentices confirmed"
-        elsif self.begins_at && Date.today < self.begins_at
+      if self.datetime_tba
+        if self.submitted_preregs.empty?
+          return "Open to Follow"
+        else
+          return "#{self.submitted_preregs.count} follower(s) for this event."
+        end
+      elsif !self.confirmed_signups.empty?
+        if self.begins_at && Date.today < self.begins_at
           return "#{self.confirmed_signups.count} of #{self.registration_max} Apprentices confirmed.<br/><strong>#{(self.begins_at.mjd - Date.today.mjd)}</strong> days until it begins!".html_safe
         elsif self.ends_at && Date.today < self.ends_at
           return "#{self.ends_at - Date.today} more days of your Apprenticeship"

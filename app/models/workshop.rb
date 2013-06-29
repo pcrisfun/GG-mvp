@@ -299,7 +299,7 @@ include EventHelper
           return "Passed"
         end
       else
-        return "Open for Signups"
+        return "Open to Follow"
       end
     elsif self.canceled?
     elsif self.filled?

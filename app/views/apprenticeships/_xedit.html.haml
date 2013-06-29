@@ -108,10 +108,10 @@
                   this Apprenticeship from
                 #dates{class: @apprenticeship.datetime_tba ?  'hidden' : '' }
                   #begins-at.field.combodate.optional
-                    = editable_link_to "Starting date", field: :begins_at, resource: @apprenticeship, type: :combodate, link_text: get_formated_date(@apprenticeship.begins_at), data: { viewformat: 'MMMM D, YYYY', template: 'MMMM / D / YYYY'}
+                    = editable_link_to "Starting date", field: :begins_at, resource: @apprenticeship, type: :combodate, link_text: get_formated_date(@apprenticeship.begins_at), data: { viewformat: 'MMMM D, YYYY', template: 'MMMM / D / YYYY', firstItem: 'none'}
                   to
                   #ends-at.field.combodate.optional
-                    = editable_link_to "Ending date", field: :ends_at, resource: @apprenticeship, type: :combodate,link_text: get_formated_date(@apprenticeship.ends_at), data: { viewformat: 'MMMM D, YYYY', template: 'MMMM / D / YYYY'}
+                    = editable_link_to "Ending date", field: :ends_at, resource: @apprenticeship, type: :combodate,link_text: get_formated_date(@apprenticeship.ends_at), data: { viewformat: 'MMMM D, YYYY', template: 'MMMM / D / YYYY', firstItem: 'none'}
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"If you would like to gauge interest for this idea first before anouncing a date, choose 'TBA'. We'll let you know when people pre-register to show their interest in working with you.  OR if you're ready to schedule a date, how long is the apprenticeship? We suggest an initial 1-3 month period to see how it goes. You can always offer to extend it!"} }
                   %i.icon-question-sign.small-icon
