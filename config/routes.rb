@@ -9,13 +9,15 @@ GirlsGuild::Application.routes.draw do
       post :cancel
     end
   end
+  match 'app_signups/:id/confirmation' => 'app_signups#payment_confirmation', as: :payment_confirmation_app_signup
+
+  resources :work_signups
+  match 'work_signups/:id/confirmation' => 'work_signups#payment_confirmation', as: :payment_confirmation_work_signup
 
   resources :preregs
 
   match '/new_parent', to: 'work_signups#new_parent'
   match '/parent_new', to: 'app_signups#parent_new'
-
-  resources :work_signups
 
   devise_for :users, :admins
 

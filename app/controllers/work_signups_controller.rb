@@ -57,9 +57,10 @@ class WorkSignupsController < ApplicationController
   end
 
   def update
-    @work_signup.event_id = @workshop.id
-    @work_signup.user_id = current_user.id
-    current_user.update_attributes(params[:user])
+    # !!!commented by Scott because this is shifting ownership of the signup
+    # @work_signup.event_id = @workshop.id
+    # @work_signup.user_id = current_user.id
+    # current_user.update_attributes(params[:user])
 
     if @work_signup.update_attributes(params[:work_signup])
       process_signup
@@ -77,6 +78,10 @@ class WorkSignupsController < ApplicationController
     redirect_to workshops_path, :flash => { :warning => "Your workshop sign up has been canceled."}
   end
 
+  def payment_confirmation
+
+  end
+
   private
 
   def process_signup
@@ -88,7 +93,8 @@ class WorkSignupsController < ApplicationController
       else
         @work_signup.deliver(payment: @charge) && @work_signup.deliver_maker
       end
-      redirect_to workshops_path, :flash => { :success => "Awesome, you're all signed up to work with #{@workshop.host_firstname}." }
+      # redirect_to workshops_path, :flash => { :success => "Awesome, you're all signed up to work with #{@workshop.host_firstname}." }
+      redirect_to payment_confirmation_work_signup_path(@work_signup), flash: { success: "Awesome, you're all signed up to work with #{@workshop.host_firstname}." } and return
     rescue PaymentError
       flash.now[:warning] = 'There was an error processing your payment.'
       render 'new'
