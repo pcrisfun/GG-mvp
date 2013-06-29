@@ -5,9 +5,9 @@
     .container
       - if show
         - if current_user && current_user==@apprenticeship.user && !@apprenticeship.pending?
-          = link_to "Edit", edit_apprenticeship_path, name: "edit_button", class: "btn btn-primary pull-right"
-        /- if current_user && current_user==@app_signup.owner_user
-        /  = link_to "Edit Application", edit_app_signup_path, name: "edit_button", class: "btn btn-primary pull-right"
+          = link_to "Edit", edit_apprenticeship_path(@apprenticeship), name: "edit_button", class: "btn btn-primary pull-right"
+        - if current_user && @app_signup && current_user==@app_signup.user
+          = link_to "Edit Application", edit_app_signup_path(@app_signup), name: "edit_button", class: "btn btn-primary pull-right"
 
       - unless show
         %h1#page-header.pull-right Build your Apprenticeship

@@ -76,10 +76,9 @@ class AppSignupsController < ApplicationController
 
     if params[:save_button] == "Save for Later"
       if @app_signup.update_attributes(params[:app_signup])
-        render 'show', :flash => { :success => "Nice! Your application was saved." }
+        redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Nice! Your application was saved." }
       else
-        flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
-        render 'new'
+        redirect_to :back, flash: { warning: "Oops! There was a problem saving your application. #{@app_signup.errors.full_messages}." }
       end
     else
       if @app_signup.update_attributes(params[:app_signup])

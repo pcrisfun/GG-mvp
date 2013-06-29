@@ -102,6 +102,9 @@ class ApprenticeshipsController < ApplicationController
 
   def show
     @apprenticeship = Apprenticeship.find(params[:id])
+    if current_user && !@apprenticeship.signups.empty?
+      @app_signup = @apprenticeship.signups.where(user_id: current_user.id).first
+    end
   end
 
   def destroy
