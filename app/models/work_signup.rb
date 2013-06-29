@@ -92,10 +92,9 @@ include EventHelper
         <p>You're all signed up for <a href="#{url_for(self.event)}">#{event.title}</a>.
         <p>We received your payment of #{sprintf('$%0.2f', payment.amount.to_f / 100.0)}</p>
         <p>Here are the workshop details to remember:</p>
-        <p>When: #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}</p>
-        <p>Where: #{event.location_address} #{event.location_address2}, #{event.location_city}, #{event.location_state}</p>
-        <p>You can review the <a href="#{url_for(self.event)}">workshop details page</a> for more info on what to expect and prepare for, and if by some bad luck it turns out you can't make it, you can cancel your registration there too (note that you'll need to cancel at least 7 days in advance to have your fee refunded).</p>
-        <p>Let us know if you have any questions!</p>
+        <p>When: #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}
+        <br/>Where: #{event.location_address} #{event.location_address2}, #{event.location_city}, #{event.location_state}</p>
+        <p>You can review the <a href="#{url_for(self.event)}">workshop details page</a> for more info on what to expect and prepare for, and if by some bad luck it turns out you can't make it, you can cancel your registration there too (note that you'll need to cancel at least 7 days in advance to have your fee refunded). Let us know if you have any questions!</p>
         <p>Thanks and Happy Making!</p>
         <p>the GirlsGuild team</p>),
       :bcc => "hello@girlsguild.com",
@@ -114,10 +113,9 @@ include EventHelper
         <p>Thanks for helping your daughter, #{self.daughter_firstname} sign up for <a href=#{url_for(event)}>#{event.title}</a>.
         <p>We received your payment of #{sprintf('$%0.2f', payment.amount.to_f / 100.0)}</p>
         <p>Here are the workshop details to remember:</p>
-        <p>When: #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}</p>
-        <p>Where: #{event.location_address} #{event.location_address2}, #{event.location_city}, #{event.location_state}</p>
-        <p>You can review the <a href="#{url_for(self.event)}">workshop details page</a> for more info on what to expect and prepare for, and if by some bad luck it turns out #{self.daughter_firstname} can't make it, you can cancel her registration there too (note that you'll need to cancel at least 7 days in advance to have your fee refunded).</p>
-        <p>Let us know if you have any questions!</p>
+        <p>When: #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}
+        <br/>Where: #{event.location_address} #{event.location_address2}, #{event.location_city}, #{event.location_state}</p>
+        <p>You can review the <a href="#{url_for(self.event)}">workshop details page</a> for more info on what to expect and prepare for, and if by some bad luck it turns out #{self.daughter_firstname} can't make it, you can cancel her registration there too (note that you'll need to cancel at least 7 days in advance to have your fee refunded). Let us know if you have any questions!</p>
         <p>Thanks and Happy Making!</p>
         <p>the GirlsGuild team</p>),
       :bcc => "hello@girlsguild.com",
