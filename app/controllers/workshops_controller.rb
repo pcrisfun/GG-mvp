@@ -131,6 +131,9 @@ class WorkshopsController < ApplicationController
   end
 
   def private
+    unless @workshop.group_valid?(:design)
+      redirect_to edit_workshop_path(@workshop), flash: { warning: "Please correct the following: #{@workshop.errors.full_messages}"} and return
+    end
   end
 
   def confirmation

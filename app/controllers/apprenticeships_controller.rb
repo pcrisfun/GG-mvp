@@ -116,6 +116,9 @@ class ApprenticeshipsController < ApplicationController
   end
 
   def private
+    unless @apprenticeship.group_valid?(:design)
+      redirect_to edit_apprenticeship_path(@apprenticeship), flash: { warning: "Please correct the following: #{@apprenticeship.errors.full_messages}"} and return
+    end
   end
 
   def payment
