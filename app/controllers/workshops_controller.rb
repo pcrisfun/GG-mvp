@@ -73,6 +73,9 @@ class WorkshopsController < ApplicationController
       if params[:workshop]
         @workshop.attributes = params[:workshop]
         @workshop.save(validate: false)
+        if params[:commit] == 'Save'
+          redirect_to :back, flash: { success: "Your apprenticeship has been saved"} and return
+        end
         unless @workshop.group_valid?(:design)
           redirect_to edit_workshop_path(@workshop), flash: { warning: "Please correct the following: #{@workshop.errors.full_messages}"} and return
         end

@@ -66,7 +66,9 @@ class ApprenticeshipsController < ApplicationController
       if params[:apprenticeship]
         @apprenticeship.attributes = params[:apprenticeship]
         @apprenticeship.save(validate: false)
-        if params[:apprenticeship][:stripe_card_token] && ( params[:apprenticeship][:stripe_card_token] != "" )
+        if params[:commit] == 'Save'
+          redirect_to :back, flash: { success: "Your apprenticeship has been saved"} and return
+        elsif params[:apprenticeship][:stripe_card_token] && ( params[:apprenticeship][:stripe_card_token] != "" )
           if @apprenticeship.process_payment
             @apprenticeship.paid
             redirect_to payment_confirmation_apprenticeship_path(@apprenticeship) and return
