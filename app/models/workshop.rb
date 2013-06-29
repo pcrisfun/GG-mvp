@@ -69,7 +69,7 @@ include EventHelper
         <p>We're thrilled you're building a workshop! If you get stuck take a look at our <a href="#{faq_makers_url}">FAQ for Makers</a>, or feel free to respond to this email with any questions you might have!</p>
         <p>You can edit your workshop here - <a href="#{url_for(self)}"> #{self.title}</a> or monitor it from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>Thanks,</p>
-        <p>the GirlsGuild team</p>),
+        <p>The GirlsGuild Team</p>),
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
@@ -88,7 +88,7 @@ include EventHelper
         <p>Please note that you won't be able to edit the details of your workshop until it's been approved. Then if you make changes, we'll need to review it again.</p>
         <p>While you wait, go ahead and fill out your profile in your <a href="#{edit_user_registration_url(user)}">Settings Dashboard</a> like your bio, and links to your website, twitter, and facebook if you're into the social thing.</p>
         <p>Thanks,</p>
-        <p>the GirlsGuild team</p>),
+        <p>The GirlsGuild Team</p>),
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
@@ -106,7 +106,7 @@ include EventHelper
         <p>You can review the updated workshop here - <a href="#{url_for(self)}"> #{self.title}</a> or monitor it from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>Just like last time, you won't be able to edit the details of your workshop until it's been approved, at which point any edits will need to be reviewed again.</p>
         <p>Thanks,</p>
-        <p>the GirlsGuild team</p>),
+        <p>The GirlsGuild Team</p>),
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
@@ -125,7 +125,7 @@ include EventHelper
         <p>If by some bad luck you need to cancel your workshop, you can do so from your <a href="#{dashboard_url}">Events Dashboard</a>. Likewise, if it turns out fewer than your minimum #{self.registration_min} participants sign up, the workshop will automatically be canceled on #{get_formated_date(self.ends_at, format: "%b %e, %Y")}. We think it's going to rock, though!</p>
         <p>Let us know if you have any questions!</p>
         <p>Thanks and Happy Making!</p>
-        <p>the GirlsGuild team</p>),
+        <p>The GirlsGuild Team</p>),
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
@@ -141,7 +141,7 @@ include EventHelper
         <p>You've canceled your workshop. We hope you'll consider offering it again sometime!</p>
         <p>You can edit the workshop and resubmit it anytime. Find it here - <a href="#{url_for(self)}"> #{self.title}</a> or from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>Thanks,</p>
-        <p>the GirlsGuild team</p>),
+        <p>The GirlsGuild Team</p>),
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
@@ -171,7 +171,7 @@ include EventHelper
         <p>If the problem is with the formatting or content of the workshop, you can edit and resubmit it anytime. Find it here - <a href="#{edit_workshop_url(self)}"> #{self.title}</a> or from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>Please let us know if you have any questions.</p>
         <p>Thanks,</p>
-        <p>the GirlsGuild team</p>),
+        <p>The GirlsGuild Team</p>),
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
@@ -189,7 +189,7 @@ include EventHelper
         <p>If the problem is with the formatting or content of the workshop, you can edit and resubmit it anytime. Find it here - <a href="#{edit_workshop_url(self)}"> #{self.title}</a> or from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>Please let us know if you have any questions.</p>
         <p>Thanks,</p>
-        <p>the GirlsGuild team</p>),
+        <p>The GirlsGuild Team</p>),
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
@@ -205,7 +205,7 @@ include EventHelper
         <p>Just a reminder that your workshop is happening on #{self.begins_at}.</p>
         <p>So far, #{self.signups.where(:state => 'confirmed').count} people have signed up, and registration closes on #{get_formated_date(self.ends_at, format: "%b %e, %Y")}. We'll let you know if anyone new signs up before then! You can also view who has signed up from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>Thanks and Happy Making!</p>
-        <p>the GirlsGuild team</p>),
+        <p>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     self.update_column(:reminder_sent, true)
@@ -223,7 +223,7 @@ include EventHelper
         <p>Do you have any feedback, good or bad, on the process of posting and leading your workshop, or suggestions on what we can do to make it easier? We want to know what you think.</p>
         <p>We hope it was a great experience, and want to make it even better next time.</p>
         <p>Thanks,</p>
-        <p>the GirlsGuild team</p>),
+        <p>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     self.update_column(:follow_up_sent, true)
