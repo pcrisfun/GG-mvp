@@ -19,8 +19,8 @@
           <%= simple_form_for @app_signup, class: 'form-horizontal', html: {class: "payment_form"}, url: confirm_app_signups_path, method: :post, :validate => true, defaults: { input_html: { class: 'span6' } }  do |f| %>
             <%= render 'confirm_form', f: f %>
             <%= f.hidden_field :id, value: @app_signup.id %>
-            <%= f.submit "Confirm Apprenticeship", name: 'confirm_button', class: "btn btn-primary btn-create", id: "cc_process" %>
-            <%= link_to "Cancel Application", {controller: 'app_signups', action: 'cancel', :id => @app_signup.id}, class: "btn btn-danger btn-create pull-right", :method => 'post', :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you will not be able to resubmit it."} %>
+            <%= f.submit "Confirm Apprenticeship", name: 'confirm_button', class: "btn btn-primary btn-create pull-right", id: "cc_process" %>
+            <%= link_to "Cancel Application", {controller: 'app_signups', action: 'cancel', :id => @app_signup.id}, class: "btn btn-danger btn-create", :method => 'post', :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you will not be able to resubmit it."} %>
           <% end %>
 
           <br/>

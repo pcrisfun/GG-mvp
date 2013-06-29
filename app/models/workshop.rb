@@ -275,6 +275,8 @@ include EventHelper
   def state_label
     if self.started?
       return "saved"
+    elsif self.accepted?
+      return "posted"
     else
       return self.state
     end

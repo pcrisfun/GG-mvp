@@ -304,9 +304,9 @@ a, a:hover, a:active, a:visited, a:focus
   .accordion-heading
     border-top: 1px solid #EEE
     a:hover
-      background-color: $silver-medium
+      background-color: $ocean
       color: #FFF
-      text-shadow: 1px 1px 1px $silver
+      text-shadow: 1px 1px 1px $ocean-shadow
   .accordion-inner
     background-color: $silver-bright
     font-size: 13px
@@ -1210,9 +1210,10 @@ input[type="radio"], input[type="checkbox"]
     td
       line-height: 17px
     .image
-      width: 6%
+      width: 7%
+      text-align: center
     .title
-      width: 46%
+      width: 45%
       .title-boxlink
         font-size: 14px
         height: inherit
@@ -1241,8 +1242,14 @@ input[type="radio"], input[type="checkbox"]
         border-radius: 0px
       td
         background-color: $silver-light
+        border-radius: 0px
+        border-top: 1px solid #DDD
         &.name, &.state, &.countdown, &.age
           border-left: 0px
+        &.name
+          width: 45%
+        &.age
+          width: 19.5%
 
 // Event SignUps
 // SignUps

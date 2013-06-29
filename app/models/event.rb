@@ -8,11 +8,9 @@ class Event < ActiveRecord::Base
 
 
   belongs_to :user
-
   has_many :signups, :dependent => :destroy
   has_many :preregs
   has_many :state_stamps
-
   has_one :host_album, :class_name => 'Album', :dependent => :destroy
 
   attr_accessible :title, :topic, :host_firstname, :host_lastname, :host_business,
@@ -220,7 +218,7 @@ class Event < ActiveRecord::Base
 
   def nice_dates(format = '%a, %b %d')
     if self.datetime_tba
-      return 'TBA'
+      return "TBA"
     elsif self.begins_at && self.ends_at
       return "#{self.begins_at.strftime(format)} - #{self.ends_at.strftime(format)}"
     else
@@ -229,13 +227,14 @@ class Event < ActiveRecord::Base
   end
 
   def state_label_class
-    labels = { started: "label-info",
-               pending: "label-warning",
-               accepted: "label-success",
-               canceled: "label-important",
-               filled: "label-success",
-               in_progress: "label-success",
-               completed: "label-inverse"
+    labels = { started: "label-info btn-block",
+               pending: "label-warning btn-block",
+               accepted: "label-success btn-block",
+               confirmed: "label-success btn-block",
+               canceled: "label-important btn-block",
+               filled: "label-success btn-block",
+               in_progress: "label-success btn-block",
+               completed: "label-inverse btn-block"
              }
     return labels[self.state.to_sym]
   end

@@ -50,14 +50,14 @@
                           #{signup.user.name}'s daughter #{signup.daughter_firstname}
                         - else
                           = signup.user.name
-                        ( age
+                      %td.age
+                        age
                         - if signup.parent?
                           = signup.daughter_age
                         - else
                           = signup.user.age
-                        )
                       %td.state
-                        %span.label{class: signup.state_label_class}
+                        %span.label.btn-block{class: signup.state_label_class}
                           = signup.state_label
                       %td.countdown
                         = signup.countdown_message_maker
@@ -73,10 +73,10 @@
                       %td.name
                         = avatar_for(prereg.user, size: 25, tag: :small)
                         = prereg.user.name
-                        ( age
+                      %td.age
+                        age
                         = prereg.user.age
-                        )
                       %td.state
-                        .label following
+                        .label.btn-block following
                       %td.countdown
 

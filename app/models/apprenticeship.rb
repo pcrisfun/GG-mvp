@@ -261,6 +261,8 @@ class Apprenticeship < Event
   def state_label
     if self.started?
       return "saved"
+    elsif self.accepted?
+      return "posted"
     else
       return self.state
     end
@@ -285,7 +287,7 @@ class Apprenticeship < Event
           return ''
         end
       else
-        return "Open for Applications"
+        return "#{self.confirmed_signups.count} of #{self.registration_max} participants confirmed. Open for Applications"
       end
     elsif self.canceled?
     elsif self.filled?
