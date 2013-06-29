@@ -3,32 +3,37 @@
     <% provide(:title, "Edit Apprenticeship Application") %>
 
     <h1>Update your application</h1>
+    <p>We're glad you're back! You can finish your application to work with <%= "#{@apprenticeship.host_firstname}" %> below.</p>
     <br/>
-    <div class="span3 pull-left accordionFAQ">
-      <%= render 'faq' %>
-    </div>
 
-    <div class="span9 pull-right">
-      <%= simple_form_for @app_signup, class: 'form-horizontal', html: {class: "payment_form"}, :validate => false, defaults: { input_html: { class: 'span6' } }  do |f| %>
+    <div class="row-fluid">
+      <div class="span9">
+        <%= simple_form_for @app_signup, class: 'form-horizontal', html: {class: "payment_form"}, :validate => false, defaults: { input_html: { class: 'span6' } }  do |f| %>
 
-        <%= render 'form', f: f %>
+          <%= render 'form', f: f %>
 
-        <% if @app_signup.started? %>
-          <%= link_to 'Delete', @app_signup, :method => :delete, :data => { :confirm => 'Are you sure you want to delete your application?' }, :class => "btn btn-small btn-danger" %>
-          <%= f.submit "Save for Later", :name => "save_button", :class => "btn" %>
-          <%= f.submit "Apply!", :name => "create_button", :class => "btn btn-primary" %>
+          <% if @app_signup.started? %>
+            <%= link_to 'Delete', @app_signup, :method => :delete, :class => "btn btn-danger", :data => { :confirm => "Are you sure you want to delete your application? It will be removed permanantly." } %>
+            <%= f.submit "Save for Later", :name => "save_button", :class => "btn" %>
+            <%= f.submit "Apply!", :name => "create_button", :class => "btn btn-primary pull-right" %>
 
-        <% elsif @app_signup.accepted? && @app_signup.user == current_user %>
-          <%= f.submit "Cancel Application", :name => "cancel_button", :class => "btn btn-danger", :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you won't be able to resubmit it."} %>
+          <% elsif @app_signup.accepted? && @app_signup.user == current_user %>
+            <%= f.submit "Cancel Application", :name => "cancel_button", :class => "btn btn-danger", :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you won't be able to resubmit it."} %>
 
-        <% elsif @app_signup.canceled? %>
-          <%= link_to 'Delete', @app_signup, :method => :delete, :data => { :confirm => 'Are you sure you want to delete this apprenticeship?' }, :class => "btn btn-small btn-danger" %>
+          <% elsif @app_signup.canceled? %>
+            <%= link_to 'Delete', @app_signup, :method => :delete, :class => "btn btn-danger", :data => { :confirm => "Are you sure you want to delete this apprenticeship? It will be removed permanantly." } %>
 
-        <% else %>
-          <%= f.submit "Cancel Apprenticeship", :name => "cancel_button", :class => "btn btn-small btn-danger", :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you won't be able to resubmit it."} %>
+          <% else %>
+            <%= f.submit "Cancel Apprenticeship", :name => "cancel_button", :class => "btn btn-danger", :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you won't be able to resubmit it."} %>
+          <% end %>
+
         <% end %>
+      </div>
 
-      <% end %>
+      <div class="span3 accordionFAQ">
+        <%= render 'faq' %>
+      </div>
+
     </div>
 
   <% end %>

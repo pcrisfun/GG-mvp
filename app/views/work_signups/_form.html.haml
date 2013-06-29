@@ -69,8 +69,10 @@
             %textarea.span6{:readonly => "true", :rows => "3"}
               Teaching your unique techniques can sometimes feel like risking trade secrets. For this reason we as all of our guild members to agree to respect the maker's proprietary techniques by not directly copying their work.
             %br/
-            = f.check_box :respect_agreement
-            %span.simpleform-text I have read and agree to respect the maker's proprietary techniques.
+            %span.form-inline
+              = f.check_box :respect_agreement
+              = f.label :respect_agreement do
+                I have read and agree to respect the maker's proprietary techniques.
         %br/
         - if @work_signup.minor?
           %h3 The boring stuff...

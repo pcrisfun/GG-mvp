@@ -23,7 +23,8 @@ $coral-shadow: #e02d2d
 
 $ocean-light: #87c7fd
 $ocean-medium: #59a8eb
-$ocean: #4193d8
+//$ocean: #4193d8
+$ocean: #41B7D8
 $ocean-shadow: #2f6a9c
 $ocean-black: #133552
 
@@ -115,7 +116,7 @@ $radius: 5px
 
 // Headers
 h2
-  color: $plum-shadow
+  color: #555
 
 
 // Defaults
@@ -144,6 +145,10 @@ a, a:hover, a:active, a:visited, a:focus
 .right
   text-align: right
 
+.bold
+  font-weight: bold
+.unbold
+  font-weight: normal
 
 // Buttons
 .btn
@@ -298,14 +303,13 @@ a, a:hover, a:active, a:visited, a:focus
       box-shadow: none
   .accordion-heading
     border-top: 1px solid #EEE
-    a
-      font-size: 18px
     a:hover
       background-color: $silver-medium
       color: #FFF
       text-shadow: 1px 1px 1px $silver
   .accordion-inner
     background-color: $silver-bright
+    font-size: 13px
 
 // FAQ
 #FAQ
@@ -1196,44 +1200,47 @@ input[type="radio"], input[type="checkbox"]
 
 // Dashboard
 #dashboard-display
-  font-size: 14px
-  .label
-    font-size: 12px
-  table
-    margin-bottom: 14px
+  .fancyform-light
     background-color: #FFF
+  font-size: 11px
+  .label
+    font-size: 11px
+  table
+    margin-bottom: 10px
     td
       line-height: 17px
     .image
-      width: 50px
+      width: 6%
     .title
-      width: 420px
+      width: 46%
       .title-boxlink
         font-size: 14px
         height: inherit
     .spots
-      width: 75px
+      width: 8.5%
     .dates
-      width: 100px
+      width: 11%
     .state
-      width: 75px
+      width: 8.5%
       text-align: center
     .countdown
-      width: 180px
+      width: 20%
     .nested-table
       padding: 0px
       border: none
     &.table-subtable
       margin: 0px
-      background-color: $silver-light
-      border-left: 0px
-      border-right: 0px
+      border: 0px
+      tr
+        border: 0px
+      td
+        border-top: 0px
+        border-bottom: 0px
     .nested-table
       table
         border-radius: 0px
-        tr
-          background-color: $silver-bright
       td
+        background-color: $silver-light
         &.name, &.state, &.countdown, &.age
           border-left: 0px
 

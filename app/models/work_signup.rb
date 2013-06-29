@@ -253,6 +253,16 @@ include EventHelper
     end
   end
 
+  def state_label
+    if self.started?
+      return "saved"
+    elsif self.confirmed?
+      return "signed up"
+    else
+      return self.state
+    end
+  end
+
   def countdown_message
     if self.started?
     elsif self.canceled?

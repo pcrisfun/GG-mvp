@@ -84,7 +84,7 @@ include EventHelper
 			:subject => "Your workshop has been submitted! - #{topic} with #{user.name}",
 			:html_body => %(<h1>Thanks #{user.first_name}!</h1>
         <p>Your workshop has been submitted and is pending while we take a look at it.</p>
-        <p>You can review the submitted workshop here - <a href="#{url_for(self)}"> #{self.title}</a> or monitor signups from your <a href="#{dashboard_url}">Events Dashboard</a></p>
+        <p>You can review the submitted workshop here - <a href="#{url_for(self)}"> #{self.title}</a> or monitor it from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>Please note that you won't be able to edit the details of your workshop until it's been approved. Then if you make changes, we'll need to review it again.</p>
         <p>While you wait, go ahead and fill out your profile in your <a href="#{edit_user_registration_url(user)}">Settings Dashboard</a> like your bio, and links to your website, twitter, and facebook if you're into the social thing.</p>
         <p>Thanks,</p>
@@ -121,7 +121,7 @@ include EventHelper
 			:html_body => %(<h1>Congrats #{user.first_name}!</h1>
         <p>Your workshop has been posted and is now live! Check it out - <a href="#{url_for(self)}"> #{self.title}</a></p>
         <p>Be sure to invite your friends and share it on your social networks!</p>
-        <p>If it's posted as TBA we'll email you when someone follows it. If you set a date, we'll let you know whenever someone signs up. Registrations will be closed when #{self.registration_max} people have signed up or on the date you set. </p>
+        <p>If it's posted as TBA we'll email you as people follow it, so you can decide when to set the date. If you already set a date, we'll let you know whenever someone signs up. Registrations will be closed when #{self.registration_max} people have signed up or on the date you set. </p>
         <p>If by some bad luck you need to cancel your workshop, you can do so from your <a href="#{dashboard_url}">Events Dashboard</a>. Likewise, if it turns out fewer than your minimum #{self.registration_min} participants sign up, the workshop will automatically be canceled on #{get_formated_date(event.ends_at, format: "%b %e, %Y")}. We think it's going to rock, though!</p>
         <p>Let us know if you have any questions!</p>
         <p>Thanks and Happy Making!</p>
@@ -270,6 +270,14 @@ include EventHelper
     checkmarks[:private] = self.group_valid?(:private)
     self.errors.clear
     return checkmarks
+  end
+
+  def state_label
+    if self.started?
+      return "saved"
+    else
+      return self.state
+    end
   end
 
   def countdown_message

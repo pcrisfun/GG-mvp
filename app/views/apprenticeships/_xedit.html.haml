@@ -3,6 +3,12 @@
   #msg.alert.hide
   %section.section
     .container
+      - if show
+        - if current_user && current_user==@apprenticeship.user && !@apprenticeship.pending?
+          = link_to "Edit", edit_apprenticeship_path, name: "edit_button", class: "btn btn-primary pull-right"
+        /- if current_user && current_user==@app_signup.owner_user
+        /  = link_to "Edit Application", edit_app_signup_path, name: "edit_button", class: "btn btn-primary pull-right"
+
       - unless show
         %h1#page-header.pull-right Build your Apprenticeship
         %br
@@ -334,6 +340,5 @@
           %h3 Admin Controls
           = form_for(@apprenticeship) do |f|
             = f.submit "Revoke Apprenticeship", name: "revoke_button", class: "btn btn-large btn-danger", data: { :confirm => "Are you sure?" }
-
 
 

@@ -150,7 +150,7 @@ class Apprenticeship < Event
 			:html_body => %(<h1>Congrats #{user.first_name}!</h1>
         <p>Your apprenticeship has been posted and is now live! Check it out - <a href="#{apprenticeship_url(self)}"> #{self.title}</a></p>
         <p>Be sure to invite your friends and share it on your social networks!</p>
-        <p>We'll let you know whenever someone applies. Applications will be closed when you've accepted #{self.registration_max} apprentices.</p>
+        <p>If it's posted as TBA we'll email you as people follow it, so you can decide when to set the date. If you already set a date, we'll let you know whenever someone applies. Applications will be closed when you've accepted #{self.registration_max} apprentices.</p>
         <p>If by some bad luck you need to cancel your apprenticeship, you can do so from your <a href="#{dashboard_url}">Events Dashboard</a> - but we're crossing our fingers that won't happen!</p>
         <p>Let us know if you have any questions!</p>
         <p>Thanks and Happy Making!</p>
@@ -258,17 +258,25 @@ class Apprenticeship < Event
     end
 	end
 
+  def state_label
+    if self.started?
+      return "saved"
+    else
+      return self.state
+    end
+  end
+
   def countdown_message
     if self.started?
       return "Your apprenticeship is saved"
 
     elsif self.pending?
-      return "GirlsGuild is lookin it over."
+      return "GirlsGuild is lookin it over"
 
     elsif self.accepted?
       if !self.confirmed_signups.empty?
         if self.datetime_tba
-          return "#{self.confirmed_signups.count} of #{self.registration_max} Apprentices confirmed."
+          return "#{self.confirmed_signups.count} of #{self.registration_max} Apprentices confirmed"
         elsif self.begins_at && Date.today < self.begins_at
           return "#{self.confirmed_signups.count} of #{self.registration_max} Apprentices confirmed.<br/><strong>#{(self.begins_at.mjd - Date.today.mjd)}</strong> days until it begins!".html_safe
         elsif self.ends_at && Date.today < self.ends_at
