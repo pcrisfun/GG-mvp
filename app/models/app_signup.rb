@@ -406,7 +406,8 @@ class AppSignup < Signup
       validates_presence_of :waiver
       validate :respect_valid
       #validates_numericality_of :phone
-      validates_presence_of :parent_name, :parent_phone, :parent_email, :parents_waiver, :if => :parent?
+      validates_presence_of :parent_name, :parent_phone, :parent_email, :if => :minor?
+      validates_presence_of :parents_waiver, :if => :minor? || :parent?
     end
 
     state :completed do

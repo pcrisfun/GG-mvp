@@ -2,39 +2,65 @@
   <%= content_tag :div, :class => "container" do %>
     <% provide(:title, "Application for Apprenticeship") %>
 
-    <h1>Apprenticeship Confirmation</h1>
-    <p>Congratulations! We’re so happy to connect with <%= "#{@apprenticeship.host_firstname}" %>.
-      <br/>After you confirm this apprenticeship below, <%= link_to @app_signup.event.topic %>, we’ll send you an email with all the details, including <%= "#{@apprenticeship.host_firstname}" %>'s direct contact info.
-    </p>
-    <br/>
+    <% if @app_signup.accepted? && @app_signup.user == current_user %>
+      <h1>Apprenticeship Confirmation</h1>
+        <% if @app_signup.parent? %>
+          <p>Congratulations <%= @app_signup.user.first_name %> and <%= @app_signup.daughter_firstname %>! We’re so happy to connect you with <%= @apprenticeship.host_firstname %> for <%= link_to "#{@app_signup.event.title}", apprenticeship_path(@app_signup.event)%>.</p>
+          <p>After you confirm this apprenticeship by completing this form, we’ll send you an email with all the details, including <%= "#{@apprenticeship.host_firstname}" %>'s direct contact info.</p>
+        <% else %>
+          <p>Congratulations <%= @app_signup.user.first_name %>! We’re so happy to connect you with <%= @apprenticeship.host_firstname %> for <%= link_to "#{@app_signup.event.title}", apprenticeship_path(@app_signup.event)%>.</p>
+          <p>After you confirm this apprenticeship by completing this form, we’ll send you an email with all the details, including <%= "#{@apprenticeship.host_firstname}" %>'s direct contact info.</p>
+        <% end %>
+      <br/>
 
-    <!--
-    <div class="howitworks">
-      <%= render 'howitworks' %>
-    </div>-->
+      <!--
+      <div class="howitworks">
+        <%= render 'howitworks' %>
+      </div>-->
 
-    <div class="row-fluid">
-      <div class="span9">
-        <% if @app_signup.accepted? && @app_signup.user == current_user %>
+      <div class="row-fluid">
+        <div class="span9">
           <%= simple_form_for @app_signup, class: 'form-horizontal', html: {class: "payment_form"}, url: confirm_app_signups_path, method: :post, :validate => true, defaults: { input_html: { class: 'span6' } }  do |f| %>
             <%= render 'confirm_form', f: f %>
             <%= f.hidden_field :id, value: @app_signup.id %>
             <%= f.submit "Confirm Apprenticeship", name: 'confirm_button', class: "btn btn-large btn-primary btn-create", id: "cc_process" %>
             <%= link_to "Cancel application", {controller: 'app_signups', action: 'cancel', :id => @app_signup.id}, class: "btn btn-large btn-danger btn-create", :method => 'post', :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you will not be able to resubmit it."} %>
           <% end %>
-
           <br/>
           <br/>
           <h2>Your Accepted Application</h2>
-        <% end %>
-      </div>
+        </div>
 
-      <div class="span3 accordionFAQ">
-        <% if current_user == @app_signup.user %>
-          <%= render 'faq' %>
-        <% end %>
+        <div class="span3 accordionFAQ">
+          <% if current_user == @app_signup.user %>
+            <%= render 'faq' %>
+          <% end %>
+        </div>
       </div>
-    </div>
+    <% end %>
+
+    <% if @app_signup.pending?%>
+      <h1>Apprenticeship Application</h1>
+
+        <% if @app_signup.user == current_user %>
+
+          <% if @app_signup.parent? %>
+            <p>Thanks <%= @app_signup.user.first_name %>! You've submitted <%= @app_signup.daughter_firstname %>'s application for <%= link_to "#{@app_signup.event.title}", apprenticeship_path(@app_signup.event) %>. <%= @apprenticeship.host_firstname %> is looking it over, and we'll let you know when she's made her decision.</p>
+          <% else %>
+            <p>Thanks <%= @app_signup.user.first_name %>! You've submitted your application for <%= link_to "#{@app_signup.event.title}", apprenticeship_path(@app_signup.event) %>. <%= @apprenticeship.host_firstname %> is looking it over, and we'll let you know when she's made her decision.</p>
+          <% end %>
+
+        <% elsif current_user == @app_signup.event.user %>
+
+          <% if @app_signup.parent? %>
+            <p>Rad, <%= @apprenticeship.host_firstname %>! <%= @app_signup.user.first_name %> helped her daughter <%= @app_signup.daughter_firstname %> apply for your apprenticeship, <%= link_to "#{@app_signup.event.topic}", apprenticeship_path(@app_signup.event) %>.</p>
+          <% else %>
+            <p>Rad, <%= @apprenticeship.host_firstname %>! <%= @app_signup.user.first_name %> applied for your apprenticeship, <%= link_to "#{@app_signup.event.topic}", apprenticeship_path(@app_signup.event) %>.</p>
+          <% end %>
+
+          <p>You have <%= (@app_signup.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd %> days to review her application and make your decision. We'll let her know once you've decided.</p>
+        <% end %>
+    <% end %>
 
     <div class="row-fluid">
       <div class="span12 well">
@@ -50,15 +76,15 @@
               <td>Name</td>
               <td>
                 <%- if @app_signup.parent? %>
-                  #{@app_signup.user.name}'s daughter #{@app_signup.daughter_firstname}
+                  <%= @app_signup.daughter_firstname %>
                 <%- else %>
-                  <%= @app_signup.user.name %>
+                  <%= @app_signup.user.first_name %>
                 <% end -%>
               </td>
             </tr>
             <tr>
               <td>Age</td>
-              <td><% unless @app_signup.user.age > @app_signup.event.age_max %>
+              <td><% unless @app_signup.parent? %>
                 <%= @app_signup.user.age %>
                 <% else %>
                 <%= @app_signup.daughter_age %>

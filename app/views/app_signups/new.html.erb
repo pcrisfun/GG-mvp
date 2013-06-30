@@ -3,7 +3,7 @@
 		<% provide(:title, 'Apply for an Apprenticeship') %>
 
   	<h1>Apprenticeship Application</h1>
-		<p>Yes! We’re excited you want to work with <%= "#{@apprenticeship.host_firstname}" %>!</p>
+		<p>Yes! We’re excited you want to work with <%= "#{@apprenticeship.host_firstname}" %> for her apprenticeship on <%= link_to @app_signup.event.topic %>!</p>
 		<br />
 
 		<div class="howitworks">

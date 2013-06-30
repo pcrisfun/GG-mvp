@@ -138,13 +138,13 @@
                     = editable_link_to "Zip", field: :location_zipcode, resource: @workshop, type: :text
                   %br
               - if !show || @workshop.location_private
-                This is a
+                A
                 #private-address.field.select
                   - if @workshop.location_private == true
-                    - private_text = "Private"
+                    - private_text = "Residential"
                   - elsif @workshop.location_private == false
                     - private_text = "Public"
-                  = editable_link_to "Public/Private", field: :location_private, resource: @workshop, type: :select, link_text: @workshop.location_private.nil? ? nil : private_text , data: { source: '{true : "Private", false : "Public"}'}
+                  = editable_link_to "Public/Residential", field: :location_private, resource: @workshop, type: :select, link_text: @workshop.location_private.nil? ? nil : private_text , data: { source: '{true : "Residential", false : "Public"}'}
                 address
                 #nbrhood-toggle{class: !@workshop.location_private ?  'hidden' : '' }
                   in the
@@ -153,7 +153,7 @@
                       = editable_link_to "__________", field: :location_nbrhood, resource: @workshop, type: :text
                     neighborhood
                 - if !show
-                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:'A "Public" address will be displayed on the workshop page with a map of the exact location, while a "Private" address will only display a map of the neighborhood until the apprentice has been accepted and confirmed.'} }
+                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:'A "Public" address will be displayed on the workshop page with a map of the exact location, while a "Residential" address will only display a map of the neighborhood until the apprentice has been accepted and confirmed.'} }
                     %i.icon-question-sign.small-icon
             %dt
               - if !show

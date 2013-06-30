@@ -16,9 +16,15 @@ class AppSignupsController < ApplicationController
     @apprenticeship = Apprenticeship.find(params[:apprenticeship_id])
     @app_signup = AppSignup.new
     @app_signup.event_id = @apprenticeship.id
-    if params[:parent]
-      @app_signup.parent = params[:parent]
-    end
+    @app_signup.user_id = current_user.id
+  end
+
+  def parent_new
+    @apprenticeship = Apprenticeship.find(params[:apprenticeship_id])
+    @app_signup = AppSignup.new
+    @app_signup.event_id = @apprenticeship.id
+    @app_signup.user_id = current_user.id
+    @app_signup.parent = true
   end
 
   def create
@@ -34,7 +40,7 @@ class AppSignupsController < ApplicationController
           redirect_to apprenticeships_path, flash: { success: "Nice! Your application was saved." }
         else
           flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
-          render 'new'
+          render 'parent_new'
         end
       elsif @app_signup.group_valid?(:save) && @app_signup.save(:validate => false) && @app_signup.deliver_save
         redirect_to apprenticeships_path, :flash => { :success => "Nice! Your application was saved." }
@@ -49,10 +55,14 @@ class AppSignupsController < ApplicationController
         else
           @app_signup.deliver && @app_signup.deliver_maker
         end
-        redirect_to apprenticeships_path, :flash => { :success => "Awesome, you've applied to work with #{@apprenticeship.host_firstname}." }
+        redirect_to apprenticeships_path, :flash => { :success => "Awesome, you've applied to work with #{@apprenticeship.host_firstname}. We've sent an email to #{current_user.email} with the details." }
       else
         flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
-        render 'new'
+        if @app_signup.parent?
+          render 'parent_new'
+        else
+          render 'new'
+        end
       end
     end
   end
@@ -65,7 +75,7 @@ class AppSignupsController < ApplicationController
       @app_signup.deliver_destroy
     end
     @app_signup.destroy
-    redirect_to apprenticeships_path, :flash => { :success => "Apprenticeship deleted." }
+    redirect_to apprenticeships_path, :flash => { :success => "Application deleted." }
   end
 
 
@@ -79,7 +89,11 @@ class AppSignupsController < ApplicationController
         render 'show', :flash => { :success => "Nice! Your application was saved." }
       else
         flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
-        render 'new'
+        if @app_signup.parent?
+          render 'parent_new'
+        else
+          render 'new'
+        end
       end
     else
       if @app_signup.update_attributes(params[:app_signup])
@@ -92,11 +106,19 @@ class AppSignupsController < ApplicationController
           redirect_to apprenticeships_path, :flash => { :success => "Awesome, you've applied to work with #{@apprenticeship.host_firstname}." }
         else
           flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
-          render 'new'
+          if @app_signup.parent?
+            render 'parent_new'
+          else
+            render 'new'
+          end
         end
       else
         flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
-        render 'new'
+        if @app_signup.parent?
+          render 'parent_new'
+        else
+          render 'new'
+        end
       end
     end
   end
@@ -144,7 +166,7 @@ class AppSignupsController < ApplicationController
       end
     elsif @app_signup.charge_id.present?
       if @app_signup.confirm && @app_signup.deliver_confirm_maker
-        redirect_to apprenticeships_path, :flash => {:success => "05 Rad! You're all confirmed to start your apprenticeship!"}
+        redirect_to apprenticeships_path, :flash => {:success => "Rad! You're all confirmed to start your apprenticeship!"}
       else
         flash[:warning] = "Snap, there was a problem saving your form. Please check all fields and try again."
         render 'show'
