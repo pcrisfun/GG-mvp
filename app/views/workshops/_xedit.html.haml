@@ -283,27 +283,7 @@
         %span#applysidebar.pull-right
           - if show
             - if @workshop.accepted?
-              - if current_user && current_user.age < @workshop.age_min
-                = link_to "Work with #{@workshop.host_firstname}!", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-large btn-block disabled"
-                %p.small
-                  Sorry, it looks like you're younger than the minimum age for this workshop.
-                %br/
-                //%p.small Want to be notified next time #{@workshop.host_firstname}'s teaching?
-                = render :partial => "shared/prereg", :locals => {:event => @workshop}
-
-              - elsif current_user && current_user.age > @workshop.age_max
-                = link_to "Work with #{@workshop.host_firstname}!", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-large btn-block disabled"
-                %p.small
-                  Sorry, it looks like you're older than the maximum age for this workshop.
-                %br/
-                //%p.small Want to be notified next time #{@workshop.host_firstname}'s teaching?
-                = render :partial => "shared/prereg", :locals => {:event => @workshop}
-
-                %br
-                %p
-                  #{link_to "Sign up my Daughter", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-block btn-small btn-primary"}
-
-              - elsif @workshop.datetime_tba == true || @workshop.filled? || @workshop.completed?
+              - if @workshop.datetime_tba == true || @workshop.filled? || @workshop.completed?
                 = render :partial => "shared/prereg", :locals => {:event => @workshop}
 
               - else
