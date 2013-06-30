@@ -39,8 +39,11 @@
     .accordion-body
       .accordion-inner
         %br
-        Phone Number
-        = text_field_tag "user[phone]", current_user.phone, :required => true
+        .control-group
+          .control-label
+            Phone Number
+          .controls
+            = text_field_tag "user[phone]", current_user.phone, required: true, label: 'Phone Number'
         %br
         - if @apprenticeship.respect_my_style == "1"
           = f.input :respect_agreement, label: "Respect Agreement" do

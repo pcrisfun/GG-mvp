@@ -23,8 +23,8 @@
           <%= simple_form_for @app_signup, class: 'form-horizontal', html: {class: "payment_form"}, url: confirm_app_signups_path, method: :post, :validate => true, defaults: { input_html: { class: 'span6' } }  do |f| %>
             <%= render 'confirm_form', f: f %>
             <%= f.hidden_field :id, value: @app_signup.id %>
-            <%= f.submit "Confirm Apprenticeship", name: 'confirm_button', class: "btn btn-large btn-primary btn-create", id: "cc_process" %>
-            <%= link_to "Cancel application", {controller: 'app_signups', action: 'cancel', :id => @app_signup.id}, class: "btn btn-large btn-danger btn-create", :method => 'post', :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you will not be able to resubmit it."} %>
+            <%= f.submit "Confirm Apprenticeship", name: 'confirm_button', class: "btn btn-primary btn-create pull-right", id: "cc_process" %>
+            <%= link_to "Cancel Application", {controller: 'app_signups', action: 'cancel', :id => @app_signup.id}, class: "btn btn-danger btn-create", :method => 'post', :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you will not be able to resubmit it."} %>
           <% end %>
           <br/>
           <br/>
@@ -123,10 +123,10 @@
           <% unless current_user.blank? %>
 
             <% if @app_signup.started? && @app_signup.user == current_user %>
-              <%= link_to 'Resume', edit_app_signup_path(@app_signup), class: "btn btn-large btn-warning" %>
+              <%= link_to 'Resume', edit_app_signup_path(@app_signup), class: "btn btn-warning" %>
 
             <% elsif @app_signup.pending? && @app_signup.user == current_user %>
-              <%= link_to 'Delete', @app_signup, :method => :delete, class: "btn btn-large btn-danger", :data => { :confirm => 'Are you sure you want to delete this application? Deleting cannot be undone.' } %>
+              <%= link_to 'Delete', @app_signup, :method => :delete, class: "btn btn-danger", :data => { :confirm => 'Are you sure you want to delete this application? Deleting cannot be undone.' } %>
 
             <% end %>
           <% end %>
@@ -136,8 +136,8 @@
           <% if current_user == @app_signup.event.user && @app_signup.pending? %>
             <hr />
             <h3>Makers, it's your call</h3>
-            <%= link_to "Decline this application", {:action => "decline", id: @app_signup, :controller => "app_signups"}, :method => :post, class: "btn btn-large btn-danger pull-left", :data => { :confirm => 'Are you sure you want to decline this applicant? Declining cannot be undone.'} %>
-            <%= link_to "Accept this application", {:action => "accept", id: @app_signup, :controller => "app_signups"}, :method => :post, class: "btn btn-large btn-success pull-right", :data => { :confirm => 'Are you sure you want to accept this application? Accepting cannot be undone.'} %>
+            <%= link_to "Decline Application", {:action => "decline", id: @app_signup, :controller => "app_signups"}, :method => :post, class: "btn btn-danger pull-left", :data => { :confirm => 'Are you sure you want to decline this applicant? Declining cannot be undone.'} %>
+            <%= link_to "Accept Application", {:action => "accept", id: @app_signup, :controller => "app_signups"}, :method => :post, class: "btn btn-success pull-right", :data => { :confirm => 'Are you sure you want to accept this application? Accepting cannot be undone.'} %>
           <% end %>
         </div>
       </div>

@@ -66,7 +66,9 @@ class ApprenticeshipsController < ApplicationController
       if params[:apprenticeship]
         @apprenticeship.attributes = params[:apprenticeship]
         @apprenticeship.save(validate: false)
-        if params[:apprenticeship][:stripe_card_token] && ( params[:apprenticeship][:stripe_card_token] != "" )
+        if params[:commit] == 'Save'
+          redirect_to :back, flash: { success: "Your apprenticeship has been saved"} and return
+        elsif params[:apprenticeship][:stripe_card_token] && ( params[:apprenticeship][:stripe_card_token] != "" )
           if @apprenticeship.process_payment
             @apprenticeship.paid
             redirect_to payment_confirmation_apprenticeship_path(@apprenticeship) and return
@@ -100,6 +102,9 @@ class ApprenticeshipsController < ApplicationController
 
   def show
     @apprenticeship = Apprenticeship.find(params[:id])
+    if current_user && !@apprenticeship.signups.empty?
+      @app_signup = @apprenticeship.signups.where(user_id: current_user.id).first
+    end
   end
 
   def destroy
@@ -116,6 +121,9 @@ class ApprenticeshipsController < ApplicationController
   end
 
   def private
+    unless @apprenticeship.group_valid?(:design)
+      redirect_to edit_apprenticeship_path(@apprenticeship), flash: { warning: "Please correct the following: #{@apprenticeship.errors.full_messages}"} and return
+    end
   end
 
   def payment

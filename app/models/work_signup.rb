@@ -92,12 +92,11 @@ include EventHelper
         <p>You're all signed up for <a href="#{url_for(self.event)}">#{event.title}</a>.
         <p>We received your payment of #{sprintf('$%0.2f', payment.amount.to_f / 100.0)}</p>
         <p>Here are the workshop details to remember:</p>
-        <p>When: #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}</p>
-        <p>Where: #{event.location_address} #{event.location_address2}, #{event.location_city}, #{event.location_state}</p>
-        <p>You can review the <a href="#{url_for(self.event)}">workshop details page</a> for more info on what to expect and prepare for, and if by some bad luck it turns out you can't make it, you can cancel your registration there too (note that you'll need to cancel at least 7 days in advance to have your fee refunded).</p>
-        <p>Let us know if you have any questions!</p>
+        <p>When: #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}
+        <br/>Where: #{event.location_address} #{event.location_address2}, #{event.location_city}, #{event.location_state}</p>
+        <p>You can review the <a href="#{url_for(self.event)}">workshop details page</a> for more info on what to expect and prepare for, and if by some bad luck it turns out you can't make it, you can cancel your registration there too (note that you'll need to cancel at least 7 days in advance to have your fee refunded). Let us know if you have any questions!</p>
         <p>Thanks and Happy Making!</p>
-        <p>the GirlsGuild team</p>),
+        <p>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -114,12 +113,11 @@ include EventHelper
         <p>Thanks for helping your daughter, #{self.daughter_firstname} sign up for <a href=#{url_for(event)}>#{event.title}</a>.
         <p>We received your payment of #{sprintf('$%0.2f', payment.amount.to_f / 100.0)}</p>
         <p>Here are the workshop details to remember:</p>
-        <p>When: #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}</p>
-        <p>Where: #{event.location_address} #{event.location_address2}, #{event.location_city}, #{event.location_state}</p>
-        <p>You can review the <a href="#{url_for(self.event)}">workshop details page</a> for more info on what to expect and prepare for, and if by some bad luck it turns out #{self.daughter_firstname} can't make it, you can cancel her registration there too (note that you'll need to cancel at least 7 days in advance to have your fee refunded).</p>
-        <p>Let us know if you have any questions!</p>
+        <p>When: #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}
+        <br/>Where: #{event.location_address} #{event.location_address2}, #{event.location_city}, #{event.location_state}</p>
+        <p>You can review the <a href="#{url_for(self.event)}">workshop details page</a> for more info on what to expect and prepare for, and if by some bad luck it turns out #{self.daughter_firstname} can't make it, you can cancel her registration there too (note that you'll need to cancel at least 7 days in advance to have your fee refunded). Let us know if you have any questions!</p>
         <p>Thanks and Happy Making!</p>
-        <p>the GirlsGuild team</p>),
+        <p>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -139,7 +137,7 @@ include EventHelper
         <p>You can review the <a href="#{url_for(self.event)}">workshop details page</a> or check out <a href="#{dashboard_url}">your dashboard</a> to keep tabs on who's signing up, and if by some bad luck it turns out you can't make it, you can cancel your workshop there too (note that you'll need to cancel at least 7 days in advance so that we can notify your students).</p>
         <p>Let us know if you have any questions!</p>
         <p>Thanks and Happy Making!</p>
-        <p>the GirlsGuild team</p>),
+        <p>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -155,7 +153,7 @@ include EventHelper
         <p>You've canceled your workshop signup to work with #{self.event.user.first_name}. We hope you'll consider working with #{self.event.user.first_name} or someone else soon.</p>
         <p>Please let us know if there's a way we can help make this signup process easier by simply replying to this email. We would really appreciate your feedback!</p>
         <p>Thanks,</p>
-        <p>the GirlsGuild team</p>),
+        <p>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -171,7 +169,7 @@ include EventHelper
         <p>You've deleted your daughter's signup to work with #{self.event.user.first_name}. We hope you'll consider helping her apply to work with #{self.event.user.first_name} or someone else soon.</p>
         <p>Please let us know if there's a way we can help make this signup process easier by simply replying to this email. We would really appreciate your feedback!</p>
         <p>Thanks,</p>
-        <p>the GirlsGuild team</p>),
+        <p>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -192,7 +190,7 @@ include EventHelper
         <p>Where: #{event.location_address} #{event.location_address2}, #{event.location_city}, #{event.location_state}</p>
         <p>Double check the <a href="#{url_for(self.event)}">workshop details page</a> for more info on what to expect and prepare for.</p>
         <p>Thanks and Happy Making!</p>
-        <p>the GirlsGuild team</p>),
+        <p>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     self.update_column(:work_first_reminder_sent, true)
@@ -211,7 +209,7 @@ include EventHelper
         <p>Where: #{event.location_address} #{event.location_address2}, #{event.location_city}, #{event.location_state}</p>
         <p>Wondering what to expect? The <a href="#{url_for(self.event)}">workshop details page</a> has all the info.</p>
         <p>Thanks and Happy Making!</p>
-        <p>the GirlsGuild team</p>),
+        <p>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     self.update_column(:work_second_reminder_sent, true)
@@ -228,7 +226,7 @@ include EventHelper
         <p>What did you think of #{self.event.title}? Do you have any feedback, good or bad, about the experience? We'd love to hear it.</p>
         <p>And of course, if you have any questions or concerns, don't hesitate to ask!</p>
         <p>Thanks and Happy Making!</p>
-        <p>the GirlsGuild team</p>),
+        <p>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     self.update_column(:work_followup_sent, true)
@@ -250,6 +248,16 @@ include EventHelper
   def self.followup
     WorkSignup.where(:state => 'confirmed').where('event.begins_at <= ?', 3.days.ago).where(:work_followup_sent => false).each do |work|
       work.deliver_followup
+    end
+  end
+
+  def state_label
+    if self.started?
+      return "saved"
+    elsif self.confirmed?
+      return "signed up"
+    else
+      return self.state
     end
   end
 

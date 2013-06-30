@@ -3,6 +3,10 @@
   #msg.alert.hide
   %section.section
     .container
+      - if show
+        - if current_user && current_user==@workshop.user && !@workshop.pending?
+          = link_to "Edit", edit_workshop_path, name: "edit_button", class: "btn btn-primary pull-right"
+
       - unless show
         %h1#page-header.pull-right Build your Workshop
         %br
