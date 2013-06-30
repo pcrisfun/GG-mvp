@@ -283,7 +283,8 @@
                 = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
 
               - else
-                = link_to "Apply!", new_app_signup_path(apprenticeship_id: @apprenticeship), :class => "btn btn-block btn-primary"
+                - unless current_user == @apprenticeship.user
+                  = link_to "Apply!", new_app_signup_path(apprenticeship_id: @apprenticeship), :class => "btn btn-block btn-primary"
               %br
 
           //Map //////////////////
