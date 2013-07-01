@@ -295,7 +295,7 @@
                     .modal-body
                       %p It looks like you're older than the maximum age for this workshop. But you can sign your daughter up!
                       %br
-                      = link_to "Sign up my Daughter", new_parent_path(workshop_id: @workshop), :class => "btn btn-primary pull-right"
+                      = link_to "Sign up my Daughter", new_parent_work_signup_path(workshop_id: @workshop), :class => "btn btn-primary pull-right"
                       %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
                       %br
                 - elsif current_user.age < @workshop.age_min

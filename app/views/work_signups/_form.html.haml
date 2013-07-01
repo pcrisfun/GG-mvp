@@ -17,7 +17,7 @@
               Not you? #{link_to "Sign in as a different user.", destroy_user_session_path}
               %br/
               - unless current_user && current_user.age < @workshop.age_min
-                Or, you can #{link_to "sign up your daughter.", new_parent_path(workshop_id: @workshop)}
+                Or, you can #{link_to "sign up your daughter.", new_parent_work_signup_path(workshop_id: @workshop)}
           %dt Email
           %dd= "#{current_user.email}"
           %dl.dl-horizontal.dl-application
@@ -34,7 +34,7 @@
           - elsif current_user && current_user.age > @workshop.age_max
             %p Sorry, it looks like you're older than the maximum age for this workshop.
             %p You can
-            = link_to "Sign up your Daughter", new_parent_path(workshop_id: @workshop), :class => "btn btn-block btn-small btn-primary"
+            = link_to "Sign up your Daughter", new_parent_work_signup_path(workshop_id: @workshop), :class => "btn btn-block btn-small btn-primary"
             %p or
             = render :partial => "shared/prereg", :locals => {:event => @workshop}
             %br
