@@ -16,7 +16,8 @@
             %span.pull-right
               Not you? #{link_to "Sign in as a different user.", destroy_user_session_path}
               %br/
-              Or, you can #{link_to "sign yourself up.", new_app_signup_path(apprenticeship_id: @apprenticeship)}
+              - unless current_user && current_user.age > @apprenticeship.age_max
+                Or, you can #{link_to "sign yourself up.", new_app_signup_path(apprenticeship_id: @apprenticeship)}
           %dt Email
           %dd= "#{current_user.email}"
           = f.hidden_field :parent, value: 'true'
