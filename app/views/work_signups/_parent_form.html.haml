@@ -41,12 +41,12 @@
       .accordion-inner
         %br/
         = f.input :interest, label: "Interest", input_html: { rows: "2",
-          placeholder: "What are you most interested in learning in this workshop?",
+          placeholder: "What is your daughter most interested in learning in this workshop?",
           rel: 'popover',
           data: { :content => "This will help the artist plan her workshop to include what you want to know." }}
         %br/
         = f.input :experience, label: "Experience", input_html: { rows: "2",
-          placeholder: "Have you done this kind of making before?",
+          placeholder: "Has your daugther done this kind of making before?",
           rel: 'popover',
           data: { :content => "If so, tell us about what you've made. If not, that's ok too!" }}
         %br/
@@ -59,7 +59,7 @@
               %span.form-inline
                 = f.check_box :requirements
                 = f.label :requirements do
-                  %p Yup, I know these skills, tools, and techniques.
+                  %p Yup, my daughter knows these skills, tools, and techniques.
         /%br/
         /- if @workshop.other_needs.present?
         /  %p

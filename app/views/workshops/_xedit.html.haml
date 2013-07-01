@@ -142,13 +142,13 @@
                     = editable_link_to "Zip", field: :location_zipcode, resource: @workshop, type: :text
                   %br
               - if !show || @workshop.location_private
-                This is a
+                A
                 #private-address.field.select
                   - if @workshop.location_private == true
-                    - private_text = "Private"
+                    - private_text = "Residential"
                   - elsif @workshop.location_private == false
                     - private_text = "Public"
-                  = editable_link_to "Public/Private", field: :location_private, resource: @workshop, type: :select, link_text: @workshop.location_private.nil? ? nil : private_text , data: { source: '{true : "Private", false : "Public"}'}
+                  = editable_link_to "Public/Residential", field: :location_private, resource: @workshop, type: :select, link_text: @workshop.location_private.nil? ? nil : private_text , data: { source: '{true : "Residential", false : "Public"}'}
                 address
                 #nbrhood-toggle{class: !@workshop.location_private ?  'hidden' : '' }
                   in the
@@ -157,7 +157,7 @@
                       = editable_link_to "__________", field: :location_nbrhood, resource: @workshop, type: :text
                     neighborhood
                 - if !show
-                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:'A "Public" address will be displayed on the workshop page with a map of the exact location, while a "Private" address will only display a map of the neighborhood until the apprentice has been accepted and confirmed.'} }
+                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:'A "Public" address will be displayed on the workshop page with a map of the exact location, while a "Residential" address will only display a map of the neighborhood until the apprentice has been accepted and confirmed.'} }
                     %i.icon-question-sign.small-icon
             %dt
               - if !show
@@ -283,29 +283,8 @@
         %span#applysidebar.span3
           - if show
             - if @workshop.accepted?
-              - if current_user && current_user.age < @workshop.age_min
-                = link_to "Work with #{@workshop.host_firstname}!", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-block disabled"
-                %p.small
-                  Sorry, it looks like you're younger than the minimum age for this workshop.
-                %br/
-                //%p.small Want to be notified next time #{@workshop.host_firstname}'s teaching?
+              - if @workshop.datetime_tba == true || @workshop.filled? || @workshop.completed?
                 = render :partial => "shared/prereg", :locals => {:event => @workshop}
-
-              - elsif current_user && current_user.age > @workshop.age_max
-                = link_to "Work with #{@workshop.host_firstname}!", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-block disabled"
-                %p.small
-                  Sorry, it looks like you're older than the maximum age for this workshop.
-                %br/
-                //%p.small Want to be notified next time #{@workshop.host_firstname}'s teaching?
-                = render :partial => "shared/prereg", :locals => {:event => @workshop}
-
-                %br
-                %p
-                  #{link_to "Sign up my Daughter", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-block btn-primary"}
-
-              - elsif @workshop.datetime_tba == true || @workshop.filled? || @workshop.completed?
-                = render :partial => "shared/prereg", :locals => {:event => @workshop}
-
               - else
                 = link_to "Sign up!", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-block btn-primary"
               %br

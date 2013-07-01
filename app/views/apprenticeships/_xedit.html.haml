@@ -157,13 +157,13 @@
                     = editable_link_to "Zip", field: :location_zipcode, resource: @apprenticeship, type: :text
                   %br
               - if !show || @apprenticeship.location_private
-                This is a
+                A
                 #private-address.field.select
                   - if @apprenticeship.location_private == true
-                    - private_text = "Private"
+                    - private_text = "Residential"
                   - elsif @apprenticeship.location_private == false
                     - private_text = "Public"
-                  = editable_link_to "Public/Private", field: :location_private, resource: @apprenticeship, type: :select, link_text: @apprenticeship.location_private.nil? ? nil : private_text , data: { source: '{true : "Private", false : "Public"}'}
+                  = editable_link_to "Public/Residential", field: :location_private, resource: @apprenticeship, type: :select, link_text: @apprenticeship.location_private.nil? ? nil : private_text , data: { source: '{true : "Residential", false : "Public"}'}
                 address
                 #nbrhood-toggle{class: !@apprenticeship.location_private ?  'hidden' : '' }
                   in the
@@ -172,7 +172,7 @@
                       = editable_link_to "__________", field: :location_nbrhood, resource: @apprenticeship, type: :text
                     neighborhood
                 - if !show
-                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:'A "Public" address will be displayed on the apprenticeship page with a map of the exact location, while a "Private" address will only display a map of the neighborhood until the apprentice has been accepted and confirmed.'} }
+                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:'A "Public" address will be displayed on the apprenticeship page with a map of the exact location, while a "Residential" address will only display a map of the neighborhood until the apprentice has been accepted and confirmed.'} }
                     %i.icon-question-sign.small-icon
 
             %dt
@@ -279,31 +279,11 @@
         %span#applysidebar.span3
           - if show
             - if @apprenticeship.accepted?
-              - if current_user && current_user.age < @apprenticeship.age_min
-                = link_to "Work with #{@apprenticeship.host_firstname}!", new_app_signup_path(apprenticeship_id: @apprenticeship), :class => "btn btn-block disabled"
-                %p.small
-                  Sorry, it looks like you're younger than the minimum age for this apprenticeship.
-                %br/
-                //%p.small Want to be notified next time #{@apprenticeship.host_firstname}'s teaching?
+              - if @apprenticeship.datetime_tba == true || @apprenticeship.filled? || @apprenticeship.completed?
                 = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
-
-              - elsif current_user && current_user.age > @apprenticeship.age_max
-                = link_to "Work with #{@apprenticeship.host_firstname}!", new_app_signup_path(apprenticeship_id: @apprenticeship), :class => "btn btn-block disabled"
-                %p.small
-                  Sorry, it looks like you're older than the maximum age for this apprenticeship.
-                %br/
-                //%p.small Want to be notified next time #{@apprenticeship.host_firstname}'s teaching?
-                = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
-
-                %br
-                %p
-                  #{link_to "Sign up my Daughter", new_app_signup_path(apprenticeship_id: @apprenticeship), :class => "btn btn-block btn-primary"}
-
-              - elsif @apprenticeship.datetime_tba == true || @apprenticeship.filled? || @apprenticeship.completed?
-                = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
-
               - else
-                = link_to "Sign up!", new_app_signup_path(apprenticeship_id: @apprenticeship), :class => "btn btn-block btn-primary"
+                - unless current_user == @apprenticeship.user
+                  = link_to "Apply!", new_app_signup_path(apprenticeship_id: @apprenticeship), :class => "btn btn-block btn-primary"
               %br
 
           //Map //////////////////

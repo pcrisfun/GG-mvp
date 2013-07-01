@@ -1,0 +1,112 @@
+= render 'shared/error_messages', :form_model => @app_signup
+= hidden_field_tag :apprenticeship_id, @apprenticeship.id
+#accordion2.accordion.form-horizontal.event-accordion
+  .accordion-group
+    .accordion-heading
+      %h2
+        %a.accordion-toggle
+          1. My Details
+    .accordion-body
+      .accordion-inner
+        %br/
+        %dl.dl-horizontal.dl-application
+          %dt Name
+          %dd
+            = "#{current_user.first_name} #{current_user.last_name}"
+            %span.pull-right
+              Not you? #{link_to "Sign in as a different user.", destroy_user_session_path}
+              %br/
+              Or, you can #{link_to "sign yourself up.", new_app_signup_path(apprenticeship_id: @apprenticeship)}
+          %dt Email
+          %dd= "#{current_user.email}"
+          = f.hidden_field :parent, value: 'true'
+          = f.input :daughter_firstname,   label: "Daughter's First Name"
+          = f.input :daughter_lastname,   label: "Daughter's Last Name"
+          = f.input :daughter_age, label: "Daughter's Age" do
+            = f.number_field :daughter_age, :class => "span2"
+            (She must be between
+            %strong
+              = "#{@apprenticeship.age_min}"
+              \- #{"#{@apprenticeship.age_max}"}
+            years old to do this apprenticeship.)
+        %br/
+  %br/
+  .accordion-group
+    .accordion-heading
+      %h2
+        %a.accordion-toggle
+          2. About Me
+    .accordion-body
+      .accordion-inner
+        %br/
+        = f.input :happywhen, label: "I'm truly happy when...", input_html: { rows: "3",                                                                            |
+          placeholder: "Give the maker a sense of who they'll be working with.",                                                                                    |
+          rel: 'popover',                                                                                                                                           |
+          data: { :content => "Tell us a little bit about what makes your daughter happy and what she loves to do - just to give a sense of who she is and what she likes." }} |
+        %br/
+        = f.input :collaborate, label: "I like working together on projects because...", input_html: { rows: "3",       |
+          placeholder: "Give the maker a sense of who they'll be working with.",                                        |
+          rel: 'popover',                                                                                               |
+          data: { :content => "Tell us a bit about your daughter's working style and what kinds of collaboration she enjoys." }} |
+        %br/
+        = f.input :interest, label: "What’s most interesting to me about this apprenticeship...", input_html: { rows: "3", |
+          placeholder: "Give the maker a sense of who they'll be working with.",                                              |
+          rel: 'popover',                                                                                                     |
+          data: { :content => "Tell us a bit about why this apprenticeship is something your daughter wants to do." }}                   |
+        %br/
+        = f.input :experience, label: "My experience with tools and making...", input_html: { rows: "3",                       |
+          placeholder: "Give the maker a sense of who they'll be working with.",                                               |
+          rel: 'popover',                                                                                                      |
+          data: { :content => "What kinds of things has your daughter made before? What kinds of tools or techniques has she used?" }} |
+        %br/
+        - if @apprenticeship.requirement_list.present?
+          = f.input :requirements do
+            = content_tag(:span, rel: 'popover', :data => { :content => "In order to take part in this workshop, you'll need to know the following skills, tools, and techniques." }) do
+              - @apprenticeship.requirement_list.each do |req|
+                %span.label= req
+              %br/
+              %span.form-inline
+                = f.check_box :requirements
+                = f.label :requirements do
+                  %p Yup, my daughter knows these skills, tools, and techniques.
+        = f.input :confirm_available, label: 'Confirm your availability' do
+          = f.check_box :confirm_available
+          %span.simpleform-text
+            Yes, she's available to take on an apprenticeship for
+            %strong= "#{@apprenticeship.hours}"
+            hours per
+            = succeed "," do
+              %strong= "#{@apprenticeship.hours_per}"
+            between
+            %strong= "#{@apprenticeship.begins_at.strftime('%A, %B %d')}"
+            and
+            = succeed "." do
+              %strong= "#{@apprenticeship.ends_at.strftime('%A, %B %d')}"
+        %br/
+        = f.input :preferred_times, label: 'Preferred meeting times',                                                                                                                                       |
+          placeholder: "Flexible within the times above? What are the best days/times for you?",                                                                                                            |
+          input_html: { rel: 'popover',                                                                                                                                                                     |
+          :data => { :content => "Example: “I’m flexible but prefer Mondays & Wednesdays, 4-6pm.” Or: “I’m flexible but NOT available Thursdays and Fridays.” Or: “I’m only available Sunday mornings.”" }} |
+        %br/
+  %br/
+  .accordion-group
+    .accordion-heading
+      %h2
+        %a.accordion-toggle
+          3. Things to Note
+    .accordion-body
+      .accordion-inner
+        %br/
+        = f.input :confirm_unpaid, label: 'Yes' do
+          = f.check_box :confirm_unpaid
+          %span.simpleform-text
+            I understand that this is an unpaid apprenticeship. I agree that if accepted my daughter will work with #{"#{@apprenticeship.host_firstname}"} in return for the chance to learn from her.
+        = f.input :confirm_fee, label: 'Yes' do
+          = f.check_box :confirm_fee
+          %span.simpleform-text
+            I agree that
+            %strong if my daughter is accepted
+            as an apprentice I will pay the
+            %strong $29
+            matching fee to GirlsGuild before being connected with #{"#{@apprenticeship.host_firstname}"} for the apprenticeship.
+        %br/
