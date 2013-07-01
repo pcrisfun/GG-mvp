@@ -291,13 +291,15 @@
                   #workwithModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "workwithModal", :role => "dialog", :tabindex => "-1"}
                     .modal-header
                       %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
-                      %h3#galleryModalLabel Oopse
+                      %h3#galleryModalLabel Oops
                     .modal-body
                       %p It looks like you're older than the maximum age for this workshop. But you can sign your daughter up!
                       %br
                       = link_to "Sign up my Daughter", new_parent_path(workshop_id: @workshop), :class => "btn btn-primary pull-right"
                       %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
                       %br
+                  %br
+                  = render :partial => "shared/prereg", :locals => {:event => @workshop}
                 - elsif current_user.age < @workshop.age_min
                   = link_to "Work with #{@workshop.user.first_name}", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
                   #workwithModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "workwithModal", :role => "dialog", :tabindex => "-1"}
@@ -311,8 +313,12 @@
                         = render :partial => "shared/prereg", :locals => {:event => @workshop}
                       %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
                       %br
+                  %br
+                  = render :partial => "shared/prereg", :locals => {:event => @workshop}
                 - else
                   = link_to "Work with #{@workshop.user.first_name}", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-block btn-primary"
+                  %br
+                  = render :partial => "shared/prereg", :locals => {:event => @workshop}
               %br
 
           //Map //////////////////

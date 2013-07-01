@@ -25,18 +25,6 @@
             %dd
               = current_user.age
               years old
-
-          - if current_user && current_user.age < @apprenticeship.age_min
-            %p Sorry, it looks like you're younger than the minimum age for this apprenticeship.
-            %p Want us to let you know next time #{@apprenticeship.host_firstname}'s teaching?
-            = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
-
-          - elsif current_user && current_user.age > @apprenticeship.age_max
-            %p Sorry, it looks like you're older than the maximum age for this apprenticeship.
-            %p You can
-            = link_to "Sign up your Daughter", parent_new_path(apprenticeship_id: @apprenticeship), :class => "btn btn-primary"
-            %p or
-            = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
             %br
         %br/
   %br/
