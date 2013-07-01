@@ -83,7 +83,7 @@ class WorkshopsController < ApplicationController
           redirect_to private_workshop_path(@workshop), :flash => { warning: "Please correct the following: #{@workshop.errors.full_messages}" } and return
         end
         @workshop.submit && @workshop.deliver
-        redirect_to confirmation_workshop_path(@workshop), flash: { warning: "Awesome! Your Workshop was submitted."}
+        redirect_to confirmation_workshop_path(@workshop), flash: { warning: "Awesome! Your workshop was submitted."}
       else
         if params[:revoke_button] && current_user.admin? && @workshop.revoke && @workshop.deliver_revoke
           redirect_to workshops_path, :flash => { :warning => "Workshop revoked."}
