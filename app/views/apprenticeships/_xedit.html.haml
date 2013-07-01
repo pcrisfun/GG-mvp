@@ -291,7 +291,7 @@
                       .modal-body
                         %p It looks like you're older than the maximum age for this apprenticeship. But you can sign your daughter up!
                         %br
-                        = link_to "Sign up my Daughter", parent_new_path(apprenticeship_id: @apprenticeship), :class => "btn btn-primary pull-right"
+                        = link_to "Sign up my Daughter", new_parent_app_signup_path(apprenticeship_id: @apprenticeship), :class => "btn btn-primary pull-right"
                         %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
                         %br
                     %br

@@ -17,7 +17,7 @@
               Not you? #{link_to "Sign in as a different user.", destroy_user_session_path}
               %br/
               - unless current_user && current_user.age < @apprenticeship.age_min
-                Or, you can #{link_to "Apply for your daughter.", parent_new_path(apprenticeship_id: @apprenticeship)}
+                Or, you can #{link_to "Apply for your daughter.", new_parent_app_signup_path(apprenticeship_id: @apprenticeship)}
           %dt Email
           %dd= "#{current_user.email}"
           %dl.dl-horizontal.dl-application

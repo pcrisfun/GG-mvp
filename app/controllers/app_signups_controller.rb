@@ -19,7 +19,7 @@ class AppSignupsController < ApplicationController
     @app_signup.user_id = current_user.id
   end
 
-  def parent_new
+  def new_parent_app_signup
     @apprenticeship = Apprenticeship.find(params[:apprenticeship_id])
     @app_signup = AppSignup.new
     @app_signup.event_id = @apprenticeship.id
@@ -40,7 +40,7 @@ class AppSignupsController < ApplicationController
           redirect_to apprenticeships_path, flash: { success: "Nice! Your application was saved." }
         else
           flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
-          render 'parent_new'
+          render 'new_parent_app_signup'
         end
       elsif @app_signup.group_valid?(:save) && @app_signup.save(:validate => false) && @app_signup.deliver_save
         redirect_to apprenticeships_path, :flash => { :success => "Nice! Your application was saved." }
@@ -59,7 +59,7 @@ class AppSignupsController < ApplicationController
       else
         flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
         if @app_signup.parent?
-          render 'parent_new'
+          render 'new_parent_app_signup'
         else
           render 'new'
         end
@@ -90,7 +90,7 @@ class AppSignupsController < ApplicationController
       else
         flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
         if @app_signup.parent?
-          render 'parent_new'
+          render 'new_parent_app_signup'
         else
           render 'new'
         end
@@ -107,7 +107,7 @@ class AppSignupsController < ApplicationController
         else
           flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
           if @app_signup.parent?
-            render 'parent_new'
+            render 'new_parent_app_signup'
           else
             render 'new'
           end
@@ -115,7 +115,7 @@ class AppSignupsController < ApplicationController
       else
         flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
         if @app_signup.parent?
-          render 'parent_new'
+          render 'new_parent_app_signup'
         else
           render 'new'
         end

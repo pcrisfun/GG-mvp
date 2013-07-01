@@ -17,7 +17,7 @@
               Not you? #{link_to "Sign in as a different user.", destroy_user_session_path}
               %br/
               - unless current_user && current_user.age < @workshop.age_min
-                Or, you can #{link_to "sign up your daughter.", new_parent_path(workshop_id: @workshop)}
+                Or, you can #{link_to "sign up your daughter.", new_parent_work_signup_path(workshop_id: @workshop)}
           %dt Email
           %dd= "#{current_user.email}"
           %dl.dl-horizontal.dl-application

@@ -1,9 +1,11 @@
-<%= content_tag :section, :class => "section alt", :id => 'signup' do %>
+<%= content_tag :section, :class => "section alt-grey", :id => 'signup' do %>
   <%= content_tag :div, :class => "container" do %>
     <% provide(:title, 'Sign Up for a Workshop') %>
 
     <h1>Workshop Signup</h1>
-    <p>Yes! We’re excited your daughter wants to work with <%= "#{@workshop.host_firstname}" %>! <br/>When you sign her up, we’ll send you an email to give you all the details, including the exact address.</p>
+    <p>Yes! We’re excited your daughter wants to work with <%= "#{@workshop.host_firstname}" %>!  at her workshop, <%= link_to @work_signup.event.topic %>.
+      <br/>When you sign her up, we’ll send you an email to give you all the details, including the exact address.
+    </p>
     <br/>
     <!--
     <div class="howitworks">

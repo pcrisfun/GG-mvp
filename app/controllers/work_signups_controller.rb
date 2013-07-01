@@ -18,7 +18,7 @@ class WorkSignupsController < ApplicationController
     @work_signup.user_id = current_user.id
   end
 
-  def new_parent
+  def new_parent_work_signup
     @workshop = Workshop.find(params[:workshop_id])
     @work_signup = WorkSignup.new
     @work_signup.event_id = @workshop.id
@@ -38,7 +38,7 @@ class WorkSignupsController < ApplicationController
     else
       flash.now[:notify] = 'There was an error signing up.'
       if @work_signup.parent?
-        render 'new_parent'
+        render 'new_parent_work_signup'
       else
         render 'new'
       end
