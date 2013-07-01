@@ -25,19 +25,6 @@
             %dd
               = current_user.age
               years old
-
-          - if current_user && current_user.age < @workshop.age_min
-            %p Sorry, it looks like you're younger than the minimum age for this workshop.
-            %p Want us to let you know next time #{@workshop.host_firstname}'s teaching?
-            = render :partial => "shared/prereg", :locals => {:event => @workshop}
-
-          - elsif current_user && current_user.age > @workshop.age_max
-            %p Sorry, it looks like you're older than the maximum age for this workshop.
-            %p You can
-            = link_to "Sign up your Daughter", new_parent_work_signup_path(workshop_id: @workshop), :class => "btn btn-block btn-small btn-primary"
-            %p or
-            = render :partial => "shared/prereg", :locals => {:event => @workshop}
-            %br
         %br/
   %br/
   - if current_user && current_user.age >= @workshop.age_min && current_user.age <= @workshop.age_max
