@@ -1,4 +1,4 @@
-// Variables
+// Variables ======================================================================================
 $plum-medium: #ad3961
 $plum: #923052
 $plum-shadow: #673c58
@@ -68,7 +68,7 @@ $radius: 5px
 
 
 
-// Mixins
+// Mixins ======================================================================================
 @mixin box_sizing
   -moz-box-sizing: border-box
   -webkit-box-sizing: border-box
@@ -99,27 +99,13 @@ $radius: 5px
   text-shadow: 1px 1px #FFF
 
 
-// Layout
-.alt-grey
-  background-color: #EFEFEF
 
-.hero-unit
-  p
-    line-height: 24px
-
-.hero-title
-  h1
-    display: inline
-  .kristi-title
-    font-size: 45px
-    display: inline
-
-// Headers
+// Headers ======================================================================================
 h2
   color: #555
 
 
-// Defaults
+// Defaults ======================================================================================
 a, a:hover, a:active, a:visited, a:focus
   outline: none
 
@@ -150,7 +136,8 @@ a, a:hover, a:active, a:visited, a:focus
 .unbold
   font-weight: normal
 
-// Buttons
+
+// Buttons ======================================================================================
 .btn
   font-family: $dosis
   text-transform: uppercase
@@ -191,7 +178,7 @@ a, a:hover, a:active, a:visited, a:focus
     padding: 2px 14px
 
 
-// Badges & Labels
+// Badges & Labels ======================================================================================
 .label-success, .badge-success
   background-color: $grass
 .label-warning, .badge-warning
@@ -202,15 +189,15 @@ a, a:hover, a:active, a:visited, a:focus
   background-color: $ocean
 
 
-
-// Icons
+// Icons ======================================================================================
 .enormous-icon.circled
   line-height: 1.4em
 .btn
   &[class^="icon-"], &[class*=" icon-"]
     font-family: 'FontAwesome'
 
-// Header
+
+// Header ======================================================================================
 #masthead
   .brand
     background: url(gg-logo.png) no-repeat 0 0 transparent
@@ -243,7 +230,23 @@ a, a:hover, a:active, a:visited, a:focus
     margin-left: 5px
 
 
-// Footer
+// Layout ======================================================================================
+.alt-grey
+  background-color: #EFEFEF
+
+.hero-unit
+  p
+    line-height: 24px
+
+.hero-title
+  h1
+    display: inline
+  .kristi-title
+    font-size: 45px
+    display: inline
+
+
+// Footer ======================================================================================
 #footer
   .brand
     background: url(gg-logo-footer.png) no-repeat 0 0 transparent
@@ -267,7 +270,8 @@ a, a:hover, a:active, a:visited, a:focus
   .tagline
     padding-top: 5px
 
-// Sidebar
+
+// Sidebar ======================================================================================
 .gravatar
   float: left
   margin-right: 10px
@@ -284,7 +288,8 @@ a, a:hover, a:active, a:visited, a:focus
     padding-bottom: 5px
     border-bottom: 1px solid $silver-light
 
-// Accordion Nav
+
+// Accordion Nav ======================================================================================
 .accordionFAQ
   margin-left: 0px
   .icon-chevron-down, .icon-envelope
@@ -311,7 +316,8 @@ a, a:hover, a:active, a:visited, a:focus
     background-color: $silver-bright
     font-size: 13px
 
-// FAQ
+
+// FAQ ======================================================================================
 #FAQ
   .accordion
     margin-bottom: 5px
@@ -321,8 +327,14 @@ a, a:hover, a:active, a:visited, a:focus
   font-size: 45px
 
 
+// How it works =================================================================================
+.accordion
+  .thumbnails
+    li
+      margin-bottom: 0px
 
-// Forms
+
+// Forms ======================================================================================
 .simple_form, #apprenticeship-design, #workshop-design
   .icon-asterisk:before
     font-size: 10px
@@ -426,16 +438,16 @@ ul.token-input-list-facebook
   clear: none
 
 .popover, .popover.arrow
-  background: #000
+  background: #333
 .popover.right .arrow
-  border-right-color: #000
+  border-right-color: #333
 .popover-inner
   text-align: left
 .popover-title
   padding: 0px
   border-bottom: none
 .popover-content
-  color: #CCC
+  color: #FFF
 .popover-content p, .popover-content ul, .popover-content ol
   font-size: 13px
 
@@ -447,7 +459,9 @@ input[type="radio"], input[type="checkbox"]
   margin-top: -10px
 
 
-// Home
+// Pages  ======================================================================================
+
+// Home page ======================================================================================
 #hmpg
   .hmpg-spotlight
     background: url(banners/hmpg-spotlight-01.png) repeat-x center center transparent
@@ -555,12 +569,14 @@ input[type="radio"], input[type="checkbox"]
       padding: 1px 0px
       text-shadow: none
 
-// Newsletter page
+
+// Newsletter page ======================================================================================
 .indicates-required
   text-align: right
   font-size: 12px
 
-// Get Involved
+
+// Get Involved ======================================================================================
 #getinvolved
   .enormous-icon
     .kristi
@@ -585,7 +601,17 @@ input[type="radio"], input[type="checkbox"]
     text-transform: none
     width: 170px
 
-// Required for jQuery Masonry
+
+
+
+
+
+
+
+
+
+
+// Required for jQuery Masonry ======================================================================================
 .box, .box_photo, .dragging
   margin: 5px
   padding: 5px
@@ -695,7 +721,7 @@ input[type="radio"], input[type="checkbox"]
   text-align: center
 
 
-// Portfolio
+// Portfolio ======================================================================================
 .dragging
   opacity: .6
 
@@ -753,8 +779,8 @@ input[type="radio"], input[type="checkbox"]
     margin: 0 10px
     line-height: 30px
 .dl-horizontal
-  font-size: 16px
-  line-height: 24px
+  font-size: 14px
+  line-height: 28px
   margin-top: 0px
   dt
     text-align: right
@@ -768,8 +794,8 @@ input[type="radio"], input[type="checkbox"]
   margin-top: 10px
 
 
-// Apprenticeships & Workshops
-// ================================================================================================
+
+// Apprenticeships & Workshops ======================================================================================
 .newevent
   p, .well
     font-size: 14px
@@ -866,11 +892,8 @@ input[type="radio"], input[type="checkbox"]
     outline: none
 
 
-// A&W DESIGN Pages --------------------------
-#apprenticeship-design, #workshop-design
 
-
-// A&W DESIGN & SHOW Pages ---------------------------
+// Events Design & Show Pages ======================================================================================
 #private-info, #apprenticeship-design, #apprenticeship-show, #workshop-design, #workshop-show
   .editable-cancel
     display: none // this x button is hidden for usability
@@ -879,14 +902,25 @@ input[type="radio"], input[type="checkbox"]
     font-size: 45px
     font-weight: normal
     text-transform: none
+  .nav
+    margin-bottom: 0px
+  .nav-pills > .active > a, .nav-pills > .active > a:hover
+    background-color: #D1EDE1
+    color: $niceblue
+  .nav-pills > li > a
+    border-radius: 5px 5px 0 0
+    border: 1px solid #EEE
+  .nav-pills > .active > a
+    border: 1px solid #B6DBCB
   #top-buttons
     float: left
-    +dosis-caps
     ul
       li
-        margin: 0 15px
-        //width: 16%
+        margin: 0 5px
         a
+          margin-left: -30px
+          margin-bottom: -1px
+          padding-left: 40px
           display: inline-block
           line-height: 24px
           vertical-align: top
@@ -896,11 +930,8 @@ input[type="radio"], input[type="checkbox"]
               background-color: none
               cursor: default
         .number-circle
-          padding: 5px 12px
+          padding: 5px 0px
           margin: 0 6px
-          border-radius: 30px
-          border: 2px solid #CCC
-          background-color: #EEE
           display: inline-block
           width: 12px
           height: 24px
@@ -909,11 +940,32 @@ input[type="radio"], input[type="checkbox"]
           i
             position: absolute
             left: 5px
-            top: 7px
+            top: 12px
             color: $grass
-            font-size: 30px
+            font-size: 23px
           .number-text
             color: #CCC
+        .active
+          .number-circle
+            i
+              color: #FFF
+
+
+#private-info
+  margin-top: 40px
+  .section
+    padding-top: 0px
+  .icon-check
+    color: $grass
+  #top-buttons > ul > li > a
+    margin-bottom: 1px
+  #full
+    border: 0px dashed #CCC
+    background-color: $silver-bright
+    border-radius: 4px
+    clear: both
+    padding: 30px
+    +box-shadow-silver
 
 
 #apprenticeship-design, #apprenticeship-show, #workshop-design, #workshop-show
@@ -924,8 +976,8 @@ input[type="radio"], input[type="checkbox"]
     padding: 0
   #top
     margin: 0 -3px
-    border: 3px dashed #CCC
-    background-color: $silver-bright
+    border: 1px solid #EEE
+    background-color: #FFF
     border-bottom: none
     border-radius: 4px 4px 0 0
     clear: both
@@ -933,8 +985,8 @@ input[type="radio"], input[type="checkbox"]
       border: none
   #middle
     margin: 0 -3px
-    border: 3px dashed #CCC
-    background-color: $silver-bright
+    border: 1px solid #EEE
+    background-color: #FFF
     border-top: none
     border-bottom: none
     padding: 20px 0
@@ -942,8 +994,8 @@ input[type="radio"], input[type="checkbox"]
       border: none
   #bottom
     margin: 0 -3px
-    border: 3px dashed #CCC
-    background-color: $silver-bright
+    border: 1px solid #EEE
+    background-color: #FFF
     border-top: none
     border-radius: 0 0 4px 4px
     margin-bottom: 30px
@@ -952,12 +1004,12 @@ input[type="radio"], input[type="checkbox"]
       border: none
   .field
     display: inline-block
-    border: 1px solid #CCC
+    border: 1px solid #e5e5e5
     background-color: #FFF
-    border-radius: 6px
-    padding: 1px 8px
+    border-radius: 4px
+    padding: 0px 8px
     a, span
-      line-height: 35px
+      line-height: 25px
       font-family: "Open Sans"
     &.textarea
       a
@@ -1082,24 +1134,25 @@ input[type="radio"], input[type="checkbox"]
     font-size: 13px
     color: $silver-dark
   #map-box  // use this for a smaller map in the sidebar
-    width: 90%
+    //width: 90%
     text-align: center
     margin: 0 1.1%
     #map
-      margin: 0px -15px 0 0
+      margin: 0px -5px 0 0
+      height: 280px
 
   #details, #private-details
-    width: 78.5%
+    //width: 78.5%
     .dl-horizontal
       dt
         line-height: 37px
-        width: 25%
+        width: 15%
         margin-bottom: 4px
         font-family: $opensans
       dd
         line-height: 37px
-        margin-left: 26.5%
-        width: 73.5%
+        margin-left: 16.5%
+        width: 83.5%
         margin-bottom: 4px
   #proceed
     text-align: center
@@ -1128,10 +1181,19 @@ input[type="radio"], input[type="checkbox"]
   .editable-click, a.editable-click, a.editable-click:hover
     border-bottom: 1px dashed #CCCCCC
   #admin_section
-    padding: 30px 0px
+    padding: 0px 0px
     text-align: center
 
+
+// Events Design Pages ======================================================================================
+#apprenticeship-design, #workshop-design
+  .field
+    background-color: #F9F9F9
+
+
+// Events Show Pages ======================================================================================
 #apprenticeship-show, #workshop-show
+  margin-top: 10px
   #banner
     padding-top: 0px
     #title
@@ -1164,29 +1226,17 @@ input[type="radio"], input[type="checkbox"]
   #top, #middle, #bottom
     border: none
     background-color: transparent
+    box-shadow: none
 
   #applysidebar
-    padding-top: 30px
-    width: 20%
-    float: right
+    padding-top: 15px
+    //width: 20%
+    //float: right
     .small
       font-size: 13px
       color: $silver-dark
       padding: 10px
-#private-info
-  margin-top: 40px
-  .section
-    padding-top: 0px
-  .icon-check
-    color: $grass
-  h1
-    padding-bottom: 30px
-  #full
-    border: 3px dashed #CCC
-    background-color: $silver-bright
-    border-radius: 4px
-    clear: both
-    padding: 30px
+
 
 #workshop-design, #workshop-show
   #price-details
@@ -1198,7 +1248,9 @@ input[type="radio"], input[type="checkbox"]
   #total-price
     margin-left: -3px
 
-// Dashboard
+
+
+// Dashboard ======================================================================================
 #dashboard-display
   .fancyform-light
     background-color: #FFF
@@ -1251,8 +1303,8 @@ input[type="radio"], input[type="checkbox"]
         &.age
           width: 19.5%
 
-// Event SignUps
-// SignUps
+
+// Event SignUps ======================================================================================
 #apply, #signup
   h2
     text-transform: none
@@ -1285,7 +1337,8 @@ input[type="radio"], input[type="checkbox"]
 .row-upcoming .box
   background-color: $alert-blue
 
-// How it works
+
+// How it works ======================================================================================
 .howitworks
   padding: 30px 0px
   i
@@ -1294,14 +1347,15 @@ input[type="radio"], input[type="checkbox"]
     border: none
 
 
-// Makers Page
+// Makers Page ======================================================================================
 #makers_show
   .name
     padding-top: 5px
   .event
     padding: 5px 0
 
-// About Page
+
+// About Page ======================================================================================
 #about
   h4
     font-size: 13px
@@ -1309,7 +1363,8 @@ input[type="radio"], input[type="checkbox"]
   .thumbnail-title
     top: 75%
 
-// Avatar
+
+// Avatar ======================================================================================
 .file-upload
   display: inline-block
   position: relative
@@ -1334,7 +1389,7 @@ input[type="radio"], input[type="checkbox"]
     width: 308px
 
 
-// Miscellaneous
+// Miscellaneous ======================================================================================
 .debug_dump /* Hartl */
   clear: both
   float: left

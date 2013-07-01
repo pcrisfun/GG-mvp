@@ -92,7 +92,7 @@
       .row-fluid
 
         //Details Section //////////////////
-        %span#details.pull-left
+        %span#details.pull-left.span9
           %dl.dl-horizontal
             %dt
               - if !show
@@ -170,7 +170,7 @@
                 - elsif @workshop.gender == false
                   - gender_text = "Girls/Women"
                 = editable_link_to "Describe your apprentice(s)", field: :gender, resource: @workshop, type: :select, link_text: gender_text, data: { source: '{"false" : "Girls/Women", "true" : "Open to all gender identities"}'}
-              , ages
+              ages
               #min-age.field.select
                 = editable_link_to "Min Age", field: :age_min, resource: @workshop, type: :number
               to
@@ -190,7 +190,7 @@
               to
               #registration-max.field.number
                 = editable_link_to "Max", field: :registration_max, resource: @workshop, type: :text
-              participants.
+              participants
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"What is the minimum number of participants you need to run the workshop? If fewer than this number have signed up by the time registration closes, the workshop will be cancelled. What is the maximum number of participants you can accommodate in the workshop? Once this many people have signed up, we will close registration for the workshop."} }
                   %i.icon-question-sign.small-icon
@@ -280,11 +280,11 @@
 
 
         //Apply Sidebar //////////////////
-        %span#applysidebar.pull-right
+        %span#applysidebar.span3
           - if show
             - if @workshop.accepted?
               - if current_user && current_user.age < @workshop.age_min
-                = link_to "Work with #{@workshop.host_firstname}!", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-large btn-block disabled"
+                = link_to "Work with #{@workshop.host_firstname}!", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-block disabled"
                 %p.small
                   Sorry, it looks like you're younger than the minimum age for this workshop.
                 %br/
@@ -292,7 +292,7 @@
                 = render :partial => "shared/prereg", :locals => {:event => @workshop}
 
               - elsif current_user && current_user.age > @workshop.age_max
-                = link_to "Work with #{@workshop.host_firstname}!", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-large btn-block disabled"
+                = link_to "Work with #{@workshop.host_firstname}!", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-block disabled"
                 %p.small
                   Sorry, it looks like you're older than the maximum age for this workshop.
                 %br/
@@ -301,7 +301,7 @@
 
                 %br
                 %p
-                  #{link_to "Sign up my Daughter", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-block btn-small btn-primary"}
+                  #{link_to "Sign up my Daughter", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-block btn-primary"}
 
               - elsif @workshop.datetime_tba == true || @workshop.filled? || @workshop.completed?
                 = render :partial => "shared/prereg", :locals => {:event => @workshop}
@@ -333,16 +333,12 @@
     .container
       .row-fluid
         - if current_user && current_user.admin? && @workshop.pending?
-          %hr
-          %h3 Admin Controls
           = simple_form_for(@workshop) do |f|
             = f.submit "Reject Workshop", name: "reject_button", class: "btn btn-large btn-danger", data: { :confirm => "Are you sure?" }
             = f.submit "Approve Workshop", name: "accept_button", class: "btn btn-large btn-success"
 
         - if current_user && current_user.admin? && @workshop.accepted?
-          %hr
-          %h3 Admin Controls
           = simple_form_for(@workshop) do |f|
-            = f.submit "Revoke Workshop", name: "revoke_button", class: "btn btn-large btn-danger", data: { :confirm => "Are you sure?" }
+            = f.submit "Revoke Workshop", name: "revoke_button", class: "btn btn-large", data: { :confirm => "Are you sure?" }
 
 
