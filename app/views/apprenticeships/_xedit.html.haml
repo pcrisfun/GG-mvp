@@ -93,7 +93,7 @@
       .row-fluid
 
         //Details Section //////////////////
-        %span#details.pull-left
+        %span#details.pull-left.span9
           %dl.dl-horizontal
             %dt
               - if !show
@@ -186,7 +186,7 @@
                 - elsif @apprenticeship.gender == false
                   - gender_text = "Girls/Women"
                 = editable_link_to "Describe your apprentice(s)", field: :gender, resource: @apprenticeship, type: :select, link_text: gender_text, data: { source: '{"false" : "Girls/Women", "true" : "Open to all gender identities"}'}
-              , ages
+              ages
               #min-age.field.select
                 = editable_link_to "Min Age", field: :age_min, resource: @apprenticeship, type: :number
               to
@@ -276,12 +276,11 @@
 
 
         //Apply Sidebar //////////////////
-        %span#applysidebar.pull-right
+        %span#applysidebar.span3
           - if show
             - if @apprenticeship.accepted?
               - if @apprenticeship.datetime_tba == true || @apprenticeship.filled? || @apprenticeship.completed?
                 = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
-
               - else
                 - unless current_user == @apprenticeship.user
                   = link_to "Apply!", new_app_signup_path(apprenticeship_id: @apprenticeship), :class => "btn btn-block btn-primary"
@@ -310,16 +309,12 @@
     .container
       .row-fluid
         - if current_user && current_user.admin? && @apprenticeship.pending?
-          %hr
-          %h3 Admin Controls
           = form_for(@apprenticeship) do |f|
             = f.submit "Reject Apprenticeship", name: "reject_button", class: "btn btn-large btn-danger", data: { :confirm => "Are you sure?" }
             = f.submit "Approve Apprenticeship", name: "accept_button", class: "btn btn-large btn-success"
 
         - if current_user && current_user.admin? && @apprenticeship.accepted?
-          %hr
-          %h3 Admin Controls
           = form_for(@apprenticeship) do |f|
-            = f.submit "Revoke Apprenticeship", name: "revoke_button", class: "btn btn-large btn-danger", data: { :confirm => "Are you sure?" }
+            = f.submit "Revoke Apprenticeship", name: "revoke_button", class: "btn btn-large", data: { :confirm => "Are you sure?" }
 
 
