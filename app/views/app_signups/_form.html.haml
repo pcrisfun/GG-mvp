@@ -34,7 +34,7 @@
           - elsif current_user && current_user.age > @apprenticeship.age_max
             %p Sorry, it looks like you're older than the maximum age for this apprenticeship.
             %p You can
-            = link_to "Sign up your Daughter", parent_new_path(apprenticeship_id: @apprenticeship), :class => "btn btn-block btn-small btn-primary"
+            = link_to "Sign up your Daughter", parent_new_path(apprenticeship_id: @apprenticeship), :class => "btn btn-primary"
             %p or
             = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
             %br

@@ -286,7 +286,33 @@
               - if @workshop.datetime_tba == true || @workshop.filled? || @workshop.completed?
                 = render :partial => "shared/prereg", :locals => {:event => @workshop}
               - else
-                = link_to "Sign up!", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-block btn-primary"
+                - if current_user.age > @workshop.age_max
+                  = link_to "Work with #{@workshop.user.first_name}", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
+                  #workwithModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "workwithModal", :role => "dialog", :tabindex => "-1"}
+                    .modal-header
+                      %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                      %h3#galleryModalLabel Oopse
+                    .modal-body
+                      %p It looks like you're older than the maximum age for this workshop. But you can sign your daughter up!
+                      %br
+                      = link_to "Sign up my Daughter", new_parent_path(workshop_id: @workshop), :class => "btn btn-primary pull-right"
+                      %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
+                      %br
+                - elsif current_user.age < @workshop.age_min
+                  = link_to "Work with #{@workshop.user.first_name}", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
+                  #workwithModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "workwithModal", :role => "dialog", :tabindex => "-1"}
+                    .modal-header
+                      %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                      %h3#galleryModalLabel Whoops
+                    .modal-body
+                      %p It looks like you're younger than the minimum age for this workshop. But you can follow this maker to be notified when she posts a workshop or an apprenticeship!
+                      %br
+                      .span4.pull-right
+                        = render :partial => "shared/prereg", :locals => {:event => @workshop}
+                      %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
+                      %br
+                - else
+                  = link_to "Work with #{@workshop.user.first_name}", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-block btn-primary"
               %br
 
           //Map //////////////////
