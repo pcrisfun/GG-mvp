@@ -79,7 +79,11 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver
+  def deliver(opts={})
+    parent? ? deliver_parent(opts) : deliver_girl(opts)
+  end
+
+  def deliver_girl(opts={})
     return false unless valid?
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
@@ -94,7 +98,8 @@ class AppSignup < Signup
     })
     return true
   end
-  def deliver_parent
+
+  def deliver_parent(opts={})
     return false unless valid?
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
@@ -110,7 +115,11 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_maker
+  def deliver_maker(opts={})
+    parent? ? deliver_maker_daughter(opts) : deliver_maker_girl(opts)
+  end
+
+  def deliver_maker_girl(opts={})
     return false unless valid?
     Pony.mail({
       :to => "#{event.user.name}<#{event.user.email}>",
@@ -126,7 +135,27 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_destroy
+  def deliver_maker_daughter(opts={})
+    return false unless valid?
+    Pony.mail({
+      :to => "#{event.user.name}<#{event.user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "#{self.daughter_firstname} has applied to work with you!",
+      :html_body => %(<h1>Yippee #{event.user.first_name}!</h1>
+        <p>#{user.first_name} has helped her daughter, #{self.daughter_firstname}, apply to apprentice with you! You can review her application and accept or decline it <a href=#{url_for(self)}>here</a>. We've notified #{user.first_name} and #{self.daughter_firstname} that you'll make your decision on the application within 2 weeks.</p>
+        <p>Thanks,</p>
+        <p>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_destroy(opts={})
+    parent? ? deliver_destroy_parent(opts) : deliver_destroy_girl(opts)
+  end
+
+  def deliver_destroy_girl(opts={})
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
@@ -142,7 +171,7 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_destroy_parent
+  def deliver_destroy_parent(opts={})
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
@@ -158,13 +187,17 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_decline
+  def deliver_decline(opts={})
+    parent? ? deliver_decline_parent(opts) : deliver_decline_girl(opts)
+  end
+
+  def deliver_decline_girl(opts={})
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "#{self.event.user.first_name} reviewed your application",
-      :html_body => %(<p>Thanks for your application #{user.first_name}. For this apprenticeship #{self.event.user.first_name} chose a different applicant, but she was honored that you were interested in working together. We'll let you know about other possibilities for collaboration with her in the future!</p>
+      :subject => "#{event.user.first_name} reviewed your application",
+      :html_body => %(<p>Thanks for your application #{user.first_name}. For this apprenticeship #{event.user.first_name} chose a different applicant, but she was honored that you were interested in working together. We'll let you know about other possibilities for collaboration with her in the future!</p>
         <p>In the meantime, we hope you'll find another apprenticeship you'd be interested in - check out our <a href="#{url_for(apprenticeships_path)}"> our apprenticeship listings</a> to see what's available.</p>
         <p>Thanks,</p>
         <p>The GirlsGuild Team</p>),
@@ -173,7 +206,7 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_decline_parent
+  def deliver_decline_parent(opts={})
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
@@ -188,7 +221,7 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_decline_maker
+  def deliver_decline_maker(opts={})
     Pony.mail({
       :to => "#{event.user.name}<#{event.user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
@@ -202,7 +235,11 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_accept
+  def deliver_accept(opts={})
+    parent? ? deliver_accept_parent(opts) : deliver_accept_girl(opts)
+  end
+
+  def deliver_accept_girl(opts={})
     Pony.mail({
       :to => "#{self.user.name}<#{self.user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
@@ -219,7 +256,7 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_accept_parent
+  def deliver_accept_parent(opts={})
     Pony.mail({
       :to => "#{self.user.name}<#{self.user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
@@ -236,14 +273,36 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_accept_maker
+  def deliver_accept_maker(opts={})
+    parent? ? deliver_accept_maker_daughter(opts) : deliver_accept_maker_girl(opts)
+  end
+
+  def deliver_accept_maker_girl(opts={})
     Pony.mail({
       :to => "#{event.user.first_name}<#{event.user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You've accepted #{user.first_name} as your apprentice!",
       :html_body => %(<h1>Hoorah!</h1>
-        <p>You've accepted #{user.first_name} as your apprentice! We've asked her to confirm her commitment by submitting her apprenticeship fee. Once she confirms, we'll put you two in touch to get started! Make sure to also print a copy of the <a href="#{url_for('waivers/ReleaseWaiver-adults.pdf')}">Participation Waiver</a> and the <a href="#{url_for('waivers/IndemnificationAgreement-minors.pdf')}">Indemnification Agreement</a> for Minors to have your apprentice(s) and their parents sign before you begin work!</p>
+        <p>You've accepted #{user.first_name} as your apprentice! We've asked her to confirm her commitment by submitting her apprenticeship fee. Once she confirms, we'll put you two in touch to get started!</p>
+        <p>Make sure to also print a copy of the <a href="#{url_for('waivers/ReleaseWaiver-adults.pdf')}">Participation Waiver</a> and the <a href="#{url_for('waivers/IndemnificationAgreement-minors.pdf')}">Indemnification Agreement</a> for Minors to have your apprentice(s) and their parents sign before you begin work!</p>
+        <p>If you have any questions feel free to respond to this email.</p>
+        <p>Thanks and Happy Making!</p>
+        <p>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_accept_maker_daughter(opts={})
+    Pony.mail({
+      :to => "#{event.user.first_name}<#{event.user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "You've accepted #{self.daughter_firstname} as your apprentice!",
+      :html_body => %(<h1>Hoorah!</h1>
+        <p>You've accepted #{self.daughter_firstname} as your apprentice! We've asked her (and her parent, #{user.first_name}) to confirm her commitment by submitting her apprenticeship fee. Once she confirms, we'll put you two in touch to get started!</p>
+        <p>Make sure to also print a copy of the <a href="#{url_for('waivers/ReleaseWaiver-adults.pdf')}">Participation Waiver</a> and the <a href="#{url_for('waivers/IndemnificationAgreement-minors.pdf')}">Indemnification Agreement</a> for Minors to have your apprentice(s) and their parents sign before you begin work!</p>
         <p>If you have any questions feel free to respond to this email.</p>
         <p>Thanks and Happy Making!</p>
         <p>The GirlsGuild Team</p>),
@@ -294,7 +353,11 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_confirm_maker
+  def deliver_confirm_maker(opts={})
+    parent? ? deliver_confirm_maker_parent(opts) : deliver_confirm_maker_girl(opts)
+  end
+
+  def deliver_confirm_maker_girl(opts={})
     return false unless valid?
     Pony.mail({
       :to => "#{event.user.name}<#{event.user.email}>",
@@ -303,6 +366,22 @@ class AppSignup < Signup
       :subject => "Your apprenticeship with #{user.first_name} is ready to start! - #{self.event.title}",
       :html_body => %(<h1>Yesss, #{user.first_name} has confirmed the apprenticeship!</h1> <p>You're all set to work with #{user.first_name} for #{self.event.title}! To get things rolling, you can contact #{user.first_name} at #{user.email} or #{user.phone} to set up your first meeting together.</p>
       <p>If you'd prefer to have us facilitate the first meeting with you and #{user.first_name} at the GirlsGuild HQ, just reply to this email to let us know. Make sure to also print a copy of the <a href="#{url_for('waivers/ReleaseWaiver-adults.pdf')}">Participation Waiver</a> and the <a href="#{url_for('waivers/IndemnificationAgreement-minors.pdf')}">Indemnification Agreement</a> for Minors to have your apprentice(s) and their parents sign before you begin work! </p>
+      <p>Thanks and Happy Making!</p>
+      <p>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_confirm_maker_parent(opts={})
+    return false unless valid?
+    Pony.mail({
+      :to => "#{event.user.name}<#{event.user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Your apprenticeship with #{self.daughter_firstname} is ready to start! - #{self.event.title}",
+      :html_body => %(<h1>Yesss, #{self.daughter_firstname} has confirmed the apprenticeship!</h1> <p>You're all set to work with #{self.daughter_firstname} for #{self.event.title}! To get things rolling, you can contact her parent, #{user.first_name}, at #{user.email} or #{user.phone} to set up your first meeting with #{self.daughter_firstname}.</p>
+      <p>If you'd prefer to have us facilitate the first meeting with you and #{self.daughter_firstname} at the GirlsGuild HQ, just reply to this email to let us know. Make sure to also print a copy of the <a href="#{url_for('waivers/ReleaseWaiver-adults.pdf')}">Participation Waiver</a> and the <a href="#{url_for('waivers/IndemnificationAgreement-minors.pdf')}">Indemnification Agreement</a> for Minors to have your apprentice(s) and their parents sign before you begin work! </p>
       <p>Thanks and Happy Making!</p>
       <p>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
