@@ -1,4 +1,4 @@
-%section#private-info.section
+%section#private-info.section.alt-grey
   .container
     .row
 
@@ -9,7 +9,10 @@
 
       .span8
         .fancyform-light.form-horizontal
-          %p Thanks for paying the  #{sprintf('$%0.2f', @workshop.price * 1.2)} workshop fee for #{@workshop.title}!  A receipt will be sent to your email.
+          %p
+            Thanks for paying the <strong>#{sprintf('$%0.2f', @workshop.price * 1.2)}</strong> workshop fee for
+            = link_to "#{@workshop.title}.", workshop_path(@work_signup.event.id)
+            A receipt will be sent to your email.
           %p You can check on the status of your workshop any time by visiting your #{link_to "Events Dashboard", dashboard_path}.
           %br
           .alert.alert-info
@@ -22,14 +25,16 @@
             You can review the
             = link_to "#{@workshop.title} details page", workshop_path(@work_signup.event.id)
             for more info on what to expect and prepare for, and if by some bad luck it turns out you can't make it, you can cancel your registration there too (note that you'll need to cancel at least 7 days in advance to have your fee refunded).
-            %br
+          %p
             Let us know if you have any questions!
+            %br
+            xo GirlsGuild HQ
       .span4
         %ul.icons
           %li
             %i.icon-bookmark
             For more info check out the
-            %a{href: "/faq_makers"}
+            %a{href: "/faq_girls"}
               FAQ
           %li
             %i.icon-envelope

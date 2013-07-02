@@ -1,4 +1,4 @@
-%section#private-info.section
+%section#private-info.section.alt-grey
   .container
     .row
 
@@ -9,7 +9,10 @@
 
       .span8
         .fancyform-light.form-horizontal
-          %p Thanks for paying the $29.00 apprenticeship matching fee!  A receipt will be sent to your email.
+          %p
+            Thanks for paying the <strong>$29.00</strong> apprenticeship matching fee for
+            = link_to "#{@apprenticeship.title}.", apprenticeship_path(@app_signup.event.id)
+            A receipt will be sent to your email.
           %p You can check on the status of your apprenticeship any time by visiting your #{link_to "Events Dashboard", dashboard_path}.
           %br
           .alert.alert-info
@@ -21,15 +24,17 @@
           %p
             You can review the
             = link_to "#{@apprenticeship.title} details page", apprenticeship_path(@app_signup.event.id)
-            for more info on what to expect and prepare for.
+            for more info on what to expect and prepare for, or check out the FAQ for Girls.
           %p
             Let us know if you have any questions!
+            %br
+            xo GirlsGuild HQ
       .span4
         %ul.icons
           %li
             %i.icon-bookmark
             For more info check out the
-            %a{href: "/faq_makers"}
+            %a{href: "/faq_girls"}
               FAQ
           %li
             %i.icon-envelope
@@ -40,7 +45,7 @@
       .span12
         %hr
         %br
-        %h2 Tips for having a great apprenticeship
+        %h2 Tips for a great apprenticeship
         .row-fluid
           .well.span3
             %h3

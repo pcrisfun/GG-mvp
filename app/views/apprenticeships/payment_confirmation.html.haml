@@ -1,4 +1,4 @@
-%section#private-info.section
+%section#private-info.section.alt-grey
   .container
     .row
 
@@ -9,14 +9,19 @@
 
       .span8
         .fancyform-light.form-horizontal
-          %p Thanks for paying the $9.00 apprenticeship listing fee!  A receipt will be sent to your email.
+          %p
+            Thanks for paying the <strong>$9.00</strong> apprenticeship listing fee for "#{@apprenticeship.title}."
+            A receipt will be sent to your email.
           %p We'll review your apprenticeship proposal and let you know as soon as it's been posted live! You can check on the status of your proposal any time by visiting your #{link_to "Events Dashboard", dashboard_path}
           %br
           .alert.alert-info
             %strong
               Note:
             You will not be able to edit your apprenticeship until we've had a chance to approve it. Then any edits will need to be re-approved.
-
+          %p
+            Let us know if you have any questions!
+            %br
+            xo GirlsGuild HQ
       .span4
         %ul.icons
           %li
@@ -33,7 +38,7 @@
       .span12
         %hr
         %br
-        %h2 Tips for running a great apprenticeship
+        %h2 Tips for a great apprenticeship
         .row-fluid
           .well.span3
             %h3
