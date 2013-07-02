@@ -143,6 +143,26 @@ include EventHelper
     return true
   end
 
+  def deliver_maker_daughter
+    Pony.mail({
+      :to => "#{event.user.name}<#{event.user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "#{self.daughter_firstname} has signed up for your workshop #{event.topic}",
+      :html_body => %(<h1>Woooo #{event.user.first_name}!</h1>
+        <p>Congrats, #{user.first_name} signed up her daughter, #{self.daughter_firstname} for <a href="#{url_for(self.event)}">#{event.title}</a>.
+        <p>Here are the workshop details to remember:</p>
+        <p>When: #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}</p>
+        <p>Where: #{event.location_address} #{event.location_address2}, #{event.location_city}, #{event.location_state}</p>
+        <p>You can review the <a href="#{url_for(self.event)}">workshop details page</a> or check out <a href="#{dashboard_url}">your dashboard</a> to keep tabs on who's signing up, and if by some bad luck it turns out you can't host the workshop, you can cancel your workshop there too (note that you'll need to cancel at least 7 days in advance so that we can notify your students).</p>
+        <p>Let us know if you have any questions!</p>
+        <p>Thanks and Happy Making!</p>
+        <p>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
   def deliver_destroy
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
