@@ -51,7 +51,7 @@ class AppSignupsController < ApplicationController
     else
       if @app_signup.save && @app_signup.apply
         if @app_signup.parent?
-          @app_signup.deliver_parent && @app_signup.deliver_maker
+          @app_signup.deliver_parent && @app_signup.deliver_maker_daughter
         else
           @app_signup.deliver && @app_signup.deliver_maker
         end
@@ -69,12 +69,7 @@ class AppSignupsController < ApplicationController
 
   def destroy
     @app_signup = AppSignup.find(params[:id]) if params[:id]
-    if @app_signup.parent?
-      @app_signup.deliver_destroy_parent
-    else
-      @app_signup.deliver_destroy
-    end
-    @app_signup.destroy
+    @app_signup.deliver_destroy && @app_signup.destroy
     redirect_to apprenticeships_path, :flash => { :success => "Application deleted." }
   end
 
@@ -98,11 +93,7 @@ class AppSignupsController < ApplicationController
     else
       if @app_signup.update_attributes(params[:app_signup])
         if @app_signup.apply
-          if @app_signup.parent?
-            @app_signup.deliver_parent && @app_signup.deliver_maker
-          else
-            @app_signup.deliver && @app_signup.deliver_maker
-          end
+          @app_signup.deliver && @app_signup.deliver_maker
           redirect_to apprenticeships_path, :flash => { :success => "Awesome, you've applied to work with #{@apprenticeship.host_firstname}." }
         else
           flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
@@ -138,7 +129,7 @@ class AppSignupsController < ApplicationController
   def accept
     @app_signup = AppSignup.find(params[:id]) if params[:id]
     @app_signup.accept && @app_signup.deliver_accept && @app_signup.deliver_accept_maker
-    redirect_to apprenticeships_path, :flash => { :success => "Yesssss, You've approved this Apprenticeship." }
+    redirect_to apprenticeships_path, :flash => { :success => "Yahooo! You've accepted this apprentice. She'll have 2 weeks to confirm, and when she does we'll put you in touch!" }
   end
 
   def cancel
@@ -151,7 +142,7 @@ class AppSignupsController < ApplicationController
     if params[:app_signup][:stripe_card_token].present?
       if @app_signup.update_attributes(params[:app_signup])
         if @app_signup.process_apprent_fee
-          if @app_signup.confirm && @app_signup.deliver_confirm_maker
+          if @app_signup.confirm && @app_signup.deliver_confirm && @app_signup.deliver_confirm_maker
             redirect_to payment_confirmation_app_signup_path(@app_signup), flash: { success: "Awesome, you're confirmed to work with #{@apprenticeship.host_firstname}." } and return
           else
             flash[:warning] = "Oh snap, there was a problem saving your form. Please check all fields and try again."
@@ -166,7 +157,7 @@ class AppSignupsController < ApplicationController
         render 'show'
       end
     elsif @app_signup.charge_id.present?
-      if @app_signup.confirm && @app_signup.deliver_confirm_maker
+      if @app_signup.confirm && @app_signup.deliver_confirm && @app_signup.deliver_confirm_maker
         redirect_to payment_confirmation_app_signup_path(@app_signup), flash: { success: "Awesome, you're confirmed to work with #{@apprenticeship.host_firstname}." } and return
       else
         flash[:warning] = "Oh snap, there was a problem saving your form. Please check all fields and try again."

@@ -16,7 +16,8 @@
             %span.pull-right
               Not you? #{link_to "Sign in as a different user.", destroy_user_session_path}
               %br/
-              Or, you can #{link_to "sign yourself up.", new_work_signup_path(workshop_id: @workshop)}
+              - unless current_user && current_user.age > @apprenticeship.age_max
+                Or, you can #{link_to "sign yourself up.", new_work_signup_path(workshop_id: @workshop)}
           %dt Your Email
           %dd= "#{current_user.email}"
           %br/

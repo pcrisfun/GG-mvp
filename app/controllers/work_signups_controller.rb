@@ -48,9 +48,9 @@ class WorkSignupsController < ApplicationController
   def destroy
     @work_signup = WorkSignup.find(params[:id]) if params[:id]
     if @work_signup.parent?
-      @work_signup.deliver_destroy_parent && @work_signup.deliver_parent
+      @work_signup.deliver_destroy_parent
     else
-      @work_signup.deliver_destroy && @work_signup.deliver
+      @work_signup.deliver_destroy
     end
     @work_signup.destroy
     redirect_to workshops_path, :flash => { :success => "Workshop deleted." }
@@ -89,7 +89,7 @@ class WorkSignupsController < ApplicationController
       @work_signup.process_signup!
       @charge = Stripe::Charge.retrieve(@work_signup.charge_id)
       if @work_signup.parent?
-        @work_signup.deliver_parent(payment: @charge) && @work_signup.deliver_maker
+        @work_signup.deliver_parent(payment: @charge) && @work_signup.deliver_maker_daughter
       else
         @work_signup.deliver(payment: @charge) && @work_signup.deliver_maker
       end
