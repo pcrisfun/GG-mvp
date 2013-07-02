@@ -1,0 +1,26 @@
+= content_tag :section, :class => "section alt-grey" do
+  = content_tag :div, :class => "container" do
+    - provide(:title, "Edit Apprenticeship Application")
+    %h1 Update your application
+    %p
+      We're glad you're back! You can finish your application to work with #{"#{@apprenticeship.host_firstname}"} for her apprenticeship in #{link_to @app_signup.event.topic} below.
+    %br/
+    .row-fluid
+      .span9
+        = simple_form_for @app_signup, class: 'form-horizontal', html: {class: "payment_form"}, :validate => false, defaults: { input_html: { class: 'span6' } }  do |f|
+          - if @app_signup.parent?
+            = render 'parent_form', f: f
+          - else
+            = render 'form', f: f
+          - if @app_signup.started?
+            = link_to 'Delete', @app_signup, :method => :delete, :class => "btn btn-danger", :data => { :confirm => "Are you sure you want to delete your application? It will be removed permanantly." }
+            = f.submit "Save for Later", :name => "save_button", :class => "btn"
+            = f.submit "Apply!", :name => "create_button", :class => "btn btn-primary pull-right"
+          - elsif @app_signup.accepted? && @app_signup.user == current_user
+            = f.submit "Cancel Application", :name => "cancel_button", :class => "btn btn-danger", :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you won't be able to resubmit it."}
+          - elsif @app_signup.canceled?
+            = link_to 'Delete', @app_signup, :method => :delete, :class => "btn btn-danger", :data => { :confirm => "Are you sure you want to delete this apprenticeship? It will be removed permanantly." }
+          - else
+            = f.submit "Cancel Apprenticeship", :name => "cancel_button", :class => "btn btn-danger", :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you won't be able to resubmit it."}
+      .span3.accordionFAQ
+        = render 'faq'

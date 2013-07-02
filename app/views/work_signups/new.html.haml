@@ -1,0 +1,18 @@
+= content_tag :section, :class => "section alt-grey", :id => 'signup' do
+  = content_tag :div, :class => "container" do
+    - provide(:title, 'Sign Up for a Workshop')
+    %h1 Workshop Signup
+    %p
+      Yes! We’re excited you want to work with #{"#{@workshop.host_firstname}"} at her workshop, #{link_to @work_signup.event.topic}.
+      = succeed "When" do
+        %br/
+      you sign up, we’ll send you an email to give you all the details, including the exact address.
+    %br/
+    .row-fluid
+      .span9
+        = simple_form_for @work_signup, class: 'form-horizontal', html: {class: "payment_form"}, :validate => true, defaults: { input_html: { class: 'span6' } } do |f|
+          = render "form", f: f
+          - if current_user && current_user.age >= @workshop.age_min && current_user.age <= @workshop.age_max
+            = f.submit "Sign me up!", :name => 'create_button', :class => "btn btn-large btn-primary", :id => @work_signup.charge_id.present? ? "" : "cc_process"
+      .span3.accordionFAQ
+        = render 'faq'

@@ -1,0 +1,6 @@
+- if form_model.errors.any?
+  #error_explanation
+    .alert.alert-error
+      The form contains #{pluralize(form_model.errors.count, "error")}.
+    - form_model.errors.each do |field, msg|
+      <span class="help-inline" for=#{field} generated="true">* #{msg}

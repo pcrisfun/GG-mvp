@@ -1,4 +1,5 @@
-%section#private-info.section
+- provide(:title, 'Thanks!')
+%section#confirmed.section.alt-grey
   .container
     .row
 
@@ -10,16 +11,19 @@
       .span8
         .fancyform-light.form-horizontal
           %p
-            Thanks for submitting your workshop:
+            Thanks for submitting your workshop,
             = link_to @workshop.title, workshop_path(@workshop)
-            A confirmation will be sent to your email.
-          %p We'll review your workshop proposal and let you know as soon as it's been posted live! You can check on the status of your proposal any time by visiting your #{link_to "Dashboard Page", dashboard_path}
+            <br/>A confirmation will be sent to your email.
+          %p We'll review your workshop proposal and let you know as soon as it's been posted live! You can check on the status of your proposal any time by visiting your #{link_to "Events Dashboard", dashboard_path}
           %br
           .alert.alert-info
             %strong
               Note:
             You will not be able to edit your workshop until we've had a chance to approve it. Then any edits will need to be re-approved.
-
+          %p
+            Let us know if you have any questions!
+            %br
+            xo GirlsGuild HQ
       .span4
         %ul.icons
           %li
@@ -36,7 +40,7 @@
       .span12
         %hr
         %br
-        %h2 Tips for running a great workshop
+        %h2 Tips for a great workshop
         .row-fluid
           .well.span3
             %h3

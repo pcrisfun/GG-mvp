@@ -1,28 +1,41 @@
-%section#private-info.section
+- provide(:title, 'Thanks!')
+%section#confirmed.section.alt-grey
   .container
     .row
 
       .span12
         %h1
           %icon.icon-check
-          Awesome!
+          Hot Dog!
 
       .span8
         .fancyform-light.form-horizontal
-          %p Thanks for paying the $9.00 apprenticeship listing fee!  The receipt will be sent to your email.
-          %p We'll review your apprenticeship proposal and let you know as soon as it's been posted live! You can check on the status of your proposal any time by visiting your #{link_to "Dashboard Page", dashboard_path}
+          %p
+            Thanks for paying the <strong>#{sprintf('$%0.2f', @workshop.price * 1.2)}</strong> workshop fee for
+            = link_to "#{@workshop.title}.", workshop_path(@work_signup.event.id)
+            A receipt will be sent to your email.
+          %p You can check on the status of your workshop any time by visiting your #{link_to "Events Dashboard", dashboard_path}.
           %br
           .alert.alert-info
-            %strong
-              Note:
-            You will not be able to edit your apprenticeship until we've had a chance to approve it. Then any edits will need to be re-approved.
-
+            %strong When -
+            #{get_formated_date(@workshop.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(@workshop.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(@workshop.begins_at, format: "%b %e, %Y")}
+            %br
+            %strong Where -
+            #{@workshop.location_address} #{@workshop.location_address2}, #{@workshop.location_city}, #{@workshop.location_state}
+          %p
+            You can review the
+            = link_to "#{@workshop.title} details page", workshop_path(@work_signup.event.id)
+            for more info on what to expect and prepare for, and if by some bad luck it turns out you can't make it, you can cancel your registration there too (note that you'll need to cancel at least 7 days in advance to have your fee refunded).
+          %p
+            Let us know if you have any questions!
+            %br
+            xo GirlsGuild HQ
       .span4
         %ul.icons
           %li
             %i.icon-bookmark
             For more info check out the
-            %a{href: "/faq_makers"}
+            %a{href: "/faq_girls"}
               FAQ
           %li
             %i.icon-envelope
@@ -30,30 +43,3 @@
             %a{href: "mailto:hello@girlsguild.com?Subject=Howdy"}
               hello@girlsguild.com
 
-      .span12
-        %hr
-        %br
-        %h2 Tips for running a great apprenticeship
-        .row-fluid
-          .well.span3
-            %h3
-              %i.icon-fire.inline
-              Challenge
-            The apprentice should be learning new things frequently enough to stay challenged, but don't forget to have them also practice what they're learning.
-          .well.span3
-            %h3
-              %i.icon-globe.inline
-              World View
-            Think about giving the apprentice a feel for what its like to run a small business, OR why you choose not to.
-            %br
-            %br
-          .well.span3
-            %h3
-              %i.icon-refresh.inline
-              Feedback
-            Remeber to give gentle but constructive feedback. Help her learn from her mistakes which is often the best way to gain experience.
-          .well.span3
-            %h3
-              %i.icon-thumbs-up.inline
-              Encourage
-            Get to know each others goals and dreams! We want to help you build a mentor network because we're all stronger when we learn togeather.

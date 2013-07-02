@@ -1,0 +1,102 @@
+= content_tag :section, :class => "section alt-grey", :id => 'apply' do
+  = content_tag :div, :class => "container" do
+    - provide(:title, "Application for Apprenticeship")
+    - if @app_signup.accepted? && @app_signup.user == current_user
+      %h1 Apprenticeship Confirmation
+      - if @app_signup.parent?
+        %p
+          Congratulations #{@app_signup.user.first_name} and #{@app_signup.daughter_firstname}! We’re so happy to connect you with #{@apprenticeship.host_firstname} for #{link_to "#{@app_signup.event.title}", apprenticeship_path(@app_signup.event)}.
+        %p
+          After you confirm this apprenticeship by completing this form, we’ll send you an email with all the details, including #{"#{@apprenticeship.host_firstname}"}'s direct contact info.
+      - else
+        %p
+          Congratulations #{@app_signup.user.first_name}! We’re so happy to connect you with #{@apprenticeship.host_firstname} for #{link_to "#{@app_signup.event.title}", apprenticeship_path(@app_signup.event)}.
+        %p
+          After you confirm this apprenticeship by completing this form, we’ll send you an email with all the details, including #{"#{@apprenticeship.host_firstname}"}'s direct contact info.
+      %br/
+
+      .row-fluid
+        .span9
+          = simple_form_for @app_signup, class: 'form-horizontal', html: {class: "payment_form"}, url: confirm_app_signups_path, method: :post, :validate => true, defaults: { input_html: { class: 'span6' } }  do |f|
+            = render 'confirm_form', f: f
+            = f.hidden_field :id, value: @app_signup.id
+            = f.submit "Confirm Apprenticeship", name: 'confirm_button', class: "btn btn-primary btn-create pull-right", id: "cc_process"
+            = link_to "Cancel Application", { :controller => 'app_signups', :action => 'cancel', :id => @app_signup.id }, class: "btn btn-danger btn-create", :method => 'post', :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you will not be able to resubmit it."}
+          %br/
+          %br/
+          %h2 Your Accepted Application
+        .span3.accordionFAQ
+          - if current_user == @app_signup.user
+            = render 'faq'
+    - if @app_signup.pending?
+      %h1 Apprenticeship Application
+      - if @app_signup.user == current_user
+        - if @app_signup.parent?
+          %p
+            Thanks #{@app_signup.user.first_name}! You've submitted #{@app_signup.daughter_firstname}'s application for #{link_to "#{@app_signup.event.title}", apprenticeship_path(@app_signup.event)}. #{@apprenticeship.host_firstname} is looking it over, and we'll let you know when she's made her decision.
+        - else
+          %p
+            Thanks #{@app_signup.user.first_name}! You've submitted your application for #{link_to "#{@app_signup.event.title}", apprenticeship_path(@app_signup.event)}. #{@apprenticeship.host_firstname} is looking it over, and we'll let you know when she's made her decision.
+      - elsif current_user == @app_signup.event.user
+        - if @app_signup.parent?
+          %p
+            Rad, #{@apprenticeship.host_firstname}! #{@app_signup.user.first_name} helped her daughter #{@app_signup.daughter_firstname} apply for your apprenticeship, #{link_to "#{@app_signup.event.topic}", apprenticeship_path(@app_signup.event)}.
+        - else
+          %p
+            Rad, #{@apprenticeship.host_firstname}! #{@app_signup.user.first_name} applied for your apprenticeship, #{link_to "#{@app_signup.event.topic}", apprenticeship_path(@app_signup.event)}.
+        %p
+          You have #{(@app_signup.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days to review her application and make your decision. We'll let her know once you've decided.
+    .row-fluid
+      .span12.well
+        %table.table.table-striped.table-bordered
+          %thead
+            %tr
+              %th Question
+              %th Answer
+          %tbody
+            %tr
+              %td Name
+              %td
+                - if @app_signup.parent?
+                  = @app_signup.daughter_firstname
+                - else
+                  = @app_signup.user.first_name
+            %tr
+              %td Age
+              %td
+                - unless @app_signup.parent?
+                  = @app_signup.user.age
+                - else
+                  = @app_signup.daughter_age
+            %tr
+              %td I'm truly happy when
+              %td= @app_signup.happywhen
+            %tr
+              %td I like working together on projects because
+              %td= @app_signup.collaborate
+            %tr
+              %td What’s most interesting to me about this apprenticeship is
+              %td= @app_signup.interest
+            %tr
+              %td Experience with tools and making
+              %td= @app_signup.experience
+            /
+              <tr>
+              <td>Display requirements rating</td>
+              <td> </td>
+              </tr>
+            %tr
+              %td Preferred meeting times
+              %td= @app_signup.preferred_times
+        %p
+          - unless current_user.blank?
+            - if @app_signup.started? && @app_signup.user == current_user
+              = link_to 'Resume', edit_app_signup_path(@app_signup), class: "btn btn-warning"
+            - elsif @app_signup.pending? && @app_signup.user == current_user
+              = link_to 'Delete', @app_signup, :method => :delete, class: "btn btn-danger", :data => { :confirm => 'Are you sure you want to delete this application? Deleting cannot be undone.' }
+        .pull-center
+          - if current_user == @app_signup.event.user && @app_signup.pending?
+            %hr/
+            %h3 Makers, it's your call
+            = link_to "Decline Application", {:action => "decline", id: @app_signup, :controller => "app_signups"}, :method => :post, class: "btn btn-danger pull-left", :data => { :confirm => 'Are you sure you want to decline this applicant? Declining cannot be undone.'}
+            = link_to "Accept Application", {:action => "accept", id: @app_signup, :controller => "app_signups"}, :method => :post, class: "btn btn-success pull-right", :data => { :confirm => 'Are you sure you want to accept this application? Accepting cannot be undone.'}

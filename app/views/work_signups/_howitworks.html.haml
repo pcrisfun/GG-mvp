@@ -1,0 +1,28 @@
+.row-fluid
+  %ul.thumbnails.bordered
+    %li.span4
+      .row-fluid
+        .span4.pull-center
+          %i.icon-edit.enormous-icon.circled.pull-center.icon-4x
+        .span8
+          %h3 You Apply
+          %p
+            Use this form to apply by telling us a little bit about who you are and what you want to learn.
+    %li.span4
+      .row-fluid
+        .span4.pull-center
+          %i.icon-thumbs-up.enormous-icon.circled.pull-center.icon-4x
+        .span8
+          %h3
+            = "#{@workshop.host_firstname}"
+            Reviews
+          %p
+            When you submit it, she’ll review it and we’ll let you know her decision within two weeks.
+    %li.span4
+      .row-fluid
+        .span4.pull-center
+          %i.icon-check.enormous-icon.circled.pull-center.icon-4x
+        .span8
+          %h3 You Confirm & Pay
+          %p
+            To confirm the apprenticeship and get connected to #{"#{@workshop.host_firstname}"} you’ll pay the $29 matching fee.

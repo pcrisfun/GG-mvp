@@ -1,28 +1,41 @@
-%section#private-info.section
+- provide(:title, 'Thanks!')
+%section#confirmed.section.alt-grey
   .container
     .row
 
       .span12
         %h1
           %icon.icon-check
-          Awesome!
+          Boss!
 
       .span8
         .fancyform-light.form-horizontal
-          %p Thanks for paying the $9.00 apprenticeship listing fee!  The receipt will be sent to your email.
-          %p We'll review your apprenticeship proposal and let you know as soon as it's been posted live! You can check on the status of your proposal any time by visiting your #{link_to "Dashboard Page", dashboard_path}
+          %p
+            Thanks for paying the <strong>$29.00</strong> apprenticeship matching fee for
+            = link_to "#{@apprenticeship.title}.", apprenticeship_path(@app_signup.event.id)
+            A receipt will be sent to your email.
+          %p You can check on the status of your apprenticeship any time by visiting your #{link_to "Events Dashboard", dashboard_path}.
           %br
           .alert.alert-info
-            %strong
-              Note:
-            You will not be able to edit your apprenticeship until we've had a chance to approve it. Then any edits will need to be re-approved.
-
+            %strong Starting -
+            #{get_formated_date(@apprenticeship.begins_at, format: "%b %e, %Y")}
+            %br
+            %strong Where -
+            #{@apprenticeship.location_address} #{@apprenticeship.location_address2}, #{@apprenticeship.location_city}, #{@apprenticeship.location_state}
+          %p
+            You can review the
+            = link_to "#{@apprenticeship.title} details page", apprenticeship_path(@app_signup.event.id)
+            for more info on what to expect and prepare for, or check out the FAQ for Girls.
+          %p
+            Let us know if you have any questions!
+            %br
+            xo GirlsGuild HQ
       .span4
         %ul.icons
           %li
             %i.icon-bookmark
             For more info check out the
-            %a{href: "/faq_makers"}
+            %a{href: "/faq_girls"}
               FAQ
           %li
             %i.icon-envelope
@@ -33,27 +46,31 @@
       .span12
         %hr
         %br
-        %h2 Tips for running a great apprenticeship
+        %h2 Tips for a great apprenticeship
         .row-fluid
           .well.span3
             %h3
-              %i.icon-fire.inline
-              Challenge
-            The apprentice should be learning new things frequently enough to stay challenged, but don't forget to have them also practice what they're learning.
+              %i.icon-wrench.inline
+              Get Dirty
+            Roll up your sleeves! You should be learning new things frequently enough to stay challenged, but don't be afraid to practice what you're learning; you're there to both learn and be helpful!
           .well.span3
             %h3
               %i.icon-globe.inline
-              World View
-            Think about giving the apprentice a feel for what its like to run a small business, OR why you choose not to.
-            %br
-            %br
+              Be Curious
+            Ask your Maker-Mentor what its like to run a small business, how she got to where she is in her field, and the challenges she's had along the way - it's likely that you've experienced some of the same stuff.
           .well.span3
             %h3
               %i.icon-refresh.inline
-              Feedback
-            Remeber to give gentle but constructive feedback. Help her learn from her mistakes which is often the best way to gain experience.
+              Ask for Feedback
+            Remeber to ask for gentle but constructive feedback. You'll gain the best kind of real-life experience when you're learning from your mistakes.
+            %br
+            %br
+            %br
           .well.span3
             %h3
               %i.icon-thumbs-up.inline
-              Encourage
-            Get to know each others goals and dreams! We want to help you build a mentor network because we're all stronger when we learn togeather.
+              Share Goals
+            Get to know each others goals and dreams! We want to help you build a mentor network because we're all stronger when we learn together.
+            %br
+            %br
+            %br
