@@ -6,6 +6,6 @@
           = image_tag @photo.file
           /%p
           /  = @photo.caption
-
-          = link_to "Back", return_store_location_or(url_for(:back)), :class => 'btn'
-          /= link_to "Edit", edit_photo_path(@photo), :class => 'btn'
+          .clear
+            = link_to "Back", return_store_location_or(url_for(:back)), :class => 'btn'
+            /= link_to "Edit", edit_photo_path(@photo), :class => 'btn'

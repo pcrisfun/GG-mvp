@@ -20,10 +20,11 @@
                 Or, you can #{link_to "sign yourself up.", new_app_signup_path(apprenticeship_id: @apprenticeship)}
           %dt Email
           %dd= "#{current_user.email}"
+          %br
           = f.hidden_field :parent, value: 'true'
-          = f.input :daughter_firstname,   label: "Daughter's First Name"
-          = f.input :daughter_lastname,   label: "Daughter's Last Name"
-          = f.input :daughter_age, label: "Daughter's Age" do
+          = f.input :daughter_firstname,   label: "Daughter's first name"
+          = f.input :daughter_lastname,   label: "Daughter's last name"
+          = f.input :daughter_age, label: "Daughter's age" do
             = f.number_field :daughter_age, :class => "span2"
             (She must be between
             %strong
@@ -40,22 +41,22 @@
     .accordion-body
       .accordion-inner
         %br/
-        = f.input :happywhen, label: "I'm truly happy when...", input_html: { rows: "3",                                                                            |
+        = f.input :happywhen, label: "I'm truly happy when:", input_html: { rows: "3",                                                                            |
           placeholder: "Give the maker a sense of who they'll be working with.",                                                                                    |
           rel: 'popover',                                                                                                                                           |
           data: { :content => "Tell us a little bit about what makes your daughter happy and what she loves to do - just to give a sense of who she is and what she likes." }} |
         %br/
-        = f.input :collaborate, label: "I like working together on projects because...", input_html: { rows: "3",       |
+        = f.input :collaborate, label: "I like working together on projects because:", input_html: { rows: "3",       |
           placeholder: "Give the maker a sense of who they'll be working with.",                                        |
           rel: 'popover',                                                                                               |
           data: { :content => "Tell us a bit about your daughter's working style and what kinds of collaboration she enjoys." }} |
         %br/
-        = f.input :interest, label: "What’s most interesting to me about this apprenticeship...", input_html: { rows: "3", |
+        = f.input :interest, label: "What’s most interesting to me about this apprenticeship:", input_html: { rows: "3", |
           placeholder: "Give the maker a sense of who they'll be working with.",                                              |
           rel: 'popover',                                                                                                     |
           data: { :content => "Tell us a bit about why this apprenticeship is something your daughter wants to do." }}                   |
         %br/
-        = f.input :experience, label: "My experience with tools and making...", input_html: { rows: "3",                       |
+        = f.input :experience, label: "My experience with tools and making:", input_html: { rows: "3",                       |
           placeholder: "Give the maker a sense of who they'll be working with.",                                               |
           rel: 'popover',                                                                                                      |
           data: { :content => "What kinds of things has your daughter made before? What kinds of tools or techniques has she used?" }} |
