@@ -185,9 +185,6 @@ class Event < ActiveRecord::Base
   end
 
   def xeditable_update(attribute, value)
-    if self.pending?
-      return false
-    end
     if value == ""
       value = nil
     end

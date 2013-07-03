@@ -54,7 +54,7 @@ class ApprenticeshipsController < ApplicationController
       if @apprenticeship.respond_to?(params[:name])
         if @apprenticeship.xeditable_update(params[:name], params[:value])
           respond_to do |format|
-            format.json { render json: {event: @apprenticeship, checkmarks: @apprenticeship.checkmarks} and return }
+            format.json { render json: {event: @apprenticeship, checkmarks: @apprenticeship.checkmarks } and return }
           end
         else
           respond_to do |format|
@@ -81,22 +81,22 @@ class ApprenticeshipsController < ApplicationController
       else
         if params[:revoke_button]
           if current_user.admin? && @apprenticeship.revoke && @apprenticeship.deliver_revoke
-            redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship revoked."} and return
+            redirect_to apprenticeship_path(@apprenticeship), :flash => { :warning => "Apprenticeship revoked."} and return
           end
 
         elsif params[:reject_button]
           if current_user.admin? && @apprenticeship.reject && @apprenticeship.deliver_reject
-            redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship rejected." } and return
+            redirect_to apprenticeship_path(@apprenticeship), :flash => { :warning => "Apprenticeship rejected." } and return
           end
 
         elsif params[:accept_button]
           if current_user.admin? && @apprenticeship.accept && @apprenticeship.deliver_accept
-            redirect_to apprenticeships_path, :flash => { :success => "Apprenticeship accepted." } and return
+            redirect_to apprenticeship_path(@apprenticeship), :flash => { :success => "Apprenticeship accepted." } and return
           end
 
         elsif params[:resubmit_button]
           if @apprenticeship.resubmit && @apprenticeship.deliver_resubmit
-            redirect_to apprenticeships_path, :flash => { :success => "Thanks! Your apprenticeship was resubmitted."} and return
+            redirect_to apprenticeship_path(@apprenticeship), :flash => { :success => "Thanks! Your apprenticeship was resubmitted."} and return
           end
 
         elsif params[:cancel_button]

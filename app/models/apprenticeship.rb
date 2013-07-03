@@ -132,7 +132,7 @@ class Apprenticeship < Event
 			:subject => "Your apprenticeship has been resubmitted! - #{topic} with #{user.name}",
 			:html_body => %(<h1>Nice!</h1>
         <p>Your apprenticeship is currently pending while we take a look at your changes.</p>
-        <p>You can review the submitted apprenticeship here - <a href="#{apprenticeship_url(self)}"> #{self.title}</a> or monitor signups from your <a href="#{dashboard_url}">Events Dashboard</a></p>
+        <p>You can review your resubmitted apprenticeship here - <a href="#{apprenticeship_url(self)}"> #{self.title}</a> or monitor signups from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>Just like last time, you won't be able to edit the details of your apprenticeship until it's been approved, at which point any edits will need to be reviewed again.</p>
         <p>Thanks,</p>
         <p>The GirlsGuild Team</p>),
