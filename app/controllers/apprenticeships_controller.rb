@@ -79,26 +79,43 @@ class ApprenticeshipsController < ApplicationController
           redirect_to payment_apprenticeship_path(@apprenticeship) and return
         end
       else
-        if params[:revoke_button] && current_user.admin? && @apprenticeship.revoke && @apprenticeship.deliver_revoke
-         redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship revoked."} and return
+        if params[:revoke_button]
+          if current_user.admin? && @apprenticeship.revoke && @apprenticeship.deliver_revoke
+            redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship revoked."} and return
+          end
 
-        elsif params[:reject_button] && current_user.admin? && @apprenticeship.reject && @apprenticeship.deliver_reject
-          redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship rejected." } and return
+        elsif params[:reject_button]
+          if current_user.admin? && @apprenticeship.reject && @apprenticeship.deliver_reject
+            redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship rejected." } and return
+          end
 
-        elsif params[:accept_button] && current_user.admin? && @apprenticeship.accept && @apprenticeship.deliver_accept
-          redirect_to apprenticeships_path, :flash => { :success => "Apprenticeship accepted." } and return
+        elsif params[:accept_button]
+          if current_user.admin? && @apprenticeship.accept && @apprenticeship.deliver_accept
+            redirect_to apprenticeships_path, :flash => { :success => "Apprenticeship accepted." } and return
+          end
 
-        elsif params[:resubmit_button] && @apprenticeship.resubmit && @apprenticeship.deliver_resubmit
-          redirect_to apprenticeships_path, :flash => { :success => "Thanks! Your apprenticeship was resubmitted."} and return
+        elsif params[:resubmit_button]
+          if @apprenticeship.resubmit && @apprenticeship.deliver_resubmit
+            redirect_to apprenticeships_path, :flash => { :success => "Thanks! Your apprenticeship was resubmitted."} and return
+          end
 
-        elsif params[:cancel_button] && @apprenticeship.cancel && @apprenticeship.deliver_cancel
-          redirect_to apprenticeships_path, :flash => { :warning => "Rats. Your apprenticeship has been canceled."} and return
-        else
-          redirect_to private_apprenticeship_path(@apprenticeship), :flash => { warning: "Please check all fields. You cannot pay until the following have been corrected: #{@apprenticeship.errors.full_messages}" } and return
+        elsif params[:cancel_button]
+          if @apprenticeship.cancel && @apprenticeship.deliver_cancel
+            redirect_to apprenticeships_path, :flash => { :warning => "Rats. Your apprenticeship has been canceled."} and return
+          end
         end
+        raise
       end
     end
+  rescue
+    error_msg = " "
+    @apprenticeship.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
+    redirect_to :back, :flash => { warning: "Blarf.  The following error(s) occured while attempting to update the apprenticeship: #{error_msg}".html_safe} and return
   end
+
 
   def show
     @apprenticeship = Apprenticeship.find(params[:id])
