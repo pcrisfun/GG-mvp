@@ -25,8 +25,7 @@
           #banner
             - if !show
               .small Upload an Avatar
-            #avatar.field{ rel: 'popover', data: {placement: "right", content:'Upload an image of yourself that shows a little of your personality'} }
-              - if !show
+              #avatar.field{ rel: 'popover', data: {placement: "right", content:'Upload an image of yourself that shows a little of your personality'} }
                 = link_to(avatar_for(current_user, size: 50, tag: :medium), '#avatarModal', id: 'avatar-edit', data: {toggle: "modal"} )
                 #avatarModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "avatarModal", :role => "dialog", :tabindex => "-1"}
                   .modal-header
@@ -35,7 +34,8 @@
                   .modal-body
                     = simple_form_for(@user, :url => update_avatar_path, defaults: { input_html: { class: 'span5' } }, html: { :method => :put } ) do |f|
                       = render 'dashboards/avatar_fields', f: f
-              - else
+            - else
+              #avatar.field
                 = avatar_for(@apprenticeship.user, size: 50, tag: :medium)
 
 
