@@ -70,27 +70,46 @@ class WorkshopsController < ApplicationController
         end
         @workshop.submit && @workshop.deliver
         redirect_to confirmation_workshop_path(@workshop), flash: { success: "Awesome! Your workshop was submitted."}
-      #else
-        #if params[:revoke_button] && current_user.admin? && @workshop.revoke && @workshop.deliver_revoke
-          #redirect_to workshops_path, :flash => { :warning => "Workshop revoked."}
 
-        #elsif params[:reject_button] && current_user.admin? && @workshop.reject && @workshop.deliver_reject
-          #redirect_to workshops_path, :flash => { :warning => "Workshop rejected." }
+      else
+        if params[:revoke_button]
+          if current_user.admin? && @workshop.revoke && @workshop.deliver_revoke
+            redirect_to workshops_path, :flash => { :warning => "Workshop revoked."}
+          end
 
-        #elsif params[:accept_button] && current_user.admin? && @workshop.accept && @workshop.deliver_accept
-          #redirect_to workshops_path, :flash => { :success => "Workshop accepted." }
+        elsif params[:reject_button]
+          if current_user.admin? && @workshop.reject && @workshop.deliver_reject
+            redirect_to workshops_path, :flash => { :warning => "Workshop rejected." }
+          end
 
-        #elsif params[:resubmit_button] && @workshop.resubmit && @workshop.deliver_resubmit
-          #redirect_to workshops_path, :flash => { :success => "Thanks! Your workshop was resubmitted."}
+        elsif params[:accept_button]
+          if current_user.admin? && @workshop.accept && @workshop.deliver_accept
+            redirect_to workshops_path, :flash => { :success => "Workshop accepted." }
+          end
 
-        #elsif params[:cancel_button] && @workshop.cancel && @workshop.deliver_cancel
-          #redirect_to workshops_path, :flash => { :warning => "Rats. Your workshop has been canceled."}
+        elsif params[:resubmit_button]
+          if @workshop.resubmit && @workshop.deliver_resubmit
+            redirect_to workshops_path, :flash => { :success => "Thanks! Your workshop was resubmitted."}
+          end
 
-        #else @workshop.submit && @workshop.deliver
-         #redirect_to workshops_path, :flash => {:success => "Yatzee! Your workshop was created!" }
-        #end
+        elsif params[:cancel_button]
+          if @workshop.cancel && @workshop.deliver_cancel
+            redirect_to workshops_path, :flash => { :warning => "Rats. Your workshop has been canceled."}
+          end
+
+        elsif @workshop.submit && @workshop.deliver
+          redirect_to workshops_path, :flash => {:success => "Yatzee! Your workshop was created!" }
+        end
+        raise
       end
     end
+  rescue
+    error_msg = " "
+    @workshop.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
+    redirect_to :back, :flash => { warning: "Fudge.  The following error(s) occured while attempting to update the workshop: #{error_msg}".html_safe} and return
   end
 
 
@@ -104,31 +123,31 @@ class WorkshopsController < ApplicationController
     end
   end
 
-  def cancel
-    @workshop = Workshop.where(:id => params[:id]).first
-    @workshop.cancel && @workshop.deliver_cancel
-    redirect_to workshops_path, :flash => { :warning => "Rats. Your workshop has been canceled."} and return
-  end
+  #def cancel
+    #@workshop = Workshop.where(:id => params[:id]).first
+    #@workshop.cancel && @workshop.deliver_cancel
+    #redirect_to workshops_path, :flash => { :warning => "Rats. Your workshop has been canceled."} and return
+  #end
 
-  def accept
-    @workshop.accept && @workshop.deliver_accept
-    redirect_to workshops_path, :flash => { :success => "Workshop accepted." } and return
-  end
+  #def accept
+    #@workshop.accept && @workshop.deliver_accept
+    #redirect_to workshops_path, :flash => { :success => "Workshop accepted." } and return
+  #end
 
-  def reject
-    @workshop.reject && @workshop.deliver_reject
-    redirect_to workshops_path, :flash => { :warning => "Workshop rejected." } and return
-  end
+  #def reject
+    #@workshop.reject && @workshop.deliver_reject
+    #redirect_to workshops_path, :flash => { :warning => "Workshop rejected." } and return
+  #end
 
-  def revoke
-    @workshop.revoke && @workshop.deliver_revoke
-    redirect_to workshops_path, :flash => { :warning => "Workshop revoked."} and return
-  end
+  #def revoke
+    #@workshop.revoke && @workshop.deliver_revoke
+    #redirect_to workshops_path, :flash => { :warning => "Workshop revoked."} and return
+  #end
 
-  def resubmit
-    @workshop.resubmit && @workshop.deliver_resubmit
-    redirect_to workshops_path, :flash => { :success => "Thanks! Your workshop was resubmitted. We'll look it over and let you know when it's posted."} and return
-  end
+  #def resubmit
+    #@workshop.resubmit && @workshop.deliver_resubmit
+    #redirect_to workshops_path, :flash => { :success => "Thanks! Your workshop was resubmitted. We'll look it over and let you know when it's posted."} and return
+  #end
 
   def show
     @workshop = Workshop.find(params[:id])

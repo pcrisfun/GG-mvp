@@ -37,13 +37,13 @@ class AppSignupsController < ApplicationController
     if params[:save_button] == "Save for Later"
       if @app_signup.parent?
         if @app_signup.save(:validate => false) && @app_signup.deliver_save_parent
-          redirect_to apprenticeships_path, flash: { success: "Nice! Your application was saved." }
+          redirect_to apprenticeship_path(@app_signup.event), flash: { success: "Nice! Your application was saved." }
         else
           flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
           render 'new_parent_app_signup'
         end
       elsif @app_signup.group_valid?(:save) && @app_signup.save(:validate => false) && @app_signup.deliver_save
-        redirect_to apprenticeships_path, :flash => { :success => "Nice! Your application was saved." }
+        redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Nice! Your application was saved." }
       else
         flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
         render 'new'
@@ -55,7 +55,7 @@ class AppSignupsController < ApplicationController
         else
           @app_signup.deliver && @app_signup.deliver_maker
         end
-        redirect_to apprenticeships_path, :flash => { :success => "Awesome, you've applied to work with #{@apprenticeship.host_firstname}. We've sent an email to #{current_user.email} with the details." }
+        redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Awesome, you've applied to work with #{@apprenticeship.host_firstname}. We've sent an email to #{current_user.email} with the details." }
       else
         flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
         if @app_signup.parent?
@@ -94,7 +94,7 @@ class AppSignupsController < ApplicationController
       if @app_signup.update_attributes(params[:app_signup])
         if @app_signup.apply
           @app_signup.deliver && @app_signup.deliver_maker
-          redirect_to apprenticeships_path, :flash => { :success => "Awesome, you've applied to work with #{@apprenticeship.host_firstname}." }
+          redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Awesome, you've applied to work with #{@apprenticeship.host_firstname}." }
         else
           flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
           if @app_signup.parent?
@@ -123,18 +123,18 @@ class AppSignupsController < ApplicationController
     # @app_signup.user_id = current_user.id
     # current_user.update_attributes(params[:user])
     @app_signup.decline && @app_signup.deliver_decline && @app_signup.deliver_decline_maker
-    redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship declined. Thanks! We'll let her know you were honored that she wanted to work together but you found someone else." }
+    redirect_to apprenticeship_path(@app_signup.event), :flash => { :warning => "Apprenticeship declined. Thanks! We'll let her know you were honored that she wanted to work together but you found someone else." }
   end
 
   def accept
     @app_signup = AppSignup.find(params[:id]) if params[:id]
     @app_signup.accept && @app_signup.deliver_accept && @app_signup.deliver_accept_maker
-    redirect_to apprenticeships_path, :flash => { :success => "Yahooo! You've accepted this apprentice. She'll have 2 weeks to confirm, and when she does we'll put you in touch!" }
+    redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Yahooo! You've accepted this apprentice. She'll have 2 weeks to confirm, and when she does we'll put you in touch!" }
   end
 
   def cancel
     @app_signup.cancel
-    redirect_to apprenticeships_path, :flash => { :warning => "Drat! Your application has been canceled. Feel free to re-apply any time!"}
+    redirect_to apprenticeship_path(@app_signup.event), :flash => { :warning => "Drat! Your application has been canceled. Feel free to re-apply any time!"}
   end
 
   def confirm

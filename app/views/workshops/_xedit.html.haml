@@ -23,8 +23,7 @@
           #banner
             - if !show
               .small Upload an Avatar
-            #avatar.field
-              - if !show
+              #avatar.field{ rel: 'popover', data: {placement: "right", content:'Upload an image of yourself that shows a little of your personality'} }
                 = link_to(avatar_for(current_user, size: 50, tag: :medium), '#avatarModal', id: 'avatar-edit', data: {toggle: "modal"} )
                 #avatarModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "avatarModal", :role => "dialog", :tabindex => "-1"}
                   .modal-header
@@ -33,12 +32,9 @@
                   .modal-body
                     = simple_form_for(@user, :url => update_avatar_path, defaults: { input_html: { class: 'span5' } }, html: { :method => :put } ) do |f|
                       = render 'dashboards/avatar_fields', f: f
-              - else
+            - else
+              #avatar.field
                 = avatar_for(@workshop.user, size: 50, tag: :medium)
-
-            - if !show
-              %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:'Upload an image of yourself that shows a little of your personality'} }
-                %i.icon-question-sign.small-icon
 
 
             %br
@@ -78,9 +74,21 @@
               %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Tell us about your workshop. Describe what you'll be doing as well as your expectations of those attending."} }
                 %i.icon-question-sign.small-icon
             %br
-            %br
             - if !show
               %p.images-desc.small Upload 5 images of your studio & your work as it pertains to the apprenticeship.
+
+            //Social bttns //////////////////
+            - if show
+              .socials
+                %a{"data-pin-do" => "buttonBookmark", :href => "//pinterest.com/pin/create/button/"}
+                  %img{:src => "//assets.pinterest.com/images/pidgets/pin_it_button.png"}/
+                .fb-like{"data-layout" => "button_count", "data-send" => "true", "data-show-faces" => "false", "data-width" => "450"}
+                %a.twitter-share-button{"data-via" => "TheGirlsGuild", :href => "https://twitter.com/share"} Tweet
+                :javascript
+                  !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+            %br
+            %br
+
 
 //Images Section //////////////////
 = render 'host_album', show: show
@@ -285,7 +293,7 @@
             - if @workshop.filled? || @workshop.completed? || @workshop.datetime_tba == true
               = render :partial => "shared/prereg", :locals => {:event => @workshop}
             - if @workshop.accepted?
-              - if current_user.age > @workshop.age_max
+              - if current_user && current_user.age > @workshop.age_max
                 = link_to "Work with #{@workshop.user.first_name}", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
                 #workwithModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "workwithModal", :role => "dialog", :tabindex => "-1"}
                   .modal-header
@@ -299,7 +307,7 @@
                     %br
                 %br
                 = render :partial => "shared/prereg", :locals => {:event => @workshop}
-              - elsif current_user.age < @workshop.age_min
+              - elsif current_user && current_user.age < @workshop.age_min
                 = link_to "Work with #{@workshop.user.first_name}", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
                 #workwithModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "workwithModal", :role => "dialog", :tabindex => "-1"}
                   .modal-header
