@@ -82,6 +82,18 @@
             - if !show
               %p.images-desc.small Upload 5 images of your studio & your work as it pertains to the apprenticeship.
 
+            //Social bttns //////////////////
+            - if show
+              %a{"data-pin-do" => "buttonBookmark", :href => "//pinterest.com/pin/create/button/"}
+                %img{:src => "//assets.pinterest.com/images/pidgets/pin_it_button.png"}/
+              .fb-like{"data-layout" => "button_count", "data-send" => "true", "data-show-faces" => "false", "data-width" => "450"}
+              %a.twitter-share-button{"data-via" => "TheGirlsGuild", :href => "https://twitter.com/share"} Tweet
+              :javascript
+                !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+            %br
+            %br
+
+
 //Images Section //////////////////
 = render 'host_album', show: show
 
@@ -286,7 +298,7 @@
               - if @workshop.datetime_tba == true || @workshop.filled? || @workshop.completed?
                 = render :partial => "shared/prereg", :locals => {:event => @workshop}
               - else
-                - if current_user.age > @workshop.age_max
+                - if current_user && current_user.age > @workshop.age_max
                   = link_to "Work with #{@workshop.user.first_name}", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
                   #workwithModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "workwithModal", :role => "dialog", :tabindex => "-1"}
                     .modal-header
@@ -300,7 +312,7 @@
                       %br
                   %br
                   = render :partial => "shared/prereg", :locals => {:event => @workshop}
-                - elsif current_user.age < @workshop.age_min
+                - elsif current_user && current_user.age < @workshop.age_min
                   = link_to "Work with #{@workshop.user.first_name}", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
                   #workwithModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "workwithModal", :role => "dialog", :tabindex => "-1"}
                     .modal-header
