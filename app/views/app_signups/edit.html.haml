@@ -8,7 +8,10 @@
     .row-fluid
       .span9
         = simple_form_for @app_signup, class: 'form-horizontal', html: {class: "payment_form"}, :validate => false, defaults: { input_html: { class: 'span6' } }  do |f|
-          = render 'form', f: f
+          - if @app_signup.parent?
+            = render 'parent_form', f: f
+          - else
+            = render 'form', f: f
           - if @app_signup.started?
             = link_to 'Delete', @app_signup, :method => :delete, :class => "btn btn-danger", :data => { :confirm => "Are you sure you want to delete your application? It will be removed permanantly." }
             = f.submit "Save for Later", :name => "save_button", :class => "btn"
