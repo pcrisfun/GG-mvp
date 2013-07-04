@@ -364,7 +364,7 @@
               = simple_form_for(@workshop) do |f|
                 = f.input :reject_reason, input_html: { rows: "2",
                   placeholder: "This reason will be plopped into the email we send the maker."}
-                = f.submit "Reject Workshop", :class => "btn btn-large btn-danger", :action => "reject"
+                = f.submit "Reject Workshop", :name => "reject_button", :class => "btn btn-large btn-danger"
               %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
               %br
           %br
@@ -383,9 +383,18 @@
                 = f.input :revoke_reason, input_html: { rows: "2",
                   placeholder: "This reason will be plopped into the email we send the maker.",
                   rel: 'popover'}
-                = f.submit "Revoke Workshop", :class => "btn btn-large btn-danger", :action => "revoke"
+                = f.submit "Revoke Workshop", :name => "revoke_button", :class => "btn btn-large btn-danger"
               %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
               %br
+          %br
+          %br
 
+        - if current_user && current_user == @workshop.user && !@workshop.started? && !@workshop.canceled?
+          = link_to "Cancel Workshop", { :controller => 'workshops', :action => 'cancel', :id => @workshop.id }, class: "btn btn-large btn-danger", :method => 'post', data: { :confirm => "Are you sure? Your workshop will be saved in your Dashboard, but you'll have to resubmit it in order to post it again." }
+          %br
+          %br
 
-
+        - if current_user && current_user == @workshop.user && @workshop.started?
+          = link_to "Delete Workshop", { :controller => 'workshops', :action => 'destroy', :id => @workshop.id }, class: "btn btn-large btn-danger", :method => 'delete', data: { :confirm => "Are you sure? You can't undo after you delete your workshop. It will really be gone!" }
+          %br
+          %br

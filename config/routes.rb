@@ -41,8 +41,6 @@ GirlsGuild::Application.routes.draw do
     collection do
       post :cancel
       post :accept
-      post :reject
-      post :revoke
       post :resubmit
       get :checkmarks
     end
@@ -55,8 +53,6 @@ GirlsGuild::Application.routes.draw do
     collection do
       post :cancel
       post :accept
-      post :reject
-      post :revoke
       post :resubmit
       get :checkmarks
     end

@@ -165,6 +165,10 @@ class Event < ActiveRecord::Base
 
   end
 
+  def verify_delete?
+    self.started?
+  end
+
   after_create :create_host_album
   def create_host_album
     self.host_album  = Album.new(title: "Images for #{self.title}", limit: 5)

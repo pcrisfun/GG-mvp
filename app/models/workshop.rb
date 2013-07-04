@@ -147,17 +147,27 @@ include EventHelper
 		return true
 	end
 
-  #def deliver_cancel_applicants
-    #Pony.mail({
-    #  :to => the list of people signed up for the workshop
-     #  :from => "Diana & Cheyenne<hello@girlsguild.com>",
-    #  :reply_to => "GirlsGuild<hello@girlsguild.com>",
-    #  :subject => "Your workshop has been canceled - #{topic} with #{user.name}",
-    #  :html_body => %(Bummer! <br/><br/>We're sorry to say the #{topic} workshop with #{user.name} has been cancelled. It may be rescheduled later, and if it is you'll be the first to know! In the meantime we'll refund your sign-up fee, and you can check out other upcoming workshops you might like here: <a href="#{url_for(workshops)}"> #{workshops_path}</a>),
-    #  :bcc => "hello@girlsguild.com",
-    #})
-    #return true
-  #end
+  def cancel_signups?
+    if self.accepted? || self.filled?
+      self.signups.where(:state => ['confirmed']).all.each do |work|
+        work.cancel && work.deliver_cancel_signups
+      end
+    end
+  end
+
+  def deliver_cancel_applicants
+    Pony.mail({
+      :to => "#{self.signup.user.name}<#{self.signup.user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Workshop has been canceled - #{topic} with #{user.name}",
+      :html_body => %(<h1>Bummer!</h1>
+        <p>We're sorry to say that #{user.name} has had to cancel her workshop on #{self.topic}. It may be rescheduled later, and if it is you'll be the first to know!</p>
+        <p>In the meantime we'll refund your sign-up fee, and you can check out other upcoming workshops you might like here: <a href="#{url_for(workshops)}"> #{workshops_path}</a>.</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
 
 	def deliver_reject
 		Pony.mail({
@@ -167,7 +177,7 @@ include EventHelper
 			:subject => "We couldn't post your workshop - #{topic} with #{user.name}",
 			:html_body => %(<h1>Sorry.</h1>
         <p>We can't post your workshop because there was a problem with your submission:</p>
-        <p>[pull in reject_reason here].</p>
+        <p><i>#{self.reject_reason}</i></p>
         <p>If the problem is with the formatting or content of the workshop, you can edit and resubmit it anytime. Find it here - <a href="#{edit_workshop_url(self)}"> #{self.title}</a> or from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>Please let us know if you have any questions.</p>
         <p>Thanks,</p>
@@ -184,8 +194,8 @@ include EventHelper
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your workshop has been revoked - #{topic} with #{user.name}",
 			:html_body => %(<h1>Sorry.</h1>
-        <p>We've had to revoke your workshop because of an issue:</p>
-        <p>[pull in revoke_reason here].</p>
+        <p>We've had to take down your workshop because of an issue:</p>
+        <p><i>#{self.revoke_reason}</i></p>
         <p>If the problem is with the formatting or content of the workshop, you can edit and resubmit it anytime. Find it here - <a href="#{edit_workshop_url(self)}"> #{self.title}</a> or from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>Please let us know if you have any questions.</p>
         <p>Thanks,</p>
