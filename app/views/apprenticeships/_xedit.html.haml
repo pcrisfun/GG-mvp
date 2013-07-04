@@ -290,6 +290,8 @@
         //Apply Sidebar //////////////////
         %span#applysidebar.span3
           - if show
+            - if @apprenticeship.filled? || @apprenticeship.completed? || @apprenticeship.datetime_tba == true
+              = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
             - if @apprenticeship.accepted?
               - if @apprenticeship.datetime_tba == true || @apprenticeship.filled? || @apprenticeship.completed?
                 = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
@@ -352,12 +354,51 @@
     .container
       .row-fluid
         - if current_user && current_user.admin? && @apprenticeship.pending?
-          = form_for(@apprenticeship) do |f|
-            = f.submit "Reject Apprenticeship", name: "reject_button", class: "btn btn-large btn-danger", data: { :confirm => "Are you sure?" }
-            = f.submit "Approve Apprenticeship", name: "accept_button", class: "btn btn-large btn-success"
+          = link_to "Approve Apprenticeship", { :controller => 'apprenticeships', :action => 'accept', :id => @apprenticeship.id }, class: "btn btn-large btn-success", :method => 'post'
+
+          = link_to "Reject Apprenticeship", '#rejectModal', data: {toggle: "modal"}, :class => "btn btn-large btn-danger"
+          #rejectModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "rejectModal", :role => "dialog", :tabindex => "-1"}
+            .modal-header
+              %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+              %h3#galleryModalLabel Perp Alert!
+            .modal-body
+              %p What's the problem with this submission?
+              %br
+              = simple_form_for(@apprenticeship) do |f|
+                = f.input :reject_reason, input_html: { rows: "2",
+                  placeholder: "This reason will be plopped into the email we send the maker."}
+                = f.submit "Reject Apprenticeship", :name => "reject_button", :class => "btn btn-large btn-danger"
+              %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
+              %br
+          %br
+          %br
 
         - if current_user && current_user.admin? && @apprenticeship.accepted?
-          = form_for(@apprenticeship) do |f|
-            = f.submit "Revoke Apprenticeship", name: "revoke_button", class: "btn btn-large", data: { :confirm => "Are you sure?" }
+          = link_to "Revoke Apprenticeship", '#revokeModal', data: {toggle: "modal"}, :class => "btn btn-large btn-danger"
+          #revokeModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "revokeModal", :role => "dialog", :tabindex => "-1"}
+            .modal-header
+              %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+              %h3#galleryModalLabel Uh-oh!
+            .modal-body
+              %p What's the issue with this apprenticeship?
+              %br
+              = simple_form_for(@apprenticeship) do |f|
+                = f.input :revoke_reason, input_html: { rows: "2",
+                  placeholder: "This reason will be plopped into the email we send the maker.",
+                  rel: 'popover'}
+                = f.submit "Revoke Apprenticeship", :name => "revoke_button", :class => "btn btn-large btn-danger"
+              %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
+              %br
+          %br
+          %br
 
+        - if current_user && current_user == @apprenticeship.user && !@apprenticeship.started? && !@apprenticeship.canceled?
+          = link_to "Cancel Apprenticeship", { :controller => 'apprenticeships', :action => 'cancel', :id => @apprenticeship.id }, class: "btn btn-large btn-danger", :method => 'post', data: { :confirm => "Are you sure? Your apprenticeship will be saved in your Dashboard, but you'll have to resubmit it in order to post it again." }
+          %br
+          %br
+
+        - if current_user && current_user == @apprenticeship.user && @apprenticeship.started?
+          = link_to "Delete Apprenticeship", { :controller => 'apprenticeships', :action => 'destroy', :id => @apprenticeship.id }, class: "btn btn-large btn-danger", :method => 'delete', data: { :confirm => "Are you sure? You can't undo after you delete your apprenticeship. It will really be gone!" }
+          %br
+          %br
 

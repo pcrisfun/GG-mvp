@@ -40,6 +40,8 @@ GirlsGuild::Application.routes.draw do
   resources :apprenticeships do
     collection do
       post :cancel
+      post :accept
+      post :resubmit
       get :checkmarks
     end
   end
@@ -50,6 +52,8 @@ GirlsGuild::Application.routes.draw do
   resources :workshops do
     collection do
       post :cancel
+      post :accept
+      post :resubmit
       get :checkmarks
     end
   end

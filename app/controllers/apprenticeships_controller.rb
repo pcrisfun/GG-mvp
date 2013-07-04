@@ -7,25 +7,11 @@ class ApprenticeshipsController < ApplicationController
 
   def index
     unless current_user.blank?
-  	  @mysaved_apprenticeships = current_user.apprenticeships.find_all_by_state('started', 'private', 'payment')
-  	  @mypending_apprenticeships = current_user.apprenticeships.find_all_by_state('pending')
-  	  @myactive_apprenticeships = current_user.apprenticeships.find_all_by_state('accepted')
-      @mycanceled_apprenticeships = current_user.apprenticeships.find_all_by_state('canceled')
-      @myfilled_apprenticeships = current_user.apprenticeships.find_all_by_state('filled')
-      @mycompleted_apprenticeships = current_user.apprenticeships.find_all_by_state('completed')
-
       @allpending_apprenticeships = Apprenticeship.find_all_by_state('pending')
       @allsaved_apprenticeships = Apprenticeship.find_all_by_state('started')
       @allcanceled_apprenticeships = Apprenticeship.find_all_by_state('canceled')
       @allfilled_apprenticeships = Apprenticeship.find_all_by_state('filled')
       @allcompleted_apprenticeships = Apprenticeship.find_all_by_state('completed')
-
-      @mysaved_app_signups = current_user.app_signups.find_all_by_state('started')
-      @mypending_app_signups = current_user.app_signups.find_all_by_state('pending')
-      @myaccepted_app_signups = current_user.app_signups.find_all_by_state('accepted')
-      @mycanceled_app_signups = current_user.app_signups.find_all_by_state('canceled')
-      @mycompleted_app_signups = current_user.app_signups.find_all_by_state('completed')
-      @myconfirmed_app_signups = current_user.app_signups.find_all_by_state('confirmed')
     end
   	@apprenticeships = Apprenticeship.find_all_by_state(['accepted','filled','completed'])
   end
@@ -66,6 +52,19 @@ class ApprenticeshipsController < ApplicationController
       if params[:apprenticeship]
         @apprenticeship.attributes = params[:apprenticeship]
         @apprenticeship.save(validate: false)
+
+        if params[:revoke_button]
+          if current_user.admin? && @apprenticeship.revoke && @apprenticeship.deliver_revoke
+            redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship revoked."} and return
+          end
+
+        elsif params[:reject_button]
+          if current_user.admin? && @apprenticeship.reject && @apprenticeship.deliver_reject
+            redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship rejected." } and return
+          end
+        end
+
+      else
         if params[:commit] == 'Save'
           redirect_to :back, flash: { success: "Your apprenticeship has been saved"} and return
         elsif params[:apprenticeship][:stripe_card_token] && ( params[:apprenticeship][:stripe_card_token] != "" )
@@ -78,32 +77,22 @@ class ApprenticeshipsController < ApplicationController
         else
           redirect_to payment_apprenticeship_path(@apprenticeship) and return
         end
-      else
-        if params[:revoke_button]
-          if current_user.admin? && @apprenticeship.revoke && @apprenticeship.deliver_revoke
-            redirect_to apprenticeship_path(@apprenticeship), :flash => { :warning => "Apprenticeship revoked."} and return
-          end
 
-        elsif params[:reject_button]
-          if current_user.admin? && @apprenticeship.reject && @apprenticeship.deliver_reject
-            redirect_to apprenticeship_path(@apprenticeship), :flash => { :warning => "Apprenticeship rejected." } and return
-          end
+        #elsif params[:accept_button]
+          #if current_user.admin? && @apprenticeship.accept && @apprenticeship.deliver_accept
+            #redirect_to apprenticeships_path, :flash => { :success => "Apprenticeship accepted." } and return
+          #end
 
-        elsif params[:accept_button]
-          if current_user.admin? && @apprenticeship.accept && @apprenticeship.deliver_accept
-            redirect_to apprenticeship_path(@apprenticeship), :flash => { :success => "Apprenticeship accepted." } and return
-          end
+        #elsif params[:resubmit_button]
+          #if @apprenticeship.resubmit && @apprenticeship.deliver_resubmit
+            #redirect_to apprenticeships_path, :flash => { :success => "Thanks! Your apprenticeship was resubmitted."} and return
+          #end
 
-        elsif params[:resubmit_button]
-          if @apprenticeship.resubmit && @apprenticeship.deliver_resubmit
-            redirect_to apprenticeship_path(@apprenticeship), :flash => { :success => "Thanks! Your apprenticeship was resubmitted."} and return
-          end
-
-        elsif params[:cancel_button]
-          if @apprenticeship.cancel && @apprenticeship.deliver_cancel
-            redirect_to apprenticeships_path, :flash => { :warning => "Rats. Your apprenticeship has been canceled."} and return
-          end
-        end
+        #elsif params[:cancel_button]
+          #if @apprenticeship.cancel && @apprenticeship.deliver_cancel
+            #redirect_to apprenticeships_path, :flash => { :warning => "Rats. Your apprenticeship has been canceled."} and return
+          #end
+        #end
         raise
       end
     end
@@ -124,18 +113,44 @@ class ApprenticeshipsController < ApplicationController
     end
   end
 
+  def new
+  end
+
   def destroy
     @apprenticeship = Apprenticeship.where(:id => params[:id]).first
-    @apprenticeship.destroy
-
-    respond_to do |format|
-      format.html { redirect_to apprenticeships_path, :flash => { :warning => "Your apprenticeship was deleted."} }
-      format.json { head :no_content }
+    if @apprenticeship.verify_delete?
+      @apprenticeship.destroy
+      redirect_to apprenticeships_path, :flash => { :warning => "Your apprenticeship was deleted."} and return
+    else
+      redirect_to :back, :flash => { warning: "Your workshop can't be deleted, but you can cancel it if you no longer want it posted." } and return
     end
   end
 
-  def new
+  def cancel
+    @apprenticeship = Apprenticeship.where(:id => params[:id]).first
+    @apprenticeship.cancel && @apprenticeship.deliver_cancel
+    redirect_to apprenticeships_path, :flash => { :warning => "Rats. Your apprenticeship has been canceled."} and return
   end
+
+  def accept
+    @apprenticeship.accept && @apprenticeship.deliver_accept
+    redirect_to apprenticeships_path, :flash => { :success => "Apprenticeship accepted." } and return
+  end
+
+  def resubmit
+    @apprenticeship.resubmit && @apprenticeship.deliver_resubmit
+    redirect_to apprenticeships_path, :flash => { :success => "Thanks! Your apprenticeship was resubmitted. We'll take a look at it and let you know when it's posted."} and return
+  end
+
+  #def reject
+    #@apprenticeship.reject && @apprenticeship.deliver_reject
+    #redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship rejected." } and return
+  #end
+
+  #def revoke
+    #@apprenticeship.revoke && @apprenticeship.deliver_revoke
+    #redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship revoked."} and return
+  #end
 
   def private
     unless @apprenticeship.group_valid?(:design)
@@ -158,15 +173,6 @@ class ApprenticeshipsController < ApplicationController
   def checkmarks
     respond_to do |format|
       format.json { render json: @apprenticeship.checkmarks }
-    end
-  end
-
-  def cancel
-    @apprenticeship.cancel
-
-    respond_to do |format|
-      format.html { redirect_to apprenticeships_path, :flash => { :warning => "Your apprenticeship was canceled."} }
-      format.json { head :no_content }
     end
   end
 

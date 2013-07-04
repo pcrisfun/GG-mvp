@@ -290,43 +290,42 @@
         //Apply Sidebar //////////////////
         %span#applysidebar.span3
           - if show
+            - if @workshop.filled? || @workshop.completed? || @workshop.datetime_tba == true
+              = render :partial => "shared/prereg", :locals => {:event => @workshop}
             - if @workshop.accepted?
-              - if @workshop.datetime_tba == true || @workshop.filled? || @workshop.completed?
+              - if current_user && current_user.age > @workshop.age_max
+                = link_to "Work with #{@workshop.user.first_name}", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
+                #workwithModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "workwithModal", :role => "dialog", :tabindex => "-1"}
+                  .modal-header
+                    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                    %h3#galleryModalLabel Oops
+                  .modal-body
+                    %p It looks like you're older than the maximum age for this workshop. But you can sign your daughter up!
+                    %br
+                    = link_to "Sign up my Daughter", new_parent_work_signup_path(workshop_id: @workshop), :class => "btn btn-primary pull-right"
+                    %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
+                    %br
+                %br
+                = render :partial => "shared/prereg", :locals => {:event => @workshop}
+              - elsif current_user && current_user.age < @workshop.age_min
+                = link_to "Work with #{@workshop.user.first_name}", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
+                #workwithModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "workwithModal", :role => "dialog", :tabindex => "-1"}
+                  .modal-header
+                    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                    %h3#galleryModalLabel Whoops
+                  .modal-body
+                    %p It looks like you're younger than the minimum age for this workshop. But you can follow this maker to be notified when she posts a workshop or an apprenticeship!
+                    %br
+                    .span4.pull-right
+                      = render :partial => "shared/prereg", :locals => {:event => @workshop}
+                    %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
+                    %br
+                %br
                 = render :partial => "shared/prereg", :locals => {:event => @workshop}
               - else
-                - if current_user && current_user.age > @workshop.age_max
-                  = link_to "Work with #{@workshop.user.first_name}", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
-                  #workwithModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "workwithModal", :role => "dialog", :tabindex => "-1"}
-                    .modal-header
-                      %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
-                      %h3#galleryModalLabel Oops
-                    .modal-body
-                      %p It looks like you're older than the maximum age for this workshop. But you can sign your daughter up!
-                      %br
-                      = link_to "Sign up my Daughter", new_parent_work_signup_path(workshop_id: @workshop), :class => "btn btn-primary pull-right"
-                      %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
-                      %br
-                  %br
-                  = render :partial => "shared/prereg", :locals => {:event => @workshop}
-                - elsif current_user && current_user.age < @workshop.age_min
-                  = link_to "Work with #{@workshop.user.first_name}", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
-                  #workwithModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "workwithModal", :role => "dialog", :tabindex => "-1"}
-                    .modal-header
-                      %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
-                      %h3#galleryModalLabel Whoops
-                    .modal-body
-                      %p It looks like you're younger than the minimum age for this workshop. But you can follow this maker to be notified when she posts a workshop or an apprenticeship!
-                      %br
-                      .span4.pull-right
-                        = render :partial => "shared/prereg", :locals => {:event => @workshop}
-                      %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
-                      %br
-                  %br
-                  = render :partial => "shared/prereg", :locals => {:event => @workshop}
-                - else
-                  = link_to "Work with #{@workshop.user.first_name}", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-block btn-primary"
-                  %br
-                  = render :partial => "shared/prereg", :locals => {:event => @workshop}
+                = link_to "Work with #{@workshop.user.first_name}", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-block btn-primary"
+                %br
+                = render :partial => "shared/prereg", :locals => {:event => @workshop}
               %br
 
           //Map //////////////////
@@ -352,12 +351,50 @@
     .container
       .row-fluid
         - if current_user && current_user.admin? && @workshop.pending?
-          = simple_form_for(@workshop) do |f|
-            = f.submit "Reject Workshop", name: "reject_button", class: "btn btn-large btn-danger", data: { :confirm => "Are you sure?" }
-            = f.submit "Approve Workshop", name: "accept_button", class: "btn btn-large btn-success"
+          = link_to "Approve Workshop", { :controller => 'workshops', :action => 'accept', :id => @workshop.id }, class: "btn btn-large btn-success", :method => 'post'
+
+          = link_to "Reject Workshop", '#rejectModal', data: {toggle: "modal"}, :class => "btn btn-large btn-danger"
+          #rejectModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "rejectModal", :role => "dialog", :tabindex => "-1"}
+            .modal-header
+              %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+              %h3#galleryModalLabel Perp Alert!
+            .modal-body
+              %p What's the problem with this submission?
+              %br
+              = simple_form_for(@workshop) do |f|
+                = f.input :reject_reason, input_html: { rows: "2",
+                  placeholder: "This reason will be plopped into the email we send the maker."}
+                = f.submit "Reject Workshop", :name => "reject_button", :class => "btn btn-large btn-danger"
+              %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
+              %br
+          %br
+          %br
 
         - if current_user && current_user.admin? && @workshop.accepted?
-          = simple_form_for(@workshop) do |f|
-            = f.submit "Revoke Workshop", name: "revoke_button", class: "btn btn-large", data: { :confirm => "Are you sure?" }
+          = link_to "Revoke Workshop", '#revokeModal', data: {toggle: "modal"}, :class => "btn btn-large btn-danger"
+          #revokeModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "revokeModal", :role => "dialog", :tabindex => "-1"}
+            .modal-header
+              %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+              %h3#galleryModalLabel Uh-oh!
+            .modal-body
+              %p What's the issue with this workshop?
+              %br
+              = simple_form_for(@workshop) do |f|
+                = f.input :revoke_reason, input_html: { rows: "2",
+                  placeholder: "This reason will be plopped into the email we send the maker.",
+                  rel: 'popover'}
+                = f.submit "Revoke Workshop", :name => "revoke_button", :class => "btn btn-large btn-danger"
+              %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
+              %br
+          %br
+          %br
 
+        - if current_user && current_user == @workshop.user && !@workshop.started? && !@workshop.canceled?
+          = link_to "Cancel Workshop", { :controller => 'workshops', :action => 'cancel', :id => @workshop.id }, class: "btn btn-large btn-danger", :method => 'post', data: { :confirm => "Are you sure? Your workshop will be saved in your Dashboard, but you'll have to resubmit it in order to post it again." }
+          %br
+          %br
 
+        - if current_user && current_user == @workshop.user && @workshop.started?
+          = link_to "Delete Workshop", { :controller => 'workshops', :action => 'destroy', :id => @workshop.id }, class: "btn btn-large btn-danger", :method => 'delete', data: { :confirm => "Are you sure? You can't undo after you delete your workshop. It will really be gone!" }
+          %br
+          %br
