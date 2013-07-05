@@ -254,19 +254,19 @@ include EventHelper
   end
 
   def self.first_reminder
-    WorkSignup.where(:state => 'confirmed').where('event.begins_at >= ?', 3.days).where(:work_first_reminder_sent => false).each do |work|
+    WorkSignup.where(:state => 'confirmed').where('@workshop.begins_at >= ?', 3.days).where(:work_first_reminder_sent => false).each do |work|
       work.deliver_first_reminder
     end
   end
 
   def self.second_reminder
-    WorkSignup.where(:state => 'confirmed').where('event.begins_at >= ?', 1.day).where(:work_second_reminder_sent => false).each do |work|
+    WorkSignup.where(:state => 'confirmed').where('@workshop.begins_at >= ?', 1.day).where(:work_second_reminder_sent => false).each do |work|
       work.deliver_second_reminder
     end
   end
 
   def self.followup
-    WorkSignup.where(:state => 'confirmed').where('event.begins_at <= ?', 3.days.ago).where(:work_followup_sent => false).each do |work|
+    WorkSignup.where(:state => 'confirmed').where('@workshop.self.event.begins_at <= ?', 3.days.ago).where(:work_followup_sent => false).each do |work|
       work.deliver_followup
     end
   end

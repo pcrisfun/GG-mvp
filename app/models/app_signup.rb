@@ -443,6 +443,7 @@ class AppSignup < Signup
     return true
   end
 
+  #Ask Pete: event.begins_at gets a "no such column" error. (So does self.event.begins_at, @apprenticeship.begins_at, apprenticeship.begins_at, begins_at...)
   def self.reminder
     AppSignup.where(:state => 'confirmed').where('event.begins_at >= ?', 3.days).where(:app_reminder_sent => false).each do |app|
       app.deliver_reminder

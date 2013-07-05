@@ -69,26 +69,20 @@ class WorkshopsController < ApplicationController
           if current_user.admin? && @workshop.reject && @workshop.deliver_reject
             redirect_to workshops_path, :flash => { :warning => "Workshop rejected." }
           end
-        end
 
-      else
-        @workshop.attributes = params[:workshop]
-        @workshop.save(validate: false)
-
-        if params[:commit] == 'Save'
+        elsif params[:commit] == 'Save'
           redirect_to :back, flash: { success: "Your workshop has been saved"} and return
-        end
 
-        unless @workshop.group_valid?(:design)
+        elsif !@workshop.group_valid?(:design)
           redirect_to edit_workshop_path(@workshop), flash: { warning: "Please correct the following: #{@workshop.errors.full_messages}"} and return
-        end
 
-        unless @workshop.group_valid?(:private)
+        elsif !@workshop.group_valid?(:private)
           redirect_to private_workshop_path(@workshop), :flash => { warning: "Please correct the following: #{@workshop.errors.full_messages}" } and return
-        end
 
-        @workshop.submit && @workshop.deliver
-        redirect_to confirmation_workshop_path(@workshop), flash: { success: "Awesome! Your workshop was submitted."}
+        else
+          @workshop.submit && @workshop.deliver
+          redirect_to confirmation_workshop_path(@workshop), flash: { success: "Awesome! Your workshop was submitted."} and return
+        end
 
         #elsif params[:accept_button]
           #if current_user.admin? && @workshop.accept && @workshop.deliver_accept

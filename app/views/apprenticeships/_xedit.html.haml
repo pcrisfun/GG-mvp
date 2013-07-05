@@ -292,44 +292,41 @@
           - if show
             - if @apprenticeship.filled? || @apprenticeship.completed? || @apprenticeship.datetime_tba == true
               = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
-            - if @apprenticeship.accepted?
-              - if @apprenticeship.datetime_tba == true || @apprenticeship.filled? || @apprenticeship.completed?
-                = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
-              - else
-                - unless current_user && current_user == @apprenticeship.user
-                  - if current_user && current_user.age > @apprenticeship.age_max
-                    = link_to "Work with #{@apprenticeship.user.first_name}", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
-                    #workwithModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "workwithModal", :role => "dialog", :tabindex => "-1"}
-                      .modal-header
-                        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
-                        %h3#galleryModalLabel Oops
-                      .modal-body
-                        %p It looks like you're older than the maximum age for this apprenticeship. But you can sign your daughter up!
-                        %br
-                        = link_to "Sign up my Daughter", new_parent_app_signup_path(apprenticeship_id: @apprenticeship), :class => "btn btn-primary pull-right"
-                        %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
-                        %br
-                    %br
-                    = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
-                  - elsif current_user && current_user.age < @apprenticeship.age_min
-                    = link_to "Work with #{@apprenticeship.user.first_name}", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
-                    #workwithModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "workwithModal", :role => "dialog", :tabindex => "-1"}
-                      .modal-header
-                        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
-                        %h3#galleryModalLabel Whoops
-                      .modal-body
-                        %p It looks like you're younger than the minimum age for this apprenticeship. But you can follow this maker to be notified when she posts a workshop or an apprenticeship!
-                        %br
-                        .span4.pull-right
-                          = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
-                        %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
-                        %br
-                    %br
-                    = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
-                  - else
-                    = link_to "Work with #{@apprenticeship.user.first_name}", new_app_signup_path(apprenticeship_id: @apprenticeship), :class => "btn btn-block btn-primary"
-                    %br
-                    = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
+            - if @apprenticeship.accepted? && @apprenticeship.datetime_tba == false
+              - unless current_user && current_user == @apprenticeship.user
+                - if current_user && current_user.age > @apprenticeship.age_max
+                  = link_to "Work with #{@apprenticeship.user.first_name}", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
+                  #workwithModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "workwithModal", :role => "dialog", :tabindex => "-1"}
+                    .modal-header
+                      %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                      %h3#galleryModalLabel Oops
+                    .modal-body
+                      %p It looks like you're older than the maximum age for this apprenticeship. But you can sign your daughter up!
+                      %br
+                      = link_to "Sign up my Daughter", new_parent_app_signup_path(apprenticeship_id: @apprenticeship), :class => "btn btn-primary pull-right"
+                      %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
+                      %br
+                  %br
+                  = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
+                - elsif current_user && current_user.age < @apprenticeship.age_min
+                  = link_to "Work with #{@apprenticeship.user.first_name}", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
+                  #workwithModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "workwithModal", :role => "dialog", :tabindex => "-1"}
+                    .modal-header
+                      %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                      %h3#galleryModalLabel Whoops
+                    .modal-body
+                      %p It looks like you're younger than the minimum age for this apprenticeship. But you can follow this maker to be notified when she posts a workshop or an apprenticeship!
+                      %br
+                      .span4.pull-right
+                        = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
+                      %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
+                      %br
+                  %br
+                  = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
+                - else
+                  = link_to "Work with #{@apprenticeship.user.first_name}", new_app_signup_path(apprenticeship_id: @apprenticeship), :class => "btn btn-block btn-primary"
+                  %br
+                  = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
           %br
 
           //Map //////////////////
