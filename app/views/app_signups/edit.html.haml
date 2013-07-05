@@ -3,7 +3,7 @@
     - provide(:title, "Edit Apprenticeship Application")
     %h1 Update your application
     %p
-      We're glad you're back! You can finish your application to work with #{"#{@apprenticeship.host_firstname}"} for her apprenticeship in #{link_to @app_signup.event.topic} below.
+      We're glad you're back! You can finish your application to work with #{"#{@apprenticeship.host_firstname}"} for her apprenticeship in #{link_to "#{@app_signup.event.topic}", apprenticeship_path(@apprenticeship) } below.
     %br/
     .row-fluid
       .span9
