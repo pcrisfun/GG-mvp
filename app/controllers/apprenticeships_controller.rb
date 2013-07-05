@@ -62,10 +62,8 @@ class ApprenticeshipsController < ApplicationController
           if current_user.admin? && @apprenticeship.reject && @apprenticeship.deliver_reject
             redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship rejected." } and return
           end
-        end
 
-      else
-        if params[:commit] == 'Save'
+        elsif params[:commit] == 'Save'
           redirect_to :back, flash: { success: "Your apprenticeship has been saved"} and return
         elsif params[:apprenticeship][:stripe_card_token] && ( params[:apprenticeship][:stripe_card_token] != "" )
           if @apprenticeship.process_payment
