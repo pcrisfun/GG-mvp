@@ -3,7 +3,7 @@
     - provide(:title, 'Apply for an Apprenticeship')
     %h1 Apprenticeship Application
     %p
-      Yes! We’re excited you want to work with #{"#{@apprenticeship.host_firstname}"} for her apprenticeship in #{link_to @app_signup.event.topic}.
+      Yes! We’re excited you want to work with #{"#{@apprenticeship.host_firstname}"} for her apprenticeship in #{link_to "#{@app_signup.event.topic}", apprenticeship_path(@apprenticeship) }.
     %br/
     .howitworks
       = render 'howitworks'

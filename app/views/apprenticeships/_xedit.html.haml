@@ -42,7 +42,7 @@
             %br
             - if !show
               %i.icon-asterisk
-            #title.field.text
+            %h1#title.field.text
               = editable_link_to 'Topic of Your Apprenticeship', field: :topic, resource: @apprenticeship, type: :text
             - if !show
               %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Give a snappy title for the apprenticeship. You could include the type of apprenticeship in the name. Example: 'Jewelry Apprenticeship for Fab.com', or you could focus on what you'll be doing; 'Soldering and Casting Apprenticeship' "} }
@@ -292,6 +292,7 @@
           - if show
             - if @apprenticeship.filled? || @apprenticeship.completed? || @apprenticeship.datetime_tba == true
               = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
+              %br
             - if @apprenticeship.accepted? && @apprenticeship.datetime_tba == false
               - unless current_user && current_user == @apprenticeship.user
                 - if current_user && current_user.age > @apprenticeship.age_max

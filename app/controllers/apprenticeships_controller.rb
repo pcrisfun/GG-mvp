@@ -40,7 +40,7 @@ class ApprenticeshipsController < ApplicationController
       if @apprenticeship.respond_to?(params[:name])
         if @apprenticeship.xeditable_update(params[:name], params[:value])
           respond_to do |format|
-            format.json { render json: {event: @apprenticeship, checkmarks: @apprenticeship.checkmarks} and return }
+            format.json { render json: {event: @apprenticeship, checkmarks: @apprenticeship.checkmarks } and return }
           end
         else
           respond_to do |format|
@@ -76,7 +76,6 @@ class ApprenticeshipsController < ApplicationController
         else
           redirect_to payment_apprenticeship_path(@apprenticeship) and return
         end
-
 
         #elsif params[:accept_button]
           #if current_user.admin? && @apprenticeship.accept && @apprenticeship.deliver_accept

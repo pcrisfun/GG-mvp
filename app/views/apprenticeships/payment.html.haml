@@ -16,11 +16,14 @@
               - if @apprenticeship.charge_id.present?
                 = link_to "Payment Confirmation", payment_confirmation_apprenticeship_path(@apprenticeship)
                 %br
+                #preview-buttons-bottom.pull-center
+                  = link_to 'Resubmit', apprenticeship_path(@apprenticeship, resubmit_button: true), method: 'PUT', class: 'btn btn-primary'
               - else
                 %br
                 %br
                 #preview-buttons-bottom.pull-center
-                  = f.submit 'Submit Payment', class: 'btn btn-large btn-primary', id: 'cc_process'
+                  = f.submit 'Submit Payment', class: 'btn btn-primary', id: 'cc_process'
+
           .span3
             %br
             %br
