@@ -11,7 +11,11 @@ GirlsGuild::Application.routes.draw do
   end
   match 'app_signups/:id/confirmation' => 'app_signups#payment_confirmation', as: :payment_confirmation_app_signup
 
-  resources :work_signups
+  resources :work_signups do
+    collection do
+      post :cancel
+    end
+  end
   match 'work_signups/:id/confirmation' => 'work_signups#payment_confirmation', as: :payment_confirmation_work_signup
 
   resources :preregs

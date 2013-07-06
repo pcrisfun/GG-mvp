@@ -70,7 +70,6 @@ class WorkshopsController < ApplicationController
             redirect_to workshops_path, :flash => { :warning => "Workshop rejected." }
           end
 
-
         elsif params[:commit] == 'Save'
           redirect_to :back, flash: { success: "Your workshop has been saved"} and return
 
@@ -82,7 +81,7 @@ class WorkshopsController < ApplicationController
 
         else
           @workshop.submit && @workshop.deliver
-          redirect_to confirmation_workshop_path(@workshop), flash: { success: "Awesome! Your workshop was submitted."}
+          redirect_to confirmation_workshop_path(@workshop), flash: { success: "Awesome! Your workshop was submitted."} and return
         end
 
         #elsif params[:accept_button]
