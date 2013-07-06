@@ -444,7 +444,8 @@ class AppSignup < Signup
   end
 
   def self.reminder
-    AppSignup.where(:state => 'confirmed').where('event.begins_at >= ?', 3.days).where(:app_reminder_sent => false).each do |app|
+    date_range = Date.today..(Date.today+3.days)
+    AppSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'confirmed', app_reminder_sent: false).each do |app|
       app.deliver_reminder
     end
   end
