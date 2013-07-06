@@ -481,19 +481,22 @@ class AppSignup < Signup
 
   #Ask Pete: event.begins_at gets a "no such column" error. (So does self.event.begins_at, @apprenticeship.begins_at, apprenticeship.begins_at, begins_at...)
   def self.reminder
-    AppSignup.where(:state => 'confirmed').where('event.begins_at >= ?', 3.days).where(:app_reminder_sent => false).each do |app|
+    date_range = Date.today..(Date.today+3.days)
+    AppSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'confirmed', app_reminder_sent: false).each do |app|
       app.deliver_reminder
     end
   end
 
   def self.followup
-    AppSignup.where(:state => 'confirmed').where('event.begins_at <= ?', 7.days.ago).where(:app_followup_sent => false).each do |app|
+    date_range = (Date.today-7.days)..Date.today
+    AppSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'confirmed', app_followup_sent: false).each do |app|
       app.deliver_followup
     end
   end
 
   def self.followup_maker
-    AppSignup.where(:state => 'confirmed').where('event.begins_at <= ?', 7.days.ago).where(:app_followup_maker_sent => false).each do |app|
+    date_range = (Date.today-7.days)..Date.today
+    AppSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'confirmed', app_followup_maker_sent: false).each do |app|
       app.deliver_followup_maker
     end
   end

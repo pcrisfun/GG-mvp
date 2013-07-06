@@ -132,8 +132,6 @@ include EventHelper
       :html_body => %(<h1>Woooo #{event.user.first_name}!</h1>
         <p>Congrats, #{user.first_name} signed up for <a href="#{url_for(self.event)}">#{event.title}</a>.
         <p>Here are the workshop details to remember:</p>
-        <p>When: #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}</p>
-        <p>Where: #{event.location_address} #{event.location_address2}, #{event.location_city}, #{event.location_state}</p>
         <p>You can review the <a href="#{url_for(self.event)}">workshop details page</a> or check out <a href="#{dashboard_url}">your dashboard</a> to keep tabs on who's signing up, and if by some bad luck it turns out you can't make it, you can cancel your workshop there too (note that you'll need to cancel at least 7 days in advance so that we can notify your students).</p>
         <p>Let us know if you have any questions!</p>
         <p>Thanks and Happy Making!</p>
@@ -254,19 +252,22 @@ include EventHelper
   end
 
   def self.first_reminder
-    WorkSignup.where(:state => 'confirmed').where('@workshop.begins_at >= ?', 3.days).where(:work_first_reminder_sent => false).each do |work|
+    date_range = Date.today..(Date.today+3.days)
+    WorkSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'confirmed', work_first_reminder_sent: false).each do |work|
       work.deliver_first_reminder
     end
   end
 
   def self.second_reminder
-    WorkSignup.where(:state => 'confirmed').where('@workshop.begins_at >= ?', 1.day).where(:work_second_reminder_sent => false).each do |work|
+    date_range = Date.today..(Date.today+1.days)
+    WorkSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'confirmed', work_second_reminder_sent: false).each do |work|
       work.deliver_second_reminder
     end
   end
 
   def self.followup
-    WorkSignup.where(:state => 'confirmed').where('@workshop.self.event.begins_at <= ?', 3.days.ago).where(:work_followup_sent => false).each do |work|
+    date_range = (Date.today-3.days)..Date.today
+    WorkSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'confirmed', work_followup_sent: false).each do |work|
       work.deliver_followup
     end
   end
