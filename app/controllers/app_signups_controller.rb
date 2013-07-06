@@ -70,7 +70,7 @@ class AppSignupsController < ApplicationController
   def destroy
     @app_signup = AppSignup.find(params[:id]) if params[:id]
     @app_signup.deliver_destroy && @app_signup.destroy
-    redirect_to apprenticeships_path, :flash => { :success => "Application deleted." }
+    redirect_to apprenticeships_path, :flash => { :success => "Your application has been deleted. We hope you'll find another apprenticeship you're interested in!" }
   end
 
 
@@ -133,8 +133,8 @@ class AppSignupsController < ApplicationController
   end
 
   def cancel
-    @app_signup.cancel
-    redirect_to apprenticeship_path(@app_signup.event), :flash => { :warning => "Drat! Your application has been canceled. Feel free to re-apply any time!"}
+    @app_signup.cancel && @app_signup.deliver_cancel
+    redirect_to apprenticeship_path(@app_signup.event), :flash => { :warning => "Drat! Your application has been canceled."}
   end
 
   def confirm
