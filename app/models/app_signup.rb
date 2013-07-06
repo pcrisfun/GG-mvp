@@ -448,7 +448,7 @@ class AppSignup < Signup
         :from => "Diana & Cheyenne<hello@girlsguild.com>",
         :reply_to => "GirlsGuild<hello@girlsguild.com>",
         :subject => "Your apprenticeship is set to start soon! - #{self.event.title}",
-        :html_body => %(<h1>We're stoked you'll be working together soon!</h1>
+        :html_body => %(<h1>We're excited you'll be working together soon!</h1>
           <p>Just a reminder that your apprenticeship should be starting in a few days. If you've already set up your first meeting, you're good to go! If you haven't connected already, you'll want to get in touch to set up your first meeting.  Remember to print a copy of the <a href="#{url_for('waivers/ReleaseWaiver-adults.pdf')}">Participation Waiver</a> and the <a href="#{url_for('waivers/ReleaseWaiver-adults.pdf')}">Indemnification Agreement for Minors</a> to have your apprentice(s) and their parents sign before you begin work! </p>
           <p>Let us know if you have any questions before you get started!</p>
           <p>Thanks and Happy Making!</p>
@@ -467,7 +467,7 @@ class AppSignup < Signup
         :reply_to => "GirlsGuild<hello@girlsguild.com>",
         :subject => "How's it going? - #{self.event.title}",
         :html_body => %(<h1>Hey #{user.first_name}!</h1>
-          <p>We just wanted to check in and see how your apprenticeship is going. Do you have any feedback, good or bad, about the process so far? We'd love to hear it.</p>
+          <p>We just wanted to check in and see how your apprenticeship is going with #{event.user.first_name}. Do you have any feedback, good or bad, about the process so far? We'd love to hear it.</p>
           <p>And of course, if you have any questions or concerns, don't hesitate to ask! </p>
           <p>Thanks and Happy Making!</p>
           <p>The GirlsGuild Team</p>),
@@ -485,7 +485,7 @@ class AppSignup < Signup
         :reply_to => "GirlsGuild<hello@girlsguild.com>",
         :subject => "How's it going? - #{self.event.title}",
         :html_body => %(<h1>Hey #{event.user.first_name}!</h1>
-          <p>We just wanted to check in and see how your apprenticeship is going. Do you have any feedback, good or bad, about the process so far? We'd love to hear it.</p>
+          <p>We just wanted to check in and see how your apprenticeship is going with #{user.first_name} #{self.daughter_firstname}. Do you have any feedback, good or bad, about the process so far? We'd love to hear it.</p>
           <p>And of course, if you have any questions or concerns, don't hesitate to ask!</p>
           <p>Thanks,</p>
           <p>The GirlsGuild Team</p>),
