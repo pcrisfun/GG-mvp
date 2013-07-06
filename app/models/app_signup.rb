@@ -151,6 +151,42 @@ class AppSignup < Signup
     return true
   end
 
+  def deliver_cancel(opts={})
+    parent? ? deliver_cancel_parent(opts) : deliver_cancel_girl(opts)
+  end
+
+  def deliver_cancel_girl(opts={})
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Your application has been canceled - #{event.topic} with #{user.name}",
+      :html_body => %(<h1>Bummer!</h1>
+        <p>You've canceled your application to work with #{self.event.user.first_name}. We hope you'll consider applying to work with someone else!</p>
+        <p>Please let us know if there's a way we can help make this application process easier by simply replying to this email. We would really appreciate your feedback!</p>
+        <p>Thanks,</p>
+        <p>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_cancel_parent(opts={})
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Your daughter's application has been canceled - #{event.topic} with #{user.name}",
+      :html_body => %(<h1>Bummer!</h1>
+        <p>You've canceled your daughter's application to work with #{self.event.user.first_name}. We hope you'll consider helping her apply to work with someone else!</p>
+        <p>Please let us know if there's a way we can help make this application process easier by simply replying to this email. We would really appreciate your feedback!</p>
+        <p>Thanks,</p>
+        <p>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
   def deliver_destroy(opts={})
     parent? ? deliver_destroy_parent(opts) : deliver_destroy_girl(opts)
   end

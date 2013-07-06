@@ -147,9 +147,10 @@ include EventHelper
 		return true
 	end
 
+  #Ask Pete: what's wrong with my query? it returns nil
   def cancel_signups?
     if self.accepted? || self.filled?
-      self.signups.where(:state => ['confirmed']).all.each do |work|
+      self.signups.where(:state => 'confirmed').all.each do |work|
         work.cancel && work.deliver_cancel_signups
       end
     end
