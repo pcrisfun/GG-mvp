@@ -452,13 +452,15 @@ class AppSignup < Signup
   end
 
   def self.followup
-    AppSignup.where(:state => 'confirmed').where('event.begins_at <= ?', 7.days.ago).where(:app_followup_sent => false).each do |app|
+    date_range = (Date.today-7.days)..Date.today
+    AppSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'confirmed', app_followup_sent: false).each do |app|
       app.deliver_followup
     end
   end
 
   def self.followup_maker
-    AppSignup.where(:state => 'confirmed').where('event.begins_at <= ?', 7.days.ago).where(:app_followup_maker_sent => false).each do |app|
+    date_range = (Date.today-7.days)..Date.today
+    AppSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'confirmed', app_followup_maker_sent: false).each do |app|
       app.deliver_followup_maker
     end
   end

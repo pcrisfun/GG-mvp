@@ -234,7 +234,7 @@ class Apprenticeship < Event
 		return true
 	end
 
-  #Ask Pete: why pass in a.complete then call app.complete?
+  #Ask Pete: why pass in a.complete then call app.complete? ... Because a.complete completes the signups, and app.complete completes the apprenticeship -Scott
 	def self.complete_apprenticeship
     Apprenticeship.where('ends_at <= ?', Date.today).all.each do |app|
       app.signups.each {|a| a.complete}

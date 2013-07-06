@@ -256,13 +256,15 @@ include EventHelper
 	end
 
   def self.maker_reminder
-    Workshop.where(:state => ["accepted", "filled"]).where('begins_at >= ?', 3.days).where(:reminder_sent => false).each do |work|
+    date_range = Date.today..(Date.today+3.days)
+    Workshop.joins(:event).where(events: {:begins_at => date_range}, :state => ["accepted", "filled"], reminder_sent: false).each do |work|
       work.deliver_maker_reminder
     end
   end
 
   def self.maker_followup
-    Workshop.where(:state => 'completed').where('begins_at <= ?', 3.days.ago).where(:follow_up_sent => false).each do |work|
+    date_range = (Date.today-3.days)..Date.today
+    Workshop.joins(:event).where(events: {:begins_at => date_range}, state: "completed", follow_up_sent: false).each do |work|
       work.deliver_maker_followup
     end
   end
