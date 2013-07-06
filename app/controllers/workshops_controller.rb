@@ -126,8 +126,19 @@ class WorkshopsController < ApplicationController
 
   def cancel
     @workshop = Workshop.where(:id => params[:id]).first
-    @workshop.cancel && @workshop.deliver_cancel
-    redirect_to workshops_path, :flash => { :warning => "Rats. Your workshop has been canceled."} and return
+    @workshop.signups.each {|s| s.cancel && s.deliver_cancel }
+    if @workshop.cancel && @workshop.deliver_cancel
+      redirect_to workshops_path, :flash => { :warning => "Rats. Your workshop has been canceled."} and return
+    else
+      raise
+    end
+  rescue
+    error_msg = " "
+    @workshop.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
+    redirect_to :back, :flash => { warning: "Fudge.  The following error(s) occured while attempting to cancel the workshop: #{error_msg}".html_safe} and return
   end
 
   def accept

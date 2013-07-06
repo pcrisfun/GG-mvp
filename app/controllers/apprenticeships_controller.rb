@@ -127,8 +127,19 @@ class ApprenticeshipsController < ApplicationController
 
   def cancel
     @apprenticeship = Apprenticeship.where(:id => params[:id]).first
-    @apprenticeship.cancel && @apprenticeship.deliver_cancel
-    redirect_to apprenticeships_path, :flash => { :warning => "Rats. Your apprenticeship has been canceled."} and return
+    @apprenticeship.signups.each {|s| s.cancel && s.deliver_cancel}
+    if @apprenticeship.cancel && @apprenticeship.deliver_cancel
+      redirect_to apprenticeships_path, :flash => { :warning => "Rats. Your apprenticeship has been canceled."} and return
+    else
+      raise
+    end
+  rescue
+    error_msg = " "
+    @workshop.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
+    redirect_to :back, :flash => { warning: "Fudge.  The following error(s) occured while attempting to cancel the apprenticeship: #{error_msg}".html_safe} and return
   end
 
   def accept

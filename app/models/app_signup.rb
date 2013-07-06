@@ -187,6 +187,22 @@ class AppSignup < Signup
     return true
   end
 
+  def deliver_cancel
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Your apprenticeship signup has been canceled - #{event.topic} with #{user.name}",
+      :html_body => %(<h1>We're sorry</h1>
+        <p>The apprenticeship #{event.topic}, you signed up for with #{self.event.user.first_name} has been canceled. We'll let you know the next time #{self.event.user.first_name} is hosting a workshop or apprenticeship.</p>
+        <p>Please let us know if there's a way we can help make this process easier by simply replying to this email. We would really appreciate your feedback!</p>
+        <p>Thanks,</p>
+        <p>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
   def deliver_decline(opts={})
     parent? ? deliver_decline_parent(opts) : deliver_decline_girl(opts)
   end
