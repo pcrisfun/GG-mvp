@@ -34,7 +34,7 @@ class WorkSignupsController < ApplicationController
   	current_user.update_attributes(params[:user])
 
     if @work_signup.save
-      process_signup && @work_signup.signup
+      process_signup
     else
       flash.now[:notify] = 'There was an error signing up.'
       if @work_signup.parent?
@@ -89,9 +89,9 @@ class WorkSignupsController < ApplicationController
       @work_signup.process_signup!
       @charge = Stripe::Charge.retrieve(@work_signup.charge_id)
       if @work_signup.parent?
-        @work_signup.deliver_parent(payment: @charge) && @work_signup.deliver_maker_daughter
+        @work_signup.signup && @work_signup.deliver_parent(payment: @charge) && @work_signup.deliver_maker_daughter
       else
-        @work_signup.deliver(payment: @charge) && @work_signup.deliver_maker
+        @work_signup.signup && @work_signup.deliver(payment: @charge) && @work_signup.deliver_maker
       end
       # redirect_to workshops_path, :flash => { :success => "Awesome, you're all signed up to work with #{@workshop.host_firstname}." }
       redirect_to payment_confirmation_work_signup_path(@work_signup), flash: { success: "Awesome, you're all signed up to work with #{@workshop.host_firstname}." } and return
