@@ -49,78 +49,23 @@
       - if current_user.admin?
         - unless @allsaved_apprenticeships.blank? && @allpending_apprenticeships.blank? && @allcanceled_apprenticeships.blank? && @allfilled_apprenticeships.blank? && @allcompleted_apprenticeships.blank?
           %h2 Admin
-          .alert
-            - unless @allsaved_apprenticeships.blank?
-              %h3 Saved Apprenticeships
-              .row-fluid.row-saved
-                = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @allsaved_apprenticeships}
-            - unless @allpending_apprenticeships.blank?
-              %h3 Pending Apprenticeships Needing Review
-              .row-fluid.row-pending
-                = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @allpending_apprenticeships}
-            - unless @allcanceled_apprenticeships.blank?
-              %h3 Canceled Apprenticeships Since Being Accepted
-              .row-fluid.row-canceled
-                = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @allcanceled_apprenticeships}
-            - unless @allfilled_apprenticeships.blank?
-              %h3 Filled Apprenticeships
-              .row-fluid.row-filled
-                = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @allfilled_apprenticeships}
-            - unless @allcompleted_apprenticeships.blank?
-              %h3 Completed Apprenticeships
-              .row-fluid.row-completed
-                = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @allcompleted_apprenticeships}
-/      - unless current_user.app_signups.blank?
-/        %h2 What I'm learning
-/        .alert.alert-info
-/          - unless @mysaved_app_signups.blank?
-/            %h3 My Saved Applications
-/            .row-fluid.row-saved
-/              = render :partial => "app_signups/app_signups-tbl", locals: {app_signups: @mysaved_app_signups}
-/          - unless @mypending_app_signups.blank?
-/            %h3 My Pending Applications Being Reviewed
-/            .row-fluid.row-pending
-/              = render :partial => "app_signups/app_signups-tbl", locals: {app_signups: @mypending_app_signups}
-/          - unless @mycanceled_app_signups.blank?
-/            %h3 My Canceled Applications Since Being Accepted
-/            .row-fluid.row-canceled
-/              = render :partial => "app_signups/app_signups-tbl", locals: {app_signups: @mycanceled_app_signups}
-/          - unless @myaccepted_app_signups.blank?
-/            %h3 My Accepted Applications
-/            .row-fluid.row-filled
-/              = render :partial => "app_signups/app_signups-tbl", locals: {app_signups: @myaccepted_app_signups}
-/          - unless @myconfirmed_app_signups.blank?
-/            %h3 My Confirmed Apprenticeships
-/            .row-fluid.row-confirmed
-/              = render :partial => "app_signups/app_signups-tbl", locals: {app_signups: @myconfirmed_app_signups}
-/          - unless @mycompleted_app_signups.blank?
-/            %h3 My Completed Apprenticeships
-/            .row-fluid.row-completed
-/              = render :partial => "app_signups/app_signups-tbl", locals: {app_signups: @mycompleted_app_signups}
-/      - unless current_user.apprenticeships.blank?
-/        %h2 What I'm Teaching
-/        .alert.alert-info
-/          - unless @mycanceled_apprenticeships.blank?
-/            %h3 My Canceled Apprenticeships
-/            .row-fluid.row-canceled
-/              = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @mycanceled_apprenticeships}
-/          - unless @mysaved_apprenticeships.blank?
-/            %h3 My Saved Apprenticeships
-/            .row-fluid.row-saved
-/              = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @mysaved_apprenticeships}
-/          - unless @mypending_apprenticeships.blank?
-/            %h3 My Pending Apprenticeships
-/            .row-fluid.row-pending
-/              = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @mypending_apprenticeships}
-/          - unless @myactive_apprenticeships.blank?
-/            %h3 My Upcoming Apprenticeships
-/            .row-fluid.row-upcoming
-/              = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @myactive_apprenticeships}
-/          - unless @myfilled_apprenticeships.blank?
-/            %h3 My Filled Apprenticeships
-/            .row-fluid.row-filled
-/              = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @myfilled_apprenticeships}
-/          - unless @mycompleted_apprenticeships.blank?
-/            %h3 My Completed Apprenticeships
-/            .row-fluid.row-completed
-/              = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @mycompleted_apprenticeships}
+          - unless @allpending_apprenticeships.blank?
+            %h3 Pending
+            .row-fluid.row-pending
+              = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @allpending_apprenticeships}
+          - unless @allsaved_apprenticeships.blank?
+            %h3 Saved
+            .row-fluid.row-saved
+              = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @allsaved_apprenticeships}
+          - unless @allcanceled_apprenticeships.blank?
+            %h3 Canceled
+            .row-fluid.row-canceled
+              = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @allcanceled_apprenticeships}
+          - unless @allfilled_apprenticeships.blank?
+            %h3 Filled
+            .row-fluid.row-filled
+              = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @allfilled_apprenticeships}
+          - unless @allcompleted_apprenticeships.blank?
+            %h3 Completed
+            .row-fluid.row-completed
+              = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @allcompleted_apprenticeships}
