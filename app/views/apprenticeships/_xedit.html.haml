@@ -269,22 +269,22 @@
               %dt
                 Website
               %dd
-                = @apprenticeship.user.website
+                = link_to @apprenticeship.user.website, nice_url(@apprenticeship.user.website)
             - if @apprenticeship.user.webshop.present?
               %dt
                 Webshop
               %dd
-                = @apprenticeship.user.webshop
+                = link_to @apprenticeship.user.webshop, nice_url(@apprenticeship.user.webshop)
             - if @apprenticeship.user.facebook.present?
               %dt
                 Facebook
               %dd
-                = @apprenticeship.user.facebook
+                = link_to @apprenticeship.user.facebook, nice_url(@apprenticeship.user.facebook)
             - if @apprenticeship.user.twitter.present?
               %dt
                 Twitter
               %dd
-                = @apprenticeship.user.twitter
+                = link_to @apprenticeship.user.twitter, nice_url(@apprenticeship.user.twitter)
 
 
         //Apply Sidebar //////////////////

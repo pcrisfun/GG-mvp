@@ -263,31 +263,31 @@
             /        %i.icon-question-sign.small-icon
             %hr
 
-            - if @workshop.user.bio.present?
+            - if @apprenticeship.user.bio.present?
               %dt
                 Bio
               %dd
-                = @workshop.user.bio
-            - if @workshop.user.website.present?
+                = @apprenticeship.user.bio
+            - if @apprenticeship.user.website.present?
               %dt
                 Website
               %dd
-                = @workshop.user.website
-            - if @workshop.user.webshop.present?
+                = link_to @apprenticeship.user.website, nice_url(@apprenticeship.user.website)
+            - if @apprenticeship.user.webshop.present?
               %dt
                 Webshop
               %dd
-                = @workshop.user.webshop
-            - if @workshop.user.facebook.present?
+                = link_to @apprenticeship.user.webshop, nice_url(@apprenticeship.user.webshop)
+            - if @apprenticeship.user.facebook.present?
               %dt
                 Facebook
               %dd
-                = @workshop.user.facebook
-            - if @workshop.user.twitter.present?
+                = link_to @apprenticeship.user.facebook, nice_url(@apprenticeship.user.facebook)
+            - if @apprenticeship.user.twitter.present?
               %dt
                 Twitter
               %dd
-                = @workshop.user.twitter
+                = link_to @apprenticeship.user.twitter, nice_url(@apprenticeship.user.twitter)
 
 
         //Apply Sidebar //////////////////
