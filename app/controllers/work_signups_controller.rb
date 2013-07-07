@@ -2,6 +2,7 @@ class WorkSignupsController < ApplicationController
   before_filter :authenticate_user!, except: [:index]
   before_filter :load_work_signup
 
+
   def load_work_signup
     if params[:work_signup] && params[:work_signup][:id]
       @work_signup = WorkSignup.find(params[:work_signup][:id])

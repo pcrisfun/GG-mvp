@@ -198,10 +198,13 @@
               to
               #registration-max.field.number
                 = editable_link_to "Max", field: :registration_max, resource: @workshop, type: :text
-              participants
+              participants.
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"What is the minimum number of participants you need to run the workshop? If fewer than this number have signed up by the time registration closes, the workshop will be cancelled. What is the maximum number of participants you can accommodate in the workshop? Once this many people have signed up, we will close registration for the workshop."} }
                   %i.icon-question-sign.small-icon
+              - if show
+                %b
+                  = @workshop.spots_left
             %dt
               - if !show
                 %i.icon-asterisk
@@ -319,6 +322,21 @@
                     %br
                     .span4.pull-right
                       = render :partial => "shared/prereg", :locals => {:event => @workshop}
+                    %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
+                    %br
+                %br
+                = render :partial => "shared/prereg", :locals => {:event => @workshop}
+              - elsif current_user && current_user.signedup?(@workshop)
+                = link_to "Work with #{@workshop.user.first_name}", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
+                #workwithModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "workwithModal", :role => "dialog", :tabindex => "-1"}
+                  .modal-header
+                    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                    %h3#galleryModalLabel Nice!
+                  .modal-body
+                    %p You're already all signd up for this workshop! But you can sign your daughter up!
+                    %br
+                    .span4.pull-right
+                    = link_to "Sign up my Daughter", new_parent_work_signup_path(workshop_id: @workshop), :class => "btn btn-primary pull-right"
                     %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
                     %br
                 %br
