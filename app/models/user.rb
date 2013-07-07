@@ -66,6 +66,10 @@ class User < ActiveRecord::Base
     write_attribute(:avatar, new_avatar)
   end
 
+  def signedup?(event)
+    signups.exists?(:event_id => event.id)
+  end
+
   def preregistered?(event)
     preregs.exists?(:event_id => event.id)
   end

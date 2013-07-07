@@ -302,7 +302,7 @@
                       %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
                       %h3#galleryModalLabel Oops
                     .modal-body
-                      %p It looks like you're older than the maximum age for this apprenticeship. But you can sign your daughter up!
+                      %p It looks like you're older than the maximum age for this apprenticeship. But you can help your daughter apply!
                       %br
                       = link_to "Sign up my Daughter", new_parent_app_signup_path(apprenticeship_id: @apprenticeship), :class => "btn btn-primary pull-right"
                       %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
@@ -324,6 +324,21 @@
                       %br
                   %br
                   = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
+                - elsif current_user && current_user.signedup?(@apprenticeship)
+                  = link_to "Work with #{@apprenticeship.user.first_name}", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
+                  #workwithModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "workwithModal", :role => "dialog", :tabindex => "-1"}
+                    .modal-header
+                      %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                      %h3#galleryModalLabel Nice!
+                    .modal-body
+                      %p You've already applied for this apprenticeship! But you can help your daughter apply!
+                      %br
+                      = link_to "Sign up my Daughter", new_parent_app_signup_path(apprenticeship_id: @apprenticeship), :class => "btn btn-primary pull-right"
+                      %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
+                      %br
+                  %br
+                  = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
+
                 - else
                   = link_to "Work with #{@apprenticeship.user.first_name}", new_app_signup_path(apprenticeship_id: @apprenticeship), :class => "btn btn-block btn-primary"
                   %br
