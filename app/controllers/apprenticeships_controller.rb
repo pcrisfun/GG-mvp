@@ -129,7 +129,7 @@ class ApprenticeshipsController < ApplicationController
     end
   rescue
     error_msg = " "
-    @workshop.errors.each do |field, msg|
+    @apprenticeship.errors.each do |field, msg|
       error_msg << "<br/>"
       error_msg << msg
     end
@@ -145,7 +145,7 @@ class ApprenticeshipsController < ApplicationController
     end
   rescue
     error_msg = " "
-    @workshop.errors.each do |field, msg|
+    @apprenticeship.errors.each do |field, msg|
       error_msg << "<br/>"
       error_msg << msg
     end
@@ -161,7 +161,7 @@ class ApprenticeshipsController < ApplicationController
     end
   rescue
     error_msg = " "
-    @workshop.errors.each do |field, msg|
+    @apprenticeship.errors.each do |field, msg|
       error_msg << "<br/>"
       error_msg << msg
     end
