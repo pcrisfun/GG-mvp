@@ -198,10 +198,13 @@
               to
               #registration-max.field.number
                 = editable_link_to "Max", field: :registration_max, resource: @workshop, type: :text
-              participants
+              participants.
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"What is the minimum number of participants you need to run the workshop? If fewer than this number have signed up by the time registration closes, the workshop will be cancelled. What is the maximum number of participants you can accommodate in the workshop? Once this many people have signed up, we will close registration for the workshop."} }
                   %i.icon-question-sign.small-icon
+              - if show
+                %b
+                  = @workshop.spots_left
             %dt
               - if !show
                 %i.icon-asterisk
@@ -260,31 +263,31 @@
             /        %i.icon-question-sign.small-icon
             %hr
 
-            - if @workshop.user.bio.present?
+            - if @apprenticeship.user.bio.present?
               %dt
                 Bio
               %dd
-                = @workshop.user.bio
-            - if @workshop.user.website.present?
+                = @apprenticeship.user.bio
+            - if @apprenticeship.user.website.present?
               %dt
                 Website
               %dd
-                = @workshop.user.website
-            - if @workshop.user.webshop.present?
+                = link_to @apprenticeship.user.website, nice_url(@apprenticeship.user.website)
+            - if @apprenticeship.user.webshop.present?
               %dt
                 Webshop
               %dd
-                = @workshop.user.webshop
-            - if @workshop.user.facebook.present?
+                = link_to @apprenticeship.user.webshop, nice_url(@apprenticeship.user.webshop)
+            - if @apprenticeship.user.facebook.present?
               %dt
                 Facebook
               %dd
-                = @workshop.user.facebook
-            - if @workshop.user.twitter.present?
+                = link_to @apprenticeship.user.facebook, nice_url(@apprenticeship.user.facebook)
+            - if @apprenticeship.user.twitter.present?
               %dt
                 Twitter
               %dd
-                = @workshop.user.twitter
+                = link_to @apprenticeship.user.twitter, nice_url(@apprenticeship.user.twitter)
 
 
         //Apply Sidebar //////////////////
@@ -323,6 +326,21 @@
                     %br
                 %br
                 = render :partial => "shared/prereg", :locals => {:event => @workshop}
+              - elsif current_user && current_user.signedup?(@workshop)
+                = link_to "Work with #{@workshop.user.first_name}", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
+                #workwithModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "workwithModal", :role => "dialog", :tabindex => "-1"}
+                  .modal-header
+                    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                    %h3#galleryModalLabel Nice!
+                  .modal-body
+                    %p You're already all signd up for this workshop! But you can sign your daughter up!
+                    %br
+                    .span4.pull-right
+                    = link_to "Sign up my Daughter", new_parent_work_signup_path(workshop_id: @workshop), :class => "btn btn-primary pull-right"
+                    %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
+                    %br
+                %br
+                = render :partial => "shared/prereg", :locals => {:event => @workshop}
               - else
                 = link_to "Work with #{@workshop.user.first_name}", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-block btn-primary"
                 %br
@@ -342,9 +360,9 @@
       - if !show
         .row-fluid
           #preview-buttons-bottom
-            = link_to "Preview #{content_tag(:i, "", class: "icon-external-link")}".html_safe, '#', class: 'btn preview-btn btn-large', data: { url: workshop_path(@workshop) }
+            = link_to "Preview #{content_tag(:i, "", class: "icon-external-link")}".html_safe, '#', class: 'btn preview-btn', data: { url: workshop_path(@workshop) }
             #proceed.preview-hide
-              = link_to 'Next', private_workshop_path(@workshop), method: :get, class: 'btn btn-primary btn-large'
+              = link_to 'Next', private_workshop_path(@workshop), method: :get, class: 'btn btn-primary'
 
 
   //Admin Controls //////////////////
@@ -352,9 +370,7 @@
     .container
       .row-fluid
         - if current_user && current_user.admin? && @workshop.pending?
-          = link_to "Approve Workshop", { :controller => 'workshops', :action => 'accept', :id => @workshop.id }, class: "btn btn-large btn-success", :method => 'post'
-
-          = link_to "Reject Workshop", '#rejectModal', data: {toggle: "modal"}, :class => "btn btn-large btn-danger"
+          = link_to "Reject Workshop", '#rejectModal', data: {toggle: "modal"}, :class => "btn"
           #rejectModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "rejectModal", :role => "dialog", :tabindex => "-1"}
             .modal-header
               %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
@@ -365,14 +381,16 @@
               = simple_form_for(@workshop) do |f|
                 = f.input :reject_reason, input_html: { rows: "2",
                   placeholder: "This reason will be plopped into the email we send the maker."}
-                = f.submit "Reject Workshop", :name => "reject_button", :class => "btn btn-large btn-danger"
+                = f.submit "Reject Workshop", :name => "reject_button", :class => "btn"
               %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
               %br
+          = link_to "Approve Workshop", { :controller => 'workshops', :action => 'accept', :id => @workshop.id }, class: "btn btn-success", :method => 'post'
+
           %br
           %br
 
         - if current_user && current_user.admin? && @workshop.accepted?
-          = link_to "Revoke Workshop", '#revokeModal', data: {toggle: "modal"}, :class => "btn btn-large btn-danger"
+          = link_to "Revoke Workshop", '#revokeModal', data: {toggle: "modal"}, :class => "btn"
           #revokeModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "revokeModal", :role => "dialog", :tabindex => "-1"}
             .modal-header
               %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
@@ -384,18 +402,18 @@
                 = f.input :revoke_reason, input_html: { rows: "2",
                   placeholder: "This reason will be plopped into the email we send the maker.",
                   rel: 'popover'}
-                = f.submit "Revoke Workshop", :name => "revoke_button", :class => "btn btn-large btn-danger"
+                = f.submit "Revoke Workshop", :name => "revoke_button", :class => "btn btn-warning"
               %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
               %br
           %br
           %br
 
         - if current_user && current_user == @workshop.user && !@workshop.started? && !@workshop.canceled?
-          = link_to "Cancel Workshop", { :controller => 'workshops', :action => 'cancel', :id => @workshop.id }, class: "btn btn-large btn-danger", :method => 'post', data: { :confirm => "Are you sure? Your workshop will be saved in your Dashboard, but you'll have to resubmit it in order to post it again." }
+          = link_to "Cancel Workshop", { :controller => 'workshops', :action => 'cancel', :id => @workshop.id }, class: "btn btn-danger", :method => 'post', data: { :confirm => "Are you sure? Your workshop will be saved in your Dashboard, but you'll have to resubmit it in order to post it again." }
           %br
           %br
 
         - if current_user && current_user == @workshop.user && @workshop.started?
-          = link_to "Delete Workshop", { :controller => 'workshops', :action => 'destroy', :id => @workshop.id }, class: "btn btn-large btn-danger", :method => 'delete', data: { :confirm => "Are you sure? You can't undo after you delete your workshop. It will really be gone!" }
+          = link_to "Delete Workshop", { :controller => 'workshops', :action => 'destroy', :id => @workshop.id }, class: "btn btn-danger", :method => 'delete', data: { :confirm => "Are you sure? You can't undo after you delete your workshop. It will really be gone!" }
           %br
           %br

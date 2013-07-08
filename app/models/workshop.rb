@@ -252,20 +252,20 @@ include EventHelper
     #Note: ends_at is the registration close date on workshops
 		workshops = Workshop.where('ends_at <= ?', Date.today).all
 		workshops.each do |w|
-			w.cancel! unless w.min_capacity_met?
+			w.cancel unless w.min_capacity_met?
 		end
 	end
 
   def self.maker_reminder
     date_range = Date.today..(Date.today+3.days)
-    Workshop.joins(:event).where(events: {:begins_at => date_range}, :state => ["accepted", "filled"], reminder_sent: false).each do |work|
+    Workshop.where(begins_at: date_range, :state => ["accepted", "filled"], reminder_sent: false).each do |work|
       work.deliver_maker_reminder
     end
   end
 
   def self.maker_followup
     date_range = (Date.today-3.days)..Date.today
-    Workshop.joins(:event).where(events: {:begins_at => date_range}, state: "completed", follow_up_sent: false).each do |work|
+    Workshop.where(begins_at: date_range, state: "completed", follow_up_sent: false).each do |work|
       work.deliver_maker_followup
     end
   end

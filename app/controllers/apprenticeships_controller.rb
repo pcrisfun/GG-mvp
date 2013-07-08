@@ -16,6 +16,12 @@ class ApprenticeshipsController < ApplicationController
   	@apprenticeships = Apprenticeship.find_all_by_state(['accepted','filled','completed'])
   end
 
+  def new
+  end
+
+
+
+#---- create
   def create
     if params[:apprenticeship]
       @apprenticeship = current_user.apprenticeships.new(params[:apprenticeship])
@@ -29,12 +35,18 @@ class ApprenticeshipsController < ApplicationController
     if @apprenticeship.save(validate: false) && @apprenticeship.deliver_save
       redirect_to edit_apprenticeship_path(@apprenticeship), :flash => { :success => "Nice! Let's start by designing your apprenticeship. We'll save this form as you go so you can come back to it at any time." }
     else
-      flash.now[:warning] = "Whoops! There was a problem starting your apprenticeship: #{@apprenticeship.errors.full_messages}"
-      flash.now[:error] = @apprenticeship.errors.full_messages
-      render 'info'
+      raise
     end
+  rescue
+    error_msg = " "
+    @apprenticeship.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
+    redirect_to :back, :flash => { warning: "Blarf.  The following error(s) occured while attempting to create your apprenticeship: #{error_msg}".html_safe} and return
   end
 
+#---- update
   def update
     if params[:name] && params[:value]
       if @apprenticeship.respond_to?(params[:name])
@@ -76,22 +88,6 @@ class ApprenticeshipsController < ApplicationController
         else
           redirect_to payment_apprenticeship_path(@apprenticeship) and return
         end
-
-        #elsif params[:accept_button]
-          #if current_user.admin? && @apprenticeship.accept && @apprenticeship.deliver_accept
-            #redirect_to apprenticeships_path, :flash => { :success => "Apprenticeship accepted." } and return
-          #end
-
-        #elsif params[:resubmit_button]
-          #if @apprenticeship.resubmit && @apprenticeship.deliver_resubmit
-            #redirect_to apprenticeships_path, :flash => { :success => "Thanks! Your apprenticeship was resubmitted."} and return
-          #end
-
-        #elsif params[:cancel_button]
-          #if @apprenticeship.cancel && @apprenticeship.deliver_cancel
-            #redirect_to apprenticeships_path, :flash => { :warning => "Rats. Your apprenticeship has been canceled."} and return
-          #end
-        #end
         raise
       end
     end
@@ -101,9 +97,88 @@ class ApprenticeshipsController < ApplicationController
       error_msg << "<br/>"
       error_msg << msg
     end
-    redirect_to :back, :flash => { warning: "Blarf.  The following error(s) occured while attempting to update the apprenticeship: #{error_msg}".html_safe} and return
+    redirect_to :back, :flash => { warning: "Blarf.  The following error(s) occured while attempting to update your apprenticeship: #{error_msg}".html_safe} and return
   end
 
+#---- destroy
+  def destroy
+    @apprenticeship = Apprenticeship.where(:id => params[:id]).first
+    if @apprenticeship.verify_delete?
+      @apprenticeship.destroy
+      redirect_to apprenticeships_path, :flash => { :warning => "Your apprenticeship was deleted."} and return
+    else
+      raise
+    end
+  rescue
+    error_msg = " "
+    @apprenticeship.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
+    redirect_to :back, :flash => { warning: "Blarf.  The following error(s) occured while attempting to delete your apprenticeship: #{error_msg}".html_safe} and return
+  end
+
+#---- cancel
+  def cancel
+    @apprenticeship = Apprenticeship.where(:id => params[:id]).first
+    @apprenticeship.signups.each {|s| s.cancel && s.deliver_cancel}
+    if @apprenticeship.cancel && @apprenticeship.deliver_cancel
+      redirect_to apprenticeships_path, :flash => { :warning => "Rats. Your apprenticeship has been canceled."} and return
+    else
+      raise
+    end
+  rescue
+    error_msg = " "
+    @workshop.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
+    redirect_to :back, :flash => { warning: "Blarf.  The following error(s) occured while attempting to cancel your apprenticeship: #{error_msg}".html_safe} and return
+  end
+
+#---- accept
+  def accept
+    if @apprenticeship.accept && @apprenticeship.deliver_accept
+      redirect_to apprenticeships_path, :flash => { :success => "Apprenticeship accepted." } and return
+    else
+      raise
+    end
+  rescue
+    error_msg = " "
+    @workshop.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
+    redirect_to :back, :flash => { warning: "Blarf.  The following error(s) occured while attempting to accept your apprenticeship: #{error_msg}".html_safe} and return
+  end
+
+#---- resubmit
+  def resubmit
+    if @apprenticeship.resubmit && @apprenticeship.deliver_resubmit
+      redirect_to apprenticeships_path, :flash => { :success => "Thanks! Your apprenticeship was resubmitted. We'll take a look at it and let you know when it's posted."} and return
+    else
+      raise
+    end
+  rescue
+    error_msg = " "
+    @workshop.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
+    redirect_to :back, :flash => { warning: "Blarf.  The following error(s) occured while attempting to resubmit your apprenticeship: #{error_msg}".html_safe} and return
+  end
+
+#---- reject
+  #def reject
+    #@apprenticeship.reject && @apprenticeship.deliver_reject
+    #redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship rejected." } and return
+  #end
+
+#---- revoke
+  #def revoke
+    #@apprenticeship.revoke && @apprenticeship.deliver_revoke
+    #redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship revoked."} and return
+  #end
 
   def show
     @apprenticeship = Apprenticeship.find(params[:id])
@@ -111,45 +186,6 @@ class ApprenticeshipsController < ApplicationController
       @app_signup = @apprenticeship.signups.where(user_id: current_user.id).first
     end
   end
-
-  def new
-  end
-
-  def destroy
-    @apprenticeship = Apprenticeship.where(:id => params[:id]).first
-    if @apprenticeship.verify_delete?
-      @apprenticeship.destroy
-      redirect_to apprenticeships_path, :flash => { :warning => "Your apprenticeship was deleted."} and return
-    else
-      redirect_to :back, :flash => { warning: "Your workshop can't be deleted, but you can cancel it if you no longer want it posted." } and return
-    end
-  end
-
-  def cancel
-    @apprenticeship = Apprenticeship.where(:id => params[:id]).first
-    @apprenticeship.cancel && @apprenticeship.deliver_cancel
-    redirect_to apprenticeships_path, :flash => { :warning => "Rats. Your apprenticeship has been canceled."} and return
-  end
-
-  def accept
-    @apprenticeship.accept && @apprenticeship.deliver_accept
-    redirect_to apprenticeships_path, :flash => { :success => "Apprenticeship accepted." } and return
-  end
-
-  def resubmit
-    @apprenticeship.resubmit && @apprenticeship.deliver_resubmit
-    redirect_to apprenticeships_path, :flash => { :success => "Thanks! Your apprenticeship was resubmitted. We'll take a look at it and let you know when it's posted."} and return
-  end
-
-  #def reject
-    #@apprenticeship.reject && @apprenticeship.deliver_reject
-    #redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship rejected." } and return
-  #end
-
-  #def revoke
-    #@apprenticeship.revoke && @apprenticeship.deliver_revoke
-    #redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship revoked."} and return
-  #end
 
   def private
     unless @apprenticeship.group_valid?(:design)
@@ -186,10 +222,10 @@ class ApprenticeshipsController < ApplicationController
   end
 
   private
-    def load_user_gallery
-      @user = current_user
-      if @user
-        @gallery = @user.gallery
-      end
+  def load_user_gallery
+    @user = current_user
+    if @user
+      @gallery = @user.gallery
     end
+  end
 end

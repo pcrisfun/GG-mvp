@@ -167,7 +167,8 @@ a, a:hover, a:active, a:visited, a:focus
   text-shadow: 1px 1px 1px $plum-black
   color: #FFF
   &:hover
-    background-color: $plum
+    background-color: $plum-shadow
+    color: #FFF
 .btn-following
   &:hover
     background-color: $coral
@@ -482,6 +483,9 @@ input[type="radio"], input[type="checkbox"]
       font-weight: 500
   .carousel
     margin-bottom: 0px
+  .socials
+    height: 80px
+    width: 200px
   #goals
     padding: 0 0
     position: static
@@ -1082,14 +1086,14 @@ input[type="radio"], input[type="checkbox"]
       font-family: georgia
       span
         font-family: georgia
-        font-size: 16px
+        font-size: 13px
         text-align: center
         width: 95%
       .editable-empty
         font-style: italic
       &.field
         a, span
-          line-height: 30px
+          line-height: 25px
   .images-desc
     font-size: 14px
     margin-bottom: -20px
@@ -1330,18 +1334,8 @@ input[type="radio"], input[type="checkbox"]
     margin-left: 270px
     padding: 5px 0
 
-.row-saved .box
-  background-color: $alert-yellow
-.row-pending .box
-  background-color: $alert-yellow
-.row-canceled .box
-  background-color: $alert-red
-.row-filled .box
-  background-color: $alert-green
-.row-completed .box
-  background-color: $alert-green
-.row-upcoming .box
-  background-color: $alert-blue
+.row-saved, .row-pending, .row-canceled, .row-filled, .row-completed, .row-upcoming
+  font-size: 12px
 
 
 // How it works ======================================================================================

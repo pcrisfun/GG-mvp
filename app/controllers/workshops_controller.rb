@@ -22,6 +22,9 @@ class WorkshopsController < ApplicationController
     @workshop.ends_at = Date.today - 1.day
   end
 
+
+
+#---- create
   def create
     if params[:workshop]
       @workshop = current_user.workshops.new(params[:workshop])
@@ -34,12 +37,18 @@ class WorkshopsController < ApplicationController
     if @workshop.save(validate: false) && @workshop.deliver_save
       redirect_to edit_workshop_path(@workshop), :flash => { :success => "Nice! Let's start by designing your workshop. We'll save this form as you go so you can come back to it at any time." }
     else
-      flash.now[:warning] = "Whoops! There was a problem starting your workshop: #{@workshop.errors.full_messages}"
-      flash.now[:error] = @workshop.errors.full_messages
-      render 'info'
+      raise
     end
+  rescue
+    error_msg = " "
+    @workshop.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
+    redirect_to :back, :flash => { warning: "Fudge.  The following error(s) occured while attempting to create your workshop: #{error_msg}".html_safe} and return
   end
 
+#---- update
   def update
     if params[:name] && params[:value]
       if @workshop.respond_to?(params[:name])
@@ -83,25 +92,6 @@ class WorkshopsController < ApplicationController
           @workshop.submit && @workshop.deliver
           redirect_to confirmation_workshop_path(@workshop), flash: { success: "Awesome! Your workshop was submitted."} and return
         end
-
-        #elsif params[:accept_button]
-          #if current_user.admin? && @workshop.accept && @workshop.deliver_accept
-            #redirect_to workshops_path, :flash => { :success => "Workshop accepted." }
-          #end
-
-        #elsif params[:resubmit_button]
-          #if @workshop.resubmit && @workshop.deliver_resubmit
-            #redirect_to workshops_path, :flash => { :success => "Thanks! Your workshop was resubmitted."}
-          #end
-
-        #elsif params[:cancel_button]
-          #if @workshop.cancel && @workshop.deliver_cancel
-            #redirect_to workshops_path, :flash => { :warning => "Rats. Your workshop has been canceled."}
-          #end
-
-        #elsif @workshop.submit && @workshop.deliver
-         #redirect_to workshops_path, :flash => {:success => "Yatzee! Your workshop was created!" }
-        #end
         raise
       end
     end
@@ -111,40 +101,84 @@ class WorkshopsController < ApplicationController
       error_msg << "<br/>"
       error_msg << msg
     end
-    redirect_to :back, :flash => { warning: "Fudge.  The following error(s) occured while attempting to update the workshop: #{error_msg}".html_safe} and return
+    redirect_to :back, :flash => { warning: "Fudge.  The following error(s) occured while attempting to update your workshop: #{error_msg}".html_safe} and return
   end
 
+#---- destroy
   def destroy
     @workshop = Workshop.where(:id => params[:id]).first
     if @workshop.verify_delete?
       @workshop.destroy
       redirect_to workshops_path, :flash => { :warning => "Your workshop was deleted."} and return
     else
-      redirect_to :back, :flash => { warning: "Your workshop can't be deleted, but you can cancel it if you no longer want it posted." } and return
+      raise
     end
+  rescue
+    error_msg = " "
+    @workshop.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
+    redirect_to :back, :flash => { warning: "Fudge.  The following error(s) occured while attempting to delete your workshop: #{error_msg}".html_safe} and return
   end
 
+#---- cancel
   def cancel
     @workshop = Workshop.where(:id => params[:id]).first
-    @workshop.cancel && @workshop.deliver_cancel
-    redirect_to workshops_path, :flash => { :warning => "Rats. Your workshop has been canceled."} and return
+    @workshop.signups.each {|s| s.cancel && s.deliver_cancel }
+    if @workshop.cancel && @workshop.deliver_cancel
+      redirect_to workshops_path, :flash => { :warning => "Rats. Your workshop has been canceled."} and return
+    else
+      raise
+    end
+  rescue
+    error_msg = " "
+    @workshop.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
+    redirect_to :back, :flash => { warning: "Fudge.  The following error(s) occured while attempting to cancel your workshop: #{error_msg}".html_safe} and return
   end
 
+#---- accept
   def accept
-    @workshop.accept && @workshop.deliver_accept
-    redirect_to workshops_path, :flash => { :success => "Workshop accepted." } and return
+    if @workshop.accept && @workshop.deliver_accept
+      redirect_to workshops_path, :flash => { :success => "Workshop accepted." } and return
+    else
+      raise
+    end
+  rescue
+    error_msg = " "
+    @workshop.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
+    redirect_to :back, :flash => { warning: "Fudge.  The following error(s) occured while attempting to accept your workshop: #{error_msg}".html_safe} and return
   end
 
+#---- resubmit
   def resubmit
-    @workshop.resubmit && @workshop.deliver_resubmit
-    redirect_to workshops_path, :flash => { :success => "Thanks! Your workshop was resubmitted. We'll look it over and let you know when it's posted."} and return
+    if @workshop.resubmit && @workshop.deliver_resubmit
+      redirect_to workshops_path, :flash => { :success => "Thanks! Your workshop was resubmitted. We'll look it over and let you know when it's posted."} and return
+    else
+      raise
+    end
+  rescue
+    error_msg = " "
+    @workshop.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
+    redirect_to :back, :flash => { warning: "Fudge.  The following error(s) occured while attempting to resubmit your workshop: #{error_msg}".html_safe} and return
   end
 
+#---- reject
   #def reject
     #@workshop.reject && @workshop.deliver_reject
     #redirect_to workshops_path, :flash => { :warning => "Workshop rejected." } and return
   #end
 
+#---- revoke
   #def revoke
     #@workshop.revoke && @workshop.deliver_revoke
     #redirect_to workshops_path, :flash => { :warning => "Workshop revoked."} and return
@@ -187,5 +221,4 @@ class WorkshopsController < ApplicationController
       @gallery = @user.gallery
     end
   end
-
 end

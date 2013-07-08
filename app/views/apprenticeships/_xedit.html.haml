@@ -269,22 +269,22 @@
               %dt
                 Website
               %dd
-                = @apprenticeship.user.website
+                = link_to @apprenticeship.user.website, nice_url(@apprenticeship.user.website)
             - if @apprenticeship.user.webshop.present?
               %dt
                 Webshop
               %dd
-                = @apprenticeship.user.webshop
+                = link_to @apprenticeship.user.webshop, nice_url(@apprenticeship.user.webshop)
             - if @apprenticeship.user.facebook.present?
               %dt
                 Facebook
               %dd
-                = @apprenticeship.user.facebook
+                = link_to @apprenticeship.user.facebook, nice_url(@apprenticeship.user.facebook)
             - if @apprenticeship.user.twitter.present?
               %dt
                 Twitter
               %dd
-                = @apprenticeship.user.twitter
+                = link_to @apprenticeship.user.twitter, nice_url(@apprenticeship.user.twitter)
 
 
         //Apply Sidebar //////////////////
@@ -302,7 +302,7 @@
                       %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
                       %h3#galleryModalLabel Oops
                     .modal-body
-                      %p It looks like you're older than the maximum age for this apprenticeship. But you can sign your daughter up!
+                      %p It looks like you're older than the maximum age for this apprenticeship. But you can help your daughter apply!
                       %br
                       = link_to "Sign up my Daughter", new_parent_app_signup_path(apprenticeship_id: @apprenticeship), :class => "btn btn-primary pull-right"
                       %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
@@ -324,6 +324,21 @@
                       %br
                   %br
                   = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
+                - elsif current_user && current_user.signedup?(@apprenticeship)
+                  = link_to "Work with #{@apprenticeship.user.first_name}", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
+                  #workwithModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "workwithModal", :role => "dialog", :tabindex => "-1"}
+                    .modal-header
+                      %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                      %h3#galleryModalLabel Nice!
+                    .modal-body
+                      %p You've already applied for this apprenticeship! But you can help your daughter apply!
+                      %br
+                      = link_to "Sign up my Daughter", new_parent_app_signup_path(apprenticeship_id: @apprenticeship), :class => "btn btn-primary pull-right"
+                      %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
+                      %br
+                  %br
+                  = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
+
                 - else
                   = link_to "Work with #{@apprenticeship.user.first_name}", new_app_signup_path(apprenticeship_id: @apprenticeship), :class => "btn btn-block btn-primary"
                   %br
@@ -342,9 +357,9 @@
       - if !show
         .row-fluid
           #preview-buttons-bottom
-            = link_to "Preview #{content_tag(:i, "", class: "icon-external-link")}".html_safe, '#', class: 'btn btn-large preview-btn', data: { url: apprenticeship_path(@apprenticeship) }
+            = link_to "Preview #{content_tag(:i, "", class: "icon-external-link")}".html_safe, '#', class: 'btn preview-btn', data: { url: apprenticeship_path(@apprenticeship) }
             #proceed.preview-hide
-              = link_to 'Next', private_apprenticeship_path(@apprenticeship), method: :get, class: 'btn btn-primary btn-large'
+              = link_to 'Next', private_apprenticeship_path(@apprenticeship), method: :get, class: 'btn btn-primary'
 
 
   //Admin Controls //////////////////
@@ -352,9 +367,7 @@
     .container
       .row-fluid
         - if current_user && current_user.admin? && @apprenticeship.pending?
-          = link_to "Approve Apprenticeship", { :controller => 'apprenticeships', :action => 'accept', :id => @apprenticeship.id }, class: "btn btn-large btn-success", :method => 'post'
-
-          = link_to "Reject Apprenticeship", '#rejectModal', data: {toggle: "modal"}, :class => "btn btn-large btn-danger"
+          = link_to "Reject Apprenticeship", '#rejectModal', data: {toggle: "modal"}, :class => "btn"
           #rejectModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "rejectModal", :role => "dialog", :tabindex => "-1"}
             .modal-header
               %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
@@ -365,14 +378,16 @@
               = simple_form_for(@apprenticeship) do |f|
                 = f.input :reject_reason, input_html: { rows: "2",
                   placeholder: "This reason will be plopped into the email we send the maker."}
-                = f.submit "Reject Apprenticeship", :name => "reject_button", :class => "btn btn-large btn-danger"
+                = f.submit "Reject Apprenticeship", :name => "reject_button", :class => "btn"
               %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
               %br
+          = link_to "Approve Apprenticeship", { :controller => 'apprenticeships', :action => 'accept', :id => @apprenticeship.id }, class: "btn btn-success", :method => 'post'
+
           %br
           %br
 
         - if current_user && current_user.admin? && @apprenticeship.accepted?
-          = link_to "Revoke Apprenticeship", '#revokeModal', data: {toggle: "modal"}, :class => "btn btn-large btn-danger"
+          = link_to "Revoke Apprenticeship", '#revokeModal', data: {toggle: "modal"}, :class => "btn"
           #revokeModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "revokeModal", :role => "dialog", :tabindex => "-1"}
             .modal-header
               %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
@@ -384,19 +399,18 @@
                 = f.input :revoke_reason, input_html: { rows: "2",
                   placeholder: "This reason will be plopped into the email we send the maker.",
                   rel: 'popover'}
-                = f.submit "Revoke Apprenticeship", :name => "revoke_button", :class => "btn btn-large btn-danger"
+                = f.submit "Revoke Apprenticeship", :name => "revoke_button", :class => "btn btn-warning"
               %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
               %br
           %br
           %br
 
         - if current_user && current_user == @apprenticeship.user && !@apprenticeship.started? && !@apprenticeship.canceled?
-          = link_to "Cancel Apprenticeship", { :controller => 'apprenticeships', :action => 'cancel', :id => @apprenticeship.id }, class: "btn btn-large btn-danger", :method => 'post', data: { :confirm => "Are you sure? Your apprenticeship will be saved in your Dashboard, but you'll have to resubmit it in order to post it again." }
+          = link_to "Cancel Apprenticeship", { :controller => 'apprenticeships', :action => 'cancel', :id => @apprenticeship.id }, class: "btn btn-danger", :method => 'post', data: { :confirm => "Are you sure? Your apprenticeship will be saved in your Dashboard, but you'll have to resubmit it in order to post it again." }
           %br
           %br
 
         - if current_user && current_user == @apprenticeship.user && @apprenticeship.started?
-          = link_to "Delete Apprenticeship", { :controller => 'apprenticeships', :action => 'destroy', :id => @apprenticeship.id }, class: "btn btn-large btn-danger", :method => 'delete', data: { :confirm => "Are you sure? You can't undo after you delete your apprenticeship. It will really be gone!" }
+          = link_to "Delete Apprenticeship", { :controller => 'apprenticeships', :action => 'destroy', :id => @apprenticeship.id }, class: "btn btn-danger", :method => 'delete', data: { :confirm => "Are you sure? You can't undo after you delete your apprenticeship. It will really be gone!" }
           %br
           %br
-
