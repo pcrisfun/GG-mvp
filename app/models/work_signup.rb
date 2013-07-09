@@ -94,7 +94,7 @@ include EventHelper
         <p>Here are the workshop details to remember:</p>
         <p>When: #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}
         <br/>Where: #{event.location_address} #{event.location_address2}, #{event.location_city}, #{event.location_state}</p>
-        <p>You can review the <a href="#{url_for(self.event)}">workshop details page</a> for more info on what to expect and prepare for, and if by some bad luck it turns out you can't make it, you can cancel your registration there too (note that you'll need to cancel at least 7 days in advance to have your fee refunded). Let us know if you have any questions!</p>
+        <p>You can review the <a href="#{url_for(self.event)}">workshop details page</a> for more info on what to expect and prepare for, and if by some bad luck it turns out you can't make it, you can cancel your registration on your <a href="#{dashboard_url}">Events Dashboard</a>. Note that you'll need to cancel at least 7 days in advance to have your fee refunded. Let us know if you have any questions!</p>
         <p>Thanks and Happy Making!</p>
         <p>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
@@ -115,7 +115,7 @@ include EventHelper
         <p>Here are the workshop details to remember:</p>
         <p>When: #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}
         <br/>Where: #{event.location_address} #{event.location_address2}, #{event.location_city}, #{event.location_state}</p>
-        <p>You can review the <a href="#{url_for(self.event)}">workshop details page</a> for more info on what to expect and prepare for, and if by some bad luck it turns out you can't make it, you can cancel your registration there too (note that you'll need to cancel at least 7 days in advance to have your fee refunded). Let us know if you have any questions!</p>
+        <p>You can review the <a href="#{url_for(self.event)}">workshop details page</a> for more info on what to expect and prepare for, and if by some bad luck it turns out you can't make it, you can cancel your registration on your <a href="#{dashboard_url}">Events Dashboard</a>. Note that you'll need to cancel at least 7 days in advance to have your fee refunded. Let us know if you have any questions!</p>
         <p>Thanks and Happy Making!</p>
         <p>The GirlsGuild Team</p>),
       :cc => "#{self.parent_name}<#{self.parent_email}>",
@@ -137,7 +137,7 @@ include EventHelper
         <p>Here are the workshop details to remember:</p>
         <p>When: #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}
         <br/>Where: #{event.location_address} #{event.location_address2}, #{event.location_city}, #{event.location_state}</p>
-        <p>You can review the <a href="#{url_for(self.event)}">workshop details page</a> for more info on what to expect and prepare for, and if by some bad luck it turns out #{self.daughter_firstname} can't make it, you can cancel her registration there too (note that you'll need to cancel at least 7 days in advance to have your fee refunded). Let us know if you have any questions!</p>
+        <p>You can review the <a href="#{url_for(self.event)}">workshop details page</a> for more info on what to expect and prepare for, and if by some bad luck it turns out #{self.daughter_firstname} can't make it, you can cancel her registration on your <a href="#{dashboard_url}">Events Dashboard</a>. Note that you'll need to cancel at least 7 days in advance to have your fee refunded. Let us know if you have any questions!</p>
         <p>Thanks and Happy Making!</p>
         <p>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
@@ -188,9 +188,9 @@ include EventHelper
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Your workshop signup has been canceled - #{event.topic} with #{user.name}",
+      :subject => "Your workshop signup has been deleted - #{event.topic} with #{user.name}",
       :html_body => %(<h1>Bummer!</h1>
-        <p>You've canceled your workshop signup to work with #{self.event.user.first_name}. We hope you'll consider working with #{self.event.user.first_name} or someone else soon.</p>
+        <p>You've deleted your workshop signup to work with #{self.event.user.first_name}. We hope you'll consider working with #{self.event.user.first_name} or someone else soon.</p>
         <p>Please let us know if there's a way we can help make this signup process easier by simply replying to this email. We would really appreciate your feedback!</p>
         <p>Thanks,</p>
         <p>The GirlsGuild Team</p>),
@@ -204,7 +204,7 @@ include EventHelper
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Your daughter's workshop signup has been canceled - #{event.topic} with #{user.name}",
+      :subject => "Your daughter's workshop signup has been deleted - #{event.topic} with #{user.name}",
       :html_body => %(<h1>Bummer!</h1>
         <p>You've deleted your daughter's signup to work with #{self.event.user.first_name}. We hope you'll consider helping her apply to work with #{self.event.user.first_name} or someone else soon.</p>
         <p>Please let us know if there's a way we can help make this signup process easier by simply replying to this email. We would really appreciate your feedback!</p>
@@ -220,9 +220,9 @@ include EventHelper
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Your workshop signup has been canceled - #{event.topic} with #{user.name}",
+      :subject => "Your workshop has been canceled - #{event.topic} with #{user.name}",
       :html_body => %(<h1>We're sorry</h1>
-        <p>The workshop #{event.topic}, you signed up for with #{self.event.user.first_name} has been canceled. We'll let you know the next time #{self.event.user.first_name} is hosting a workshop or apprenticeship.</p>
+        <p>The workshop on #{event.topic} you signed up for with #{self.event.user.first_name} has been canceled. We'll refund your signup fee, and let you know the next time #{self.event.user.first_name} is hosting a workshop or apprenticeship.</p>
         <p>Please let us know if there's a way we can help make this process easier by simply replying to this email. We would really appreciate your feedback!</p>
         <p>Thanks,</p>
         <p>The GirlsGuild Team</p>),
@@ -231,6 +231,22 @@ include EventHelper
     return true
   end
 
+
+  def deliver_cancel_self
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "You canceled your signup- #{event.topic} with #{user.name}",
+      :html_body => %(<h1>Darn.</h1>
+        <p>You canceled your signup for #{self.event.user.first_name}'s workshop on #{event.topic}. If there are at least 7 days before the workshop date, we'll refund your signup fee in the next two days. We hope you'll find another workshop you're interested in, and we'll let you know the next time #{self.event.user.first_name} is hosting a workshop or apprenticeship.</p>
+        <p>Please let us know if there's a way we can help make this process easier by simply replying to this email. We would really appreciate your feedback!</p>
+        <p>Thanks,</p>
+        <p>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
 
 
   def deliver_first_reminder
@@ -321,7 +337,8 @@ include EventHelper
 
   def countdown_message
     if self.started?
-      return "Your signup is saved. <br/><a href=#{edit_work_signup_path(self)} class='bold'>Finish signing up!</a>".html_safe
+      #Commenting out because there is no edit_work_signup_path, and work_signups should never show up as saved
+      #return "Your signup is saved. <br/><a href=#{edit_work_signup_path(self)} class='bold'>Finish signing up!</a>".html_safe
     elsif self.canceled?
         return 'You canceled your registration for this workshop'
     elsif self.confirmed?
