@@ -75,7 +75,7 @@
                 %i.icon-question-sign.small-icon
             %br
             - if !show
-              %p.images-desc.small Upload 5 images of your studio & your work as it pertains to the apprenticeship.
+              %p.images-desc.small Upload 5 images of your studio & your work as it pertains to the workshop.
 
             //Social bttns //////////////////
             - if show
@@ -165,7 +165,7 @@
                       = editable_link_to "__________", field: :location_nbrhood, resource: @workshop, type: :text
                     neighborhood
                 - if !show
-                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:'A "Public" address will be displayed on the workshop page with a map of the exact location, while a "Residential" address will only display a map of the neighborhood until the apprentice has been accepted and confirmed.'} }
+                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:'A "Public" address will be displayed on the workshop page with a map of the exact location, while a "Residential" address will only display a map of the neighborhood until the student has been accepted and confirmed.'} }
                     %i.icon-question-sign.small-icon
             %dt
               - if !show
@@ -177,7 +177,7 @@
                   - gender_text = "Open to all gender identities"
                 - elsif @workshop.gender == false
                   - gender_text = "Girls/Women"
-                = editable_link_to "Describe your apprentice(s)", field: :gender, resource: @workshop, type: :select, link_text: gender_text, data: { source: '{"false" : "Girls/Women", "true" : "Open to all gender identities"}'}
+                = editable_link_to "Describe your student(s)", field: :gender, resource: @workshop, type: :select, link_text: gender_text, data: { source: '{"false" : "Girls/Women", "true" : "Open to all gender identities"}'}
               ages
               #min-age.field.select
                 = editable_link_to "Min Age", field: :age_min, resource: @workshop, type: :number
@@ -231,7 +231,7 @@
               #skills.field.tags
                 = editable_link_to 'Skills and techniques will you be teaching', field: :skill_list, resource: @workshop, type: :select2
               - if !show
-                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", trigger: "hover", content:"Be as specific as possible so that we can give your apprentice credit for learning new skills allow her to show them off in her portfolio!"} }
+                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", trigger: "hover", content:"Be as specific as possible so that we can give your student credit for learning new skills allow her to show them off in her portfolio!"} }
                   %i.icon-question-sign.small-icon
             %dt
               - if !show
@@ -241,14 +241,14 @@
               #tools.field.tags
                 = editable_link_to 'Tools and materials will you be teaching or using', field: :tool_list, resource: @workshop, type: :select2
               - if !show
-                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", trigger: "hover", content:"Be as specific as possible so that we can give your apprentice credit for learning new tools and allow her to show them off in her portfolio!"} }
+                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", trigger: "hover", content:"Be as specific as possible so that we can give your student credit for learning new tools and allow her to show them off in her portfolio!"} }
                   %i.icon-question-sign.small-icon
             - if !show || !@workshop.requirement_list.empty?
               %dt
                 Requirements
               %dd
                 #prequisites.field.tags.optional
-                  = editable_link_to 'Any required skills or tools your apprentice should have experience with?', field: :requirement_list, resource: @workshop, type: :select2
+                  = editable_link_to 'Any required skills or tools your student should have experience with?', field: :requirement_list, resource: @workshop, type: :select2
                 - if !show
                   %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", trigger: "hover", content:"Is this workshop more collaborative, or more directed? Be honest about the help that you need right from the begining. Example: chopsaw, welding, javascript"} }
                     %i.icon-question-sign.small-icon
@@ -259,35 +259,35 @@
             /    #preparations.field.tags.optional
             /      = editable_link_to 'Ex: "Must have their own laptop"', field: :other_needs, resource: @workshop, type: :text
             /    - if !show
-            /      %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Let the apprentice know what she should prepare to bring, wear, or read before you get started working together. Example: a car, a cellphone, a computer, a sense of humor."} }
+            /      %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Let the student know what she should prepare to bring, wear, or read before you get started working together. Example: a car, a cellphone, a computer, a sense of humor."} }
             /        %i.icon-question-sign.small-icon
             %hr
 
-            - if @apprenticeship.user.bio.present?
+            - if @workshop.user.bio.present?
               %dt
                 Bio
               %dd
-                = @apprenticeship.user.bio
-            - if @apprenticeship.user.website.present?
+                = @workshop.user.bio
+            - if @workshop.user.website.present?
               %dt
                 Website
               %dd
-                = link_to @apprenticeship.user.website, nice_url(@apprenticeship.user.website)
-            - if @apprenticeship.user.webshop.present?
+                = link_to @workshop.user.website, nice_url(@workshop.user.website)
+            - if @workshop.user.webshop.present?
               %dt
                 Webshop
               %dd
-                = link_to @apprenticeship.user.webshop, nice_url(@apprenticeship.user.webshop)
-            - if @apprenticeship.user.facebook.present?
+                = link_to @workshop.user.webshop, nice_url(@workshop.user.webshop)
+            - if @workshop.user.facebook.present?
               %dt
                 Facebook
               %dd
-                = link_to @apprenticeship.user.facebook, nice_url(@apprenticeship.user.facebook)
-            - if @apprenticeship.user.twitter.present?
+                = link_to @workshop.user.facebook, nice_url(@workshop.user.facebook)
+            - if @workshop.user.twitter.present?
               %dt
                 Twitter
               %dd
-                = link_to @apprenticeship.user.twitter, nice_url(@apprenticeship.user.twitter)
+                = link_to @workshop.user.twitter, nice_url(@workshop.user.twitter)
 
 
         //Apply Sidebar //////////////////

@@ -44,6 +44,8 @@
     .row
       - unless @workshops.blank?
         = render :partial => "workshop", :collection => @workshops
+      - unless @tba_workshops.blank?
+        = render :partial => "workshop", :collection => @tba_workshops
     %hr
     - unless current_user.blank?
       - if current_user.admin?

@@ -44,6 +44,8 @@
     .row
       - unless @apprenticeships.blank?
         = render :partial => "apprenticeship", :collection => @apprenticeships
+      - unless @tba_apprenticeships.blank?
+        = render :partial => "apprenticeship", :collection => @tba_apprenticeships
     %hr
     - unless current_user.blank?
       - if current_user.admin?
