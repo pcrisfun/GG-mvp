@@ -77,6 +77,16 @@
             .modal-footer
               %a{"aria-hidden" => "true", "data-dismiss" => "modal"} I'll do this later
 
+          / Newsletter Modal load
+          :javascript
+            $(window).load(function(){
+             if ($.cookie('#myModal') != 'shown')
+            {
+              $.cookie('#myModal', 'shown');
+                $('#myModal').modal('show');
+            }
+            });
+
           .span6.getfirstdibs
             %p get first dibs!
           .span6.signup
