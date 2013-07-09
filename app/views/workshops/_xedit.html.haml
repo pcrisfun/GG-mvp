@@ -294,8 +294,8 @@
         %span#applysidebar.span3
           - if show
             - if @workshop.filled?
-              %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Sorry, this workshop is already full. Sign up below to be the first to know next time this maker's teaching."} }
-                = link_to "Work with #{@workshop.user.first_name}", :class => "btn btn-block btn-disabled"
+              = link_to "Work with #{@workshop.user.first_name}", '#workwithModal', rel: 'popover', data: {placement: "left", content:"Sorry, this workshop is already full, but you can follow this maker to be the first to know next time she's teaching."}, :class => "btn btn-block btn-primary disabled"
+              %br
               = render :partial => "shared/prereg", :locals => {:event => @workshop}
               %br
             - if @workshop.completed? || @workshop.datetime_tba == true
