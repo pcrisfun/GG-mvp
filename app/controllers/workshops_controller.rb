@@ -125,7 +125,8 @@ class WorkshopsController < ApplicationController
 #---- cancel
   def cancel
     @workshop = Workshop.where(:id => params[:id]).first
-    @workshop.signups.each {|s| s.cancel && s.deliver_cancel }
+    #Ask Pete: is it possible to create a prereg here??
+    @workshop.signups.each {|s| s.cancel && s.deliver_cancel && s.user.Prereg.new }
     if @workshop.cancel && @workshop.deliver_cancel
       redirect_to workshops_path, :flash => { :warning => "Rats. Your workshop has been canceled."} and return
     else
