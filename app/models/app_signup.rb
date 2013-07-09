@@ -364,7 +364,13 @@ class AppSignup < Signup
   end
 
   def deliver_confirm(opts={})
-    parent? ? deliver_confirm_parent(opts) : deliver_confirm_self(opts)
+    if self.parent?
+      deliver_confirm_parent(opts)
+    elsif self.minor?
+      deliver_confirm_minor(opts)
+    else
+      deliver_confirm_self(opts)
+    end
   end
 
   def deliver_confirm_self(opts={})
@@ -381,6 +387,26 @@ class AppSignup < Signup
         <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
         <p>Thanks and Happy Making!</p>
         <p>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_confirm_minor(opts={})
+    return false unless valid?
+    payment = opts[:payment]
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Your apprenticeship is ready to start! - #{self.event.title}",
+      :html_body => %(<h1>Yesss!</h1>
+        <p>You're all set for #{self.event.title}! We received your confirmation and your payment of $29.</p>
+        <p>You can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan your first meeting together.</p>
+        <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
+        <p>Thanks and Happy Making!</p>
+        <p>The GirlsGuild Team</p>),
+      :cc => "#{self.parent_name}<#{self.parent_email}>",
       :bcc => "hello@girlsguild.com",
     })
     return true

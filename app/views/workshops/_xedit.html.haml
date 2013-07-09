@@ -293,7 +293,12 @@
         //Apply Sidebar //////////////////
         %span#applysidebar.span3
           - if show
-            - if @workshop.filled? || @workshop.completed? || @workshop.datetime_tba == true
+            - if @workshop.filled?
+              %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Sorry, this workshop is already full. Sign up below to be the first to know next time this maker's teaching."} }
+                = link_to "Work with #{@workshop.user.first_name}", :class => "btn btn-block btn-disabled"
+              = render :partial => "shared/prereg", :locals => {:event => @workshop}
+              %br
+            - if @workshop.completed? || @workshop.datetime_tba == true
               = render :partial => "shared/prereg", :locals => {:event => @workshop}
               %br
             - if @workshop.accepted? && @workshop.datetime_tba == false
@@ -408,7 +413,7 @@
           %br
           %br
 
-        - if current_user && current_user == @workshop.user && !@workshop.started? && !@workshop.canceled?
+        - if current_user && current_user == @workshop.user && !@workshop.started? && !@workshop.completed? && !@workshop.canceled?
           = link_to "Cancel Workshop", { :controller => 'workshops', :action => 'cancel', :id => @workshop.id }, class: "btn btn-danger", :method => 'post', data: { :confirm => "Are you sure? Your workshop will be saved in your Dashboard, but you'll have to resubmit it in order to post it again." }
           %br
           %br
