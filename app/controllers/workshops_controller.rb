@@ -29,7 +29,7 @@ class WorkshopsController < ApplicationController
     if params[:workshop]
       @workshop = current_user.workshops.new(params[:workshop])
     else
-      @workshop = current_user.workshops.new(topic: 'A New Workshop', host_firstname: current_user.first_name, host_lastname: current_user.last_name, datetime_tba: true)
+      @workshop = current_user.workshops.new(topic: 'A New Workshop', host_firstname: current_user.first_name, host_lastname: current_user.last_name, datetime_tba: true, location_state: "TX", location_city: "Austin")
     end
     @workshop.begins_at ||= Date.today
     @workshop.generate_title
