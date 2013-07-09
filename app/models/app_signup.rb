@@ -589,20 +589,21 @@ class AppSignup < Signup
 
   def countdown_message
     if self.started?
-        return "Your application is saved. <br/><a href=#{edit_app_signup_path(self)} class='bold'>Resume applying!</a>".html_safe
+        return "Your application is saved. <br/><a href=#{edit_app_signup_path(self)} class='bold'>Finish applying!</a>".html_safe
     elsif self.pending?
         return "Your application is being reviewed. You should hear back by <strong>#{(self.state_stamps.last.stamp + 14.days).strftime("%b %d")}</strong>".html_safe
     elsif self.accepted?
         return "Your application has been accepted! <a href=#{url_for(self)} class='bold'>Confirm</a> your apprenticeship!".html_safe
     elsif self.declined?
     elsif self.canceled?
+        return "This event has been canceled"
     elsif self.confirmed?
         if self.event.datetime_tba
           return ''
         elsif self.event.begins_at && Date.today < self.event.begins_at
           return "<strong>#{(self.event.begins_at.mjd - Date.today.mjd)}</strong> days until your apprenticeship begins!".html_safe
         elsif self.event.ends_at && Date.today < self.event.ends_at
-          return "#{self.event.ends_at - Date.today} more days of your Apprenticeship"
+          return "#{self.event.ends_at.mjd - Date.today.mjd} more days of your Apprenticeship"
         else
           return false
         end

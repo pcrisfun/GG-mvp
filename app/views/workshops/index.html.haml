@@ -3,7 +3,7 @@
     %h1 Workshops
     = link_to "Offer a Workshop!", new_workshop_path, class: 'btn btn-large btn-primary pull-right'
     %span.bttn-call.kristi.pull-right
-      Hey Makers:
+      Hey Makers!
     %br/
     %br/
     .accordion#accordion2
@@ -44,6 +44,8 @@
     .row
       - unless @workshops.blank?
         = render :partial => "workshop", :collection => @workshops
+      - unless @tba_workshops.blank?
+        = render :partial => "workshop", :collection => @tba_workshops
     %hr
     - unless current_user.blank?
       - if current_user.admin?

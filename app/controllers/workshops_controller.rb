@@ -7,13 +7,14 @@ class WorkshopsController < ApplicationController
 
   def index
     unless current_user.blank?
-      @allsaved_workshops = Workshop.find_all_by_state('started')
-      @allpending_workshops = Workshop.find_all_by_state('pending')
-      @allcanceled_workshops = Workshop.find_all_by_state('canceled')
-      @allfilled_workshops = Workshop.find_all_by_state('filled')
-      @allcompleted_workshops = Workshop.find_all_by_state('completed')
+      @allsaved_workshops = Workshop.find_all_by_state('started').sort_by { |e| e.begins_at }
+      @allpending_workshops = Workshop.find_all_by_state('pending').sort_by { |e| e.begins_at }
+      @allcanceled_workshops = Workshop.find_all_by_state('canceled').sort_by { |e| e.begins_at }
+      @allfilled_workshops = Workshop.find_all_by_state('filled').sort_by { |e| e.begins_at }
+      @allcompleted_workshops = Workshop.find_all_by_state('completed').sort_by { |e| e.begins_at }
     end
-  	@workshops = Workshop.find_all_by_state(['accepted','filled','completed'])
+  	@workshops = Workshop.where( datetime_tba: false, state: ['accepted','filled','completed']).sort_by { |e| e.begins_at }
+    @tba_workshops = Workshop.where( datetime_tba: true, state: ['accepted','filled','completed']).sort_by { |e| e.begins_at }
   end
 
   def new
@@ -29,7 +30,7 @@ class WorkshopsController < ApplicationController
     if params[:workshop]
       @workshop = current_user.workshops.new(params[:workshop])
     else
-      @workshop = current_user.workshops.new(topic: 'A New Workshop', host_firstname: current_user.first_name, host_lastname: current_user.last_name, datetime_tba: true)
+      @workshop = current_user.workshops.new(topic: 'A New Workshop', host_firstname: current_user.first_name, host_lastname: current_user.last_name, datetime_tba: true, location_state: "TX", location_city: "Austin")
     end
     @workshop.begins_at ||= Date.today
     @workshop.generate_title

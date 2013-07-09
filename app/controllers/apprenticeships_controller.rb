@@ -7,13 +7,14 @@ class ApprenticeshipsController < ApplicationController
 
   def index
     unless current_user.blank?
-      @allpending_apprenticeships = Apprenticeship.find_all_by_state('pending')
-      @allsaved_apprenticeships = Apprenticeship.find_all_by_state('started')
-      @allcanceled_apprenticeships = Apprenticeship.find_all_by_state('canceled')
-      @allfilled_apprenticeships = Apprenticeship.find_all_by_state('filled')
-      @allcompleted_apprenticeships = Apprenticeship.find_all_by_state('completed')
+      @allpending_apprenticeships = Apprenticeship.find_all_by_state('pending').sort_by { |e| e.begins_at }
+      @allsaved_apprenticeships = Apprenticeship.find_all_by_state('started').sort_by { |e| e.begins_at }
+      @allcanceled_apprenticeships = Apprenticeship.find_all_by_state('canceled').sort_by { |e| e.begins_at }
+      @allfilled_apprenticeships = Apprenticeship.find_all_by_state('filled').sort_by { |e| e.begins_at }
+      @allcompleted_apprenticeships = Apprenticeship.find_all_by_state('completed').sort_by { |e| e.begins_at }
     end
-  	@apprenticeships = Apprenticeship.find_all_by_state(['accepted','filled','completed'])
+    @apprenticeships = Apprenticeship.where( datetime_tba: false, state: ['accepted','filled','completed']).sort_by { |e| e.begins_at }
+    @tba_apprenticeships = Apprenticeship.where( datetime_tba: true, state: ['accepted','filled','completed']).sort_by { |e| e.begins_at }
   end
 
   def new
@@ -26,7 +27,7 @@ class ApprenticeshipsController < ApplicationController
     if params[:apprenticeship]
       @apprenticeship = current_user.apprenticeships.new(params[:apprenticeship])
     else
-      @apprenticeship = current_user.apprenticeships.new(topic: 'A New Apprenticeship', host_firstname: current_user.first_name, host_lastname: current_user.last_name, datetime_tba: true)
+      @apprenticeship = current_user.apprenticeships.new(topic: 'A New Apprenticeship', host_firstname: current_user.first_name, host_lastname: current_user.last_name, datetime_tba: true, location_state: "TX", location_city: "Austin")
     end
     @apprenticeship.begins_at ||= Date.today
     @apprenticeship.ends_at ||= Date.tomorrow
@@ -130,7 +131,7 @@ class ApprenticeshipsController < ApplicationController
     end
   rescue
     error_msg = " "
-    @workshop.errors.each do |field, msg|
+    @apprenticeship.errors.each do |field, msg|
       error_msg << "<br/>"
       error_msg << msg
     end
@@ -146,7 +147,7 @@ class ApprenticeshipsController < ApplicationController
     end
   rescue
     error_msg = " "
-    @workshop.errors.each do |field, msg|
+    @apprenticeship.errors.each do |field, msg|
       error_msg << "<br/>"
       error_msg << msg
     end
@@ -162,7 +163,7 @@ class ApprenticeshipsController < ApplicationController
     end
   rescue
     error_msg = " "
-    @workshop.errors.each do |field, msg|
+    @apprenticeship.errors.each do |field, msg|
       error_msg << "<br/>"
       error_msg << msg
     end
