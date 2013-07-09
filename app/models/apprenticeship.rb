@@ -298,7 +298,7 @@ class Apprenticeship < Event
         if self.begins_at && Date.today < self.begins_at
           return "#{self.confirmed_signups.count} of #{self.registration_max} Apprentices confirmed.<br/><strong>#{(self.begins_at.mjd - Date.today.mjd)}</strong> days until it begins!".html_safe
         elsif self.ends_at && Date.today < self.ends_at
-          return "#{self.ends_at - Date.today} more days of your Apprenticeship"
+          return "#{self.ends_at.mjd - Date.today.mjd} more days of your Apprenticeship"
         else
           return ''
         end
@@ -306,13 +306,14 @@ class Apprenticeship < Event
         return "#{self.confirmed_signups.count} of #{self.registration_max} participants confirmed. Open for Applications"
       end
     elsif self.canceled?
+      return "You've canceled this apprenticeship"
     elsif self.filled?
         if self.datetime_tba
           return "Apprenticeship"
         elsif self.begins_at && Date.today < self.begins_at
           return "<strong>#{(self.begins_at.mjd - Date.today.mjd)}</strong> days until it begins!".html_safe
         elsif self.ends_at && Date.today < self.ends_at
-          return "#{self.ends_at - Date.today} more days of your Apprenticeship"
+          return "#{self.ends_at.mjd - Date.today.mjd} more days of your Apprenticeship"
         else
           return ''
         end

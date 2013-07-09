@@ -315,6 +315,7 @@ include EventHelper
         return "Open to Follow"
       end
     elsif self.canceled?
+      return "You've canceled this workshop"
     elsif self.filled?
       if self.datetime_tba
         return "Workshop"

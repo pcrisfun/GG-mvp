@@ -299,6 +299,7 @@ include EventHelper
 
   def countdown_message
     if self.started?
+      return "Your signup is saved. <br/><a href=#{edit_work_signup_path(self)} class='bold'>Finish signing up!</a>".html_safe
     elsif self.canceled?
         return 'You canceled your registration for this workshop'
     elsif self.confirmed?
