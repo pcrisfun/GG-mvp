@@ -41,15 +41,10 @@
     .accordion-body
       .accordion-inner
         %br/
-        = f.input :interest, label: "Interest", input_html: { rows: "2",
-          placeholder: "What is your daughter most interested in learning in this workshop?",
+        = f.input :interest, label: "Interest & Experience", input_html: { rows: "2",
+          placeholder: "Has your daughter made anything like this before? What does she most want to learn in this workshop?",
           rel: 'popover',
-          data: { :content => "This will help the artist plan her workshop to include what you want to know." }}
-        %br/
-        = f.input :experience, label: "Experience", input_html: { rows: "2",
-          placeholder: "Has your daugther done this kind of making before?",
-          rel: 'popover',
-          data: { :content => "If so, tell us about what you've made. If not, that's ok too!" }}
+          data: { :content => "This will help the maker plan her workshop to include what you want to know." }}
         %br/
         - if @workshop.requirement_list.present?
           = f.input :requirements do

@@ -143,7 +143,7 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{self.daughter_firstname} has applied to work with you!",
       :html_body => %(<h1>Yippee #{event.user.first_name}!</h1>
-        <p>#{user.first_name} has helped her daughter, #{self.daughter_firstname}, apply to apprentice with you! You can review her application and accept or decline it <a href=#{url_for(self)}>here</a>. We've notified #{user.first_name} and #{self.daughter_firstname} that you'll make your decision on the application within 2 weeks.</p>
+        <p>#{user.first_name} has helped their daughter, #{self.daughter_firstname}, apply to apprentice with you! You can review her application and accept or decline it <a href=#{url_for(self)}>here</a>. We've notified #{user.first_name} and #{self.daughter_firstname} that you'll make your decision on the application within 2 weeks.</p>
         <p>Thanks,</p>
         <p>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",

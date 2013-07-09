@@ -91,7 +91,7 @@ class WorkSignupsController < ApplicationController
       @charge = Stripe::Charge.retrieve(@work_signup.charge_id)
       if @work_signup.parent?
         @work_signup.signup && @work_signup.deliver_parent(payment: @charge) && @work_signup.deliver_maker_daughter
-      else @work_signup.minor?
+      elsif @work_signup.minor?
         @work_signup.signup && @work_signup.deliver_minor(payment: @charge) && @work_signup.deliver_maker
       else
         @work_signup.signup && @work_signup.deliver(payment: @charge) && @work_signup.deliver_maker
