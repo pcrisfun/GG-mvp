@@ -217,11 +217,20 @@ class Event < ActiveRecord::Base
     return false
   end
 
-  def nice_dates(format = '%a, %b %d')
+  def nice_dates_apprenticeships(format = '%a, %b %d')
     if self.datetime_tba
       return "TBA"
     elsif self.begins_at && self.ends_at
       return "#{self.begins_at.strftime(format)} - #{self.ends_at.strftime(format)}"
+    else
+      return ""
+    end
+  end
+  def nice_dates_workshops(format = '%a, %b %d')
+    if self.datetime_tba
+      return "TBA"
+    elsif self.begins_at && self.begins_at_time && self.ends_at_time
+      return "#{self.begins_at.strftime(format)}, #{self.begins_at_time.strftime('%I:%M%P') } - #{self.ends_at_time.strftime('%I:%M%P')}"
     else
       return ""
     end
