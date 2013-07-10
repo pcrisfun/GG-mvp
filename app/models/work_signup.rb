@@ -344,8 +344,10 @@ include EventHelper
     elsif self.confirmed?
       if self.event.begins_at && Date.today < self.event.begins_at
         return "<strong>#{(self.event.begins_at.mjd - Date.today.mjd)}</strong> days until your workshop!".html_safe
+      elsif self.event.begins_at == Date.today
+        return "Your workshop begins today!"
       else
-        return false
+        return ''
       end
     elsif self.completed?
     else
