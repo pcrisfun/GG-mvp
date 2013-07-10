@@ -582,6 +582,8 @@ class AppSignup < Signup
   def state_label
     if self.started?
       return "saved"
+    elsif self.confirmed?
+      return "going on"
     else
       return self.state
     end
