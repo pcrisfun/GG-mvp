@@ -97,7 +97,8 @@ $radius: 5px
 
 @mixin textshadow-light
   text-shadow: 1px 1px #FFF
-
+@mixin textshadow-dark
+  text-shadow: 1px 1px #000
 
 
 // Headers ======================================================================================
@@ -319,14 +320,15 @@ a, a:hover, a:active, a:visited, a:focus
 
 
 // Rotating Testimonials ======================================================================================
+
 .rotating-testimonials
-  padding: 10px 0px
-  color: #FFF
-  font-family: georgia
+  padding: 10px 0px 0 0
+  color: #EEE
+  +textshadow-dark
   .tabs
     clear: both
     list-style: none
-    margin: 0 0 10px 0
+    margin: 0
     padding: 0px
     text-align: left
     li
@@ -361,8 +363,12 @@ a, a:hover, a:active, a:visited, a:focus
       background-color: transparent
       border: 0px
       font-style: italic
-      line-height: 22px
-
+      p
+        font-size: 15px
+        line-height: 23px
+      footer
+        font-family: $opensans
+        font-weight: bold
 
 // FAQ ======================================================================================
 #FAQ

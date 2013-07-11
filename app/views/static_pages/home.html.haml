@@ -62,28 +62,28 @@
       .container
         .row-fluid
           .span6
-            .span6.getfirstdibs
-              %p get first dibs!
-            .span6.signup
-              %form#mc-embedded-subscribe-form.validate.input-append.bttn-newsletter{:action => "http://girlsguild.us4.list-manage.com/subscribe/post?u=9f2de43ebd5f4d79e3d803fb9&id=aea5bd62bf", :method => "post", :name => "mc-embedded-subscribe-form", :novalidate => "", :target => "_blank"}
-                %input#mce-EMAIL.span6.email{:name => "EMAIL", :placeholder => "Your Email", :required => "", :type => "email"}/
-                %button#mc-embedded-subscribe.btn.btn-primary.button{:name => "subscribe", :type => "submit", :value => "Subscribe"} Sign up for our Newsletter!
-                %br
-              / Modal
-              #myModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
-                .modal-header
-                  %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
-                  %h3#myModalLabel Sign Up!
-                .modal-body
-                  / Begin MailChimp Signup Form
-                  #mc_embed_signup
-                    %form#mc-embedded-subscribe-form.validate.input-append.bttn-newsletter{:action => "http://girlsguild.us4.list-manage.com/subscribe/post?u=9f2de43ebd5f4d79e3d803fb9&id=aea5bd62bf", :method => "post", :name => "mc-embedded-subscribe-form", :novalidate => ""}
-                      %label{:for => "mce-EMAIL"} For our rad monthly newsletters!
-                      %input#mce-EMAIL.span5.email{:name => "EMAIL", :placeholder => "Your Email", :required => "", :type => "email"}/
-                      %button#mc-embedded-subscribe.btn.btn-primary.button{:name => "subscribe", :type => "submit", :value => "Subscribe"} Sign up
-                  / End mc_embed_signup
-                .modal-footer
-                  %a{"aria-hidden" => "true", "data-dismiss" => "modal"} I'll do this later
+            /%p.kristi Get first dibs!
+            %br
+            %br
+            %form#mc-embedded-subscribe-form.validate.input-append.bttn-newsletter{:action => "http://girlsguild.us4.list-manage.com/subscribe/post?u=9f2de43ebd5f4d79e3d803fb9&id=aea5bd62bf", :method => "post", :name => "mc-embedded-subscribe-form", :novalidate => "", :target => "_blank"}
+              %input#mce-EMAIL.span6.email{:name => "EMAIL", :placeholder => "Your Email", :required => "", :type => "email"}/
+              %button#mc-embedded-subscribe.btn.btn-primary.button{:name => "subscribe", :type => "submit", :value => "Subscribe"} Sign up for our Newsletter!
+              %br
+            / Modal
+            #myModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+              .modal-header
+                %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                %h3#myModalLabel Sign Up!
+              .modal-body
+                / Begin MailChimp Signup Form
+                #mc_embed_signup
+                  %form#mc-embedded-subscribe-form.validate.input-append.bttn-newsletter{:action => "http://girlsguild.us4.list-manage.com/subscribe/post?u=9f2de43ebd5f4d79e3d803fb9&id=aea5bd62bf", :method => "post", :name => "mc-embedded-subscribe-form", :novalidate => ""}
+                    %label{:for => "mce-EMAIL"} For our rad monthly newsletters!
+                    %input#mce-EMAIL.span5.email{:name => "EMAIL", :placeholder => "Your Email", :required => "", :type => "email"}/
+                    %button#mc-embedded-subscribe.btn.btn-primary.button{:name => "subscribe", :type => "submit", :value => "Subscribe"} Sign up
+                / End mc_embed_signup
+              .modal-footer
+                %a{"aria-hidden" => "true", "data-dismiss" => "modal"} I'll do this later
 
               / Newsletter Modal load
               :javascript
@@ -96,29 +96,29 @@
                 });
           .span6.testimonials
             .rotating-testimonials
-              / "rotating-testimonials" is a required class
-              %h5.short_headline
-                %span Testimonials
+              / "rotating-testimonials" is a required class - set the speed in application.js
+              /%h5.short_headline
+              /  %span Testimonials
               .panels
                 #t1
                   %blockquote
-                    %p One isn’t necessarily born with courage, but one is born with potential. Without courage, we cannot practice any other virtue with consistency. We can’t be kind, true, merciful, generous, or honest.
-                    %footer.pull-right - Maya Angelou
+                    %p "Veronica brought up the fact that the apprenticeship was originally set to end in December, and at the same time she and I looked at each other and said "yeah, right. I'm not letting you go!"
+                    %footer.pull-right - Melissa Chapman, Stone & Smith
                 / close #t1
                 #t2
                   %blockquote
-                    %p When the highest type of people hear Tao (Truth), they diligently practice it. When the average type of people hear Tao, they half believe in it. When the lowest type of people hear Tao, they laugh at it. If they did not laugh, it would not be Tao.
-                    %footer.pull-right - Lao-Tzu
+                    %p "I put my apprenticeship with GirlsGuild on my resume, and it was actually a conversation piece in my job interviews."
+                    %footer.pull-right - Samantha Simmons, Event Apprentice
                 / close #t2
                 #t3
                   %blockquote
-                    %p The human being is part of the whole, called by us the ‘universe’, a part limited in time and space. He experiences himself, his thoughts and feelings, as something separate from the rest — a kind of optical delusion of consciousness. This delusion is a kind of prison for us, restricting us to our personal desires. Our task must be to free ourselves from this prison by widening our circle of compassion to embrace all living creatures and the whole of nature in its beauty.
-                    %footer.pull-right - Albert Einstein
+                    %p "I taught class to a group of young woman who learned new skills that they may not have had access to before.  These skills are not only fun and cool but also empowering."
+                    %footer.pull-right - Anna Gieselman, Bee Amour
                 / close #t3
                 #t4
                   %blockquote
-                    %p Whatever course you decide upon, there is always someone to tell you that you are wrong. There are always difficulties arising which tempt you to believe that your critics are right. To map out a course of action and follow it to an end requires courage.
-                    %footer.pull-right - Ralph Waldo Emerson
+                    %p "Thanks for the opportunity to join Son of a Sailor! I started the apprenticeship today and already made 10 necklaces, how great, right? Jessica is a dream to work with!"
+                    %footer.pull-right - Christina Valentine, Production Apprentice
                 / close #t4
               / close panels
               %ul.tabs
