@@ -30,6 +30,8 @@
 //= require bootstrap-editable
 //= require select2
 //= require moment
+//= require jquery.hashchange.min
+//= require jquery.easytabs.min
 //= require_tree .
 
 
@@ -64,6 +66,7 @@ $(document).ready(function () {
   $('#workshop_requirement_list').tokenInput('/event_requirements.json', { crossDomain: false, 'allowCustomEntry' : true, theme: 'facebook', prePopulate: $('#workshop_requirement_list').data('pre'), hintText: "Separate each with a comma" });
   $('#workshop_tool_list').tokenInput('/event_tools.json', { crossDomain: false, 'allowCustomEntry' : true,  theme: 'facebook', prePopulate: $('#workshop_tool_list').data('pre'), hintText: "Separate each with a comma" });
   $( "#slider-range-max" ).slider({ range: "max", min: 1, max: 10, value: 2, slide: function( event, ui ) { $( "#amount" ).val( ui.value );} }); $( "#amount" ).val( $( "#slider-range-max" ).slider( "value" ) );
+  $('.rotating-testimonials').easytabs({ animationSpeed: 400, updateHash: false, cycle: 5000 });
 });
 
 $(function() {
