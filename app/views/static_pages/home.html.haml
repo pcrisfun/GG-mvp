@@ -19,44 +19,43 @@
             .row-fluid
               %ul.pull-center.valueprop
                 %h2
-                  = link_to "Learn", get_involved_girls_path
+                  = link_to "Learn", events_path
                 %li Work with Amazing Makers
                 %li Learn a Technique
                 %li Build a Portfolio
                 %li Understand Small Business
                 %li
-                  = link_to "Start Learning »", get_involved_girls_path, class: "btn btn-mini btn-primary"
+                  = link_to "Start Learning »", faq_girls_path, class: "btn btn-mini btn-primary"
 
           .span4.calloutbubble
             .row-fluid
-              .well
-                %ul.pull-center
-                  %h3
-                    %img.left{:src => "/assets/arrow-left.png"}/
-                    Learn skills & tools
-                    %br
-                    or teach your craft
-                    %img.right{:src => "/assets/arrow-right.png"}/
-                    %br
-                    in
-                    %a{:href => "/workshops"} workshops
-                    \&
-                    %a{:href => "/apprenticeships"} apprenticeships
-                    %br
-                    .kristi
-                      for girls of all ages!
+              .well.pull-center
+                %h2
+                  Get Listed as a Maker
+                %hr
+                /%h4.dosis5 Post an Idea
+                %icon.icon-bolt.icon-3x
+                %ul
+                  %li
+                    1. Post something as TBA
+                  %li
+                    2. Girls sign up to follow it
+                  %li
+                    3. Set a date when you're ready!
+                /.kristi
+                /  for girls of all ages!
 
           .span4
             .row-fluid
               %ul.pull-center.valueprop
                 %h2
-                  = link_to "Lead", get_involved_makers_path
+                  = link_to "Lead", faq_makers_path
                 %li Share your Skills
                 %li Expand Production
                 %li Build your Network
                 %li Collaborate & Learn Together
                 %li
-                  = link_to "Get Involved as a maker »", get_involved_makers_path, class: "btn btn-mini btn-primary"
+                  = link_to "Start Leading »", faq_makers_path, class: "btn btn-mini btn-primary"
 
     %section.section#newsletter
       .container
@@ -66,7 +65,7 @@
             %br
             %br
             %form#mc-embedded-subscribe-form.validate.input-append.bttn-newsletter{:action => "http://girlsguild.us4.list-manage.com/subscribe/post?u=9f2de43ebd5f4d79e3d803fb9&id=aea5bd62bf", :method => "post", :name => "mc-embedded-subscribe-form", :novalidate => "", :target => "_blank"}
-              %input#mce-EMAIL.span6.email{:name => "EMAIL", :placeholder => "Your Email", :required => "", :type => "email"}/
+              %input#mce-EMAIL.span5.email{:name => "EMAIL", :placeholder => "Your Email", :required => "", :type => "email"}/
               %button#mc-embedded-subscribe.btn.btn-primary.button{:name => "subscribe", :type => "submit", :value => "Subscribe"} Sign up for our Newsletter!
               %br
             / Modal
@@ -101,24 +100,37 @@
               /  %span Testimonials
               .panels
                 #t1
-                  %blockquote
+                  %blockquote.blockquote-fancy.blockquote-fancy-small
+                    .blockquote-img
+                      %img{:alt => "", :src => "images/assets/testimonials/MChapman.jpeg"}/
                     %p "Veronica brought up the fact that the apprenticeship was originally set to end in December, and at the same time she and I looked at each other and said "yeah, right. I'm not letting you go!"
-                    %footer.pull-right - Melissa Chapman, Stone & Smith
+                    %footer.pull-right
+                      %a{:href => "/testimonials"} - Melissa Chapman, Stone & Smith
                 / close #t1
                 #t2
-                  %blockquote
+                  %blockquote.blockquote-fancy.blockquote-fancy-small
+                    .blockquote-img
+                      %img{:alt => "", :src => "images/assets/testimonials/SSimmons.jpeg"}/
                     %p "I put my apprenticeship with GirlsGuild on my resume, and it was actually a conversation piece in my job interviews."
-                    %footer.pull-right - Samantha Simmons, Event Apprentice
+                    %br
+                    %footer.pull-right
+                      %a{:href => "/testimonials"} - Samantha Simmons, Event Apprentice
                 / close #t2
                 #t3
-                  %blockquote
+                  %blockquote.blockquote-fancy.blockquote-fancy-small
+                    .blockquote-img
+                      %img{:alt => "", :src => "images/assets/testimonials/AGieselman.jpeg"}/
                     %p "I taught class to a group of young woman who learned new skills that they may not have had access to before.  These skills are not only fun and cool but also empowering."
-                    %footer.pull-right - Anna Gieselman, Bee Amour
+                    %footer.pull-right
+                      %a{:href => "/testimonials"} - Anna Gieselman, Bee Amour
                 / close #t3
                 #t4
-                  %blockquote
+                  %blockquote.blockquote-fancy.blockquote-fancy-small
+                    .blockquote-img
+                      %img{:alt => "", :src => "images/assets/testimonials/CValentine.jpeg"}/
                     %p "Thanks for the opportunity to join Son of a Sailor! I started the apprenticeship today and already made 10 necklaces, how great, right? Jessica is a dream to work with!"
-                    %footer.pull-right - Christina Valentine, Production Apprentice
+                    %footer.pull-right
+                      %a{:href => "/testimonials"} - Christina Valentine, Production Apprentice
                 / close #t4
               / close panels
               %ul.tabs
