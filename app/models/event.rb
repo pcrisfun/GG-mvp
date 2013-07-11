@@ -123,10 +123,6 @@ class Event < ActiveRecord::Base
 
     end
 
-    state :in_progress do
-
-    end
-
     state :completed do
 
     end

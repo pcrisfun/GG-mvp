@@ -13,7 +13,7 @@ include EventHelper
     validates_numericality_of :age_min, :greater_than => 0
     validates_numericality_of :age_max, :greater_than => :age_min, :message => " must be greater than the minimum age you set."
     validates :begins_at, :date => {:after => Proc.new { Date.today + 6.day }, :message => 'Sorry! You need to plan your workshop to start at least a week from today. Please check the date you set.'}, :if => :tba_is_blank
-    validates :ends_at, :date => {:before_or_equal_to => :begins_at, :message => 'You must close registrations prior to the planned date of the workshop.' }, :date => { :after => Date.today, :message => 'Oops! The date you chose to close registrations is in the past! Please check the date you set.' }, :if => :tba_is_blank
+    validates :ends_at, :date => {:before_or_equal_to => :begins_at, :message => 'You must close registrations prior to the planned date of the workshop.' }, :date => { :before => Date.today, :message => 'Oops! The date you chose to close registrations is in the past! Please check the date you set.' }, :if => :tba_is_blank
     validate :host_album_limit
   end
 

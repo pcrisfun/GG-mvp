@@ -14,7 +14,10 @@ class Apprenticeship < Event
     validates_presence_of :kind
     validates_presence_of :description
     validates_presence_of :availability
-    validates_presence_of :begins_at
+    #validates :begins_at, :presence_of, if :tba_is_blank
+    #validates :begins_at, :date => {:after => Proc.new { Date.today + 6.day }, :message => 'Sorry! You need to plan your apprenticheship to start at least a week from today. Please check the date you set.'}, if => :tba_is_blank
+    #validates_presence_of :ends_at, if :tba_is_blank
+    #validates :ends_at, :date => {:after_or_equal_to => :begins_at, :message => "Whoops, your apprenticeship can't end before it starts. Please check the dates you set." }, if => :tba_is_blank
     validates_presence_of :skill_list
     validates_presence_of :tool_list
     validates_presence_of :location_address
@@ -227,8 +230,10 @@ class Apprenticeship < Event
 	end
 
 	def self.complete_apprenticeship
-    Apprenticeship.where('ends_at <= ?', Date.today).all.each do |app|
-      app.signups.each {|a| a.complete}
+    Apprenticeship.where('ends_at <= ?', Date.today).each do |app|
+      app.signups.each do |a|
+        a.complete
+      end
       app.complete
     end
 	end
