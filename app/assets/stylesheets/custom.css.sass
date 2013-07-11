@@ -39,6 +39,7 @@ $grass-shadow: #049f63
 $grass-black: #017c4c
 
 $mint-light: #e7f5f0
+$mint: #71b99f
 
 $star-bright: #f8fbfc
 $star-light: #eff6f8
@@ -97,7 +98,8 @@ $radius: 5px
 
 @mixin textshadow-light
   text-shadow: 1px 1px #FFF
-
+@mixin textshadow-dark
+  text-shadow: 1px 1px #000
 
 
 // Headers ======================================================================================
@@ -319,18 +321,19 @@ a, a:hover, a:active, a:visited, a:focus
 
 
 // Rotating Testimonials ======================================================================================
+
 .rotating-testimonials
-  padding: 10px 0px
-  color: #FFF
-  font-family: georgia
+  padding: 10px 0px 0 15px
+  color: #EEE
+  +textshadow-dark
   .tabs
     clear: both
     list-style: none
-    margin: 0 0 10px 0
+    margin: 0 0 0 8px
     padding: 0px
     text-align: left
     li
-      background: #4c5966
+      background: $silver-black
       border: none
       display: inline-block
       *display: inline
@@ -345,11 +348,11 @@ a, a:hover, a:active, a:visited, a:focus
 .rotating-testimonials
   .tabs li
     &.active, &:hover
-      background: #a3b0bb
+      background: $silver
       padding: 0px
     a
       display: block
-      height: 20px
+      height: 0px
       padding: 0px
       text-indent: 9999px
       overflow: hidden
@@ -361,8 +364,16 @@ a, a:hover, a:active, a:visited, a:focus
       background-color: transparent
       border: 0px
       font-style: italic
-      line-height: 22px
-
+      p
+        font-size: 15px
+        line-height: 23px
+        padding-bottom: 7px
+      footer
+        a
+          font-family: $opensans
+          font-weight: bold
+          font-size: 13px
+          font-style: normal
 
 // FAQ ======================================================================================
 #FAQ
@@ -550,19 +561,33 @@ input[type="radio"], input[type="checkbox"]
       .smaller
         font-size: 38px
         display: inline
+      hr
+        position: relative
+        margin: 0 0
+        top: 25px
+      .icon-3x
+        position: relative
+        color: #333
+      ul
+        margin: 0
+        li
+          list-style: none
+          font-family: $opensans
+          font-weight: bold
+          color: $mint
+          text-transform: uppercase
       h2
         +dosis-caps
-        font-size: 50px
-      h3
-        font-size: 26px
-        line-height: 39px
-        .kristi
-          color: $plum-shadow
-        .left
-          position: absolute
-          left: -80px
-        .right
-          position: absolute
+        font-size: 45px
+      h4
+        font-size: 30px
+        line-height: 30px
+        color: $plum-shadow
+        //.left
+        //  position: absolute
+        //  left: -80px
+        //.right
+        //  position: absolute
         a
           color: $plum
           &:hover
