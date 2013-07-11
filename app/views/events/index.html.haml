@@ -1,0 +1,9 @@
+- provide(:title, 'Events')
+%section#dashboard-display.section.alt-grey
+  .container
+    %h1 Events
+    %br
+    - if @events && !@events.empty?
+      .fancyform-light
+        = render 'event', events: @events
+      %br

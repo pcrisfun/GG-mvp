@@ -64,10 +64,6 @@ GirlsGuild::Application.routes.draw do
   match 'workshops/:id/private' => 'workshops#private', as: :private_workshop
   match 'workshops/:id/confirmation' => 'workshops#confirmation', as: :confirmation_workshop
 
-  resources :events, path: 'learn' do
-  end
-
-
   resources :event_skills, only: [:index]
   resources :event_tools, only: [:index]
   resources :event_requirements, only: [:index]
@@ -79,6 +75,8 @@ GirlsGuild::Application.routes.draw do
   match '/dashboard', to: 'dashboards#display'
   match 'users/avatar', to: 'dashboards#avatar', as: :avatar
   match 'users/update_avatar', to: 'dashboards#update_avatar', as: :update_avatar
+
+  match '/events', to: 'events#index'
 
   root to: 'static_pages#home'
 
