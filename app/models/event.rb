@@ -81,6 +81,10 @@ class Event < ActiveRecord::Base
     datetime_tba.blank?
   end
 
+  def residential
+    location_private == true
+  end
+
   def google_address
     if self.location_private && self.location_nbrhood
       return "#{self.location_nbrhood} #{self.location_city} #{self.location_state} #{self.location_zipcode}"

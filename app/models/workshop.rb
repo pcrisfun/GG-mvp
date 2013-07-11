@@ -6,15 +6,30 @@ include EventHelper
 
 
   validation_group :design do
-    validates_presence_of :begins_at_time, :ends_at_time, :if => :tba_is_blank
-    validates_presence_of :registration_max, :price
-    validates_numericality_of :price, :greater_than_or_equal_to => 0
-    validates_numericality_of :registration_max, :greater_than => :registration_min, :message => "Must be greater than the minimum number of participants."
-    validates_numericality_of :age_min, :greater_than => 0
-    validates_numericality_of :age_max, :greater_than => :age_min, :message => " must be greater than the minimum age you set."
-    validates :begins_at, :date => {:after => Proc.new { Date.today + 6.day }, :message => 'Sorry! You need to plan your workshop to start at least a week from today. Please check the date you set.'}, :if => :tba_is_blank
-    validates :ends_at, :date => {:before_or_equal_to => :begins_at, :message => 'You must close registrations prior to the planned date of the workshop.' }, :date => { :before => Date.today, :message => 'Oops! The date you chose to close registrations is in the past! Please check the date you set.' }, :if => :tba_is_blank
+  #Title & Description
+    validates_presence_of :topic
+    validates_presence_of :description
+  #Images
     validate :host_album_limit
+  #Date & Time
+    validates :begins_at, :date => {:after => Proc.new { Date.today + 6.day }, :message => 'Sorry! You need to plan your workshop to start at least a week from today. Please check the date you set.'}, :if => :tba_is_blank
+    validates_presence_of :begins_at_time, :ends_at_time, :if => :tba_is_blank
+    validate :ends_after_start_time
+    validates :ends_at, :date => {:before_or_equal_to => :begins_at, :message => 'Sorry! You need to close registrations on or before the date of the workshop.' }, :date => { :after => Date.today, :message => 'Oops! The date you chose to close registrations is in the past! Please check the date you set.' }, :if => :tba_is_blank
+  #Address & Neighborhood
+    validates_presence_of :location_address, :location_city, :location_state
+    validates_presence_of :location_nbrhood, :if => :residential
+  #Age
+    validates_numericality_of :age_min, :greater_than => 0
+    validates_numericality_of :age_max, :greater_than => :age_min, :message => "- Whoops, the maximum age must be greater than the minimum age you set."
+  #Signups
+    validates_presence_of :registration_min, :registration_max
+    validates_numericality_of :registration_max, :greater_than => :registration_min, :message => "- Whoops, the maximum number of participants must be greater than the minimum you set."
+  #Price
+    validates_presence_of :price
+    validates_numericality_of :price, :greater_than_or_equal_to => 0
+  #Skills & Tools
+    validates_presence_of :skill_list, :tool_list
   end
 
   validation_group :begins_at do
@@ -30,7 +45,7 @@ include EventHelper
   end
 
   validation_group :ends_at do
-    validates :ends_at, :date => {:before_or_equal_to => :begins_at, :message => 'You must close registrations prior to the planned date of the workshop.' }, :if => :tba_is_blank
+    validates :ends_at, :date => {:before_or_equal_to => :begins_at, :message => 'Sorry! You need to close registrations on or before the date of the workshop.' }, :if => :tba_is_blank
   end
 
   validation_group :age_min do
@@ -38,13 +53,13 @@ include EventHelper
   end
 
   validation_group :age_max do
-    validates_numericality_of :age_max, :greater_than => :age_min, :message => "Must be greater than the minimum age."
+    validates_numericality_of :age_max, :greater_than => :age_min, :message => "- Whoops, the maximum age must be greater than the minimum age you set."
   end
 
   validation_group :registration_max do
     validates_presence_of :registration_max
     validates_numericality_of :registration_max
-    validates_numericality_of :registration_max, :greater_than => :registration_min, :message => "Must be greater than the minimum number of participants."
+    validates_numericality_of :registration_max, :greater_than => :registration_min, :message => "- Whoops, the maximum number of participants must be greater than the minimum you set."
   end
 
   validation_group :price do
@@ -52,9 +67,23 @@ include EventHelper
     validates_numericality_of :price, :greater_than_or_equal_to => 0
   end
 
-
   validation_group :private do
     validates_presence_of :payment_options, :permission
+    validate :send_payment_to
+  end
+
+  def ends_after_start_time
+    if datetime_tba.blank?
+      ends_at_time > begins_at_time
+    end
+  end
+
+  def send_payment_to
+    if payment_options == "Paypal"
+      validates_presence_of :paypal_email
+    elsif payment_options == "Check"
+      validates_presence_of :sendcheck_address, :message => "- Please fill in the address where you'd like us to send your check."
+    end
   end
 
  include Emailable
