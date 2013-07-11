@@ -76,6 +76,9 @@ class WorkSignupsController < ApplicationController
 
   def cancel
     @work_signup.cancel && @work_signup.deliver_cancel_self
+    if @workshop.filled?
+      @workshop.reopen
+    end
     redirect_to dashboard_path, :flash => { :warning => "Your workshop registration has been canceled."}
   end
 
