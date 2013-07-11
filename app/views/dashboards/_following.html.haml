@@ -22,7 +22,10 @@
           %td.spots
             = event.spots_left
           %td.dates
-            = event.nice_dates
+            - if event.type == "Apprenticeship"
+              = event.nice_dates_apprenticeships
+            - elsif event.type == "Workshop"
+              = event.nice_dates_workshops
           %td.state
             %span.label.btn-block
               following
