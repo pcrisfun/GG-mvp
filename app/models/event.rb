@@ -163,6 +163,10 @@ class Event < ActiveRecord::Base
       transition :accepted => :filled
     end
 
+    event :reopen do
+      transition :filled => :accepted
+    end
+
   end
 
   def verify_delete?

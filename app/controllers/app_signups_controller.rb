@@ -133,6 +133,9 @@ class AppSignupsController < ApplicationController
   end
 
   def cancel
+    if @app_signup.confirmed? && @apprenticeship.filled?
+      @apprenticeship.reopen
+    end
     @app_signup.cancel && @app_signup.deliver_cancel
     redirect_to apprenticeship_path(@app_signup.event), :flash => { :warning => "Drat! Your application has been canceled."}
   end
