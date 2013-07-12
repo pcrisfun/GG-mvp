@@ -1,9 +1,51 @@
 - provide(:title, 'Events')
-%section#dashboard-display.section.alt-grey
+%section#apprenticeships-index.section
   .container
     %h1 Events
-    %br
-    - if @events && !@events.empty?
-      .fancyform-light
+    = render 'shared/nav_events'
+    %br/
+    %br/
+    .accordion#accordion2
+      .accordion-group
+        .accordion-heading
+          %a.accordion-toggle{"data-toggle" => "collapse", href: "#collapseOne", class: 'pull-center' }
+            How it Works
+            %i.icon-chevron-down
+        #collapseOne.accordion-body.collapse.in
+          .accordion-inner
+            %br/
+            .row-fluid
+              %ul.thumbnails
+                %li.span4
+                  .row-fluid
+                    .span4.pull-center
+                      %i.icon-bullhorn.enormous-icon.circled.pull-center.icon-4x
+                    .span8
+                      %h3 Get Notified
+                      %p
+                        Check out the list of events hosted by brilliant Makers and "Follow" them to show your interest in working together. If the date was set as "TBA", we'll let you know when they schedule a workshop or apprenticeship.
+                %li.span4
+                  .row-fluid
+                    .span4.pull-center
+                      %i.icon-check-sign.enormous-icon.circled.pull-center.icon-4x
+                    .span8
+                      %h3 Sign up or Apply
+                      %p
+                        Find an event you're stoked about? Sign up for a workshop right away, or apply for an apprenticeship! We'll send the Maker your application to check out and we'll only request you pay the $29.00 matching fee if it works out.
+                %li.span4
+                  .row-fluid
+                    .span4.pull-center
+                      %i.icon-shield.enormous-icon.circled.pull-center.icon-4x
+                    .span8
+                      %h3 Earn Cred
+                      %p
+                        We'll keep track of the skills, tools, and techniques you're learning to begin to build out an incredible portfolio. You may even consider hosting a workshop or apprenticeship yourself!
+
+    .row
+      - unless @events.blank?
         = render 'event', events: @events
-      %br
+      - unless @tba_events.blank?
+        = render 'apprenticeship', events: @tba_events
+
+
+
