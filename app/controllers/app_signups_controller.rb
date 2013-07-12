@@ -75,8 +75,9 @@ class AppSignupsController < ApplicationController
 
 
   def update
-    @app_signup.event_id = @apprenticeship.id
-    @app_signup.user_id = current_user.id
+    #Commented out because they were commented out in work_signups update, because they might be shifting ownership of the signup
+    #@app_signup.event_id = @apprenticeship.id
+    #@app_signup.user_id = current_user.id
     current_user.update_attributes(params[:user])
 
     if params[:save_button] == "Save for Later"
@@ -118,10 +119,6 @@ class AppSignupsController < ApplicationController
   end
 
   def decline
-    # !!!commented out by Scott because it doesn't seem to make sense here (and shouldn't really be in the update action either)
-    # @app_signup.event_id = @apprenticeship.id
-    # @app_signup.user_id = current_user.id
-    # current_user.update_attributes(params[:user])
     @app_signup.decline && @app_signup.deliver_decline && @app_signup.deliver_decline_maker
     redirect_to apprenticeship_path(@app_signup.event), :flash => { :warning => "Apprenticeship declined. Thanks! We'll let her know you were honored that she wanted to work together but you found someone else." }
   end

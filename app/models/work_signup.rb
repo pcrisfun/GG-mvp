@@ -68,7 +68,7 @@ include EventHelper
     logger.info "Processing payment"
     unless charge_id.present?
       charge = Stripe::Charge.create(
-        :amount => (self.event.price*1.2*100).to_i, # amount in cents, again
+        :amount => (self.event.price*1.2).round.to_i*100, # amount in cents, again
         :currency => "usd",
         :card => stripe_card_token,
         :description => "Workshop fee for #{self.event.title} from #{self.user.email}"
