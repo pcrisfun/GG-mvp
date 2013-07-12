@@ -29,6 +29,8 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'rails-dev-boost', :git => 'git://github.com/thedarkone/rails-dev-boost.git'
+  gem 'quiet_assets', :group => :development
+  gem 'sextant'
 end
 
 # Gems used only for assets and not required
@@ -37,6 +39,7 @@ group :assets do
   gem 'sass-rails',   '3.2.5'
   gem 'coffee-rails', '3.2.2'
   gem 'uglifier', '1.2.3'
+  gem 'turbo-sprockets-rails3'
 end
 
 group :test do
