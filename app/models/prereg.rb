@@ -27,7 +27,7 @@ class Prereg < ActiveRecord::Base
                   :from => "Diana & Cheyenne<hello@girlsguild.com>",
                   :reply_to => "GirlsGuild<hello@girlsguild.com>",
                   :subject => "#{user.first_name} wants to work with you!",
-                  :html_body => %(<h1>Yay #{event.host_firstname}!</h1> <p>#{event.host_firstname} is a #{user.age}-year-old interested in learning <a href="#{url_for(controller: event.class.name.underscore.pluralize, action: 'show', id: event.id)}">#{event.topic}</a> with you. That makes #{event.preregs.count} girl(s) who are interested in working with you.</p>
+                  :html_body => %(<h1>Yay #{event.host_firstname}!</h1> <p>#{user.first_name} is a #{user.age}-year-old interested in learning <a href="#{url_for(controller: event.class.name.underscore.pluralize, action: 'show', id: event.id)}">#{event.topic}</a> with you. That makes #{event.preregs.count} girl(s) who are interested in working with you.</p>
                       <p>You can keep tabs on who else is following you by visiting your <a href="#{dashboard_url}">your dashboard</a></p>),
                   :bcc => "hello@girlsguild.com",
               })

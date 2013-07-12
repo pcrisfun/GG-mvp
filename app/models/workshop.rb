@@ -344,8 +344,8 @@ include EventHelper
       else
         return ''
       end
-    elsif self.in_progress?
     elsif self.completed?
+      return "Your workshop is over :-)"
     end
     return ''
   end

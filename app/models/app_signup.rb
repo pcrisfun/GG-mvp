@@ -610,6 +610,7 @@ class AppSignup < Signup
           return false
         end
     elsif self.completed?
+      return "Your apprenticeship is over :-)"
     else
     end
     return ''
