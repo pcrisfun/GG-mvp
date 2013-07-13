@@ -58,11 +58,6 @@ class WorkSignupsController < ApplicationController
   end
 
   def update
-    # !!!commented by Scott because this is shifting ownership of the signup
-    # @work_signup.event_id = @workshop.id
-    # @work_signup.user_id = current_user.id
-    # current_user.update_attributes(params[:user])
-
     if @work_signup.update_attributes(params[:work_signup])
       process_signup
     else

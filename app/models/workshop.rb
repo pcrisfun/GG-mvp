@@ -6,30 +6,43 @@ include EventHelper
 
 
   validation_group :design do
-  #Title & Description
+  # Title & Description
     validates_presence_of :topic
     validates_presence_of :description
-  #Images
+  # Images
     validate :host_album_limit
-  #Date & Time
+  # Date & Time
     validates :begins_at, :date => {:after => Proc.new { Date.today + 6.day }, :message => 'Sorry! You need to plan your workshop to start at least a week from today. Please check the date you set.'}, :if => :tba_is_blank
     validates_presence_of :begins_at_time, :ends_at_time, :if => :tba_is_blank
     validate :ends_after_start_time
     validates :ends_at, :date => {:before_or_equal_to => :begins_at, :message => 'Sorry! You need to close registrations on or before the date of the workshop.' }, :date => { :after => Date.today, :message => 'Oops! The date you chose to close registrations is in the past! Please check the date you set.' }, :if => :tba_is_blank
-  #Address & Neighborhood
+  # Address & Neighborhood
     validates_presence_of :location_address, :location_city, :location_state
     validates_presence_of :location_nbrhood, :if => :residential
-  #Age
+  # Age
     validates_numericality_of :age_min, :greater_than => 0
     validates_numericality_of :age_max, :greater_than => :age_min, :message => "- Whoops, the maximum age must be greater than the minimum age you set."
-  #Signups
+  # Signups
     validates_presence_of :registration_min, :registration_max
     validates_numericality_of :registration_max, :greater_than => :registration_min, :message => "- Whoops, the maximum number of participants must be greater than the minimum you set."
-  #Price
+  # Price
     validates_presence_of :price
     validates_numericality_of :price, :greater_than_or_equal_to => 0
-  #Skills & Tools
+  # Skills & Tools
     validates_presence_of :skill_list, :tool_list
+  end
+
+  validation_group :private do
+    validates_presence_of :payment_options, :permission
+    validate :send_payment_to
+  end
+
+  validation_group :topic do
+    validates_presence_of :topic
+  end
+
+  validation_group :description do
+    validates_presence_of :description
   end
 
   validation_group :begins_at do
@@ -48,12 +61,32 @@ include EventHelper
     validates :ends_at, :date => {:before_or_equal_to => :begins_at, :message => 'Sorry! You need to close registrations on or before the date of the workshop.' }, :if => :tba_is_blank
   end
 
+  validation_group :location_address do
+    validates_presence_of :location_address
+  end
+
+  validation_group :location_city do
+    validates_presence_of :location_city
+  end
+
+  validation_group :location_state do
+    validates_presence_of :location_state
+  end
+
+  validation_group :location_nbrhood do
+    validates_presence_of :location_nbrhood, :if => :residential
+  end
+
   validation_group :age_min do
     validates_numericality_of :age_min, :greater_than => 0
   end
 
   validation_group :age_max do
     validates_numericality_of :age_max, :greater_than => :age_min, :message => "- Whoops, the maximum age must be greater than the minimum age you set."
+  end
+
+  validation_group :registration_min do
+    validates_presence_of :registration_min
   end
 
   validation_group :registration_max do
@@ -67,9 +100,12 @@ include EventHelper
     validates_numericality_of :price, :greater_than_or_equal_to => 0
   end
 
-  validation_group :private do
-    validates_presence_of :payment_options, :permission
-    validate :send_payment_to
+  validation_group :skill_list do
+    validates_presence_of :skill_list
+  end
+
+  validation_group :tool_list do
+    validates_presence_of :tool_list
   end
 
   def ends_after_start_time
