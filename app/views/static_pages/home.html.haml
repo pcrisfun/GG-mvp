@@ -1,16 +1,54 @@
 / Main Content
 #hmpg
   #content{:role => "main"}
-    %section#promo.section.alt.hmpg-spotlight
+    %section#promo.alt.hmpg-spotlight
       .container
-        .span6
-          .hero-unit
-            %h1 Join the Maker Community
-            %p.dosis5 Apprenticeships for girls, by girls.
-            .socials
-              .fb-like{"data-colorscheme" => "dark", "data-href" => "http://www.facebook.com/GirlsGuild", "data-layout" => "button_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "450", :style => "margin:5px 5px 0 10px;"}
-              %div{:style => "margin:9px;"}
-                %a.twitter-follow-button{"data-lang" => "en", "data-show-count" => "false", :href => "https://twitter.com/TheGirlsGuild"} Follow @TheGirlsGuild
+        #myCarousel.carousel.slide
+          / Carousel items
+          .carousel-inner
+            .item.learning
+              .row-fluid
+                .span12
+                  .hero-unit
+                    .span3.pull-center
+                      %h3 Follow a Maker
+                      %p See a maker you like? Follow them to show your interest and to get first dibs when they create an event.
+                    .span3.pull-center
+                      %h3 Sign up or Apply
+                      %p Sign up for a workshop or apply for an apprenticeship to get started learning - it’s easy!
+                    .span3.pull-center
+                      %h3 Meet up to Learn
+                      %p Get a taste of what its like to be a cobbler, a baker, a candlestick maker by working with the Maker in her workspace.
+                    .span3.pull-center
+                      %h3 Show off yr Skilz
+                      %p We track your skills and tools you’re learning in every workshop and apprenticeship - eventually leading to a  fantastic portfolio!
+            .item.overview.active
+              .row-fluid
+                .span6
+                  .hero-unit
+                    %h1 Apprenticeships 4 girls, by girls
+                    .tagline.dosis5 Work alongside Maker-Mentors in short & long-term apprenticeships.
+                    .socials
+                      .fb-like{"data-colorscheme" => "dark", "data-href" => "http://www.facebook.com/GirlsGuild", "data-layout" => "button_count", "data-send" => "false", "data-show-        faces" => "false", "data-width" => "450", :style => "margin:5px 5px 0 10px;"}
+                      %div{:style => "margin:9px;"}
+                        %a.twitter-follow-button{"data-lang" => "en", "data-show-count" => "false", :href => "https://twitter.com/TheGirlsGuild"} Follow @TheGirlsGuild
+            .item.leading
+              .row-fluid
+                .span12
+                  .hero-unit
+                    .span4.pull-center
+                      %h3 Post an Idea
+                      %p Want to test out an idea by seeing who's interested? Post an idea, leave the dates "TBA", & we'll notify you as people follow it.
+                    .span4.pull-center
+                      %h3 Set a Date
+                      %p Set a date when you're ready. We'll notify your followers and give them first dibs on signups. Then we'll send it out to the guild.
+                    .span4.pull-center
+                      %h3 Work Together
+                      %p When the date comes, we'll notify your participants and apprentices to remind them of the where and when's.
+
+          / Carousel nav
+          %a.carousel-control.left{"data-slide" => "prev", :href => "#myCarousel"} ‹
+          %a.carousel-control.right{"data-slide" => "next", :href => "#myCarousel"} ›
 
     %section.section#goals
       .container
