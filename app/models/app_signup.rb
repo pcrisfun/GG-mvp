@@ -187,6 +187,22 @@ class AppSignup < Signup
     return true
   end
 
+  def deliver_cancel_maker
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Your apprenticeship signup has been canceled - #{event.topic} with #{user.name}",
+      :html_body => %(<h1>We're sorry</h1>
+        <p>The apprenticeship #{event.topic}, you signed up for with #{self.event.user.first_name} has been canceled. We'll let you know the next time #{self.event.user.first_name} is hosting a workshop or apprenticeship.</p>
+        <p>Please let us know if there's a way we can help make this process easier by simply replying to this email. We would really appreciate your feedback!</p>
+        <p>Thanks,</p>
+        <p>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
   def deliver_destroy(opts={})
     parent? ? deliver_destroy_parent(opts) : deliver_destroy_girl(opts)
   end
@@ -216,22 +232,6 @@ class AppSignup < Signup
       :html_body => %(<h1>Bummer!</h1>
         <p>You've deleted your daughter's application to work with #{self.event.user.first_name}. We hope you'll re-consider helping her apply to work with #{self.event.user.first_name} or someone else.</p>
         <p>Please let us know if there's a way we can help make this application process easier by simply replying to this email. We would really appreciate your feedback!</p>
-        <p>Thanks,</p>
-        <p>The GirlsGuild Team</p>),
-      :bcc => "hello@girlsguild.com",
-    })
-    return true
-  end
-
-  def deliver_cancel
-    Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
-      :from => "Diana & Cheyenne<hello@girlsguild.com>",
-      :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Your apprenticeship signup has been canceled - #{event.topic} with #{user.name}",
-      :html_body => %(<h1>We're sorry</h1>
-        <p>The apprenticeship #{event.topic}, you signed up for with #{self.event.user.first_name} has been canceled. We'll let you know the next time #{self.event.user.first_name} is hosting a workshop or apprenticeship.</p>
-        <p>Please let us know if there's a way we can help make this process easier by simply replying to this email. We would really appreciate your feedback!</p>
         <p>Thanks,</p>
         <p>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
