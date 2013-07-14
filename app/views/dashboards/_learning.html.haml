@@ -23,6 +23,9 @@
             - if event.type == "Workshop" && signup.confirmed?
               %br
               = link_to 'Cancel my registration', { :controller => 'work_signups', :action => 'cancel', :id => signup.id }, :method => :post, :data => { :confirm => 'Are you sure you want to cancel your registration for this workshop?'}
+            - if event.type == "Apprenticeship" && !signup.canceled?
+              %br
+              = link_to 'Cancel my application', { :controller => 'app_signups', :action => 'cancel', :id => signup.id }, :method => :post, :data => { :confirm => 'Are you sure you want to cancel your application for this apprenticeship?'}
           %td.spots
             = event.spots_left
           %td.dates

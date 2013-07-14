@@ -2,15 +2,68 @@
 #hmpg
   #content{:role => "main"}
     %section#promo.section.alt.hmpg-spotlight
-      .container
-        .span6
-          .hero-unit
-            %h1 Join the Maker Community
-            %p.dosis5 Apprenticeships for girls, by girls.
-            .socials
-              .fb-like{"data-colorscheme" => "dark", "data-href" => "http://www.facebook.com/GirlsGuild", "data-layout" => "button_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "450", :style => "margin:5px 5px 0 10px;"}
-              %div{:style => "margin:9px;"}
-                %a.twitter-follow-button{"data-lang" => "en", "data-show-count" => "false", :href => "https://twitter.com/TheGirlsGuild"} Follow @TheGirlsGuild
+      .container.alt
+        #myCarousel.carousel.slide
+          / Carousel items
+          .carousel-inner
+            .item.learning
+              .row-fluid
+                .span12
+                  .hero-unit
+                    .row-fluid
+                      .span3.pull-center.well
+                        %h3 Follow a Maker
+                        %p See a maker you like? Follow them to show your interest and to get first dibs when they create an event.
+                      .span3.pull-center.well
+                        %h3 Sign up or Apply
+                        %p Sign up for a workshop or apply for an apprenticeship and get started learning today - it’s super easy!
+                      .span3.pull-center.well
+                        %h3 Meet up to Learn
+                        %p Get a taste of what its like to be a cobbler, a baker, a candlestick maker by working with the Maker in her workspace.
+                      .span3.pull-center.well
+                        %h3 Show off yr Skilz
+                        %p We track the skills and tools you’re learning in every workshop & apprenticeship - eventually leading to a fab portfolio!
+
+            .item.overview.active
+              .row-fluid
+                .span6
+                  .hero-unit
+                    %h1 Apprenticeships 4 girls by girls
+                    .tagline.dosis5 Work alongside Maker-Mentors in short & long-term apprenticeships.
+                    .socials
+                      .fb-like{"data-colorscheme" => "dark", "data-href" => "http://www.facebook.com/GirlsGuild", "data-layout" => "button_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "450", :style => "margin:5px 5px 0 0; float:left;"}
+                      %div{:style => "margin:5px; float:right;"}
+                        %a.twitter-follow-button{"data-lang" => "en", "data-show-count" => "false", :href => "https://twitter.com/TheGirlsGuild"} Follow @TheGirlsGuild
+            .item.leading
+              .row-fluid
+                .span12
+                  .hero-unit
+                    .row-fluid
+                      .span4.pull-center.well
+                        %h3 Post an Idea
+                        %p Want to test out an idea by seeing who's interested? Post an idea, leave the dates "TBA", & we'll notify you as people follow it.
+                      .span4.pull-center.well
+                        %h3 Set a Date
+                        %p Set a date when you're ready. We'll notify your followers and give them first dibs on signups. Then we'll notify the rest of the Guild.
+                      .span4.pull-center.well
+                        %h3 Work Together
+                        %p When the date comes, we'll notify your participants and apprentices to remind them of details, and give them credit for their work.
+
+          / Carousel nav
+          %a.left.carousel-control{"data-slide" => "prev", :href => "#myCarousel"} ‹
+          %a.right.carousel-control{"data-slide" => "next", :href => "#myCarousel"} ›
+          :javascript
+            $('#myCarousel').on('slid', '', function() {
+            var $this = $(this);
+
+            $this.children('.carousel-control').show();
+
+            if($('.carousel-inner .item:first').hasClass('active')) {
+            $this.find('.left.carousel-control').hide();
+            } else if($('.carousel-inner .item:last').hasClass('active')) {
+            $this.children('.right.carousel-control').hide();
+            }
+            });
 
     %section.section#goals
       .container
@@ -33,7 +86,7 @@
                 %h2
                   Get Listed as a Maker
                 %hr
-                %icon.icon-bolt.icon-3x
+                /%icon.icon-bolt.icon-3x
                 %ul
                   %li
                     1. Post something as TBA
@@ -60,13 +113,13 @@
       .container
         .row-fluid
           .span6
-            /%p.kristi Get first dibs!
             %br
             %br
             %form#mc-embedded-subscribe-form.validate.input-append.bttn-newsletter{:action => "http://girlsguild.us4.list-manage.com/subscribe/post?u=9f2de43ebd5f4d79e3d803fb9&id=aea5bd62bf", :method => "post", :name => "mc-embedded-subscribe-form", :novalidate => "", :target => "_blank"}
               %input#mce-EMAIL.span5.email{:name => "EMAIL", :placeholder => "Your Email", :required => "", :type => "email"}/
               %button#mc-embedded-subscribe.btn.btn-primary.button{:name => "subscribe", :type => "submit", :value => "Subscribe"} Sign up for our Newsletter!
-              %br
+            .stayuptodate
+              %p Stay up to date!
             / Modal
             #myModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
               .modal-header
@@ -79,7 +132,7 @@
                     %label{:for => "mce-EMAIL"} For our rad monthly newsletters!
                     %input#mce-EMAIL.span5.email{:name => "EMAIL", :placeholder => "Your Email", :required => "", :type => "email"}/
                     %button#mc-embedded-subscribe.btn.btn-primary.button{:name => "subscribe", :type => "submit", :value => "Subscribe"} Sign up
-                / End mc_embed_signup
+
               .modal-footer
                 %a{"aria-hidden" => "true", "data-dismiss" => "modal"} I'll do this later
 
@@ -95,8 +148,6 @@
           .span6.testimonials
             .rotating-testimonials
               / "rotating-testimonials" is a required class - set the speed in application.js
-              /%h5.short_headline
-              /  %span Testimonials
               .panels
                 #t1
                   %blockquote.blockquote-fancy.blockquote-fancy-small
@@ -105,7 +156,6 @@
                     %p "Veronica brought up the fact that the apprenticeship was originally set to end in December, and at the same time she and I looked at each other and said "yeah, right. I'm not letting you go!"
                     %footer.pull-right
                       %a{:href => "/testimonials"} - Melissa Chapman, Stone & Smith
-                / close #t1
                 #t2
                   %blockquote.blockquote-fancy.blockquote-fancy-small
                     .blockquote-img
@@ -114,7 +164,6 @@
                     %br
                     %footer.pull-right
                       %a{:href => "/testimonials"} - Samantha Simmons, Event Apprentice
-                / close #t2
                 #t3
                   %blockquote.blockquote-fancy.blockquote-fancy-small
                     .blockquote-img
@@ -122,7 +171,6 @@
                     %p "I taught class to a group of young woman who learned new skills that they may not have had access to before.  These skills are not only fun and cool but also empowering."
                     %footer.pull-right
                       %a{:href => "/testimonials"} - Anna Gieselman, Bee Amour
-                / close #t3
                 #t4
                   %blockquote.blockquote-fancy.blockquote-fancy-small
                     .blockquote-img
@@ -130,8 +178,6 @@
                     %p "Thanks for the opportunity to join Son of a Sailor! I started the apprenticeship today and already made 10 necklaces, how great, right? Jessica is a dream to work with!"
                     %footer.pull-right
                       %a{:href => "/testimonials"} - Christina Valentine, Production Apprentice
-                / close #t4
-              / close panels
               %ul.tabs
                 %li.tab
                   %a{:href => "#t1"} maya-angelou
@@ -141,8 +187,14 @@
                   %a{:href => "#t3"} albert-einstein
                 %li.tab
                   %a{:href => "#t4"} ralph-waldo-emerson
-            / close rotating-testimonials
 
+    %section.section.alt#event-previews
+      .container
+        %h2.pull-center Coming Up
+        = link_to "Browse Events »", events_path, class: "more-events"
+        .row
+          - unless @events.blank?
+            = render 'events/event-home', events: @events
 
 
     %section

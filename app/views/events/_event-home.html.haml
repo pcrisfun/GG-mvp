@@ -1,0 +1,71 @@
+- if (events||=false)
+  - events.each do |event|
+    .span3
+      .box.box-large
+        - if event.type == "Apprenticeship"
+          - if event && event.host_album
+            - if event.host_album.featured_photo
+              = render 'photos/photo', photo: event.host_album.featured_photo, size: :large, url: url_for(event)
+            - elsif event.host_album.photos.first
+              = render 'photos/photo', photo: event.host_album.photos.sort_by { |photo| photo.position(album_id: event.host_album.id) }.first, size: :large, url: url_for(event)
+            - else
+              %a{ href: url_for(edit_apprenticeship_path(event)) }
+                %img.default-photo-large{ src: "/images/common/upload-photos-400px.jpg" }
+          .box-details
+            - unless current_user.blank?
+              - if event.user == current_user
+                - if event.started?
+                  = link_to "Edit", edit_apprenticeship_path(event), class: "btn btn-mini pull-right"
+                - elsif event.accepted?
+                  = link_to "Edit", edit_apprenticeship_path(event), class: "btn btn-mini pull-right"
+
+            = link_to event.title_html, apprenticeship_path(event), class: "title-boxlink"
+
+            Ages
+            %span.badge
+              = event.age_min ? event.age_min : '_'
+              to
+              = event.age_max ? event.age_max : '_'
+            %br
+            %span.date
+              - if event.datetime_tba == false
+                = event.begins_at ? event.begins_at.strftime('%a, %b %d') : '_'
+                &nbsp;-&nbsp;
+                = event.ends_at ? event.ends_at.strftime('%a, %b %d') : '_'
+              - else
+                Dates TBA
+            = avatar_for(event.user, class: "avatar", size: 50, tag: 'medium')
+
+        - if event.type == "Workshop"
+          - if event && event.host_album
+            - if event.host_album.featured_photo
+              = render 'photos/photo', photo: event.host_album.featured_photo, size: :large, url: url_for(event)
+            - elsif event.host_album.photos.first
+              = render 'photos/photo', photo: event.host_album.photos.sort_by { |photo| photo.position(album_id: event.host_album.id) }.first, size: :large, url: url_for(event)
+            - else
+              %a{ href: url_for(edit_workshop_path(event)) }
+                %img.default-photo-large{ src: "/images/common/upload-photos-400px.jpg" }
+          .box-details
+            - unless current_user.blank?
+              - if event.user == current_user
+                - if event.started?
+                  = link_to "Edit", edit_workshop_path(event), class: "btn btn-mini pull-right"
+                - elsif event.accepted?
+                  = link_to "Edit", edit_workshop_path(event), class: "btn btn-mini pull-right"
+
+            = link_to event.title_html, workshop_path(event), class: "title-boxlink"
+
+            Ages
+            %span.badge
+              = event.age_min ? event.age_min : '_'
+              to
+              = event.age_max ? event.age_max : '_'
+            %br
+            %span.date
+              - if event.datetime_tba == false
+                = event.begins_at ? event.begins_at.strftime('%a, %b %d') : '_'
+              - else
+                Dates TBA
+            = avatar_for(event.user, class: "avatar", size: 50, tag: 'medium')
+
+

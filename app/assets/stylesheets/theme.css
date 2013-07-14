@@ -273,7 +273,7 @@ figure {
   -webkit-box-shadow: 0 0 10px rgba(51, 51, 51, 0.9) inset;
   -moz-box-shadow: 0 0 10px rgba(51, 51, 51, 0.9) inset;
   box-shadow: 0 0 10px rgba(51, 51, 51, 0.9) inset;
-  border: 10px solid #eeeeee;
+  border: 10px solid #777;
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
   -o-transition: all 0.2s;
@@ -290,15 +290,15 @@ figure {
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
   border-radius: 50%;
-  opacity: .4;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+  opacity: .8;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
 }
 .blockquote-fancy:hover .blockquote-img {
   border-color: rgba(153, 153, 153, 0.3);
 }
 .blockquote-fancy:hover .blockquote-img img {
-  opacity: .8;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  opacity: .6;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
 }
 .blockquote-fancy a {
   font-size: 24px;
@@ -722,7 +722,7 @@ figure {
   background: none;
   border: 0 none;
   top: 50%;
-  color: #333333;
+  color: #41b7d8;
   left: -30px;
   text-align: left;
   width: 20px;
@@ -733,7 +733,7 @@ figure {
   text-align: right;
 }
 .carousel-control:hover {
-  color: #41b7d8;
+  color: #71B99F;
 }
 
 .theme-color-green .carousel-control:hover {

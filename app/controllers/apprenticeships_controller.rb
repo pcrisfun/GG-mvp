@@ -123,7 +123,7 @@ class ApprenticeshipsController < ApplicationController
   def cancel
     @apprenticeship = Apprenticeship.where(:id => params[:id]).first
     #Ask Pete: is it possible to create a prereg here??? like, && s.user.Prereg.new
-    @apprenticeship.signups.each {|s| s.cancel && s.deliver_cancel }
+    @apprenticeship.signups.each {|s| s.cancel && s.deliver_cancel_maker }
     if @apprenticeship.cancel && @apprenticeship.deliver_cancel
       redirect_to apprenticeships_path, :flash => { :warning => "Rats. Your apprenticeship has been canceled."} and return
     else
