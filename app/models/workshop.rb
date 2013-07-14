@@ -56,6 +56,7 @@ include EventHelper
 
   validation_group :ends_at_time do
     validates_presence_of :ends_at_time, :if => :tba_is_blank
+    validate :ends_after_start_time
   end
 
   validation_group :ends_at do
@@ -93,7 +94,6 @@ include EventHelper
   validation_group :registration_max do
     validates_presence_of :registration_max
     validates_numericality_of :registration_max
-    validates_numericality_of :registration_max, :greater_than => :registration_min, :message => "- Whoops, the maximum number of participants must be greater than the minimum you set."
   end
 
   validation_group :price do
@@ -110,8 +110,10 @@ include EventHelper
   end
 
   def ends_after_start_time
-    if datetime_tba.blank? && ends_at_time && begins_at_time
-      ends_at_time > begins_at_time
+    if !datetime_tba && ends_at_time && begins_at_time
+      if ends_at_time <= begins_at_time
+        errors.add(:ends_at_time, "Whoops, your workshop can't end before it starts! Please check the time you set.")
+      end
     end
   end
 
@@ -213,7 +215,7 @@ include EventHelper
 		return true
 	end
 
-  def deliver_cancel_applicants
+  def deliver_cancel_signups
     Pony.mail({
       :to => "#{self.signup.user.name}<#{self.signup.user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",

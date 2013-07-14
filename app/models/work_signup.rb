@@ -20,7 +20,7 @@ include EventHelper
   validates_acceptance_of :parents_waiver, :if => :parent?
 
   validates_presence_of :parent_name, :parent_phone, :parent_email, :parents_waiver, :if => :minor?
-  validates_acceptance_of :parents_waiver, :if => :minor?
+  validates_acceptance_of :parents_waiver, :message => "Sorry, you must agree to the waiver to sign up.", :if => :minor?
 
   #validates_presence_of :waiver
   validates_acceptance_of :waiver, :message => "Sorry, you must agree to the waiver to sign up."

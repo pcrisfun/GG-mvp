@@ -67,8 +67,11 @@ class WorkshopsController < ApplicationController
       end
     else
       if params[:workshop]
+        Rails.logger.info("before save state: #{@workshop.state}")
+        Rails.logger.info(params[:workshop].inspect)
         @workshop.attributes = params[:workshop]
         @workshop.save(validate: false)
+        Rails.logger.info("after save state: #{@workshop.state}")
 
         if params[:revoke_button]
           if current_user.admin? && @workshop.revoke && @workshop.deliver_revoke
@@ -90,8 +93,14 @@ class WorkshopsController < ApplicationController
           redirect_to private_workshop_path(@workshop), :flash => { warning: "Please correct the following: #{@workshop.errors.full_messages}" } and return
 
         else
-          @workshop.submit && @workshop.deliver
-          redirect_to confirmation_workshop_path(@workshop), flash: { success: "Awesome! Your workshop was submitted."} and return
+
+          if @workshop.started?
+            @workshop.submit && @workshop.deliver
+            redirect_to confirmation_workshop_path(@workshop), flash: { success: "Awesome! Your workshop was submitted."} and return
+          else
+            @workshop.resubmit && @workshop.deliver_resubmit
+            redirect_to workshops_path, :flash => { :success => "Thanks! Your workshop was resubmitted. We'll look it over and let you know when it's posted."} and return
+          end
         end
         raise
       end
@@ -129,8 +138,14 @@ class WorkshopsController < ApplicationController
 #---- cancel
   def cancel
     @workshop = Workshop.where(:id => params[:id]).first
-    #Ask Pete: is it possible to create a prereg here?? like && s.user.Prereg.new
-    @workshop.signups.each {|s| s.cancel && s.deliver_cancel }
+      @workshop.signups.each do |s|
+        s.cancel && s.deliver_cancel_signups
+
+        Prereg.find_or_create_by_user_id_and_event_id!(
+          :user_id => s.user_id,
+          :event_id => @workshop.id)
+      end
+
     if @workshop.cancel && @workshop.deliver_cancel
       redirect_to workshops_path, :flash => { :warning => "Rats. Your workshop has been canceled."} and return
     else
@@ -163,7 +178,7 @@ class WorkshopsController < ApplicationController
 
 #---- resubmit
   def resubmit
-    if @workshop.resubmit && @workshop.deliver_resubmit
+    if @workshop.resubmit! && @workshop.deliver_resubmit
       redirect_to workshops_path, :flash => { :success => "Thanks! Your workshop was resubmitted. We'll look it over and let you know when it's posted."} and return
     else
       raise

@@ -72,7 +72,7 @@
               I HEREBY REPRESENT THAT THE MINOR IS IN GOOD HEALTH, THAT THERE ARE NO SPECIAL PROBLEMS ASSOCIATED WITH THE CARE OF THE MINOR, AND THAT I HAVE LEFT NO SPECIAL INSTRUCTIONS REGARDING THE MINOR.
             %br/
             %span.form-inline
-              = f.check_box :parents_waiver
+              = f.check_box :parents_waiver, :validate => true
               = f.label :parents_waiver do
                 %p{:style => "margin-top:8px;"}
                   I am the legal parent/guardian of the workshop participant,
@@ -89,7 +89,7 @@
               I HEREBY REPRESENT THAT THE MINOR IS IN GOOD HEALTH, THAT THERE ARE NO SPECIAL PROBLEMS ASSOCIATED WITH THE CARE OF THE MINOR, AND THAT I HAVE LEFT NO SPECIAL INSTRUCTIONS REGARDING THE MINOR.
             %br/
             %span.form-inline
-              = f.check_box :parents_waiver
+              = f.check_box :parents_waiver, :validate => true
               = f.label :parents_waiver do
                 %p{:style => "margin-top:8px;"}
                   I am the legal parent/guardian of the workshop participant,

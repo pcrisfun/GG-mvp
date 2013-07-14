@@ -78,7 +78,8 @@ class AppSignupsController < ApplicationController
     #Commented out because they were commented out in work_signups update, because they might be shifting ownership of the signup
     #@app_signup.event_id = @apprenticeship.id
     #@app_signup.user_id = current_user.id
-    current_user.update_attributes(params[:user])
+
+    current_user.update_attributes!(params[:user])
 
     if params[:save_button] == "Save for Later"
       if @app_signup.update_attributes(params[:app_signup])
@@ -138,7 +139,8 @@ class AppSignupsController < ApplicationController
   end
 
   def confirm
-    #add phone? current_user.update_attributes(params[:user])
+    current_user.update_attributes!(params[:user])
+
     if params[:app_signup][:stripe_card_token].present?
       if @app_signup.update_attributes(params[:app_signup])
         if @app_signup.process_apprent_fee

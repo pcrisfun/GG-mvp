@@ -108,6 +108,10 @@ class Event < ActiveRecord::Base
       event.make_stamp
     end
 
+    after_transition :to => :accepted do |transition|
+      notify_preregs
+    end
+
     state :started do
     end
 
@@ -169,6 +173,33 @@ class Event < ActiveRecord::Base
 
   end
 
+  def notify_preregs
+    users = Set.new
+    self.user.events.each do |event|
+      event.preregs.each do |prereg|
+        users << prereg.user
+      end
+    end
+
+    users.each do |prereg_user|
+      return false unless valid?
+      Pony.mail({
+        :to => "#{prereg_user.name}<#{prereg_user.email}>",
+        :from => "Diana & Cheyenne<hello@girlsguild.com>",
+        :reply_to => "GirlsGuild<hello@girlsguild.com>",
+        :subject => "Get first dibs - #{self.topic} with #{user.name}",
+        :html_body => %(<h1>Psst, #{prereg_user.first_name}!</h1>
+          <p>We wanted you to be the first to know that a maker you're following, #{user.name}, has posted a new #{self.type}. Check it out!</p>
+          <p><a href="#{url_for(self)}"> #{self.title}</a></p>
+          <p>We'll be announcing it to the GirlsGuild community soon, so now's your chance to get first dibs on signing up.</p>
+          <p>Thanks, and Happy Making!</p>
+          <p>The GirlsGuild Team</p>),
+        :bcc => "hello@girlsguild.com",
+      })
+      return true
+    end
+  end
+
   def verify_delete?
     self.started?
   end
@@ -202,7 +233,7 @@ class Event < ActiveRecord::Base
         if ['topic', 'host_firstname', 'host_lastname'].include?(attribute)
           self.generate_title
         end
-        if !self.started? && required?(self, attribute.to_sym)
+        if self.accepted? && required?(self, attribute.to_sym)
           self.resubmit
           self.deliver_resubmit
         end
