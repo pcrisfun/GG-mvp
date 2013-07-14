@@ -34,6 +34,7 @@
                       .fb-like{"data-colorscheme" => "dark", "data-href" => "http://www.facebook.com/GirlsGuild", "data-layout" => "button_count", "data-send" => "false", "data-show-faces" => "false", "data-width" => "450", :style => "margin:5px 5px 0 0; float:left;"}
                       %div{:style => "margin:5px; float:right;"}
                         %a.twitter-follow-button{"data-lang" => "en", "data-show-count" => "false", :href => "https://twitter.com/TheGirlsGuild"} Follow @TheGirlsGuild
+
             .item.leading
               .row-fluid
                 .span12
@@ -51,7 +52,9 @@
 
           / Carousel nav
           %a.left.carousel-control{"data-slide" => "prev", :href => "#myCarousel"} ‹
+          %a.left.carousel-control.extra{"data-slide" => "prev", :href => "#myCarousel"}
           %a.right.carousel-control{"data-slide" => "next", :href => "#myCarousel"} ›
+          %a.right.carousel-control.extra{"data-slide" => "next", :href => "#myCarousel"}
           :javascript
             $('#myCarousel').on('slid', '', function() {
             var $this = $(this);

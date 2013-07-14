@@ -222,6 +222,9 @@ a, a:hover, a:active, a:visited, a:focus
 .navbar .nav li.dropdown.active > .dropdown-toggle,
 .navbar .nav li.dropdown.open.active > .dropdown-toggle
   background-color: transparent
+.navbar
+  .brand
+    margin-left: -8px
 
 .nav
   .dropdown
@@ -551,6 +554,17 @@ input[type="radio"], input[type="checkbox"]
     .carousel-control
       height: 230px
       width: 30px
+      opacity: 1
+      &:hover
+        opacity: .7
+    .extra
+      margin-top: 140px
+      height: 80px
+      width: 190px
+    .left.extra
+      background: url(banners/arrow-learn.png) no-repeat center center transparent
+    .right.extra
+      background: url(banners/arrow-lead.png) no-repeat center center transparent
     .item
       //height: 425px
     .overview
