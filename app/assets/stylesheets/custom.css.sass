@@ -1006,23 +1006,26 @@ input[type="radio"], input[type="checkbox"]
   .nav
     margin-bottom: 0px
   .nav-pills > .active > a, .nav-pills > .active > a:hover
-    background-color: #DFF0D8
-    color: #468847
+    background-color: #FFF
   .nav-pills > li > a
     border-radius: 5px 5px 0 0
-    border: 1px solid #EEE
+    border: 1px solid $silver
+    background-color: $silver-light
     &:hover
       border: 1px solid #CCC
   .nav-pills > .active > a
-    border: 1px solid #B6DBCB
+    border: 1px solid #CCC
+    color: $niceblue
   #top-buttons
     float: left
+    margin: 0 0 -1px 10px
     ul
       li
         margin: 0 5px
         a
+          border-bottom: 0px
           margin-left: -35px
-          margin-bottom: -1px
+          margin-bottom: 0px
           padding-left: 40px
           display: inline-block
           line-height: 24px
@@ -1042,14 +1045,15 @@ input[type="radio"], input[type="checkbox"]
           font-size: 20px
           i
             position: absolute
-            left: 5px
             top: 12px
-            color: $grass
+            color: $mint
             font-size: 23px
           .number-text
-            color: #468847
+            color: $niceblue
             font-weight: bold
-            font-size: 21px
+            position: relative
+            top: 1px
+            left: 5px
         .active
           .number-circle
             i
@@ -1057,14 +1061,13 @@ input[type="radio"], input[type="checkbox"]
 
 
 #private-info
-  margin-top: 40px
   .section
-    padding-top: 0px
+    padding-top: 40px
   #top-buttons > ul > li > a
     margin-bottom: 1px
   #full
     border: 0px dashed #CCC
-    background-color: $silver-bright
+    background-color: #FFF
     border-radius: 4px
     clear: both
     padding: 30px
@@ -1079,7 +1082,7 @@ input[type="radio"], input[type="checkbox"]
     padding: 0
   #top
     margin: 0 -3px
-    border: 1px solid #EEE
+    border: 1px solid #CCC
     background-color: #FFF
     border-bottom: none
     border-radius: 4px 4px 0 0
@@ -1088,7 +1091,7 @@ input[type="radio"], input[type="checkbox"]
       border: none
   #middle
     margin: 0 -3px
-    border: 1px solid #EEE
+    border: 1px solid #CCC
     background-color: #FFF
     border-top: none
     border-bottom: none
@@ -1097,7 +1100,7 @@ input[type="radio"], input[type="checkbox"]
       border: none
   #bottom
     margin: 0 -3px
-    border: 1px solid #EEE
+    border: 1px solid #CCC
     background-color: #FFF
     border-top: none
     border-radius: 0 0 4px 4px
@@ -1242,9 +1245,11 @@ input[type="radio"], input[type="checkbox"]
     //width: 90%
     text-align: center
     margin: 0 1.1%
+    +roundcorners(5px)
     #map
       margin: 0px -5px 0 0
       height: 280px
+      +roundcorners(5px)
       .gmnoprint
         display: none
 
@@ -1296,6 +1301,10 @@ input[type="radio"], input[type="checkbox"]
 #apprenticeship-design, #workshop-design
   .field
     background-color: #F9F9F9
+  #price-details
+    display: inline
+  #close-registrations
+    margin-top: 4px
 
 
 // Events Show Pages ======================================================================================
@@ -1334,7 +1343,6 @@ input[type="radio"], input[type="checkbox"]
     border: none
     background-color: transparent
     box-shadow: none
-
   #applysidebar
     padding-top: 15px
     //width: 20%
@@ -1349,14 +1357,6 @@ input[type="radio"], input[type="checkbox"]
     margin-right: -30px
     display: inline-block
     overflow: hidden
-
-#workshop-design, #workshop-show
-  #price-details
-    display: inline
-  #close-registrations
-    margin-top: 4px
-
-#workshop-show
   #total-price
     margin-left: -3px
 
