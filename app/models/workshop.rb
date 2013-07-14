@@ -33,7 +33,8 @@ include EventHelper
   end
 
   validation_group :private do
-    validates_presence_of :payment_options, :permission
+    validates_presence_of :payment_options
+    validates_presence_of :permission, :message => "Background Check can't be blank"
     validate :send_payment_to
   end
 

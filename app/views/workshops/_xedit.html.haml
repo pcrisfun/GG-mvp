@@ -125,12 +125,13 @@
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"If you would like to gauge interest for this idea first before anouncing a date, choose 'TBA'. We'll let you know when people 'follow it' to show their interest in working with you."} }
                   %i.icon-question-sign.small-icon
-              - if !show
-                #close-registrations{class: (show || @workshop.datetime_tba) ?  'hidden' : '' }
-                  Close registrations for this workshop on
-                  #ends-at.field.combodate.optional
-                    = editable_link_to "Date", field: :ends_at, resource: @workshop, type: :combodate, link_text: get_formated_date(@workshop.ends_at), data: { viewformat: 'MMMM D, YYYY', template: 'MMMM / D / YYYY'}
-                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Think about how far in advance you would need to know if someone registers for your workshop."} }
+
+              #close-registrations{class: ( @workshop.datetime_tba) ?  'hidden' : '' }
+                Signups close on
+                #ends-at.field.combodate.optional
+                  = editable_link_to "Date", field: :ends_at, resource: @workshop, type: :combodate, link_text: get_formated_date(@workshop.ends_at), data: { viewformat: 'MMMM D, YYYY', template: 'MMMM / D / YYYY'}
+                - if !show
+                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Think about how far in advance you would like to know if someone registers for your workshop. How much time will it take to prep. for that number of students?"} }
                     %i.icon-question-sign.small-icon
             %dt
               - if !show
@@ -226,7 +227,7 @@
             %dt
               - if !show
                 %i.icon-asterisk
-              Skills
+              Skills Taught
             %dd
               #skills.field.tags
                 = editable_link_to 'Skills and techniques will you be teaching', field: :skill_list, resource: @workshop, type: :select2
@@ -236,7 +237,7 @@
             %dt
               - if !show
                 %i.icon-asterisk
-              Tools
+              Tools Taught
             %dd
               #tools.field.tags
                 = editable_link_to 'Tools and materials will you be teaching or using', field: :tool_list, resource: @workshop, type: :select2
