@@ -57,6 +57,9 @@ class Apprenticeship < Event
   validation_group :begins_at do
     validates_presence_of :begins_at
   end
+  validation_group :ends_at do
+    validates_presence_of :ends_at
+  end
   validation_group :skill_list do
     validates_presence_of :skill_list
   end
