@@ -45,7 +45,7 @@ class ApprenticeshipsController < ApplicationController
       error_msg << msg
     end
     respond_to do |format|
-      format.json { render json: { errors: @apprenticeship.errors[params[:name].to_sym].first } and return }
+      format.json { render json: { errors: $!.inspect } and return }
       format.html { redirect_to :back, :flash => { warning: "Blarf.  The following error(s) occured while attempting to create your apprenticeship: #{error_msg}".html_safe} and return }
     end
 
