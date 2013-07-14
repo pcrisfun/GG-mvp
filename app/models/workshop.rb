@@ -109,7 +109,7 @@ include EventHelper
   end
 
   def ends_after_start_time
-    if datetime_tba.blank?
+    if datetime_tba.blank? && ends_at_time && begins_at_time
       ends_at_time > begins_at_time
     end
   end
