@@ -1,10 +1,47 @@
 - provide(:title, 'Makers')
-%section#makers_show.section
+%section#makers-index.section
   .container
     %h1 Makers in the Guild
-    Sign up to stay updated about the makers you'd like to work with in the future.
-    %br We'll send you an email when they post a workshop or apprenticeship so you can get first dibs on their sessions.
+    = link_to "Post an Idea", new_apprenticeship_path, class: 'btn btn-large btn-primary pull-right'
+    %span.bttn-call.kristi.pull-right
+      Hey Makers!
     %br
     %br
+    .accordion#accordion2
+      .accordion-group
+        .accordion-heading
+          %a.accordion-toggle.howitworks-drop{"data-toggle" => "collapse", href: "#collapseOne", class: 'pull-center' }
+            How it Works
+            %i.icon-chevron-down
+        #collapseOne.accordion-body.collapse
+          .accordion-inner
+            %br/
+            .row-fluid
+              %ul.thumbnails
+                %li.span4
+                  .row-fluid
+                    .span4.pull-center
+                      %i.icon-bolt.enormous-icon.circled.pull-center.icon-4x
+                    .span8
+                      %h3 Browse Makers
+                      %p
+                        Check out the list of brilliant Makers below. We know you'll find someone who inspires you.
+                %li.span4
+                  .row-fluid
+                    .span4.pull-center
+                      %i.icon-eye-open.enormous-icon.circled.pull-center.icon-4x
+                    .span8
+                      %h3 Follow
+                      %p
+                        Follow as many Makers as you like to show them that your interested in learning from them.
+                %li.span4
+                  .row-fluid
+                    .span4.pull-center
+                      %i.icon-envelope-alt.enormous-icon.circled.pull-center.icon-4x
+                    .span8
+                      %h3 Get first Dibs
+                      %p We'll send you an email when they post a workshop or apprenticeship so you can get first dibs on their sessions.
+
+
     .row-fluid
       = render partial: 'maker', collection: @makers

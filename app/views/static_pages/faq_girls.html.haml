@@ -1,120 +1,79 @@
 - provide(:title, 'FAQ for Girls')
 / FAQ For Girls
 
-%section.section#getinvolved
-  .container
-    .page-header
-      %h1
-        We think you're kind of a big deal
-        %small
-
-    .row-fluid
-      .span3
-        %ul.nav.nav-list
-          %li.header
-            For Makers
-          = active_link_to( content_tag(:i, '', class: 'icon-wrench')+ 'Offering an Apprenticeship', dashboard_path, :wrap_tag => :li, :active => :exclusive )
-          = active_link_to( content_tag(:i, '', class: 'icon-pencil')+ 'Leading a Workshop', edit_user_registration_path(current_user), :wrap_tag => :li, :active => :exclusive )
-
-      .span9
-        %ul.thumbnails.bordered
-          %li
-            .row-fluid
-              .span2.pull-center
-                %i.enormous-icon.icon-eye-open.circled.pull-center
-              .span10
-                %h3 Follow Makers & Events You Like
-                %p
-                  Let a maker know that you're interested in working with them by signing up for updates. We'll keep you posted when they schedule an event.
-                  %br
-                .kristi.pull-left $0.00
-                = link_to "Browse Makers", makers_path, class: "btn btn-small pull-right btn-success"
-            %hr/
-
-            .row-fluid
-              .span2.pull-center
-                %i.enormous-icon.icon-wrench.circled.pull-center
-              .span10
-                %h3 Do an Apprenticeship
-                %p
-                  Learn the skills, tools, and techniques unique to the artist's creative process while helping with her day-to-day practice. Help create an edition of her work, collaborate on design, or help her organize an event.
-                  %br
-                .kristi.pull-left $29
-                = link_to "Browse Apprenticeships", apprenticeships_path, class: "btn btn-small pull-right btn-success"
-            %hr/
-
-            .row-fluid
-              .span2.pull-center
-                %i.enormous-icon.icon-pencil.circled.pull-center
-              .span10
-                %h3 Take a Workshop
-                %p
-                  Play with new materials and techniques, or refine your already awesome skills by taking a workshop taught by someone whose work you love.
-                  %br
-                .kristi.small $ Varies
-                = link_to "Browse Workshops", workshops_path, class: "btn btn-small pull-right btn-success"
-            %hr/
-
-            .row-fluid
-              .span2.pull-center
-                %i.enormous-icon.icon-home.circled.pull-center.commingsoon
-                  .commingsoon-text Coming Soon!
-              .span10
-                %h3 Do a Studio Visit
-                %p
-                  There's no better way to create and refine your own ideas than by talking about them with smart people. Request or host a studio visit with someone you respect in the community.
-                .kristi $0
-                = link_to "Register", apprenticeships_path, class: "btn btn-small pull-right btn-success disabled"
-            %br
-
-
-            /.row-fluid
-            /  .span4.pull-center
-            /    %i.enormous-icon.circled.pull-center
-            /      .kristi $29
-            /  .span8
-            /    %h3 Do an Event Apprenticeship
-            /    %p
-            /      Help a maker out with organizing, running, curating, or facilitating an event! Learn first hand what it takes to hang a show, or organize a gala.
-            /      %br
-            /    = link_to "Browse Apprenticeships", apprenticeships_path, class: "btn btn-small pull-right btn-success"
-            /%hr/
-
-            /.row-fluid
-            /  .span4.pull-center
-            /    %i.enormous-icon.circled.pull-center
-            /      .kristi $29
-            /  .span8
-            /    %h3 Do an Ongoing Apprenticeship
-            /    %p
-            /      Work with a creative by assisting her with her day-to-day studio tasks. Help her create work and learn what it's like to own and operate a small creative business.
-            /    = link_to "Browse Apprenticeships", apprenticeships_path, class: "btn btn-small pull-right btn-success"
-            /%hr/
-
-            /.row-fluid
-            /  .span4.pull-center
-            /    %i.enormous-icon.circled.pull-center.commingsoon
-            /      .kristi $45
-            /      .commingsoon-text Coming Soon!
-            /  .span8
-            /    %h3 Do a 1-Day Apprenticeship
-            /    %p
-            /      Get a taste of what it's like to be a carpenter, a web developer, a painter, or a baker, by signing up for a 1-Day Apprenticeship!
-            /      %br
-            /    = link_to "Browse Apprenticeships", apprenticeships_path, class: "btn btn-small pull-right btn-success disabled"
-            /    %a{name: "donate"}
-
-
 %section#promo.section.alt
   .container
     .hero-unit
       %h1 FAQ for Girls
-      .kristi.pull-right.faqlinknav
-        = link_to "FAQ for Makers", faq_makers_path
+      %small
+        .pull-right.faqlinknav
+          = link_to "/ FAQ for Makers »", faq_makers_path
+
+
 %section.section#FAQ
   .container
     .row-fluid
       .span9
+        .row-fluid
+          .span2.pull-center
+            %i.enormous-icon.icon-eye-open.circled.pull-center
+          .span10
+            %h3 Follow Makers & Events You Like
+            %p
+              Let a maker know that you're interested in working with them by signing up for updates. We'll keep you posted when they schedule an event.
+              %a{href: "#" } Learn More »
+              %br
+            .kristi.pull-left $0.00
+            = link_to "Browse Makers", makers_path, class: "btn btn-small pull-right btn-success"
+
+        %hr/
+
+        .row-fluid
+          .span2.pull-center
+            %i.enormous-icon.icon-wrench.circled.pull-center
+          .span10
+            %h3 Do an Apprenticeship
+            %p
+              Learn the skills, tools, and techniques unique to the artist's creative process while helping with her day-to-day practice. Help create an edition of her work, collaborate on design, or help her organize an event.
+              %a{href: "#moregetlisted" } Learn More »
+              %br
+            .kristi.pull-left $29
+            = link_to "Browse Apprenticeships", apprenticeships_path, class: "btn btn-small pull-right btn-success"
+
+        %hr/
+
+        .row-fluid
+          .span2.pull-center
+            %i.enormous-icon.icon-pencil.circled.pull-center
+          .span10
+            %h3 Take a Workshop
+            %p
+              Play with new materials and techniques, or refine your already awesome skills by taking a workshop taught by someone whose work you love.
+              %a{href: "#moregetlisted" } Learn More »
+              %br
+            .kristi.small $ Varies
+            = link_to "Browse Workshops", workshops_path, class: "btn btn-small pull-right btn-success"
+
+        %hr/
+
+        /.row-fluid
+        /  .span2.pull-center
+        /    %i.enormous-icon.icon-home.circled.pull-center.commingsoon
+        /      .commingsoon-text Coming Soon!
+        /  .span10
+        /    %h3 Do a Studio Visit
+        /    %p
+        /      There's no better way to create and refine your own ideas than by talking about them with smart people. Request or host a studio visit with someone you respect in the community.
+        /      %a{href: "#moregetlisted" } Learn More »
+        /      %br
+        /    .kristi $0
+        /    = link_to "Register", apprenticeships_path, class: "btn btn-small pull-right btn-success disabled"
+
+
+        %br
+        %br
+
+
         %article.blog-post
           %h2
             About GirlsGuild
@@ -309,4 +268,4 @@
           %h3.sidebar-header Have an awesome suggestion for us?
           %p
             We're super new, and we're still building out our service. We'd love to hear your thoughts on what type of opportunities you'd like to see offered, or how we can make this a better service. We also accept love notes.
-          %a.btn.btn-primary{:href => contact_path} Send email
+          %a.btn.btn-primary.pull-right{:href => contact_path} Send email

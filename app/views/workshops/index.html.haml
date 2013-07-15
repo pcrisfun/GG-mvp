@@ -2,18 +2,18 @@
 %section#workshops-index.section
   .container
     %h1 Workshops
-    = link_to "Offer a Workshop!", new_workshop_path, class: 'btn btn-large btn-primary pull-right'
+    = link_to "Offer a Workshop", new_workshop_path, class: 'btn btn-large btn-primary pull-right'
     %span.bttn-call.kristi.pull-right
       Hey Makers!
-    %br/
-    %br/
+    %br
+    %br
     .accordion#accordion2
       .accordion-group
         .accordion-heading
-          %a.accordion-toggle{"data-toggle" => "collapse", href: "#collapseOne", class: 'pull-center' }
+          %a.accordion-toggle.howitworks-drop{"data-toggle" => "collapse", href: "#collapseOne", class: 'pull-center' }
             How it Works
             %i.icon-chevron-down
-        #collapseOne.accordion-body.collapse.in
+        #collapseOne.accordion-body.collapse
           .accordion-inner
             %br/
             .row-fluid
