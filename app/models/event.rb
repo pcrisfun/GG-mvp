@@ -181,20 +181,26 @@ class Event < ActiveRecord::Base
       end
     end
 
+
+    prereg_user_html = "<ul>" + users.map do |prereg_user|
+       "<li>#{prereg_user.name} (#{prereg_user.email})</li>"
+    end + "</ul>"
+
     users.each do |prereg_user|
       return false unless valid?
       Pony.mail({
-        :to => "#{prereg_user.name}<#{prereg_user.email}>",
+        :to => "GG Admins<hello@girlsguild.com>",
         :from => "Diana & Cheyenne<hello@girlsguild.com>",
         :reply_to => "GirlsGuild<hello@girlsguild.com>",
-        :subject => "Get first dibs - #{self.topic} with #{user.name}",
-        :html_body => %(<h1>Psst, #{prereg_user.first_name}!</h1>
+        :subject => "Send a prereg email - #{self.topic} with #{user.name}",
+        :html_body => %(<p>Send to this list:</p>
+          <p>#{prereg_user_html}</p>
+          <p>Here's something to copy/paste</p>
+          <h1>Psst, #{prereg_user.first_name}!</h1>
           <p>We wanted you to be the first to know that a maker you're following, #{user.name}, has posted a new #{self.type}. Check it out!</p>
-          <p><a href="#{url_for(self)}"> #{self.title}</a></p>
           <p>We'll be announcing it to the GirlsGuild community soon, so now's your chance to get first dibs on signing up.</p>
           <p>Thanks, and Happy Making!</p>
           <p>The GirlsGuild Team</p>),
-        :bcc => "hello@girlsguild.com",
       })
       return true
     end

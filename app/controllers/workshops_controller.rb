@@ -75,12 +75,12 @@ class WorkshopsController < ApplicationController
 
         if params[:revoke_button]
           if current_user.admin? && @workshop.revoke && @workshop.deliver_revoke
-            redirect_to workshops_path, :flash => { :warning => "Workshop revoked."}
+            redirect_to workshops_path, :flash => { :warning => "Workshop revoked."} and return
           end
 
         elsif params[:reject_button]
           if current_user.admin? && @workshop.reject && @workshop.deliver_reject
-            redirect_to workshops_path, :flash => { :warning => "Workshop rejected." }
+            redirect_to workshops_path, :flash => { :warning => "Workshop rejected." } and return
           end
 
         elsif params[:commit] == 'Save'

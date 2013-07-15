@@ -99,4 +99,7 @@
             %hr/
             %h3 Makers, it's your call
             = link_to "Decline Application", {:action => "decline", id: @app_signup, :controller => "app_signups"}, :method => :post, class: "btn btn-danger pull-left", :data => { :confirm => 'Are you sure you want to decline this applicant? Declining cannot be undone.'}
-            = link_to "Accept Application", {:action => "accept", id: @app_signup, :controller => "app_signups"}, :method => :post, class: "btn btn-success pull-right", :data => { :confirm => 'Are you sure you want to accept this application? Accepting cannot be undone.'}
+            - if @app_signup.event.filled?
+              = link_to "Accept Application", {:action => "accept", id: @app_signup, :controller => "app_signups"}, rel: 'popover', data: {placement: "top", content: "Sorry, you've already filled this apprenticeship."},class: "btn btn-success pull-right disabled"
+            - else
+              = link_to "Accept Application", {:action => "accept", id: @app_signup, :controller => "app_signups"}, :method => :post, class: "btn btn-success pull-right", :data => { :confirm => 'Are you sure you want to accept this application? Accepting cannot be undone.'}
