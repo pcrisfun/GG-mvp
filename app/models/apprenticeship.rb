@@ -3,39 +3,41 @@ class Apprenticeship < Event
 	has_many :users, :through => :signup
 	has_many :users, :through => :prereg
 
-	# validates_presence_of :kind, :hours, :hours_per #, :charge_id (shouldn't need this bc we added 'update_attribute(:charge_id, charge.id)' to process_payment method)
-	# validates_numericality_of :hours, :greater_than => 0
-	# validates :begins_at, :date => {:after => Proc.new { Date.today + 6.day }, :message => 'Sorry! You need to plan your apprenticeship to start at least a week from today. Please check the dates you set.'}, :if => :tba_is_blank
-	# validates :ends_at, :date => {:after => :begins_at, :message => "Oops! Please check the dates you set. Your apprenticeship can't end before it begins!"}, :if => :tba_is_blank
   validation_group :design do
+  # Title & Description
     validates_presence_of :topic
     validates_presence_of :host_firstname
     validates_presence_of :host_lastname
     validates_presence_of :kind
     validates_presence_of :description
+  # Images
+    validate :host_album_limit
+  # Dates
+    validates :begins_at, :date => {:after => Proc.new { Date.today + 6.day }, :message => 'Sorry! You need to plan your apprenticeship to start at least a week from today. Please check the dates you set.'}, :if => :tba_is_blank
+    validates :ends_at, :date => {:after => :begins_at, :message => "Oops! Please check the dates you set. Your apprenticeship can't end before it begins!"}, :if => :tba_is_blank
+  # Hours & Availability
+    validates_presence_of :hours
+    validates_numericality_of :hours, :greater_than => 0
     validates_presence_of :availability
-    #validates :begins_at, :presence_of, if :tba_is_blank
-    #validates :begins_at, :date => {:after => Proc.new { Date.today + 6.day }, :message => 'Sorry! You need to plan your apprenticheship to start at least a week from today. Please check the date you set.'}, if => :tba_is_blank
-    #validates_presence_of :ends_at, if :tba_is_blank
-    #validates :ends_at, :date => {:after_or_equal_to => :begins_at, :message => "Whoops, your apprenticeship can't end before it starts. Please check the dates you set." }, if => :tba_is_blank
-    validates_presence_of :skill_list
-    validates_presence_of :tool_list
-    validates_presence_of :location_address
-    validates_presence_of :location_city
-    validates_presence_of :location_state
-    validates_presence_of :location_zipcode
+  # Address & Neighborhood
+    validates_presence_of :location_address, :location_city, :location_state
+    validates_presence_of :location_nbrhood, :if => :residential
+  # Age
     validates_presence_of :age_min
     validates_presence_of :age_max
-    validates_presence_of :registration_max
     validates_numericality_of :age_min, :greater_than => 0
     validates_numericality_of :age_max, :greater_than => :age_min, :message => " must be greater than the minimum age you set."
-    validates_numericality_of :registration_max, :greater_than_or_equal_to => 1, :message => " registrations must be greater than 0."
-    validate :host_album_limit
+  # Registration
+    validates_presence_of :registration_max
+    validates_numericality_of :registration_max, :greater_than_or_equal_to => 1, :message => " The number of apprentices must be greater than 0."
+  # Skills & Tools
+    validates_presence_of :skill_list, :tool_list
   end
 
   validation_group :private do
-    validates_presence_of :permission
+    validates_presence_of :permission, :message => "We need your permission to run a background check."
   end
+
   validation_group :topic do
     validates_presence_of :topic
   end
@@ -51,20 +53,17 @@ class Apprenticeship < Event
   validation_group :description do
     validates_presence_of :description
   end
-  validation_group :availability do
-    validates_presence_of :availability
-  end
   validation_group :begins_at do
-    validates_presence_of :begins_at
+    validates :begins_at, :date => {:after => Proc.new { Date.today + 6.day }, :message => 'Sorry! You need to plan your apprenticeship to start at least a week from today. Please check the dates you set.'}, :if => :tba_is_blank
   end
   validation_group :ends_at do
-    validates_presence_of :ends_at
+    validates :ends_at, :date => {:after => :begins_at, :message => "Oops! Please check the dates you set. Your apprenticeship can't end before it begins!"}, :if => :tba_is_blank
   end
-  validation_group :skill_list do
-    validates_presence_of :skill_list
+  validation_group :hours do
+    validates_numericality_of :hours, :greater_than => 0
   end
-  validation_group :tool_list do
-    validates_presence_of :tool_list
+  validation_group :availability do
+    validates_presence_of :availability
   end
   validation_group :location_address do
     validates_presence_of :location_address
@@ -75,8 +74,8 @@ class Apprenticeship < Event
   validation_group :location_state do
     validates_presence_of :location_state
   end
-  validation_group :location_zipcode do
-    validates_presence_of :location_zipcode
+  validation_group :location_nbrhood do
+    validates_presence_of :location_nbrhood, :if => :residential
   end
   validation_group :age_min do
     validates_presence_of :age_min
@@ -88,7 +87,13 @@ class Apprenticeship < Event
   end
   validation_group :registration_max do
     validates_presence_of :registration_max
-    validates_numericality_of :registration_max, :greater_than_or_equal_to => 1, :message => " registrations must be greater than 0."
+    validates_numericality_of :registration_max, :greater_than_or_equal_to => 1, :message => " The number of apprentices must be greater than 0."
+  end
+  validation_group :skill_list do
+    validates_presence_of :skill_list
+  end
+  validation_group :tool_list do
+    validates_presence_of :tool_list
   end
 
   include Emailable
