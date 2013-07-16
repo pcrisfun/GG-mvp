@@ -386,15 +386,26 @@ a, a:hover, a:active, a:visited, a:focus
     .well
       background-color: $silver-light
 .faqlinknav
-  font-size: 45px
+  font-size: 25px
+  font-weight: bold
+  margin-top: -23px
 
 
 // How it works =================================================================================
-.accordion
+.accordion-heading
+  .howitworks-drop
+    color: $plum
+    font-weight: bold
+
+.howitworks
+  padding: 30px 0px
   .thumbnails
     li
       margin-bottom: 0px
-
+  i
+    text-shadow: 1px 1px 1px #000
+  .span4
+    border: none
 
 // Forms ======================================================================================
 .simple_form, #apprenticeship-design, #workshop-design
@@ -504,10 +515,13 @@ a, a:hover, a:active, a:visited, a:focus
 ul.token-input-list-facebook
   clear: none
 
-.popover, .popover.arrow
+.popover
   background: #333
-.popover.right .arrow
-  border-right-color: #333
+  .right, .left
+    background: #333
+    text-align: left
+  .arrow
+    border-right-color: #333
 .popover-inner
   text-align: left
 .popover-title
@@ -607,7 +621,7 @@ input[type="radio"], input[type="checkbox"]
           font-weight: bold
           color: $mint
           text-transform: uppercase
-          line-height: 33px
+          line-height: 29px
       h2
         +dosis-caps
         font-size: 45px
@@ -949,7 +963,7 @@ input[type="radio"], input[type="checkbox"]
   overflow: hidden
   display: block
 
-#workshops-index, #apprenticeships-index
+#workshops-index, #apprenticeships-index, #makers-index
   .box
     .title-business
       display: none
@@ -1458,14 +1472,6 @@ input[type="radio"], input[type="checkbox"]
 .row-saved, .row-pending, .row-canceled, .row-filled, .row-completed, .row-upcoming
   font-size: 12px
 
-
-// How it works ======================================================================================
-.howitworks
-  padding: 30px 0px
-  i
-    text-shadow: 1px 1px 1px #000
-  .span4
-    border: none
 
 
 // Makers Page ======================================================================================
