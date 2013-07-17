@@ -1,10 +1,18 @@
 - event = maker.events.where(:state => ['accepted', 'filled', 'in_progress', 'completed']).last
-.box
-  .avatar
-    = avatar_for(maker, size: 214, tag: 'large')
-  .name
-    = maker.name
-  .event
-    = link_to event.topic, url_for(controller: event.class.name.underscore.pluralize, action: 'show', id: event.id )
-  .prereg
-    = render :partial => "shared/prereg", :locals => {:event => event}
+.row-fluid
+  .row-fluid
+    %h3.name
+      = maker.name
+    .event.pull-right
+      = link_to event.topic, url_for(controller: event.class.name.underscore.pluralize, action: 'show', id: event.id )
+      = link_to event.type, url_for(controller: event.class.name.underscore.pluralize, action: 'show', id: event.id ), class: "label"
+  .row-fluid
+    .span2.avatar
+      = avatar_for(maker, size: 114, tag: 'small')
+      .prereg
+        = render :partial => "shared/prereg", :locals => {:event => event}
+    - event.host_album.photos.limit(5).each do |photo|
+      .span2
+        = render 'photos/photo', photo: photo, size: :large, description: (description ||= false), edit: (edit ||= false)
+
+%hr

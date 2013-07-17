@@ -2,7 +2,7 @@
 %section#makers-index.section
   .container
     %h1 Makers in the Guild
-    = link_to "Post an Idea", new_apprenticeship_path, class: 'btn btn-large btn-primary pull-right'
+    = link_to "Post an Idea", new_workshop_path, class: 'btn btn-large btn-primary pull-right'
     %span.bttn-call.kristi.pull-right
       Hey Makers!
     %br
@@ -43,5 +43,5 @@
                       %p We'll send you an email when they post a workshop or apprenticeship so you can get first dibs on their sessions.
 
 
-    .row-fluid
-      = render partial: 'maker', collection: @makers
+
+    = render partial: 'maker', collection: @makers
