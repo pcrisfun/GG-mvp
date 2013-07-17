@@ -174,7 +174,7 @@ class Event < ActiveRecord::Base
   end
 
   # def notify_preregs
-  #   if self.preregs
+  #   if self.preregs --- except this needs to check if there are any preregs for the maker, not just the event
   #     users = Set.new
   #     self.user.events.each do |event|
   #       event.preregs.each do |prereg|
