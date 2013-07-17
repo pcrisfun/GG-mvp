@@ -26,10 +26,10 @@ class Apprenticeship < Event
     validates_presence_of :age_min
     validates_presence_of :age_max
     validates_numericality_of :age_min, :greater_than => 0
-    validates_numericality_of :age_max, :greater_than => :age_min, :message => " must be greater than the minimum age you set."
+    validates_numericality_of :age_max, :greater_than => :age_min, :message => " must be greater than the minimum age you set.", :if => :age_min_is_set
   # Registration
     validates_presence_of :registration_max
-    validates_numericality_of :registration_max, :greater_than_or_equal_to => 1, :message => " The number of apprentices must be greater than 0."
+    validates_numericality_of :registration_max, :greater_than_or_equal_to => 1, :message => " The number of apprentices must be greater than 0.", :if => :reg_min_is_set
   # Skills & Tools
     validates_presence_of :skill_list, :tool_list
   end
@@ -83,11 +83,11 @@ class Apprenticeship < Event
   end
   validation_group :age_max do
     validates_presence_of :age_max
-    validates_numericality_of :age_max, :greater_than => :age_min, :message => " must be greater than the minimum age you set."
+    validates_numericality_of :age_max, :greater_than => :age_min, :message => " must be greater than the minimum age you set.", :if => :age_min_is_set
   end
   validation_group :registration_max do
     validates_presence_of :registration_max
-    validates_numericality_of :registration_max, :greater_than_or_equal_to => 1, :message => " The number of apprentices must be greater than 0."
+    validates_numericality_of :registration_max, :greater_than_or_equal_to => 1, :message => " The number of apprentices must be greater than 0.", :if => :reg_min_is_set
   end
   validation_group :skill_list do
     validates_presence_of :skill_list

@@ -85,6 +85,14 @@ class Event < ActiveRecord::Base
     location_private == true
   end
 
+  def age_min_is_set
+    age_min.present?
+  end
+
+  def reg_min_is_set
+    registration_min.present?
+  end
+
   def google_address
     if self.location_private && self.location_nbrhood
       return "#{self.location_nbrhood} #{self.location_city} #{self.location_state} #{self.location_zipcode}"

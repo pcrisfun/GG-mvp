@@ -21,10 +21,10 @@ include EventHelper
     validates_presence_of :location_nbrhood, :if => :residential
   # Age
     validates_numericality_of :age_min, :greater_than => 0
-    validates_numericality_of :age_max, :greater_than => :age_min, :message => "- Whoops, the maximum age must be greater than the minimum age you set."
+    validates_numericality_of :age_max, :greater_than => :age_min, :message => "- Whoops, the maximum age must be greater than the minimum age you set.", :if => :age_min_is_set
   # Signups
     validates_presence_of :registration_min, :registration_max
-    validates_numericality_of :registration_max, :greater_than => :registration_min, :message => "- Whoops, the maximum number of participants must be greater than the minimum you set."
+    validates_numericality_of :registration_max, :greater_than => :registration_min, :message => "- Whoops, the maximum number of participants must be greater than the minimum you set.", :if => :reg_min_is_set
   # Price
     validates_presence_of :price
     validates_numericality_of :price, :greater_than_or_equal_to => 0
@@ -75,12 +75,16 @@ include EventHelper
     validates_presence_of :location_state
   end
 
+  validation_group :location_nbrhood do
+    validates_presence_of :location_nbrhood, :if => :residential
+  end
+
   validation_group :age_min do
     validates_numericality_of :age_min, :greater_than => 0
   end
 
   validation_group :age_max do
-    validates_numericality_of :age_max, :greater_than => :age_min, :message => "- Whoops, the maximum age must be greater than the minimum age you set."
+    validates_numericality_of :age_max, :greater_than => :age_min, :message => "- Whoops, the maximum age must be greater than the minimum age you set.", :if => :age_min_is_set
   end
 
   validation_group :registration_min do
@@ -89,7 +93,7 @@ include EventHelper
 
   validation_group :registration_max do
     validates_presence_of :registration_max
-    validates_numericality_of :registration_max
+    validates_numericality_of :registration_max, :greater_than => :registration_min, :message => "- Whoops, the maximum number of participants must be greater than the minimum you set.", :if => :reg_min_is_set
   end
 
   validation_group :price do
