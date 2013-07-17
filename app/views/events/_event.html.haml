@@ -20,9 +20,10 @@
                   = link_to "Edit", edit_apprenticeship_path(event), class: "btn btn-mini pull-right"
 
             = link_to event.title_html, apprenticeship_path(event), class: "title-boxlink"
+            = event.type
 
             Ages
-            %span.badge
+            %span.label
               = event.age_min ? event.age_min : '_'
               to
               = event.age_max ? event.age_max : '_'
@@ -54,9 +55,10 @@
                   = link_to "Edit", edit_workshop_path(event), class: "btn btn-mini pull-right"
 
             = link_to event.title_html, workshop_path(event), class: "title-boxlink"
+            = event.type
 
             Ages
-            %span.badge
+            %span.label
               = event.age_min ? event.age_min : '_'
               to
               = event.age_max ? event.age_max : '_'

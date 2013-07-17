@@ -9,7 +9,7 @@
         .pull-right.faqlinknav
           = link_to "/ FAQ for Makers »", faq_makers_path
 
-
+%br
 %section.section#FAQ
   .container
     .row-fluid
@@ -21,7 +21,7 @@
             %h3 Follow Makers & Events You Like
             %p
               Let a maker know that you're interested in working with them by signing up for updates. We'll keep you posted when they schedule an event.
-              %a{href: "#" } Learn More »
+              /%a{href: "#" } Learn More »
               %br
             .kristi.pull-left $0.00
             = link_to "Browse Makers", makers_path, class: "btn btn-small pull-right btn-success"
@@ -35,7 +35,7 @@
             %h3 Do an Apprenticeship
             %p
               Learn the skills, tools, and techniques unique to the artist's creative process while helping with her day-to-day practice. Help create an edition of her work, collaborate on design, or help her organize an event.
-              %a{href: "#moregetlisted" } Learn More »
+              %a{href: "#more-do-apprenticeship" } Learn More »
               %br
             .kristi.pull-left $29
             = link_to "Browse Apprenticeships", apprenticeships_path, class: "btn btn-small pull-right btn-success"
@@ -49,7 +49,7 @@
             %h3 Take a Workshop
             %p
               Play with new materials and techniques, or refine your already awesome skills by taking a workshop taught by someone whose work you love.
-              %a{href: "#moregetlisted" } Learn More »
+              %a{href: "#more-do-workshop" } Learn More »
               %br
             .kristi.small $ Varies
             = link_to "Browse Workshops", workshops_path, class: "btn btn-small pull-right btn-success"
@@ -71,8 +71,11 @@
 
 
         %br
-        %br
 
+%section.section#FAQ
+  .container
+    .row-fluid
+      .span9
 
         %article.blog-post
           %h2
@@ -99,7 +102,7 @@
               #q2.accordion-body.collapse
                 .accordion-inner
                   There are lots of ways to get involved in GirlsGuild. If you're interested in picking up some new skills and meeting new friends while you're at it, you can take some of our artist-led workshops. If you think you'd like to do an apprenticeship but aren't sure what kind, try a 1-day apprenticeship to get your feet wet and find out what it's all about. And if you're really looking to build your skills and get some real experience working with an artist longer term, apply for a production, event, or ongoing apprenticeship. If you sign up for our newsletter we'll keep you posted on events and new opportunities that come up in the community.
-          .accordion
+          .accordion#more-do-apprenticeship
             .accordion-group
               .accordion-heading
                 %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q3"}
@@ -157,7 +160,7 @@
               #q14.accordion-body.collapse
                 .accordion-inner
                   When a maker is available to take on an apprentice, we list her apprenticeship opportunity on our website. You can apply for the apprenticeship, and when she's reviewed all the applications, the maker chooses the girl who'll be the best fit for the work they'll be doing. We'll let you know her decision, and if you're accepted, you confirm by registering and paying.
-          .accordion
+          .accordion#more-do-workshop
             .accordion-group
               .accordion-heading
                 %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q15"}
