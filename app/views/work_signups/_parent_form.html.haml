@@ -67,7 +67,7 @@
           <br />
 
         - if @workshop.respect_my_style == "1"
-          = f.input :respect_agreement, label: "Respect Agreement" do
+          = f.input :respect_agreement, label: "Respect Agreement", :required => true do
             %textarea.span6{:readonly => "true", :rows => "3"}
               Teaching your unique techniques can sometimes feel like risking trade secrets. For this reason we ask all of our guild members to agree to respect the maker's proprietary techniques by not directly copying their work.
             %br/

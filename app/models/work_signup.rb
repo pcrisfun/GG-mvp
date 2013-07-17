@@ -52,7 +52,9 @@ include EventHelper
   end
 
   def respect_agreement?
-    return self.event.respect_my_style == 'true'
+    if self.event.respect_my_style == '1'
+      return true
+    end
   end
 
   # Creates a sign up object, processes payment, and marks sign up
