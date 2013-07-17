@@ -75,10 +75,6 @@ include EventHelper
     validates_presence_of :location_state
   end
 
-  validation_group :location_nbrhood do
-    validates_presence_of :location_nbrhood, :if => :residential
-  end
-
   validation_group :age_min do
     validates_numericality_of :age_min, :greater_than => 0
   end
@@ -214,20 +210,6 @@ include EventHelper
 		})
 		return true
 	end
-
-  def deliver_cancel_signups
-    Pony.mail({
-      :to => "#{self.signup.user.name}<#{self.signup.user.email}>",
-      :from => "Diana & Cheyenne<hello@girlsguild.com>",
-      :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Workshop has been canceled - #{topic} with #{user.name}",
-      :html_body => %(<h1>Bummer!</h1>
-        <p>We're sorry to say that #{user.name} has had to cancel her workshop on #{self.topic}. It may be rescheduled later, and if it is you'll be the first to know!</p>
-        <p>In the meantime we'll refund your sign-up fee, and you can check out other upcoming workshops you might like here: <a href="#{url_for(workshops)}"> #{workshops_path}</a>.</p>),
-      :bcc => "hello@girlsguild.com",
-    })
-    return true
-  end
 
 	def deliver_reject
 		Pony.mail({
