@@ -8,7 +8,7 @@
       = link_to event.type, url_for(controller: event.class.name.underscore.pluralize, action: 'show', id: event.id ), class: "label"
   .row-fluid
     .span2.avatar
-      = avatar_for(maker, size: 114, tag: 'small')
+      = avatar_for(maker, size: 214, tag: 'large')
       .prereg
         = render :partial => "shared/prereg", :locals => {:event => event}
     - event.host_album.photos.limit(5).each do |photo|
