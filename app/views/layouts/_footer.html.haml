@@ -29,11 +29,11 @@
         %h3 GirlsGuild
         %ul.icons
           %li
+            %i.icon-shield
+            = link_to "Makers", makers_path
+          %li
             %i.icon-map-marker
             = link_to "Contact", contact_path
-          %li
-            %i.icon-bolt
-            = link_to "About", about_path
           %li
             %i.icon-bookmark-empty
             = link_to "FAQ for Girls", faq_girls_path
@@ -43,6 +43,9 @@
           %li
             %i.icon-comments-alt
             = link_to "Testimonials", testimonials_path
+          %li
+            %i.icon-bolt
+            = link_to "The Team", about_path
           %li
             %i.icon-gift
             = link_to "Donate", get_involved_girls_path+"#donate"
