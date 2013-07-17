@@ -83,6 +83,7 @@ GirlsGuild::Application.routes.draw do
   match '/makers', to: 'makers#show'
   match '/stripe/webhook', to: 'stripe#webhook'
 
+  match '/swatches', to: 'static_pages#swatches'
   match '/faq_girls', to: 'static_pages#faq_girls'
   match '/faq_makers', to: 'static_pages#faq_makers'
   match '/about', to: 'static_pages#about'
