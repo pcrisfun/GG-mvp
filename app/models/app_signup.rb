@@ -337,7 +337,7 @@ class AppSignup < Signup
       :subject => "You've accepted #{user.first_name} as your apprentice!",
       :html_body => %(<h1>Hoorah!</h1>
         <p>You've accepted #{user.first_name} as your apprentice! We've asked her to confirm her commitment by submitting her apprenticeship fee. Once she confirms, we'll put you two in touch to get started!</p>
-        <p>Make sure to also print a copy of the <a href="#{url_for('waivers/ReleaseWaiver-adults.pdf')}">Participation Waiver</a> and the <a href="#{url_for('waivers/IndemnificationAgreement-minors.pdf')}">Indemnification Agreement</a> for Minors to have your apprentice(s) and their parents sign before you begin work!</p>
+        <p>Make sure to also print a copy of the <a href="http://girlsguild.com/waivers/ReleaseWaiver-adults.pdf">Participation Waiver</a> and the <a href="http://girlsguild.com/waivers/IndemnificationAgreement-minors.pdf">Indemnification Agreement for Minors</a> to have your apprentice(s) and their parents sign before you begin work!</p>
         <p>If you have any questions feel free to respond to this email.</p>
         <p>Thanks and Happy Making!</p>
         <p>The GirlsGuild Team</p>),
@@ -354,7 +354,7 @@ class AppSignup < Signup
       :subject => "You've accepted #{self.daughter_firstname} as your apprentice!",
       :html_body => %(<h1>Hoorah!</h1>
         <p>You've accepted #{self.daughter_firstname} as your apprentice! We've asked her (and her parent, #{user.first_name}) to confirm her commitment by submitting her apprenticeship fee. Once she confirms, we'll put you two in touch to get started!</p>
-        <p>Make sure to also print a copy of the <a href="#{url_for('waivers/ReleaseWaiver-adults.pdf')}">Participation Waiver</a> and the <a href="#{url_for('waivers/IndemnificationAgreement-minors.pdf')}">Indemnification Agreement</a> for Minors to have your apprentice(s) and their parents sign before you begin work!</p>
+        <p>Make sure to also print a copy of the <a href="http://girlsguild.com/waivers/ReleaseWaiver-adults.pdf">Participation Waiver</a> and the <a href="http://girlsguild.com/waivers/IndemnificationAgreement-minors.pdf">Indemnification Agreement for Minors</a> to have your apprentice(s) and their parents sign before you begin work!</p>
         <p>If you have any questions feel free to respond to this email.</p>
         <p>Thanks and Happy Making!</p>
         <p>The GirlsGuild Team</p>),
@@ -475,7 +475,8 @@ class AppSignup < Signup
         :reply_to => "GirlsGuild<hello@girlsguild.com>",
         :subject => "Your apprenticeship is set to start soon! - #{self.event.title}",
         :html_body => %(<h1>We're excited you'll be working together soon!</h1>
-          <p>Just a reminder that your apprenticeship should be starting in a few days. If you've already set up your first meeting, you're good to go! If you haven't connected already, you'll want to get in touch to set up your first meeting.  Remember to print a copy of the <a href="#{url_for('waivers/ReleaseWaiver-adults.pdf')}">Participation Waiver</a> and the <a href="#{url_for('waivers/ReleaseWaiver-adults.pdf')}">Indemnification Agreement for Minors</a> to have your apprentice(s) and their parents sign before you begin work! </p>
+          <p>Just a reminder that your apprenticeship should be starting in a few days. If you've already set up your first meeting, you're good to go! If you haven't connected already, you'll want to get in touch to set up your first meeting.</p>
+          <p>#{user.first_name}, remember to print and sign a copy of the <a href="http://girlsguild.com/waivers/ReleaseWaiver-adults.pdf">Participation Waiver</a> (and if you're under 18, have your parents sign the <a href="http://girlsguild.com/waivers/IndemnificationAgreement-minors.pdf">Indemnification Agreement for Minors</a>) and give it to #{self.event.host_firstname} before you begin work! </p>
           <p>Let us know if you have any questions before you get started!</p>
           <p>Thanks and Happy Making!</p>
           <p>The GirlsGuild Team</p>),
