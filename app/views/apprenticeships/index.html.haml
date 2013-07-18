@@ -44,9 +44,12 @@
                         We'll keep track of the skills, tools, and techniques you're learning to begin to build out an incredible portfolio. Pretty soon you'll be hosting an apprenticeship!
     .row
       - unless @apprenticeships.blank?
-        = render :partial => "apprenticeship", :collection => @apprenticeships
+        = render partial: "apprenticeship", collection: @apprenticeships
       - unless @tba_apprenticeships.blank?
-        = render :partial => "apprenticeship", :collection => @tba_apprenticeships
+        = render partial: "apprenticeship", collection: @tba_apprenticeships
+      - unless @closed_apprenticeships.blank?
+        = render partial: "apprenticeship", collection: @closed_apprenticeships
+
     %hr
     - unless current_user.blank?
       - if current_user.admin?
@@ -72,3 +75,5 @@
             %h3 Completed
             .row-fluid.row-completed
               = render :partial => "apprenticeship-tbl", locals: {apprenticeships: @allcompleted_apprenticeships}
+
+

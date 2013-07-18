@@ -30,9 +30,14 @@
           \-
           = apprenticeship.ends_at ? apprenticeship.ends_at.strftime('%a, %b %d') : '_'
         - else
-          Dates TBA
+          %b Dates TBA
       %span.spots
-        &nbsp;
-        = apprenticeship.spots_left
+        - unless apprenticeship.datetime_tba
+          - if apprenticeship.begins_at > Date.today
+            &nbsp;
+            = apprenticeship.spots_left
+          - else
+            &nbsp;
+            %b Closed
       = avatar_for(apprenticeship.user, class: "avatar", size: 50, tag: 'medium')
 

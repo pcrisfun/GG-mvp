@@ -28,8 +28,13 @@
         - if workshop.datetime_tba == false
           = workshop.begins_at ? workshop.begins_at.strftime('%a, %b %d') : '_'
         - else
-          Dates TBA
+          %b Dates TBA
       %span.spots
-        &nbsp;
-        = workshop.spots_left
+        - unless workshop.datetime_tba
+          - if workshop.begins_at > Date.today
+            &nbsp;
+            = workshop.spots_left
+          - else
+            &nbsp;
+            %b Passed
       = avatar_for(workshop.user, class: "avatar", size: 50, tag: 'medium')

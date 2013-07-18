@@ -34,10 +34,15 @@
                 &nbsp;-&nbsp;
                 = event.ends_at ? event.ends_at.strftime('%a, %b %d') : '_'
               - else
-                Dates TBA
+                %b Dates TBA
             %span.spots
-              &nbsp;
-              = event.spots_left
+              - unless event.datetime_tba
+                - if event.begins_at > Date.today
+                  &nbsp;
+                  = event.spots_left
+                - else
+                  &nbsp;
+                  %b Closed
             = avatar_for(event.user, class: "avatar", size: 50, tag: 'medium')
 
         - if event.type == "Workshop"
@@ -70,10 +75,15 @@
               - if event.datetime_tba == false
                 = event.begins_at ? event.begins_at.strftime('%a, %b %d') : '_'
               - else
-                Dates TBA
+                %b Dates TBA
             %span.spots
-              &nbsp;
-              = event.spots_left
+              - unless event.datetime_tba
+                - if event.begins_at > Date.today
+                  &nbsp;
+                  = event.spots_left
+                - else
+                  &nbsp;
+                  %b Closed
             = avatar_for(event.user, class: "avatar", size: 50, tag: 'medium')
 
 
