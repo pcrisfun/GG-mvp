@@ -13,7 +13,7 @@ class Apprenticeship < Event
   # Images
     validate :host_album_limit
   # Dates
-    validates :begins_at, :date => {:after => Proc.new { Date.today + 6.day }, :message => 'Sorry! You need to plan your apprenticeship to start at least a week from today. Please check the dates you set.'}, :if => :tba_is_blank
+    validates :begins_at, :date => {:after => Proc.new { Date.today }, :message => 'Oops! You need to plan your apprenticeship to start sometime after today. Please check the dates you set.'}, :if => :tba_is_blank
     validates :ends_at, :date => {:after => :begins_at, :message => "Oops! Please check the dates you set. Your apprenticeship can't end before it begins!"}, :if => :tba_is_blank
   # Hours & Availability
     validates_presence_of :hours
@@ -26,10 +26,10 @@ class Apprenticeship < Event
     validates_presence_of :age_min
     validates_presence_of :age_max
     validates_numericality_of :age_min, :greater_than => 0
-    validates_numericality_of :age_max, :greater_than => :age_min, :message => " must be greater than the minimum age you set."
+    validates_numericality_of :age_max, :greater_than => :age_min, :message => " must be greater than the minimum age you set.", :if => :age_min_is_set
   # Registration
     validates_presence_of :registration_max
-    validates_numericality_of :registration_max, :greater_than_or_equal_to => 1, :message => " The number of apprentices must be greater than 0."
+    validates_numericality_of :registration_max, :greater_than_or_equal_to => 1, :message => " The number of apprentices must be greater than 0.", :if => :reg_min_is_set
   # Skills & Tools
     validates_presence_of :skill_list, :tool_list
   end
@@ -54,7 +54,7 @@ class Apprenticeship < Event
     validates_presence_of :description
   end
   validation_group :begins_at do
-    validates :begins_at, :date => {:after => Proc.new { Date.today + 6.day }, :message => 'Sorry! You need to plan your apprenticeship to start at least a week from today. Please check the dates you set.'}, :if => :tba_is_blank
+    validates :begins_at, :date => {:after => Proc.new { Date.today }, :message => 'Sorry! You need to plan your apprenticeship to start sometime after today. Please check the dates you set.'}, :if => :tba_is_blank
   end
   validation_group :ends_at do
     validates :ends_at, :date => {:after => :begins_at, :message => "Oops! Please check the dates you set. Your apprenticeship can't end before it begins!"}, :if => :tba_is_blank
@@ -83,11 +83,11 @@ class Apprenticeship < Event
   end
   validation_group :age_max do
     validates_presence_of :age_max
-    validates_numericality_of :age_max, :greater_than => :age_min, :message => " must be greater than the minimum age you set."
+    validates_numericality_of :age_max, :greater_than => :age_min, :message => " must be greater than the minimum age you set.", :if => :age_min_is_set
   end
   validation_group :registration_max do
     validates_presence_of :registration_max
-    validates_numericality_of :registration_max, :greater_than_or_equal_to => 1, :message => " The number of apprentices must be greater than 0."
+    validates_numericality_of :registration_max, :greater_than_or_equal_to => 1, :message => " The number of apprentices must be greater than 0.", :if => :reg_min_is_set
   end
   validation_group :skill_list do
     validates_presence_of :skill_list

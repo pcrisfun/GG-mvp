@@ -62,7 +62,7 @@
             <br />
 
           - if @workshop.respect_my_style == "1"
-            = f.input :respect_agreement, label: "Respect Agreement" do
+            = f.input :respect_agreement, label: "Respect Agreement", :required => true do
               %textarea.span6{:readonly => "true", :rows => "3"}
                 Teaching your unique techniques can sometimes feel like risking trade secrets. For this reason we as all of our guild members to agree to respect the maker's proprietary techniques by not directly copying their work.
               %br/
@@ -79,7 +79,7 @@
             = f.input :parent_phone, label: "Parent's phone"
             = f.input :parent_email, label: "Parent's email"
 
-            = f.input :parents_waiver, label: "Indemnification Agreement for Minors" do
+            = f.input :parents_waiver, label: "Indemnification Agreement for Minors", :required => true do
               %textarea.span6{:readonly => "true", :rows => "3"}
                 INDEMNIFICATION AGREEMENT FOR MINOR
                 In consideration for #{self.current_user.name}, age #{self.current_user.age} (the “Minor”), being permitted by GirlsGuild to participate in the class titled #{@work_signup.event.title} (the “Session”) being held at #{@work_signup.event.location_address} #{@work_signup.event.location_address2} #{@work_signup.event.location_city} #{@work_signup.event.location_state} #{@work_signup.event.location_zipcode} (the “Facility”), and contemporaneously with and as part of the execution of that certain Participation Waiver and Release Agreement by the undersigned parent or guardian (hereinafter referred to as the “Agreement”, the terms defined therein and not otherwise defined herein, being used herein as therein defined), I agree to the following WAIVER, RELEASE, AND INDEMNIFICATION:
@@ -96,7 +96,7 @@
                     %br/
                     and have read and agree to this indeminification agreement.
 
-          = f.input :waiver, label: "Participation Waiver" do
+          = f.input :waiver, label: "Participation Waiver", :required => true do
             %textarea.span6{:readonly => "true", :rows => "3"}
               PARTICIPATION WAIVER AND RELEASE AGREEMENT PLEASE READ CAREFULLY BEFORE SIGNING. THIS IS A RELEASE OF LIABILITY AND WAIVER OF CERTAIN LEGAL RIGHTS.
               In consideration for my being permitted by GirlsGuild to participate in the workshop titled #{@work_signup.event.title} (the “Session”) being held at #{@work_signup.event.location_address} #{@work_signup.event.location_address2} #{@work_signup.event.location_city} #{@work_signup.event.location_state} #{@work_signup.event.location_zipcode} (the “Facility”), I hereby agree to the following waiver and release:

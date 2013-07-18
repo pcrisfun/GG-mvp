@@ -41,6 +41,7 @@ class WorkshopsController < ApplicationController
       raise
     end
   rescue
+    Rails.logger.error($!.message + "\n" + $!.backtrace.join("\n"))
     error_msg = " "
     @workshop.errors.each do |field, msg|
       error_msg << "<br/>"
@@ -106,6 +107,7 @@ class WorkshopsController < ApplicationController
       end
     end
   rescue
+    Rails.logger.error($!.message + "\n" + $!.backtrace.join("\n"))
     error_msg = " "
     @workshop.errors.each do |field, msg|
       error_msg << "<br/>"
@@ -127,6 +129,7 @@ class WorkshopsController < ApplicationController
       raise
     end
   rescue
+    Rails.logger.error($!.message + "\n" + $!.backtrace.join("\n"))
     error_msg = " "
     @workshop.errors.each do |field, msg|
       error_msg << "<br/>"
@@ -139,7 +142,7 @@ class WorkshopsController < ApplicationController
   def cancel
     @workshop = Workshop.where(:id => params[:id]).first
       @workshop.signups.each do |s|
-        s.cancel && s.deliver_cancel_signups
+        s.cancel && s.deliver_cancel
 
         Prereg.find_or_create_by_user_id_and_event_id!(
           :user_id => s.user_id,
@@ -152,6 +155,7 @@ class WorkshopsController < ApplicationController
       raise
     end
   rescue
+    Rails.logger.error($!.message + "\n" + $!.backtrace.join("\n"))
     error_msg = " "
     @workshop.errors.each do |field, msg|
       error_msg << "<br/>"
@@ -168,6 +172,7 @@ class WorkshopsController < ApplicationController
       raise
     end
   rescue
+    Rails.logger.error($!.message + "\n" + $!.backtrace.join("\n"))
     error_msg = " "
     @workshop.errors.each do |field, msg|
       error_msg << "<br/>"
@@ -184,6 +189,7 @@ class WorkshopsController < ApplicationController
       raise
     end
   rescue
+    Rails.logger.error($!.message + "\n" + $!.backtrace.join("\n"))
     error_msg = " "
     @workshop.errors.each do |field, msg|
       error_msg << "<br/>"
