@@ -51,6 +51,7 @@ artist = User.new( first_name: "Martha",
                   terms_of_service: true,
                 )
 artist.skip_confirmation!
+artist.admin = false
 artist.save!(validate: false)
 
 girl = User.new( first_name: "Tina",
@@ -62,6 +63,7 @@ girl = User.new( first_name: "Tina",
                   terms_of_service: true,
                 )
 girl.skip_confirmation!
+girl.admin = false
 girl.save!(validate: false)
 
 kid = User.new( first_name: "Lil",
@@ -73,28 +75,305 @@ kid = User.new( first_name: "Lil",
                   terms_of_service: true,
                 )
 kid.skip_confirmation!
+kid.admin = false
 kid.save!(validate: false)
 
-first_workshop = artist.workshops.create!(              "host_firstname"=>"Martha",
-                                                        "host_lastname"=>"Smith",
-                                                        "host_business"=>"MS Designs",
-                                                        "bio"=>"Vivamus ut accumsan nulla. Maecenas consequat vestibulum dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at purus urna. Sed adipiscing risus non elit molestie eget tempus massa porta. Ut in ligula elit. ",
-                                                        "website"=>"msdesigns.com",
-                                                        "webshop"=>"shop.msdesigns.com",
-                                                        "facebook"=>"marthasmith",
-                                                        "twitter"=>"marthasmith",
-                                                        "topic"=>"Sculpture with Paper",
-                                                        "description"=>" Nam hendrerit eleifend tristique. Donec sed odio orci. Phasellus eu nibh eros, ut malesuada dui. Vestibulum ac convallis ante. Aliquam placerat aliquet mauris ac pellentesque. Suspendisse non turpis in erat fermentum sollicitudin sed ac lectus. Ut vitae bibendum quam. Pellentesque at dui sem. Ut vitae risus leo, at commodo risus. Nulla interdum molestie imperdiet. Nam ut gravida leo. Nunc sit amet nisl nibh, quis mattis mi. Fusce et pharetra mi. Mauris magna lectus, posuere in aliquam nec, sodales eget enim. Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
-                                                        "skill_list"=>"'sketching','critical analysis'",
-                                                        "tool_list"=>"'paper','exacto blades','adhesives'",
+lee = User.new( first_name: "Lee",
+                  last_name: "Webster",
+                  birthday: "1980-01-01 17:00:00",
+                  email: "lee.kerby.webster@gmail.com",
+                  password: "leewebster",
+                  password_confirmation: "leewebster",
+                  terms_of_service: true,
+                  bio: "Lee Webster was born in Philadelphia, PA and currently lives and works in Austin, TX. Her practice incorporates film, video, installation and public projects. Her work has been shown at Art House at the Jones Center, Sofa Gallery, Domy Books, and Co-lab in Austin, Sarah Lawrence College in New York, and Danger Danger Gallery in Philadelphia. Her films have been included in screenings at Box 13 in Houston, Portland Oregon Women's Film Festival, Women and Their Work, as part of a special screening for the Texas Biennial and as part of the Fusebox Festival in Austin, TX. Her work as a video designer for theater has won recognition by the Austin Critics Table. She is a working artist, teacher and a founding member of the video art collective, Austin Video Bee.",
+                  website: "leewebster.com",
+                  webshop:"",
+                  facebook:"",
+                  twitter:"",
+                )
+lee.skip_confirmation!
+lee.admin = false
+lee.save!(validate: false)
+
+stacey = User.new( first_name: "Stacey",
+                  last_name: "Blackman",
+                  birthday: "1980-01-01 17:00:00",
+                  email: "schoolhouseaustin@gmail.com",
+                  password: "staceyblackman",
+                  password_confirmation: "staceyblackman",
+                  terms_of_service: true,
+                )
+stacey.skip_confirmation!
+stacey.admin = false
+stacey.save!(validate: false)
+
+leah = User.new( first_name: "Leah",
+                  last_name: "Overstreet",
+                  birthday: "1980-01-01 17:00:00",
+                  email: "leahoverstreet@gmail.com",
+                  password: "leahoverstreet",
+                  password_confirmation: "leahoverstreet",
+                  terms_of_service: true,
+                )
+leah.skip_confirmation!
+leah.admin = false
+leah.save!(validate: false)
+
+natalie = User.new( first_name: "Natalie",
+                  last_name: "Davis",
+                  birthday: "1980-01-01 17:00:00",
+                  email: "natalie@canoegoods.com",
+                  password: "nataliedavis",
+                  password_confirmation: "nataliedavis",
+                  terms_of_service: true,
+                )
+natalie.skip_confirmation!
+natalie.admin = false
+natalie.save!(validate: false)
+
+jodi = User.new( first_name: "Jodi",
+                  last_name: "Brownstein",
+                  birthday: "1980-01-01 17:00:00",
+                  email: "jodi@jodiraedesigns.com",
+                  password: "jodibrownstein",
+                  password_confirmation: "jodibrownstein",
+                  terms_of_service: true,
+                )
+jodi.skip_confirmation!
+jodi.admin = false
+jodi.save!(validate: false)
+
+jennie = User.new( first_name: "Jennie",
+                  last_name: "Gray",
+                  birthday: "1980-01-01 17:00:00",
+                  email: "ms.jennie.gray@gmail.com",
+                  password: "jenniegray",
+                  password_confirmation: "jenniegray",
+                  terms_of_service: true,
+                )
+jennie.skip_confirmation!
+jennie.admin = false
+jennie.save!(validate: false)
+
+julia = User.new( first_name: "Julia",
+                  last_name: "Ward",
+                  birthday: "1980-01-01 17:00:00",
+                  email: "julia.parmenter@gmail.com",
+                  password: "juliaward",
+                  password_confirmation: "juliaward",
+                  terms_of_service: true,
+                )
+julia.skip_confirmation!
+julia.admin = false
+julia.save!(validate: false)
+
+katy = User.new( first_name: "Katy",
+                  last_name: "Dougharty",
+                  birthday: "1980-01-01 17:00:00",
+                  email: "kdglass.studio@gmail.com",
+                  password: "katydougharty",
+                  password_confirmation: "katydougharty",
+                  terms_of_service: true,
+                )
+katy.skip_confirmation!
+katy.admin = false
+katy.save!(validate: false)
+
+lisa = User.new( first_name: "Lisa",
+                  last_name: "Chouinard",
+                  birthday: "1980-01-01 17:00:00",
+                  email: "lisa@fetosoap.com",
+                  password: "lisachouinard",
+                  password_confirmation: "lisachouinard",
+                  terms_of_service: true,
+                )
+lisa.skip_confirmation!
+lisa.admin = false
+lisa.save!(validate: false)
+
+christine = User.new( first_name: "Christine",
+                  last_name: "Fail",
+                  birthday: "1980-01-01 17:00:00",
+                  email: "christine@schatzeleinaustin.com",
+                  password: "christinefail",
+                  password_confirmation: "christinefail",
+                  terms_of_service: true,
+                )
+christine.skip_confirmation!
+christine.admin = false
+christine.save!(validate: false)
+
+jeannie = User.new( first_name: "Jeannie",
+                  last_name: "Vianney",
+                  birthday: "1980-01-01 17:00:00",
+                  email: "jeannie@byjeannie.com",
+                  password: "jeannievianney",
+                  password_confirmation: "jeannievianney",
+                  terms_of_service: true,
+                )
+jeannie.skip_confirmation!
+jeannie.admin = false
+jeannie.save!(validate: false)
+
+maura = User.new( first_name: "Maura",
+                  last_name: "Ambrose",
+                  birthday: "1980-01-01 17:00:00",
+                  email: "maura@folkfibers.com",
+                  password: "mauraambrose",
+                  password_confirmation: "mauraambrose",
+                  terms_of_service: true,
+                )
+maura.skip_confirmation!
+maura.admin = false
+maura.save!(validate: false)
+
+caroline = User.new( first_name: "Caroline",
+                  last_name: "Wright",
+                  birthday: "1980-01-01 17:00:00",
+                  email: "caroline@carolinewrightart.com",
+                  password: "carolinewright",
+                  password_confirmation: "carolinewright",
+                  terms_of_service: true,
+                )
+caroline.skip_confirmation!
+caroline.admin = false
+caroline.save!(validate: false)
+
+callen = User.new( first_name: "Callen",
+                  last_name: "Thompson",
+                  birthday: "1980-01-01 17:00:00",
+                  email: "calliehelen@gmail.com",
+                  password: "callenthompson",
+                  password_confirmation: "callenthompson",
+                  terms_of_service: true,
+                )
+callen.skip_confirmation!
+callen.admin = false
+callen.save!(validate: false)
+
+elizabeth = User.new( first_name: "Elizabeth",
+                  last_name: "Chiles",
+                  birthday: "1980-01-01 17:00:00",
+                  email: "echiles@gmail.com",
+                  password: "elizabethchiles",
+                  password_confirmation: "elizabethchiles",
+                  terms_of_service: true,
+                )
+elizabeth.skip_confirmation!
+elizabeth.admin = false
+elizabeth.save!(validate: false)
+
+ann = User.new( first_name: "Ann",
+                  last_name: "Armstrong",
+                  birthday: "1980-01-01 17:00:00",
+                  email: "ann.armstrong@yahoo.com",
+                  password: "annarmstrong",
+                  password_confirmation: "annarmstrong",
+                  terms_of_service: true,
+                )
+ann.skip_confirmation!
+ann.admin = false
+ann.save!(validate: false)
+
+anna = User.new( first_name: "Anna",
+                  last_name: "Gieselman",
+                  birthday: "1980-01-01 17:00:00",
+                  email: "anna@rarewears.com",
+                  password: "annagieselman",
+                  password_confirmation: "annagieselman",
+                  terms_of_service: true,
+                )
+anna.skip_confirmation!
+anna.admin = false
+anna.save!(validate: false)
+
+adrienne = User.new( first_name: "Adrienne",
+                  last_name: "Butler",
+                  birthday: "1980-01-01 17:00:00",
+                  email: "niceisdifferent@gmail.com",
+                  password: "adriennebutler",
+                  password_confirmation: "adriennebutler",
+                  terms_of_service: true,
+                )
+adrienne.skip_confirmation!
+adrienne.admin = false
+adrienne.save!(validate: false)
+
+jessica = User.new( first_name: "Jessica",
+                  last_name: "Tata",
+                  birthday: "1980-01-01 17:00:00",
+                  email: "jessica@sonofasailorjewelry.com",
+                  password: "jessicatata",
+                  password_confirmation: "jessicatata",
+                  terms_of_service: true,
+                )
+jessica.skip_confirmation!
+jessica.admin = false
+jessica.save!(validate: false)
+
+madelyn = User.new( first_name: "Madelyn",
+                  last_name: "Thompson",
+                  birthday: "1980-01-01 17:00:00",
+                  email: "thompson.madelyn@gmail.com",
+                  password: "madelynthompson",
+                  password_confirmation: "madelynthompson",
+                  terms_of_service: true,
+                )
+madelyn.skip_confirmation!
+madelyn.admin = false
+madelyn.save!(validate: false)
+
+tahila = User.new( first_name: "Tahila",
+                  last_name: "Mintz",
+                  birthday: "1980-01-01 17:00:00",
+                  email: "totahila@gmail.com",
+                  password: "tahilamintz",
+                  password_confirmation: "tahilamintz",
+                  terms_of_service: true,
+                )
+tahila.skip_confirmation!
+tahila.admin = false
+tahila.save!(validate: false)
+
+teruko = User.new( first_name: "Teruko",
+                  last_name: "Nimura",
+                  birthday: "1980-01-01 17:00:00",
+                  email: "terukonimura@gmail.com",
+                  password: "terukonimura",
+                  password_confirmation: "terukonimura",
+                  terms_of_service: true,
+                )
+teruko.skip_confirmation!
+teruko.admin = false
+teruko.save!(validate: false)
+
+melissa = User.new( first_name: "Melissa",
+                  last_name: "Chapman",
+                  birthday: "1980-01-01 17:00:00",
+                  email: "melissalynnchapman@gmail.com",
+                  password: "melissachapman",
+                  password_confirmation: "melissachapman",
+                  terms_of_service: true,
+                )
+melissa.skip_confirmation!
+melissa.admin = false
+melissa.save!(validate: false)
+
+first_workshop = artist.workshops.create!(              "host_firstname"=>"Lee",
+                                                        "host_lastname"=>"Webster",
+                                                        "host_business"=>"",
+                                                        "topic"=>"16mm Direct Animation",
+                                                        "description"=>"Join Austin filmmaker, Lee Webster to make a collaborative film. We will draw, paint, etch and collage directly on 16mm film to create beautiful and rhythmic animations. Cameraless, or direct, animation is the practice of applying materials directly to clear 16mm leader or developed film. The result is gorgeous, abstract animations that are filled with surprising life and movement. We will use found objects from nature: leaves, feathers, and insect wings, as well as transparencies, lighting gels, film negatives, inks, stamps, and more to manipulate our film. In the weeks after the workshop, Lee will scan in the film and send each class member a digital copy of the beautiful, finished work. ",
+                                                        "skill_list"=>"'splicing film','direct animation'",
+                                                        "tool_list"=>"'16mm film','transparencies','ink','stamps','found objects','splicers','light box','projector'",
                                                         "requirement_list"=>"",
-                                                        "other_needs"=>"Wear clothes that can get dirty or an apron",
-                                                        "age_min"=>"13", "age_max"=>"45",
+                                                        "other_needs"=>"",
+                                                        "age_min"=>"10", "age_max"=>"100",
                                                         "registration_min"=>"2",
-                                                        "registration_max"=>"8",
-                                                        "begins_at"=>"01/01/2014",
-                                                        "begins_at_time"=>"10:15 AM",
-                                                        "ends_at_time"=>"12:15 PM",
+                                                        "registration_max"=>"12",
+                                                        "begins_at"=>"",
+                                                        "begins_at_time"=>"10:00 AM",
+                                                        "ends_at_time"=>"03:00 PM",
                                                         "datetime_tba"=>"1",
                                                         "location_address"=>"1309 Chestnut Ave.",
                                                         "location_address2"=>"",
@@ -102,11 +381,11 @@ first_workshop = artist.workshops.create!(              "host_firstname"=>"Marth
                                                         "location_state"=>"TX",
                                                         "location_zipcode"=>"78702",
                                                         "location_private"=>"0",
-                                                        "location_nbrhood"=>"Chestnut",
-                                                        "price"=>"65",
-                                                        "ends_at"=>"12/01/2013",
+                                                        "location_nbrhood"=>"East Austin",
+                                                        "price"=>"45",
+                                                        "ends_at"=>"",
                                                         "payment_options"=>"Paypal",
-                                                        "paypal_email"=>"artist@girlsguild.com",
+                                                        "paypal_email"=>"lee.kerby.webster@gmail.com",
                                                         "sendcheck_address"=>"",
                                                         "sendcheck_address2"=>"",
                                                         "sendcheck_city"=>"",
@@ -116,15 +395,15 @@ first_workshop = artist.workshops.create!(              "host_firstname"=>"Marth
                                                         "permission"=>"1"
                                                       )
 
-first_workshop = artist.workshops.create!(              "host_firstname"=>"Martha",
-                                                        "host_lastname"=>"Smith",
-                                                        "host_business"=>"MS Designs",
-                                                        "bio"=>"Vivamus ut accumsan nulla. Maecenas consequat vestibulum dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at purus urna. Sed adipiscing risus non elit molestie eget tempus massa porta. Ut in ligula elit. ",
+first_workshop = artist.workshops.create!(              "host_firstname"=>"Stacey",
+                                                        "host_lastname"=>"Blackman",
+                                                        "host_business"=>"",
+                                                        "bio"=>"Stacey Blackman is an artist educator who founded ScHoolHouse Austin to offer skill based workshops in the fine arts, creative culture and design for both children and adults. She studied at Pratt Institute in Brooklyn and the Aegean Center for Fine Arts in Greece. Stacey believes the practice of creating can bring about a new way of experiencing and engaging the world around us. Create happy! ",
                                                         "website"=>"msdesigns.com",
                                                         "webshop"=>"shop.msdesigns.com",
                                                         "facebook"=>"marthasmith",
                                                         "twitter"=>"marthasmith",
-                                                        "topic"=>"Toy Making",
+                                                        "topic"=>"DIY Printmaking",
                                                         "description"=>" Nam hendrerit eleifend tristique. Donec sed odio orci. Phasellus eu nibh eros, ut malesuada dui. Vestibulum ac convallis ante. Aliquam placerat aliquet mauris ac pellentesque. Suspendisse non turpis in erat fermentum sollicitudin sed ac lectus. Ut vitae bibendum quam. Pellentesque at dui sem. Ut vitae risus leo, at commodo risus. Nulla interdum molestie imperdiet. Nam ut gravida leo. Nunc sit amet nisl nibh, quis mattis mi. Fusce et pharetra mi. Mauris magna lectus, posuere in aliquam nec, sodales eget enim. Lorem ipsum dolor sit amet, consectetur adipiscing elit. ",
                                                         "skill_list"=>"'sketching','critical analysis'",
                                                         "tool_list"=>"'paper','exacto blades','adhesives'",
@@ -261,7 +540,7 @@ first_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Marth
                                                         "age_min"=>"16",
                                                         "age_max"=>"25",
                                                         "registration_max"=>"2",
-                                                        "begins_at"=>"06/01/2013",
+                                                        "begins_at"=>"08/01/2013",
                                                         "ends_at"=>"12/01/2013",
                                                         "datetime_tba"=>"0",
                                                         "hours"=>"4",
@@ -298,7 +577,7 @@ second_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Mart
                                                         "age_min"=>"3",
                                                         "age_max"=>"12",
                                                         "registration_max"=>"5",
-                                                        "begins_at"=>"06/01/2013",
+                                                        "begins_at"=>"09/01/2013",
                                                         "ends_at"=>"12/01/2013",
                                                         "datetime_tba"=>"0",
                                                         "hours"=>"4",
@@ -335,7 +614,7 @@ third_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Marth
                                                         "age_min"=>"13",
                                                         "age_max"=>"19",
                                                         "registration_max"=>"4",
-                                                        "begins_at"=>"06/01/2013",
+                                                        "begins_at"=>"09/01/2013",
                                                         "ends_at"=>"12/01/2013",
                                                         "datetime_tba"=>"0",
                                                         "hours"=>"4",
@@ -372,7 +651,7 @@ fourth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Mart
                                                         "age_min"=>"1",
                                                         "age_max"=>"100",
                                                         "registration_max"=>"13",
-                                                        "begins_at"=>"06/01/2013",
+                                                        "begins_at"=>"09/01/2013",
                                                         "ends_at"=>"12/01/2013",
                                                         "datetime_tba"=>"0",
                                                         "hours"=>"4",
@@ -409,7 +688,7 @@ fifth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Marth
                                                         "age_min"=>"1",
                                                         "age_max"=>"100",
                                                         "registration_max"=>"3",
-                                                        "begins_at"=>"06/01/2013",
+                                                        "begins_at"=>"09/01/2013",
                                                         "ends_at"=>"12/01/2013",
                                                         "datetime_tba"=>"0",
                                                         "hours"=>"4",
@@ -446,7 +725,7 @@ sixth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Marth
                                                         "age_min"=>"1",
                                                         "age_max"=>"100",
                                                         "registration_max"=>"30",
-                                                        "begins_at"=>"06/01/2013",
+                                                        "begins_at"=>"09/01/2013",
                                                         "ends_at"=>"12/01/2013",
                                                         "datetime_tba"=>"0",
                                                         "hours"=>"4",

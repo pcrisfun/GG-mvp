@@ -46,6 +46,7 @@
         = render 'event', events: @events
       - unless @tba_events.blank?
         = render 'event', events: @tba_events
-
+      - unless @closed_events.blank?
+        = render 'event', events: @closed_events
 
 

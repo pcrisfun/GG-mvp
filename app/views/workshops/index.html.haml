@@ -44,9 +44,12 @@
                         We'll keep track of the skills, tools, and techniques you're learning to begin to build out an incredible portfolio. Pretty soon you'll be hosting a workshop!
     .row
       - unless @workshops.blank?
-        = render :partial => "workshop", :collection => @workshops
+        = render partial: "workshop", collection: @workshops
       - unless @tba_workshops.blank?
-        = render :partial => "workshop", :collection => @tba_workshops
+        = render partial: "workshop", collection: @tba_workshops
+      - unless @closed_workshops.blank?
+        = render partial: "workshop", collection: @closed_workshops
+
     %hr
     - unless current_user.blank?
       - if current_user.admin?
