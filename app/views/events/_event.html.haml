@@ -35,6 +35,9 @@
                 = event.ends_at ? event.ends_at.strftime('%a, %b %d') : '_'
               - else
                 Dates TBA
+            %span.spots
+              &nbsp;
+              = event.spots_left
             = avatar_for(event.user, class: "avatar", size: 50, tag: 'medium')
 
         - if event.type == "Workshop"
@@ -68,6 +71,9 @@
                 = event.begins_at ? event.begins_at.strftime('%a, %b %d') : '_'
               - else
                 Dates TBA
+            %span.spots
+              &nbsp;
+              = event.spots_left
             = avatar_for(event.user, class: "avatar", size: 50, tag: 'medium')
 
 
