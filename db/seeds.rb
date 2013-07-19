@@ -87,9 +87,9 @@ lee = User.new( first_name: "Lee",
                   terms_of_service: true,
                   bio: "Lee Webster was born in Philadelphia, PA and currently lives and works in Austin, TX. Her practice incorporates film, video, installation and public projects. Her work has been shown at Art House at the Jones Center, Sofa Gallery, Domy Books, and Co-lab in Austin, Sarah Lawrence College in New York, and Danger Danger Gallery in Philadelphia. Her films have been included in screenings at Box 13 in Houston, Portland Oregon Women's Film Festival, Women and Their Work, as part of a special screening for the Texas Biennial and as part of the Fusebox Festival in Austin, TX. Her work as a video designer for theater has won recognition by the Austin Critics Table. She is a working artist, teacher and a founding member of the video art collective, Austin Video Bee.",
                   website: "http://www.leewebster.com",
-                  webshop:"",
-                  facebook:"",
-                  twitter:"",
+                  webshop: "",
+                  facebook: "",
+                  twitter: "",
                 )
 lee.skip_confirmation!
 lee.admin = false
@@ -120,10 +120,10 @@ leah = User.new( first_name: "Leah",
                   password_confirmation: "leahoverstreet",
                   terms_of_service: true,
                   bio: "I began my career working as a photographer for the Smithsonian's National Zoo in D.C. After moving to NYC, I worked in the photo departments of GQ, Vogue, Men's Journal and MTV Networks. These diverse backgrounds of fashion, celebrity, and adventure, helped me become a more thoughtful and creative photographer.",
-                  website:"http://www.leahoverstreet.com",
-                  webshop:"",
-                  facebook:"",
-                  twitter:"",
+                  website: "http://www.leahoverstreet.com",
+                  webshop: "",
+                  facebook: "",
+                  twitter: "",
                 )
 leah.skip_confirmation!
 leah.admin = false
@@ -138,9 +138,9 @@ natalie = User.new( first_name: "Natalie",
                   terms_of_service: true,
                   bio: "Natalie Davis is a designer, artist, and educator. In 2007 she launched Miss Natalie, a collection of home accessories and kids' goods, featuring best sellers like the heirloom growth chart and wooden apple boxes. Her work has been showcased on Design*Sponge, Apartment Therapy, Sunset, and Whole Living, among other publications. Inspired by her move to Austin, Natalie launched Canoe, a line of hand tooled leather accessories. In 2011 she produced five pop up shops and began blogging at Tool & Tack, which highlights artisans and rebels of all kinds.",
                   website: "http://www.canoegoods.com",
-                  webshop:"",
-                  facebook:"",
-                  twitter:"",
+                  webshop: "",
+                  facebook: "",
+                  twitter: "",
                 )
 natalie.skip_confirmation!
 natalie.admin = false
@@ -155,9 +155,9 @@ jodi = User.new( first_name: "Jodi",
                   terms_of_service: true,
                   bio: "I am an artist who has been making and selling my own handcrafted jewelry since the age of 8. My art has become not just my passion, but also my life's work, and I am thrilled to share it with you. I have spent the past few decades honing and developing my own versatile style of jewelry using sterling silver, 18- and 22-karat gold, semiprecious and precious gems, and many different kinds of minerals and stones. I have always been drawn to rare and unique stones in nature, and I pride myself on finding the most strikingly beautiful specimens to use in my pieces.",
                   website: "http://www.jodiraedesigns.com",
-                  webshop:"",
-                  facebook:"",
-                  twitter:"",
+                  webshop: "",
+                  facebook: "",
+                  twitter: "",
                 )
 jodi.skip_confirmation!
 jodi.admin = false
@@ -171,10 +171,10 @@ jennie = User.new( first_name: "Jennie",
                   password_confirmation: "jenniegray",
                   terms_of_service: true,
                   bio: "Jennie Tudor Gray, named after children's author Tasha Tudor, is an Artist and Arts Educator living in Austin, TX. She graduated magna cum laude from Texas State University with a BFA in Studio Art and All Level Teaching Certification and is passionate about using creative arts education as a method of social change. She enjoys making art out of old books, ephemera, old photos, & found objects.",
-                  website: "http://www.jennietudorgray.com"
-                  webshop:"",
-                  facebook:"",
-                  twitter:"",
+                  website: "http://www.jennietudorgray.com",
+                  webshop: "",
+                  facebook: "",
+                  twitter: "",
                 )
 jennie.skip_confirmation!
 jennie.admin = false
@@ -188,10 +188,10 @@ julia = User.new( first_name: "Julia",
                   password_confirmation: "juliaward",
                   terms_of_service: true,
                   bio: "Julia Ward is a bootmaker in Austin, Texas. After a lengthy apprenticeship under legendary bootmaker, Lee Miller, Julia Ward has gone out on her own making boots and other leather goods. She is also a teacher of leathercraft and other fiber arts as an adjunct faculty member at the Griffin School.",
-                  website: "http://juliawardboots.wordpress.com/"
-                  webshop:"",
-                  facebook:"",
-                  twitter:"",
+                  website: "http://juliawardboots.wordpress.com/",
+                  webshop: "",
+                  facebook: "",
+                  twitter: "",
                 )
 julia.skip_confirmation!
 julia.admin = false
@@ -205,10 +205,10 @@ katy = User.new( first_name: "Katy",
                   password_confirmation: "katydougharty",
                   terms_of_service: true,
                   bio: "Howdy folks!! I'm Katy and I LOVE art. A foundation in drawing, painting, sculpture and education has translated uniquely into my original glass design. I'm excited to be opening my studio doors to new students also in LOVE with art and curious about glass.",
-                  website: "http://www.kdougharty.com/"
-                  webshop:"",
-                  facebook:"",
-                  twitter:"",
+                  website: "http://www.kdougharty.com/",
+                  webshop: "",
+                  facebook: "",
+                  twitter: "",
                 )
 katy.skip_confirmation!
 katy.admin = false
@@ -222,10 +222,10 @@ lisa = User.new( first_name: "Lisa",
                   password_confirmation: "lisachouinard",
                   terms_of_service: true,
                   bio: "Speaker at the Handcrafted Soapmakers Guild, Texas Soapmakers Association & Winner of Education and Craft awards from Maker Faire Bay Area. ",
-                  website: "http://fetosoap.com/shop"
-                  webshop:"",
-                  facebook:"",
-                  twitter:"",
+                  website: "http://fetosoap.com/shop",
+                  webshop: "",
+                  facebook: "",
+                  twitter: "",
                 )
 lisa.skip_confirmation!
 lisa.admin = false
@@ -239,10 +239,10 @@ christine = User.new( first_name: "Christine",
                   password_confirmation: "christinefail",
                   terms_of_service: true,
                   bio: "With her BFA in studio art, designer Christine Fail's background is firmly rooted in art and design. After 5 years working for two internationally renowned jewelry designers, selling to the country's top retailers, and working directly with customers Christine decided to realize all of her experience and expertise in her own vision. Schatzelein, her retail endeavor, is the fist half of that vision and fail, her line of handmade jewelry, is the second. Each piece is delicately handcrafted in sterling silver and 14K gold-fill in Christine's Austin Texas studio. Christine employs classic metalsmithing technique such as hand forging to form and shape delicate wire. Forging gives wire strength, resiliency, and a soft organic texture that allows the hand of the artist to be present in each piece. Fail jewelry is intentionally lightweight, fluid, and wearable.",
-                  website: "https://www.failjewelry.com"
-                  webshop:"https://www.schatzeleinaustin.com",
-                  facebook:"",
-                  twitter:"",
+                  website: "https://www.failjewelry.com",
+                  webshop: "https://www.schatzeleinaustin.com",
+                  facebook: "",
+                  twitter: "",
                 )
 christine.skip_confirmation!
 christine.admin = false
@@ -340,10 +340,10 @@ adrienne = User.new( first_name: "Adrienne",
                   password_confirmation: "adriennebutler",
                   terms_of_service: true,
                   bio: "I have been baking at my mother's knee since before I could see the top of the counter. I took this passion with me through life and continued my education at Le Cordon Bleu College of Culinary Arts. Even though I have my degree in savory food, sweets were what captured my heart. Since 2010, I have been making delicious sweets that range from simply sweet to decadently delicious.",
-                  website: "http://www.likehoneybakery.com/"
-                  webshop:"",
-                  facebook:"https://www.facebook.com/likehoneybakery",
-                  twitter:"",
+                  website: "http://www.likehoneybakery.com/",
+                  webshop: "",
+                  facebook: "https://www.facebook.com/likehoneybakery",
+                  twitter: "",
                 )
 adrienne.skip_confirmation!
 adrienne.admin = false
@@ -357,10 +357,10 @@ jessica = User.new( first_name: "Jessica",
                   password_confirmation: "jessicatata",
                   terms_of_service: true,
                   bio: "Billy and Jessica revel in playful creation and collaboration. Billy is a graphic designer by trade, but has made stops along the way in the Navy, the oil fields of West Texas, and pilgrimages around the world. Jessica fancies herself a creative marketing professional with a background in art galleries and museums. Our process is very collaborative, as each new piece that we create is a combination of our ideas and experiences. We like to think outside of the box about how materials can be used, and are interested in innovating in playful, exciting ways. We currently have three Production Assistants that you will be working closely with, and the environment in the studio is very lighthearted. While we all have a lot of work to get done, we can often be found doing it to a soundtrack of cheesy pop music. We think it's just as important to have a good time at work as it is to work hard and work well.",
-                  website: "http://www.sonofasailorjewelry.com/"
-                  webshop:"",
-                  facebook:"http://www.facebook/hitheresos",
-                  twitter:"",
+                  website: "http://www.sonofasailorjewelry.com/",
+                  webshop: "",
+                  facebook: "http://www.facebook/hitheresos",
+                  twitter: "",
                 )
 jessica.skip_confirmation!
 jessica.admin = false
@@ -374,10 +374,10 @@ madelyn = User.new( first_name: "Madelyn",
                   password_confirmation: "madelynthompson",
                   terms_of_service: true,
                   bio: "I have been baking at my mother's knee since before I could see the top of the counter. I took this passion with me through life and continued my education at Le Cordon Bleu College of Culinary Arts. Even though I have my degree in savory food, sweets were what captured my heart. Since 2010, I have been making delicious sweets that range from simply sweet to decadently delicious.",
-                  website: "http://www.likehoneybakery.com/"
-                  webshop:"",
-                  facebook:"https://www.facebook.com/likehoneybakery",
-                  twitter:"",
+                  website: "http://www.likehoneybakery.com/",
+                  webshop: "",
+                  facebook: "https://www.facebook.com/likehoneybakery",
+                  twitter: "",
                 )
 madelyn.skip_confirmation!
 madelyn.admin = false
@@ -391,10 +391,10 @@ tahila = User.new( first_name: "Tahila",
                   password_confirmation: "tahilamintz",
                   terms_of_service: true,
                   bio: "Tahila Shireem Chavez Mintz is an Austin based photographer. She works nationally and internationally, focusing predominately on culture, women, and indigenous traditions. Her work is lens, collage and bead based. She received her MFA from the University of Texas at Austin, and studied at Filmova a televizni fakulta akademie Prague, Czech republic. ",
-                  website: "http://www.shireemimaging.com/"
-                  webshop:"",
-                  facebook:"",
-                  twitter:"",
+                  website: "http://www.shireemimaging.com/",
+                  webshop: "",
+                  facebook: "",
+                  twitter: "",
                 )
 tahila.skip_confirmation!
 tahila.admin = false
@@ -408,10 +408,10 @@ teruko = User.new( first_name: "Teruko",
                   password_confirmation: "terukonimura",
                   terms_of_service: true,
                   bio: "Teruko Nimura is an Austin based artist who creates mixed media installations and sculptures exploring ideas of collective efforts, Asian customs, and personal history using ceramics, plaster, fabric, paper, wax, wood, and other materials.",
-                  website: "http://www.terukonimura.net/"
-                  webshop:"",
-                  facebook:"",
-                  twitter:"",
+                  website: "http://www.terukonimura.net/",
+                  webshop: "",
+                  facebook: "",
+                  twitter: "",
                 )
 teruko.skip_confirmation!
 teruko.admin = false
@@ -425,10 +425,10 @@ melissa = User.new( first_name: "Melissa",
                   password_confirmation: "melissachapman",
                   terms_of_service: true,
                   bio: "A recent transplant hailing from Oregon but originally from Georgia (this is not my first southern rodeo), I moved to Texas in mid-August to attend school at the Austin Center for Design. My love for jewelry making dates back to middle school days when I would spend hours and hours making precious beaded creations on my bedroom floor. While living in Portland, my love took a turn for the serious and I began first selling on Etsy and then most recently on Fab.com. We are also in the process of setting up wholesale accounts in stores and looking to grow in this way. The business is growing in lots of interesting ways and remains open to grow in areas that make sense to me. If an apprentice sees this and is excited to explore a particular aspect of the design or business, I remain open to considering all proposals!",
-                  website: "http://www.stoneandsmith.com"
-                  webshop:"http://www.etsy.com/shop/stoneandsmith",
-                  facebook:"",
-                  twitter:"",
+                  website: "http://www.stoneandsmith.com",
+                  webshop: "http://www.etsy.com/shop/stoneandsmith",
+                  facebook: "",
+                  twitter: "",
                 )
 melissa.skip_confirmation!
 melissa.admin = false
