@@ -320,7 +320,6 @@ class Apprenticeship < Event
         else
           return ''
         end
-    elsif self.in_progress?
     elsif self.completed?
       return "Your apprenticeship is over :-)"
     end
