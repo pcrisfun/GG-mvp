@@ -10,21 +10,6 @@ include EventHelper
                   :daughter_age_is_valid,
                   :parent_name, :parent_phone, :parent_email, :parents_waiver
 
-  validates_presence_of :interest, :message => "- Please tell us a bit about what you want to learn in this workshop."
-  validates_acceptance_of :requirements, :if => :requirements?
-
-  validates_acceptance_of :respect_agreement, :if => :respect_agreement?
-
-  validates_presence_of :daughter_firstname, :daughter_lastname, :daughter_age, :parents_waiver, :if => :parent?
-  validate :daughter_age_is_valid, :if => :parent?
-  validates_acceptance_of :parents_waiver, :if => :parent?
-
-  validates_presence_of :parent_name, :parent_phone, :parent_email, :parents_waiver, :if => :minor?
-  validates_acceptance_of :parents_waiver, :message => "Sorry, you must agree to the waiver to sign up.", :if => :minor?
-
-  #validates_presence_of :waiver
-  validates_acceptance_of :waiver, :message => "Sorry, you must agree to the waiver to sign up."
-
   include Emailable
 
   def respect_valid
@@ -49,12 +34,6 @@ include EventHelper
 
   def requirements?
     return self.event.requirement_list.present?
-  end
-
-  def respect_agreement?
-    if self.event.respect_my_style == '1'
-      return true
-    end
   end
 
   # Creates a sign up object, processes payment, and marks sign up
@@ -372,6 +351,21 @@ include EventHelper
   end
 
   state_machine :state, :initial => :started do
+
+    validates_presence_of :interest, :message => "- Please tell us a bit about what you want to learn in this workshop."
+    validates_acceptance_of :requirements, :if => :requirements?
+
+    validate :respect_valid
+
+    validates_presence_of :daughter_firstname, :daughter_lastname, :daughter_age, :parents_waiver, :if => :parent?
+    validate :daughter_age_is_valid, :if => :parent?
+    validates_acceptance_of :parents_waiver, :if => :parent?
+
+    validates_presence_of :parent_name, :parent_phone, :parent_email, :parents_waiver, :if => :minor?
+    validates_acceptance_of :parents_waiver, :message => "Sorry, you must agree to the waiver to sign up.", :if => :minor?
+
+    validates_acceptance_of :waiver, :message => "Sorry, you must agree to the waiver to sign up."
+
     event :complete do
       transition :confirmed => :completed
     end
