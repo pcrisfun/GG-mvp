@@ -614,8 +614,6 @@ first_workshop = natalie.workshops.create!(              "host_firstname"=>"Nata
                                                         "permission"=>"1"
                                                       )
 
-
-
 first_workshop = jodi.workshops.create!(              "host_firstname"=>"Jodi",
                                                         "host_lastname"=>"Brownstein",
                                                         "host_business"=>"",
@@ -651,8 +649,6 @@ first_workshop = jodi.workshops.create!(              "host_firstname"=>"Jodi",
                                                         "respect_my_style"=>"0",
                                                         "permission"=>"1"
                                                       )
-
-
 
 first_workshop = jennie.workshops.create!(              "host_firstname"=>"Jennie",
                                                         "host_lastname"=>"Tudor Gray",
@@ -690,8 +686,6 @@ first_workshop = jennie.workshops.create!(              "host_firstname"=>"Jenni
                                                         "permission"=>"1"
                                                       )
 
-
-
 first_workshop = julia.workshops.create!(              "host_firstname"=>"Julia",
                                                         "host_lastname"=>"Ward",
                                                         "host_business"=>"",
@@ -727,8 +721,6 @@ first_workshop = julia.workshops.create!(              "host_firstname"=>"Julia"
                                                         "respect_my_style"=>"0",
                                                         "permission"=>"1"
                                                       )
-
-
 
 first_workshop = katy.workshops.create!(              "host_firstname"=>"Katy",
                                                         "host_lastname"=>"Dougharty",
@@ -766,8 +758,6 @@ first_workshop = katy.workshops.create!(              "host_firstname"=>"Katy",
                                                         "permission"=>"1"
                                                       )
 
-
-
 first_workshop = lisa.workshops.create!(              "host_firstname"=>"Lisa",
                                                         "host_lastname"=>"Chouinard",
                                                         "host_business"=>"Feto Soap",
@@ -803,8 +793,6 @@ first_workshop = lisa.workshops.create!(              "host_firstname"=>"Lisa",
                                                         "respect_my_style"=>"0",
                                                         "permission"=>"1"
                                                       )
-
-
 
 first_workshop = christine.workshops.create!(           "host_firstname"=>"Christine",
                                                         "host_lastname"=>"Fail",
@@ -914,7 +902,6 @@ first_workshop = anna.workshops.create!(             "host_firstname"=>"Anna",
                                                         "permission"=>"1"
                                                       )
 
-
 first_workshop = ann.workshops.create!(             "host_firstname"=>"Ann",
                                                         "host_lastname"=>"Armstrong",
                                                         "host_business"=>"",
@@ -987,7 +974,6 @@ first_workshop = elizabeth.workshops.create!(             "host_firstname"=>"Eli
                                                         "permission"=>"1"
                                                       )
 
-
 first_workshop = callen.workshops.create!(             "host_firstname"=>"Callen",
                                                         "host_lastname"=>"Thompson",
                                                         "host_business"=>"Beam Textiles",
@@ -1023,7 +1009,6 @@ first_workshop = callen.workshops.create!(             "host_firstname"=>"Callen
                                                         "respect_my_style"=>"1",
                                                         "permission"=>"1"
                                                       )
-
 
 first_workshop = caroline.workshops.create!(             "host_firstname"=>"Caroline",
                                                         "host_lastname"=>"Wright",
@@ -1061,7 +1046,6 @@ first_workshop = caroline.workshops.create!(             "host_firstname"=>"Caro
                                                         "permission"=>"1"
                                                       )
 
-
 first_workshop = maura.workshops.create!(             "host_firstname"=>"Maura",
                                                         "host_lastname"=>"Ambrose",
                                                         "host_business"=>"Folk Fibers",
@@ -1097,7 +1081,6 @@ first_workshop = maura.workshops.create!(             "host_firstname"=>"Maura",
                                                         "respect_my_style"=>"1",
                                                         "permission"=>"1"
                                                       )
-
 
 first_workshop = jeannie.workshops.create!(             "host_firstname"=>"Jeannie",
                                                         "host_lastname"=>"Vianney",
@@ -1136,6 +1119,15 @@ first_workshop = jeannie.workshops.create!(             "host_firstname"=>"Jeann
                                                       )
 
 
+
+
+
+
+
+
+
+
+
 first_apprenticeship = melissa.apprenticeships.create!( "host_firstname"=>"Melissa",
                                                         "host_lastname"=>"Chapman",
                                                         "host_business"=>"Stone + Smith",
@@ -1165,9 +1157,9 @@ first_apprenticeship = melissa.apprenticeships.create!( "host_firstname"=>"Melis
                                                         "respect_my_style"=>"1",
                                                         "stripe_card_token"=>"",
                                                         "permission"=>"1",
-                                                        "availability"=>"M-F, 3-7pm. Flexible on weekend days."
+                                                        "availability"=>"M-F, 3-7pm. Flexible on weekend days.",
+                                                        "state"=>"completed"
                                                      )
-
 
 first_apprenticeship = teruko.apprenticeships.create!( "host_firstname"=>"Teruko Nimura &",
                                                         "host_lastname"=>"Tahila Mintz",
@@ -1198,7 +1190,8 @@ first_apprenticeship = teruko.apprenticeships.create!( "host_firstname"=>"Teruko
                                                         "respect_my_style"=>"0",
                                                         "stripe_card_token"=>"",
                                                         "permission"=>"1",
-                                                        "availability"=>"Flexible on weekend days."
+                                                        "availability"=>"Flexible on weekend days.",
+                                                        "state"=>"completed"
                                                      )
 
 first_apprenticeship = madelyn.apprenticeships.create!( "host_firstname"=>"Madelyn",
@@ -1230,7 +1223,8 @@ first_apprenticeship = madelyn.apprenticeships.create!( "host_firstname"=>"Madel
                                                         "respect_my_style"=>"0",
                                                         "stripe_card_token"=>"",
                                                         "permission"=>"1",
-                                                        "availability"=>"Flexible"
+                                                        "availability"=>"Flexible",
+                                                        "state"=>"completed"
                                                      )
 
 first_apprenticeship = teruko.apprenticeships.create!( "host_firstname"=>"Teruko",
@@ -1262,7 +1256,8 @@ first_apprenticeship = teruko.apprenticeships.create!( "host_firstname"=>"Teruko
                                                         "respect_my_style"=>"0",
                                                         "stripe_card_token"=>"",
                                                         "permission"=>"1",
-                                                        "availability"=>"Flexible"
+                                                        "availability"=>"Flexible",
+                                                        "state"=>"completed"
                                                      )
 
 first_apprenticeship = cheyenne.apprenticeships.create!( "host_firstname"=>"Cheyenne &",
@@ -1294,233 +1289,142 @@ first_apprenticeship = cheyenne.apprenticeships.create!( "host_firstname"=>"Chey
                                                         "respect_my_style"=>"0",
                                                         "stripe_card_token"=>"",
                                                         "permission"=>"1",
-                                                        "availability"=>"Flexible on weekday afternoons and weekends"
+                                                        "availability"=>"Flexible on weekday afternoons and weekends",
+                                                        "state"=>"completed"
                                                      )
 
+first_apprenticeship = adrienne.apprenticeships.create!( "host_firstname"=>"Adrienne",
+                                                        "host_lastname"=>"Butler",
+                                                        "host_business"=>"",
+                                                        "topic"=>"Printmaking",
+                                                        "kind"=>"1 Day",
+                                                        "description"=>"Join Adrienne at Texas State University to take a peek at the inner workings of a busy print shop. Learn what goes into printmaking, and get your hands dirty making your own hand-printed fabric.",
+                                                        "skill_list"=>"'hand-printing','stenciling','stamping','printmaking'",
+                                                        "tool_list"=>"'screens','stencils','stamps','fabric','paint','ink','craft knife','found objects'",
+                                                        "requirement_list"=>"",
+                                                        "other_needs"=>"",
+                                                        "age_min"=>"12",
+                                                        "age_max"=>"99",
+                                                        "registration_max"=>"2",
+                                                        "begins_at"=>"09/01/2013",
+                                                        "ends_at"=>"09/01/2013",
+                                                        "datetime_tba"=>"1",
+                                                        "hours"=>"4",
+                                                        "hours_per"=>"week",
+                                                        "location_address"=>"Austin Center for Design",
+                                                        "location_address2"=>"1201 Hackberry St",
+                                                        "location_city"=>"Austin",
+                                                        "location_state"=>"TX",
+                                                        "location_zipcode"=>"78702",
+                                                        "location_private"=>"0",
+                                                        "location_nbrhood"=>"East Austin",
+                                                        "location_varies"=>"0",
+                                                        "respect_my_style"=>"0",
+                                                        "stripe_card_token"=>"",
+                                                        "permission"=>"1",
+                                                        "availability"=>"Flexible",
+                                                        "state"=>"completed"
+                                                     )
 
+first_apprenticeship = jessica.apprenticeships.create!( "host_firstname"=>"Jessica",
+                                                        "host_lastname"=>"Tata",
+                                                        "host_business"=>"Son of a Sailor",
+                                                        "topic"=>"Jewelry Production",
+                                                        "kind"=>"Production",
+                                                        "description"=>"We've been growing, fast, and want to involve someone that has an interest in learning about the development of a small creative business. As a Production Apprentice, your position will focus on the production of our line of jewelry and accessories. From hand-painting techniques on metal and wood, to basic leather working skills, you will be involved in the creation of our goods from beginning to end. You will learn basic jewelry techniques that include assemblage and beading, as well as metal stamping. You will also have the opportunity to be involved with all aspects of small creative business, including using social media for outreach and marketing, interaction with customers, and learning about wholesale/retail relationships. While we do not require specific relevant experience in order to work with us, applicants should be confident working on small, detail oriented tasks, and have good manual dexterity. ",
+                                                        "skill_list"=>"'hand painting leather','hand painting wood','hand painting metal','metal finishing','grinding','polishing','stamping','basic jewelry','leather techniques','assemblage','finishing','basic wood techniques','sanding','social media marketing','basic accounting and inventory','basic website management/maintenance'",
+                                                        "tool_list"=>"'Wix','Etsy','Photoshop','Illustrator','InDesign','Quick Books','Stitch Labs','Mail Chimp','chain nose pliers','round nose pliers','wire cutters','bead crimpers','thread burners','metal stamps','dremel tools','leather hole punches','rivet awl','ball peen hammer,','mallet, rotary cutter','paint, leather sealer','epoxy'",
+                                                        "requirement_list"=>"",
+                                                        "other_needs"=>"",
+                                                        "age_min"=>"18",
+                                                        "age_max"=>"99",
+                                                        "registration_max"=>"2",
+                                                        "begins_at"=>"09/15/2013",
+                                                        "ends_at"=>"09/01/2013",
+                                                        "datetime_tba"=>"1",
+                                                        "hours"=>"4",
+                                                        "hours_per"=>"week",
+                                                        "location_address"=>"Canopy Studios",
+                                                        "location_address2"=>"916 Springdale Road",
+                                                        "location_city"=>"Austin",
+                                                        "location_state"=>"TX",
+                                                        "location_zipcode"=>"78702",
+                                                        "location_private"=>"0",
+                                                        "location_nbrhood"=>"East Austin",
+                                                        "location_varies"=>"0",
+                                                        "respect_my_style"=>"0",
+                                                        "stripe_card_token"=>"",
+                                                        "permission"=>"1",
+                                                        "availability"=>"This is a two month apprenticeship that would ideally begin by June 15th. We would love to have someone that will be able to contribute in a meaningful way to our production, and learn as much as possible in the process. In order to do this, 10-15 hours a week in time chunks no less than 3 hours would be ideal. That said, we are flexible with the exact dates and times of the apprenticeship. We are, however, closed on the weekends and will not be in studio, barring any special events. ",
+                                                        "state"=>"accepted"
+                                                     )
 
-# first_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
-#                                                         "host_lastname"=>"Smith",
-#                                                         "host_business"=>"",
-#                                                         "kind" => "event",
-#                                                         "bio"=>"Vivamus ut accumsan nulla. Maecenas consequat vestibulum dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at purus urna. Sed adipiscing risus non elit molestie eget tempus massa porta. Ut in ligula elit. ",
-#                                                         "website"=>"msdesigns.com",
-#                                                         "webshop"=>"shop.msdesigns.com",
-#                                                         "facebook"=>"marthasmith",
-#                                                         "twitter"=>"martha_smith",
-#                                                         "topic"=>"Sculpture Creation",
-#                                                         "kind"=>"Production",
-#                                                         "description"=>"Quisque in ligula id arcu fringilla gravida a vel purus. Etiam tempus hendrerit augue, vel luctus metus egestas quis. Morbi sit amet felis non purus rutrum adipiscing. Proin aliquet sapien at tellus hendrerit eget cursus orci cursus. Donec turpis sem, ullamcorper eget sodales non, vulputate nec dolor. Proin tortor metus, fringilla eget tristique eu, gravida nec mi. Quisque vitae quam magna, hendrerit sollicitudin metus. Nulla quis purus justo, eget porttitor turpis. Donec fringilla ullamcorper risus vitae lobortis. Sed vitae lacus neque, adipiscing eleifend nisl. Phasellus faucibus erat eget justo luctus consectetur. Curabitur sed venenatis nisi. Suspendisse potenti. ",
-#                                                         "skill_list"=>"'Paper Sculpting','Sketching','circular sander'",
-#                                                         "tool_list"=>"'Adhesive','exacto blades','sand paper'",
-#                                                         "requirement_list"=>"'some comfort with electric tools and blades'",
-#                                                         "other_needs"=>"Have their own transportation",
-#                                                         "age_min"=>"16",
-#                                                         "age_max"=>"25",
-#                                                         "registration_max"=>"2",
-#                                                         "begins_at"=>"08/01/2013",
-#                                                         "ends_at"=>"12/01/2013",
-#                                                         "datetime_tba"=>"0",
-#                                                         "hours"=>"4",
-#                                                         "hours_per"=>"week",
-#                                                         "location_address"=>"615 W Johanna St",
-#                                                         "location_address2"=>"",
-#                                                         "location_city"=>"Austin",
-#                                                         "location_state"=>"TX",
-#                                                         "location_zipcode"=>"78704",
-#                                                         "location_private"=>"1",
-#                                                         "location_nbrhood"=>"Bouldin Creek",
-#                                                         "location_varies"=>"0",
-#                                                         "respect_my_style"=>"1",
-#                                                         "stripe_card_token"=>"",
-#                                                         "permission"=>"1",
-#                                                         "availability"=>"M-F, 3-7pm. Flexible on weekend days."
-#                                                      )
-# second_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
-#                                                         "host_lastname"=>"Smith",
-#                                                         "host_business"=>"MS Designs",
-#                                                         "kind" => "production",
-#                                                         "bio"=>"Vivamus ut accumsan nulla. Maecenas consequat vestibulum dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at purus urna. Sed adipiscing risus non elit molestie eget tempus massa porta. Ut in ligula elit. ",
-#                                                         "website"=>"msdesigns.com",
-#                                                         "webshop"=>"shop.msdesigns.com",
-#                                                         "facebook"=>"marthasmith",
-#                                                         "twitter"=>"martha_smith",
-#                                                         "topic"=>"Kids Craft",
-#                                                         "kind"=>"Ongoing",
-#                                                         "description"=>"Quisque in ligula id arcu fringilla gravida a vel purus. Etiam tempus hendrerit augue, vel luctus metus egestas quis. Morbi sit amet felis non purus rutrum adipiscing. Proin aliquet sapien at tellus hendrerit eget cursus orci cursus. Donec turpis sem, ullamcorper eget sodales non, vulputate nec dolor. Proin tortor metus, fringilla eget tristique eu, gravida nec mi. Quisque vitae quam magna, hendrerit sollicitudin metus. Nulla quis purus justo, eget porttitor turpis. Donec fringilla ullamcorper risus vitae lobortis. Sed vitae lacus neque, adipiscing eleifend nisl. Phasellus faucibus erat eget justo luctus consectetur. Curabitur sed venenatis nisi. Suspendisse potenti. ",
-#                                                         "skill_list"=>"'Paper Sculpting','Sketching','circular sander'",
-#                                                         "tool_list"=>"'Adhesive','exacto blades','sand paper'",
-#                                                         "requirement_list"=>"'some comfort with electric tools and blades'",
-#                                                         "other_needs"=>"Have their own transportation",
-#                                                         "age_min"=>"3",
-#                                                         "age_max"=>"12",
-#                                                         "registration_max"=>"5",
-#                                                         "begins_at"=>"09/01/2013",
-#                                                         "ends_at"=>"12/01/2013",
-#                                                         "datetime_tba"=>"0",
-#                                                         "hours"=>"4",
-#                                                         "hours_per"=>"week",
-#                                                         "location_address"=>"615 W Johanna St",
-#                                                         "location_address2"=>"",
-#                                                         "location_city"=>"Austin",
-#                                                         "location_state"=>"TX",
-#                                                         "location_zipcode"=>"78704",
-#                                                         "location_private"=>"1",
-#                                                         "location_nbrhood"=>"Cherrywood",
-#                                                         "location_varies"=>"0",
-#                                                         "respect_my_style"=>"1",
-#                                                         "stripe_card_token"=>"",
-#                                                         "permission"=>"1",
-#                                                         "availability"=>"Mondays, Wednesdays, and Thursdays, in the afternoon. Usually free on weekend days."
-#                                                      )
-# third_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
-#                                                         "host_lastname"=>"Smith",
-#                                                         "host_business"=>"MS Designs",
-#                                                         "kind" => "ongoing",
-#                                                         "bio"=>"Vivamus ut accumsan nulla. Maecenas consequat vestibulum dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at purus urna. Sed adipiscing risus non elit molestie eget tempus massa porta. Ut in ligula elit. ",
-#                                                         "website"=>"msdesigns.com",
-#                                                         "webshop"=>"shop.msdesigns.com",
-#                                                         "facebook"=>"marthasmith",
-#                                                         "twitter"=>"martha_smith",
-#                                                         "topic"=>"Teenishness",
-#                                                         "kind"=>"Event",
-#                                                         "description"=>"Quisque in ligula id arcu fringilla gravida a vel purus. Etiam tempus hendrerit augue, vel luctus metus egestas quis. Morbi sit amet felis non purus rutrum adipiscing. Proin aliquet sapien at tellus hendrerit eget cursus orci cursus. Donec turpis sem, ullamcorper eget sodales non, vulputate nec dolor. Proin tortor metus, fringilla eget tristique eu, gravida nec mi. Quisque vitae quam magna, hendrerit sollicitudin metus. Nulla quis purus justo, eget porttitor turpis. Donec fringilla ullamcorper risus vitae lobortis. Sed vitae lacus neque, adipiscing eleifend nisl. Phasellus faucibus erat eget justo luctus consectetur. Curabitur sed venenatis nisi. Suspendisse potenti. ",
-#                                                         "skill_list"=>"'Paper Sculpting','Sketching','circular sander'",
-#                                                         "tool_list"=>"'Adhesive','exacto blades','sand paper'",
-#                                                         "requirement_list"=>"'some comfort with electric tools and blades'",
-#                                                         "other_needs"=>"Have their own transportation",
-#                                                         "age_min"=>"13",
-#                                                         "age_max"=>"19",
-#                                                         "registration_max"=>"4",
-#                                                         "begins_at"=>"09/01/2013",
-#                                                         "ends_at"=>"12/01/2013",
-#                                                         "datetime_tba"=>"0",
-#                                                         "hours"=>"4",
-#                                                         "hours_per"=>"week",
-#                                                         "location_address"=>"615 W Johanna St",
-#                                                         "location_address2"=>"",
-#                                                         "location_city"=>"Austin",
-#                                                         "location_state"=>"TX",
-#                                                         "location_zipcode"=>"78704",
-#                                                         "location_private"=>"1",
-#                                                         "location_nbrhood"=>"Eanes",
-#                                                         "location_varies"=>"0",
-#                                                         "respect_my_style"=>"1",
-#                                                         "stripe_card_token"=>"",
-#                                                         "permission"=>"1",
-#                                                         "availability"=>"M-F, 3-7pm. Flexible on weekend days."
-#                                                      )
-# fourth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
-#                                                         "host_lastname"=>"Smith",
-#                                                         "host_business"=>"MS Designs",
-#                                                         "kind" => "event",
-#                                                         "bio"=>"Vivamus ut accumsan nulla. Maecenas consequat vestibulum dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at purus urna. Sed adipiscing risus non elit molestie eget tempus massa porta. Ut in ligula elit. ",
-#                                                         "website"=>"msdesigns.com",
-#                                                         "webshop"=>"shop.msdesigns.com",
-#                                                         "facebook"=>"marthasmith",
-#                                                         "twitter"=>"martha_smith",
-#                                                         "topic"=>"All Ages",
-#                                                         "kind"=>"Event",
-#                                                         "description"=>"Quisque in ligula id arcu fringilla gravida a vel purus. Etiam tempus hendrerit augue, vel luctus metus egestas quis. Morbi sit amet felis non purus rutrum adipiscing. Proin aliquet sapien at tellus hendrerit eget cursus orci cursus. Donec turpis sem, ullamcorper eget sodales non, vulputate nec dolor. Proin tortor metus, fringilla eget tristique eu, gravida nec mi. Quisque vitae quam magna, hendrerit sollicitudin metus. Nulla quis purus justo, eget porttitor turpis. Donec fringilla ullamcorper risus vitae lobortis. Sed vitae lacus neque, adipiscing eleifend nisl. Phasellus faucibus erat eget justo luctus consectetur. Curabitur sed venenatis nisi. Suspendisse potenti. ",
-#                                                         "skill_list"=>"'Paper Sculpting','Sketching','circular sander'",
-#                                                         "tool_list"=>"'Adhesive','exacto blades','sand paper'",
-#                                                         "requirement_list"=>"'some comfort with electric tools and blades'",
-#                                                         "other_needs"=>"Have their own transportation",
-#                                                         "age_min"=>"1",
-#                                                         "age_max"=>"100",
-#                                                         "registration_max"=>"13",
-#                                                         "begins_at"=>"09/01/2013",
-#                                                         "ends_at"=>"12/01/2013",
-#                                                         "datetime_tba"=>"0",
-#                                                         "hours"=>"4",
-#                                                         "hours_per"=>"week",
-#                                                         "location_address"=>"615 W Johanna St",
-#                                                         "location_address2"=>"",
-#                                                         "location_city"=>"Austin",
-#                                                         "location_state"=>"TX",
-#                                                         "location_zipcode"=>"78704",
-#                                                         "location_private"=>"1",
-#                                                         "location_nbrhood"=>"Spicewood",
-#                                                         "location_varies"=>"0",
-#                                                         "respect_my_style"=>"1",
-#                                                         "stripe_card_token"=>"",
-#                                                         "permission"=>"1",
-#                                                         "availability"=>"M-F, 3-7pm. Flexible on weekend days."
-#                                                      )
-# fifth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
-#                                                         "host_lastname"=>"Smith",
-#                                                         "host_business"=>"MS Designs",
-#                                                         "kind" => "event",
-#                                                         "bio"=>"Vivamus ut accumsan nulla. Maecenas consequat vestibulum dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at purus urna. Sed adipiscing risus non elit molestie eget tempus massa porta. Ut in ligula elit. ",
-#                                                         "website"=>"msdesigns.com",
-#                                                         "webshop"=>"shop.msdesigns.com",
-#                                                         "facebook"=>"marthasmith",
-#                                                         "twitter"=>"martha_smith",
-#                                                         "topic"=>"Come One Come All",
-#                                                         "kind"=>"Ongoing",
-#                                                         "description"=>"Quisque in ligula id arcu fringilla gravida a vel purus. Etiam tempus hendrerit augue, vel luctus metus egestas quis. Morbi sit amet felis non purus rutrum adipiscing. Proin aliquet sapien at tellus hendrerit eget cursus orci cursus. Donec turpis sem, ullamcorper eget sodales non, vulputate nec dolor. Proin tortor metus, fringilla eget tristique eu, gravida nec mi. Quisque vitae quam magna, hendrerit sollicitudin metus. Nulla quis purus justo, eget porttitor turpis. Donec fringilla ullamcorper risus vitae lobortis. Sed vitae lacus neque, adipiscing eleifend nisl. Phasellus faucibus erat eget justo luctus consectetur. Curabitur sed venenatis nisi. Suspendisse potenti. ",
-#                                                         "skill_list"=>"'Paper Sculpting','Sketching','circular sander'",
-#                                                         "tool_list"=>"'Adhesive','exacto blades','sand paper'",
-#                                                         "requirement_list"=>"'some comfort with electric tools and blades'",
-#                                                         "other_needs"=>"Have their own transportation",
-#                                                         "age_min"=>"1",
-#                                                         "age_max"=>"100",
-#                                                         "registration_max"=>"3",
-#                                                         "begins_at"=>"09/01/2013",
-#                                                         "ends_at"=>"12/01/2013",
-#                                                         "datetime_tba"=>"0",
-#                                                         "hours"=>"4",
-#                                                         "hours_per"=>"week",
-#                                                         "location_address"=>"615 W Johanna St",
-#                                                         "location_address2"=>"",
-#                                                         "location_city"=>"Austin",
-#                                                         "location_state"=>"TX",
-#                                                         "location_zipcode"=>"78704",
-#                                                         "location_private"=>"1",
-#                                                         "location_nbrhood"=>"Travis Heights",
-#                                                         "location_varies"=>"0",
-#                                                         "respect_my_style"=>"1",
-#                                                         "stripe_card_token"=>"",
-#                                                         "permission"=>"1",
-#                                                         "availability"=>"M-F, 3-7pm. Flexible on weekend days."
-#                                                      )
-# sixth_apprenticeship = artist.apprenticeships.create!(  "host_firstname"=>"Martha",
-#                                                         "host_lastname"=>"Smith",
-#                                                         "host_business"=>"MS Designs",
-#                                                         "kind" => "production",
-#                                                         "bio"=>"Vivamus ut accumsan nulla. Maecenas consequat vestibulum dapibus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at purus urna. Sed adipiscing risus non elit molestie eget tempus massa porta. Ut in ligula elit. ",
-#                                                         "website"=>"msdesigns.com",
-#                                                         "webshop"=>"shop.msdesigns.com",
-#                                                         "facebook"=>"marthasmith",
-#                                                         "twitter"=>"martha_smith",
-#                                                         "topic"=>"Everyone Allowed",
-#                                                         "kind"=>"Ongoing",
-#                                                         "description"=>"Quisque in ligula id arcu fringilla gravida a vel purus. Etiam tempus hendrerit augue, vel luctus metus egestas quis. Morbi sit amet felis non purus rutrum adipiscing. Proin aliquet sapien at tellus hendrerit eget cursus orci cursus. Donec turpis sem, ullamcorper eget sodales non, vulputate nec dolor. Proin tortor metus, fringilla eget tristique eu, gravida nec mi. Quisque vitae quam magna, hendrerit sollicitudin metus. Nulla quis purus justo, eget porttitor turpis. Donec fringilla ullamcorper risus vitae lobortis. Sed vitae lacus neque, adipiscing eleifend nisl. Phasellus faucibus erat eget justo luctus consectetur. Curabitur sed venenatis nisi. Suspendisse potenti. ",
-#                                                         "skill_list"=>"'Paper Sculpting','Sketching','circular sander'",
-#                                                         "tool_list"=>"'Adhesive','exacto blades','sand paper'",
-#                                                         "requirement_list"=>"'some comfort with electric tools and blades'",
-#                                                         "other_needs"=>"Have their own transportation",
-#                                                         "age_min"=>"1",
-#                                                         "age_max"=>"100",
-#                                                         "registration_max"=>"30",
-#                                                         "begins_at"=>"09/01/2013",
-#                                                         "ends_at"=>"12/01/2013",
-#                                                         "datetime_tba"=>"0",
-#                                                         "hours"=>"4",
-#                                                         "hours_per"=>"week",
-#                                                         "location_address"=>"615 W Johanna St",
-#                                                         "location_address2"=>"",
-#                                                         "location_city"=>"Austin",
-#                                                         "location_state"=>"TX",
-#                                                         "location_zipcode"=>"78704",
-#                                                         "location_private"=>"1",
-#                                                         "location_nbrhood"=>"Westlake Hills",
-#                                                         "location_varies"=>"0",
-#                                                         "respect_my_style"=>"1",
-#                                                         "stripe_card_token"=>"",
-#                                                         "permission"=>"1",
-#                                                         "availability"=>"M-F, 3-7pm. Flexible on weekend days."
-#                                                      )
+first_apprenticeship = anna.apprenticeships.create!(    "host_firstname"=>"Anna",
+                                                        "host_lastname"=>"Gieselman",
+                                                        "host_business"=>"Bee Amour",
+                                                        "topic"=>"Jewelry",
+                                                        "kind"=>"Production",
+                                                        "description"=>"Presently she is seeking an apprentice to help with production of her line. Some skills that the apprentice will learn are basic metal fabrication, soldering, finishing out cast pieces, and other fun metal work processes. There may also be marketing projects and fun jewelry events that the apprentice can be a part of.",
+                                                        "skill_list"=>"'jewelry fabrication'",
+                                                        "tool_list"=>"'jewelry hammers','metals','solder'",
+                                                        "requirement_list"=>"",
+                                                        "other_needs"=>"",
+                                                        "age_min"=>"13",
+                                                        "age_max"=>"18",
+                                                        "registration_max"=>"2",
+                                                        "begins_at"=>"09/01/2013",
+                                                        "ends_at"=>"09/01/2013",
+                                                        "datetime_tba"=>"1",
+                                                        "hours"=>"4",
+                                                        "hours_per"=>"week",
+                                                        "location_address"=>"Anna's Studio",
+                                                        "location_address2"=>"1201 Hackberry St",
+                                                        "location_city"=>"Austin",
+                                                        "location_state"=>"TX",
+                                                        "location_zipcode"=>"78702",
+                                                        "location_private"=>"1",
+                                                        "location_nbrhood"=>"East Austin",
+                                                        "location_varies"=>"0",
+                                                        "respect_my_style"=>"0",
+                                                        "stripe_card_token"=>"",
+                                                        "permission"=>"1",
+                                                        "availability"=>"Flexible",
+                                                        "state"=>"accepted"
+                                                     )
+
+first_apprenticeship = callen.apprenticeships.create!( "host_firstname"=>"Callen",
+                                                        "host_lastname"=>"Thompson",
+                                                        "host_business"=>"Texas Land Conservancy",
+                                                        "topic"=>"Gala Organizing & Hosting",
+                                                        "kind"=>"Event",
+                                                        "description"=>"Austin artist and non-profit administrator, Callie Thompson, is accepting two apprentices for the Texas Land Conservancy 30th Anniversary Gala on December 1st, a beautiful, outdoor, tented event for 350 guests, headlined by Austin indie-rock orchestra, Mother Falcon. Callie will teach the apprentices how to craft a creative, non-profit event: from handmade decorations to event entertainment, volunteers, donor relationships, relationships with caterers and beer/tequila donors, social media/media relations and collaborations with local businesses. You will learn a basic understanding of how to run an event from this week-long apprenticeship, and after the apprenticeship, Callie is available as a resource to you whenever you need advising on your events or projects. ",
+                                                        "skill_list"=>"'event planning','volunteer coordination','hand-made decorations'",
+                                                        "tool_list"=>"'Excell','Photoshop'",
+                                                        "requirement_list"=>"",
+                                                        "other_needs"=>"",
+                                                        "age_min"=>"20",
+                                                        "age_max"=>"99",
+                                                        "registration_max"=>"2",
+                                                        "begins_at"=>"09/01/2013",
+                                                        "ends_at"=>"09/15/2013",
+                                                        "datetime_tba"=>"1",
+                                                        "hours"=>"4",
+                                                        "hours_per"=>"week",
+                                                        "location_address"=>"Texas Land Conservancy office in Oak Hill & gala event venue near 2222 and 360",
+                                                        "location_address2"=>"1201 Hackberry St",
+                                                        "location_city"=>"Austin",
+                                                        "location_state"=>"TX",
+                                                        "location_zipcode"=>"78702",
+                                                        "location_private"=>"1",
+                                                        "location_nbrhood"=>"Oak Hill",
+                                                        "location_varies"=>"0",
+                                                        "respect_my_style"=>"0",
+                                                        "stripe_card_token"=>"",
+                                                        "permission"=>"1",
+                                                        "availability"=>"Flexible",
+                                                        "state"=>"completed"
+                                                     )
+
 Event.all.each do |event|
   event.generate_title
 end

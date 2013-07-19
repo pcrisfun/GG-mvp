@@ -21,7 +21,8 @@ class Event < ActiveRecord::Base
                   :skill_list, :tool_list, :requirement_list, :other_needs, :hours, :hours_per,
                   :location_address, :location_address2, :location_city, :location_state, :location_zipcode,
                   :location_private, :location_nbrhood, :location_varies, :age_min, :age_max,
-                  :registration_min, :registration_max, :price, :respect_my_style, :gender, :reject_reason, :revoke_reason
+                  :registration_min, :registration_max, :price, :respect_my_style, :gender, :reject_reason, :revoke_reason,
+                  :state
 
   def generate_title
     self.title = "#{self.topic} with #{self.host_firstname} #{self.host_lastname}"
