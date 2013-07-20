@@ -1,6 +1,6 @@
 class StaticPagesController < ApplicationController
   def home
-    @events = Event.where( datetime_tba: false, state: ['accepted','filled','completed']).limit(4).sort_by { |e| e.created_at }.reverse!
+    @events = Event.where( datetime_tba: false, state: ['accepted']).limit(4).sort_by { |e| e.created_at }.reverse!
   end
 
   def faq_makers
