@@ -57,7 +57,7 @@
               %i.icon-asterisk
             #last-name.field.text
               = editable_link_to 'Your Last Name', field: :host_lastname, resource: @apprenticeship, type: :text
-            - if !show || @apprenticeship.host_business
+            - if !show || @apprenticeship.host_business.present?
               of
               #business.field.text.optional
                 = editable_link_to 'Your Business', field: :host_business, resource: @apprenticeship, type: :text
