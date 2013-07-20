@@ -98,10 +98,10 @@ class WorkshopsController < ApplicationController
         else
 
           if @workshop.started?
-            @workshop.submit && #@workshop.deliver
+            @workshop.submit #&& @workshop.deliver
             redirect_to confirmation_workshop_path(@workshop), flash: { success: "Awesome! Your workshop was submitted."} and return
           else
-            @workshop.resubmit && #@workshop.deliver_resubmit
+            @workshop.resubmit #&& @workshop.deliver_resubmit
             redirect_to workshops_path, :flash => { :success => "Thanks! Your workshop was resubmitted. We'll look it over and let you know when it's posted."} and return
           end
         end
