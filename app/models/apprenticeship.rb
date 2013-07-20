@@ -107,8 +107,7 @@ class Apprenticeship < Event
 			:html_body => %(<h1>Hooray #{user.first_name}!</h1>
         <p>We're thrilled you're building an apprenticeship! If you get stuck take a look at our <a href="#{faq_makers_url}">FAQ for Makers</a>, or feel free to respond to this email with any questions you might have!</p>
         <p>You can <a href="#{edit_apprenticeship_url(self)}">edit your apprenticeship here</a> or monitor signups from your <a href="#{dashboard_url}">Events Dashboard</a></p>
-        <p>Thanks,</p>
-        <p>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
@@ -127,8 +126,7 @@ class Apprenticeship < Event
         <p>You can review the submitted apprenticeship here - <a href="#{apprenticeship_url(self)}"> #{self.title}</a> or monitor signups from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>Please note that you won't be able to edit the details of your apprenticeship until it's been approved. Then if you make changes, we'll need to review it again.</p>
         <p>While you wait, go ahead and fill out your profile in your <a href="#{edit_user_registration_url(user)}">Settings Dashboard</a> like your bio, and links to your website, twitter, and facebook if you're into the social thing.</p>
-        <p>Thanks,</p>
-        <p>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
@@ -145,8 +143,7 @@ class Apprenticeship < Event
         <p>Your apprenticeship is currently pending while we take a look at your changes.</p>
         <p>You can review your resubmitted apprenticeship here - <a href="#{apprenticeship_url(self)}"> #{self.title}</a> or monitor signups from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>Just like last time, you won't be able to edit the details of your apprenticeship until it's been approved, at which point any edits will need to be reviewed again.</p>
-        <p>Thanks,</p>
-        <p>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
@@ -164,8 +161,7 @@ class Apprenticeship < Event
         <p>If it's posted as TBA we'll email you as people follow it, so you can decide when to set the date. If you already set a date, we'll let you know whenever someone applies. Applications will be closed when you've accepted #{self.registration_max} apprentices.</p>
         <p>If by some bad luck you need to cancel your apprenticeship, you can do so from your <a href="#{dashboard_url}">Events Dashboard</a> - but we're crossing our fingers that won't happen!</p>
         <p>Let us know if you have any questions!</p>
-        <p>Thanks and Happy Making!</p>
-        <p>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
@@ -180,8 +176,7 @@ class Apprenticeship < Event
 			:html_body => %(<h1>Bummer!</h1>
         <p>You've canceled your apprenticeship. We hope you'll consider offering it again sometime!</p>
         <p>You can edit the apprenticeship and resubmit it anytime. Find it here - <a href="#{edit_apprenticeship_url(self)}"> #{self.title}</a></p>
-        <p>Thanks,</p>
-        <p>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
@@ -195,7 +190,8 @@ class Apprenticeship < Event
       :subject => "Apprenticeship has been canceled - #{topic} with #{user.name}",
       :html_body => %(<h1>Bummer!</h1>
         <p>We're sorry to say that #{user.name} has had to cancel her apprenticeship. It may be rescheduled later, and if it is you'll be the first to know!</p>
-        <p>In the meantime you can check out other upcoming apprenticehsips you might like here: <a href="#{url_for(apprenticeships)}"> #{apprenticeships_path}</a></p>),
+        <p>In the meantime you can check out other upcoming apprenticehsips you might like here: <a href="#{url_for(apprenticeships)}"> #{apprenticeships_path}</a></p>
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -212,8 +208,7 @@ class Apprenticeship < Event
         <p><i>#{self.reject_reason}</i></p>
         <p>If the problem is with the formatting or content of the apprenticeship, you can edit and resubmit it anytime. Find it here - <a href="#{edit_apprenticeship_url(self)}"> #{self.title}</a> or from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>Please let us know if you have any questions.</p>
-        <p>Thanks,</p>
-        <p>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
@@ -230,8 +225,7 @@ class Apprenticeship < Event
         <p><i>#{self.revoke_reason}</i></p>
         <p>If the problem is with the formatting or content of the apprenticeship, you can edit and resubmit it anytime. Find it here - <a href="#{edit_apprenticeship_url(self)}"> #{self.title}</a> or from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>Please let us know if you have any questions.</p>
-        <p>Thanks,</p>
-        <p>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
 			:bcc => "hello@girlsguild.com",
 		})
 		return true
