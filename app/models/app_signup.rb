@@ -30,6 +30,10 @@ class AppSignup < Signup
     return !self.user.over_18
   end
 
+  def requirements?
+    return self.event.requirement_list.present?
+  end
+
   def process_apprent_fee
     logger.info "Processing payment"
     unless charge_id.present?
@@ -553,6 +557,7 @@ class AppSignup < Signup
       validates_acceptance_of :confirm_available, :confirm_unpaid, :confirm_fee, :message => ' must agree to submit your form.'
       validates_presence_of :daughter_firstname, :daughter_lastname, :daughter_age, :if => :parent?
       validate :daughter_age_is_valid, :if => :parent?
+      validates_acceptance_of :requirements, :if => :requirements?
     end
 
     state :accepted do
@@ -565,11 +570,12 @@ class AppSignup < Signup
     end
 
     state :confirmed do
-      validates_presence_of :waiver
-      validate :respect_valid
-      #validates_numericality_of :phone
+      validate :respect_valid, :message => "Sorry, you must check the respect agreement."
+
       validates_presence_of :parent_name, :parent_phone, :parent_email, :if => :minor?
-      validates_presence_of :parents_waiver, :if => :minor? || :parent?
+      validates_acceptance_of :parents_waiver, :message => "Sorry, you must agree to the indemnification agreement.", :if => :minor? || :parent?
+
+      validates_acceptance_of :waiver, :message => "Sorry, you must agree to the waiver."
     end
 
     state :completed do
