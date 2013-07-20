@@ -10,12 +10,6 @@ class AppSignup < Signup
 
   include Emailable
 
-  def respect_valid
-    if self.event.respect_my_style == "1" && !respect_agreement
-      errors.add(:respect_agreement, "You must agree to respect the artist's style")
-    end
-  end
-
   def daughter_age_is_valid
     unless daughter_age && daughter_age >= self.event.age_min && daughter_age <= self.event.age_max
       errors.add(:daughter_age, "Your daughter must be between #{self.event.age_min} - #{self.event.age_max} to apply for this apprenticeship.")
@@ -32,6 +26,12 @@ class AppSignup < Signup
 
   def requirements?
     return self.event.requirement_list.present?
+  end
+
+  def respect_agreement?
+    if self.event.respect_my_style == "1"
+      return true
+    end
   end
 
   def process_apprent_fee
@@ -544,8 +544,7 @@ class AppSignup < Signup
     end
 
     state :confirmed do
-      validate :respect_valid, :message => "Sorry, you must check the respect agreement."
-
+      validates_acceptance_of :respect_agreement, :message => "You must agree to respect the artist's style and techniques.", :if => :respect_agreement?
       validates_presence_of :parent_name, :parent_phone, :parent_email, :if => :minor?
       validates_acceptance_of :parents_waiver, :message => "Sorry, you must agree to the indemnification agreement.", :if => :minor? || :parent?
 
