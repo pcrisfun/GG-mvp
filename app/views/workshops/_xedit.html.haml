@@ -55,7 +55,7 @@
               %i.icon-asterisk
             #last-name.field.text
               = editable_link_to 'Your Last Name', field: :host_lastname, resource: @workshop, type: :text
-            - if !show || @workshop.host_business
+            - if !show || @workshop.host_business.present?
               of
               #business.field.text.optional
                 = editable_link_to 'Your Business', field: :host_business, resource: @workshop, type: :text
