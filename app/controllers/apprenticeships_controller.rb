@@ -87,7 +87,7 @@ class ApprenticeshipsController < ApplicationController
 
         elsif params[:apprenticeship][:stripe_card_token] && ( params[:apprenticeship][:stripe_card_token] != "" )
           if @apprenticeship.process_payment
-            @apprenticeship.paid
+            @apprenticeship.paid #&& @apprenticeship.deliver
             redirect_to payment_confirmation_apprenticeship_path(@apprenticeship) and return
           else
             redirect_to payment_apprenticeship_path(@apprenticeship), :flash => { warning: "There was a problem processing your payment: #{@apprenticeship.errors.full_messages}" } and return
@@ -151,7 +151,7 @@ class ApprenticeshipsController < ApplicationController
 
 #---- accept
   def accept
-    if @apprenticeship.accept && @apprenticeship.deliver_accept
+    if @apprenticeship.accept #&& @apprenticeship.deliver_accept
       redirect_to apprenticeships_path, :flash => { :success => "Apprenticeship accepted." } and return
     else
       raise
@@ -167,7 +167,7 @@ class ApprenticeshipsController < ApplicationController
 
 #---- resubmit
   def resubmit
-    if @apprenticeship.resubmit && @apprenticeship.deliver_resubmit
+    if @apprenticeship.resubmit #&& @apprenticeship.deliver_resubmit
       redirect_to apprenticeships_path, :flash => { :success => "Thanks! Your apprenticeship was resubmitted. We'll take a look at it and let you know when it's posted."} and return
     else
       raise
