@@ -12,10 +12,10 @@ include EventHelper
   # Images
     validate :host_album_limit
   # Date & Time
-    #validates :begins_at, :date => {:after => Proc.new { Date.today }, :message => 'Sorry! You need to plan your workshop for a date after today. Please check the date you set.'}, :if => :tba_is_blank
+    validates :begins_at, :date => {:after => Proc.new { Date.today }, :message => 'Sorry! You need to plan your workshop for a date after today. Please check the date you set.'}, :if => :tba_is_blank
     validates_presence_of :begins_at_time, :ends_at_time, :if => :tba_is_blank
     validate :ends_after_start_time
-    #validates :ends_at, :date => {:before_or_equal_to => :begins_at, :message => 'Sorry! You need to close registrations on or before the date of the workshop.' }, :date => { :on_or_after => Date.today, :message => 'Oops! The date you chose to close registrations is in the past! Please check the date you set.' }, :if => :tba_is_blank
+    validates :ends_at, :date => {:before_or_equal_to => :begins_at, :message => 'Sorry! You need to close registrations on or before the date of the workshop.' }, :date => { :on_or_after => Date.today, :message => 'Oops! The date you chose to close registrations is in the past! Please check the date you set.' }, :if => :tba_is_blank
   # Address & Neighborhood
     validates_presence_of :location_address, :location_city, :location_state
     validates_presence_of :location_nbrhood, :if => :residential
@@ -47,7 +47,7 @@ include EventHelper
   end
 
   validation_group :begins_at do
-    #validates :begins_at, :date => {:after => Proc.new { Date.today }, :message => 'Sorry! You need to plan your workshop for a date after today. Please check the date you set.'}, :if => :tba_is_blank
+    validates :begins_at, :date => {:after => Proc.new { Date.today }, :message => 'Sorry! You need to plan your workshop for a date after today. Please check the date you set.'}, :if => :tba_is_blank
   end
 
   validation_group :begins_at_time do
@@ -60,7 +60,7 @@ include EventHelper
   end
 
   validation_group :ends_at do
-    #validates :ends_at, :date => {:before_or_equal_to => :begins_at, :message => 'Sorry! You need to close registrations on or before the date of the workshop.' }, :if => :tba_is_blank
+    validates :ends_at, :date => {:before_or_equal_to => :begins_at, :message => 'Sorry! You need to close registrations on or before the date of the workshop.' }, :if => :tba_is_blank
   end
 
   validation_group :location_address do
