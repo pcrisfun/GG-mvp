@@ -88,7 +88,9 @@ class PhotosController < ApplicationController
 
   private
     def load_user_gallery
-      @user = current_user
-      @gallery = @user.gallery
+      if current_user
+        @user = current_user
+        @gallery = @user.gallery
+      end
     end
 end
