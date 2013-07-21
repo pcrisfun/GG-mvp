@@ -1,9 +1,6 @@
 - provide(:title, 'Contact')
 = render 'layouts/googleshim', address: '1309 Chestnut Ave., Austin TX 78702'
-%section#promo.section.alt
-  .map-top-shadow
-  #map
-  .map-bottom-shadow
+
 %section.section
   .container
     .page-header
@@ -38,3 +35,8 @@
               www.girlsguild.com
       .span6
         = render 'static_pages/inquiryform', :inquiry => @inquiry
+
+%section#promo.section.alt
+  .map-top-shadow
+  #map
+  .map-bottom-shadow
