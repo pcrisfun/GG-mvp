@@ -65,7 +65,7 @@
             - if !show
               %i.icon-asterisk
             #kind.field.label.label-inverse
-              = editable_link_to 'Kind of', field: :kind, resource: @apprenticeship, type: :select, data: {source: "{'Event':'Event', 'Production':'Production','Ongoing':'Ongoing' }"}
+              = editable_link_to 'Kind of', field: :kind, resource: @apprenticeship, type: :select, data: {source: "{'Event':'Event', 'Production':'Production','Ongoing':'Ongoing','1-Day':'1-Day' }"}
               Apprenticeship
             - if !show
               %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Is this an Event Apprenticeship with a specific timeline? Is it a Production Apprenticeship, where you need help making a run or building something in particular? Or is it an Ongoing Apprenticeship, through which you share your knowledge and creative practice for help with day-to-day business and the timeline is less set (though we suggest an initial 3 month timeline)?"} }
