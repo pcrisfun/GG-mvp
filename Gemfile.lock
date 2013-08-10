@@ -116,6 +116,7 @@ GEM
     dotenv-rails (0.7.0)
       dotenv (= 0.7.0)
     erubis (2.7.0)
+    excon (0.25.3)
     execjs (1.4.0)
       multi_json (~> 1.0)
     factory_girl (4.1.0)
@@ -177,6 +178,9 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    mandrill-api (1.0.41)
+      excon (>= 0.16.0, < 1.0)
+      json (>= 1.7.7, < 2.0)
     masonry-rails (0.2.0)
       rails
     mime-types (1.23)
@@ -339,6 +343,7 @@ DEPENDENCIES
   jquery-rails (~> 2.0.0)
   jquery-ui-rails
   jquery-validator
+  mandrill-api
   masonry-rails
   momentjs-rails
   newrelic_rpm
