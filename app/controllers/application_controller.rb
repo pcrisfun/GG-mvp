@@ -8,6 +8,21 @@ class ApplicationController < ActionController::Base
     rescue_from ActionController::RoutingError, ActionController::UnknownController, ::AbstractController::ActionNotFound, ActiveRecord::RecordNotFound, with: lambda { |exception| render_error 404, exception }
   end
 
+  after_filter :store_location
+
+  def store_location
+   # store last url - this is needed for post-login redirect to whatever the user last visited.
+      if (request.fullpath != "/users/sign_in" && \
+          request.fullpath != "/users/sign_up" && \
+          !request.xhr?) # don't store ajax calls
+        session[:previous_url] = request.fullpath
+      end
+  end
+
+  def after_sign_in_path_for(resource)
+    session[:previous_url] || root_path
+  end
+
   private
   def render_error(status, exception)
     respond_to do |format|
@@ -16,6 +31,6 @@ class ApplicationController < ActionController::Base
       logger.error(formatted_exception)
       format.html { render template: "errors/error_#{status}", layout: 'layouts/application', status: status }
       format.all { render nothing: true, status: status }
-    end 
+    end
   end
 end
