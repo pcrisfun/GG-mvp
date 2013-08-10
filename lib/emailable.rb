@@ -5,7 +5,7 @@ module Emailable
     if Rails.env.development?
       { :host => 'localhost:3000'}
     else
-      { :host => 'girlsguild.com'}
+      { :host => 'girlsguild.herokuapp.com'}
     end
   end
 end
