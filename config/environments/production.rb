@@ -90,6 +90,4 @@ GirlsGuild::Application.configure do
     }
   }
 
-  # Serve assets over https
-  config.action_controller.asset_host = "//s3.amazonaws.com/#{ENV['AWS_BUCKET']}"
 end
