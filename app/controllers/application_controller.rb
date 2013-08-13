@@ -20,7 +20,11 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    sign_in_url = url_for(:action => 'new', :controller => 'sessions', :only_path => false, :protocol => 'http')
+    if Rails.env.production?
+      sign_in_url = url_for(:action => 'new', :controller => 'sessions', :only_path => false, :protocol => 'https')
+    else
+      sign_in_url = url_for(:action => 'new', :controller => 'sessions', :only_path => false, :protocol => 'http')
+    end
     if request.referer == sign_in_url
       session[:previous_url] || root_path
     else
