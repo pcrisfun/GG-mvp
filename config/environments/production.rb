@@ -89,4 +89,7 @@ GirlsGuild::Application.configure do
       :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
     }
   }
+
+  # Serve assets over https
+  config.action_controller.asset_host = "//s3.amazonaws.com/#{ENV['AWS_BUCKET']}"
 end
