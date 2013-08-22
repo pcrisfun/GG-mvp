@@ -210,6 +210,21 @@ include EventHelper
 		return true
 	end
 
+  def deliver_cancel_lowsignups
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Your workshop has been canceled - #{topic} with #{user.name}",
+      :html_body => %(<h1>Rats!</h1>
+        <p>Your workshop has been canceled because there were less than #{registration_min} signups. We hope you'll consider offering another workshop or apprenticeship sometime!</p>
+        <p>You can always edit the workshop and resubmit it anytime. Find it here - <a href="#{url_for(self)}"> #{self.title}</a> or from your <a href="#{dashboard_url}">Events Dashboard</a></p>
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
 	def deliver_reject
 		Pony.mail({
 			:to => "#{user.name}<#{user.email}>",
@@ -288,7 +303,16 @@ include EventHelper
     #Note: ends_at is the registration close date on workshops
 		workshops = Workshop.where('ends_at <= ?', Date.today).all
 		workshops.each do |w|
-			w.cancel unless w.min_capacity_met?
+			unless w.min_capacity_met?
+        w.cancel & w.deliver_cancel_lowsignups
+        w.signups.each do |s|
+          s.cancel && s.deliver_cancel
+
+          Prereg.find_or_create_by_user_id_and_event_id!(
+          :user_id => s.user_id,
+          :event_id => w.id)
+        end
+      end
 		end
 	end
 
