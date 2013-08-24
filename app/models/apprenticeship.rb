@@ -232,7 +232,7 @@ class Apprenticeship < Event
 	end
 
 	def self.complete_apprenticeship
-    Apprenticeship.where('ends_at <= ?', Date.today).each do |app|
+    Apprenticeship.where('ends_at <= ?', Date.today).where(datetime_tba: false).each do |app|
       app.signups.each do |a|
         a.complete
       end
