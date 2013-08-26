@@ -1,6 +1,7 @@
 class StaticPagesController < ApplicationController
   def home
-    @events = Event.where( datetime_tba: false, state: ['accepted','filled','completed']).where("begins_at >= :today", {today: Date.today}).limit(4).sort_by { |e| e.begins_at }
+    @events = Event.where( state: ['accepted','filled','completed']).limit(4).sort_by { |e| e.begins_at }.reverse!
+    #@events = Event.where( state: ['accepted','filled','completed']).where("begins_at >= :today", {today: Date.today}).limit(4).sort_by { |e| e.begins_at }
     #@events = Event.where( state: ['accepted']).limit(4).sort_by { |e| e.created_at }.reverse!
   end
 
