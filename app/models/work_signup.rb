@@ -78,6 +78,17 @@ include EventHelper
     false
   end
 
+  #deliver_confirm gets called from webhooks in stripe_controller.rb
+  def deliver_confirm(opts={})
+    if self.parent?
+      deliver_parent(opts) && deliver_maker_daughter
+    elsif self.minor?
+      deliver_minor(opts) && deliver_maker
+    else
+      deliver(opts) && deliver_maker
+    end
+  end
+
   def deliver(opts={})
     payment = opts[:payment]
     Pony.mail({
