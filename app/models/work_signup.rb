@@ -314,7 +314,7 @@ include EventHelper
 
   def self.followup
     date_range = (Date.today-3.days)..Date.today
-    WorkSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'confirmed', work_followup_sent: false).each do |work|
+    WorkSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'completed', work_followup_sent: false).each do |work|
       work.deliver_followup
     end
   end
