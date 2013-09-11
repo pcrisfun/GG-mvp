@@ -249,7 +249,7 @@ class Event < ActiveRecord::Base
         end
         if self.accepted? && required?(self, attribute.to_sym)
           self.resubmit
-          #self.deliver_resubmit
+          self.deliver_resubmit
         end
         return true
       else

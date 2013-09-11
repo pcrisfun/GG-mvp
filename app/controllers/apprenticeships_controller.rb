@@ -35,7 +35,7 @@ class ApprenticeshipsController < ApplicationController
     @apprenticeship.ends_at ||= Date.tomorrow
     @apprenticeship.generate_title
 
-    if @apprenticeship.save(validate: false) #&& @apprenticeship.deliver_save
+    if @apprenticeship.save(validate: false) && @apprenticeship.deliver_save
       redirect_to edit_apprenticeship_path(@apprenticeship), :flash => { :success => "Nice! Let's start by designing your apprenticeship. We'll save this form as you go so you can come back to it at any time." }
     else
       raise
@@ -73,12 +73,12 @@ class ApprenticeshipsController < ApplicationController
         @apprenticeship.save(validate: false)
 
         if params[:revoke_button]
-          if current_user.admin? && @apprenticeship.revoke #&& @apprenticeship.deliver_revoke
+          if current_user.admin? && @apprenticeship.revoke && @apprenticeship.deliver_revoke
             redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship revoked."} and return
           end
 
         elsif params[:reject_button]
-          if current_user.admin? && @apprenticeship.reject #&& @apprenticeship.deliver_reject
+          if current_user.admin? && @apprenticeship.reject && @apprenticeship.deliver_reject
             redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship rejected." } and return
           end
 
@@ -87,7 +87,7 @@ class ApprenticeshipsController < ApplicationController
 
         elsif params[:apprenticeship][:stripe_card_token] && ( params[:apprenticeship][:stripe_card_token] != "" )
           if @apprenticeship.process_payment
-            @apprenticeship.paid #&& @apprenticeship.deliver
+            @apprenticeship.paid && @apprenticeship.deliver
             redirect_to payment_confirmation_apprenticeship_path(@apprenticeship) and return
           else
             redirect_to payment_apprenticeship_path(@apprenticeship), :flash => { warning: "There was a problem processing your payment: #{@apprenticeship.errors.full_messages}" } and return
@@ -129,13 +129,13 @@ class ApprenticeshipsController < ApplicationController
   def cancel
     @apprenticeship = Apprenticeship.where(:id => params[:id]).first
     @apprenticeship.signups.each do |s|
-      s.cancel #&& s.deliver_cancel_maker
+      s.cancel && s.deliver_cancel_maker
 
       Prereg.find_or_create_by_user_id_and_event_id!(
         :user_id => s.user_id,
         :event_id => @apprenticeship.id)
     end
-    if @apprenticeship.cancel #&& @apprenticeship.deliver_cancel
+    if @apprenticeship.cancel && @apprenticeship.deliver_cancel
       redirect_to apprenticeships_path, :flash => { :warning => "Rats. Your apprenticeship has been canceled."} and return
     else
       raise
@@ -151,7 +151,7 @@ class ApprenticeshipsController < ApplicationController
 
 #---- accept
   def accept
-    if @apprenticeship.accept #&& @apprenticeship.deliver_accept
+    if @apprenticeship.accept && @apprenticeship.deliver_accept
       redirect_to apprenticeships_path, :flash => { :success => "Apprenticeship accepted." } and return
     else
       raise
@@ -167,7 +167,7 @@ class ApprenticeshipsController < ApplicationController
 
 #---- resubmit
   def resubmit
-    if @apprenticeship.resubmit #&& @apprenticeship.deliver_resubmit
+    if @apprenticeship.resubmit && @apprenticeship.deliver_resubmit
       redirect_to apprenticeships_path, :flash => { :success => "Thanks! Your apprenticeship was resubmitted. We'll take a look at it and let you know when it's posted."} and return
     else
       raise
