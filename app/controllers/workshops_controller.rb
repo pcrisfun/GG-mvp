@@ -37,7 +37,7 @@ class WorkshopsController < ApplicationController
     @workshop.begins_at ||= Date.today
     @workshop.generate_title
 
-    if @workshop.save(validate: false) && @workshop.deliver_save
+    if @workshop.save(validate: false) #&& @workshop.deliver_save
       redirect_to edit_workshop_path(@workshop), :flash => { :success => "Nice! Let's start by designing your workshop. We'll save this form as you go so you can come back to it at any time." }
     else
       raise
@@ -77,12 +77,12 @@ class WorkshopsController < ApplicationController
         Rails.logger.info("after save state: #{@workshop.state}")
 
         if params[:revoke_button]
-          if current_user.admin? && @workshop.revoke && @workshop.deliver_revoke
+          if current_user.admin? && @workshop.revoke #&& @workshop.deliver_revoke
             redirect_to workshops_path, :flash => { :warning => "Workshop revoked."} and return
           end
 
         elsif params[:reject_button]
-          if current_user.admin? && @workshop.reject && @workshop.deliver_reject
+          if current_user.admin? && @workshop.reject #&& @workshop.deliver_reject
             redirect_to workshops_path, :flash => { :warning => "Workshop rejected." } and return
           end
 
@@ -98,10 +98,10 @@ class WorkshopsController < ApplicationController
         else
 
           if @workshop.started?
-            @workshop.submit && @workshop.deliver
+            @workshop.submit #&& @workshop.deliver
             redirect_to confirmation_workshop_path(@workshop), flash: { success: "Awesome! Your workshop was submitted."} and return
           else
-            @workshop.resubmit && @workshop.deliver_resubmit
+            @workshop.resubmit #&& @workshop.deliver_resubmit
             redirect_to workshops_path, :flash => { :success => "Thanks! Your workshop was resubmitted. We'll look it over and let you know when it's posted."} and return
           end
         end
@@ -144,14 +144,14 @@ class WorkshopsController < ApplicationController
   def cancel
     @workshop = Workshop.where(:id => params[:id]).first
       @workshop.signups.each do |s|
-        s.cancel && s.deliver_cancel
+        s.cancel #&& s.deliver_cancel
 
         Prereg.find_or_create_by_user_id_and_event_id!(
           :user_id => s.user_id,
           :event_id => @workshop.id)
       end
 
-    if @workshop.cancel && @workshop.deliver_cancel
+    if @workshop.cancel #&& @workshop.deliver_cancel
       redirect_to workshops_path, :flash => { :warning => "Rats. Your workshop has been canceled."} and return
     else
       raise
@@ -168,7 +168,7 @@ class WorkshopsController < ApplicationController
 
 #---- accept
   def accept
-    if @workshop.accept && @workshop.deliver_accept
+    if @workshop.accept #&& @workshop.deliver_accept
       redirect_to workshops_path, :flash => { :success => "Workshop accepted." } and return
     else
       raise
@@ -185,7 +185,7 @@ class WorkshopsController < ApplicationController
 
 #---- resubmit
   def resubmit
-    if @workshop.resubmit! && @workshop.deliver_resubmit
+    if @workshop.resubmit! #&& @workshop.deliver_resubmit
       redirect_to workshops_path, :flash => { :success => "Thanks! Your workshop was resubmitted. We'll look it over and let you know when it's posted."} and return
     else
       raise

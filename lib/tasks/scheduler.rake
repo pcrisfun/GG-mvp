@@ -5,7 +5,7 @@ namespace :scheduler do
   task :daily_actions => :environment do
     Apprenticeship.complete_apprenticeship
     Workshop.complete_workshop
-    #Workshop.cancel_workshop
+    Workshop.cancel_workshop
     Workshop.maker_reminder
     Workshop.maker_followup
     AppSignup.reminder
