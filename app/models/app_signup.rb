@@ -241,7 +241,7 @@ class AppSignup < Signup
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "#{event.user.first_name} reviewed your application",
+      :subject => "#{event.user.first_name} filled the apprenticeship",
       :html_body => %(<p>Thanks for your application #{user.first_name}. For this apprenticeship #{event.user.first_name} chose a different applicant, but she was honored that you were interested in working together. We'll let you know about other possibilities for collaboration with her in the future!</p>
         <p>In the meantime, we hope you'll find another apprenticeship you'd be interested in - check out our <a href="#{url_for(apprenticeships_path)}"> our apprenticeship listings</a> to see what's available.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
@@ -255,7 +255,7 @@ class AppSignup < Signup
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "#{self.event.user.first_name} reviewed your daughter's application",
+      :subject => "#{self.event.user.first_name} filled the apprenticeship",
       :html_body => %(<p>Thanks for #{self.daughter_firstname}'s application! For this apprenticeship #{self.event.user.first_name} chose a different applicant, but she was super excited that your daughter was interested in working together. We'll let you know about other possibilities for collaboration with her in the future.</p>
         <p>In the meantime, we hope you and #{self.daughter_firstname} will find another apprenticeship you'd be interested in - check out our <a href="#{url_for(apprenticeships_path)}"> our apprenticeship listings</a> to see what's available.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
