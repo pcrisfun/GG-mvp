@@ -122,7 +122,7 @@ class Apprenticeship < Event
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "Your apprenticeship has been submitted! - #{topic} with #{user.name}",
 			:html_body => %(<h1>Thanks #{user.first_name}!</h1>
-        <p>We received your $1.00 listing fee, and your apprenticeship has been submitted and is pending while we take a look at it.</p>
+        <p>We received your $9.00 listing fee, and your apprenticeship has been submitted and is pending while we take a look at it.</p>
         <p>You can review the submitted apprenticeship here - <a href="#{apprenticeship_url(self)}"> #{self.title}</a> or monitor signups from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>Please note that you won't be able to edit the details of your apprenticeship until it's been approved. Then if you make changes, we'll need to review it again.</p>
         <p>While you wait, go ahead and fill out your profile in your <a href="#{edit_user_registration_url(user)}">Settings Dashboard</a> like your bio, and links to your website, twitter, and facebook if you're into the social thing.</p>

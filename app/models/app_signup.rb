@@ -158,7 +158,7 @@ class AppSignup < Signup
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Your application has been canceled - #{event.topic} with #{user.name}",
+      :subject => "Your application has been canceled - #{event.topic} with #{event.user.name}",
       :html_body => %(<h1>Bummer!</h1>
         <p>You've canceled your application to work with #{self.event.user.first_name}. We hope you'll consider applying to work with someone else!</p>
         <p>Please let us know if there's a way we can help make this application process easier by simply replying to this email. We would really appreciate your feedback!</p>
@@ -173,7 +173,7 @@ class AppSignup < Signup
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Your daughter's application has been canceled - #{event.topic} with #{user.name}",
+      :subject => "Your daughter's application has been canceled - #{event.topic} with #{event.user.name}",
       :html_body => %(<h1>Bummer!</h1>
         <p>You've canceled your daughter's application to work with #{self.event.user.first_name}. We hope you'll consider helping her apply to work with someone else!</p>
         <p>Please let us know if there's a way we can help make this application process easier by simply replying to this email. We would really appreciate your feedback!</p>
@@ -188,7 +188,7 @@ class AppSignup < Signup
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Your apprenticeship signup has been canceled - #{event.topic} with #{user.name}",
+      :subject => "Your apprenticeship signup has been canceled - #{event.topic} with #{event.user.name}",
       :html_body => %(<h1>We're sorry</h1>
         <p>The apprenticeship #{event.topic}, you signed up for with #{self.event.user.first_name} has been canceled. We'll let you know the next time #{self.event.user.first_name} is hosting a workshop or apprenticeship.</p>
         <p>Please let us know if there's a way we can help make this process easier by simply replying to this email. We would really appreciate your feedback!</p>
@@ -249,6 +249,9 @@ class AppSignup < Signup
     })
     return true
   end
+  #=link_to( "Follow this Maker #{content_tag(:i, "", class: "icon-eye-open")}".html_safe, preregs_path(event_id: event), method: 'POST', class: 'btn btn-block')
+  #<p><a href="#{preregs_path(event_id: event, method: 'POST')}">Follow this Maker</a></p>
+
 
   def deliver_decline_parent(opts={})
     Pony.mail({

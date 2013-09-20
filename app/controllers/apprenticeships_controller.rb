@@ -29,10 +29,10 @@ class ApprenticeshipsController < ApplicationController
     if params[:apprenticeship]
       @apprenticeship = current_user.apprenticeships.new(params[:apprenticeship])
     else
-      @apprenticeship = current_user.apprenticeships.new(topic: 'A New Apprenticeship', host_firstname: current_user.first_name, host_lastname: current_user.last_name, datetime_tba: true, location_state: "TX", location_city: "Austin")
+      @apprenticeship = current_user.apprenticeships.new(topic: 'Your Apprenticeship Topic', host_firstname: current_user.first_name, host_lastname: current_user.last_name, datetime_tba: false, location_state: "TX", location_city: "Austin")
     end
-    @apprenticeship.begins_at ||= Date.today
-    @apprenticeship.ends_at ||= Date.tomorrow
+    @apprenticeship.begins_at ||= Date.today + 7.day
+    @apprenticeship.ends_at ||= Date.tomorrow + 97.day
     @apprenticeship.generate_title
 
     if @apprenticeship.save(validate: false) && @apprenticeship.deliver_save
