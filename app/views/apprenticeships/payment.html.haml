@@ -17,8 +17,9 @@
               - if @apprenticeship.charge_id.present?
                 = link_to "Payment Confirmation", payment_confirmation_apprenticeship_path(@apprenticeship)
                 %br
-                #preview-buttons-bottom.pull-center
-                  = link_to 'Resubmit', { :controller => 'apprenticeships', :action => 'resubmit', :id => @apprenticeship.id }, method: 'post', class: 'btn btn-primary'
+                - if @apprenticeship.completed
+                  #preview-buttons-bottom.pull-center
+                    = link_to 'Resubmit', { :controller => 'apprenticeships', :action => 'resubmit', :id => @apprenticeship.id }, method: 'post', class: 'btn btn-primary'
               - else
                 %br
                 %br

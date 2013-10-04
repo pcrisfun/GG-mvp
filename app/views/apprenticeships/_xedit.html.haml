@@ -4,12 +4,22 @@
   %section.section
     .container
       - if show
-        - if current_user && current_user==@apprenticeship.user && !@apprenticeship.pending?
+        - if current_user && current_user==@apprenticeship.user
           = link_to "Edit", edit_apprenticeship_path(@apprenticeship), name: "edit_button", class: "btn btn-primary pull-right"
         - if current_user && @app_signup && @app_signup.started? && current_user==@app_signup.user
           = link_to "Edit Application", edit_app_signup_path(@app_signup), name: "edit_button", class: "btn btn-primary pull-right"
 
       - unless show
+        %h2 Nice! Let's design your apprenticeship
+        • Click on the text to edit any field you want to change
+        %br
+        • Hover on the
+        %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"The question marks have tips to answer your questions!"} }
+          %i.icon-question-sign.small-iconnext
+        next to each field for tips & more info
+        %br
+        %p• We'll save automatically as you go, and we've emailed you a link to come back to it at any time
+        %br
         %h1#page-header.pull-right Build your Apprenticeship
         %br
         = render 'checkmark_nav'
@@ -45,7 +55,7 @@
             %h1#title.field.text
               = editable_link_to 'Topic of Your Apprenticeship', field: :topic, resource: @apprenticeship, type: :text
             - if !show
-              %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Give a snappy title for the apprenticeship. You could include the type of apprenticeship in the name. Example: 'Jewelry Apprenticeship for Fab.com', or you could focus on what you'll be doing; 'Soldering and Casting Apprenticeship' "} }
+              %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Give a snappy title for the apprenticeship. You could include the type of apprenticeship in the name. Example: 'Jewelry Production for Fab.com', or you could focus on what you'll be doing; 'Soldering and Casting' "} }
                 %i.icon-question-sign.small-icon
             %br
             with
@@ -60,7 +70,7 @@
             - if !show || @apprenticeship.host_business.present?
               of
               #business.field.text.optional
-                = editable_link_to 'Your Business', field: :host_business, resource: @apprenticeship, type: :text
+                = editable_link_to 'Your Business (Optional)', field: :host_business, resource: @apprenticeship, type: :text
             %br
             - if !show
               %i.icon-asterisk
@@ -74,13 +84,18 @@
             - if !show
               %i.icon-asterisk
             #description.field.textarea
-              = editable_link_to "Tell us about your apprenticeship. Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. Will this be more of a mentorship, or more of an internship?", field: :description, resource: @apprenticeship, type: :textarea
+              = editable_link_to "Tell us about your apprenticeship. Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. What will she be working on? What will she learn from it?", field: :description, resource: @apprenticeship, type: :textarea
             - if !show
-              %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. Will this be more of a mentorship, or more of an internship? Based on your expectations, consider whether you plan to pay the apprentice, and if so, how much?"} }
+              %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. Based on your expectations, consider whether you plan to pay the apprentice, and if so, how much?"} }
                 %i.icon-question-sign.small-icon
             %br
             - if !show
-              %p.images-desc.small Upload 5 images of your studio & your work as it pertains to the apprenticeship. Max size: 1300px, Min size: 600px.
+              %br
+              %i.icon-asterisk
+              %p.images-desc Upload 5 images of your studio & your work as it pertains to the apprenticeship.
+              %br
+              %p.images-desc Max size: 1300px, Min size: 600px.
+
 
             //Social bttns //////////////////
             - if show
@@ -157,6 +172,27 @@
                 %i.icon-asterisk
               Where
             %dd
+              - if !show || @apprenticeship.location_private
+                The location is a
+                #private-address.field.select
+                  - if @apprenticeship.location_private == true
+                    - private_text = "Residential"
+                  - elsif @apprenticeship.location_private == false
+                    - private_text = "Public"
+                  = editable_link_to "Public/Residential", field: :location_private, resource: @apprenticeship, type: :select, link_text: @apprenticeship.location_private.nil? ? nil : private_text , data: { source: '{true : "Residential", false : "Public"}'}
+                address
+                #nbrhood-toggle{class: !@apprenticeship.location_private ?  'hidden' : '' }
+                  in the
+                  - if !show || @apprenticeship.location_private
+                    #nbrhood.field.text.optional
+                      = editable_link_to "Neighborhood", field: :location_nbrhood, resource: @apprenticeship, type: :text
+                    neighborhood
+
+                - if !show
+                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"If it's a 'Residential' address we'll only display a map of the neighborhood, while a 'Public' address will be displayed on the apprenticeship page with a map of the exact location."} }
+                    %i.icon-question-sign.small-icon
+              %br
+
               - if !show || !@apprenticeship.location_private
                 #address
                   #address1.field.address
@@ -169,24 +205,7 @@
                   #zip.field.address
                     = editable_link_to "Zip", field: :location_zipcode, resource: @apprenticeship, type: :text
                   %br
-              - if !show || @apprenticeship.location_private
-                A
-                #private-address.field.select
-                  - if @apprenticeship.location_private == true
-                    - private_text = "Residential"
-                  - elsif @apprenticeship.location_private == false
-                    - private_text = "Public"
-                  = editable_link_to "Public/Residential", field: :location_private, resource: @apprenticeship, type: :select, link_text: @apprenticeship.location_private.nil? ? nil : private_text , data: { source: '{true : "Residential", false : "Public"}'}
-                address
-                #nbrhood-toggle{class: !@apprenticeship.location_private ?  'hidden' : '' }
-                  in the
-                  - if !show || @apprenticeship.location_private
-                    #nbrhood.field.text.optional
-                      = editable_link_to "__________", field: :location_nbrhood, resource: @apprenticeship, type: :text
-                    neighborhood
-                - if !show
-                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:'A "Public" address will be displayed on the apprenticeship page with a map of the exact location, while a "Residential" address will only display a map of the neighborhood until the apprentice has been accepted and confirmed.'} }
-                    %i.icon-question-sign.small-icon
+
 
             %dt
               - if !show
@@ -201,10 +220,10 @@
                 = editable_link_to "Describe your apprentice(s)", field: :gender, resource: @apprenticeship, type: :select, link_text: gender_text, data: { source: '{"false" : "Girls/Women", "true" : "Open to all gender identities"}'}
               ages
               #min-age.field.select
-                = editable_link_to "Min Age", field: :age_min, resource: @apprenticeship, type: :number
+                = editable_link_to "12", field: :age_min, resource: @apprenticeship, type: :number
               to
               #max-age.field.select
-                = editable_link_to "Max Age", field: :age_max, resource: @apprenticeship, type: :number
+                = editable_link_to "100", field: :age_max, resource: @apprenticeship, type: :number
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"This is entirely up to you. We suggest a minimum age of 11 because our research has shown a need for fabulous mentors before middle school. If you need someone with a specific skill set or experience you may want to set the age higher and be clear about your needs in the apprenticeship description above."} }
                   %i.icon-question-sign.small-icon
@@ -216,7 +235,7 @@
             %dd
               Up to
               #registration-max.field.number
-                = editable_link_to "___", field: :registration_max, resource: @apprenticeship, type: :text
+                = editable_link_to "2", field: :registration_max, resource: @apprenticeship, type: :text
               Apprentice(s)
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"We suggest over-estimating this number. You may find more fabulous applicants than you were looking for, but you can only accept the max number you set here."} }
@@ -246,7 +265,7 @@
                 Requirements
               %dd
                 #prequisites.field.tags.optional
-                  = editable_link_to 'Any required skills or tools your apprentice should have experience with?', field: :requirement_list, resource: @apprenticeship, type: :select2
+                  = editable_link_to '(Optional) Any required skills or tools your apprentice should have experience with?', field: :requirement_list, resource: @apprenticeship, type: :select2
                 - if !show
                   %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Is this apprenticeship more collaborative, or more directed? Be honest about the help that you need right from the begining. Example: chopsaw, welding, javascript"} }
                     %i.icon-question-sign.small-icon
@@ -417,6 +436,7 @@
           %br
 
         - if current_user && current_user == @apprenticeship.user && @apprenticeship.started?
-          = link_to "Delete Apprenticeship", { :controller => 'apprenticeships', :action => 'destroy', :id => @apprenticeship.id }, class: "btn btn-danger", :method => 'delete', data: { :confirm => "Are you sure? You can't undo after you delete your apprenticeship. It will really be gone!" }
+          = link_to "Delete Apprenticeship", { :controller => 'apprenticeships', :action => 'destroy', :id => @apprenticeship.id }, class: "btn btn-small btn-danger pull-left", :method => 'delete', data: { :confirm => "Are you sure? You can't undo after you delete your apprenticeship. It will really be gone!" }
+          %br
           %br
           %br
