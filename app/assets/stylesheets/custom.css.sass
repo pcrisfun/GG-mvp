@@ -206,9 +206,11 @@ a, a:hover, a:active, a:visited, a:focus
 // Header ======================================================================================
 #masthead
   .brand
-    background: url(gg-logo.png) no-repeat 0 0 transparent
-    width: 77px
-    height: 77px
+    background: url(gg-logo.png)
+    background-image: url(gg-logo.svg)
+    background-size: 85px 85px
+    width: 85px
+    height: 85px
     padding: 0px
   h1
     display: none
@@ -229,6 +231,10 @@ a, a:hover, a:active, a:visited, a:focus
   .brand
     margin-left: -8px
 
+.navbar > .nav > li > a
+  padding: 18px 10px 24px
+.navbar > .nav > li
+  height: 80px
 .nav
   .dropdown
     img
@@ -571,10 +577,15 @@ input[type="radio"], input[type="checkbox"]
       margin-top: 15px
     .carousel-control
       height: 230px
-      width: 30px
+      width: 45px
       opacity: 1
+      font-size: 160px
       &:hover
         opacity: .7
+    .carousel-control.right
+      right: -50px
+    .carousel-control.left
+      left: -50px
     .extra
       margin-top: 140px
       height: 80px
@@ -624,11 +635,12 @@ input[type="radio"], input[type="checkbox"]
           font-family: $opensans
           font-weight: bold
           color: $mint
-          text-transform: uppercase
-          line-height: 29px
+          line-height: 22px
+          margin: 20px 0
       h2
-        +dosis-caps
-        font-size: 45px
+        text-transform: none
+        font-size: 38px
+        font-weight: 700
       h4
         font-size: 30px
         line-height: 30px
@@ -691,6 +703,71 @@ input[type="radio"], input[type="checkbox"]
       text-align: center
       margin-top: -15px
       text-shadow: 1px 1px 1px #000
+  #howitworks
+    background: url(homepage/scroll-line.png) repeat-y center top $silver-light
+    padding-top: 0px
+    h2
+      background-color: $silver-light
+      padding: 50px 0 40px 0
+      border-bottom: 1px solid #FFF
+      text-transform: none
+      font-weight: 300
+      font-size: 40px
+    .girl
+      margin-top: 20px
+      h3
+        margin: -20px 0 20px 0
+    h3
+      text-transform: none
+    h4
+      text-align: center
+      font-size: 22px
+      margin-bottom: 5px
+      padding-bottom: 10px
+      text-transform: none
+    .maker ul:before, .girl ul:before
+      border-bottom-color: #C7E4DD
+      border-bottom-style: solid
+      border-bottom-width: 18px
+      border-left: 12px solid rgba(0, 0, 0, 0)
+      border-right: 12px solid rgba(0, 0, 0, 0)
+      bottom: 0
+      content: ""
+      height: 0
+      position: absolute
+      right: -12px
+      width: 0
+    .girl ul:before
+      border-bottom-color: #B3E1ED
+      right: 0px
+      left: -12px
+    .maker ul, .girl ul
+      background: none repeat scroll 0 0 #C7E4DD
+      color: #6A9288
+      margin: 20px 0 0 0
+      border-radius: 12px 12px 12px 12px
+      display: block
+      font-size: 14px
+      line-height: 24px
+      padding: 18px
+      position: relative
+      li
+        list-style: none
+        margin: 0 10px
+    .girl ul
+      background: none repeat scroll 0 0 #B3E1ED
+      color: #41798F
+    .scroll-ball
+      left: 0
+      position: fixed
+      top: 0
+      z-index: 900
+      overflow: hidden
+      padding-top: 240px
+      pointer-events: none
+      width: 100%
+      text-align: center
+
   #event-previews
     h3
       display: inline
@@ -967,7 +1044,7 @@ input[type="radio"], input[type="checkbox"]
   font-size: 17px
   font-weight: bold
   text-transform: uppercase
-  height: 43px
+  height: 42px
   overflow: hidden
   display: block
 
