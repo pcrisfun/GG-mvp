@@ -37,10 +37,10 @@
                 %b Dates TBA
             %span.spots
               - unless event.datetime_tba
-                - if event.begins_at > Date.today
+                - if event.accepted?
                   &nbsp;
                   = event.spots_left
-                - else
+                - elsif event.filled? || event.completed?
                   &nbsp;
                   %b Closed
             = avatar_for(event.user, class: "avatar", size: 50, tag: 'medium')
