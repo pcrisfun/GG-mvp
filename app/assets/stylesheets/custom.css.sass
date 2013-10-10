@@ -704,70 +704,6 @@ input[type="radio"], input[type="checkbox"]
       text-align: center
       margin-top: -15px
       text-shadow: 1px 1px 1px #000
-  #howitworks
-    background: url(homepage/scroll-line.png) repeat-y center top $silver-light
-    padding-top: 0px
-    h2
-      background-color: $silver-light
-      padding: 50px 0 40px 0
-      border-bottom: 1px solid #FFF
-      text-transform: none
-      font-weight: 300
-      font-size: 40px
-    .girl
-      margin-top: 20px
-      h3
-        margin: -20px 0 20px 0
-    h3
-      text-transform: none
-    h4
-      text-align: center
-      font-size: 22px
-      margin-bottom: 5px
-      padding-bottom: 10px
-      text-transform: none
-    .maker ul:before, .girl ul:before
-      border-bottom-color: #C7E4DD
-      border-bottom-style: solid
-      border-bottom-width: 18px
-      border-left: 12px solid rgba(0, 0, 0, 0)
-      border-right: 12px solid rgba(0, 0, 0, 0)
-      bottom: 0
-      content: ""
-      height: 0
-      position: absolute
-      right: -12px
-      width: 0
-    .girl ul:before
-      border-bottom-color: #B3E1ED
-      right: 0px
-      left: -12px
-    .maker ul, .girl ul
-      background: none repeat scroll 0 0 #C7E4DD
-      color: #6A9288
-      margin: 20px 0 0 0
-      border-radius: 12px 12px 12px 12px
-      display: block
-      font-size: 14px
-      line-height: 24px
-      padding: 18px
-      position: relative
-      li
-        list-style: none
-        margin: 0 10px
-    .girl ul
-      background: none repeat scroll 0 0 #B3E1ED
-      color: #41798F
-    .scroll-ball
-      left: 0
-      position: fixed
-      top: 0
-      z-index: 900
-      overflow: hidden
-      padding-top: 240px
-      pointer-events: none
-      width: 100%
-      text-align: center
 
   #event-previews
     h3
@@ -796,6 +732,72 @@ input[type="radio"], input[type="checkbox"]
       margin: 5px 0
       padding: 1px 0px
       text-shadow: none
+
+// How it works (homepage AND apprenticeship new pages)
+#howitworks
+  background: url(homepage/scroll-line.png) repeat-y center top $silver-light
+  padding-top: 0px
+  h2
+    background-color: $silver-light
+    padding: 50px 0 40px 0
+    border-bottom: 1px solid #FFF
+    text-transform: none
+    font-weight: 300
+    font-size: 40px
+  .girl
+    margin-top: 20px
+    h3
+      margin: -20px 0 20px 0
+  h3
+    text-transform: none
+  h4
+    text-align: center
+    font-size: 22px
+    margin-bottom: 5px
+    padding-bottom: 10px
+    text-transform: none
+  .maker ul:before, .girl ul:before
+    border-bottom-color: #C7E4DD
+    border-bottom-style: solid
+    border-bottom-width: 18px
+    border-left: 12px solid rgba(0, 0, 0, 0)
+    border-right: 12px solid rgba(0, 0, 0, 0)
+    bottom: 0
+    content: ""
+    height: 0
+    position: absolute
+    right: -12px
+    width: 0
+  .girl ul:before
+    border-bottom-color: #B3E1ED
+    right: 0px
+    left: -12px
+  .maker ul, .girl ul
+    background: none repeat scroll 0 0 #C7E4DD
+    color: #6A9288
+    margin: 20px 0 0 0
+    border-radius: 12px 12px 12px 12px
+    display: block
+    font-size: 14px
+    line-height: 24px
+    padding: 18px
+    position: relative
+    li
+      list-style: none
+      margin: 0 10px
+  .girl ul
+    background: none repeat scroll 0 0 #B3E1ED
+    color: #41798F
+  .scroll-ball
+    left: 0
+    position: fixed
+    top: 0
+    z-index: 900
+    overflow: hidden
+    padding-top: 240px
+    pointer-events: none
+    width: 100%
+    text-align: center
 
 
 // Newsletter page ======================================================================================
@@ -1034,6 +1036,8 @@ input[type="radio"], input[type="checkbox"]
   h2
     text-transform: none
     font-weight: normal
+  #howitworks
+    background-color: transparent
 .title-topic
 .title-name
 .title-business
