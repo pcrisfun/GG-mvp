@@ -236,6 +236,7 @@ a, a:hover, a:active, a:visited, a:focus
 .navbar > .nav > li
   height: 80px
 .nav
+  height: 80px  /* set when li links wrap */
   .dropdown
     img
       margin-top: -5px
@@ -1288,7 +1289,7 @@ input[type="radio"], input[type="checkbox"]
       font-weight: bold
       font-style: none
       font-size: 30px
-      line-height: 55px
+      line-height: 40px
       margin-bottom: 5px
       a, span
         text-transform: uppercase
@@ -1303,12 +1304,10 @@ input[type="radio"], input[type="checkbox"]
           color: #FFF
     #description
       margin-top: 15px
-      width: 90%
       font-size: 14px
       font-family: georgia
       span
         font-family: georgia
-        font-size: 13px
         text-align: center
         width: 95%
       .editable-empty
@@ -1430,8 +1429,8 @@ input[type="radio"], input[type="checkbox"]
       margin-bottom: -15px
     #description
       font-style: italic
-      color: $silver-dark
       padding-bottom: 30px
+      color: $silver-dark
     #kind
       padding: 1px 8px
       color: #FFF
