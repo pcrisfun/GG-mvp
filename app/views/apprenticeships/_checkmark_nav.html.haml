@@ -14,11 +14,13 @@
         %i#checkmark-private.icon-ok.icon-2x{ class: checkmarks[:private] ? "" : "hidden"}
         #number-private.number-text{ class: !checkmarks[:private] ? "" : "hidden"}
           2
-      = link_to "Private Details", checkmarks[:private] ? private_apprenticeship_path(@apprenticeship) : '#'
+      Private Details
+      /= link_to "Private Details", checkmarks[:private] ? private_apprenticeship_path(@apprenticeship) : '#'
     %li{class: action[:payment] ? 'active' : ''}
       .number-circle
         %i#checkmark-payment.icon-ok.icon-2x{ class: checkmarks[:payment] ? "" : "hidden"}
         #number-payment.number-text{ class: !checkmarks[:payment] ? "" : "hidden"}
           3
-      = link_to "Payment", checkmarks[:payment] ? payment_apprenticeship_path(@apprenticeship) : '#'
+      Payment
+      /= link_to "Payment", checkmarks[:payment] ? payment_apprenticeship_path(@apprenticeship) : '#'
 #checkmarks-url.hidden{ data: { url: "#{checkmarks_apprenticeships_path}", id: "#{@apprenticeship.id}" } }

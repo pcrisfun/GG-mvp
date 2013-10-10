@@ -247,10 +247,10 @@ class Event < ActiveRecord::Base
         if ['topic', 'host_firstname', 'host_lastname'].include?(attribute)
           self.generate_title
         end
-        if self.accepted? && required?(self, attribute.to_sym)
-          self.resubmit
-          self.deliver_resubmit
-        end
+        #if self.accepted? && required?(self, attribute.to_sym)
+          #self.resubmit
+          #self.deliver_resubmit
+        #end
         return true
       else
         return false
