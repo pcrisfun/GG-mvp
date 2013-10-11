@@ -49,7 +49,7 @@ GirlsGuild::Application.configure do
   # config.assets.precompile += %w( search.js )
 
   # ActionMailer Config
-  config.action_mailer.default_url_options = { :host => 'girlsguild.herokuapp.com' }
+  config.action_mailer.default_url_options = { :host => 'girlsguild.com' }
   # Setup for production - deliveries, no errors raised
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
