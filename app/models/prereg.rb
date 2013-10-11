@@ -16,7 +16,7 @@ class Prereg < ActiveRecord::Base
     if Rails.env.development?
       { :host => 'localhost:3000'}
     else
-      { :host => 'girlsguild.herokuapp.com'}
+      { :host => 'girlsguild.com'}
     end
   end
 
