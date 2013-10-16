@@ -33,10 +33,10 @@
           %b Dates TBA
       %span.spots
         - unless apprenticeship.datetime_tba
-          - if apprenticeship.begins_at > Date.today
+          - if apprenticeship.accepted?
             &nbsp;
             = apprenticeship.spots_left
-          - else
+          - elsif apprenticeship.filled? || apprenticeship.completed?
             &nbsp;
             %b Closed
       = avatar_for(apprenticeship.user, class: "avatar", size: 50, tag: 'medium')
