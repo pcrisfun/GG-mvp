@@ -224,7 +224,7 @@
             %dt
               - if !show
                 %i.icon-asterisk
-              Skills
+              Skills Taught
             %dd
               #skills.field.tags
                 = editable_link_to 'Skills and techniques will you be teaching', field: :skill_list, resource: @apprenticeship, type: :select2
@@ -234,7 +234,7 @@
             %dt
               - if !show
                 %i.icon-asterisk
-              Tools
+              Tools Taught
             %dd
               #tools.field.tags
                 = editable_link_to 'Tools and materials will you be teaching or using', field: :tool_list, resource: @apprenticeship, type: :select2
