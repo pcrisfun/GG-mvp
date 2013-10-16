@@ -27,7 +27,14 @@
                             = link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token), { :style => "border-radius:3px; display:inline; font-family:'Helvetica',Arial,sans-serif; text-decoration:none; font-weight:bold; font-style:normal; font-size:15px; line-height:32px; border:none; background-color:#41b7d8; color:#ffffff; text-decoration:none; padding:10px;" }
                             %br/
                             %div
-                              %p{:style => "padding:0 0 10px 0"} If you received this email by mistake, simply delete it. Your GirlsGuild account will not be created if you don't click the confirmation link above.
+                              %p{:style => "padding:0px"} If you received this email by mistake, simply delete it. Your GirlsGuild account will not be created if you don't click the confirmation link above.
+                              %p{:style => "padding:0 0 0px 0"}
+                                If you'd like to change any of your account information you can do so in your
+                                %a{:href => "https://www.girlsguild.com/dashboard", :style => "color:#336699", :target => "_blank"}Dashboard:
+                                %ul{:style => "padding-top:0px; margin-top:0px"}
+                                  %li Name: #{@user.first_name} #{@user.last_name}
+                                  %li Age: #{@user.age}
+                                  %li Email: #{@user.email}
                               %p{:style => "padding:0 0 10px 0"}
                                 For questions or concerns, please contact:
                                 %br/
