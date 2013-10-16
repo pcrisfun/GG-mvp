@@ -28,6 +28,12 @@
                             %br/
                             %div
                               %p{:style => "padding:0 0 10px 0"} If you received this email by mistake, simply delete it. Your GirlsGuild account will not be created if you don't click the confirmation link above.
+                              %p{:style => "padding:0 0 10px 0"} If you'd like to change any of your account information you can do so in your
+                                %a{:href => "https://www.girlsguild.com/dashboard", :style => "color:#336699", :target => "_blank"}dashboard.
+                                %ul
+                                  %li #{@user.first_name} #{user.last_name}
+                                  %li #{@user.age}
+                                  %li #{@user.email}
                               %p{:style => "padding:0 0 10px 0"}
                                 For questions or concerns, please contact:
                                 %br/
