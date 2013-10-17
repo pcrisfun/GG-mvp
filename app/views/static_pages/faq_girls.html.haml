@@ -280,21 +280,13 @@
 
 
 
-%section#promo.section.alt.donate
-  %a{name: "donate"}
-  .hero-unit.pull-center
+= render "scholarships"
 
-    %h1.pull-center Cool, right? Help us do more!
-    %p.pull-center
-      Donate to the scholarship fund by making a purchase in our Etsy store to help provide apprenticeship
-      %br opportunities like these in partnership with youth advocacy organizations and programs for at-risk youth.
 
-    = link_to "#{content_tag(:i, "", class: "icon-gift")} Donate a Scholarship".html_safe, "https://www.etsy.com/shop/GirlsGuildGoods", class: "btn btn-large btn-primary", target: "_blank"
-
-    /%form{:action => "https://www.paypal.com/cgi-bin/webscr", :method => "post"}
-    / %input{:name => "cmd", :type => "hidden", :value => "_s-xclick"}/
-    / %input{:name => "hosted_button_id", :type => "hidden", :value => "8GLHRBAARGK2J"}/
-    / %input{:alt => "Donate a Scholarship", :border => "0", :name => "submit", :class => "btn btn-large btn-primary", :type => "image"}/
-    / %img{:alt => "Donate a Scholarship", :border => "0", :height => "1", :src => "https://www.paypalobjects.com/en_US/i/scr/pixel.gif", :width => "1"}/
-    %br
-    %br
+/%form{:action => "https://www.paypal.com/cgi-bin/webscr", :method => "post"}
+/ %input{:name => "cmd", :type => "hidden", :value => "_s-xclick"}/
+/ %input{:name => "hosted_button_id", :type => "hidden", :value => "8GLHRBAARGK2J"}/
+/ %input{:alt => "Donate a Scholarship", :border => "0", :name => "submit", :class => "btn btn-large btn-primary", :type => "image"}/
+/ %img{:alt => "Donate a Scholarship", :border => "0", :height => "1", :src => "https://www.paypalobjects.com/en_US/i/scr/pixel.gif", :width => "1"}/
+%br
+%br
