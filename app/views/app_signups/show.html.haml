@@ -45,7 +45,17 @@
           %p
             Rad, #{@apprenticeship.host_firstname}! #{@app_signup.user.first_name} applied for your apprenticeship, #{link_to "#{@app_signup.event.topic}", apprenticeship_path(@app_signup.event)}.
         %p
-          You have #{(@app_signup.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days to review her application and make your decision. We'll let her know once you've decided.
+          You have #{(@app_signup.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days to review her application and make your decision.
+        %h4
+          Want to meet up first?
+        %p
+          If you'd like to interview her before you decide, email us at
+          =mail_to "hello@girlsguild.com"
+          and tell us: 1) which applicant(s) you'd like to interview, 2) where you'd like to meet up (or if you'd prefer a phone interview), and 3) a few date/time options when you're available. We'll set it up with the applicant(s) and then confirm it with you.
+        %h4
+          Made your decision?
+        %p
+          Once you've made your decision, use the "Accept" or "Decline" buttons below to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll ask her to confirm, and once she does, we'll put you two in touch to get started!
     .row-fluid
       .span12.well
         %table.table.table-striped.table-bordered
