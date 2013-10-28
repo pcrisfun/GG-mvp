@@ -129,7 +129,7 @@ class ApprenticeshipsController < ApplicationController
   def cancel
     @apprenticeship = Apprenticeship.where(:id => params[:id]).first
     @apprenticeship.signups.each do |s|
-      s.cancel && s.deliver_cancel_maker
+      s.cancel && s.deliver_cancel_bymaker
 
       Prereg.find_or_create_by_user_id_and_event_id!(
         :user_id => s.user_id,
