@@ -404,15 +404,39 @@ a, a:hover, a:active, a:visited, a:focus
 
 // FAQ ======================================================================================
 #FAQ
+  h2
+    text-transform: none
+    font-weight: 300
+    font-size: 44px
+    margin-bottom: 15px
+  h3
+    font-size: 25px
+    font-weight: 600
+    margin-bottom: 10px
+    text-transform: none
   .accordion
     margin-bottom: 15px
     .well
       background-color: $silver-light
-.faqlinknav
-  font-size: 25px
-  font-weight: bold
-  margin-top: -23px
-
+  a.anchor
+    display: block
+    position: relative
+    top: -100px
+    visibility: hidden
+  #the-sticky-div.sticky
+    position: fixed
+    width: 15%
+    z-index: 100
+    top: 90px
+  .faq-sidebar-nav
+    width: auto
+    background-color: #F5F5F5
+    .nav-header
+      font-size: 18px
+      color: #333
+  i.icon-chevron-down
+    float: right
+    font-size: 30px
 
 // How it works =================================================================================
 .accordion-heading
