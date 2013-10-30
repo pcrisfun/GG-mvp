@@ -38,6 +38,7 @@ $grass: #0fbc79
 $grass-shadow: #049f63
 $grass-black: #017c4c
 
+$mint-slight: #F1F9F7
 $mint-light: #e7f5f0
 $mint: #71b99f
 
@@ -368,6 +369,10 @@ a, a:hover, a:active, a:visited, a:focus
       margin: 15px 5px 0px
       width: 8px
       zoom: 1
+.newevent .rotating-testimonials
+  text-shadow: none
+  .blockquote-fancy .blockquote-img
+    border-color: #EEE
 
 .no-js .rotating-testimonials .tabs li
   display: none
@@ -667,7 +672,7 @@ input[type="radio"], input[type="checkbox"]
       margin-top: -5px
       margin-bottom: -5px
       .well
-        background-color: $mint-light
+        background-color: $mint-slight
         +textshadow-light
         margin-bottom: 0px
       .kristi
@@ -693,7 +698,7 @@ input[type="radio"], input[type="checkbox"]
       h2
         text-transform: none
         font-size: 38px
-        font-weight: 700
+        font-weight: 600
       h4
         font-size: 30px
         line-height: 30px
@@ -787,10 +792,8 @@ input[type="radio"], input[type="checkbox"]
 
 // How it works (homepage AND apprenticeship new pages)
 #howitworks
-  background: url(homepage/scroll-line.png) repeat-y center top $silver-light
   padding-top: 0px
   h2
-    background-color: $silver-light
     padding: 50px 0 40px 0
     border-bottom: 1px solid #FFF
     text-transform: none
@@ -840,16 +843,18 @@ input[type="radio"], input[type="checkbox"]
   .girl ul
     background: none repeat scroll 0 0 #B3E1ED
     color: #41798F
-  .scroll-ball
-    left: 0
-    position: fixed
-    top: 0
-    z-index: 900
-    overflow: hidden
-    padding-top: 240px
-    pointer-events: none
-    width: 100%
-    text-align: center
+  .badge
+    display: inline
+  // .scroll-ball
+  //   left: 0
+  //   position: fixed
+  //   top: 0
+  //   z-index: 900
+  //   overflow: hidden
+  //   padding-top: 240px
+  //   pointer-events: none
+  //   width: 100%
+  //   text-align: center
 
 
 // Newsletter page ======================================================================================

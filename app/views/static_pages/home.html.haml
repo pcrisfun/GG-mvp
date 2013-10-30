@@ -6,20 +6,20 @@
         #myCarousel.carousel.slide
           / Carousel items
           .carousel-inner
-            .item.leading
-              .row-fluid
-                .span12
-                  .hero-unit
-                    .row-fluid
-                      .span4.pull-center.well
-                        %h3 Post an Apprenticeship
-                        %p Get started by choosing an apprenticeship type based on your needs: Event, Production, Ongoing, or 1-Day. Then fill out the rest of our simple form.
-                      .span4.pull-center.well
-                        %h3 Set a Date
-                        %p Set a date when you're ready. We'll notify your followers and give them first dibs on signups. Then we'll notify the rest of the Guild.
-                      .span4.pull-center.well
-                        %h3 Work Together
-                        %p When the date comes, we'll notify your participants and apprentices to remind them of details, and give them credit for their work.
+            / .item.leading
+            /   .row-fluid
+            /     .span12
+            /       .hero-unit
+            /         .row-fluid
+            /           .span4.pull-center.well
+            /             %h3 Post an Apprenticeship
+            /             %p Get started by choosing an apprenticeship type based on your needs: Event, Production, Ongoing, or 1-Day. Then fill out the rest of our simple form.
+            /           .span4.pull-center.well
+            /             %h3 Set a Date
+            /             %p Set a date when you're ready. We'll notify your followers and give them first dibs on signups. Then we'll notify the rest of the Guild.
+            /           .span4.pull-center.well
+            /             %h3 Work Together
+            /             %p When the date comes, we'll notify your participants and apprentices to remind them of details, and give them credit for their work.
 
             .item.overview.active
               .row-fluid
@@ -32,83 +32,58 @@
                       %div{:style => "margin:5px; float:right;"}
                         %a.twitter-follow-button{"data-lang" => "en", "data-show-count" => "false", :href => "https://twitter.com/TheGirlsGuild"} Follow @TheGirlsGuild
 
-            .item.learning
-              .row-fluid
-                .span12
-                  .hero-unit
-                    .row-fluid
-                      .span3.pull-center.well
-                        %h3 Follow a Maker
-                        %p See a maker you like? Follow them to show your interest and to get first dibs when they create an event.
-                      .span3.pull-center.well
-                        %h3 Sign up or Apply
-                        %p Sign up for a workshop or apply for an apprenticeship and get started learning today - it’s super easy!
-                      .span3.pull-center.well
-                        %h3 Meet up to Learn
-                        %p Get a taste of what its like to be a cobbler, a baker, a candlestick maker by working with the Maker in her workspace.
-                      .span3.pull-center.well
-                        %h3 Show off yr Skilz
-                        %p We track the skills and tools you’re learning in every workshop & apprenticeship - eventually leading to a fab portfolio!
+            / .item.learning
+            /   .row-fluid
+            /     .span12
+            /       .hero-unit
+            /         .row-fluid
+            /           .span3.pull-center.well
+            /             %h3 Follow a Maker
+            /             %p See a maker you like? Follow them to show your interest and to get first dibs when they create an event.
+            /           .span3.pull-center.well
+            /             %h3 Sign up or Apply
+            /             %p Sign up for a workshop or apply for an apprenticeship and get started learning today - it’s super easy!
+            /           .span3.pull-center.well
+            /             %h3 Meet up to Learn
+            /             %p Get a taste of what its like to be a cobbler, a baker, a candlestick maker by working with the Maker in her workspace.
+            /           .span3.pull-center.well
+            /             %h3 Show off yr Skilz
+            /             %p We track the skills and tools you’re learning in every workshop & apprenticeship - eventually leading to a fab portfolio!
 
 
-          / Carousel nav
-          %a.left.carousel-control{"data-slide" => "prev", :href => "#myCarousel"} ‹
-          %a.left.carousel-control.extra{"data-slide" => "prev", :href => "#myCarousel"}
-          %a.right.carousel-control{"data-slide" => "next", :href => "#myCarousel"} ›
-          %a.right.carousel-control.extra{"data-slide" => "next", :href => "#myCarousel"}
-          :javascript
-            $('#myCarousel').on('slid', '', function() {
-            var $this = $(this);
+          / / Carousel nav
+          / %a.left.carousel-control{"data-slide" => "prev", :href => "#myCarousel"} ‹
+          / %a.left.carousel-control.extra{"data-slide" => "prev", :href => "#myCarousel"}
+          / %a.right.carousel-control{"data-slide" => "next", :href => "#myCarousel"} ›
+          / %a.right.carousel-control.extra{"data-slide" => "next", :href => "#myCarousel"}
+          / :javascript
+          /   $('#myCarousel').on('slid', '', function() {
+          /   var $this = $(this);
 
-            $this.children('.carousel-control').show();
+          /   $this.children('.carousel-control').show();
 
-            if($('.carousel-inner .item:first').hasClass('active')) {
-            $this.find('.left.carousel-control').hide();
-            } else if($('.carousel-inner .item:last').hasClass('active')) {
-            $this.children('.right.carousel-control').hide();
-            }
-            });
+          /   if($('.carousel-inner .item:first').hasClass('active')) {
+          /   $this.find('.left.carousel-control').hide();
+          /   } else if($('.carousel-inner .item:last').hasClass('active')) {
+          /   $this.children('.right.carousel-control').hide();
+          /   }
+          /   });
 
     %section.section#goals
       .container
         .row-fluid
-          /.span4
-          /  .row-fluid
-          /    %ul.pull-center.valueprop
-          /      %h2
-          /        = link_to "Start One", new_apprenticeship_path
-          /      %li Share your Skills
-          /      %li Expand Production
-          /      %li Build your Network
-          /      %li Collaborate & Learn Together
-          /      %li
-          /        = link_to "Start Leading »", new_apprenticeship_path, class: "btn btn-mini btn-primary"
-
-          .span12.calloutbubble
+          .span10.offset1.calloutbubble
             .row-fluid
-              .pull-center
+              .well.pull-center
                 %h2
-                  ap.pren.tice.ship
+                  ap&bull;pren&bull;tice&bull;ship
 
                 %ul
                   %li
                     More hands-on than a “mentorship”, more supportive than an “internship”; we define apprenticeships as a collaborative way to trade knowledge and skills for help with making.
 
-                  %a{:href => "#howitworks", class: "btn btn-mini btn-success"} Learn More »
-                /.kristi
-                /  for girls of all ages!
+                  %a{"data-target" => "#", :href => "/apprenticeships/new", class: "btn btn-mini btn-success"} How it Works »
 
-          /.span4
-          /  .row-fluid
-          /    %ul.pull-center.valueprop
-          /      %h2
-          /        = link_to "Join One", events_path
-          /      %li Work with Amazing Makers
-          /      %li Learn a Technique
-          /      %li Build a Portfolio
-          /      %li Understand Small Business
-          /      %li
-          /        = link_to "Start Learning »", events_path, class: "btn btn-mini btn-primary"
 
     %section.section#newsletter
       .container
@@ -190,143 +165,143 @@
                   %a{:href => "#t4"} Christina-Valentine
 
 
-    %section.section#howitworks
-      .container
-        %h2.pull-center How it Works
+    / %section.section#howitworks
+    /   .container
+    /     %h2.pull-center How it Works
 
-        .row-fluid
+    /     .row-fluid
 
-          .span6.maker
-            %h3.center Starting an Apprenticeship
-            %br/
+    /       .span6.maker
+    /         %h3.center Starting an Apprenticeship
+    /         %br/
 
-            %ul
-              %li
-                %h4
-                  Post
-                  /%i.icon-bullhorn.center
-              %li
-                %i.icon-caret-right
-                Choose a type:
-                %a{href: "/faq_makers"}production, event, ongoing, or 1-day apprenticeship.
-              %li
-                %i.icon-caret-right
-                Edit the details.
-              %li
-                %i.icon-caret-right
-                Pay a $9.00 listing fee.
+    /         %ul
+    /           %li
+    /             %h4
+    /               Post
+    /               /%i.icon-bullhorn.center
+    /           %li
+    /             %i.icon-caret-right
+    /             Choose a type:
+    /             %a{href: "/faq_makers"}production, event, ongoing, or 1-day apprenticeship.
+    /           %li
+    /             %i.icon-caret-right
+    /             Edit the details.
+    /           %li
+    /             %i.icon-caret-right
+    /             Pay a $9.00 listing fee.
 
-            %ul
-              %li
-                %h4
-                  Choose
-                  /%i.icon-bullseye.center
-              %li
-                %i.icon-caret-right
-                Review applications from your dashboard.
-              %li
-                %i.icon-caret-right
-                Optionally meet up to see if it's a good fit.
-              %li
-                %i.icon-caret-right
-                Choose who works best.
+    /         %ul
+    /           %li
+    /             %h4
+    /               Choose
+    /               /%i.icon-bullseye.center
+    /           %li
+    /             %i.icon-caret-right
+    /             Review applications from your dashboard.
+    /           %li
+    /             %i.icon-caret-right
+    /             Optionally meet up to see if it's a good fit.
+    /           %li
+    /             %i.icon-caret-right
+    /             Choose who works best.
 
-            %ul
-              %li
-                %h4
-                  Confirm
-                  /%i.icon-ok-sign.center
-              %li
-                %i.icon-caret-right
-                Review tips for having a great apprenticeship.
-              %li
-                %i.icon-caret-right
-                We'll remind you when you're about to start.
-              %li
-                %i.icon-caret-right
-                We'll put you in touch when your apprentice has confirmed.
+    /         %ul
+    /           %li
+    /             %h4
+    /               Confirm
+    /               /%i.icon-ok-sign.center
+    /           %li
+    /             %i.icon-caret-right
+    /             Review tips for having a great apprenticeship.
+    /           %li
+    /             %i.icon-caret-right
+    /             We'll remind you when you're about to start.
+    /           %li
+    /             %i.icon-caret-right
+    /             We'll put you in touch when your apprentice has confirmed.
 
-            %ul
-              %li
-                %h4
-                  Support
-                  /%i.icon-thumbs-up-alt.center
-              %li
-                %i.icon-caret-right
-                The GirlsGuild team is here to help you along the way.
-              %li
-                %i.icon-caret-right
-                We'll send occasional feedback prompts.
-              %li
-                %i.icon-caret-right
-                We track the skills and tools you're teaching.
+    /         %ul
+    /           %li
+    /             %h4
+    /               Support
+    /               /%i.icon-thumbs-up-alt.center
+    /           %li
+    /             %i.icon-caret-right
+    /             The GirlsGuild team is here to help you along the way.
+    /           %li
+    /             %i.icon-caret-right
+    /             We'll send occasional feedback prompts.
+    /           %li
+    /             %i.icon-caret-right
+    /             We track the skills and tools you're teaching.
 
-          .span6.girl
-            %h3.center Joining an Apprenticeship
-            %br/
+    /       .span6.girl
+    /         %h3.center Joining an Apprenticeship
+    /         %br/
 
-            %ul
-              %li
-                %h4
-                  Apply
-                  /%i.icon-pencil.center
-              %li
-                %i.icon-caret-right
-                Answer 4 questions about why you're interested.
-              %li
-                %i.icon-caret-right
-                It's always free to apply & you'll hear back within 2 weeks.
-              %li
-                %i.icon-caret-right
-                Or, sign up for a 1-Day apprenticeship.
+    /         %ul
+    /           %li
+    /             %h4
+    /               Apply
+    /               /%i.icon-pencil.center
+    /           %li
+    /             %i.icon-caret-right
+    /             Answer 4 questions about why you're interested.
+    /           %li
+    /             %i.icon-caret-right
+    /             It's always free to apply & you'll hear back within 2 weeks.
+    /           %li
+    /             %i.icon-caret-right
+    /             Or, sign up for a 1-Day apprenticeship.
 
-            %ul
-              %li
-                %h4
-                  Confirm
-                  /%i.icon-ok-sign.center
-              %li
-                %i.icon-caret-right
-                Possibly meet up to see if it's a good fit.
-              %li
-                %i.icon-caret-right
-                Pay a $29.00 matching fee to confirm.
-              %li
-                %i.icon-caret-right
-                Do a little dance!
+    /         %ul
+    /           %li
+    /             %h4
+    /               Confirm
+    /               /%i.icon-ok-sign.center
+    /           %li
+    /             %i.icon-caret-right
+    /             Possibly meet up to see if it's a good fit.
+    /           %li
+    /             %i.icon-caret-right
+    /             Pay a $29.00 matching fee to confirm.
+    /           %li
+    /             %i.icon-caret-right
+    /             Do a little dance!
 
-            %ul
-              %li
-                %h4
-                  Track
-                  /%i.icon-bar-chart.center
-              %li
-                %i.icon-caret-right
-                We'll track the skills and tools you're learning.
-              %li
-                %i.icon-caret-right
-                We'll send occasional feedback emails.
-              %li
-                %i.icon-caret-right
-                We're here to help with anything along the way!
+    /         %ul
+    /           %li
+    /             %h4
+    /               Track
+    /               /%i.icon-bar-chart.center
+    /           %li
+    /             %i.icon-caret-right
+    /             We'll track the skills and tools you're learning.
+    /           %li
+    /             %i.icon-caret-right
+    /             We'll send occasional feedback emails.
+    /           %li
+    /             %i.icon-caret-right
+    /             We're here to help with anything along the way!
 
-            %ul
-              %li
-                %h4
-                  Progress
-                  /%i.icon-rocket.center
-              %li
-                %i.icon-caret-right
-                We'll build out a portfolio that shows off your skills.
-              %li
-                %i.icon-caret-right
-                Makers will search portfolios and find <i>you</i>!
-              %li
-                %i.icon-caret-right
-                Use it to apply for schools or a job.
+    /         %ul
+    /           %li
+    /             %h4
+    /               Progress
+    /               /%i.icon-rocket.center
+    /           %li
+    /             %i.icon-caret-right
+    /             We'll build out a portfolio that shows off your skills.
+    /           %li
+    /             %i.icon-caret-right
+    /             Makers will search portfolios and find <i>you</i>!
+    /           %li
+    /             %i.icon-caret-right
+    /             Use it to apply for schools or a job.
 
-          /.scroll-ball
-          /  %img{src: "images/common/scroll/ball.png"}
+    /       /.scroll-ball
+    /       /  %img{src: "images/common/scroll/ball.png"}
 
     %section.section.alt#event-previews
       .container
@@ -379,8 +354,8 @@
                   Creative Little Beasts
             %li.span2
               %h5
-                %a{:href => "http://www.apartmenttherapy.com/cheyenne-weavers-gilded-simplicityhome-tour-171948", :target => "_blank"}
-                  %img{:alt => "Apartment Therapy", :src => "images/assets/press/apartmenttherapy.png"}
+                %a{:href => "http://www.fastcompany.com/3015532/the-10000-design-degree", :target => "_blank"}
+                  %img{:alt => "Fast Company", :src => "images/assets/press/fastcompany.png"}
                   %br
-                  Apartment Therapy
+                  Fast Company
           %hr/

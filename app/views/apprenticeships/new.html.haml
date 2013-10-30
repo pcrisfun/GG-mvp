@@ -1,12 +1,12 @@
-%section#apprenticeship-info.section.alt-grey.newevent
+%section#apprenticeship-info.section.newevent
   .container
     .row-fluid
-      .hero-unit.well
-        %h1.center How Apprenticeships Work
+      .hero-unit
+        %h1.center ap&bull;pren&bull;tice&bull;ship
         %br
-        %h2.center Our Definition
-        %p More hands-on than a "mentorship", more supportive than an "internship"; We define apprenticeships as a collaborative way to trade knowledge and skills for help with making.
-
+        More hands-on than a "mentorship", more supportive than an "internship"; We define apprenticeships as a collaborative way to trade knowledge and skills for help with making.
+        %br
+        %br
 
         /%hr
         /%h2.center Choose a Type of Apprenticeship
@@ -28,25 +28,6 @@
         /      1-Day (Workshops)
         /    %p We’ve renamed workshops to 1-Day apprenticeships to focus on the short timeframe and collaborative atmosphere of our workshop setting.
 
-        %hr
-        %h2.center A Great Apprenticeship Is
-        .row-fluid
-          .well.span3
-            %h3
-              Challenge
-            %p The apprentice should be learning new things frequently enough to stay challenged, but don't forget to have them also practice what they're learning.
-          .well.span3
-            %h3
-              World View
-            %p Think about giving the apprentice a feel for what its like to run a small business, OR why you choose not to.
-          .well.span3
-            %h3
-              Feedback
-            %p Remember to give gentle but constructive feedback. Help her learn from her mistakes which is often the best way to gain experience.
-          .well.span3
-            %h3
-              Encouragement
-            %p Get to know each others goals and dreams! We want to help you build a mentor network because we're all stronger when we learn together.
 
 
         /.row-fluid
@@ -83,7 +64,8 @@
 
 
         %hr
-        %h2.center How it Works
+        %h2.center How Apprenticeships Work
+        %br
         .row-fluid#howitworks
           .span6.maker
             %h3.center Posting an Apprenticeship
@@ -133,7 +115,8 @@
             %ul
               %li
                 %h4
-                  Support (Coming Soon!)
+                  Support
+                  .badge.badge-inverse Coming Soon!
                   /%i.icon-thumbs-up-alt.center
               %li
                 %i.icon-caret-right
@@ -193,7 +176,8 @@
             %ul
               %li
                 %h4
-                  Progress (Coming Soon!)
+                  Progress
+                  .badge.badge-inverse Coming Soon!
                   /%i.icon-rocket.center
               %li
                 %i.icon-caret-right
@@ -213,7 +197,7 @@
         %br
         %br
         #buttons.center
-          = link_to "Post an Apprenticeship!", { controller: :apprenticeships, action: :create } , {method: :post, style: 'button', class: 'btn btn-large btn-primary' }
+          = link_to "Start Building an Apprenticeship!", { controller: :apprenticeships, action: :create } , {method: :post, style: 'button', class: 'btn btn-large btn-primary' }
 
         %hr
 
@@ -225,14 +209,14 @@
                 #t1
                   %blockquote.blockquote-fancy.blockquote-fancy-small
                     .blockquote-img
-                      %img{:alt => "", :src => "images/assets/testimonials/MChapman.jpeg"}/
+                      %img{:alt => "", :src => "../images/assets/testimonials/MChapman.jpeg"}/
                     %p "Veronica brought up the fact that the apprenticeship was originally set to end in December, and at the same time she and I looked at each other and said "yeah, right. I'm not letting you go!"
                     %footer.pull-right
                       %a{:href => "/testimonials"} - Melissa Chapman, Stone & Smith
                 #t2
                   %blockquote.blockquote-fancy.blockquote-fancy-small
                     .blockquote-img
-                      %img{:alt => "", :src => "images/assets/testimonials/AGieselman.jpeg"}/
+                      %img{:alt => "", :src => "../images/assets/testimonials/AGieselman.jpeg"}/
                     %p "I taught class to a group of young woman who learned new skills that they may not have had access to before.  These skills are not only fun and cool but also empowering."
                     %footer.pull-right
                       %a{:href => "/testimonials"} - Anna Gieselman, Bee Amour
@@ -249,7 +233,7 @@
                 #t1
                   %blockquote.blockquote-fancy.blockquote-fancy-small
                     .blockquote-img
-                      %img{:alt => "", :src => "images/assets/testimonials/SSimmons.jpeg"}/
+                      %img{:alt => "", :src => "../images/assets/testimonials/SSimmons.jpeg"}/
                     %p "I put my apprenticeship with GirlsGuild on my resume, and it was actually a conversation piece in my job interviews."
                     %br
                     %footer.pull-right
@@ -257,7 +241,7 @@
                 #t2
                   %blockquote.blockquote-fancy.blockquote-fancy-small
                     .blockquote-img
-                      %img{:alt => "", :src => "images/assets/testimonials/CValentine.jpeg"}/
+                      %img{:alt => "", :src => "../images/assets/testimonials/CValentine.jpeg"}/
                     %p "Thanks for the opportunity to join Son of a Sailor! I started the apprenticeship today and already made 10 necklaces, how great, right? Jessica is a dream to work with!"
                     %footer.pull-right
                       %a{:href => "/testimonials"} - Christina Valentine, Production Apprentice
@@ -266,6 +250,32 @@
                   %a{:href => "#t1"} Samantha-Simmons
                 %li.tab
                   %a{:href => "#t2"} Christina-Valentine
+
+
+        %hr
+        %br
+        %br
+
+        %h2.center How to Have a Great Apprenticeship
+        %br
+        .row-fluid
+          .well.span3
+            %h3
+              Challenge
+            The apprentice should be learning new things frequently enough to stay challenged, but don't forget to have them also practice what they're learning.
+          .well.span3
+            %h3
+              World View
+            Think about giving the apprentice a feel for what its like to run a small business, OR why you choose not to.
+          .well.span3
+            %h3
+              Feedback
+            Remember to give gentle but constructive feedback. Help her learn from her mistakes which is often the best way to gain experience.
+          .well.span3
+            %h3
+              Encouragement
+            Get to know each others goals and dreams! We want to help you build a mentor network because we're all stronger when we learn together.
+
 
 
         /%hr
