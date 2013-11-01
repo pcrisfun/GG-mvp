@@ -348,8 +348,8 @@ a, a:hover, a:active, a:visited, a:focus
     .accordion-toggle
       font-size: 18px
 
-// Rotating Testimonials ======================================================================================
 
+// Rotating Testimonials ======================================================================================
 .rotating-testimonials
   padding: 10px 0px 0 15px
   color: #999
@@ -371,8 +371,20 @@ a, a:hover, a:active, a:visited, a:focus
       zoom: 1
 .newevent .rotating-testimonials
   text-shadow: none
-  .blockquote-fancy .blockquote-img
+.newevent
+  .blockquote-fancy.blockquote-fancy-small .blockquote-img
     border-color: #EEE
+    top: 0px
+    height: 70px
+    width: 70px
+    text-align: center
+  .maker, .girl
+    .blockquote-fancy.blockquote-fancy-small .blockquote-img
+      position: static
+      display: inline-block
+  .girl
+    .blockquote-fancy.blockquote-fancy-small
+      margin: -20px 0 20px 0
 
 .no-js .rotating-testimonials .tabs li
   display: none
@@ -406,6 +418,13 @@ a, a:hover, a:active, a:visited, a:focus
           font-weight: bold
           font-size: 13px
           font-style: normal
+
+
+// New Event (How it Works Page) =================================================================
+#darkspan
+  padding: 45px 0
+  background: url(notch.png) no-repeat top center #323232
+
 
 // FAQ ======================================================================================
 #FAQ
@@ -805,6 +824,7 @@ input[type="radio"], input[type="checkbox"]
       margin: -20px 0 20px 0
   h3
     text-transform: none
+    font-size: 20px
   h4
     text-align: center
     font-size: 22px
@@ -829,7 +849,7 @@ input[type="radio"], input[type="checkbox"]
     left: -12px
   .maker ul, .girl ul
     background: none repeat scroll 0 0 #C7E4DD
-    color: #6A9288
+    color: #537a70
     margin: 20px 0 0 0
     border-radius: 12px 12px 12px 12px
     display: block
