@@ -98,8 +98,9 @@
           - if current_user == @app_signup.event.user && @app_signup.pending?
             %hr/
             %h3 Makers, it's your call
-            = link_to "Decline Application", {:action => "decline", id: @app_signup, :controller => "app_signups"}, :method => :post, class: "btn btn-danger pull-left", :data => { :confirm => 'Are you sure you want to decline this applicant? Declining cannot be undone.'}
+            = link_to "Decline Apprentice", {:action => "decline", id: @app_signup, :controller => "app_signups"}, :method => :post, class: "btn btn-danger pull-left", :data => { :confirm => 'Are you sure you want to decline this applicant? Declining cannot be undone.'}
             - if @app_signup.event.filled?
-              = link_to "Accept Application", app_signup_path(@app_signup), rel: 'popover', data: {placement: "top", content: "Sorry, you can't accept this applicant because you've already filled your apprenticeship."},class: "btn btn-success pull-right disabled"
+              = link_to "Accept Apprentice", app_signup_path(@app_signup), rel: 'popover', data: {placement: "top", content: "Sorry, you can't accept this applicant because you've already filled your apprenticeship. Let us know if this is an error or if you'd like to accept another apprentice."},class: "btn btn-success pull-right disabled"
             - else
-              = link_to "Accept Application", {:action => "accept", id: @app_signup, :controller => "app_signups"}, :method => :post, class: "btn btn-success pull-right", :data => { :confirm => 'Are you sure you want to accept this application? Accepting cannot be undone.'}
+              /%a.btn.btn-warning.center{:href => scheduleinterview_path} Schedule an Interview
+              = link_to "Accept Apprentice", {:action => "accept", id: @app_signup, :controller => "app_signups"}, :method => :post, class: "btn btn-success pull-right", :data => { :confirm => "Are you sure you want to accept this applicant as your apprentice now? If you would like to schedule an interview before making a decision, we'd be happy to set that up first. If so, please send us an email at hello@girlsguild.com with at least 3 preferred interview time. Thanks!"}
