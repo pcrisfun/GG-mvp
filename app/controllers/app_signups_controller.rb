@@ -134,8 +134,23 @@ class AppSignupsController < ApplicationController
     if @app_signup.confirmed? && @apprenticeship.filled?
       @apprenticeship.reopen
     end
-    @app_signup.cancel && @app_signup.deliver_cancel
+    @app_signup.cancel && @app_signup.deliver_cancel && @app_signup.deliver_cancel_maker
     redirect_to apprenticeship_path(@app_signup.event), :flash => { :warning => "Drat! Your application has been canceled."}
+  end
+
+  def resubmit
+    if @app_signup.resubmit && @app_signup.deliver_resubmit && @app_signup.deliver_resubmit_maker
+      redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Thanks! Your application was resubmitted. #{@apprenticeship.host_firstname} will review it, and we'll let you know her decision within two weeks."} and return
+    else
+      raise
+    end
+  rescue
+    error_msg = " "
+    @app_signup.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
+    redirect_to :back, :flash => { warning: "Oops. The following error(s) occured while attempting to resubmit your application: #{error_msg}".html_safe} and return
   end
 
   def confirm

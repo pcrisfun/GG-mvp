@@ -20,6 +20,7 @@
             = link_to "Cancel Application", { :controller => 'app_signups', :action => 'cancel', :id => @app_signup.id }, :method => :post, :class => "btn btn-danger", :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you won't be able to resubmit it."}
           - elsif @app_signup.canceled? && @app_signup.user == current_user
             = link_to 'Delete', @app_signup, :method => :delete, :class => "btn btn-danger", :data => { :confirm => "Are you sure you want to delete this apprenticeship? It will be removed permanently." }
+            = link_to 'Resubmit Application', { :controller => 'app_signups', :action => 'resubmit', :id => @app_signup.id }, :method => :post, :class => "btn btn-primary pull-right"
           - elsif @app_signup.user == current_user
             = link_to "Cancel Application", { :controller => 'app_signups', :action => 'cancel', :id => @app_signup.id }, :method => :post, :class => "btn btn-danger", :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you won't be able to resubmit it."}
       .span3.accordionFAQ

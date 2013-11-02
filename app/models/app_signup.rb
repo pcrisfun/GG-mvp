@@ -127,7 +127,9 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{user.first_name} has applied to work with you!",
       :html_body => %(<h1>Yippee #{event.user.first_name}!</h1>
-        <p>#{user.first_name} has applied to apprentice with you! You can review her application and accept or decline it <a href=#{url_for(self)}>here</a>. We've notified #{user.first_name} that you'll make your decision on the application within 2 weeks.</p>
+        <p>#{user.first_name} has applied to apprentice with you! You can review her application <a href=#{url_for(self)}>here</a>. We've notified #{user.first_name} that you'll make your decision on the application within 2 weeks.</p>
+        <p>If you'd like to meet up with her in person before you decide to accept or decline her application, just reply to this email to tell us where you'd like to meet up (or if you'd prefer a phone interview), and a few date/time options when you're available. We'll set up a meeting with her and then confirm it with you.</p>
+        <p>Once you've made your decision, just go back to the application page and use the "Accept" or "Decline" buttons to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll ask her to confirm, and once she does, we'll put you two in touch to get started!</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -142,7 +144,9 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{self.daughter_firstname} has applied to work with you!",
       :html_body => %(<h1>Yippee #{event.user.first_name}!</h1>
-        <p>#{user.first_name} has helped their daughter, #{self.daughter_firstname}, apply to apprentice with you! You can review her application and accept or decline it <a href=#{url_for(self)}>here</a>. We've notified #{user.first_name} and #{self.daughter_firstname} that you'll make your decision on the application within 2 weeks.</p>
+        <p>#{user.first_name} has helped their daughter, #{self.daughter_firstname}, apply to apprentice with you! You can review her application <a href=#{url_for(self)}>here</a>. We've notified #{user.first_name} and #{self.daughter_firstname} that you'll make your decision on the application within 2 weeks.</p>
+        <p>If you'd like to meet up with her in person before you decide to accept or decline her application, just reply to this email to tell us where you'd like to meet up (or if you'd prefer a phone interview), and a few date/time options when you're available. We'll set up a meeting with #{user.first_name} and #{self.daughter_firstname} and then confirm it with you.</p>
+        <p>Once you've made your decision, just go back to the application page and use the "Accept" or "Decline" buttons to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll ask her to confirm, and once she does, we'll put you two in touch to get started!</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -188,7 +192,22 @@ class AppSignup < Signup
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Your apprenticeship signup has been canceled - #{event.topic} with #{event.user.name}",
+      :subject => "#{user.name} has canceled her application for #{event.topic}",
+      :html_body => %(<h1>Shucks</h1>
+        <p>#{user.name} has canceled her application for #{event.topic}.</p> You can check open applications on your <a href="#{dashboard_url}">Events Dashboard</a>.
+        <p>Please let us know if there's a way we can help make this process easier by simply replying to this email. We would really appreciate your feedback!</p>
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_cancel_bymaker
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "#{event.user.name} has canceled this apprenticeship - #{event.topic}",
       :html_body => %(<h1>We're sorry</h1>
         <p>The apprenticeship #{event.topic}, you signed up for with #{self.event.user.first_name} has been canceled. We'll let you know the next time #{self.event.user.first_name} is hosting a workshop or apprenticeship.</p>
         <p>Please let us know if there's a way we can help make this process easier by simply replying to this email. We would really appreciate your feedback!</p>
@@ -197,6 +216,79 @@ class AppSignup < Signup
     })
     return true
   end
+
+  def deliver_resubmit(opts={})
+    parent? ? deliver_resubmit_parent(opts) : deliver_resubmit_girl(opts)
+  end
+
+  def deliver_resubmit_girl(opts={})
+    return false unless valid?
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Thanks for re-applying for #{event.title}",
+      :html_body => %(<h1>Rad!</h1>
+        <p>We're glad you resubmitted your application for <a href=#{url_for(event)}>#{event.title}</a>. You can see your application <a href=#{url_for(self)}>here</a>. #{event.host_firstname} will review it, and we'll let you know her decision within two weeks.</p>
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_parent(opts={})
+    return false unless valid?
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Thanks for helping your daughter re-apply for #{event.title}",
+      :html_body => %(<h1>Thanks #{user.first_name}!</h1>
+        <p>Thanks for helping your daughter, #{self.daughter_firstname} resubmit her application for <a href=#{url_for(event)}>#{event.title}</a>. You can see her application <a href=#{url_for(self)}>here</a>. #{event.host_firstname} will review it, and we'll let you know her decision within two weeks.</p>
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_resubmit_maker(opts={})
+    parent? ? deliver_resubmit_maker_daughter(opts) : deliver_resubmit_maker_girl(opts)
+  end
+
+  def deliver_resubmit_maker_girl(opts={})
+    return false unless valid?
+    Pony.mail({
+      :to => "#{event.user.name}<#{event.user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "#{user.first_name} has re-applied to work with you!",
+      :html_body => %(<h1>Yippee #{event.user.first_name}!</h1>
+        <p>#{user.first_name} resubmitted her application to apprentice with you! You can review her application <a href=#{url_for(self)}>here</a>. We've notified #{user.first_name} that you'll make your decision on the application within 2 weeks.</p>
+        <p>If you'd like to meet up with her in person before you decide to accept or decline her application, just reply to this email to tell us where you'd like to meet up (or if you'd prefer a phone interview), and a few date/time options when you're available. We'll set up a meeting with her and then confirm it with you.</p>
+        <p>Once you've made your decision, just go back to the application page and use the "Accept" or "Decline" buttons to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll ask her to confirm, and once she does, we'll put you two in touch to get started!</p>
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_resubmit_maker_daughter(opts={})
+    return false unless valid?
+    Pony.mail({
+      :to => "#{event.user.name}<#{event.user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "#{self.daughter_firstname} has applied to work with you!",
+      :html_body => %(<h1>Yippee #{event.user.first_name}!</h1>
+        <p>#{user.first_name} has helped their daughter, #{self.daughter_firstname}, resubmit her application to apprentice with you! You can review her application <a href=#{url_for(self)}>here</a>. We've notified #{user.first_name} and #{self.daughter_firstname} that you'll make your decision on the application within 2 weeks.</p>
+        <p>If you'd like to meet up with her in person before you decide to accept or decline her application, just reply to this email to tell us where you'd like to meet up (or if you'd prefer a phone interview), and a few date/time options when you're available. We'll set up a meeting with #{user.first_name} and #{self.daughter_firstname} and then confirm it with you.</p>
+        <p>Once you've made your decision, just go back to the application page and use the "Accept" or "Decline" buttons to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll ask her to confirm, and once she does, we'll put you two in touch to get started!</p>
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
 
   def deliver_destroy(opts={})
     parent? ? deliver_destroy_parent(opts) : deliver_destroy_girl(opts)
@@ -328,7 +420,7 @@ class AppSignup < Signup
       :subject => "You've accepted #{user.first_name} as your apprentice!",
       :html_body => %(<h1>Hoorah!</h1>
         <p>You've accepted #{user.first_name} as your apprentice! We've asked her to confirm her commitment by submitting her apprenticeship fee. Once she confirms, we'll put you two in touch to get started!</p>
-        <p>Make sure to also print a copy of the <a href="http://girlsguild.com/waivers/ReleaseWaiver-adults.pdf">Participation Waiver</a> and the <a href="http://girlsguild.com/waivers/IndemnificationAgreement-minors.pdf">Indemnification Agreement for Minors</a> to have your apprentice(s) and their parents sign before you begin work!</p>
+        <p>Make sure to also print a copy of the <a href="http://girlsguild.com/waivers/ReleaseWaiver-adults.pdf">Participation Waiver</a> to have your apprentice(s) sign before you begin work!</p>
         <p>If you have any questions feel free to respond to this email.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
@@ -344,7 +436,7 @@ class AppSignup < Signup
       :subject => "You've accepted #{self.daughter_firstname} as your apprentice!",
       :html_body => %(<h1>Hoorah!</h1>
         <p>You've accepted #{self.daughter_firstname} as your apprentice! We've asked her (and her parent, #{user.first_name}) to confirm her commitment by submitting her apprenticeship fee. Once she confirms, we'll put you two in touch to get started!</p>
-        <p>Make sure to also print a copy of the <a href="http://girlsguild.com/waivers/ReleaseWaiver-adults.pdf">Participation Waiver</a> and the <a href="http://girlsguild.com/waivers/IndemnificationAgreement-minors.pdf">Indemnification Agreement for Minors</a> to have your apprentice(s) and their parents sign before you begin work!</p>
+        <p>Make sure to also print a copy of the <a href="http://girlsguild.com/waivers/ReleaseWaiver-adults.pdf">Participation Waiver</a> and the <a href="http://girlsguild.com/waivers/IndemnificationAgreement-minors.pdf">Indemnification Agreement for Minors</a> to have your apprentice's parent sign before you begin work!</p>
         <p>If you have any questions feel free to respond to this email.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
@@ -557,6 +649,10 @@ class AppSignup < Signup
     end
 
     state :completed do
+    end
+
+    event :resubmit do
+      transition :canceled => :pending
     end
 
     event :complete do
