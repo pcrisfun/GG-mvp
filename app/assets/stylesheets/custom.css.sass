@@ -27,6 +27,8 @@ $ocean-medium: #59a8eb
 $ocean: #41B7D8
 $ocean-shadow: #2f6a9c
 $ocean-black: #133552
+$ocean-muted: #B3E1ED
+$ocean-muddy: #41798F
 
 $niceblue: #41B7D8
 
@@ -41,6 +43,8 @@ $grass-black: #017c4c
 $mint-slight: #F1F9F7
 $mint-light: #e7f5f0
 $mint: #71b99f
+$mint-muted: #C7E4DD
+$mint-muddy: #537a70
 
 $star-bright: #f8fbfc
 $star-light: #eff6f8
@@ -434,10 +438,18 @@ a, a:hover, a:active, a:visited, a:focus
     font-size: 44px
     margin-bottom: 15px
   h3
-    font-size: 25px
-    font-weight: 600
+    font-size: 23px
+    font-weight: 700
     margin-bottom: 10px
     text-transform: none
+    padding: 15px
+    +roundcorners
+  h3.makers
+    color: $mint-muddy
+    background: url(icon-maker.png) no-repeat center right $mint-muted
+  h3.apprentices
+    color: $ocean-muddy
+    background: url(icon-apprentice.png) no-repeat center right $ocean-muted
   .accordion
     margin-bottom: 15px
     .well
@@ -461,6 +473,9 @@ a, a:hover, a:active, a:visited, a:focus
   i.icon-chevron-down
     float: right
     font-size: 30px
+  .badge
+    display: inline
+
 
 // How it works =================================================================================
 .accordion-heading
@@ -832,7 +847,7 @@ input[type="radio"], input[type="checkbox"]
     padding-bottom: 10px
     text-transform: none
   .maker ul:before, .girl ul:before
-    border-bottom-color: #C7E4DD
+    border-bottom-color: $mint-muted
     border-bottom-style: solid
     border-bottom-width: 18px
     border-left: 12px solid rgba(0, 0, 0, 0)
@@ -844,12 +859,12 @@ input[type="radio"], input[type="checkbox"]
     right: -12px
     width: 0
   .girl ul:before
-    border-bottom-color: #B3E1ED
+    border-bottom-color: $ocean-muted
     right: 0px
     left: -12px
   .maker ul, .girl ul
-    background: none repeat scroll 0 0 #C7E4DD
-    color: #537a70
+    background: none repeat scroll 0 0 $mint-muted
+    color: $mint-muddy
     margin: 20px 0 0 0
     border-radius: 12px 12px 12px 12px
     display: block
@@ -861,20 +876,11 @@ input[type="radio"], input[type="checkbox"]
       list-style: none
       margin: 0 10px
   .girl ul
-    background: none repeat scroll 0 0 #B3E1ED
+    background: none repeat scroll 0 0 $ocean-muted
     color: #41798F
   .badge
     display: inline
-  // .scroll-ball
-  //   left: 0
-  //   position: fixed
-  //   top: 0
-  //   z-index: 900
-  //   overflow: hidden
-  //   padding-top: 240px
-  //   pointer-events: none
-  //   width: 100%
-  //   text-align: center
+
 
 
 // Newsletter page ======================================================================================

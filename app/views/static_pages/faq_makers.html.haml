@@ -114,7 +114,7 @@
         %article.blog-post
           %a{:name => "apprenticeships-top", class: "anchor"}
           %h2 Apprenticeships
-          %h3 1. Makers Post an Apprenticeship
+          %h3.makers 1. Makers post an apprenticeship
           .accordion
             .accordion-group
               .accordion-heading
@@ -209,7 +209,7 @@
 
           %br
           %br
-          %h3 2. Girls Apply to be an Apprentice
+          %h3.apprentices 2. Girls apply to be an apprentice
           .accordion
             .accordion-group
               .accordion-heading
@@ -245,7 +245,7 @@
 
           %br
           %br
-          %h3 3. Makers Review and Choose
+          %h3.makers 3. Makers review and choose
           .accordion
             .accordion-group
               .accordion-heading
@@ -286,6 +286,17 @@
           .accordion
             .accordion-group
               .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#nobodyapplies"}
+                  %strong
+                    %i.icon-angle-down
+                    What if nobody applies?
+              #nobodyapplies.accordion-body.collapse.in
+                .accordion-inner
+                  %p You can keep your apprenticehsip posting open as long as you'd like. Sometimes it takes just the right person to find it and apply. We don't guarantee that we'll be able to fill apprenticeships, but we'll do our best to promote the opportunity on our site and on social networks.  We put all new apprenticeships in our newsletter that goes out to the entire guild.  It's always best, though, to help promote it through your own social networks as well!
+                  %p We don't give refunds for apprenticeship listings, but we are happy to give advice on how to promote the apprenticeship, or on what might be keeping people from pulling the trigger and applying!
+          .accordion
+            .accordion-group
+              .accordion-heading
                 %a.accordion-toggle{"data-toggle" => "collapse", :href => "#obligatedtochoose"}
                   %strong
                     %i.icon-angle-down
@@ -297,7 +308,7 @@
 
           %br
           %br
-          %h3 4. Apprentices Confirm & Pay
+          %h3.apprentices 4. Apprentices confirm & pay
           .accordion#more-lead-workshop
             .accordion-group
               .accordion-heading
@@ -312,7 +323,7 @@
 
           %br
           %br
-          %h3 5. Makers, We Support You
+          %h3.makers 5. Makers, we support you
           .accordion#more-lead-workshop
             .accordion-group
               .accordion-heading
@@ -327,7 +338,9 @@
 
           %br
           %br
-          %h3 6. Apprentices, Build Your Portfolio (Coming Soon)
+          %h3.apprentices
+            6. Build your portfolio
+            .badge.badge-inverse coming soon
           .accordion#more-lead-workshop
             .accordion-group
               .accordion-heading
@@ -346,7 +359,7 @@
                   %strong
                     %i.icon-angle-down
                     What will my portfolio look like?
-              #whatwetrack.accordion-body.collapse.in
+              #whatportfolio.accordion-body.collapse.in
                 .accordion-inner
                   We’re planning on building portfolios that track the skills and tools you’re learning and the social connections you’re making in each apprenticeship you participate in. You’ll be able to upload pictures of the work you’ve made, add titles and text, and share on your social networks. These portfolios will serve to help you get more opportunities to work with other makers, as well maybe even apply for school or for jobs!  We’ll let you opt in to publicly display your portfolio once we’ve built it!
 
@@ -417,7 +430,7 @@
 
           %br
           %br
-          %h3 1. Makers Post a Workshop
+          %h3 1. Makers post a workshop (1-day apprenticeship)
           .accordion
             .accordion-group
               .accordion-heading
@@ -493,7 +506,7 @@
 
           %br
           %br
-          %h3 2. Girls Sign up and Pay
+          %h3 2. Girls sign up and pay
           .accordion
             .accordion-group
               .accordion-heading
@@ -518,7 +531,7 @@
 
           %br
           %br
-          %h3 Tips for running a great workshop
+          %h3 Tips for running a great workshop (1-day apprenticeship)
           .accordion
             .accordion-group
               .accordion-heading
