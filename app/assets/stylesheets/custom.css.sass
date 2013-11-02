@@ -164,6 +164,8 @@ a, a:hover, a:active, a:visited, a:focus
   background-color: $grass
   background-image: none
   text-shadow: 1px 1px 1px $silver-black
+  &:hover
+    background-color: $grass-shadow
 .btn-primary
   background-color: $ocean-medium
   background-image: none
@@ -698,13 +700,15 @@ input[type="radio"], input[type="checkbox"]
     height: 40px
     width: 260px
   #goals
+    background-color: $mint-slight
+    font-style: italic
     padding: 0 0
     position: static
     .calloutbubble
       position: relative
       z-index: 99
       margin-top: -5px
-      margin-bottom: -5px
+      margin-bottom: 5px
       .well
         background-color: $mint-slight
         +textshadow-light
@@ -730,8 +734,9 @@ input[type="radio"], input[type="checkbox"]
           line-height: 22px
           margin: 20px 0
       h2
+        color: $mint-muddy
         text-transform: none
-        font-size: 38px
+        font-size: 42px
         font-weight: 600
       h4
         font-size: 30px
