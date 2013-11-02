@@ -1,0 +1,70 @@
+/ app/views/static_pages/_scholarships.html.haml
+%section#promo.section.alt.donate
+  .container
+    %a{name: "donate"}
+    .hero-unit
+
+      %h1 Cool, right? Help us reach out!
+      %br
+      %p
+        Donate to the scholarship fund by making a purchase in our
+        %a{href: "https://www.etsy.com/shop/GirlsGuildGoods"}Etsy store
+        to help provide apprenticeship
+        %br opportunities like these in partnership with youth advocacy organizations and programs for at-risk youth.
+
+      %br
+      = link_to "#{content_tag(:i, "", class: "icon-gift pull-center")} Donate a Scholarship".html_safe, "https://www.etsy.com/shop/GirlsGuildGoods", class: "btn btn-large btn-primary", target: "_blank"
+
+  / This section is also a partial _partners.html.haml
+  #partnerlogos
+    .container
+      .page-header
+        %h1
+          Guild Partners
+          %small // A few of our fave orgs we partner with to provide scholarship opportunities.
+      .row-fluid
+        %ul.thumbnails.bordered.pull-center
+          %li.span2
+            %h3
+              %a{"data-original-title" => "Scholarship Recipient", "data-placement" => "bottom", :href => "http://www.bigmentoring.org/site/c.bkLVKdOQLjK6E/b.6458477/k.2DD3/Big_Brothers_Big_Sisters_of_Central_Texas__Austin_Travis_County_Hays_County_Williamson_County.htm", :rel => "tooltip", :target => "_blank"}
+                %img{:alt => "", :src => "images/assets/partners/bbbs.png"}
+                %br
+                BBBS
+          %li.span2
+            %h3
+              %a{"data-original-title" => "Scholarship Recipient", "data-placement" => "bottom", :href => "http://genaustin.org/", :rel => "tooltip", :target => "_blank"}
+                %img{:alt => "", :src => "images/assets/partners/genaustin.png"}
+                %br
+                GENAustin
+          %li.span2
+            %h3
+              %a{"data-original-title" => "Scholarship Recipient", "data-placement" => "bottom", :href => "https://www.settlementhome.org/", :rel => "tooltip", :target => "_blank"}
+                %img{:alt => "", :src => "images/assets/partners/settlementhome.png"}
+                %br
+                Settlement Home
+          / %li.span2
+          /   %h3
+          /     %a{"data-original-title" => "Our Tech Crush!", "data-placement" => "bottom", :href => "http://skillcrush.com/", :rel => "tooltip", :target => "_blank"}
+          /       %img{:alt => "", :src => "images/assets/partners/skillcrush.png"}
+          /       %br
+          /       Skillcrush
+          %li.span2
+            %h3
+              %a{"data-original-title" => "Scholarchip Donor", "data-placement" => "bottom", :href => "http://felizsale.com/", :rel => "tooltip", :target => "_blank"}
+                %img{:alt => "", :src => "images/assets/partners/feliz.png"}
+                %br
+                Feliz
+          %li.span2
+            %h3
+              %a{"data-original-title" => "Scholarchip Donor", "data-placement" => "bottom", :href => "http://www.austincenterfordesign.com/", :rel => "tooltip", :target => "_blank"}
+                %img{:alt => "", :src => "images/assets/partners/ac4d.png"}
+                %br
+                AC4D
+          %li.span2
+            %h3
+              %a{"data-original-title" => "Our Tech Partners", "data-placement" => "bottom", :href => "http://railsgirls.com/austin", :rel => "tooltip", :target => "_blank"}
+                %img{:alt => "", :src => "images/assets/partners/railsgirls.png"}
+                %br
+                Rails Girls
+        %br
+        %br

@@ -27,6 +27,8 @@ $ocean-medium: #59a8eb
 $ocean: #41B7D8
 $ocean-shadow: #2f6a9c
 $ocean-black: #133552
+$ocean-muted: #B3E1ED
+$ocean-muddy: #41798F
 
 $niceblue: #41B7D8
 
@@ -38,8 +40,11 @@ $grass: #0fbc79
 $grass-shadow: #049f63
 $grass-black: #017c4c
 
+$mint-slight: #F1F9F7
 $mint-light: #e7f5f0
 $mint: #71b99f
+$mint-muted: #C7E4DD
+$mint-muddy: #537a70
 
 $star-bright: #f8fbfc
 $star-light: #eff6f8
@@ -159,6 +164,8 @@ a, a:hover, a:active, a:visited, a:focus
   background-color: $grass
   background-image: none
   text-shadow: 1px 1px 1px $silver-black
+  &:hover
+    background-color: $grass-shadow
 .btn-primary
   background-color: $ocean-medium
   background-image: none
@@ -206,9 +213,11 @@ a, a:hover, a:active, a:visited, a:focus
 // Header ======================================================================================
 #masthead
   .brand
-    background: url(gg-logo.png) no-repeat 0 0 transparent
-    width: 77px
-    height: 77px
+    background: url(gg-logo.png)
+    background-image: url(gg-logo.svg)
+    background-size: 85px 85px
+    width: 85px
+    height: 85px
     padding: 0px
   h1
     display: none
@@ -225,11 +234,15 @@ a, a:hover, a:active, a:visited, a:focus
 .navbar .nav li.dropdown.active > .dropdown-toggle,
 .navbar .nav li.dropdown.open.active > .dropdown-toggle
   background-color: transparent
+
 .navbar
   .brand
     margin-left: -8px
 
-.nav
+.navbar > .nav > li > a
+  padding: 18px 10px 24px
+.navbar > .nav > li
+  height: 80px
   .dropdown
     img
       margin-top: -5px
@@ -237,6 +250,16 @@ a, a:hover, a:active, a:visited, a:focus
     border-left: 1px solid $silver-light
     padding-left: 5px
     margin-left: 5px
+
+.navbar .nav > li > a.post-apprenticeship
+  font-size: 14px
+  font-weight: normal
+  text-transform: none
+  position: absolute
+  top: 5px
+  right: 0px
+  margin: 0px
+  padding: 0px
 
 
 // Layout ======================================================================================
@@ -326,9 +349,13 @@ a, a:hover, a:active, a:visited, a:focus
     background-color: $silver-bright
     font-size: 13px
 
+#FAQ
+  .accordion-heading
+    .accordion-toggle
+      font-size: 18px
+
 
 // Rotating Testimonials ======================================================================================
-
 .rotating-testimonials
   padding: 10px 0px 0 15px
   color: #999
@@ -348,6 +375,22 @@ a, a:hover, a:active, a:visited, a:focus
       margin: 15px 5px 0px
       width: 8px
       zoom: 1
+.newevent .rotating-testimonials
+  text-shadow: none
+.newevent
+  .blockquote-fancy.blockquote-fancy-small .blockquote-img
+    border-color: #EEE
+    top: 0px
+    height: 70px
+    width: 70px
+    text-align: center
+  .maker, .girl
+    .blockquote-fancy.blockquote-fancy-small .blockquote-img
+      position: static
+      display: inline-block
+  .girl
+    .blockquote-fancy.blockquote-fancy-small
+      margin: -20px 0 20px 0
 
 .no-js .rotating-testimonials .tabs li
   display: none
@@ -382,16 +425,58 @@ a, a:hover, a:active, a:visited, a:focus
           font-size: 13px
           font-style: normal
 
+
+// New Event (How it Works Page) =================================================================
+#darkspan
+  padding: 45px 0
+  background: url(notch.png) no-repeat top center #323232
+
+
 // FAQ ======================================================================================
 #FAQ
+  h2
+    text-transform: none
+    font-weight: 300
+    font-size: 44px
+    margin-bottom: 15px
+  h3
+    font-size: 23px
+    font-weight: 700
+    margin-bottom: 10px
+    text-transform: none
+    padding: 15px
+    +roundcorners
+  h3.makers
+    color: $mint-muddy
+    background: url(icon-maker.png) no-repeat center right $mint-muted
+  h3.apprentices
+    color: $ocean-muddy
+    background: url(icon-apprentice.png) no-repeat center right $ocean-muted
   .accordion
-    margin-bottom: 5px
+    margin-bottom: 15px
     .well
       background-color: $silver-light
-.faqlinknav
-  font-size: 25px
-  font-weight: bold
-  margin-top: -23px
+  a.anchor
+    display: block
+    position: relative
+    top: -100px
+    visibility: hidden
+  #the-sticky-div.sticky
+    position: fixed
+    width: 15%
+    z-index: 100
+    top: 90px
+  .faq-sidebar-nav
+    width: auto
+    background-color: #F5F5F5
+    .nav-header
+      font-size: 18px
+      color: #333
+  i.icon-chevron-down
+    float: right
+    font-size: 30px
+  .badge
+    display: inline
 
 
 // How it works =================================================================================
@@ -409,6 +494,7 @@ a, a:hover, a:active, a:visited, a:focus
     text-shadow: 1px 1px 1px #000
   .span4
     border: none
+
 
 // Forms ======================================================================================
 .simple_form, #apprenticeship-design, #workshop-design
@@ -544,6 +630,20 @@ input[type="radio"], input[type="checkbox"]
   margin-top: -10px
 
 
+
+
+// Partials ======================================================================================
+
+// Partner logos ==============================================================================
+#partnerlogos
+  h3
+    font-size: 15px
+    .tooltip
+      text-shadow: none
+
+
+
+
 // Pages  ======================================================================================
 
 // Home page ======================================================================================
@@ -571,10 +671,15 @@ input[type="radio"], input[type="checkbox"]
       margin-top: 15px
     .carousel-control
       height: 230px
-      width: 30px
+      width: 45px
       opacity: 1
+      font-size: 160px
       &:hover
         opacity: .7
+    .carousel-control.right
+      right: -50px
+    .carousel-control.left
+      left: -50px
     .extra
       margin-top: 140px
       height: 80px
@@ -595,15 +700,17 @@ input[type="radio"], input[type="checkbox"]
     height: 40px
     width: 260px
   #goals
+    background-color: $mint-slight
+    font-style: italic
     padding: 0 0
     position: static
     .calloutbubble
       position: relative
       z-index: 99
       margin-top: -5px
-      margin-bottom: -5px
+      margin-bottom: 5px
       .well
-        background-color: $mint-light
+        background-color: $mint-slight
         +textshadow-light
         margin-bottom: 0px
       .kristi
@@ -624,11 +731,13 @@ input[type="radio"], input[type="checkbox"]
           font-family: $opensans
           font-weight: bold
           color: $mint
-          text-transform: uppercase
-          line-height: 29px
+          line-height: 22px
+          margin: 20px 0
       h2
-        +dosis-caps
-        font-size: 45px
+        color: $mint-muddy
+        text-transform: none
+        font-size: 42px
+        font-weight: 600
       h4
         font-size: 30px
         line-height: 30px
@@ -691,6 +800,7 @@ input[type="radio"], input[type="checkbox"]
       text-align: center
       margin-top: -15px
       text-shadow: 1px 1px 1px #000
+
   #event-previews
     h3
       display: inline
@@ -718,6 +828,64 @@ input[type="radio"], input[type="checkbox"]
       margin: 5px 0
       padding: 1px 0px
       text-shadow: none
+
+// How it works (homepage AND apprenticeship new pages)
+#howitworks
+  padding-top: 0px
+  h2
+    padding: 50px 0 40px 0
+    border-bottom: 1px solid #FFF
+    text-transform: none
+    font-weight: 300
+    font-size: 40px
+  .girl
+    margin-top: 20px
+    h3
+      margin: -20px 0 20px 0
+  h3
+    text-transform: none
+    font-size: 20px
+  h4
+    text-align: center
+    font-size: 22px
+    margin-bottom: 5px
+    padding-bottom: 10px
+    text-transform: none
+  .maker ul:before, .girl ul:before
+    border-bottom-color: $mint-muted
+    border-bottom-style: solid
+    border-bottom-width: 18px
+    border-left: 12px solid rgba(0, 0, 0, 0)
+    border-right: 12px solid rgba(0, 0, 0, 0)
+    bottom: 0
+    content: ""
+    height: 0
+    position: absolute
+    right: -12px
+    width: 0
+  .girl ul:before
+    border-bottom-color: $ocean-muted
+    right: 0px
+    left: -12px
+  .maker ul, .girl ul
+    background: none repeat scroll 0 0 $mint-muted
+    color: $mint-muddy
+    margin: 20px 0 0 0
+    border-radius: 12px 12px 12px 12px
+    display: block
+    font-size: 14px
+    line-height: 24px
+    padding: 18px
+    position: relative
+    li
+      list-style: none
+      margin: 0 10px
+  .girl ul
+    background: none repeat scroll 0 0 $ocean-muted
+    color: #41798F
+  .badge
+    display: inline
+
 
 
 // Newsletter page ======================================================================================
@@ -854,7 +1022,7 @@ input[type="radio"], input[type="checkbox"]
   zoom: 1
 
 #uploader
-  height: 206px
+  height: 180px
   .fileinput-button
     height: 133px
     width: 133px
@@ -956,6 +1124,8 @@ input[type="radio"], input[type="checkbox"]
   h2
     text-transform: none
     font-weight: normal
+  #howitworks
+    background-color: transparent
 .title-topic
 .title-name
 .title-business
@@ -967,7 +1137,7 @@ input[type="radio"], input[type="checkbox"]
   font-size: 17px
   font-weight: bold
   text-transform: uppercase
-  height: 43px
+  height: 42px
   overflow: hidden
   display: block
 
@@ -1211,7 +1381,7 @@ input[type="radio"], input[type="checkbox"]
       font-weight: bold
       font-style: none
       font-size: 30px
-      line-height: 55px
+      line-height: 40px
       margin-bottom: 5px
       a, span
         text-transform: uppercase
@@ -1226,12 +1396,10 @@ input[type="radio"], input[type="checkbox"]
           color: #FFF
     #description
       margin-top: 15px
-      width: 90%
       font-size: 14px
       font-family: georgia
       span
         font-family: georgia
-        font-size: 13px
         text-align: center
         width: 95%
       .editable-empty
@@ -1241,10 +1409,10 @@ input[type="radio"], input[type="checkbox"]
           line-height: 25px
   .images-desc
     font-size: 14px
+    color: $silver-dark
     margin-bottom: -20px
-    margin-right: -110px
   #private-address
-    margin-top: 5px
+    margin-bottom: 5px
   #dates, #from, #address, #nbrhood-toggle
     display: inline
     &.hidden
@@ -1353,8 +1521,8 @@ input[type="radio"], input[type="checkbox"]
       margin-bottom: -15px
     #description
       font-style: italic
-      color: $silver-dark
       padding-bottom: 30px
+      color: $silver-dark
     #kind
       padding: 1px 8px
       color: #FFF

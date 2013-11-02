@@ -29,14 +29,14 @@ class ApprenticeshipsController < ApplicationController
     if params[:apprenticeship]
       @apprenticeship = current_user.apprenticeships.new(params[:apprenticeship])
     else
-      @apprenticeship = current_user.apprenticeships.new(topic: 'Your Apprenticeship Topic', host_firstname: current_user.first_name, host_lastname: current_user.last_name, datetime_tba: false, location_state: "TX", location_city: "Austin")
+      @apprenticeship = current_user.apprenticeships.new(topic: 'Your Apprenticeship Topic', host_firstname: current_user.first_name, host_lastname: current_user.last_name, kind: "Production", datetime_tba: false, hours: "4", availability: "On a flexible schedule", location_address: "1309 Chestnut Ave.", location_state: "TX", location_city: "Austin", location_nbrhood: "East Austin", location_zipcode: "78702", age_min: "12", age_max: "100", registration_max: "2")
     end
     @apprenticeship.begins_at ||= Date.today + 7.day
     @apprenticeship.ends_at ||= Date.tomorrow + 97.day
     @apprenticeship.generate_title
 
     if @apprenticeship.save(validate: false) && @apprenticeship.deliver_save
-      redirect_to edit_apprenticeship_path(@apprenticeship), :flash => { :success => "Nice! Let's start by designing your apprenticeship. We'll save this form as you go so you can come back to it at any time." }
+      redirect_to edit_apprenticeship_path(@apprenticeship)#, :flash => { :success => "Nice! Let's start by designing your apprenticeship. Click on the text to edit, and hover on the blue question marks for more info. We'll save this form as you go so you can come back to it at any time." }
     else
       raise
     end

@@ -8,15 +8,16 @@
 - if photo
   = link_to(image_tag(photo.file.url(size ||= :box)), url ||= url_for(photo), controller: controller ||= 'photos', action: action ||= 'show')
   /= image_tag(photo.file.url(size ||= :box))
-  - if desc ||= false
-    %p.description
-      = photo.caption
+  /- if desc ||= false
+  /%p.description
+  /= photo.caption
   - if edit ||= false
     / Photo Add to Current Album Button
     - if @album && !@album.photos.include?(photo)
+      %br
       %button.btn.btn-mini.btn-success.pull-left{ data: { behaviour: 'addphotos', url: "#{add_photos_albums_url}", "album" => "#{@album.id}", "photo" => "#{photo.id}" } }
         %i.icon-plus
-        Add
+        Add to Event
     / Photo Delete Button
     = simple_form_for photo, remote: true, html: {:class => "clearform"} do |b|
       = content_tag(:input, '', name: '_method', value: "delete", type: 'hidden' )
@@ -26,9 +27,9 @@
       - unless photo.protected
         %button.btn.btn-mini.btn-danger.pull-right{type: 'submit'}
           %i.icon-trash
-          &nbsp;Delete
+          /&nbsp;Delete
       - else
         %button.btn.btn-mini.btn-danger.icon-trash.pull-right.disabled{type: 'button'}
           %i.icon-trash
-          &nbsp;Delete
+          /&nbsp;Delete
 

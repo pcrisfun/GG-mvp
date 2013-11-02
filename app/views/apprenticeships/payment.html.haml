@@ -17,8 +17,9 @@
               - if @apprenticeship.charge_id.present?
                 = link_to "Payment Confirmation", payment_confirmation_apprenticeship_path(@apprenticeship)
                 %br
-                #preview-buttons-bottom.pull-center
-                  = link_to 'Resubmit', { :controller => 'apprenticeships', :action => 'resubmit', :id => @apprenticeship.id }, method: 'post', class: 'btn btn-primary'
+                - if @apprenticeship.completed
+                  #preview-buttons-bottom.pull-center
+                    = link_to 'Resubmit', { :controller => 'apprenticeships', :action => 'resubmit', :id => @apprenticeship.id }, method: 'post', class: 'btn btn-primary'
               - else
                 %br
                 %br
@@ -31,4 +32,6 @@
             %ul.nav.nav-list
               %li.header
                 Your Payment is Secure
-              All transactions on GirlsGuild are over a certified secure connection and we use Stripe; a respected third party service to fulfill payments, refunds, and security.
+              All transactions on GirlsGuild are over a certified secure connection and we use
+              %a{ href: "https://stripe.com/" }Stripe
+              \- a respected third party service to fulfill payments, refunds, and security.

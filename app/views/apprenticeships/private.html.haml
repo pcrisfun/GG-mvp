@@ -10,14 +10,14 @@
           .span12
             = simple_form_for @apprenticeship, class: 'form-horizontal', validate: false do |f|
               %h2 A Few More Details
-              / RESPECT MY STYLE
-              %br/
-              = f.input :respect_my_style, label: 'Respect my Style' do
-                = f.check_box :respect_my_style
-                %span.simpleform-text I will be teaching my unique proprietary techniques. Please ask my apprentice to sign an agreement to respect this information.
-                %a{"data-content" => "We understand that for some makers, teaching your unique techniques can feel like risking your trade secrets. If this is a concern for you, we'll ask your apprentice to sign an agreement to respect your proprietary techniques.", "data-placement" => "right", :href => "javascript:;", :rel => "popover"}
-                  Why
-                  %i.icon-question-sign.small-icon
+              / / RESPECT MY STYLE
+              / %br/
+              / = f.input :respect_my_style, label: 'Respect my Style' do
+              /   = f.check_box :respect_my_style
+              /   %span.simpleform-text I will be teaching my unique proprietary techniques. Please ask my apprentice to sign an agreement to respect this information.
+              /   %a{"data-content" => "We understand that for some makers, teaching your unique techniques can feel like risking your trade secrets. If this is a concern for you, we'll ask your apprentice to sign an agreement to respect your proprietary techniques.", "data-placement" => "right", :href => "javascript:;", :rel => "popover"}
+              /     Why
+              /     %i.icon-question-sign.small-icon
               / BACKGROUND CHECK
               %br/
               = f.input :permission, label: 'Background Check' do

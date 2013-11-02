@@ -4,103 +4,386 @@
 %section#promo.section.alt
   .container
     .hero-unit
-      %h1 FAQ for Makers
-      %small
-        .pull-right.faqlinknav
-          = link_to "/ FAQ for Girls »", faq_girls_path
+      %h1 FAQ
 
-%br
-
-%section.section#FAQ
-  .container
-    .row-fluid
-      .span9
-        .row-fluid
-          .span2.pull-center
-            %i.enormous-icon.icon-lightbulb.circled.pull-center
-          .span10
-            %h3 Get Listed as a Maker
-            %p
-              Want to test out an idea by seeing who's interested first? Post an idea for a topic you'll teach, upload a few images, and leave the dates "TBA".  We'll notify you as people follow it to show their interest in working together!
-              /%a{href: "#more-get-listed" } Learn More »
-              %br
-            .label.label-info.pull-left Free to list
-            = link_to "Post an Idea", new_workshop_path, class: "btn btn-small pull-right btn-callout"
-
-        %hr/
-
-        .row-fluid
-          .span2.pull-center
-            %i.enormous-icon.icon-wrench.circled.pull-center
-          .span10
-            %h3 Lead an Apprenticeship
-            %p
-              Become a Maker-mentor and share your knowledge! Get help with a big order, an event, or just with your day-to-day practice. List an apprenticeship and choose the right person from those who apply.
-              %a{href: "#more-lead-apprenticeship" } Learn More »
-              %br
-            .label.label-info.pull-left $9.00 to post
-            = link_to "Post an Apprenticeship", new_apprenticeship_path, class: "btn btn-small pull-right btn-callout"
-
-        %hr/
-
-        .row-fluid
-          .span2.pull-center
-            %i.enormous-icon.icon-pencil.circled.pull-center
-          .span10
-            %h3 Lead a Workshop
-            %p
-              Connect with your community! Take a few hours to teach your tools and share your skills with a group of girls who absolutely love what you do and want to learn how to do it. You set the price you'd like to earn. GirlsGuild takes 16% to promote it, take registrations, and keep track of your students.
-              %a{href: "#more-lead-workshop" } Learn More »
-              %br
-            .label.label-info.pull-left Free to post
-            %br
-            = link_to "Post a Workshop", new_workshop_path, class: "btn btn-small pull-right btn-callout"
-
-        %hr/
-
-        /.row-fluid
-        /  .span2.pull-center
-        /    %i.enormous-icon.icon-home.circled.pull-center.commingsoon
-        /      .commingsoon-text Coming Soon!
-        /  .span10
-        /    %h3 Host a Studio Visit
-        /    %p
-        /      There's no better way to create and refine your own ideas than by talking about them with smart people. Request or host a studio visit with someone you respect in the community.
-        /    .kristi.pull-left $0
-        /    %a{href: "#" } Learn More
-        /    = link_to "Register", apprenticeships_path, class: "btn btn-small pull-right btn-success disabled"
-        /%hr/
-
-
-        %br#more-lead-apprenticeship
+      .span12
+        %ul.nav.nav-pills.pull-right.faq-anchor-nav
+          %li
+            = link_to( 'General Questions', anchor: "generalquestions")
+          %li
+            = link_to( 'Apprenticeships', anchor: "apprenticeships-top")
+          %li
+            = link_to( 'Workshops', anchor: "1dayapprenticeships-top")
 
 %section.section#FAQ
   .container
     .row-fluid
       .span9
 
+        %br
         %article.blog-post
-          %h2
-            Leading an Apprenticeship
-            %small
-          %p
+          %a{:name => "generalquestions", class: "anchor"}
+          %h2 General Questions
+
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q01"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#whatsgirlsguild"}
                   %strong
                     %i.icon-angle-down
-                    Tips for running a great apprenticeship
-              #q01.accordion-body.collapse
+                    What is GirlsGuild?
+              #whatsgirlsguild.accordion-body.collapse.in
+                .accordion-inner
+                  %p GirlsGuild is a service that offers apprenticeships for girls, by girls. We connect girls and women with artists and makers to build a supportive, collaborative community.
+                  %p We define apprenticeship as more hands-on than a “mentorship”, and more supportive than an “internship”. In an apprenticeship, a maker works one-on-one with a girl interested in learning the skills of her art. It's about getting real world experience of a maker's work and lifestyle, and building some serious skills in a particular area of making.
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#howtogetinvolved"}
+                  %strong
+                    %i.icon-angle-down
+                    How can I get involved?
+              #howtogetinvolved.accordion-body.collapse.in
+                .accordion-inner
+                  %p If you have a skill you’d like to share, or could use some help with your work, consider posting an apprenticeship. You can teach a particular technique or tool in a Workshop (aka a 1-day Apprenticeship), or share your practice in a Production, Event, or Ongoing Apprenticeships.
+                  %p If you're interested in picking up some new skills and meeting new friends while you're at it, you can try a workshop (1-day apprenticeship) to get your feet wet and learn a new technique. And if you're really looking to build your skills and get some real experience working with an artist longer term, apply for a production, event, or ongoing apprenticeship.
+                  %p To get the drop on new opportunities and upcoming events in the community, sign up for our newsletter.
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#whatsamaker"}
+                  %strong
+                    %i.icon-angle-down
+                    What's a "Maker"?
+              #whatsamaker.accordion-body.collapse.in
+                .accordion-inner
+                  %p We take a broad definition of the term “Maker” that includes people working in creative fields from art, design, and craft, to tech, engineering, media, fabrication, style, food, music, entrepreneurship, and beyond!
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#whositfor"}
+                  %strong
+                    %i.icon-angle-down
+                    Who is this for?
+              #whositfor.accordion-body.collapse.in
+                .accordion-inner
+                  %p GirlsGuild is built for girls and women of all ages. We also partner with local organizations to offer free workshops to girls and women through our scholarship fund.
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#genderidentities"}
+                  %strong
+                    %i.icon-angle-down
+                    Are any events open to all gender identities?
+              #genderidentities.accordion-body.collapse.in
+                .accordion-inner
+                  Absolutely! Though we want to create a space for learning where girls and women feel safe and confident, we also want to be inclusive of everyone who would appreciate this space as well. Makers have the option to specify that their workshop or apprenticeship be opened to all gender identities.
+
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#securetransaction"}
+                  %strong
+                    %i.icon-angle-down
+                    Is my payment transaction secure?
+              #securetransaction.accordion-body.collapse.in
+                .accordion-inner
+                  %p Yes! All transactions on GirlsGuild are processed over a certified secure connection and we use Stripe, a respected third party service to fulfill payments, refunds, and security.
+
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#safety"}
+                  %strong
+                    %i.icon-angle-down
+                    How do I know it’s safe?
+              #safety.accordion-body.collapse.in
+                .accordion-inner
+                  %p It’s of utmost importance to us that you feel confident joining or hosting workshops and apprenticeships. We exist to build a supportive and collaborative community of makers, and we believe the girls and women who get involved are also inspired by this goal.
+                  %p
+                    We pay for a monthly background check service called
+                    %a{href: "http://www.publicdata.com"}PublicData.com.
+                    When a maker posts an apprenticeship or workshop, we use their first and last name to search both criminal offenses as well as sexual offenses. If we find a match for any of these serious crimes we won't post the apprenticeship or workshop for this reason. Makers, be assured there will be no point in the process that we share any information we may find on PublicData.com with anyone, nor will this process affect your public records in any way.
+
+
+        %br
+        /-------------------------------------------------------------------------------------------------------------------
+        %br
+
+
+        %article.blog-post
+          %a{:name => "apprenticeships-top", class: "anchor"}
+          %h2 Apprenticeships
+          %h3.makers 1. Makers post an apprenticeship
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#amiready"}
+                  %strong
+                    %i.icon-angle-down
+                    How do I know I'm ready?
+              #amiready.accordion-body.collapse.in
+                .accordion-inner
+                  You already are, we promise!  If you’ve got a skill, process, or technique that you’re passionate about, that excitement will rub off on others. Being a maker can be a lonely venture!  We believe sharing your skills and techniques is both smart for your business as well as your heart. Get help making while you share your skills and benefit from working alongside other makers. They’ll give you a fresh perspective and force you to put your process into words. If you’re still not sure, we’d be happy to chat with you about what types of skills you could share.
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#chooseatype"}
+                  %strong
+                    %i.icon-angle-down
+                    How do I choose a type?
+              #chooseatype.accordion-body.collapse.in
+                .accordion-inner
+                  %p We've tried to keep our framework for apprenticeships broad, so you can offer an apprenticeship that will truly meet your needs. However, we've found that most apprenticeships fall into three main categories; Production, Event, and Ongoing.
+                  %h4 Production Apprenticeship
+                  %p If you need help producing a big order or a new line of your work, you might consider taking on a girl to help you as a production apprentice.
+                  %h4 Event Apprenticeship
+                  %p If you have an upcoming event you could use a hand with, consider an apprentice to help plan, prepare for, and carry it out.
+                  %h4 Ongoing Apprenticeship
+                  %p Or if you're simply interested in new collaborations and the chance to teach your skills and share your process, an ongoing apprenticeship carries a lot of possibilities.
+                  %h4 Workshop (1-Day Apprenticeship)
+                  %p
+                    Workshops, (what we call "1-Day Apprenticeships") are typically for a group of apprentices, where the focus is on either demonstrating a process or technique, or actually working on making a project either collaboratively or independently.
+                    %a{anchor: "1dayapprenticeships-top"} Read more »
+                  %p Once you know what you'd like in an apprentice, you can let us know by proposing an apprenticeship for us to list on our website. We'll collect applications from interested girls for you to review, and you choose the applicant that seems best suited to work with you.
+
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#postingfee"}
+                  %strong
+                    %i.icon-angle-down
+                    What does it cost to post?
+              #postingfee.accordion-body.collapse.in
+                .accordion-inner
+                  Right now it's just $9 for us to list your apprenticeship on our site, promote it to the community, accept applications for you to review, and connect you with the apprentice you choose.
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#whogetspaid"}
+                  %strong
+                    %i.icon-angle-down
+                    Do I pay her, or get paid?
+              #whogetspaid.accordion-body.collapse.in
+                .accordion-inner
+                  In most cases, the give and take of teaching and working will likely balance out; you teach your process and skills in return for her assistance with your work. However, you should consider whether the level of work and the time commitment you expect from your apprentice should be paid, or whether you'll be taking on a level of teaching that merits payment. If you do plan to pay, or ask for payment, you should explain that in the description of your apprenticeship when you propose it. In that case payment would be a matter between you and the apprentice, and would not be managed by GirlsGuild.
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#howlong"}
+                  %strong
+                    %i.icon-angle-down
+                    How long is it for, and how much time will it take?
+              #howlong.accordion-body.collapse.in
+                .accordion-inner
+                  It's up to you, based on your needs. Some apprenticeships might be as short as a few weeks, but we think the most rewarding will be for a longer period of a few months. That way you'll have time to teach your apprentice the skills and techniques she needs, and see her progress in the work she's doing with you. You can meet as often as works for both your schedules; 5-15 hours a week is typical.
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#myliability"}
+                  %strong
+                    %i.icon-angle-down
+                    What's my liability?
+              #myliability.accordion-body.collapse.in
+                .accordion-inner
+                  We require that all apprentices agree to a participation waiver (and for minors, their parents sign an indemnification agreement) before accepting an apprenticeship or signing up for a workshop, in order to protect you if something were to happen. We will also send you a link to download a copy of those waivers to have your participants sign in person and for you to keep on file. We encourage you to contact us at any time; we’ll do our best to address any questions or issues that arise.
+                  %br
+                  %a{href: "waivers/ReleaseWaiver-adults.pdf"}
+                    %i.icon-bookmark
+                    Participation Waiver
+
+                  %br
+                  %a{href: "waivers/IndemnificationAgreement-minors.pdf"}
+                    %i.icon-bookmark
+                    Indemnification Agreement for Minors
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#protectmystyle"}
+                  %strong
+                    %i.icon-angle-down
+                    How do I protect my artistic style?
+              #protectmystyle.accordion-body.collapse.in
+                .accordion-inner
+                  Some makers produce work that is uniquely their own artistic style, and we recognize that copying can sometimes feel like it's not the best form of flattery. That's why we've included a clause in the participation waiver so that apprentices agree not to replicate the individual artistic styles of our amazing artists, although they should feel free to use the techniques they learn to develop their own style.
+
+          %br
+          %br
+          %h3.apprentices 2. Girls apply to be an apprentice
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#howlongfor"}
+                  %strong
+                    %i.icon-angle-down
+                    How long is it for?
+              #howlongfor.accordion-body.collapse.in
+                .accordion-inner
+                  It depends on the focus of the apprenticeship - some apprenticeships might have a fairly short timeframe of just a few weeks to meet relevant deadlines. Others have a longer lead time or are planned as ongoing over the course of a few months or longer.
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#wherehappen"}
+                  %strong
+                    %i.icon-angle-down
+                    Where do they happen?
+              #wherehappen.accordion-body.collapse.in
+                .accordion-inner
+                  Apprenticeships typically take place in the maker's studio or workspace. Depending on the kind of apprenticeship, it may also involve visiting event venues, fabrication workshops, or other places.
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#myapplication"}
+                  %strong
+                    %i.icon-angle-down
+                    What happens to my application?
+              #myapplication.accordion-body.collapse.in
+                .accordion-inner
+                  %p When you apply for an apprenticeship, the maker reviews all the applications she receives, and chooses the girl who'll be the best fit for the work they'll be doing. Makers sometimes ask to meet up to get a feel for personality before making a decision, so if that’s the case we'll get in touch to set it up. We'll let you know her decision within two weeks, and if you're accepted, ask you to confirm by registering and paying.
+                  %p Each apprenticeship that’s posted typically gets 5-10 applications, so don’t be discouraged if someone else is chosen for the apprenticeship you applied for! We’re always working on getting more makers offering new opportunities, and in the meantime, consider building up your skills through workshops (1-day apprenticeships).
+
+
+          %br
+          %br
+          %h3.makers 3. Makers review and choose
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#applicationslook"}
+                  %strong
+                    %i.icon-angle-down
+                    What do applications look like?
+              #applicationslook.accordion-body.collapse.in
+                .accordion-inner
+                  %p We ask 5 general questions to get an idea of personality, interest in working together, and schedule:
+                  %ol
+                    %li I'm truly happy when...
+                    %li I like working together on projects because...
+                    %li What’s most interesting to me about this apprenticeship is…
+                    %li Experience with tools and making…
+                    %li Preferred meeting times…
+                  %p We then send out an email to followers for first dibs on applying. A day later we send out a newsletter to everyone in the Guild. Usually after that we start receiving applications, which we’ll forward along immediately as they come in for you to review.
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#howlongtofill"}
+                  %strong
+                    %i.icon-angle-down
+                    How long does it take to fill?
+              #howlongtofill.accordion-body.collapse.in
+                .accordion-inner
+                  Sometimes if the apprenticeship is a longer or more intensive time commitment it will take longer to fill the apprenticeship. The sweet spot seems to be a 3-month apprenticeship from 5-15 hours per week, which seem to fill in a day or two, but there are so many factors that go into it, that it’s hard to tell. Feel free to email us if you’d like suggestions on how to fill it quickly.
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#caniinterview"}
+                  %strong
+                    %i.icon-angle-down
+                    Can I interview candidates prior to selection?
+              #caniinterview.accordion-body.collapse.in
+                .accordion-inner
+                  Sure. What we'll do is forward you the applications as we receive them and when you see someone you'd like to interview just let us know what dates you're available to meet up with her. We'll email her to see if she's available and CC you on the email so that you have each other's contact info in case there are any questions about directions, etc.
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#nobodyapplies"}
+                  %strong
+                    %i.icon-angle-down
+                    What if nobody applies?
+              #nobodyapplies.accordion-body.collapse.in
+                .accordion-inner
+                  %p You can keep your apprenticehsip posting open as long as you'd like. Sometimes it takes just the right person to find it and apply. We don't guarantee that we'll be able to fill apprenticeships, but we'll do our best to promote the opportunity on our site and on social networks.  We put all new apprenticeships in our newsletter that goes out to the entire guild.  It's always best, though, to help promote it through your own social networks as well!
+                  %p We don't give refunds for apprenticeship listings, but we are happy to give advice on how to promote the apprenticeship, or on what might be keeping people from pulling the trigger and applying!
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#obligatedtochoose"}
+                  %strong
+                    %i.icon-angle-down
+                    Am I obligated to choose someone?
+              #obligatedtochoose.accordion-body.collapse.in
+                .accordion-inner
+                  Nope.  It's totally up to you, we just want to facilitate a good connection for you both and get more women collaborating with each other.
+
+
+          %br
+          %br
+          %h3.apprentices 4. Apprentices confirm & pay
+          .accordion#more-lead-workshop
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#howmuchtoapply"}
+                  %strong
+                    %i.icon-angle-down
+                    How much does it cost to join an apprenticeship?
+              #howmuchtoapply.accordion-body.collapse.in
+                .accordion-inner
+                  There's a flat fee of $29 to confirm an apprenticeship match. This is charged only after you've been accepted for the apprenticeship and have decided you really want to do it. It’s always free to apply!
+
+
+          %br
+          %br
+          %h3.makers 5. Makers, we support you
+          .accordion#more-lead-workshop
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#notworking"}
+                  %strong
+                    %i.icon-angle-down
+                    What if it really isn't working out?
+              #notworking.accordion-body.collapse.in
+                .accordion-inner
+                  If your apprentice isn't working out for any reason, just let us know and we'd be happy to gently end it early.  We think that being honest and clear about expectations from the apprentice is the best way to find someone who's committed.  And of course it will always be our priority to help out if you have any difficulty along the way.
+
+
+          %br
+          %br
+          %h3.apprentices
+            6. Build your portfolio
+            .badge.badge-inverse coming soon
+          .accordion#more-lead-workshop
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#whatwetrack"}
+                  %strong
+                    %i.icon-angle-down
+                    What does GirlsGuild track?
+              #whatwetrack.accordion-body.collapse.in
+                .accordion-inner
+                  We track the skills and tools you’re learning so that we can suggest the next steps toward building out your skill-sets. We’ll also suggest makers in the community that can help you reach your goals. It’s all about who you know, so we’ll help you build skills and social connections with maker-mentors who can help guide your career toward awesomeness. You can get started by following makers who inspire you to get first dibs on opportunities to work with them before we release to the rest of the Guild.
+
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#whatportfolio"}
+                  %strong
+                    %i.icon-angle-down
+                    What will my portfolio look like?
+              #whatportfolio.accordion-body.collapse.in
+                .accordion-inner
+                  We’re planning on building portfolios that track the skills and tools you’re learning and the social connections you’re making in each apprenticeship you participate in. You’ll be able to upload pictures of the work you’ve made, add titles and text, and share on your social networks. These portfolios will serve to help you get more opportunities to work with other makers, as well maybe even apply for school or for jobs!  We’ll let you opt in to publicly display your portfolio once we’ve built it!
+
+
+          %br
+          %br
+          %h3 Tips for having a great apprenticeship
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#tips"}
+                  %strong
+                    %i.icon-angle-down
+                    Keep in mind...
+              #tips.accordion-body.collapse.in
                 .accordion-inner
                   .row-fluid
-                    .well.span3
-                      %h3
+                    .span3
+                      %h4
                         %i.icon-fire.inline
                         Challenge
                       The apprentice should be learning new things frequently enough to stay challenged, but don't forget to have them also practice what they're learning.
-                    .well.span3
-                      %h3
+                    .span3
+                      %h4
                         %i.icon-globe.inline
                         World View
                       Think about giving the apprentice a feel for what its like to run a small business, OR why you choose not to.
@@ -108,173 +391,98 @@
                       %br
                       %br
                       %br
-                    .well.span3
-                      %h3
+                    .span3
+                      %h4
                         %i.icon-refresh.inline
                         Feedback
                       Remember to give gentle but constructive feedback. Help her learn from her mistakes which is often the best way to gain experience.
                       %br
                       %br
-                    .well.span3
-                      %h3
+                    .span3
+                      %h4
                         %i.icon-thumbs-up.inline
                         Encourage
                       Get to know each others goals and dreams! We want to help you build a mentor network because we're all stronger when we learn together.
                       %br
                       %br
 
-          .accordion
-            .accordion-group
-              .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q02"}
-                  %strong
-                    %i.icon-angle-down
-                    How do these work?
-              #q02.accordion-body.collapse
-                .accordion-inner
-                  We've tried to keep our framework for apprenticeships broad, so you can offer an apprenticeship that will truly meet your needs. However, we've found that most apprenticeships fall into three main categories; Production, Event, and Ongoing.
-                  %br/
-                  %br/
-                  %h3 Production Apprenticeship
-                  If you need help producing a big order or a new line of your work, you might consider taking on a girl to help you as a production apprentice.
-                  %br/
-                  %br/
-                  %h3 Event Apprenticeship
-                  If you have an upcoming event you could use a hand with, consider an apprentice to help plan, prepare for, and carry it out.
-                  %br/
-                  %br/
-                  %h3 Ongoing Apprenticeship
-                  Or if you're simply interested in new collaborations and the chance to teach your skills and share your process, an ongoing apprenticeship carries a lot of possibilities.
-                  %br/
-                  %br/
-                  Once you know what you'd like in an apprentice, you can let us know by proposing an apprenticeship for us to list on our website. We'll collect applications from interested girls for you to review, and you choose the applicant that seems best suited to work with you.
-          .accordion
-            .accordion-group
-              .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q03"}
-                  %strong
-                    %i.icon-angle-down
-                    How much does it cost?
-              #q03.accordion-body.collapse
-                .accordion-inner
-                  There's a listing fee of $9 for us to list your apprenticeship on our site, promote it to the community, accept applications for you to review, and connect you with the apprentice you choose..
-          .accordion
-            .accordion-group
-              .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q04"}
-                  %strong
-                    %i.icon-angle-down
-                    Do I pay her, or get paid?
-              #q04.accordion-body.collapse
-                .accordion-inner
-                  In most cases, the give and take of teaching and working will likely balance out; you teach your process and skills in return for her assistance with your work. However, we leave it up to you to decide whether the level of work you expect your apprentice to do should be paid, or whether you'll be taking on a level of teaching that merits payment. Either way, payment would be a matter between you and the apprentice, and would not be managed by GirlsGuild. If you do plan to pay, or ask for payment, you should explain that in the description of your apprenticeship when you propose it.
-          .accordion
-            .accordion-group
-              .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q05"}
-                  %strong
-                    %i.icon-angle-down
-                    How long is it for?
-              #q05.accordion-body.collapse
-                .accordion-inner
-                  It's up to you, based on your needs. Some apprenticeships might be as short as a few weeks, but we think the most rewarding will be for a longer period of a few months or more. That way you'll have time to teach your apprentice the skills and techniques she needs, and see her progress in the work she's doing with you.
-          .accordion
-            .accordion-group
-              .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q06"}
-                  %strong
-                    %i.icon-angle-down
-                    Can I interview candidates prior to selection?
-              #q06.accordion-body.collapse
-                .accordion-inner
-                  Sure. What we'll do is forward you the applications as we receive them and when you see someone you'd like to interview just let us know what dates you're available to meet up with her. We'll email her to see if she's available and CC you on the email so that you have each other's contact info in case there are any questions about directions, etc.
-          .accordion
-            .accordion-group
-              .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q07"}
-                  %strong
-                    %i.icon-angle-down
-                    If we don't find a good match are we obligated to choose someone?
-              #q07.accordion-body.collapse
-                .accordion-inner
-                  Nope.  It's totally up to you, we just want to facilitate a good connection for both of you.
-          .accordion#more-lead-workshop
-            .accordion-group
-              .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q08"}
-                  %strong
-                    %i.icon-angle-down
-                    What if it really isn't working out?
-              #q08.accordion-body.collapse
-                .accordion-inner
-                  If your apprentice isn't working out for any reason, just let us know and we'd be happy to gently end it early.  We think that being honest and clear about expectations from the apprentice is the best way to find someone who's committed.  And of course it will always be our priority to help out if you have any difficulty along the way.
 
-
+        %br
+        /-------------------------------------------------------------------------------------------------------------------
         %br
 
 
+
         %article.blog-post
-          %h2
-            Leading a Workshop
-            %small
-          %p
+          %a{:name => "1dayapprenticeships-top", class: "anchor"}
+          %h2 Workshops (1-Day Apprenticeships)
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q09"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#how1dayswork"}
                   %strong
                     %i.icon-angle-down
-                    Tips for running a great workshop
-              #q09.accordion-body.collapse
+                    What are workshops (1-Day's)?
+              #how1dayswork.accordion-body.collapse.in
                 .accordion-inner
-                  .row-fluid
-                    .well.span3
-                      %h3
-                        %i.icon-bolt.inline
-                        Share Skills
-                      The students should be learning new or specialized skills and techniques that provide a foundation for building out a skill set.
-                      %br
-                      %br
-                    .well.span3
-                      %h3
-                        %i.icon-wrench.inline
-                        Teach New Tools
-                      Consider teaching students to use the key tools for your craft, especially ones they may never have had a chance to try before.
-                    .well.span3
-                      %h3
-                        %i.icon-compass.inline
-                        Explore
-                      Give your students a chance to explore a new medium, technique, or process that can help them begin or grow their own practice.
-                      %br
-                      %br
-                    .well.span3
-                      %h3
-                        %i.icon-rocket.inline
-                        Inspire Growth
-                      The workshop should give students inspiration and next steps to continue practicing and developing their new skills on their own.
+                  In a workshop (what we call a 1-day Apprenticeship), an artist or maker offers to teach a particular project or technique to one or more girls, usually in a 2-4 hour session. It's a chance to learn from the maker, to gain a new skill, to try your hand at a new process, or see how it's done.
 
+
+          %br
+          %br
+          %h3 1. Makers post a workshop (1-day apprenticeship)
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q10"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#when"}
+                  %strong
+                    %i.icon-angle-down
+                    When should it happen?
+              #when.accordion-body.collapse.in
+                .accordion-inner
+                  %p The date/time of the workshop is up to you! It helps to consider your audience; if you're leading a workshop for teens or children, after-school hours or weekends will be best. If you're teaching a workshop for adults, evenings might be a good option. Whatever time you choose, it's always best to schedule the date far enough in advance to give us 4 weeks or more to promote it, and give people a chance to sign up.
+                  %p If you're not quite ready to set a date, you can set the workshop as "TBA", and we'll post it with a pre-register link to let girls sign up to be notified when the date is set.
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#where"}
+                  %strong
+                    %i.icon-angle-down
+                    Where do they happen?
+              #where.accordion-body.collapse.in
+                .accordion-inner
+                  Workshops typically take place in the maker's studio or workspace. If you need help finding a place to host your workshop, let us know and we’ll either host it at our headquarters at the
+                  %a{href: "http://www.austincenterfordesign.com"}Austin Center for Design
+                  or try and help find an appropriate spot.
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#tools"}
+                  %strong
+                    %i.icon-angle-down
+                    What about tools?
+              #tools.accordion-body.collapse.in
+                .accordion-inner
+                  If you need help sourcing enough tools for the workshop, we'll do our best to help. Another suggestion is to put out a request for tools on our Facebook page.
+          .accordion
+            .accordion-group
+              .accordion-heading
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#howmuch"}
                   %strong
                     %i.icon-angle-down
                     How much should it cost?
-              #q10.accordion-body.collapse
+              #howmuch.accordion-body.collapse.in
                 .accordion-inner
-                  We believe that the maker is the best person to determine the cost of their workshop based on materials, length of the session, and effort. That's why we leave the cost up to you. Sometimes that means it will be too high and you will get fewer registrants, or if it's too low, you may feel like it wasn't quite worth the effort. So to give you some basic guidelines, when we spoke to parents they were comfortable paying between $40-60 for a 2-3 hour workshop. The cost of materials should be included in the cost you set for your workshop. Sometimes the materials can be expensive, so let that show by listing the materials in the class description! Generally, it's up to the maker to source and provide materials (depending on what you plan to teach).
-                  %br/
-                  %br/
-                  We want to make GirlsGuild a viable way to make supplementary income, so we encourage you not to sell yourself short. Even if you'd be happy to teach a workshop for free, we've found that putting a small cost ($5-10 or so) actually gets better attendance - people see it as more valuable, and more of a commitment, when they've paid for it.
-
+                  %p We believe that the maker is the best person to determine the cost of their workshop based on materials, length of the session, and effort. That's why we leave the cost up to you. Sometimes that means it will be too high and you will get fewer registrants, or if it's too low, you may feel like it wasn't quite worth the effort. So to give you some basic guidelines, when we spoke to parents they were comfortable paying between $40-60 for a 2-3 hour workshop. The cost of materials should be included in the cost you set for your workshop. Sometimes the materials can be expensive, so let that show by listing the materials in the class description! Generally, it's up to the maker to source and provide materials (depending on what you plan to teach).
+                  %p We want to make GirlsGuild a viable way to make supplementary income, so we encourage you not to sell yourself short. Even if you'd be happy to teach a workshop for free, we've found that putting a small cost ($5-10 or so) actually gets better attendance - people see it as more valuable, and more of a commitment, when they've paid for it.
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q11"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#costsplit"}
                   %strong
                     %i.icon-angle-down
                     What's the cost split?
-              #q11.accordion-body.collapse
+              #costsplit.accordion-body.collapse.in
                 .accordion-inner
                   GirlsGuild workshop cost structure:
                   %ol
@@ -288,149 +496,114 @@
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q12"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#paymentmethods"}
                   %strong
                     %i.icon-angle-down
-                    When should it happen?
-              #q12.accordion-body.collapse
+                    How do I get paid?
+              #paymentmethods.accordion-body.collapse.in
                 .accordion-inner
-                  The date/time of the workshop is up to you! It helps to consider your audience; if you're leading a workshop for teens or children, after-school hours or weekends will be best. If you're teaching a workshop for adults, evenings might be a good option. Whatever time you choose, it's always best to schedule the date far enough in advance to give us 4 weeks or more to promote it, and give people a chance to sign up.
-                  %br/
-                  %br/
-                  If you're not quite ready to set a date, we can add the workshop with a pre-register link to let girls sign up to be notified when the date is set.
+                  You can choose to receive payments for workshops either by Paypal or by Check. We'll ask you to choose an option and provide details as part of the process for posting your workshop, so there won't be any delays getting your payment to you after the workshop.
+
+          %br
+          %br
+          %h3 2. Girls sign up and pay
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q13"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#howmuchcost"}
                   %strong
                     %i.icon-angle-down
-                    What about tools?
-              #q13.accordion-body.collapse
+                    How much does it cost?
+              #howmuchcost.accordion-body.collapse.in
                 .accordion-inner
-                  If you need help sourcing enough tools for the workshop, we'll do our best to help. Another suggestion is to put out a request for tools on our Facebook page.
+                  Each workshop is different, so costs vary. When a maker offers to lead a workshop, she sets the cost to include the materials and tools that will be used, and to fit the length of the workshop. For most workshops, the sign-up fee covers all the materials you’ll use to make something you’ll bring home with you.
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q14"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#canicancel"}
                   %strong
                     %i.icon-angle-down
-                    What's the cancellation policy?
-              #q14.accordion-body.collapse
+                    What if I have to cancel?
+              #canicancel.accordion-body.collapse.in
                 .accordion-inner
-                  We offer students a full refund if they let us know 7 days before the workshop. We do this so that you know a full week before the event to prepare for the full number of students.
+                  That's fine. We offer students a full refund if they let us know 7 days before the workshop. We do this so that the maker knows a full week before the event to prepare for the full number of students, and doesn't get stuck with extra materials she's purchased.
 
 
-        %br
-
-
-        %article.blog-post
-          %h2
-            General Questions
-            %small
-          %p
+          %br
+          %br
+          %h3 Tips for running a great workshop (1-day apprenticeship)
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q15"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#1daytips"}
                   %strong
                     %i.icon-angle-down
-                    Can I open my event up to all gender identities?
-              #q15.accordion-body.collapse
+                    Keep in mind...
+              #1daytips.accordion-body.collapse.in
                 .accordion-inner
-                  Absolutely!  Though we want to create a space for learning where girls and women feel safe and confident, we also want to be inclusive of everyone who would appreciate this space as well.  We give you the option to specify your workshop or apprenticeship be opened to all gender identities.
-          .accordion
-            .accordion-group
-              .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q16"}
-                  %strong
-                    %i.icon-angle-down
-                    How do I protect my style?
-              #q16.accordion-body.collapse
-                .accordion-inner
-                  We're committed to protecting our artists' style, and we recognize that copying can sometimes feel like it's not the best form of flattery. Which is why we ask everyone who signs up to take a workshop to agree not to replicate the individual styles of our amazing artists, although they should feel free to use the techniques they learn to develop their own style. This is a checkbox that comes right before purchasing the registration. We also make forms available to each artist to hand out at the beginning of the workshop on the same form as the waiver to get that agreement in writing as well.
-          .accordion
-            .accordion-group
-              .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q3"}
-                  %strong
-                    %i.icon-angle-down
-                    How do I know it’s safe?
-              #q3.accordion-body.collapse
-                .accordion-inner
-                  It’s of utmost importance to us that you feel confident leading or hosting workshops and apprenticeships. We exist to build a supportive and collaborative community of makers, and we believe the girls and women who get involved are also inspired by this goal. We require all students agree to a participation waiver as well as an indemnification waiver for minors before signing up in order to protect you if something were to happen. We will also send you a link to download a copy of those waivers to have your participants sign in person and for you to keep on file. We encourage you to contact us at any time; we’ll do our best to address any questions or issues that arise.
-                  %br
-                  %a{href: "waivers/ReleaseWaiver-adults.pdf"}
-                    %i.icon-bookmark
-                    Participation Waiver
-
-                  %br
-                  %a{href: "waivers/IndemnificationAgreement-minors.pdf"}
-                    %i.icon-bookmark
-                    Indemnification Agreement for Minors
+                  .row-fluid
+                    .span3
+                      %h4
+                        %i.icon-bolt.inline
+                        Share Skills
+                      The students should be learning new or specialized skills and techniques that provide a foundation for building out a skill set.
+                      %br
+                      %br
+                    .span3
+                      %h4
+                        %i.icon-wrench.inline
+                        Teach Tools
+                      Consider teaching students to use the key tools for your craft, especially ones they may never have had a chance to try before.
+                    .span3
+                      %h4
+                        %i.icon-compass.inline
+                        Explore
+                      Give your students a chance to explore a new medium, technique, or process that can help them begin or grow their own practice.
+                      %br
+                      %br
+                    .span3
+                      %h4
+                        %i.icon-rocket.inline
+                        Inspire Growth
+                      The 1-Day should give students inspiration and next steps to continue practicing and developing their new skills on their own.
 
 
-
-
-        /%article.blog-post
-        /  %h2
-        /    Being Open for 1-day Apprenticeships
-        /    %small
-        /  %p
-        /  .accordion
-        /    .accordion-group
-        /      .accordion-heading
-        /        %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q16"}
-        /          %strong Why just 1 day?
-        /      #q16.accordion-body.collapse
-        /        .accordion-inner
-        /          Because we know how busy you are - we created a framework for 1-day apprenticeships to give you a low-commitment way to get involved in the GirlsGuild community. When you list on our website as open for 1-day apprenticeship, you don't have to schedule anything until a girl requests it. When you get a request, you suggest a few date/time options for a 3-4 hour apprenticeship session, and the girl chooses the option that works for her.
-        /  .accordion
-        /    .accordion-group
-        /      .accordion-heading
-        /        %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q17"}
-        /          %strong How do I do it?
-        /      #q17.accordion-body.collapse
-        /        .accordion-inner
-        /          When a girl visits your studio on the agreed day, you show her your workspace, tools, and materials, explain and demonstrate some of your process, let her try it, and most importantly, talk with her about why she's interested in it. This is different from a workshop where you're teaching a specific project or technique; a 1-day apprenticeship should give an overview of your practice as a whole.
-        /  .accordion
-        /    .accordion-group
-        /      .accordion-heading
-        /        %a.accordion-toggle{"data-toggle" => "collapse", :href => "#q18"}
-        /          %strong How does the cost work?
-        /      #q18.accordion-body.collapse
-        /        .accordion-inner
-        /          Apprentices pay a fee of $45 for 1-day apprenticeships. You get 83.3% of that, or $37.50, while GirlsGuild takes 16.6%, or $7.50. (There's some math that explains those percentages, related to our workshop cost structure - see below.)
 
       %aside.span3.sidebar
-        .sidebar-widget
-          %h3.sidebar-header Other Burning Questions?
-          %p
-            We hope that all helps! If you have any questions or just want to talk with us more about GirlsGuild and how it works, we'd love to sit down to chat with you sometime. Let us know if you'd like to schedule a time to meet up!
-            %br/
-            %br/
-            Cheyenne &amp; Diana
-            %br/
-            GirlsGuild HQ
-          %a.btn.btn-primary.pull-right{:href => contact_path} Send email
+        %ul.nav.nav-list.faq-sidebar-nav#the-sticky-div
+          %li.nav-header FAQ
+          %li
+            = link_to( 'General Questions', anchor: "generalquestions")
+          %li
+            = link_to( 'Apprenticeships', anchor: "apprenticeships-top")
+          %li
+            = link_to( 'Workshops', anchor: "1dayapprenticeships-top")
+          %li.divider
+          %li
+            .sidebar-widget
+              .nav-header Other burning questions?
+              %p
+                We hope this all helps! If you have any questions or just want to talk with us more about GirlsGuild and how it works, we'd love to chat with you sometime. Let us know if you'd like to schedule a time to talk!
+                %br/
+                %br/
+                Cheyenne &amp; Diana
+                %br/
+                GirlsGuild HQ
+              %a.btn.btn-primary.pull-right{:href => contact_path} Email Us
 
 
 
+= render "scholarships"
 
-%section#promo.section.alt.donate
-  %a{name: "donate"}
-  .hero-unit.pull-center
+%br
+%br
+:javascript
+  // Cache selectors outside callback for performance.
+  var $window = $(window),
+      $stickyEl = $('#the-sticky-div'),
+      elTop = $stickyEl.offset().top;
 
-    %h1.pull-center Cool, right? Help us do more!
-    %p.pull-center
-      Donate to the scholarship fund by making a purchase in our Etsy store to help provide apprenticeship
-      %br opportunities like these in partnership with youth advocacy organizations and programs for at-risk youth.
+  $window.scroll(function() {
+        $stickyEl.toggleClass('sticky', $window.scrollTop()+90 > elTop);
+    });
 
-    = link_to "#{content_tag(:i, "", class: "icon-gift")} Donate a Scholarship".html_safe, "https://www.etsy.com/shop/GirlsGuildGoods", class: "btn btn-large btn-primary", target: "_blank"
-
-    /%form{:action => "https://www.paypal.com/cgi-bin/webscr", :method => "post"}
-    / %input{:name => "cmd", :type => "hidden", :value => "_s-xclick"}/
-    / %input{:name => "hosted_button_id", :type => "hidden", :value => "8GLHRBAARGK2J"}/
-    / %input{:alt => "Donate a Scholarship", :border => "0", :name => "submit", :class => "btn btn-large btn-primary", :type => "image"}/
-    / %img{:alt => "Donate a Scholarship", :border => "0", :height => "1", :src => "https://www.paypalobjects.com/en_US/i/scr/pixel.gif", :width => "1"}/
-    %br
-    %br
