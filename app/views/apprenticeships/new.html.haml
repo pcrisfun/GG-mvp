@@ -220,13 +220,16 @@
 
 %section.section#darkspan
   .container
-    #buttons.center
-      = link_to "Start Building an Apprenticeship!", { controller: :apprenticeships, action: :create } , {method: :post, style: 'button', class: 'btn btn-large btn-primary' }
-
+    .row-fluid
+      .span6
+        #buttons.center
+          = link_to "Post an Apprenticeship", { controller: :apprenticeships, action: :create } , {method: :post, style: 'button', class: 'btn btn-large btn-success' }
+      .span6
+        #buttons.center
+          = link_to "Browse Apprenticeships", events_path, {style: 'button', class: 'btn btn-large btn-primary' }
 
 %section.section#FAQ.newevent
   .container
-
     .row-fluid
       .span6.testimonials
         .rotating-testimonials
