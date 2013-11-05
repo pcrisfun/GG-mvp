@@ -8,8 +8,27 @@
       #full
         .row-fluid
           .span9
-            %h2 Payment - $9
-            %p This fee covers our promoting your apprenticeship through our newsletter and social media, collecting applications for you to review, and connecting you with the apprentice(s) you choose.
+            %h2 One time fee - $9
+            %p
+              This fee covers:
+              %ol
+                %li
+                  Promoting your apprenticeship through our
+                  =link_to "newsletter", "http://eepurl.com/HRKVP", target: "_blank"
+                  and social media,
+                %li
+                  =link_to "Collecting applications", faq_path(anchor: "applicationslook"), target: "_blank"
+                  for you to review,
+                %li
+                  =link_to "Setting up an optional interview,", faq_path(anchor: "caniinterview"), target: "_blank"
+                  and
+                %li
+                  =link_to "Connecting you with the apprentice(s) you choose.", faq_path(anchor: "howlongtofill"), target: "_blank"
+              %i.icon-exclamation
+              Note: We
+              =link_to "can't guarantee applicants,", faq_path(anchor: "nobodyapplies"), target: "_blank"
+              but we'll do our best! We do not offer refunds on posting fees.
+
             %hr
             = simple_form_for @apprenticeship, html: { class: 'form-horizontal payment_form' }, validate: false do |f|
               = render 'shared/error_messages', form_model: @apprenticeship

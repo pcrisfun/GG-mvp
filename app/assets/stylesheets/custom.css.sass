@@ -1215,6 +1215,7 @@ input[type="radio"], input[type="checkbox"]
   .editable-cancel
     display: none // this x button is hidden for usability
   #page-header
+    display: none
     font-family: kristi
     font-size: 45px
     font-weight: normal
@@ -1239,6 +1240,8 @@ input[type="radio"], input[type="checkbox"]
       li
         margin: 0 5px
         a
+          pointer-events: none // this disables the links in the checkmark nav!
+          cursor: default
           border-bottom: 0px
           margin-left: -35px
           margin-bottom: 0px
