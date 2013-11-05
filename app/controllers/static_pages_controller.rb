@@ -19,6 +19,10 @@ class StaticPagesController < ApplicationController
     @inquiry = Inquiry.new
   end
 
+  def scheduleinterview
+    @interviewinquiry = Interviewinquiry.new
+  end
+
   def newsletter
   end
 

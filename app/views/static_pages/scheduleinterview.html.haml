@@ -1,0 +1,38 @@
+- provide(:title, 'Schedule Interview')
+
+%section.section
+  .container
+    .page-header
+      %h1
+        Schedule an Interview
+        %small Not quite ready to make the decision to accept an applicant for your apprenticeship?
+    .row-fluid
+      .span6
+        %p
+          We reccomend having a chat with your applicants before comitting to the apprenticeship to make sure your personalities are a good fit and your goals line up. We're happy to help set up that chat!
+        %br
+        %ul.icons
+          %li
+            %p
+              %i.icon-home>
+              1309 Chestnut Ave., Austin TX 78702
+          %li
+            %p
+              %i.icon-phone>
+              +1 512 443-2243
+          %li
+            %p
+              %i.icon-envelope
+              %a{:href => "mailto:hello@girlsguild.com?Subject=Howdy"}
+                hello@girlsguild.com
+          %li
+            %p
+              %i.icon-globe>
+              www.girlsguild.com
+      .span6
+        = render 'static_pages/interviewinquiryform', :interviewinquiry => @interviewinquiry
+
+%section#promo.section.alt
+  .map-top-shadow
+  #map
+  .map-bottom-shadow

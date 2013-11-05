@@ -1,0 +1,18 @@
+/ app/views/static_pages/_interviewinquiryform.html.haml
+= simple_form_for interviewinquiry, html: {class: "form-horizontal"}, validate: true do |f|
+  %fieldset
+    .control-group
+      = f.label :name, class: "control-label"
+      .controls
+        = f.text_field :name, class: 'input-xlarge', rel: 'popover'
+    .control-group
+      = f.label :email, class: "control-label"
+      .controls
+        = f.text_field :email, class: 'input-xlarge'
+    .control-group
+      = f.label :timesavailable, class: "control-label"
+      .controls
+        = f.text_area :timesavailable, class: 'input-xlarge', rows: '3'
+    .control-group
+      .controls
+        = f.submit "Schedule Interview", class: 'btn btn-primary'

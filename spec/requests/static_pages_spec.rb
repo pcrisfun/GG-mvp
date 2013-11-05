@@ -11,7 +11,7 @@ describe "Static pages" do
 
   describe "Home page" do
     before { visit root_path }
-    let(:heading)    { 'Sample App' }
+    let(:heading)    { 'GirlsGuild' }
     let(:page_title) { '' }
 
     it_should_behave_like "all static pages"
@@ -42,6 +42,14 @@ describe "Static pages" do
     it_should_behave_like "all static pages"
   end
 
+  describe "Schedule an Interview page" do
+    before { visit contact_path }
+    let(:heading)    { 'Schedule an Interview' }
+    let(:page_title) { 'Schedule an Interview' }
+
+    it_should_behave_like "all static pages"
+  end
+
   it "should have the right links on the layout" do
     visit root_path
     click_link "About"
@@ -50,6 +58,8 @@ describe "Static pages" do
     page.should have_selector 'title', text: full_title('Help')
     click_link "Contact"
     page.should have_selector 'title', text: full_title('Contact')
+    click_link "scheduleinterview"
+    page.should have_selector 'title', text: full_title('Schedule an Interview')
     click_link "Home"
     click_link "Sign up now!"
     page.should have_selector 'title', text: full_title('Sign up')
