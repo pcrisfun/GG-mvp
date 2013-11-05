@@ -13,9 +13,9 @@ class ApprenticeshipsController < ApplicationController
       @allfilled_apprenticeships = Apprenticeship.find_all_by_state('filled').sort_by { |e| e.begins_at }
       @allcompleted_apprenticeships = Apprenticeship.find_all_by_state('completed').sort_by { |e| e.begins_at }
     end
-    @apprenticeships = Apprenticeship.where( datetime_tba: false, state: ['accepted','filled','completed']).where("begins_at >= :today", {today: Date.today}).sort_by { |e| e.begins_at }
-    @tba_apprenticeships = Apprenticeship.where( datetime_tba: true, state: ['accepted','filled','completed']).sort_by { |e| e.created_at }
-    @closed_apprenticeships = Apprenticeship.where( datetime_tba: false, state: ['accepted','filled','completed']).where("begins_at < :today", {today: Date.today}).sort_by { |e| e.begins_at }.reverse!
+    @apprenticeships = Apprenticeship.where( datetime_tba: false, state: ['accepted']).sort_by { |e| e.begins_at }
+    @tba_apprenticeships = Apprenticeship.where( datetime_tba: true, state: ['accepted']).sort_by { |e| e.created_at }
+    @closed_apprenticeships = Apprenticeship.where( datetime_tba: false, state: ['filled','completed']).where("begins_at < :today", {today: Date.today}).sort_by { |e| e.begins_at }.reverse!
 
   end
 
@@ -129,7 +129,7 @@ class ApprenticeshipsController < ApplicationController
   def cancel
     @apprenticeship = Apprenticeship.where(:id => params[:id]).first
     @apprenticeship.signups.each do |s|
-      s.cancel && s.deliver_cancel_maker
+      s.cancel && s.deliver_cancel_bymaker
 
       Prereg.find_or_create_by_user_id_and_event_id!(
         :user_id => s.user_id,

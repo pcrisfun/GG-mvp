@@ -24,6 +24,8 @@ module ApplicationHelper
   def nice_url(url_str)
     if url_str.starts_with?('http://')
       return url_str
+    elsif url_str.starts_with?('https://')
+      return url_str
     else
       return 'http://' + url_str
     end

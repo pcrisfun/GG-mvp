@@ -1,6 +1,9 @@
 = content_tag :section, :class => "section alt-grey", :id => 'apply' do
   = content_tag :div, :class => "container" do
     - provide(:title, "Application for Apprenticeship")
+    - if current_user == @app_signup.event.user && @app_signup.canceled?
+      %h2 Rats! It looks like #{@app_signup.user.first_name} has canceled this application
+      %br
     - if @app_signup.accepted? && @app_signup.user == current_user
       %h1 Apprenticeship Confirmation
       - if @app_signup.parent?
@@ -45,7 +48,17 @@
           %p
             Rad, #{@apprenticeship.host_firstname}! #{@app_signup.user.first_name} applied for your apprenticeship, #{link_to "#{@app_signup.event.topic}", apprenticeship_path(@app_signup.event)}.
         %p
-          You have #{(@app_signup.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days to review her application and make your decision. We'll let her know once you've decided.
+          You have #{(@app_signup.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days to review her application and make your decision.
+        %h4
+          Want to meet up first?
+        %p
+          If you'd like to interview her before you decide, email us at
+          =mail_to "hello@girlsguild.com"
+          and tell us: 1) which applicant(s) you'd like to interview, 2) where you'd like to meet up (or if you'd prefer a phone interview), and 3) a few date/time options when you're available. We'll set it up with the applicant(s) and then confirm it with you.
+        %h4
+          Made your decision?
+        %p
+          Once you've made your decision, use the "Accept" or "Decline" buttons below to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll ask her to confirm, and once she does, we'll put you two in touch to get started!
     .row-fluid
       .span12.well
         %table.table.table-striped.table-bordered
@@ -92,8 +105,9 @@
           - unless current_user.blank?
             - if @app_signup.started? && @app_signup.user == current_user
               = link_to 'Resume', edit_app_signup_path(@app_signup), class: "btn btn-warning"
-            - elsif @app_signup.pending? && @app_signup.user == current_user
               = link_to 'Delete', @app_signup, :method => :delete, class: "btn btn-danger", :data => { :confirm => 'Are you sure you want to delete this application? Deleting cannot be undone.' }
+            / - elsif !@app_signup.canceled? && !@app_signup.started? && @app_signup.user == current_user
+            /   = link_to 'Cancel my application', { :controller => 'app_signups', :action => 'cancel'}, :method => :post, :data => { :confirm => 'Are you sure you want to cancel your application for this apprenticeship?'}, class: "btn btn-danger"
         .pull-center
           - if current_user == @app_signup.event.user && @app_signup.pending?
             %hr/

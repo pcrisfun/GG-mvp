@@ -158,9 +158,12 @@ class Apprenticeship < Event
 			:html_body => %(<h1>Congrats #{user.first_name}!</h1>
         <p>Your apprenticeship has been posted and is now live! Check it out - <a href="#{apprenticeship_url(self)}"> #{self.title}</a></p>
         <p>Be sure to invite your friends and share it on your social networks!</p>
-        <p>If it's posted as TBA we'll email you as people follow it, so you can decide when to set the date. If you already set a date, we'll let you know whenever someone applies. Applications will be closed when you've accepted #{self.registration_max} apprentices.</p>
-        <p>If by some bad luck you need to cancel your apprenticeship, you can do so from your <a href="#{dashboard_url}">Events Dashboard</a> - but we're crossing our fingers that won't happen!</p>
-        <p>Let us know if you have any questions!</p>
+        <p>1. We'll forward you the application as soon as someone applies.
+          <br/>2. You'll have two weeks to decide weather to accept or decline each apprentice.
+          <br/>3. If you'd like to meet up first to determine weather you'll be a good fit, just let us know and we'd be happy to set up a meeting before you accept an apprentice!
+          <br/>4. The post will be closed when you've accepted #{self.registration_max} apprentices. If you don't find a good fit you're not obligated to accept an apprentice.</p>
+        <p>If by some bad luck you need to cancel your apprenticeship, you can do so from your <a href="#{dashboard_url}">Events Dashboard</a> - but we're crossing our fingers that won't happen!
+          <br/>Let us know if you have any questions!</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
 			:bcc => "hello@girlsguild.com",
 		})
