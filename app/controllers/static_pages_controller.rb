@@ -6,10 +6,7 @@ class StaticPagesController < ApplicationController
     #@events = Event.where( state: ['accepted']).limit(4).sort_by { |e| e.created_at }.reverse!
   end
 
-  def faq_makers
-  end
-
-  def faq_girls
+  def faq
   end
 
   def about

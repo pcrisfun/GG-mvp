@@ -59,7 +59,7 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your application has been saved - #{self.event.title}",
       :html_body => %(<h1>Yay #{user.first_name}!</h1>
-        <p>We're thrilled you're applying to work with #{self.event.user.first_name}! If you get stuck take a look at our <a href="#{faq_girls_url}">FAQ for Girls</a>, or feel free to respond to this email with any questions you might have!</p>
+        <p>We're thrilled you're applying to work with #{self.event.user.first_name}! If you get stuck take a look at our <a href="#{faq_url}">FAQ</a>, or feel free to respond to this email with any questions you might have!</p>
         <p>You can edit your application here - <a href="#{url_for(self)}"> Application for #{self.event.title}</a></p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
@@ -73,7 +73,7 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your daughter's application has been saved - #{self.event.title}",
       :html_body => %(<h1>Yay #{user.first_name}!</h1>
-        <p>We're thrilled you're helping your daughter apply to work with #{self.event.user.first_name}! If you get stuck take a look at our <a href="#{faq_girls_url}">FAQ for Girls</a>, or feel free to respond to this email with any questions you might have!</p>
+        <p>We're thrilled you're helping your daughter apply to work with #{self.event.user.first_name}! If you get stuck take a look at our <a href="#{faq_url}">FAQ</a>, or feel free to respond to this email with any questions you might have!</p>
         <p>You can edit your application here - <a href="#{url_for(self)}"> Application for #{self.event.title}</a></p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",

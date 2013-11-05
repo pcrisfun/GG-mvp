@@ -1,5 +1,5 @@
-- provide(:title, 'FAQ for Makers')
-/ FAQ For Makers
+- provide(:title, 'FAQ')
+/ FAQ
 
 %section#promo.section.alt
   .container
@@ -22,28 +22,29 @@
 
         %br
         %article.blog-post
-          %a{:name => "generalquestions", class: "anchor"}
+          %a{:id => "generalquestions", class: "anchor"}
           %h2 General Questions
-
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#whatsgirlsguild"}
+                %a{:id => "whatsgirlsguild", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#whatsgirlsguild-toggle"}
                   %strong
                     %i.icon-angle-down
                     What is GirlsGuild?
-              #whatsgirlsguild.accordion-body.collapse.in
+              #whatsgirlsguild-toggle.accordion-body.collapse.in
                 .accordion-inner
                   %p GirlsGuild is a service that offers apprenticeships for girls, by girls. We connect girls and women with artists and makers to build a supportive, collaborative community.
                   %p We define apprenticeship as more hands-on than a “mentorship”, and more supportive than an “internship”. In an apprenticeship, a maker works one-on-one with a girl interested in learning the skills of her art. It's about getting real world experience of a maker's work and lifestyle, and building some serious skills in a particular area of making.
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#howtogetinvolved"}
+                %a{:id => "howtogetinvolved", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#howtogetinvolved-toggle"}
                   %strong
                     %i.icon-angle-down
                     How can I get involved?
-              #howtogetinvolved.accordion-body.collapse.in
+              #howtogetinvolved-toggle.accordion-body.collapse.in
                 .accordion-inner
                   %p If you have a skill you’d like to share, or could use some help with your work, consider posting an apprenticeship. You can teach a particular technique or tool in a Workshop (aka a 1-day Apprenticeship), or share your practice in a Production, Event, or Ongoing Apprenticeships.
                   %p If you're interested in picking up some new skills and meeting new friends while you're at it, you can try a workshop (1-day apprenticeship) to get your feet wet and learn a new technique. And if you're really looking to build your skills and get some real experience working with an artist longer term, apply for a production, event, or ongoing apprenticeship.
@@ -51,53 +52,58 @@
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#whatsamaker"}
+                %a{:id => "whatsamaker", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#whatsamaker-toggle"}
                   %strong
                     %i.icon-angle-down
                     What's a "Maker"?
-              #whatsamaker.accordion-body.collapse.in
+              #whatsamaker-toggle.accordion-body.collapse.in
                 .accordion-inner
                   %p We take a broad definition of the term “Maker” that includes people working in creative fields from art, design, and craft, to tech, engineering, media, fabrication, style, food, music, entrepreneurship, and beyond!
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#whositfor"}
+                %a{:id => "whositfor", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#whositfor-toggle"}
                   %strong
                     %i.icon-angle-down
                     Who is this for?
-              #whositfor.accordion-body.collapse.in
+              #whositfor-toggle.accordion-body.collapse.in
                 .accordion-inner
                   %p GirlsGuild is built for girls and women of all ages. We also partner with local organizations to offer free workshops to girls and women through our scholarship fund.
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#genderidentities"}
+                %a{:id => "genderidentities", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#genderidentities-toggle"}
                   %strong
                     %i.icon-angle-down
                     Are any events open to all gender identities?
-              #genderidentities.accordion-body.collapse.in
+              #genderidentities-toggle.accordion-body.collapse.in
                 .accordion-inner
                   Absolutely! Though we want to create a space for learning where girls and women feel safe and confident, we also want to be inclusive of everyone who would appreciate this space as well. Makers have the option to specify that their workshop or apprenticeship be opened to all gender identities.
 
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#securetransaction"}
+                %a{:id => "securetransaction", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#securetransaction-toggle"}
                   %strong
                     %i.icon-angle-down
                     Is my payment transaction secure?
-              #securetransaction.accordion-body.collapse.in
+              #securetransaction-toggle.accordion-body.collapse.in
                 .accordion-inner
                   %p Yes! All transactions on GirlsGuild are processed over a certified secure connection and we use Stripe, a respected third party service to fulfill payments, refunds, and security.
 
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#safety"}
+                %a{:id => "safety", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#safety-toggle"}
                   %strong
                     %i.icon-angle-down
                     How do I know it’s safe?
-              #safety.accordion-body.collapse.in
+              #safety-toggle.accordion-body.collapse.in
                 .accordion-inner
                   %p It’s of utmost importance to us that you feel confident joining or hosting workshops and apprenticeships. We exist to build a supportive and collaborative community of makers, and we believe the girls and women who get involved are also inspired by this goal.
                   %p
@@ -112,27 +118,29 @@
 
 
         %article.blog-post
-          %a{:name => "apprenticeships-top", class: "anchor"}
+          %a{:id => "apprenticeships-top", class: "anchor"}
           %h2 Apprenticeships
           %h3.makers 1. Makers post an apprenticeship
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#amiready"}
+                %a{:id => "amiready", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#amiready-toggle"}
                   %strong
                     %i.icon-angle-down
                     How do I know I'm ready?
-              #amiready.accordion-body.collapse.in
+              #amiready-toggle.accordion-body.collapse.in
                 .accordion-inner
                   You already are, we promise!  If you’ve got a skill, process, or technique that you’re passionate about, that excitement will rub off on others. Being a maker can be a lonely venture!  We believe sharing your skills and techniques is both smart for your business as well as your heart. Get help making while you share your skills and benefit from working alongside other makers. They’ll give you a fresh perspective and force you to put your process into words. If you’re still not sure, we’d be happy to chat with you about what types of skills you could share.
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#chooseatype"}
+                %a{:id => "chooseatype", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#chooseatype-toggle"}
                   %strong
                     %i.icon-angle-down
                     How do I choose a type?
-              #chooseatype.accordion-body.collapse.in
+              #chooseatype-toggle.accordion-body.collapse.in
                 .accordion-inner
                   %p We've tried to keep our framework for apprenticeships broad, so you can offer an apprenticeship that will truly meet your needs. However, we've found that most apprenticeships fall into three main categories; Production, Event, and Ongoing.
                   %h4 Production Apprenticeship
@@ -150,41 +158,45 @@
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#postingfee"}
+                %a{:id => "postingfee", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#postingfee-toggle"}
                   %strong
                     %i.icon-angle-down
                     What does it cost to post?
-              #postingfee.accordion-body.collapse.in
+              #postingfee-toggle.accordion-body.collapse.in
                 .accordion-inner
                   Right now it's just $9 for us to list your apprenticeship on our site, promote it to the community, accept applications for you to review, and connect you with the apprentice you choose.
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#whogetspaid"}
+                %a{:id => "whogetspaid", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#whogetspaid-toggle"}
                   %strong
                     %i.icon-angle-down
                     Do I pay her, or get paid?
-              #whogetspaid.accordion-body.collapse.in
+              #whogetspaid-toggle.accordion-body.collapse.in
                 .accordion-inner
                   In most cases, the give and take of teaching and working will likely balance out; you teach your process and skills in return for her assistance with your work. However, you should consider whether the level of work and the time commitment you expect from your apprentice should be paid, or whether you'll be taking on a level of teaching that merits payment. If you do plan to pay, or ask for payment, you should explain that in the description of your apprenticeship when you propose it. In that case payment would be a matter between you and the apprentice, and would not be managed by GirlsGuild.
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#howlong"}
+                %a{:id => "howlong", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#howlong-toggle"}
                   %strong
                     %i.icon-angle-down
                     How long is it for, and how much time will it take?
-              #howlong.accordion-body.collapse.in
+              #howlong-toggle.accordion-body.collapse.in
                 .accordion-inner
                   It's up to you, based on your needs. Some apprenticeships might be as short as a few weeks, but we think the most rewarding will be for a longer period of a few months. That way you'll have time to teach your apprentice the skills and techniques she needs, and see her progress in the work she's doing with you. You can meet as often as works for both your schedules; 5-15 hours a week is typical.
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#myliability"}
+                %a{:id => "myliability", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#myliability-toggle"}
                   %strong
                     %i.icon-angle-down
                     What's my liability?
-              #myliability.accordion-body.collapse.in
+              #myliability-toggle.accordion-body.collapse.in
                 .accordion-inner
                   We require that all apprentices agree to a participation waiver (and for minors, their parents sign an indemnification agreement) before accepting an apprenticeship or signing up for a workshop, in order to protect you if something were to happen. We will also send you a link to download a copy of those waivers to have your participants sign in person and for you to keep on file. We encourage you to contact us at any time; we’ll do our best to address any questions or issues that arise.
                   %br
@@ -199,11 +211,12 @@
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#protectmystyle"}
+                %a{:id => "protectmystyle", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#protectmystyle-toggle"}
                   %strong
                     %i.icon-angle-down
                     How do I protect my artistic style?
-              #protectmystyle.accordion-body.collapse.in
+              #protectmystyle-toggle.accordion-body.collapse.in
                 .accordion-inner
                   Some makers produce work that is uniquely their own artistic style, and we recognize that copying can sometimes feel like it's not the best form of flattery. That's why we've included a clause in the participation waiver so that apprentices agree not to replicate the individual artistic styles of our amazing artists, although they should feel free to use the techniques they learn to develop their own style.
 
@@ -213,31 +226,34 @@
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#howlongfor"}
+                %a{:id => "howlongfor", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#howlongfor-toggle"}
                   %strong
                     %i.icon-angle-down
                     How long is it for?
-              #howlongfor.accordion-body.collapse.in
+              #howlongfor-toggle.accordion-body.collapse.in
                 .accordion-inner
                   It depends on the focus of the apprenticeship - some apprenticeships might have a fairly short timeframe of just a few weeks to meet relevant deadlines. Others have a longer lead time or are planned as ongoing over the course of a few months or longer.
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#wherehappen"}
+                %a{:id => "wherehappen", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#wherehappen-toggle"}
                   %strong
                     %i.icon-angle-down
                     Where do they happen?
-              #wherehappen.accordion-body.collapse.in
+              #wherehappen-toggle.accordion-body.collapse.in
                 .accordion-inner
                   Apprenticeships typically take place in the maker's studio or workspace. Depending on the kind of apprenticeship, it may also involve visiting event venues, fabrication workshops, or other places.
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#myapplication"}
+                %a{:id => "myapplication", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#myapplication-toggle"}
                   %strong
                     %i.icon-angle-down
                     What happens to my application?
-              #myapplication.accordion-body.collapse.in
+              #myapplication-toggle.accordion-body.collapse.in
                 .accordion-inner
                   %p When you apply for an apprenticeship, the maker reviews all the applications she receives, and chooses the girl who'll be the best fit for the work they'll be doing. Makers sometimes ask to meet up to get a feel for personality before making a decision, so if that’s the case we'll get in touch to set it up. We'll let you know her decision within two weeks, and if you're accepted, ask you to confirm by registering and paying.
                   %p Each apprenticeship that’s posted typically gets 5-10 applications, so don’t be discouraged if someone else is chosen for the apprenticeship you applied for! We’re always working on getting more makers offering new opportunities, and in the meantime, consider building up your skills through workshops (1-day apprenticeships).
@@ -249,11 +265,12 @@
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#applicationslook"}
+                %a{:id => "applicationslook", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#applicationslook-toggle"}
                   %strong
                     %i.icon-angle-down
                     What do applications look like?
-              #applicationslook.accordion-body.collapse.in
+              #applicationslook-toggle.accordion-body.collapse.in
                 .accordion-inner
                   %p We ask 5 general questions to get an idea of personality, interest in working together, and schedule:
                   %ol
@@ -266,42 +283,46 @@
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#howlongtofill"}
+                %a{:id => "howlongtofill", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#howlongtofill-toggle"}
                   %strong
                     %i.icon-angle-down
                     How long does it take to fill?
-              #howlongtofill.accordion-body.collapse.in
+              #howlongtofill-toggle.accordion-body.collapse.in
                 .accordion-inner
                   Sometimes if the apprenticeship is a longer or more intensive time commitment it will take longer to fill the apprenticeship. The sweet spot seems to be a 3-month apprenticeship from 5-15 hours per week, which seem to fill in a day or two, but there are so many factors that go into it, that it’s hard to tell. Feel free to email us if you’d like suggestions on how to fill it quickly.
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#caniinterview"}
+                %a{:id => "caniinterview", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#caniinterview-toggle"}
                   %strong
                     %i.icon-angle-down
                     Can I interview candidates prior to selection?
-              #caniinterview.accordion-body.collapse.in
+              #caniinterview-toggle.accordion-body.collapse.in
                 .accordion-inner
                   Sure. What we'll do is forward you the applications as we receive them and when you see someone you'd like to interview just let us know what dates you're available to meet up with her. We'll email her to see if she's available and CC you on the email so that you have each other's contact info in case there are any questions about directions, etc.
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#nobodyapplies"}
+                %a{:id => "nobodyapplies", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#nobodyapplies-toggle"}
                   %strong
                     %i.icon-angle-down
                     What if nobody applies?
-              #nobodyapplies.accordion-body.collapse.in
+              #nobodyapplies-toggle.accordion-body.collapse.in
                 .accordion-inner
                   %p You can keep your apprenticehsip posting open as long as you'd like. Sometimes it takes just the right person to find it and apply. We don't guarantee that we'll be able to fill apprenticeships, but we'll do our best to promote the opportunity on our site and on social networks.  We put all new apprenticeships in our newsletter that goes out to the entire guild.  It's always best, though, to help promote it through your own social networks as well!
                   %p We don't give refunds for apprenticeship listings, but we are happy to give advice on how to promote the apprenticeship, or on what might be keeping people from pulling the trigger and applying!
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#obligatedtochoose"}
+                %a{:id => "obligatedtochoose", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#obligatedtochoose-toggle"}
                   %strong
                     %i.icon-angle-down
                     Am I obligated to choose someone?
-              #obligatedtochoose.accordion-body.collapse.in
+              #obligatedtochoose-toggle.accordion-body.collapse.in
                 .accordion-inner
                   Nope.  It's totally up to you, we just want to facilitate a good connection for you both and get more women collaborating with each other.
 
@@ -312,11 +333,12 @@
           .accordion#more-lead-workshop
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#howmuchtoapply"}
+                %a{:id => "howmuchtoapply", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#howmuchtoapply-toggle"}
                   %strong
                     %i.icon-angle-down
                     How much does it cost to join an apprenticeship?
-              #howmuchtoapply.accordion-body.collapse.in
+              #howmuchtoapply-toggle.accordion-body.collapse.in
                 .accordion-inner
                   There's a flat fee of $29 to confirm an apprenticeship match. This is charged only after you've been accepted for the apprenticeship and have decided you really want to do it. It’s always free to apply!
 
@@ -327,11 +349,12 @@
           .accordion#more-lead-workshop
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#notworking"}
+                %a{:id => "notworking", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#notworking-toggle"}
                   %strong
                     %i.icon-angle-down
                     What if it really isn't working out?
-              #notworking.accordion-body.collapse.in
+              #notworking-toggle.accordion-body.collapse.in
                 .accordion-inner
                   If your apprentice isn't working out for any reason, just let us know and we'd be happy to gently end it early.  We think that being honest and clear about expectations from the apprentice is the best way to find someone who's committed.  And of course it will always be our priority to help out if you have any difficulty along the way.
 
@@ -344,22 +367,24 @@
           .accordion#more-lead-workshop
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#whatwetrack"}
+                %a{:id => "whatwetrack", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#whatwetrack-toggle"}
                   %strong
                     %i.icon-angle-down
                     What does GirlsGuild track?
-              #whatwetrack.accordion-body.collapse.in
+              #whatwetrack-toggle.accordion-body.collapse.in
                 .accordion-inner
                   We track the skills and tools you’re learning so that we can suggest the next steps toward building out your skill-sets. We’ll also suggest makers in the community that can help you reach your goals. It’s all about who you know, so we’ll help you build skills and social connections with maker-mentors who can help guide your career toward awesomeness. You can get started by following makers who inspire you to get first dibs on opportunities to work with them before we release to the rest of the Guild.
 
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#whatportfolio"}
+                %a{:id => "whatportfolio", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#whatportfolio-toggle"}
                   %strong
                     %i.icon-angle-down
                     What will my portfolio look like?
-              #whatportfolio.accordion-body.collapse.in
+              #whatportfolio-toggle.accordion-body.collapse.in
                 .accordion-inner
                   We’re planning on building portfolios that track the skills and tools you’re learning and the social connections you’re making in each apprenticeship you participate in. You’ll be able to upload pictures of the work you’ve made, add titles and text, and share on your social networks. These portfolios will serve to help you get more opportunities to work with other makers, as well maybe even apply for school or for jobs!  We’ll let you opt in to publicly display your portfolio once we’ve built it!
 
@@ -370,11 +395,12 @@
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#tips"}
+                %a{:id => "tips", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#tips-toggle"}
                   %strong
                     %i.icon-angle-down
                     Keep in mind...
-              #tips.accordion-body.collapse.in
+              #tips-toggle.accordion-body.collapse.in
                 .accordion-inner
                   .row-fluid
                     .span3
@@ -414,16 +440,17 @@
 
 
         %article.blog-post
-          %a{:name => "1dayapprenticeships-top", class: "anchor"}
+          %a{:id => "1dayapprenticeships-top", class: "anchor"}
           %h2 Workshops (1-Day Apprenticeships)
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#how1dayswork"}
+                %a{:id => "how1dayswork", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#how1dayswork-toggle"}
                   %strong
                     %i.icon-angle-down
                     What are workshops (1-Day's)?
-              #how1dayswork.accordion-body.collapse.in
+              #how1dayswork-toggle.accordion-body.collapse.in
                 .accordion-inner
                   In a workshop (what we call a 1-day Apprenticeship), an artist or maker offers to teach a particular project or technique to one or more girls, usually in a 2-4 hour session. It's a chance to learn from the maker, to gain a new skill, to try your hand at a new process, or see how it's done.
 
@@ -434,22 +461,24 @@
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#when"}
+                %a{:id => "when", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#when-toggle"}
                   %strong
                     %i.icon-angle-down
                     When should it happen?
-              #when.accordion-body.collapse.in
+              #when-toggle.accordion-body.collapse.in
                 .accordion-inner
                   %p The date/time of the workshop is up to you! It helps to consider your audience; if you're leading a workshop for teens or children, after-school hours or weekends will be best. If you're teaching a workshop for adults, evenings might be a good option. Whatever time you choose, it's always best to schedule the date far enough in advance to give us 4 weeks or more to promote it, and give people a chance to sign up.
                   %p If you're not quite ready to set a date, you can set the workshop as "TBA", and we'll post it with a pre-register link to let girls sign up to be notified when the date is set.
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#where"}
+                %a{:id => "where", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#where-toggle"}
                   %strong
                     %i.icon-angle-down
                     Where do they happen?
-              #where.accordion-body.collapse.in
+              #where-toggle.accordion-body.collapse.in
                 .accordion-inner
                   Workshops typically take place in the maker's studio or workspace. If you need help finding a place to host your workshop, let us know and we’ll either host it at our headquarters at the
                   %a{href: "http://www.austincenterfordesign.com"}Austin Center for Design
@@ -457,32 +486,35 @@
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#tools"}
+                %a{:id => "tools", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#tools-toggle"}
                   %strong
                     %i.icon-angle-down
                     What about tools?
-              #tools.accordion-body.collapse.in
+              #tools-toggle.accordion-body.collapse.in
                 .accordion-inner
                   If you need help sourcing enough tools for the workshop, we'll do our best to help. Another suggestion is to put out a request for tools on our Facebook page.
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#howmuch"}
+                %a{:id => "howmuch", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#howmuch-toggle"}
                   %strong
                     %i.icon-angle-down
                     How much should it cost?
-              #howmuch.accordion-body.collapse.in
+              #howmuch-toggle.accordion-body.collapse.in
                 .accordion-inner
                   %p We believe that the maker is the best person to determine the cost of their workshop based on materials, length of the session, and effort. That's why we leave the cost up to you. Sometimes that means it will be too high and you will get fewer registrants, or if it's too low, you may feel like it wasn't quite worth the effort. So to give you some basic guidelines, when we spoke to parents they were comfortable paying between $40-60 for a 2-3 hour workshop. The cost of materials should be included in the cost you set for your workshop. Sometimes the materials can be expensive, so let that show by listing the materials in the class description! Generally, it's up to the maker to source and provide materials (depending on what you plan to teach).
                   %p We want to make GirlsGuild a viable way to make supplementary income, so we encourage you not to sell yourself short. Even if you'd be happy to teach a workshop for free, we've found that putting a small cost ($5-10 or so) actually gets better attendance - people see it as more valuable, and more of a commitment, when they've paid for it.
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#costsplit"}
+                %a{:id => "costsplit", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#costsplit-toggle"}
                   %strong
                     %i.icon-angle-down
                     What's the cost split?
-              #costsplit.accordion-body.collapse.in
+              #costsplit-toggle.accordion-body.collapse.in
                 .accordion-inner
                   GirlsGuild workshop cost structure:
                   %ol
@@ -496,11 +528,12 @@
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#paymentmethods"}
+                %a{:id => "paymentmethods", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#paymentmethods-toggle"}
                   %strong
                     %i.icon-angle-down
                     How do I get paid?
-              #paymentmethods.accordion-body.collapse.in
+              #paymentmethods-toggle.accordion-body.collapse.in
                 .accordion-inner
                   You can choose to receive payments for workshops either by Paypal or by Check. We'll ask you to choose an option and provide details as part of the process for posting your workshop, so there won't be any delays getting your payment to you after the workshop.
 
@@ -510,21 +543,23 @@
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#howmuchcost"}
+                %a{:id => "howmuchcost", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#howmuchcost-toggle"}
                   %strong
                     %i.icon-angle-down
                     How much does it cost?
-              #howmuchcost.accordion-body.collapse.in
+              #howmuchcost-toggle.accordion-body.collapse.in
                 .accordion-inner
                   Each workshop is different, so costs vary. When a maker offers to lead a workshop, she sets the cost to include the materials and tools that will be used, and to fit the length of the workshop. For most workshops, the sign-up fee covers all the materials you’ll use to make something you’ll bring home with you.
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#canicancel"}
+                %a{:id => "canicancel", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#canicancel-toggle"}
                   %strong
                     %i.icon-angle-down
                     What if I have to cancel?
-              #canicancel.accordion-body.collapse.in
+              #canicancel-toggle.accordion-body.collapse.in
                 .accordion-inner
                   That's fine. We offer students a full refund if they let us know 7 days before the workshop. We do this so that the maker knows a full week before the event to prepare for the full number of students, and doesn't get stuck with extra materials she's purchased.
 
@@ -535,11 +570,12 @@
           .accordion
             .accordion-group
               .accordion-heading
-                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#1daytips"}
+                %a{:id => "1daytips", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#1daytips-toggle"}
                   %strong
                     %i.icon-angle-down
                     Keep in mind...
-              #1daytips.accordion-body.collapse.in
+              #1daytips-toggle.accordion-body.collapse.in
                 .accordion-inner
                   .row-fluid
                     .span3

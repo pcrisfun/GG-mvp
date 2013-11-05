@@ -105,7 +105,7 @@ class Apprenticeship < Event
 			:reply_to => "GirlsGuild<hello@girlsguild.com>",
 			:subject => "You started building an apprenticeship!",
 			:html_body => %(<h1>Hooray #{user.first_name}!</h1>
-        <p>We're thrilled you're building an apprenticeship! If you get stuck take a look at our <a href="#{faq_makers_url}">FAQ for Makers</a>, or feel free to respond to this email with any questions you might have!</p>
+        <p>We're thrilled you're building an apprenticeship! If you get stuck take a look at our <a href="#{faq_url}">FAQ</a>, or feel free to respond to this email with any questions you might have!</p>
         <p>You can <a href="#{edit_apprenticeship_url(self)}">edit your apprenticeship here</a> or monitor signups from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
 			:bcc => "hello@girlsguild.com",

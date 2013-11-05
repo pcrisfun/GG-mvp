@@ -39,13 +39,13 @@
       /    %h3
       /      %i.icon-magic.inline
       /      Create it
-      /    %p It can be <a href="/faq_makers">event-based</a>, <a href="/faq_makers">production-based</a>, or <a href="/faq_makers">/ongoing</a>. We charge you a $9 listing fee, and the apprentice pays a $29 connection fee.
+      /    %p It can be <a href="/faq">event-based</a>, <a href="/faq">production-based</a>, or <a href="/faq">/ongoing</a>. We charge you a $9 listing fee, and the apprentice pays a $29 connection fee.
       /  .well.span3
       /    %h3
       /      %i.icon-check.inline
       /      We Review
       /    %p
-      /      We'll review your listing once you've submitted it. We also do <a href="/faq_makers">background checks</a>
+      /      We'll review your listing once you've submitted it. We also do <a href="/faq">background checks</a>
       /      %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"For our background checks we use your /full name to run a check against a national database of criminal records. This does not require your SSN, and does not /reveal your past employment or credit history."} }
       /        %i.icon-question-sign.small-iconon
       /      on all our Makers to keep our community safe.
@@ -54,7 +54,7 @@
       /      %i.icon-heart-empty.inline
       /      You Choose
       /    %p
-      /      We promote it to the GirlsGuild community, collect <a href="/faq_makers">applications</a>
+      /      We promote it to the GirlsGuild community, collect <a href="/faq">applications</a>
       /      %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"The applicant submits their answers to /four questions geared to give you a sense of who they are and how they approach work and collaboration. You can follow /up on applications to request an interview, too!"} }
       /        %i.icon-question-sign.small-iconon
       /      for you to choose from, and connect you with a fabulous apprentice.
@@ -81,7 +81,7 @@
                 /%i.icon-bullhorn.center
             %li
               %i.icon-caret-right
-              =link_to "Choose a type:", faq_makers_path(anchor: "chooseatype")
+              =link_to "Choose a type:", faq_path(anchor: "chooseatype")
               production, event, ongoing, or 1-day apprenticeship.
             %li
               %i.icon-caret-right
@@ -89,7 +89,7 @@
             %li
               %i.icon-caret-right
               Pay a $9.00
-              =link_to "listing fee.", faq_makers_path(anchor: "postingfee")
+              =link_to "listing fee.", faq_path(anchor: "postingfee")
           %ul
             %li
               %h4
@@ -97,16 +97,16 @@
                 /%i.icon-bullseye.center
             %li
               %i.icon-caret-right
-              =link_to "Review applications", faq_makers_path(anchor: "applicationslook")
+              =link_to "Review applications", faq_path(anchor: "applicationslook")
               from your dashboard.
             %li
               %i.icon-caret-right
               Optionally
-              =link_to "meet up", faq_makers_path(anchor: "caniinterview")
+              =link_to "meet up", faq_path(anchor: "caniinterview")
               to see if it's a good fit.
             %li
               %i.icon-caret-right
-              =link_to "Choose", faq_makers_path(anchor: "obligatedtochoose")
+              =link_to "Choose", faq_path(anchor: "obligatedtochoose")
               who works best.
           %ul
             %li
@@ -115,7 +115,7 @@
                 /%i.icon-ok-sign.center
             %li
               %i.icon-caret-right
-              =link_to "Review tips", faq_makers_path(anchor: "tips")
+              =link_to "Review tips", faq_path(anchor: "tips")
               for having a great apprenticeship.
             %li
               %i.icon-caret-right
@@ -138,7 +138,7 @@
             %li
               %i.icon-caret-right
               We
-              =link_to "track the skills and tools", faq_makers_path(anchor: "whatwetrack")
+              =link_to "track the skills and tools", faq_path(anchor: "whatwetrack")
               you're teaching.
 
 
@@ -155,17 +155,17 @@
                 /%i.icon-pencil.center
             %li
               %i.icon-caret-right
-              =link_to "Answer 4 questions", faq_makers_path(anchor: "applicationslook")
+              =link_to "Answer 4 questions", faq_path(anchor: "applicationslook")
               about why you're interested.
             %li
               %i.icon-caret-right
               It's always free to apply & you'll
-              =link_to "hear back", faq_makers_path(anchor: "myapplication")
+              =link_to "hear back", faq_path(anchor: "myapplication")
               within 2 weeks.
             %li
               %i.icon-caret-right
               Or, sign up for a
-              =link_to "workshop", faq_makers_path(anchor: "how1dayswork")
+              =link_to "workshop", faq_path(anchor: "how1dayswork")
               (1-Day apprenticeship).
           %ul
             %li
@@ -178,7 +178,7 @@
             %li
               %i.icon-caret-right
               Pay a
-              =link_to "$29.00 matching fee", faq_makers_path(anchor: "howmuchtoapply")
+              =link_to "$29.00 matching fee", faq_path(anchor: "howmuchtoapply")
               to confirm.
             %li
               %i.icon-caret-right
@@ -191,7 +191,7 @@
             %li
               %i.icon-caret-right
               We'll
-              =link_to "track the skills and tools", faq_makers_path(anchor: "whatwetrack")
+              =link_to "track the skills and tools", faq_path(anchor: "whatwetrack")
               you're learning.
             %li
               %i.icon-caret-right
@@ -208,7 +208,7 @@
             %li
               %i.icon-caret-right
               We'll build out
-              =link_to "a portfolio", faq_makers_path(anchor: "whatportfolio")
+              =link_to "a portfolio", faq_path(anchor: "whatportfolio")
               that shows off your skills.
             %li
               %i.icon-caret-right
@@ -321,7 +321,7 @@
       %li
         %i.icon-bookmark
         For more info check out the
-        = link_to "FAQ", faq_makers_path
+        = link_to "FAQ", faq_path
       %li
         %i.icon-envelope
         Email us with any questions
