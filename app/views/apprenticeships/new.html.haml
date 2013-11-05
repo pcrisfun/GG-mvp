@@ -34,38 +34,6 @@
 
 
 
-      /.row-fluid
-      /  .well.span3
-      /    %h3
-      /      %i.icon-magic.inline
-      /      Create it
-      /    %p It can be <a href="/faq">event-based</a>, <a href="/faq">production-based</a>, or <a href="/faq">/ongoing</a>. We charge you a $9 listing fee, and the apprentice pays a $29 connection fee.
-      /  .well.span3
-      /    %h3
-      /      %i.icon-check.inline
-      /      We Review
-      /    %p
-      /      We'll review your listing once you've submitted it. We also do <a href="/faq">background checks</a>
-      /      %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"For our background checks we use your /full name to run a check against a national database of criminal records. This does not require your SSN, and does not /reveal your past employment or credit history."} }
-      /        %i.icon-question-sign.small-iconon
-      /      on all our Makers to keep our community safe.
-      /  .well.span3
-      /    %h3
-      /      %i.icon-heart-empty.inline
-      /      You Choose
-      /    %p
-      /      We promote it to the GirlsGuild community, collect <a href="/faq">applications</a>
-      /      %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"The applicant submits their answers to /four questions geared to give you a sense of who they are and how they approach work and collaboration. You can follow /up on applications to request an interview, too!"} }
-      /        %i.icon-question-sign.small-iconon
-      /      for you to choose from, and connect you with a fabulous apprentice.
-      /  .well.span3
-      /    %h3
-      /      %i.icon-trophy.inline
-      /      We Track
-      /    %p
-      /      We'll keep track of the skills and tools you and your apprentice are learning, to build out your incredible portfolios (/coming soon!).
-
-
       %h2.center How Apprenticeships Work
       .row-fluid#howitworks
         .span6.maker.center
@@ -78,7 +46,6 @@
             %li
               %h4
                 Post
-                /%i.icon-bullhorn.center
             %li
               %i.icon-caret-right
               =link_to "Choose a type:", faq_path(anchor: "chooseatype")
@@ -94,7 +61,6 @@
             %li
               %h4
                 Choose
-                /%i.icon-bullseye.center
             %li
               %i.icon-caret-right
               =link_to "Review applications", faq_path(anchor: "applicationslook")
@@ -112,7 +78,6 @@
             %li
               %h4
                 Confirm
-                /%i.icon-ok-sign.center
             %li
               %i.icon-caret-right
               =link_to "Review tips", faq_path(anchor: "tips")
@@ -127,8 +92,7 @@
             %li
               %h4
                 Support
-                .badge.badge-inverse Coming Soon!
-                /%i.icon-thumbs-up-alt.center
+                /.badge.badge-inverse Coming Soon!
             %li
               %i.icon-caret-right
               The GirlsGuild team is here to help you along the way.
@@ -152,7 +116,6 @@
             %li
               %h4
                 Apply
-                /%i.icon-pencil.center
             %li
               %i.icon-caret-right
               =link_to "Answer 4 questions", faq_path(anchor: "applicationslook")
@@ -171,7 +134,6 @@
             %li
               %h4
                 Confirm
-                /%i.icon-ok-sign.center
             %li
               %i.icon-caret-right
               Possibly meet up to see if it's a good fit.
@@ -187,7 +149,6 @@
             %li
               %h4
                 Track
-                /%i.icon-bar-chart.center
             %li
               %i.icon-caret-right
               We'll
@@ -204,7 +165,6 @@
               %h4
                 Progress
                 .badge.badge-inverse Coming Soon!
-                /%i.icon-rocket.center
             %li
               %i.icon-caret-right
               We'll build out
