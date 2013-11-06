@@ -1,41 +1,63 @@
 - provide(:title, 'Thanks!')
 %section#confirmed.section.alt-grey
   .container
-    .row
+    .row-fluid
 
-      .span12
-        %h1
-          %icon.icon-check
-          Awesome!
-
-      .span8
-        .fancyform-light.form-horizontal
-          %p
-            Thanks for paying the <strong>$9.00</strong> apprenticeship listing fee for
-            = link_to @apprenticeship.title, apprenticeship_path(@apprenticeship)
-            <br/>A receipt will be sent to your email.
-          %p We'll review your apprenticeship proposal and let you know as soon as it's been posted live! You can check on the status of your proposal any time by visiting your #{link_to "Events Dashboard", dashboard_path}
-          %br
-          .alert.alert-info
-            %strong
-              Note:
-            You will not be able to edit your apprenticeship until we've had a chance to approve it. Then any edits will need to be re-approved.
-          %p
-            Let us know if you have any questions!
+      %h1
+        %icon.icon-check
+        Awesome!
+      .row-fluid
+        .span8
+          .fancyform-light.form-horizontal
+            %p
+              Thanks for paying the <strong>$9.00</strong> apprenticeship listing fee for
+              = link_to @apprenticeship.title, apprenticeship_path(@apprenticeship)
+              %br
+              A receipt will be sent to your email.
+            %p
+              We'll review your apprenticeship proposal and let you know as soon as it's been posted live!
+              %br
+              You can check on the status of your proposal any time by visiting your #{link_to "Events Dashboard", dashboard_path}
             %br
-            xo GirlsGuild HQ
-      .span4
-        %ul.icons
-          %li
-            %i.icon-bookmark
-            For more info check out the
-            %a{href: "/faq"}
-              FAQ
-          %li
-            %i.icon-envelope
-            Email us with any questions
-            %a{href: "mailto:hello@girlsguild.com?Subject=Howdy"}
-              hello@girlsguild.com
+            .alert.alert-info
+              %strong
+                Note:
+              You will not be able to edit your apprenticeship until we've had a chance to approve it. Then any edits will need to be re-approved.
+
+            %h2 What to expect
+            %ol
+              %li
+                We'll
+                =link_to "forward you the application", faq_path(anchor: "applicationslook"), target: "_blank"
+                as soon as someone applies.
+              %li
+                You'll have
+                =link_to "two weeks to decide", faq_path(anchor: "howlongdoihave"), target: "_blank"
+                weather to accept or decline each apprentice.
+              %li
+                If you'd like to
+                =link_to "meet up first", faq_path(anchor: "caniinterview"), target: "_blank"
+                to determine weather you'll be a good fit, just let us know. We'd be happy to set up a meeting to help you make the decision!
+              %li
+                The post will be closed when you've accepted #{@apprenticeship.registration_max} apprentices. If you don't find a good fit
+                =link_to "you're not obligated to accept an apprentice.", faq_path(anchor: "obligatedtochoose"), target: "_blank"
+
+
+        .span4
+          %br
+          %br
+          %ul.icons
+            %li
+              %i.icon-bookmark
+              For more info check out the
+              %a{href: "/faq"}
+                FAQ
+            %li
+              %i.icon-envelope
+              Email us with any questions
+              %a{href: "mailto:hello@girlsguild.com?Subject=Howdy"}
+                hello@girlsguild.com
+
 
       .span12
         %hr

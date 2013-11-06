@@ -386,7 +386,7 @@
             #proceed.preview-hide
               = link_to 'Next', private_apprenticeship_path(@apprenticeship), method: :get, class: 'btn btn-primary'
 
-      - elsif current_user && current_user==@apprenticeship.user
+      - elsif current_user && current_user==@apprenticeship.user && @apprenticeship.started?
         .row-fluid
           #preview-buttons-bottom
             = link_to "Edit", edit_apprenticeship_path(@apprenticeship), name: "edit_button", class: 'btn btn-success'

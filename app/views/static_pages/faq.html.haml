@@ -297,6 +297,17 @@
           .accordion
             .accordion-group
               .accordion-heading
+                %a{:id => "howlongdoihave", class: "anchor"}
+                %a.accordion-toggle{"data-toggle" => "collapse", :href => "#howlongdoihave-toggle"}
+                  %strong
+                    %i.icon-angle-down
+                    How long do I have to decide?
+              #howlongdoihave-toggle.accordion-body.collapse.in
+                .accordion-inner
+                  You have 2 weeks to decide if you want to accept the applicant from when you receive their application. If for some reason you need more time to make your decision, please let us know how long and for what reason so we can communicate this with the applicants.
+          .accordion
+            .accordion-group
+              .accordion-heading
                 %a{:id => "caniinterview", class: "anchor"}
                 %a.accordion-toggle{"data-toggle" => "collapse", :href => "#caniinterview-toggle"}
                   %strong
