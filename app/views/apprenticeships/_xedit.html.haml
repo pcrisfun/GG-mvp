@@ -445,4 +445,15 @@
           = link_to "Delete Apprenticeship", { :controller => 'apprenticeships', :action => 'destroy', :id => @apprenticeship.id }, class: "btn btn-small btn-danger pull-left", :method => 'delete', data: { :confirm => "Are you sure? You can't undo after you delete your apprenticeship. It will really be gone!" }
           %br
           %br
+
+        - if current_user && @apprenticeship.application_confirmed?(current_user)
+          %h4
+            = current_user.first_name
+            , You're all set to work with
+            = @apprenticeship.host_firstname
+            !
+          %br
+          = mail_to @apprenticeship.user.email, 'Send her an Email', class: 'btn btn-success'
+          %br
+          %br
           %br
