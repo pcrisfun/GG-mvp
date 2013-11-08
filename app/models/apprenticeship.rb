@@ -255,11 +255,11 @@ class Apprenticeship < Event
   	end
   end
 
-  def application_confirmed?(user)
-    if already_applied?(user) && self.signups.where(user_id: user).where(:state => ["confirmed", "completed"])
-      return true
-    end
-  end
+  # def application_confirmed?(user)
+  #   if already_applied?(user) && self.signups.where(user_id: user).where(:state => ["confirmed", "completed"])
+  #     return true
+  #   end
+  # end
 
   def checkmarks
     checkmarks = {}
