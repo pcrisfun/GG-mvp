@@ -6,8 +6,9 @@
       - if show
         - if current_user && current_user==@apprenticeship.user
           = link_to "Edit", edit_apprenticeship_path(@apprenticeship), name: "edit_button", class: "btn btn-primary pull-right"
-        - if current_user && @app_signup && @app_signup.started? && current_user==@app_signup.user
-          = link_to "Edit Application", edit_app_signup_path(@app_signup), name: "edit_button", class: "btn btn-primary pull-right"
+        - if current_user && @app_signup && current_user==@app_signup.user
+          - if @app_signup.started?
+            = link_to "Edit Application", edit_app_signup_path(@app_signup), name: "edit_button", class: "btn btn-primary pull-right"
 
       - unless show
         %h2 Nice! Let's design your apprenticeship
@@ -392,6 +393,15 @@
             = link_to "Edit", edit_apprenticeship_path(@apprenticeship), name: "edit_button", class: 'btn btn-success'
             #proceed.preview-hide
               = link_to 'Next', private_apprenticeship_path(@apprenticeship), method: :get, class: 'btn btn-primary'
+
+
+      //Disqus //////////////////
+      - if show
+        - if current_user && @app_signup && current_user==@app_signup.user or current_user==@apprenticeship.user
+          - if @app_signup.pending? || @app_signup.accepted? || @app_signup.confirmed?
+            = render 'disqus'
+
+
 
   //Admin Controls //////////////////
   %section#admin_section.section
