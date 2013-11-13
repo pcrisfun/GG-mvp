@@ -9,6 +9,9 @@
         - if current_user && @app_signup && current_user==@app_signup.user
           - if @app_signup.started?
             = link_to "Edit Application", edit_app_signup_path(@app_signup), name: "edit_button", class: "btn btn-primary pull-right"
+        - if current_user && @app_signup && current_user==@app_signup.user
+          - if @app_signup.pending? || @app_signup.accepted?
+            = link_to "Cancel Application", { :controller => 'app_signups', :action => 'cancel', :id => @app_signup.id }, class: "btn btn-danger pull-right", :method => 'post', data: { :confirm => "Are you sure? Your application will be saved in your Dashboard, but you'll have to resubmit it in order to apply again." }
 
       - unless show
         %h2 Nice! Let's design your apprenticeship
@@ -192,7 +195,7 @@
                 - if !show
                   %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"If it's a 'Residential' address we'll only display a map of the neighborhood, while a 'Public' address will be displayed on the apprenticeship page with a map of the exact location."} }
                     %i.icon-question-sign.small-icon
-              %br
+                  %br
 
               - if !show || !@apprenticeship.location_private
                 #address
@@ -453,6 +456,17 @@
 
         - if current_user && current_user == @apprenticeship.user && @apprenticeship.started?
           = link_to "Delete Apprenticeship", { :controller => 'apprenticeships', :action => 'destroy', :id => @apprenticeship.id }, class: "btn btn-small btn-danger pull-left", :method => 'delete', data: { :confirm => "Are you sure? You can't undo after you delete your apprenticeship. It will really be gone!" }
+          %br
+          %br
+
+        - if current_user && @app_signup && current_user==@app_signup.user && @app_signup.confirmed?
+          %h4
+            = current_user.first_name
+            , You're all set to work with
+            = @apprenticeship.host_firstname
+            !
+          %br
+          = mail_to @apprenticeship.user.email, 'Send her an Email', class: 'btn btn-success'
           %br
           %br
           %br

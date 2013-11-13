@@ -23,13 +23,16 @@
             - if event.type == "Workshop" && signup.confirmed?
               %br
               = link_to 'Cancel my registration', { :controller => 'work_signups', :action => 'cancel', :id => signup.id }, :method => :post, :data => { :confirm => 'Are you sure you want to cancel your registration for this workshop?'}
-            - if event.type == "Apprenticeship" && !signup.canceled?
-              %br
-              = link_to 'Cancel my application', { :controller => 'app_signups', :action => 'cancel', :id => signup.id }, :method => :post, :data => { :confirm => 'Are you sure you want to cancel your application for this apprenticeship?'}
-            - if event.type == "Apprenticeship" && signup.canceled?
-              %br
-              = link_to 'Edit & Resubmit my Application', { :controller => 'app_signups', :action => 'edit', :id => signup.id }
-              /= link_to 'Edit & Resubmit your Application', edit_app_signup_path(@app_signup)
+            - if event.type == "Apprenticeship"
+              - if signup.started? || signup.pending? || signup.accepted?
+                %br
+                = link_to 'Cancel my application', { :controller => 'app_signups', :action => 'cancel', :id => signup.id }, :method => :post, :data => { :confirm => 'Are you sure you want to cancel your application for this apprenticeship?'}
+              - if signup.canceled?
+                %br
+                = link_to 'Edit & Resubmit my Application', { :controller => 'app_signups', :action => 'edit', :id => signup.id }
+              - if signup.confirmed? || signup.completed?
+                %br
+                = mail_to event.user.email, 'Email the maker'
           %td.spots
             = event.spots_left
           %td.dates
