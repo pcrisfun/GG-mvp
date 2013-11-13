@@ -8,8 +8,9 @@
           = link_to "Edit", edit_apprenticeship_path(@apprenticeship), name: "edit_button", class: "btn btn-primary pull-right"
         - if current_user && @app_signup && @app_signup.started? && current_user==@app_signup.user
           = link_to "Edit Application", edit_app_signup_path(@app_signup), name: "edit_button", class: "btn btn-primary pull-right"
-        - if current_user && @app_signup && current_user==@app_signup.user && @app_signup.pending? || @app_signup.accepted?
-          = link_to "Cancel Application", { :controller => 'app_signups', :action => 'cancel', :id => @app_signup.id }, class: "btn btn-danger pull-right", :method => 'post', data: { :confirm => "Are you sure? Your application will be saved in your Dashboard, but you'll have to resubmit it in order to apply again." }
+        - if current_user && @app_signup && current_user==@app_signup.user
+          - if @app_signup.pending? || @app_signup.accepted?
+            = link_to "Cancel Application", { :controller => 'app_signups', :action => 'cancel', :id => @app_signup.id }, class: "btn btn-danger pull-right", :method => 'post', data: { :confirm => "Are you sure? Your application will be saved in your Dashboard, but you'll have to resubmit it in order to apply again." }
 
       - unless show
         %h2 Nice! Let's design your apprenticeship
