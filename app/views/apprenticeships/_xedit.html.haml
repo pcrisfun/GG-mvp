@@ -319,7 +319,9 @@
               %br
               = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
               %br
-            - if @apprenticeship.completed? || @apprenticeship.datetime_tba == true
+            - if @apprenticeship.completed?
+              .badge.badge-inverse This apprenticeship is over!
+              %br
               = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
               %br
             - if @apprenticeship.accepted? && @apprenticeship.datetime_tba == false
