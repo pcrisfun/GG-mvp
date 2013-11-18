@@ -283,6 +283,7 @@ include EventHelper
       :subject => "How was your workshop? - #{self.title}",
       :html_body => %(<h1>Hey #{user.first_name}!</h1>
         <p>How did your workshop go? We'd love to hear about it.</p>
+        <p>In case you want to follow up with the participants, here are their email addresses: #{self.get_signup_emails}</p>
         <p>Do you have any feedback, good or bad, on the process of posting and leading your workshop, or suggestions on what we can do to make it easier? We want to know what you think.</p>
         <p>We hope it was a great experience, and want to make it even better next time.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
@@ -290,6 +291,12 @@ include EventHelper
     })
     self.update_column(:follow_up_sent, true)
     return true
+  end
+
+  def get_signup_emails
+    "<ul>" + self.signups.where(:state => 'confirmed').map do |a|
+      "<li>#{a.user.first_name}: #{a.user.email}</li>"
+    end.join + "</ul>"
   end
 
 	def self.complete_workshop
