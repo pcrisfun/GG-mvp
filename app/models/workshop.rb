@@ -301,7 +301,7 @@ include EventHelper
 
 	def self.complete_workshop
     Workshop.where('begins_at <= ?', Date.today).all.each do |workshop|
-      workshop.signups.each {|w| w.complete}
+      workshop.signups.where(:state => "confirmed").each {|w| w.complete}
       workshop.complete
     end
 	end
