@@ -398,11 +398,11 @@
               = link_to 'Next', private_apprenticeship_path(@apprenticeship), method: :get, class: 'btn btn-primary'
 
 
-      //Disqus //////////////////
-      - if show
-        - if current_user && @app_signup && current_user==@app_signup.user or current_user==@apprenticeship.user
-          - if @app_signup.pending? || @app_signup.accepted? || @app_signup.confirmed?
-            = render 'disqus'
+      / //Disqus //////////////////
+      / - if show
+      /   - if current_user && @app_signup && current_user==@app_signup.user or current_user==@apprenticeship.user
+      /     - if @app_signup.pending? || @app_signup.accepted? || @app_signup.confirmed?
+      /       = render 'disqus'
 
 
 
