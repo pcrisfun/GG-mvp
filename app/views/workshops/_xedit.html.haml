@@ -304,7 +304,12 @@
               %br
               = render :partial => "shared/prereg", :locals => {:event => @workshop}
               %br
-            - if @workshop.completed? || @workshop.datetime_tba == true
+            - if @workshop.completed?
+              .badge.badge-inverse This workshop is over!
+              %br
+              = render :partial => "shared/prereg", :locals => {:event => @workshop}
+              %br
+            - if @workshop.datetime_tba == true
               = render :partial => "shared/prereg", :locals => {:event => @workshop}
               %br
             - if @workshop.accepted? && @workshop.datetime_tba == false && @workshop.ends_at > Date.today
