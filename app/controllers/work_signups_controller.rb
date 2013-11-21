@@ -70,7 +70,8 @@ class WorkSignupsController < ApplicationController
   end
 
   def cancel
-    @work_signup.cancel && @work_signup.deliver_cancel_self
+    @work_signup.cancel
+    @work_signup.deliver_cancel_self
     if @workshop.filled?
       @workshop.reopen
     end
@@ -87,12 +88,16 @@ class WorkSignupsController < ApplicationController
     begin
       @work_signup.process_signup!
       @charge = Stripe::Charge.retrieve(@work_signup.charge_id)
+      @work_signup.signup
       if @work_signup.parent?
-        @work_signup.signup && @work_signup.deliver_parent(payment: @charge) && @work_signup.deliver_maker_daughter
+        @work_signup.deliver_parent(payment: @charge)
+        @work_signup.deliver_maker_daughter
       elsif @work_signup.minor?
-        @work_signup.signup && @work_signup.deliver_minor(payment: @charge) && @work_signup.deliver_maker
+        @work_signup.deliver_minor(payment: @charge)
+        @work_signup.deliver_maker
       else
-        @work_signup.signup && @work_signup.deliver(payment: @charge) && @work_signup.deliver_maker
+        @work_signup.deliver(payment: @charge)
+        @work_signup.deliver_maker
       end
       # redirect_to workshops_path, :flash => { :success => "Awesome, you're all signed up to work with #{@workshop.host_firstname}." }
       redirect_to payment_confirmation_work_signup_path(@work_signup), flash: { success: "Awesome, you're all signed up to work with #{@workshop.host_firstname}." } and return
