@@ -52,10 +52,11 @@ class AppSignupsController < ApplicationController
       if @app_signup.save && @app_signup.apply
         if @app_signup.parent?
           @app_signup.deliver_parent && @app_signup.deliver_maker_daughter
+          redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Awesome, you've helped your daughter apply to work with #{@apprenticeship.host_firstname}. We've sent an email to #{current_user.email} with the details." }
         else
           @app_signup.deliver && @app_signup.deliver_maker
+          redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Awesome, you've applied to work with #{@apprenticeship.host_firstname}. We've sent an email to #{current_user.email} with the details." }
         end
-        redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Awesome, you've applied to work with #{@apprenticeship.host_firstname}. We've sent an email to #{current_user.email} with the details." }
       else
         flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
         if @app_signup.parent?
