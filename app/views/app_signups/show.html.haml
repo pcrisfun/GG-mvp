@@ -61,6 +61,8 @@
           Once you've made your decision, use the "Accept" or "Decline" buttons below to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll ask her to confirm, and once she does, we'll put you two in touch to get started!
     .row-fluid
       .span12.well
+        #avatar
+          = avatar_for(@app_signup.user, size: 50, tag: :medium)
         %table.table.table-striped.table-bordered
           %thead
             %tr
