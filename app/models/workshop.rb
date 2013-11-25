@@ -24,7 +24,7 @@ include EventHelper
     validates_numericality_of :age_max, :greater_than => :age_min, :message => "- Whoops, the maximum age must be greater than the minimum age you set.", :if => :age_min_is_set
   # Signups
     validates_presence_of :registration_min, :registration_max
-    validates_numericality_of :registration_max, :greater_than => :registration_min, :message => "- Whoops, the maximum number of participants must be greater than the minimum you set.", :if => :reg_min_is_set
+    validates_numericality_of :registration_max, :greater_than_or_equal_to => :registration_min, :message => "- Whoops, the maximum number of participants must be the same or greater than the minimum you set.", :if => :reg_min_is_set
   # Price
     validates_presence_of :price
     validates_numericality_of :price, :greater_than_or_equal_to => 0
@@ -93,7 +93,7 @@ include EventHelper
 
   validation_group :registration_max do
     validates_presence_of :registration_max
-    validates_numericality_of :registration_max, :greater_than => :registration_min, :message => "- Whoops, the maximum number of participants must be greater than the minimum you set.", :if => :reg_min_is_set
+    validates_numericality_of :registration_max, :greater_than_or_equal_to => :registration_min, :message => "- Whoops, the maximum number of participants must be the same or greater than the minimum you set.", :if => :reg_min_is_set
   end
 
   validation_group :price do
