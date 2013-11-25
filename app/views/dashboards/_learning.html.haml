@@ -10,7 +10,7 @@
               - if event.host_album.featured_photo
                 = render 'photos/photo', photo: event.host_album.featured_photo, size: :thumb
               - elsif event.host_album.photos.first
-                = render 'photos/photo', photo: event.host_album.photos.sort_by { |photo| photo.position(album_id: event.host_album.id) }.first, size: :thumb
+                = render 'photos/photo', photo: event.host_album.photos.sort_by { |photo| photo.position(album_id: event.host_album.id) }.first, size: :thumb, url: url_for(event)
               - else
                 %a
                   %img.default-photo-thumb
@@ -22,14 +22,16 @@
             = link_to event.title_html, url_for(controller: event.class.name.underscore.pluralize, action: 'show', id: event.id ), class: "title-boxlink"
             - if event.type == "Workshop" && signup.confirmed?
               %br
-              = link_to 'Cancel my registration', { :controller => 'work_signups', :action => 'cancel', :id => signup.id }, :method => :post, :data => { :confirm => 'Are you sure you want to cancel your registration for this workshop?'}
+              = link_to 'Cancel registration', { :controller => 'work_signups', :action => 'cancel', :id => signup.id }, :method => :post, :data => { :confirm => 'Are you sure you want to cancel your registration for this workshop?'}
             - if event.type == "Apprenticeship"
               - if signup.started? || signup.pending? || signup.accepted?
                 %br
-                = link_to 'Cancel my application', { :controller => 'app_signups', :action => 'cancel', :id => signup.id }, :method => :post, :data => { :confirm => 'Are you sure you want to cancel your application for this apprenticeship?'}
+                = link_to 'Cancel application', { :controller => 'app_signups', :action => 'cancel', :id => signup.id }, :method => :post, :data => { :confirm => 'Are you sure you want to cancel your application for this apprenticeship?'}
+                &nbsp; | &nbsp;
+                = link_to 'View application', { :controller => 'app_signups', :action => 'show', :id => signup.id }
               - if signup.canceled?
                 %br
-                = link_to 'Edit & Resubmit my Application', { :controller => 'app_signups', :action => 'edit', :id => signup.id }
+                = link_to 'Edit & resubmit application', { :controller => 'app_signups', :action => 'edit', :id => signup.id }
               - if signup.confirmed? || signup.completed?
                 %br
                 = mail_to event.user.email, 'Email the maker'
