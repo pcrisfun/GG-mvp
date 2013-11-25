@@ -5,29 +5,33 @@
     %h1 Sign up
     .row
       .span8.fancyform
-        - if controller_name != 'sessions'
-          %p.pull-right
-            %br
-            %span.kristi Already have an account?
-            = link_to "Sign In", new_session_path(resource_name), class: "sign-link"
-        = simple_form_for(resource, :as => resource_name, :validate => true, :url => registration_path(resource_name), :defaults => {:input_html => {:class => 'span4'}}) do |f|
-          = f.error_notification
-          = f.input :birthday, required: true do
-            .form-inline
-              = f.text_field :birthday, :class => "span4", :value=>(Date.today - 13.years).strftime("%B / %d / %Y"), data: { behaviour: 'combodate', format: 'MMMM D, YYYY', template: 'MMMM / D / YYYY' }
-          %div{:style => "margin:-15px 0 15px 0; font-size:13px"}
-            %a{"data-content" => "Individuals under the age of 13 must at all times use GirlsGuild's services only in conjunction with and under the supervision of a parent or legal guardian who is at least 18 years of age. In all cases, the adult is the user and is responsible for any and all activities.", "data-placement" => "right", :href => "#", :rel => "popover"}
-              If you're under 13 you'll need a parent to sign up for you. Why?
-              %i.icon-question-sign.small-icon
-          = f.input :first_name
-          = f.input :last_name
-          = f.input :email, :required => true, :validate => true
-          = f.input :password, :required => true, :validate => true
-          = f.input :password_confirmation, :required => true, :validate => true
-          .form-inline
-            = f.input :terms_of_service, required: true, validate: true, label: false do
-              %icon.icon-asterisk
-              = f.check_box :terms_of_service
-              I have read the #{active_link_to 'terms and conditions', termsandconditions_path, :target => '_blank'}
-          %br/
-          = f.button :submit, "Sign up", :class => "btn btn-primary"
+        .row-fluid
+          .span7.borderblockright
+            = simple_form_for(resource, :as => resource_name, :validate => true, :url => registration_path(resource_name), :defaults => {:input_html => {:class => 'span10'}}) do |f|
+              = f.error_notification
+              = f.input :birthday, required: true do
+                .form-inline
+                  = f.text_field :birthday, :class => "span4", :value=>(Date.today - 13.years).strftime("%B / %d / %Y"), data: { behaviour: 'combodate', format: 'MMMM D, YYYY', template: 'MMMM / D / YYYY' }
+              %div{:style => "margin:-15px 0 15px 0; font-size:13px"}
+                %a{"data-content" => "Individuals under the age of 13 must at all times use GirlsGuild's services only in conjunction with and under the supervision of a parent or legal guardian who is at least 18 years of age. In all cases, the adult is the user and is responsible for any and all activities.", "data-placement" => "right", :href => "#", :rel => "popover"}
+                  If you're under 13 you'll need a parent to sign up for you. Why?
+                  %i.icon-question-sign.small-icon
+              = f.input :first_name
+              = f.input :last_name
+              = f.input :email, :required => true, :validate => true
+              = f.input :password, :required => true, :validate => true
+              = f.input :password_confirmation, :required => true, :validate => true
+              .form-inline
+                = f.input :terms_of_service, required: true, validate: true, label: false do
+                  %icon.icon-asterisk
+                  = f.check_box :terms_of_service
+                  I have read the #{active_link_to 'terms and conditions', termsandconditions_path, :target => '_blank'}
+              %br/
+              = f.button :submit, "Sign up", :class => "btn btn-primary"
+
+          .span5
+            - if controller_name != 'sessions'
+              %p.center.signup
+                %br
+                %span Already have an account? &nbsp;
+                = link_to "Sign In", new_session_path(resource_name), class: "sign-link"
