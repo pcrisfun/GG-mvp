@@ -317,8 +317,10 @@ class Event < ActiveRecord::Base
   def spots_left
     if self.filled?
       return "Full"
+    elsif self.completed?
+      return "Past"
     elsif self.registration_max
-      return "#{self.registration_max - self.signups.where(:state => ["confirmed", "completed"]).count} spots left"
+      return "#{self.registration_max - self.signups.where(:state => ["confirmed"]).count} spots left"
     else
       return ''
     end
