@@ -305,6 +305,7 @@
                 Attendee(s)
               %dd
                 - @workshop.signups.each do |work_signup|
+                  = avatar_for(work_signup.user, size: 25, tag: :small)
                   = work_signup.user.first_name
                   = work_signup.user.last_name
                   \&nbsp; - &nbsp;
