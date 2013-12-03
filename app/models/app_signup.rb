@@ -193,7 +193,7 @@ class AppSignup < Signup
 
   def deliver_cancel_maker
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "#{self.event.user.name}<#{self.event.user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{user.name} has canceled her application for #{event.topic}",
@@ -578,7 +578,7 @@ class AppSignup < Signup
         :subject => "How's it going? - #{self.event.title}",
         :html_body => %(<h1>Hey #{user.first_name}!</h1>
           <p>We just wanted to check in and see how your apprenticeship is going with #{event.user.first_name}. Do you have any feedback, good or bad, about the process so far? We'd love to hear it.</p>
-          <p>We'd be oh so grateful if you'd take a few minutes to answer <a href="http://www.surveymonkey.com/s/TNVMCT6">a quick survey</a> about your experience with GirlsGuild.
+          <p>We'd be oh so grateful if you'd take a few minutes to answer <a href="http://www.surveymonkey.com/s/TNVMCT6">a quick, anonymous survey</a> about your experience with GirlsGuild.
           <p>And of course, if you have any questions or concerns, don't hesitate to ask! </p>
           <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
         :bcc => "hello@girlsguild.com",
@@ -593,10 +593,10 @@ class AppSignup < Signup
         :to => "#{event.user.name}<#{event.user.email}>",
         :from => "Diana & Cheyenne<hello@girlsguild.com>",
         :reply_to => "GirlsGuild<hello@girlsguild.com>",
-        :subject => "How's it going? - #{self.event.title}",
+        :subject => "How's it going with #{user.first_name}?",
         :html_body => %(<h1>Hey #{event.user.first_name}!</h1>
-          <p>We just wanted to check in and see how your apprenticeship is going with #{user.first_name} #{self.daughter_firstname}. Do you have any feedback, good or bad, about the process so far? We'd love to hear it.</p>
-          <p>We'd be oh so grateful if you'd take a few minutes to answer <a href="http://www.surveymonkey.com/s/ZNVPB8Q">a quick survey</a> about your experience with GirlsGuild.
+          <p>We just wanted to check in and see how your apprenticeship is going with #{user.first_name}. Do you have any feedback, good or bad, about the process so far? We'd love to hear it.</p>
+          <p>We'd be oh so grateful if you'd take a few minutes to answer <a href="http://www.surveymonkey.com/s/ZNVPB8Q">a quick, anonymous survey</a> about your experience with GirlsGuild.
           <p>And of course, if you have any questions or concerns, don't hesitate to ask!</p>
           <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
         :bcc => "hello@girlsguild.com",
