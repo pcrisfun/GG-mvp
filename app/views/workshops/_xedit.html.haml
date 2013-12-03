@@ -262,7 +262,15 @@
             /    - if !show
             /      %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Let the student know what she should prepare to bring, wear, or read before you get started working together. Example: a car, a cellphone, a computer, a sense of humor."} }
             /        %i.icon-question-sign.small-icon
-            %hr
+
+
+
+            - if current_user && current_user.signedup?(@workshop) or current_user==@workshop.user
+              %hr
+              %dt
+                Email
+              %dd
+                = mail_to @workshop.user.email
 
             - if @workshop.user.bio.present?
               %dt
@@ -289,6 +297,20 @@
                 Twitter
               %dd
                 = link_to @workshop.user.twitter, nice_url(@workshop.user.twitter)
+
+
+            - if current_user && current_user.signedup?(@workshop) or current_user==@workshop.user
+              %hr
+              %dt
+                Attendee(s)
+              %dd
+                - @workshop.signups.each do |work_signup|
+                  = work_signup.user.first_name
+                  = work_signup.user.last_name
+                  \&nbsp; - &nbsp;
+                  = mail_to work_signup.user.email
+                  %br
+
 
 
         //Apply Sidebar //////////////////
@@ -371,6 +393,13 @@
               .map-top-shadow
               #map
               .map-bottom-shadow
+
+          //Contact Info //////////////
+          / - if show
+          /   - if current_user && current_user.signedup?(@workshop)
+          /     =
+          /   - if current_user==@workshop.user
+
 
 
       //Preview & Next //////////////////
