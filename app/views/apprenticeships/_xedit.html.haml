@@ -330,8 +330,10 @@
               %dd
                 - @apprenticeship.signups.each do |app_signup|
                   = avatar_for(app_signup.user, size: 25, tag: :small)
-                  = app_signup.user.first_name
-                  = app_signup.user.last_name
+                  - if app_signup.parent?
+                    #{app_signup.user.name}'s daughter #{app_signup.daughter_firstname}
+                  - else
+                    = app_signup.user.name
                   \&nbsp; - &nbsp;
                   = mail_to app_signup.user.email
 
