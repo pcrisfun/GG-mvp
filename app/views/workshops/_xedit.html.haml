@@ -138,7 +138,7 @@
                 %i.icon-asterisk
               Where
             %dd
-              - if !show || !@workshop.location_private
+              - if !show || !@workshop.location_private || current_user && (current_user.signedup?(@workshop) or current_user==@workshop.user)
                 #address
                   #address1.field.address
                     = editable_link_to "Street Address", field: :location_address, resource: @workshop, type: :text

@@ -197,11 +197,11 @@
                     neighborhood
 
                 - if !show
-                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"If it's a 'Residential' address we'll only display a map of the neighborhood, while a 'Public' address will be displayed on the apprenticeship page with a map of the exact location."} }
+                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"If it's a 'Residential' address we'll only display a map of the neighborhood, while a 'Public' address will be displayed with a map of the exact location."} }
                     %i.icon-question-sign.small-icon
                   %br
 
-              - if !show || !@apprenticeship.location_private
+              - if !show || !@apprenticeship.location_private || current_user && (current_user.signedup?(@apprenticeship) or current_user==@apprenticeship.user)
                 #address
                   #address1.field.address
                     = editable_link_to "Street Address", field: :location_address, resource: @apprenticeship, type: :text
