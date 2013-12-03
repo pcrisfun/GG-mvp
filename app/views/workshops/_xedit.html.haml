@@ -381,6 +381,13 @@
             #proceed.preview-hide
               = link_to 'Next', private_workshop_path(@workshop), method: :get, class: 'btn btn-primary'
 
+      //Disqus //////////////////
+      - if show
+        - if current_user && current_user.signedup?(@workshop)
+          = render 'disqus'
+        - if current_user==@workshop.user
+          = render 'disqus'
+
 
   //Admin Controls //////////////////
   %section#admin_section.section
