@@ -298,21 +298,21 @@
               %dd
                 = link_to @workshop.user.twitter, nice_url(@workshop.user.twitter)
 
-
-            - if current_user && current_user.signedup?(@workshop) or current_user==@workshop.user
-              %hr
-              %dt
-                Attendee(s)
-              %dd
-                - @workshop.signups.each do |work_signup|
-                  = avatar_for(work_signup.user, size: 25, tag: :small)
-                  - if work_signup.parent?
-                    #{work_signup.user.name}'s daughter #{work_signup.daughter_firstname}
-                  - else
-                    = work_signup.user.name
-                  \&nbsp; - &nbsp;
-                  = mail_to work_signup.user.email
-                  %br
+            - if show
+              - if current_user && current_user.signedup?(@workshop) or current_user==@workshop.user
+                %hr
+                %dt
+                  Attendee(s)
+                %dd
+                  - @workshop.signups.each do |work_signup|
+                    = avatar_for(work_signup.user, size: 25, tag: :small)
+                    - if work_signup.parent?
+                      #{work_signup.user.name}'s daughter #{work_signup.daughter_firstname}
+                    - else
+                      = work_signup.user.name
+                    \&nbsp; - &nbsp;
+                    = mail_to work_signup.user.email
+                    %br
 
 
 
@@ -320,23 +320,27 @@
         %span#applysidebar.span3
           - if show
             - if @workshop.filled?
-              = link_to "Work with #{@workshop.user.first_name}", '#workwithModal', rel: 'popover', data: {placement: "left", content:"Sorry, this workshop is already full, but you can follow this maker to be the first to know next time she's teaching."}, :class => "btn btn-block btn-primary disabled"
+              = link_to "Workshop filled", '#workwithModal', rel: 'popover', data: {placement: "left", content:"Sorry, this workshop is already full, but you can follow this maker to be the first to know next time she's teaching."}, :class => "btn btn-block disabled"
               %br
               = render :partial => "shared/prereg", :locals => {:event => @workshop}
               %br
+
             - if @workshop.accepted? && @workshop.datetime_tba == false && @workshop.ends_at <= Date.today
-              = link_to "Work with #{@workshop.user.first_name}", '#workwithModal', rel: 'popover', data: {placement: "left", content:"Sorry, this workshop is closed for sign-ups, but you can follow this maker to be the first to know next time she's teaching."}, :class => "btn btn-block btn-primary disabled"
+              = link_to "Signups closed", '#workwithModal', rel: 'popover', data: {placement: "left", content:"Sorry, this workshop is closed for sign-ups, but you can follow this maker to be the first to know next time she's teaching."}, :class => "btn btn-block btn-inverse disabled"
               %br
               = render :partial => "shared/prereg", :locals => {:event => @workshop}
               %br
+
             - if @workshop.completed?
-              .badge.badge-inverse This workshop is over!
+              = link_to "Workshop has passed", '#workwithModal', rel: 'popover', data: {placement: "left", content:"Sorry, this workshop has passed, but you can follow this maker to be the first to know next time she's teaching."}, :class => "btn btn-block btn-inverse disabled"
               %br
               = render :partial => "shared/prereg", :locals => {:event => @workshop}
               %br
+
             - if @workshop.datetime_tba == true
               = render :partial => "shared/prereg", :locals => {:event => @workshop}
               %br
+
             - if @workshop.accepted? && @workshop.datetime_tba == false && @workshop.ends_at > Date.today
               - if current_user && current_user.age > @workshop.age_max
                 = link_to "Work with #{@workshop.user.first_name}", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
@@ -352,6 +356,8 @@
                     %br
                 %br
                 = render :partial => "shared/prereg", :locals => {:event => @workshop}
+                %br
+
               - elsif current_user && current_user.age < @workshop.age_min
                 = link_to "Work with #{@workshop.user.first_name}", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
                 #workwithModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "workwithModal", :role => "dialog", :tabindex => "-1"}
@@ -367,8 +373,10 @@
                     %br
                 %br
                 = render :partial => "shared/prereg", :locals => {:event => @workshop}
+                %br
+
               - elsif current_user && current_user.signedup?(@workshop)
-                = link_to "Work with #{@workshop.user.first_name}", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
+                = link_to "Signed up #{content_tag(:i, "", class: "icon-ok-circle")}".html_safe, '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-success"
                 #workwithModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "workwithModal", :role => "dialog", :tabindex => "-1"}
                   .modal-header
                     %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
@@ -383,11 +391,13 @@
                     %br
                 %br
                 = render :partial => "shared/prereg", :locals => {:event => @workshop}
+                %br
+
               - else
                 = link_to "Work with #{@workshop.user.first_name}", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-block btn-primary"
                 %br
                 = render :partial => "shared/prereg", :locals => {:event => @workshop}
-              %br
+                %br
 
           //Map //////////////////
           - if show
@@ -396,13 +406,6 @@
               .map-top-shadow
               #map
               .map-bottom-shadow
-
-          //Contact Info //////////////
-          / - if show
-          /   - if current_user && current_user.signedup?(@workshop)
-          /     =
-          /   - if current_user==@workshop.user
-
 
 
       //Preview & Next //////////////////
