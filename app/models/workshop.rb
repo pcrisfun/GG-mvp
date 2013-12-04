@@ -341,7 +341,7 @@ include EventHelper
     unless self.price
       return '___'
     end
-    return (self.price*1.2).round.to_s
+    return (self.price/1.25).round.to_s
   end
 
   def checkmarks

@@ -41,17 +41,17 @@
                   Check mailed to
                   .row-fluid
                     .span6
-                      = f.text_field :sendcheck_address, placeholder: 'Address Line 1', class: 'span12'
+                      = f.text_field :sendcheck_address, value: @workshop.location_address, class: 'span12'
                   .row-fluid
                     .span6
                       = f.text_field :sendcheck_address2, placeholder: 'Address Line 2', class: 'span12'
                   .row-fluid
                     .span3
-                      = f.text_field :sendcheck_city, :placeholder => 'City', class: 'span12'
+                      = f.text_field :sendcheck_city, value: @workshop.location_city, class: 'span12'
                     .span1
-                      = f.text_field :sendcheck_state, :placeholder => 'State', class: 'span12'
+                      = f.text_field :sendcheck_state, value: @workshop.location_state, class: 'span12'
                     .span2
-                      = f.text_field :sendcheck_zip, :placeholder => 'Zip', class: 'span12'
+                      = f.text_field :sendcheck_zip, value: @workshop.location_zipcode, class: 'span12'
               %br
               .row-fluid
                 #preview-buttons-bottom.pull-center

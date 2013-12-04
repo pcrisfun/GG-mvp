@@ -11,7 +11,7 @@
       .span8
         .fancyform-light.form-horizontal
           %p
-            Thanks for paying the <strong>$#{@workshop.total_price}</strong> workshop fee for
+            Thanks for paying the <strong>$#{@workshop.price.to_i}</strong> workshop fee for
             = link_to "#{@workshop.title}.", workshop_path(@work_signup.event.id)
             A receipt will be sent to your email.
           %p You can check on the status of your workshop any time by visiting your #{link_to "Events Dashboard", dashboard_path}.
