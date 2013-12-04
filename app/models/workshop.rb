@@ -275,7 +275,9 @@ include EventHelper
       :subject => "Your workshop is coming up! - #{self.title}",
       :html_body => %(<h1>3, 2, 1... it's almost time!</h1>
         <p>Just a reminder that your workshop is happening on #{self.begins_at}.</p>
-        <p>So far, #{self.signups.where(:state => 'confirmed').count} people have signed up, and registration closes on #{get_formated_date(self.ends_at, format: "%b %e, %Y")}. We'll let you know if anyone new signs up before then! You can also view who has signed up from your <a href="#{dashboard_url}">Events Dashboard</a></p>
+        <p>So far, #{self.signups.where(:state => 'confirmed').count} people have signed up, and registration closes on #{get_formated_date(self.ends_at, format: "%b %e, %Y")}. We'll let you know if anyone new signs up before then!</p>
+        <p>We've sent them a reminder too, but in case you want to send the participants directions to the location or instructions to prepare for the workshop, here are their email addresses: #{self.get_signup_emails}</p>
+        <p>You can also view who has signed up from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -303,7 +305,7 @@ include EventHelper
 
   def get_signup_emails
     "<ul>" + self.signups.where(:state => 'confirmed').map do |a|
-      "<li>#{a.user.first_name}: #{a.user.email}</li>"
+      "<li>#{a.user.name}: #{a.user.email}</li>"
     end.join + "</ul>"
   end
 
