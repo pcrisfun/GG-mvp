@@ -10,10 +10,12 @@
           - if @app_signup.started?
             = link_to "Edit Application", edit_app_signup_path(@app_signup), name: "edit_button", class: "btn btn-primary pull-right"
         - if current_user && @app_signup && current_user==@app_signup.user
-          - if @app_signup.pending? || @app_signup.accepted?
+          - if @app_signup.pending?
             = link_to "Cancel Application", { :controller => 'app_signups', :action => 'cancel', :id => @app_signup.id }, class: "btn btn-danger pull-right", :method => 'post', data: { :confirm => "Are you sure? Your application will be saved in your Dashboard, but you'll have to resubmit it in order to apply again." }
             = link_to "View Application", app_signup_path(@app_signup), class: "btn pull-right"
-
+          - if @app_signup.accepted?
+            = link_to "Cancel Application", { :controller => 'app_signups', :action => 'cancel', :id => @app_signup.id }, class: "btn btn-danger pull-right", :method => 'post', data: { :confirm => "Are you sure? Your application will be saved in your Dashboard, but you'll have to resubmit it in order to apply again." }
+            = link_to "Confirm Application", app_signup_path(@app_signup), class: "btn pull-right"
 
       - unless show
         %h2 Nice! Let's design your apprenticeship
@@ -195,11 +197,11 @@
                     neighborhood
 
                 - if !show
-                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"If it's a 'Residential' address we'll only display a map of the neighborhood, while a 'Public' address will be displayed on the apprenticeship page with a map of the exact location."} }
+                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"If it's a 'Residential' address we'll only display a map of the neighborhood, while a 'Public' address will be displayed with a map of the exact location."} }
                     %i.icon-question-sign.small-icon
                   %br
 
-              - if !show || !@apprenticeship.location_private
+              - if !show || !@apprenticeship.location_private || current_user && (current_user.signedup?(@apprenticeship) or current_user==@apprenticeship.user)
                 #address
                   #address1.field.address
                     = editable_link_to "Street Address", field: :location_address, resource: @apprenticeship, type: :text
@@ -284,7 +286,15 @@
             /    - if !show
             /      %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Let the apprentice know what she should prepare to bring, wear, or read before you get started working together. Example: a car, a cellphone, a computer, a sense of humor."} }
             /        %i.icon-question-sign.small-icon
-            %hr
+
+
+
+            - if current_user && current_user.signedup?(@apprenticeship) or current_user==@apprenticeship.user
+              %hr
+              %dt
+                Email
+              %dd
+                = mail_to @apprenticeship.user.email
 
             - if @apprenticeship.user.bio.present?
               %dt
@@ -311,6 +321,21 @@
                 Twitter
               %dd
                 = link_to @apprenticeship.user.twitter, nice_url(@apprenticeship.user.twitter)
+
+
+            - if current_user && current_user.signedup?(@apprenticeship) or current_user==@apprenticeship.user
+              %hr
+              %dt
+                Apprentice(s)
+              %dd
+                - @apprenticeship.signups.each do |app_signup|
+                  = avatar_for(app_signup.user, size: 25, tag: :small)
+                  - if app_signup.parent?
+                    #{app_signup.user.name}'s daughter #{app_signup.daughter_firstname}
+                  - else
+                    = app_signup.user.name
+                  \&nbsp; - &nbsp;
+                  = mail_to app_signup.user.email
 
 
         //Apply Sidebar //////////////////
@@ -402,12 +427,13 @@
               = link_to 'Next', private_apprenticeship_path(@apprenticeship), method: :get, class: 'btn btn-primary'
 
 
-      / //Disqus //////////////////
-      / - if show
-      /   - if current_user && @app_signup && current_user==@app_signup.user or current_user==@apprenticeship.user
-      /     - if @app_signup.pending? || @app_signup.accepted? || @app_signup.confirmed?
-      /       = render 'disqus'
-
+      //Disqus //////////////////
+      - if show
+        - if current_user && current_user.signedup?(@apprenticeship)
+          - if @app_signup.pending? || @app_signup.accepted? || @app_signup.confirmed? || @app_signup.completed?
+            = render 'disqus'
+        - if current_user==@apprenticeship.user
+          = render 'disqus'
 
 
   //Admin Controls //////////////////
@@ -463,14 +489,7 @@
           %br
           %br
 
-        - if current_user && @app_signup && current_user==@app_signup.user && @app_signup.confirmed?
-          %h4
-            = current_user.first_name
-            , You're all set to work with
-            = @apprenticeship.host_firstname
-            !
-          %br
-          = mail_to @apprenticeship.user.email, 'Send her an Email', class: 'btn btn-success'
+
           %br
           %br
           %br

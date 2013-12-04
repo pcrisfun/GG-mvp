@@ -152,7 +152,6 @@
                 %i.icon-asterisk
               Where
             %dd
-
               - if !show || @workshop.location_private
                 The location is a
                 #private-address.field.select
@@ -173,7 +172,7 @@
                     %i.icon-question-sign.small-icon
                 %br
 
-              - if !show || !@workshop.location_private
+              - if !show || !@workshop.location_private || current_user && (current_user.signedup?(@workshop) or current_user==@workshop.user)
                 #address
                   #address1.field.address
                     = editable_link_to "Street Address", field: :location_address, resource: @workshop, type: :text
@@ -285,7 +284,15 @@
             /    - if !show
             /      %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Let the student know what she should prepare to bring, wear, or read before you get started working together. Example: a car, a cellphone, a computer, a sense of humor."} }
             /        %i.icon-question-sign.small-icon
-            %hr
+
+
+
+            - if current_user && current_user.signedup?(@workshop) or current_user==@workshop.user
+              %hr
+              %dt
+                Email
+              %dd
+                = mail_to @workshop.user.email
 
             - if @workshop.user.bio.present?
               %dt
@@ -312,6 +319,23 @@
                 Twitter
               %dd
                 = link_to @workshop.user.twitter, nice_url(@workshop.user.twitter)
+
+
+            - if current_user && current_user.signedup?(@workshop) or current_user==@workshop.user
+              %hr
+              %dt
+                Attendee(s)
+              %dd
+                - @workshop.signups.each do |work_signup|
+                  = avatar_for(work_signup.user, size: 25, tag: :small)
+                  - if work_signup.parent?
+                    #{work_signup.user.name}'s daughter #{work_signup.daughter_firstname}
+                  - else
+                    = work_signup.user.name
+                  \&nbsp; - &nbsp;
+                  = mail_to work_signup.user.email
+                  %br
+
 
 
         //Apply Sidebar //////////////////
@@ -395,6 +419,13 @@
               #map
               .map-bottom-shadow
 
+          //Contact Info //////////////
+          / - if show
+          /   - if current_user && current_user.signedup?(@workshop)
+          /     =
+          /   - if current_user==@workshop.user
+
+
 
       //Preview & Next //////////////////
       - if !show
@@ -403,6 +434,13 @@
             = link_to "Preview #{content_tag(:i, "", class: "icon-external-link")}".html_safe, '#', class: 'btn preview-btn', data: { url: workshop_path(@workshop) }
             #proceed.preview-hide
               = link_to 'Next', private_workshop_path(@workshop), method: :get, class: 'btn btn-primary'
+
+      //Disqus //////////////////
+      - if show
+        - if current_user && current_user.signedup?(@workshop)
+          = render 'disqus'
+        - if current_user==@workshop.user
+          = render 'disqus'
 
 
   //Admin Controls //////////////////
