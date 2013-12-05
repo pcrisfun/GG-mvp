@@ -93,6 +93,12 @@ class AppSignupsController < ApplicationController
           render 'new'
         end
       end
+    elsif params[:decline_button]
+      @app_signup.update_attributes(params[:app_signup])
+      @app_signup.decline
+      @app_signup.deliver_decline
+      @app_signup.deliver_decline_maker
+      redirect_to apprenticeship_path(@app_signup.event), :flash => { :warning => "Apprenticeship declined. Thanks! We'll let her know you were honored that she wanted to work together but you found someone else." }
     else
       if @app_signup.update_attributes(params[:app_signup])
         if @app_signup.apply
@@ -118,11 +124,6 @@ class AppSignupsController < ApplicationController
   end
 
   def show
-  end
-
-  def decline
-    @app_signup.decline && @app_signup.deliver_decline && @app_signup.deliver_decline_maker
-    redirect_to apprenticeship_path(@app_signup.event), :flash => { :warning => "Apprenticeship declined. Thanks! We'll let her know you were honored that she wanted to work together but you found someone else." }
   end
 
   def accept
