@@ -4,7 +4,7 @@
   %section.section
     .container
       - if show
-        - if current_user && current_user==@workshop.user && !@workshop.pending?
+        - if current_user && current_user==@workshop.user
           = link_to "Edit", edit_workshop_path(@workshop), name: "edit_button", class: "btn btn-primary pull-right"
 
       - unless show
@@ -293,6 +293,10 @@
                 Email
               %dd
                 = mail_to @workshop.user.email
+                - if !show
+                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content: "Don't worry, this will only be visible to participants AFTER they sign up!."} }
+                    %i.icon-question-sign.small-icon
+                    = link_to "(Edit email)", edit_user_registration_path
 
             - if @workshop.user.bio.present?
               %dt
@@ -320,21 +324,21 @@
               %dd
                 = link_to @workshop.user.twitter, nice_url(@workshop.user.twitter)
 
-
-            - if current_user && current_user.signedup?(@workshop) or current_user==@workshop.user
-              %hr
-              %dt
-                Attendee(s)
-              %dd
-                - @workshop.signups.each do |work_signup|
-                  = avatar_for(work_signup.user, size: 25, tag: :small)
-                  - if work_signup.parent?
-                    #{work_signup.user.name}'s daughter #{work_signup.daughter_firstname}
-                  - else
-                    = work_signup.user.name
-                  \&nbsp; - &nbsp;
-                  = mail_to work_signup.user.email
-                  %br
+            - if show
+              - if current_user && current_user.signedup?(@workshop) or current_user==@workshop.user
+                %hr
+                %dt
+                  Attendee(s)
+                %dd
+                  - @workshop.signups.each do |work_signup|
+                    = avatar_for(work_signup.user, size: 25, tag: :small)
+                    - if work_signup.parent?
+                      #{work_signup.user.name}'s daughter #{work_signup.daughter_firstname}
+                    - else
+                      = work_signup.user.name
+                    \&nbsp; - &nbsp;
+                    = mail_to work_signup.user.email
+                    %br
 
 
 

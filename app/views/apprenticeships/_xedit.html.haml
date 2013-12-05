@@ -295,6 +295,10 @@
                 Email
               %dd
                 = mail_to @apprenticeship.user.email
+                - if !show
+                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content: "Don't worry, this will only be visible to apprentices AFTER they've applied'! To use a different email address, you can edit your Settings (under your name in the top right corner)."} }
+                    %i.icon-question-sign.small-icon
+                    = link_to "(Edit email)", edit_user_registration_path
 
             - if @apprenticeship.user.bio.present?
               %dt
