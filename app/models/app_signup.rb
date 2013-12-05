@@ -631,9 +631,9 @@ class AppSignup < Signup
 
   def include_decline_reason
     if decline_reason?
-      '#{self.event.user.first_name} also asked us to forward along this message:</p> <p>"#{self.decline_reason}"'
+      "#{self.event.user.first_name} also asked us to forward along this message:</p> <p style='font-style:italic;'>#{self.decline_reason}"
     else
-      ''
+      ""
     end
   end
 

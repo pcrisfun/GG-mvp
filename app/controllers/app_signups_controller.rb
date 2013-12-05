@@ -98,7 +98,7 @@ class AppSignupsController < ApplicationController
       @app_signup.decline
       @app_signup.deliver_decline
       @app_signup.deliver_decline_maker
-      redirect_to apprenticeship_path(@app_signup.event), :flash => { :warning => "Apprenticeship declined. Thanks! We'll let her know you were honored that she wanted to work together but you found someone else." }
+      redirect_to apprenticeship_path(@app_signup.event), :flash => { :warning => "Application declined. Thanks! We'll let her know you were honored that she wanted to work together but you found someone else." }
     else
       if @app_signup.update_attributes(params[:app_signup])
         if @app_signup.apply
