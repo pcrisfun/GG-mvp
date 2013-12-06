@@ -129,7 +129,7 @@
                   this Workshop on
                 #dates{class: @workshop.datetime_tba ?  'hidden' : '' }
                   #begins-at.field.date.optional
-                    = editable_link_to "Date", field: :begins_at, resource: @workshop, type: :date, link_text: get_formated_date(@workshop.begins_at), data: { viewformat: 'M d, yyyy', template: 'M d, yyyy'}
+                    = editable_link_to "Date", field: :begins_at, resource: @workshop, type: :date, link_text: get_formated_date(@workshop.begins_at), data: { viewformat: 'MM d, yyyy', template: 'MM d, yyyy'}
                   from
                   #begins-at-time.field.combodate.optional
                     = editable_link_to "Start Time", field: :begins_at_time, resource: @workshop, type: :combodate, link_text: get_formated_date(@workshop.begins_at_time, format: "%l:%M %P"), data: { viewformat: 'h:mm a', template: 'h:mm a', format: "DD-MM-YYYY h:mm a"}
@@ -143,7 +143,7 @@
               #close-registrations{class: ( @workshop.datetime_tba) ?  'hidden' : '' }
                 Signups close on
                 #ends-at.field.date.optional
-                  = editable_link_to "Date", field: :ends_at, resource: @workshop, type: :date, link_text: get_formated_date(@workshop.ends_at), data: { viewformat: 'M d, yyyy', template: 'M d, yyyy'}
+                  = editable_link_to "Date", field: :ends_at, resource: @workshop, type: :date, link_text: get_formated_date(@workshop.ends_at), data: { viewformat: 'MM d, yyyy', template: 'MM d, yyyy'}
                 - if !show
                   %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Think about how far in advance you would like to know if someone registers for your workshop. How much time will it take to prep. for that number of students?"} }
                     %i.icon-question-sign.small-icon
