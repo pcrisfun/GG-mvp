@@ -575,7 +575,6 @@ first_apprenticeship = melissa.apprenticeships.create!( "host_firstname"=>"Melis
                                                         "stripe_card_token"=>"",
                                                         "permission"=>"1",
                                                         "availability"=>"M-F, 3-7pm. Flexible on weekend days.",
-                                                        "state"=>"completed"
                                                      )
 
 first_apprenticeship = teruko.apprenticeships.create!( "host_firstname"=>"Teruko Nimura &",
@@ -608,7 +607,6 @@ first_apprenticeship = teruko.apprenticeships.create!( "host_firstname"=>"Teruko
                                                         "stripe_card_token"=>"",
                                                         "permission"=>"1",
                                                         "availability"=>"Flexible on weekend days.",
-                                                        "state"=>"completed"
                                                      )
 
 first_apprenticeship = madelyn.apprenticeships.create!( "host_firstname"=>"Madelyn",
@@ -641,7 +639,6 @@ first_apprenticeship = madelyn.apprenticeships.create!( "host_firstname"=>"Madel
                                                         "stripe_card_token"=>"",
                                                         "permission"=>"1",
                                                         "availability"=>"Flexible",
-                                                        "state"=>"completed"
                                                      )
 
 first_apprenticeship = teruko.apprenticeships.create!( "host_firstname"=>"Teruko",
@@ -674,7 +671,6 @@ first_apprenticeship = teruko.apprenticeships.create!( "host_firstname"=>"Teruko
                                                         "stripe_card_token"=>"",
                                                         "permission"=>"1",
                                                         "availability"=>"Flexible",
-                                                        "state"=>"completed"
                                                      )
 
 first_apprenticeship = cheyenne.apprenticeships.create!( "host_firstname"=>"Cheyenne &",
@@ -707,7 +703,6 @@ first_apprenticeship = cheyenne.apprenticeships.create!( "host_firstname"=>"Chey
                                                         "stripe_card_token"=>"",
                                                         "permission"=>"1",
                                                         "availability"=>"Flexible on weekday afternoons and weekends",
-                                                        "state"=>"completed"
                                                      )
 
 first_apprenticeship = adrienne.apprenticeships.create!( "host_firstname"=>"Adrienne",
@@ -740,7 +735,6 @@ first_apprenticeship = adrienne.apprenticeships.create!( "host_firstname"=>"Adri
                                                         "stripe_card_token"=>"",
                                                         "permission"=>"1",
                                                         "availability"=>"Flexible",
-                                                        "state"=>"completed"
                                                      )
 
 first_apprenticeship = jessica.apprenticeships.create!( "host_firstname"=>"Jessica",
@@ -773,7 +767,6 @@ first_apprenticeship = jessica.apprenticeships.create!( "host_firstname"=>"Jessi
                                                         "stripe_card_token"=>"",
                                                         "permission"=>"1",
                                                         "availability"=>"This is a two month apprenticeship that would ideally begin by June 15th. We would love to have someone that will be able to contribute in a meaningful way to our production, and learn as much as possible in the process. In order to do this, 10-15 hours a week in time chunks no less than 3 hours would be ideal. That said, we are flexible with the exact dates and times of the apprenticeship. We are, however, closed on the weekends and will not be in studio, barring any special events. ",
-                                                        "state"=>"accepted"
                                                      )
 
 first_apprenticeship = anna.apprenticeships.create!(    "host_firstname"=>"Anna",
@@ -806,7 +799,6 @@ first_apprenticeship = anna.apprenticeships.create!(    "host_firstname"=>"Anna"
                                                         "stripe_card_token"=>"",
                                                         "permission"=>"1",
                                                         "availability"=>"Flexible",
-                                                        "state"=>"accepted"
                                                      )
 
 first_apprenticeship = callen.apprenticeships.create!( "host_firstname"=>"Callen",
@@ -839,7 +831,6 @@ first_apprenticeship = callen.apprenticeships.create!( "host_firstname"=>"Callen
                                                         "stripe_card_token"=>"",
                                                         "permission"=>"1",
                                                         "availability"=>"Flexible",
-                                                        "state"=>"completed"
                                                      )
 
 Event.all.each do |event|
