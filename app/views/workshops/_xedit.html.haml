@@ -304,7 +304,7 @@
                 %dt
                   Attendee(s)
                 %dd
-                  - @workshop.signups.each do |work_signup|
+                  - @workshop.signups.where(state: ["confirmed", "completed"]).each do |work_signup|
                     = avatar_for(work_signup.user, size: 25, tag: :small)
                     - if work_signup.parent?
                       #{work_signup.user.name}'s daughter #{work_signup.daughter_firstname}
@@ -321,21 +321,12 @@
           - if show
             - if @workshop.filled?
               = link_to "Workshop filled", '#workwithModal', rel: 'popover', data: {placement: "left", content:"Sorry, this workshop is already full, but you can follow this maker to be the first to know next time she's teaching."}, :class => "btn btn-block disabled"
-              %br
-              = render :partial => "shared/prereg", :locals => {:event => @workshop}
-              %br
 
             - if @workshop.accepted? && @workshop.datetime_tba == false && @workshop.ends_at <= Date.today
               = link_to "Signups closed", '#workwithModal', rel: 'popover', data: {placement: "left", content:"Sorry, this workshop is closed for sign-ups, but you can follow this maker to be the first to know next time she's teaching."}, :class => "btn btn-block btn-inverse disabled"
-              %br
-              = render :partial => "shared/prereg", :locals => {:event => @workshop}
-              %br
 
             - if @workshop.completed?
               = link_to "Workshop has passed", '#workwithModal', rel: 'popover', data: {placement: "left", content:"Sorry, this workshop has passed, but you can follow this maker to be the first to know next time she's teaching."}, :class => "btn btn-block btn-inverse disabled"
-              %br
-              = render :partial => "shared/prereg", :locals => {:event => @workshop}
-              %br
 
             - if @workshop.datetime_tba == true
               = render :partial => "shared/prereg", :locals => {:event => @workshop}
@@ -354,9 +345,6 @@
                     = link_to "Sign up my Daughter", new_parent_work_signup_path(workshop_id: @workshop), :class => "btn btn-primary pull-right"
                     %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
                     %br
-                %br
-                = render :partial => "shared/prereg", :locals => {:event => @workshop}
-                %br
 
               - elsif current_user && current_user.age < @workshop.age_min
                 = link_to "Work with #{@workshop.user.first_name}", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
@@ -371,9 +359,6 @@
                       = render :partial => "shared/prereg", :locals => {:event => @workshop}
                     %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
                     %br
-                %br
-                = render :partial => "shared/prereg", :locals => {:event => @workshop}
-                %br
 
               - elsif current_user && current_user.signedup?(@workshop)
                 = link_to "Signed up #{content_tag(:i, "", class: "icon-ok-circle")}".html_safe, '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-success"
@@ -389,15 +374,13 @@
                       = link_to "Sign up my Daughter", new_parent_work_signup_path(workshop_id: @workshop), :class => "btn btn-primary pull-right"
                     %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
                     %br
-                %br
-                = render :partial => "shared/prereg", :locals => {:event => @workshop}
-                %br
 
               - else
                 = link_to "Work with #{@workshop.user.first_name}", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-block btn-primary"
-                %br
-                = render :partial => "shared/prereg", :locals => {:event => @workshop}
-                %br
+
+            %br
+            = render :partial => "shared/prereg", :locals => {:event => @workshop}
+            %br
 
           //Map //////////////////
           - if show

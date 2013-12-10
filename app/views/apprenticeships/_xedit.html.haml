@@ -328,7 +328,7 @@
                 %dt
                   Apprentice(s)
                 %dd
-                  - @apprenticeship.signups.each do |app_signup|
+                  - @apprenticeship.signups.where(state: ["confirmed", "completed"]).each do |app_signup|
                     = avatar_for(app_signup.user, size: 25, tag: :small)
                     - if app_signup.parent?
                       #{app_signup.user.name}'s daughter #{app_signup.daughter_firstname}
@@ -337,6 +337,8 @@
                     \&nbsp; - &nbsp;
                     = mail_to app_signup.user.email
                     %br
+                %dt
+
 
         //Apply Sidebar //////////////////
         %span#applysidebar.span3
@@ -358,7 +360,7 @@
               = link_to "Apprenticeship passed", apprenticeship_path, rel: 'popover', data: {placement: "left", content:"Sorry, this apprenticeship has passed, but you can follow this maker to be the first to know next time she's teaching."}, :class => "btn btn-block btn-inverse disabled"
             / this is not working for those who aren't signed in (or anyone)
             - if @apprenticeship.filled? && current_user && !current_user.signedup?(@apprenticeship)
-              = link_to "Apprenticeship filled", apprenticeship_path, rel: 'popover', data: {placement: "left", content:"Sorry, this apprenticeship has already been filled, but you can follow this maker to be the first to know next time she's teaching."}, :class => "btn btn-block disabled"
+              = link_to "Apprenticeship closed", apprenticeship_path, rel: 'popover', data: {placement: "left", content:"Sorry, this apprenticeship has already been filled, but you can follow this maker to be the first to know next time she's teaching."}, :class => "btn btn-block disabled"
 
             - if @apprenticeship.accepted? && @apprenticeship.datetime_tba == false
               - unless current_user && current_user == @apprenticeship.user || current_user && current_user.signedup?(@apprenticeship)
@@ -393,9 +395,10 @@
 
                 - else
                   = link_to "Work with #{@apprenticeship.user.first_name}", new_app_signup_path(apprenticeship_id: @apprenticeship), :class => "btn btn-block btn-primary"
-                  %br
+
+            %br
             = render :partial => "shared/prereg", :locals => {:event => @apprenticeship}
-          %br
+            %br
 
           //Map //////////////////
           - if show
