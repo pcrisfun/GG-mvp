@@ -30,7 +30,7 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'rails-dev-boost', :git => 'git://github.com/thedarkone/rails-dev-boost.git'
-  gem 'quiet_assets', :group => :development
+  # gem 'quiet_assets', :group => :development
   # gem 'sextant'
 end
 
