@@ -18,6 +18,7 @@ gem 'dotenv-rails'
 gem 'unicorn'
 gem 'newrelic_rpm'
 gem 'airbrake'
+gem "lograge"
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'
@@ -29,7 +30,7 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'rails-dev-boost', :git => 'git://github.com/thedarkone/rails-dev-boost.git'
-  # gem 'quiet_assets', :group => :development
+  gem 'quiet_assets', :group => :development
   # gem 'sextant'
 end
 
