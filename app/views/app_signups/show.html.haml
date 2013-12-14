@@ -112,11 +112,29 @@
             /   = link_to 'Cancel my application', { :controller => 'app_signups', :action => 'cancel'}, :method => :post, :data => { :confirm => 'Are you sure you want to cancel your application for this apprenticeship?'}, class: "btn btn-danger"
             - if @app_signup.user == current_user && @app_signup.pending? || @app_signup.accepted?
               = link_to "Cancel Application", { :controller => 'app_signups', :action => 'cancel' }, class: "btn btn-danger pull-right", :method => 'post', data: { :confirm => "Are you sure? Your application will be saved in your Dashboard, but you'll have to resubmit it in order to apply again." }
-        .pull-center
+
           - if current_user == @app_signup.event.user && @app_signup.pending?
-            %hr/
-            %h3 Makers, it's your call
-            = link_to "Decline Apprentice", {:action => "decline", id: @app_signup, :controller => "app_signups"}, :method => :post, class: "btn btn-danger pull-left", :data => { :confirm => 'Are you sure you want to decline this applicant? Declining cannot be undone.'}
+            .pull-center
+              %hr/
+              %h3 Makers, it's your call
+            = link_to "Decline Apprentice", '#declineModal', data: {toggle: "modal"}, :class => "btn btn-danger pull-left"
+            #declineModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "declineModal", :role => "dialog", :tabindex => "-1"}
+              .modal-header
+                %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                %h3#galleryModalLabel Decline Application
+                .modal-body
+                %p Are you sure you want to decline this applicant?
+                %p We'll send her a gentle email letting her know you were honored she applied, but you've chosen another apprentice.
+                %p You can include a (totally optional) personal message if you'd like.
+                %br
+                = simple_form_for(@app_signup) do |f|
+                  = f.input :decline_reason, input_html: { class: "span12", rows: 5, placeholder: "You can write a personal message, or leave this blank."}
+                  = f.submit "Decline Application", :name => "decline_button", class: "btn btn-danger pull-right"
+                %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
+                %br
+
+            / = link_to "Decline Apprentice", {:action => "decline", id: @app_signup, :controller => "app_signups"}, :method => :post, class: "btn btn-danger pull-left", :data => { :confirm => 'Are you sure you want to decline this applicant? Declining cannot be undone.'}
+
             - if @app_signup.event.filled?
               = link_to "Accept Apprentice", app_signup_path(@app_signup), rel: 'popover', data: {placement: "top", content: "Sorry, you can't accept this applicant because you've already filled your apprenticeship. Let us know if this is an error or if you'd like to accept another apprentice."},class: "btn btn-success pull-right disabled"
             - else

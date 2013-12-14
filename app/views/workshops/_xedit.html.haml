@@ -4,10 +4,20 @@
   %section.section
     .container
       - if show
-        - if current_user && current_user==@workshop.user && !@workshop.pending?
+        - if current_user && current_user==@workshop.user
           = link_to "Edit", edit_workshop_path(@workshop), name: "edit_button", class: "btn btn-primary pull-right"
 
       - unless show
+        %h2 Nice! Let's design your workshop
+        • Click on the text to edit any field you want to change
+        %br
+        • Hover on the
+        %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"The question marks have tips to answer your questions!"} }
+          %i.icon-question-sign.small-iconnext
+        next to each field for tips & more info
+        %br
+        %p• We'll save automatically as you go, and we've emailed you a link to come back to it at any time
+        %br
         %h1#page-header.pull-right Build your Workshop
         %br
         = render 'checkmark_nav'
@@ -58,7 +68,7 @@
             - if !show || @workshop.host_business.present?
               of
               #business.field.text.optional
-                = editable_link_to 'Your Business', field: :host_business, resource: @workshop, type: :text
+                = editable_link_to 'Your Business (Optional)', field: :host_business, resource: @workshop, type: :text
             %br
 
             #kind.field.label.label-inverse
@@ -69,13 +79,17 @@
             - if !show
               %i.icon-asterisk
             #description.field.textarea
-              = editable_link_to "Tell us about your workshop. Describe what you'll be doing, what level of experience you're teaching, as well as any expectations of those attending.", field: :description, resource: @workshop, type: :textarea
+              = editable_link_to "Tell us about your workshop. Describe what you'll be making or doing, what level of experience you're teaching, as well as any expectations of those attending.", field: :description, resource: @workshop, type: :textarea
             - if !show
               %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Tell us about your workshop. Describe what you'll be doing as well as your expectations of those attending."} }
                 %i.icon-question-sign.small-icon
             %br
             - if !show
-              %p.images-desc.small Upload 5 images of your studio & your work as it pertains to the workshop. Max size: 1300px, Min size: 600px.
+              %br
+              %i.icon-asterisk
+              %p.images-desc Upload 5 images of your studio & your work as it pertains to the workshop.
+              %br
+              %p.images-desc Max size: 1300px, Min size: 600px.
 
             //Social bttns //////////////////
             - if show
@@ -114,8 +128,8 @@
                 #from{class: (show || @workshop.datetime_tba) ?  'hidden' : '' }
                   this Workshop on
                 #dates{class: @workshop.datetime_tba ?  'hidden' : '' }
-                  #begins-at.field.combodate.optional
-                    = editable_link_to "Date", field: :begins_at, resource: @workshop, type: :combodate, link_text: get_formated_date(@workshop.begins_at), data: { viewformat: 'MMMM D, YYYY', template: 'MMMM / D / YYYY'}
+                  #begins-at.field.date.optional
+                    = editable_link_to "Date", field: :begins_at, resource: @workshop, type: :date, link_text: get_formated_date(@workshop.begins_at), data: { viewformat: 'MM d, yyyy', template: 'MM d, yyyy'}
                   from
                   #begins-at-time.field.combodate.optional
                     = editable_link_to "Start Time", field: :begins_at_time, resource: @workshop, type: :combodate, link_text: get_formated_date(@workshop.begins_at_time, format: "%l:%M %P"), data: { viewformat: 'h:mm a', template: 'h:mm a', format: "DD-MM-YYYY h:mm a"}
@@ -123,13 +137,13 @@
                   #ends-at-time.field.combodate.optional
                     = editable_link_to "End Time", field: :ends_at_time, resource: @workshop, type: :combodate, link_text: get_formated_date(@workshop.ends_at_time, format: "%l:%M %P"), data: { viewformat: 'h:mm a', template: 'h:mm a', format: "DD-MM-YYYY h:mm a"}
               - if !show
-                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"If you would like to gauge interest for this idea first before anouncing a date, choose 'TBA'. We'll let you know when people 'follow it' to show their interest in working with you."} }
+                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Choose 'Schedule' to set the date of the workshop. Choose 'TBA' to let people 'follow it' to show their interest in it before you announce a date."} }
                   %i.icon-question-sign.small-icon
 
               #close-registrations{class: ( @workshop.datetime_tba) ?  'hidden' : '' }
                 Signups close on
-                #ends-at.field.combodate.optional
-                  = editable_link_to "Date", field: :ends_at, resource: @workshop, type: :combodate, link_text: get_formated_date(@workshop.ends_at), data: { viewformat: 'MMMM D, YYYY', template: 'MMMM / D / YYYY'}
+                #ends-at.field.date.optional
+                  = editable_link_to "Date", field: :ends_at, resource: @workshop, type: :date, link_text: get_formated_date(@workshop.ends_at), data: { viewformat: 'MM d, yyyy', template: 'MM d, yyyy'}
                 - if !show
                   %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Think about how far in advance you would like to know if someone registers for your workshop. How much time will it take to prep. for that number of students?"} }
                     %i.icon-question-sign.small-icon
@@ -138,6 +152,26 @@
                 %i.icon-asterisk
               Where
             %dd
+              - if !show || @workshop.location_private
+                The location is a
+                #private-address.field.select
+                  - if @workshop.location_private == true
+                    - private_text = "Residential"
+                  - elsif @workshop.location_private == false
+                    - private_text = "Public"
+                  = editable_link_to "Public/Residential", field: :location_private, resource: @workshop, type: :select, link_text: @workshop.location_private.nil? ? nil : private_text , data: { source: '{true : "Residential", false : "Public"}'}
+                address
+                #nbrhood-toggle{class: !@workshop.location_private ?  'hidden' : '' }
+                  in the
+                  - if !show || @workshop.location_private
+                    #nbrhood.field.text.optional
+                      = editable_link_to "Neighborhood", field: :location_nbrhood, resource: @workshop, type: :text
+                    neighborhood
+                - if !show
+                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:'A "Public" address will be displayed on the workshop page with a map of the exact location, while a "Residential" address will only display a map of the neighborhood until the student has been accepted and confirmed.'} }
+                    %i.icon-question-sign.small-icon
+                %br
+
               - if !show || !@workshop.location_private || current_user && (current_user.signedup?(@workshop) or current_user==@workshop.user)
                 #address
                   #address1.field.address
@@ -150,24 +184,7 @@
                   #zip.field.address
                     = editable_link_to "Zip", field: :location_zipcode, resource: @workshop, type: :text
                   %br
-              - if !show || @workshop.location_private
-                A
-                #private-address.field.select
-                  - if @workshop.location_private == true
-                    - private_text = "Residential"
-                  - elsif @workshop.location_private == false
-                    - private_text = "Public"
-                  = editable_link_to "Public/Residential", field: :location_private, resource: @workshop, type: :select, link_text: @workshop.location_private.nil? ? nil : private_text , data: { source: '{true : "Residential", false : "Public"}'}
-                address
-                #nbrhood-toggle{class: !@workshop.location_private ?  'hidden' : '' }
-                  in the
-                  - if !show || @workshop.location_private
-                    #nbrhood.field.text.optional
-                      = editable_link_to "__________", field: :location_nbrhood, resource: @workshop, type: :text
-                    neighborhood
-                - if !show
-                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:'A "Public" address will be displayed on the workshop page with a map of the exact location, while a "Residential" address will only display a map of the neighborhood until the student has been accepted and confirmed.'} }
-                    %i.icon-question-sign.small-icon
+
             %dt
               - if !show
                 %i.icon-asterisk
@@ -216,13 +233,18 @@
                 #price.field.number
                   = editable_link_to "Your Price", field: :price, resource: @workshop, type: :text
                 #price-details
-                  + 20% =
-              $
-              %span#total-price.field
-                = @workshop.total_price
+                  total. You'll receive
+                $
+                %span#total-price.field
+                  = @workshop.total_price
+                per participant.
               - if !show
-                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Please list the amount per girl that you want to earn from teaching this session (remember to account for materials). We’ll add 20% on top of that to set the full fee each girl will pay. See our FAQ page for details and examples of our cost structure."} }
+                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Please list the total fee each girl will pay (remember to account for materials). We split it 80% / 20% and show you how much you'll receive per girl. See our FAQ page for details and examples of our cost structure."} }
                   %i.icon-question-sign.small-icon
+              - if show
+                $
+                %span#total-price.field
+                  = @workshop.price.to_i
 
             %dt
               - if !show
@@ -230,7 +252,7 @@
               Skills Taught
             %dd
               #skills.field.tags
-                = editable_link_to 'Skills and techniques will you be teaching', field: :skill_list, resource: @workshop, type: :select2
+                = editable_link_to "Skills and techniques you'll be teaching", field: :skill_list, resource: @workshop, type: :select2
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", trigger: "hover", content:"Be as specific as possible so that we can give your student credit for learning new skills allow her to show them off in her portfolio!"} }
                   %i.icon-question-sign.small-icon
@@ -240,7 +262,7 @@
               Tools Taught
             %dd
               #tools.field.tags
-                = editable_link_to 'Tools and materials will you be teaching or using', field: :tool_list, resource: @workshop, type: :select2
+                = editable_link_to "Tools and materials you'll be teaching", field: :tool_list, resource: @workshop, type: :select2
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", trigger: "hover", content:"Be as specific as possible so that we can give your student credit for learning new tools and allow her to show them off in her portfolio!"} }
                   %i.icon-question-sign.small-icon
@@ -249,7 +271,7 @@
                 Requirements
               %dd
                 #prequisites.field.tags.optional
-                  = editable_link_to 'Any required skills or tools your student should have experience with?', field: :requirement_list, resource: @workshop, type: :select2
+                  = editable_link_to 'Any required skills or tools participants should have previous experience with?', field: :requirement_list, resource: @workshop, type: :select2
                 - if !show
                   %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", trigger: "hover", content:"Is this workshop more collaborative, or more directed? Be honest about the help that you need right from the begining. Example: chopsaw, welding, javascript"} }
                     %i.icon-question-sign.small-icon
@@ -271,6 +293,10 @@
                 Email
               %dd
                 = mail_to @workshop.user.email
+                - if !show
+                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content: "Don't worry, this will only be visible to participants AFTER they sign up!."} }
+                    %i.icon-question-sign.small-icon
+                    = link_to "(Edit email)", edit_user_registration_path
 
             - if @workshop.user.bio.present?
               %dt

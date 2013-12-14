@@ -6,7 +6,7 @@ class AppSignup < Signup
   attr_accessible :daughter_firstname, :daughter_lastname, :daughter_age,
                   :happywhen, :collaborate, :interest, :experience,
                   :confirm_available, :preferred_times, :confirm_unpaid, :confirm_fee,
-                  :parent, :parent_name, :parent_phone, :parent_email, :parents_waiver, :respect_agreement, :waiver
+                  :parent, :parent_name, :parent_phone, :parent_email, :parents_waiver, :respect_agreement, :waiver, :decline_reason
 
   include Emailable
 
@@ -344,6 +344,7 @@ class AppSignup < Signup
       :subject => "#{event.user.first_name} filled the apprenticeship",
       :html_body => %(<p>Thanks for your application #{user.first_name}. For this apprenticeship #{event.user.first_name} chose a different applicant, but she was honored that you were interested in working together. We'll let you know about other possibilities for collaboration with her in the future!</p>
         <p>In the meantime, we hope you'll find another apprenticeship you'd be interested in - check out our <a href="#{url_for(apprenticeships_path)}"> our apprenticeship listings</a> to see what's available.</p>
+        <p>#{self.include_decline_reason}</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -361,6 +362,7 @@ class AppSignup < Signup
       :subject => "#{self.event.user.first_name} filled the apprenticeship",
       :html_body => %(<p>Thanks for #{self.daughter_firstname}'s application! For this apprenticeship #{self.event.user.first_name} chose a different applicant, but she was super excited that your daughter was interested in working together. We'll let you know about other possibilities for collaboration with her in the future.</p>
         <p>In the meantime, we hope you and #{self.daughter_firstname} will find another apprenticeship you'd be interested in - check out our <a href="#{url_for(apprenticeships_path)}"> our apprenticeship listings</a> to see what's available.</p>
+        <p>#{self.include_decline_reason}</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -624,6 +626,14 @@ class AppSignup < Signup
     date_range = (Date.today-7.days)..Date.today
     AppSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'confirmed', app_followup_maker_sent: false).each do |app|
       app.deliver_followup_maker
+    end
+  end
+
+  def include_decline_reason
+    if decline_reason?
+      "#{self.event.user.first_name} also asked us to forward along this message:</p> <p style='font-style:italic;'>#{self.decline_reason}"
+    else
+      ""
     end
   end
 

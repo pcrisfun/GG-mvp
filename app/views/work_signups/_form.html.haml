@@ -129,7 +129,7 @@
       .accordion-body
         .accordion-inner
           %br/
-          %h3 Workshop fee: $#{@workshop.total_price}
+          %h3 Workshop fee: $#{@workshop.price.to_i}
           %br/
           = render :partial => "shared/credit_card", :locals => { :f => f, :paid => @work_signup.charge_id.present? }
           %br/

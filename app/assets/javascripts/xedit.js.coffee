@@ -36,7 +36,7 @@ updateTotalPrice = (price)->
   if price == '___'
     newTotal = price
   else
-    newTotal = ( Math.round (parseFloat(price) * 1.2) ).toString()
+    newTotal = ( Math.round (parseFloat(price) / 1.25) ).toString()
   $('#total-price').text(newTotal)
 
 jQuery ->

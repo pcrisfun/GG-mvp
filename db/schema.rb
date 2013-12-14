@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130702205950) do
+ActiveRecord::Schema.define(:version => 20131204230556) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -160,6 +160,7 @@ ActiveRecord::Schema.define(:version => 20130702205950) do
     t.boolean  "work_first_reminder_sent",  :default => false,     :null => false
     t.boolean  "work_second_reminder_sent", :default => false,     :null => false
     t.boolean  "work_followup_sent",        :default => false,     :null => false
+    t.text     "decline_reason"
   end
 
   add_index "signups", ["charge_id"], :name => "index_signups_on_charge_id"
