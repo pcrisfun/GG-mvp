@@ -78,18 +78,18 @@ include EventHelper
     false
   end
 
-  #deliver_confirm gets called from webhooks in stripe_controller.rb
-  #def deliver_confirm(opts={})
-   # if self.parent?
-    #  deliver_parent(opts) && deliver_maker_daughter
-   # elsif self.minor?
-    #  deliver_minor(opts) && deliver_maker
-    #else
-    #  deliver(opts) && deliver_maker
-    #end
-  #end
-
+  #deliver gets called from webhooks in stripe_controller.rb
   def deliver(opts={})
+   if self.parent?
+     deliver_parent(opts) && deliver_maker_daughter(opts)
+   elsif self.minor?
+     deliver_minor(opts) && deliver_maker(opts)
+    else
+     deliver_self(opts) && deliver_maker(opts)
+    end
+  end
+
+  def deliver_self(opts={})
     payment = opts[:payment]
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
@@ -160,7 +160,7 @@ include EventHelper
     return true
   end
 
-  def deliver_maker
+  def deliver_maker(opts={})
     Pony.mail({
       :to => "#{event.user.name}<#{event.user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
@@ -178,7 +178,7 @@ include EventHelper
     return true
   end
 
-  def deliver_maker_daughter
+  def deliver_maker_daughter(opts={})
     Pony.mail({
       :to => "#{event.user.name}<#{event.user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
