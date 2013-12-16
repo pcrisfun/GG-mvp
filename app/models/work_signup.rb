@@ -81,11 +81,11 @@ include EventHelper
   #deliver gets called from webhooks in stripe_controller.rb
   def deliver(opts={})
    if self.parent?
-     deliver_parent(opts) && deliver_maker_daughter
+     deliver_parent(opts) && deliver_maker_daughter(opts)
    elsif self.minor?
-     deliver_minor(opts) && deliver_maker
+     deliver_minor(opts) && deliver_maker(opts)
     else
-     deliver_self(opts) && deliver_maker
+     deliver_self(opts) && deliver_maker(opts)
     end
   end
 
@@ -160,7 +160,7 @@ include EventHelper
     return true
   end
 
-  def deliver_maker
+  def deliver_maker(opts={})
     Pony.mail({
       :to => "#{event.user.name}<#{event.user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
@@ -178,7 +178,7 @@ include EventHelper
     return true
   end
 
-  def deliver_maker_daughter
+  def deliver_maker_daughter(opts={})
     Pony.mail({
       :to => "#{event.user.name}<#{event.user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
