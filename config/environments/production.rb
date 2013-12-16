@@ -91,4 +91,11 @@ GirlsGuild::Application.configure do
     }
   }
 
+  # Enable Lograge gem for denser logs
+  config.lograge.enabled = true
+  # add time to lograge
+  config.lograge.custom_options = lambda do |event|
+    {:time => event.time}
+  end
+
 end

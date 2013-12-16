@@ -18,6 +18,7 @@ gem 'dotenv-rails'
 gem 'unicorn'
 gem 'newrelic_rpm'
 gem 'airbrake'
+gem "lograge"
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'

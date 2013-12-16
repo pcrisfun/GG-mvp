@@ -45,6 +45,12 @@
 
 
             - if signed_in?
+              / %li.dropdown.alertnav
+              /   %a{"data-target" => "#", :href => "/dashboard"}
+              /     .i.icon-bell-alt
+              /   .alertbox
+              /     1
+
               %li.dropdown.signin-nav
                 %a{:href => "#"}
                   = current_user.first_name
