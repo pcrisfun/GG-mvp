@@ -78,18 +78,18 @@ include EventHelper
     false
   end
 
-  #deliver_confirm gets called from webhooks in stripe_controller.rb
-  #def deliver_confirm(opts={})
-   # if self.parent?
-    #  deliver_parent(opts) && deliver_maker_daughter
-   # elsif self.minor?
-    #  deliver_minor(opts) && deliver_maker
-    #else
-    #  deliver(opts) && deliver_maker
-    #end
-  #end
-
+  #deliver gets called from webhooks in stripe_controller.rb
   def deliver(opts={})
+   if self.parent?
+     deliver_parent(opts) && deliver_maker_daughter(opts)
+   elsif self.minor?
+     deliver_minor(opts) && deliver_maker(opts)
+    else
+     deliver_self(opts) && deliver_maker(opts)
+    end
+  end
+
+  def deliver_self(opts={})
     payment = opts[:payment]
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
@@ -160,7 +160,7 @@ include EventHelper
     return true
   end
 
-  def deliver_maker
+  def deliver_maker(opts={})
     Pony.mail({
       :to => "#{event.user.name}<#{event.user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
@@ -169,6 +169,7 @@ include EventHelper
       :html_body => %(<h1>Woooo #{event.user.first_name}!</h1>
         <p>Congrats, you have a new signup for <a href="#{url_for(self.event)}">#{event.title}</a></p>
         <p>#{user.first_name} - #{user.email}</p>
+        <p>Here's what she said about her previous experience with making and her interest in this workshop: "#{self.interest}"</p>
         <p>That makes #{self.event.signups.where(:state => 'confirmed').count} people signed up, and registration closes on #{get_formated_date(self.event.ends_at, format: "%b %e, %Y")}. We'll keep you posted as new signups come in! You can also view who has signed up from your <a href="#{dashboard_url}">Events Dashboard</a>.</p>
         <p>If by some bad luck it turns out you can't host the workshop, you can cancel your workshop from the <a href="#{url_for(self.event)}">workshop details page</a>. (Note that you'll need to cancel at least 7 days in advance so that we can notify your students).</p>
         <p>Let us know if you have any questions!</p>
@@ -178,7 +179,7 @@ include EventHelper
     return true
   end
 
-  def deliver_maker_daughter
+  def deliver_maker_daughter(opts={})
     Pony.mail({
       :to => "#{event.user.name}<#{event.user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",

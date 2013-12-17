@@ -11,13 +11,16 @@ class StripeController < ApplicationController
     event = Stripe::Event.retrieve(data[:id])
 
     if event.type == 'charge.succeeded'
-      signup = Signup.find_by_charge_id(event.data.object.id)
-      signup.deliver_confirm(payment: event.data.object) if signup
+      app_signup = AppSignup.find_by_charge_id(event.data.object.id)
+      #app_signup.deliver_confirm(payment: event.data.object) if app_signup
+
+      work_signup = WorkSignup.find_by_charge_id(event.data.object.id)
+      #work_signup.deliver(payment: event.data.object) if work_signup
 
       app = Apprenticeship.find_by_charge_id(event.data.object.id)
-      app.deliver(payment: event.data.object) if app
+     # app.deliver(payment: event.data.object) if app
 
-      raise "Unable to find model for charge_id: #{event.data.object.id}" unless signup || app
+      raise "Unable to find model for charge_id: #{event.data.object.id}" unless app_signup || work_signup || app
     end
 
     render :nothing => true

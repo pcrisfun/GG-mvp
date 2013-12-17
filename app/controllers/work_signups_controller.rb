@@ -96,7 +96,7 @@ class WorkSignupsController < ApplicationController
         @work_signup.deliver_minor(payment: @charge)
         @work_signup.deliver_maker
       else
-        @work_signup.deliver(payment: @charge)
+        @work_signup.deliver_self(payment: @charge)
         @work_signup.deliver_maker
       end
       # redirect_to workshops_path, :flash => { :success => "Awesome, you're all signed up to work with #{@workshop.host_firstname}." }
