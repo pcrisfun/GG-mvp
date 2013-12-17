@@ -348,26 +348,24 @@
         //Apply Sidebar //////////////////
         %span#applysidebar.span3
           - if show
+            - if current_user && current_user.signedup?(@apprenticeship) && @app_signup.started?
+              = link_to "Finish applying", edit_app_signup_path(@app_signup), :class => "btn btn-block btn-warning"
+            - elsif current_user && current_user.signedup?(@apprenticeship) && @app_signup.pending?
+              = link_to "Application sent #{content_tag(:i, "", class: "icon-ok-circle")}".html_safe, app_signup_path(@app_signup), rel: 'popover', data: {placement: "left", content:"Thanks for applying, we'll let you know just as soon as a decision has been made!"}, :class => "btn btn-block btn-success disabled"
+            - elsif current_user && current_user.signedup?(@apprenticeship) && @app_signup.accepted?
+              = link_to "Confirm apprenticeship", app_signup_path(@app_signup), rel: 'popover', data: {placement: "left", content:"Yay! You've been accepted for this apprenticeship. To get started please confirm by paying."}, :class => "btn btn-block btn-warning"
+            - elsif current_user && current_user.signedup?(@apprenticeship) && @app_signup.confirmed?
+              = link_to "Working with #{@apprenticeship.user.first_name} #{content_tag(:i, "", class: "icon-ok-circle")}".html_safe, app_signup_path(@app_signup), rel: 'popover', data: {placement: "left", content:"Yippee, you're all set to start your apprenticeship!"}, :class => "btn btn-block btn-success disabled"
+            - elsif current_user && current_user.signedup?(@apprenticeship) && @app_signup.canceled?
+              = link_to "Re-apply with #{@apprenticeship.user.first_name}".html_safe, edit_app_signup_path(@app_signup), rel: 'popover', data: {placement: "left", content:"Looks like you canceled your application, but never fear. We've saved your answers and you can re-apply!"}, :class => "btn btn-block btn-primary"
 
-            - if current_user && current_user.signedup?(@apprenticeship)
-              - if @app_signup.started?
-                = link_to "Finish applying", edit_app_signup_path(@app_signup), :class => "btn btn-block btn-warning"
-              - if @app_signup.pending?
-                = link_to "Application sent #{content_tag(:i, "", class: "icon-ok-circle")}".html_safe, app_signup_path(@app_signup), rel: 'popover', data: {placement: "left", content:"Thanks for applying, we'll let you know just as soon as a decision has been made!"}, :class => "btn btn-block btn-success disabled"
-              - if @app_signup.accepted?
-                = link_to "Confirm apprenticeship", app_signup_path(@app_signup), rel: 'popover', data: {placement: "left", content:"Yay! You've been accepted for this apprenticeship. To get started please confirm by paying."}, :class => "btn btn-block btn-warning"
-              - if @app_signup.confirmed?
-                = link_to "Working with #{@apprenticeship.user.first_name} #{content_tag(:i, "", class: "icon-ok-circle")}".html_safe, app_signup_path(@app_signup), rel: 'popover', data: {placement: "left", content:"Yippee, you're all set to start your apprenticeship!"}, :class => "btn btn-block btn-success disabled"
-              - if @app_signup.canceled?
-                = link_to "Re-apply with #{@apprenticeship.user.first_name}".html_safe, edit_app_signup_path(@app_signup), rel: 'popover', data: {placement: "left", content:"Looks like you canceled your application, but never fear. We've saved your answers and you can re-apply!"}, :class => "btn btn-block btn-primary"
-
-            - if @apprenticeship.completed?
+            - elsif @apprenticeship.completed?
               = link_to "Apprenticeship passed", apprenticeship_path, rel: 'popover', data: {placement: "left", content:"Sorry, this apprenticeship has passed, but you can follow this maker to be the first to know next time she's teaching."}, :class => "btn btn-block btn-inverse disabled"
-            / this is not working for those who aren't signed in (or anyone)
-            - if @apprenticeship.filled? && current_user && !current_user.signedup?(@apprenticeship)
+
+            - elsif @apprenticeship.filled?
               = link_to "Apprenticeship closed", apprenticeship_path, rel: 'popover', data: {placement: "left", content:"Sorry, this apprenticeship has already been filled, but you can follow this maker to be the first to know next time she's teaching."}, :class => "btn btn-block disabled"
 
-            - if @apprenticeship.accepted? && @apprenticeship.datetime_tba == false
+            - elsif @apprenticeship.accepted? && @apprenticeship.datetime_tba == false
               - unless current_user && current_user == @apprenticeship.user || current_user && current_user.signedup?(@apprenticeship)
                 - if current_user && current_user.age > @apprenticeship.age_max
                   = link_to "Work with #{@apprenticeship.user.first_name}", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
