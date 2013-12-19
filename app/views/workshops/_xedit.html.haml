@@ -354,15 +354,18 @@
                 .modal-body
                   %p It looks like you've signed up already! Do you want to start a new registration?
                   %br
-                  .span10.pull-right
-                    = link_to "Sign myself up", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-primary pull-right"
+                  .span10.pull-right.right
+                    = link_to "Sign myself up", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-primary"
                     \&nbsp;
-                    = link_to "Sign up my Daughter", new_parent_work_signup_path(workshop_id: @workshop), :class => "btn btn-primary pull-right"
-                  %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
+                    = link_to "Sign up my Daughter", new_parent_work_signup_path(workshop_id: @workshop), :class => "btn btn-primary"
+                  %button.close.pull-right{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
                   %br
 
             - elsif current_user && current_user.signedup?(@workshop) && @work_signup.canceled?
               = link_to "Sign up", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-block btn-primary"
+
+            - elsif current_user && current_user.signedup?(@workshop) && @work_signup.completed?
+              = link_to "Workshop passed", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-block btn-inverse disabled"
 
             - elsif @workshop.datetime_tba == true
               %br
