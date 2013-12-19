@@ -345,22 +345,40 @@
         //Apply Sidebar //////////////////
         %span#applysidebar.span3
           - if show
-            - if @workshop.filled?
-              = link_to "Workshop filled", '#workwithModal', rel: 'popover', data: {placement: "left", content:"Sorry, this workshop is already full, but you can follow this maker to be the first to know next time she's teaching."}, :class => "btn btn-block disabled"
+            - if current_user && current_user.signedup?(@workshop) && @work_signup.confirmed?
+              = link_to "Signed up #{content_tag(:i, "", class: "icon-ok-circle")}".html_safe, '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-success"
+              #workwithModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "workwithModal", :role => "dialog", :tabindex => "-1"}
+                .modal-header
+                  %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                  %h3#galleryModalLabel Nice!
+                .modal-body
+                  %p It looks like you've signed up already! Do you want to start a new registration?
+                  %br
+                  .span10.pull-right
+                    = link_to "Sign myself up", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-primary pull-right"
+                    \&nbsp;
+                    = link_to "Sign up my Daughter", new_parent_work_signup_path(workshop_id: @workshop), :class => "btn btn-primary pull-right"
+                  %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
+                  %br
 
-            - if @workshop.accepted? && @workshop.datetime_tba == false && @workshop.ends_at <= Date.today
-              = link_to "Signups closed", '#workwithModal', rel: 'popover', data: {placement: "left", content:"Sorry, this workshop is closed for sign-ups, but you can follow this maker to be the first to know next time she's teaching."}, :class => "btn btn-block btn-inverse disabled"
+            - elsif current_user && current_user.signedup?(@workshop) && @work_signup.canceled?
+              = link_to "Sign up", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-block btn-primary"
 
-            - if @workshop.completed?
-              = link_to "Workshop has passed", '#workwithModal', rel: 'popover', data: {placement: "left", content:"Sorry, this workshop has passed, but you can follow this maker to be the first to know next time she's teaching."}, :class => "btn btn-block btn-inverse disabled"
-
-            - if @workshop.datetime_tba == true
-              = render :partial => "shared/prereg", :locals => {:event => @workshop}
+            - elsif @workshop.datetime_tba == true
               %br
 
-            - if @workshop.accepted? && @workshop.datetime_tba == false && @workshop.ends_at > Date.today
+            - elsif @workshop.accepted? && @workshop.datetime_tba == false && @workshop.ends_at <= Date.today
+              = link_to "Signups closed", '#workwithModal', rel: 'popover', data: {placement: "left", content:"Sorry, this workshop is closed for sign-ups, but you can follow this maker to be the first to know next time she's teaching."}, :class => "btn btn-block btn-inverse disabled"
+
+            - elsif @workshop.filled?
+              = link_to "Workshop filled", '#workwithModal', rel: 'popover', data: {placement: "left", content:"Sorry, this workshop is already full, but you can follow this maker to be the first to know next time she's teaching."}, :class => "btn btn-block disabled"
+
+            - elsif @workshop.completed?
+              = link_to "Workshop has passed", '#workwithModal', rel: 'popover', data: {placement: "left", content:"Sorry, this workshop has passed, but you can follow this maker to be the first to know next time she's teaching."}, :class => "btn btn-block btn-inverse disabled"
+
+            - elsif @workshop.accepted? && @workshop.datetime_tba == false && @workshop.ends_at > Date.today
               - if current_user && current_user.age > @workshop.age_max
-                = link_to "Work with #{@workshop.user.first_name}", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
+                = link_to "Sign up", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
                 #workwithModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "workwithModal", :role => "dialog", :tabindex => "-1"}
                   .modal-header
                     %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
@@ -373,7 +391,7 @@
                     %br
 
               - elsif current_user && current_user.age < @workshop.age_min
-                = link_to "Work with #{@workshop.user.first_name}", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
+                = link_to "Sign up", '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-primary"
                 #workwithModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "workwithModal", :role => "dialog", :tabindex => "-1"}
                   .modal-header
                     %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
@@ -386,23 +404,8 @@
                     %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
                     %br
 
-              - elsif current_user && current_user.signedup?(@workshop)
-                = link_to "Signed up #{content_tag(:i, "", class: "icon-ok-circle")}".html_safe, '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-success"
-                #workwithModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "workwithModal", :role => "dialog", :tabindex => "-1"}
-                  .modal-header
-                    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
-                    %h3#galleryModalLabel Nice!
-                  .modal-body
-                    %p It looks like you've signed up already! Do you want to start a new registration?
-                    %br
-                    .span10.pull-right
-                      = link_to "Sign myself up", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-primary pull-right"
-                      = link_to "Sign up my Daughter", new_parent_work_signup_path(workshop_id: @workshop), :class => "btn btn-primary pull-right"
-                    %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
-                    %br
-
               - else
-                = link_to "Work with #{@workshop.user.first_name}", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-block btn-primary"
+                = link_to "Sign up", new_work_signup_path(workshop_id: @workshop), :class => "btn btn-block btn-primary"
 
             %br
             = render :partial => "shared/prereg", :locals => {:event => @workshop}
