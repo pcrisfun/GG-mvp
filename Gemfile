@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+ruby '1.9.3'
 gem 'rails', '3.2.11'
 gem 'bootstrap-sass', '2.3.2.0'
 gem 'bcrypt-ruby', '3.0.1'
@@ -97,3 +98,4 @@ gem 'momentjs-rails'
 gem 'google-webfonts-rails'
 gem 'mandrill-api'
 gem 'customerio', :git => 'https://github.com/customerio/customerio-ruby'
+gem 'httparty', '0.12.0'
