@@ -216,6 +216,9 @@ class WorkshopsController < ApplicationController
 
   def show
     @workshop = Workshop.find(params[:id])
+    if current_user && !@workshop.signups.empty?
+      @work_signup = @workshop.signups.where(user_id: current_user.id).first
+    end
   end
 
   def private
