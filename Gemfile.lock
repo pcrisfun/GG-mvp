@@ -355,6 +355,7 @@ DEPENDENCIES
   haml
   haml-rails
   hominid
+  httparty (= 0.12.0)
   jquery-cookie-rails
   jquery-fileupload-rails
   jquery-rails (~> 2.0.0)
