@@ -102,5 +102,5 @@ GirlsGuild::Application.routes.draw do
     match '*not_found', to: 'errors#error_404'
   end
 
-  devise_for :users, controllers: {registrations: "registrations"}
+  #devise_for :users, controllers: {registrations: "registrations"}
 end
