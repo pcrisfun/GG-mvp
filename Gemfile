@@ -17,8 +17,8 @@ gem 'stripe'
 gem 'dotenv-rails'
 gem 'unicorn'
 gem 'newrelic_rpm'
-gem 'airbrake'
-gem "lograge"
+gem 'rollbar'
+gem 'lograge'
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'
