@@ -1,6 +1,9 @@
 class PreregsController < ApplicationController
   before_filter :authenticate_user!
 
+  def index
+  end
+
   def show
     @prereg = Prereg.find(params[:id])
   end
