@@ -3,7 +3,7 @@
   #msg.alert.hide
   %section.section
     .container
-      - if show
+        - if show
         - if current_user && current_user==@apprenticeship.user
           = link_to "Edit", edit_apprenticeship_path(@apprenticeship), name: "edit_button", class: "btn btn-primary pull-right"
         - if current_user && @app_signup && current_user==@app_signup.user
