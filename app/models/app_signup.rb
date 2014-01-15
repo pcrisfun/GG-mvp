@@ -531,7 +531,7 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your apprenticeship with #{user.first_name} is ready to start! - #{self.event.title}",
       :html_body => %(<h1>Yesss, #{user.first_name} has confirmed the apprenticeship!</h1> <p>You're all set to work with #{user.first_name} for #{self.event.title}! To get things rolling, you can contact #{user.first_name} at #{user.email} or #{user.phone} to set up your first meeting together.</p>
-      <p>If you'd prefer to have us facilitate the first meeting with you and #{user.first_name} at the GirlsGuild HQ, just reply to this email to let us know. Make sure to also print a copy of the <a href="#{url_for('waivers/ReleaseWaiver-adults.pdf')}">Participation Waiver</a> and the <a href="#{url_for('waivers/IndemnificationAgreement-minors.pdf')}">Indemnification Agreement</a> for Minors to have your apprentice(s) and their parents sign before you begin work! </p>
+      <p>If you'd prefer to have us facilitate the first meeting with you and #{user.first_name} at the GirlsGuild HQ, just reply to this email to let us know. Make sure to also print a copy of the <a href="#{url_for('waivers/ReleaseWaiver-adults.pdf')}">Participation Waiver</a>, and if she's under 19, the <a href="#{url_for('waivers/IndemnificationAgreement-minors.pdf')}">Indemnification Agreement</a> for Minors to have your apprentice(s) and their parents sign before you begin work! </p>
       <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
