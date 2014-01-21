@@ -33,8 +33,9 @@ include EventHelper
   end
 
   validation_group :private do
+    validates_presence_of :permission, :message => "We need your permission to run a background check."
+    validates_presence_of :legal_name, :message => "We'll need your legal full name in order to run a background check."
     validates_presence_of :payment_options
-    validates_presence_of :permission, :message => "Background Check can't be blank"
     validate :send_payment_to
   end
 

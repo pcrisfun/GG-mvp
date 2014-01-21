@@ -26,6 +26,8 @@
                 %a{"data-content" => "We run background checks on all maker-mentors to keep our community safe.", "data-placement" => "right", :href => "javascript:;", :rel => "popover"}
                   Why
                   %i.icon-question-sign.small-icon
+              = f.input :legal_name, label: 'Your Legal Full Name' do
+                = f.text_field :legal_name, rel: 'popover', placeholder: 'First Middle Last', data: {content: "We need your full, legal name to run the background check"}
               %br
               %br
               .row-fluid
