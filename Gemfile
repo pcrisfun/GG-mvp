@@ -45,7 +45,6 @@ group :assets do
   # gem 'turbo-sprockets-rails3'
 end
 
-# Test gems on Macintosh OS X
 group :test do
   gem 'capybara', '1.1.2'
   gem 'factory_girl_rails', '4.1.0'
@@ -53,11 +52,18 @@ group :test do
   gem 'database_cleaner', '0.7.0'
   # gem 'launchy', '2.1.0'
   # gem 'rb-fsevent', '0.9.1', :require => false
-  gem 'growl', '1.0.3'
+  # gem 'growl', '1.0.3'
 end
 
 group :production do
   gem 'pg', '0.12.2'
+end
+
+# Test gems on Macintosh OS X
+group :test do
+  gem 'capybara', '1.1.2'
+  #gem 'rb-fsevent', '0.4.3.1', :require => false
+  gem 'growl', '1.0.3'
 end
 
 # gems added after Hartl
