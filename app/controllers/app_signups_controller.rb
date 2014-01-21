@@ -1,7 +1,7 @@
 class AppSignupsController < ApplicationController
   before_filter :authenticate_user!, except: [:index]
   before_filter :load_app_signup
-  before_filter :owner_user, only: [:edit, :update]
+  before_filter :owner_user, only: [:edit, :update, :show]
 
   def load_app_signup
     if params[:app_signup] && params[:app_signup][:id]
