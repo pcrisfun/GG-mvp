@@ -331,7 +331,6 @@ DEPENDENCIES
   bootstrap-timepicker-rails!
   bootstrap-will_paginate (= 0.0.6)
   bootstrap-x-editable-rails
-  bundler
   capybara (= 1.1.2)
   chronic
   client_side_validations
