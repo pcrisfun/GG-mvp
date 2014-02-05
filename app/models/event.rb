@@ -59,7 +59,7 @@ class Event < ActiveRecord::Base
     logger.info "Processing payment"
     unless charge_id.present?
       charge = Stripe::Charge.create(
-        :amount => 900, # amount in cents, again
+        :amount => 3000, # amount in cents, again
         :currency => "usd",
         :card => stripe_card_token,
         :description => "Apprenticeship payment from #{self.user.email}"

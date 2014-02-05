@@ -38,7 +38,7 @@ class AppSignup < Signup
     logger.info "Processing payment"
     unless charge_id.present?
       charge = Stripe::Charge.create(
-        :amount => 2900, # amount in cents, again
+        :amount => 3000, # amount in cents, again
         :currency => "usd",
         :card => stripe_card_token,
         :description => "Apprenticeship fee for #{self.event.title} from #{self.user.email}"
@@ -394,7 +394,7 @@ class AppSignup < Signup
       :subject => "#{self.event.user.first_name} would like to work with you!",
       :html_body => %(<h1>Yeehaw #{self.user.first_name}!</h1>
         <p>We're excited to let you know that #{self.event.user.first_name} has reviewed your application for #{self.event.title} and would like to work with you as her apprentice!</p>
-        <p>To accept the apprenticeship, please fill out the <a href=#{url_for(self)}>confirmation form</a> and submit the $29.00 apprenticeship fee. Just so you know, your confirmation is your commitment to take on the apprenticeship, so once you've paid, we don't offer a refund.</p>
+        <p>To accept the apprenticeship, please fill out the <a href=#{url_for(self)}>confirmation form</a> and submit the $30.00 apprenticeship fee. Just so you know, your confirmation is your commitment to take on the apprenticeship, so once you've paid, we don't offer a refund.</p>
         <p>If you have any questions feel free to respond to this email or email #{self.event.user.first_name} directly at - #{self.event.user.email}</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
@@ -410,7 +410,7 @@ class AppSignup < Signup
       :subject => "#{self.event.user.first_name} would like to work with #{self.daughter_firstname}!",
       :html_body => %(<h1>Yeehaw!</h1>
         <p>We're excited to let you know that #{self.event.user.first_name} has reviewed your daughter's application for #{self.event.title} and would like to work with #{self.daughter_firstname} as her apprentice!</p>
-        <p>To accept the apprenticeship, please fill out the <a href=#{url_for(self)}>confirmation form</a> and submit the $29.00 apprenticeship fee. Just so you know, your daughter's confirmation is her commitment to take on the apprenticeship, so once you've paid, we don't offer a refund.</p>
+        <p>To accept the apprenticeship, please fill out the <a href=#{url_for(self)}>confirmation form</a> and submit the $30.00 apprenticeship fee. Just so you know, your daughter's confirmation is her commitment to take on the apprenticeship, so once you've paid, we don't offer a refund.</p>
         <p>If you have any questions feel free to respond to this email. or email #{self.event.user.first_name} directly at - #{self.event.user.email}</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
@@ -473,7 +473,7 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your apprenticeship is ready to start! - #{self.event.title}",
       :html_body => %(<h1>Yesss!</h1>
-        <p>You're all set for #{self.event.title}! We received your confirmation and your payment of $29.</p>
+        <p>You're all set for #{self.event.title}! We received your confirmation and your payment of $30.</p>
         <p>You can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan your first meeting together.</p>
         <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
@@ -491,7 +491,7 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your apprenticeship is ready to start! - #{self.event.title}",
       :html_body => %(<h1>Yesss!</h1>
-        <p>You're all set for #{self.event.title}! We received your confirmation and your payment of $29.</p>
+        <p>You're all set for #{self.event.title}! We received your confirmation and your payment of $30.</p>
         <p>You can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan your first meeting together.</p>
         <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
@@ -510,7 +510,7 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your apprenticeship is ready to start! - #{self.event.title}",
       :html_body => %(<h1>Yesss!</h1>
-        <p>#{self.daughter_firstname} is all set for #{self.event.title}! We received your confirmation and your payment of $29.</p>
+        <p>#{self.daughter_firstname} is all set for #{self.event.title}! We received your confirmation and your payment of $30.</p>
         <p>You can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan their first meeting together.</p>
         <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
