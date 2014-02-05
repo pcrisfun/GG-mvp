@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131204230556) do
+ActiveRecord::Schema.define(:version => 20140121233432) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(:version => 20131204230556) do
     t.text     "availability"
     t.text     "reject_reason"
     t.text     "revoke_reason"
+    t.string   "legal_name"
   end
 
   add_index "events", ["charge_id"], :name => "index_events_on_charge_id"
