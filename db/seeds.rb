@@ -472,6 +472,7 @@ melissa.save!(validate: false)
 
 first_workshop = lee.workshops.create!(              "host_firstname"=>"Lee",
                                                         "host_lastname"=>"Webster",
+                                                        "legal_name"=>"Lee Webster",
                                                         "host_business"=>"",
                                                         "topic"=>"16mm Direct Animation",
                                                         "description"=>"Join Austin filmmaker, Lee Webster to make a collaborative film. We will draw, paint, etch and collage directly on 16mm film to create beautiful and rhythmic animations. Cameraless, or direct, animation is the practice of applying materials directly to clear 16mm leader or developed film. The result is gorgeous, abstract animations that are filled with surprising life and movement. We will use found objects from nature: leaves, feathers, and insect wings, as well as transparencies, lighting gels, film negatives, inks, stamps, and more to manipulate our film. In the weeks after the workshop, Lee will scan in the film and send each class member a digital copy of the beautiful, finished work. ",
@@ -508,6 +509,7 @@ first_workshop = lee.workshops.create!(              "host_firstname"=>"Lee",
 
 first_workshop = stacey.workshops.create!(              "host_firstname"=>"Stacey",
                                                         "host_lastname"=>"Blackman",
+                                                        "legal_name"=>"Stacey Blackman",
                                                         "host_business"=>"Schoolhouse Austin",
                                                         "topic"=>"DIY Printmaking",
                                                         "description"=>"Do you love art and want to learn a new form of generating multiples of your favorite images? This 2 1/2 hour workshop is project based and designed to introduce students to new forms of printmaking that can be reproduced at home. Students will learn the basics of printmaking from creating an original plate to producing a clean print.",
@@ -547,6 +549,7 @@ first_workshop = stacey.workshops.create!(              "host_firstname"=>"Stace
 
 first_apprenticeship = melissa.apprenticeships.create!( "host_firstname"=>"Melissa",
                                                         "host_lastname"=>"Chapman",
+                                                        "legal_name"=>"Melissa Chapman",
                                                         "host_business"=>"Stone + Smith",
                                                         "topic"=>"Jewelry Design",
                                                         "kind"=>"Production",
@@ -579,6 +582,7 @@ first_apprenticeship = melissa.apprenticeships.create!( "host_firstname"=>"Melis
 
 first_apprenticeship = teruko.apprenticeships.create!( "host_firstname"=>"Teruko Nimura &",
                                                         "host_lastname"=>"Tahila Mintz",
+                                                        "legal_name"=>"Teruko Nimura",
                                                         "host_business"=>"",
                                                         "topic"=>"Installing & Running an Art Show",
                                                         "kind"=>"Event",
@@ -611,6 +615,7 @@ first_apprenticeship = teruko.apprenticeships.create!( "host_firstname"=>"Teruko
 
 first_apprenticeship = madelyn.apprenticeships.create!( "host_firstname"=>"Madelyn",
                                                         "host_lastname"=>"Thompson",
+                                                        "legal_name"=>"Madelyn Thompson",
                                                         "host_business"=>"Like Honey Bakery",
                                                         "topic"=>"Dessert Making",
                                                         "kind"=>"1-day",
@@ -643,6 +648,7 @@ first_apprenticeship = madelyn.apprenticeships.create!( "host_firstname"=>"Madel
 
 first_apprenticeship = teruko.apprenticeships.create!( "host_firstname"=>"Teruko",
                                                         "host_lastname"=>"Nimura",
+                                                        "legal_name"=>"Teruko Nimura",
                                                         "host_business"=>"",
                                                         "topic"=>"Organizing an Art Auction",
                                                         "kind"=>"Event",
@@ -675,6 +681,7 @@ first_apprenticeship = teruko.apprenticeships.create!( "host_firstname"=>"Teruko
 
 first_apprenticeship = cheyenne.apprenticeships.create!( "host_firstname"=>"Cheyenne &",
                                                         "host_lastname"=>"Diana",
+                                                        "legal_name"=>"Jessica C. Weaver",
                                                         "host_business"=>"GirlsGuild",
                                                         "topic"=>"East Austin Studio Tour group show",
                                                         "kind"=>"Event",
@@ -707,6 +714,7 @@ first_apprenticeship = cheyenne.apprenticeships.create!( "host_firstname"=>"Chey
 
 first_apprenticeship = adrienne.apprenticeships.create!( "host_firstname"=>"Adrienne",
                                                         "host_lastname"=>"Butler",
+                                                        "legal_name"=>"Adrienne Butler",
                                                         "host_business"=>"",
                                                         "topic"=>"Printmaking",
                                                         "kind"=>"1 Day",
@@ -719,7 +727,7 @@ first_apprenticeship = adrienne.apprenticeships.create!( "host_firstname"=>"Adri
                                                         "age_max"=>"99",
                                                         "registration_max"=>"2",
                                                         "begins_at"=>"10/01/2014",
-                                                        "ends_at"=>"10/01/2014",
+                                                        "ends_at"=>"10/15/2014",
                                                         "datetime_tba"=>"0",
                                                         "hours"=>"4",
                                                         "hours_per"=>"week",
@@ -739,6 +747,7 @@ first_apprenticeship = adrienne.apprenticeships.create!( "host_firstname"=>"Adri
 
 first_apprenticeship = jessica.apprenticeships.create!( "host_firstname"=>"Jessica",
                                                         "host_lastname"=>"Tata",
+                                                        "legal_name"=>"Jessica Tata",
                                                         "host_business"=>"Son of a Sailor",
                                                         "topic"=>"Jewelry Production",
                                                         "kind"=>"Production",
@@ -750,8 +759,8 @@ first_apprenticeship = jessica.apprenticeships.create!( "host_firstname"=>"Jessi
                                                         "age_min"=>"18",
                                                         "age_max"=>"99",
                                                         "registration_max"=>"2",
-                                                        "begins_at"=>"10/15/2014",
-                                                        "ends_at"=>"10/01/2014",
+                                                        "begins_at"=>"10/01/2014",
+                                                        "ends_at"=>"10/15/2014",
                                                         "datetime_tba"=>"0",
                                                         "hours"=>"4",
                                                         "hours_per"=>"week",
@@ -771,6 +780,7 @@ first_apprenticeship = jessica.apprenticeships.create!( "host_firstname"=>"Jessi
 
 first_apprenticeship = anna.apprenticeships.create!(    "host_firstname"=>"Anna",
                                                         "host_lastname"=>"Gieselman",
+                                                        "legal_name"=>"Anna Gieselman",
                                                         "host_business"=>"Bee Amour",
                                                         "topic"=>"Jewelry",
                                                         "kind"=>"Production",
@@ -783,7 +793,7 @@ first_apprenticeship = anna.apprenticeships.create!(    "host_firstname"=>"Anna"
                                                         "age_max"=>"18",
                                                         "registration_max"=>"2",
                                                         "begins_at"=>"10/01/2014",
-                                                        "ends_at"=>"10/01/2014",
+                                                        "ends_at"=>"10/15/2014",
                                                         "datetime_tba"=>"0",
                                                         "hours"=>"4",
                                                         "hours_per"=>"week",
@@ -803,6 +813,7 @@ first_apprenticeship = anna.apprenticeships.create!(    "host_firstname"=>"Anna"
 
 first_apprenticeship = callen.apprenticeships.create!( "host_firstname"=>"Callen",
                                                         "host_lastname"=>"Thompson",
+                                                        "legal_name"=>"Callen Thompson",
                                                         "host_business"=>"Texas Land Conservancy",
                                                         "topic"=>"Gala Organizing & Hosting",
                                                         "kind"=>"Event",
