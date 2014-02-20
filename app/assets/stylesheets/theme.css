@@ -367,7 +367,7 @@ figure {
   line-height: 1;
 }
 .page-header a {
-  color: #999999;
+  color: $niceblue;
 }
 .page-header a:hover {
   color: #555555;
