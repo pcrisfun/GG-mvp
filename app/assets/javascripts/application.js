@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
 //= require jquery.cookie
 //= require bootstrap
 //= require bootstrap-tooltip
@@ -27,7 +26,7 @@
 //= require masonry/jquery.masonry.min
 //= require masonry/jquery.imagesloaded.min
 //= require masonry/modernizr-transitions
-//= require bootstrap-editable
+//= require bootstrap-editable/bootstrap-editable
 //= require select2
 //= require moment
 //= require jquery.hashchange.min
