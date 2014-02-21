@@ -1,4 +1,4 @@
 = simple_form_for @gallery.photos.new, action: 'new', html: {class: 'form-horizontal'} do |f|
   = f.file_field :file, multiple: true, name: "photo[file]"
   = f.input :caption, label: 'Title'
-  = content_tag :button, content_tag(:i, '', :class => 'fa-upload') + ' Upload', class: 'btn btn-primary pull-right', type: "submit"
+  = content_tag :button, content_tag(:i, '', :class => 'fa.fa-upload') + ' Upload', class: 'btn btn-primary pull-right', type: "submit"

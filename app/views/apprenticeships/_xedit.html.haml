@@ -23,7 +23,7 @@
         %br
         • Hover on the
         %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"The question marks have tips to answer your questions!"} }
-          %i.fa-question-circle.small-iconnext
+          %i.fa.fa-question-circle.small-iconnext
         next to each field for tips & more info
         %br
         %p• We'll save automatically as you go, and we've emailed you a link to come back to it at any time
@@ -37,7 +37,7 @@
           - unless show
             .pull-right
               #preview-buttons-top
-                = link_to "Preview #{content_tag(:i, "", class: "fa-external-link")}".html_safe, '#', class: 'btn preview-btn', data: { url: apprenticeship_path(@apprenticeship) }
+                = link_to "Preview #{content_tag(:i, "", class: "fa fa-external-link")}".html_safe, '#', class: 'btn preview-btn', data: { url: apprenticeship_path(@apprenticeship) }
 
           //Banner //////////////////
           #banner
@@ -59,20 +59,20 @@
 
             %br
             - if !show
-              %i.fa-asterisk
+              %i.fa.fa-asterisk
             %h1#title.field.text
               = editable_link_to 'Topic of Your Apprenticeship', field: :topic, resource: @apprenticeship, type: :text
             - if !show
               %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Give a snappy title for the apprenticeship. You could include the type of apprenticeship in the name. Example: 'Jewelry Production for Fab.com', or you could focus on what you'll be doing; 'Soldering and Casting' "} }
-                %i.fa-question-circle.small-icon
+                %i.fa.fa-question-circle.small-icon
             %br
             with
             - if !show
-              %i.fa-asterisk
+              %i.fa.fa-asterisk
             #first-name.field.text
               = editable_link_to 'Your First Name', field: :host_firstname, resource: @apprenticeship, type: :text
             - if !show
-              %i.fa-asterisk
+              %i.fa.fa-asterisk
             #last-name.field.text
               = editable_link_to 'Your Last Name', field: :host_lastname, resource: @apprenticeship, type: :text
             - if !show || @apprenticeship.host_business.present?
@@ -81,25 +81,25 @@
                 = editable_link_to 'Your Business (Optional)', field: :host_business, resource: @apprenticeship, type: :text
             %br
             - if !show
-              %i.fa-asterisk
+              %i.fa.fa-asterisk
             #kind.field.label.label-inverse
               = editable_link_to 'Kind of', field: :kind, resource: @apprenticeship, type: :select, data: {source: "{'Event':'Event', 'Production':'Production','Ongoing':'Ongoing','1-Day':'1-Day' }"}
               Apprenticeship
             - if !show
               %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Is this an Event Apprenticeship with a specific timeline? Is it a Production Apprenticeship, where you need help making a run or building something in particular? Or is it an Ongoing Apprenticeship, through which you share your knowledge and creative practice for help with day-to-day business and the timeline is less set (though we suggest an initial 3 month timeline)?"} }
-                %i.fa-question-circle.small-icon
+                %i.fa.fa-question-circle.small-icon
             %br
             - if !show
-              %i.fa-asterisk
+              %i.fa.fa-asterisk
             #description.field.textarea
               = editable_link_to "Tell us about your apprenticeship. Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. What will she be working on? What will she learn from it?", field: :description, resource: @apprenticeship, type: :textarea
             - if !show
               %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Describe what you'll be doing with your apprentice: what you'll be teaching as well as your expectations of her. Based on your expectations, consider whether you plan to pay the apprentice, and if so, how much?"} }
-                %i.fa-question-circle.small-icon
+                %i.fa.fa-question-circle.small-icon
             %br
             - if !show
               %br
-              %i.fa-asterisk
+              %i.fa.fa-asterisk
               %p.images-desc Upload 5 images of your studio & your work as it pertains to the apprenticeship.
               %br
               %p.images-desc Max size: 1300px, Min size: 600px.
@@ -132,7 +132,7 @@
           %dl.dl-horizontal
             %dt
               - if !show
-                %i.fa-asterisk
+                %i.fa.fa-asterisk
               When
             %dd
               / - if !show || @apprenticeship.datetime_tba
@@ -151,11 +151,11 @@
                 = editable_link_to "Ending date", field: :ends_at, resource: @apprenticeship, type: :date, link_text: get_formated_date(@apprenticeship.ends_at), data: { viewformat: 'MM d, yyyy', template: 'MM d, yyyy', firstItem: 'none'}
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"When do you want the apprenticeship to start? This will be an approximate start date, based on how you work out a schedule with your apprentice. How long is the apprenticeship? We suggest an initial 1-3 month period to see how it goes. You can always offer to extend it!"} }
-                  %i.fa-question-circle.small-icon
+                  %i.fa.fa-question-circle.small-icon
               %br
             %dt
               - if !show
-                %i.fa-asterisk
+                %i.fa.fa-asterisk
               Frequency
             %dd
               #frequency.field.text
@@ -163,22 +163,22 @@
               hours per week
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"How often will you meet?"} }
-                  %i.fa-question-circle.small-icon
+                  %i.fa.fa-question-circle.small-icon
             %dt
               - if !show
-                %i.fa-asterisk
+                %i.fa.fa-asterisk
               Availability
             %dd
               #availability.field.text
                 = editable_link_to "What's your availability?", field: :availability, resource: @apprenticeship, type: :text
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content: "Are you flexible? If so we'll assume that you're willing to work with the apprentice's schedule. If you are not flexible then let us know what days and times you are available."} }
-                  %i.fa-question-circle.small-icon
+                  %i.fa.fa-question-circle.small-icon
 
 
             %dt
               - if !show
-                %i.fa-asterisk
+                %i.fa.fa-asterisk
               Where
             %dd
               - if !show || @apprenticeship.location_private
@@ -199,7 +199,7 @@
 
                 - if !show
                   %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"If it's a 'Residential' address we'll only display a map of the neighborhood, while a 'Public' address will be displayed with a map of the exact location."} }
-                    %i.fa-question-circle.small-icon
+                    %i.fa.fa-question-circle.small-icon
                   %br
 
               - if !show || !@apprenticeship.location_private || current_user && (current_user.signedup?(@apprenticeship) or current_user==@apprenticeship.user)
@@ -218,7 +218,7 @@
 
             %dt
               - if !show
-                %i.fa-asterisk
+                %i.fa.fa-asterisk
               Who
             %dd
               #gender.field.checkbox
@@ -235,11 +235,11 @@
                 = editable_link_to "100", field: :age_max, resource: @apprenticeship, type: :number
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"This is entirely up to you. We suggest a minimum age of 11 because our research has shown a need for fabulous mentors before middle school. If you need someone with a specific skill set or experience you may want to set the age higher and be clear about your needs in the apprenticeship description above."} }
-                  %i.fa-question-circle.small-icon
+                  %i.fa.fa-question-circle.small-icon
 
             %dt
               - if !show
-                %i.fa-asterisk
+                %i.fa.fa-asterisk
               How Many
             %dd
               Up to
@@ -248,27 +248,27 @@
               Apprentice(s)
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"We suggest over-estimating this number. You may find more fabulous applicants than you were looking for, but you can only accept the max number you set here."} }
-                  %i.fa-question-circle.small-icon
+                  %i.fa.fa-question-circle.small-icon
             %dt
               - if !show
-                %i.fa-asterisk
+                %i.fa.fa-asterisk
               Skills Taught
             %dd
               #skills.field.tags
                 = editable_link_to 'Skills and techniques will you be teaching', field: :skill_list, resource: @apprenticeship, type: :select2
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Be as specific as possible so that we can give your apprentice credit for learning new skills allow her to show them off in her portfolio!"} }
-                  %i.fa-question-circle.small-icon
+                  %i.fa.fa-question-circle.small-icon
             %dt
               - if !show
-                %i.fa-asterisk
+                %i.fa.fa-asterisk
               Tools Taught
             %dd
               #tools.field.tags
                 = editable_link_to 'Tools and materials will you be teaching or using', field: :tool_list, resource: @apprenticeship, type: :select2
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Be as specific as possible so that we can give your apprentice credit for learning new tools and allow her to show them off in her portfolio!"} }
-                  %i.fa-question-circle.small-icon
+                  %i.fa.fa-question-circle.small-icon
             - if !show || !@apprenticeship.requirement_list.empty?
               %dt
                 Requirements
@@ -277,7 +277,7 @@
                   = editable_link_to '(Optional) Any required skills or tools your apprentice should have experience with?', field: :requirement_list, resource: @apprenticeship, type: :select2
                 - if !show
                   %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Is this apprenticeship more collaborative, or more directed? Be honest about the help that you need right from the begining. Example: chopsaw, welding, javascript"} }
-                    %i.fa-question-circle.small-icon
+                    %i.fa.fa-question-circle.small-icon
             /- if !show || @apprenticeship.other_needs
             /  %dt
             /    Preparations
@@ -286,7 +286,7 @@
             /      = editable_link_to 'Ex: "Must have their own laptop"', field: :other_needs, resource: @apprenticeship, type: :text
             /    - if !show
             /      %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Let the apprentice know what she should prepare to bring, wear, or read before you get started working together. Example: a car, a cellphone, a computer, a sense of humor."} }
-            /        %i.fa-question-circle.small-icon
+            /        %i.fa.fa-question-circle.small-icon
 
 
 
@@ -298,7 +298,7 @@
                 = mail_to @apprenticeship.user.email
                 - if !show
                   %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content: "Don't worry, this will only be visible to apprentices AFTER they've applied'! To use a different email address, you can edit your Settings (under your name in the top right corner)."} }
-                    %i.fa-question-circle.small-icon
+                    %i.fa.fa-question-circle.small-icon
                     = link_to "(Edit email)", edit_user_registration_path
 
             - if @apprenticeship.user.bio.present?
@@ -351,11 +351,11 @@
             - if current_user && current_user.signedup?(@apprenticeship) && @app_signup.started?
               = link_to "Finish applying", edit_app_signup_path(@app_signup), :class => "btn btn-block btn-warning"
             - elsif current_user && current_user.signedup?(@apprenticeship) && @app_signup.pending?
-              = link_to "Application sent #{content_tag(:i, "", class: "fa-check-circle")}".html_safe, app_signup_path(@app_signup), rel: 'popover', data: {placement: "left", content:"Thanks for applying, we'll let you know just as soon as a decision has been made!"}, :class => "btn btn-block btn-success disabled"
+              = link_to "Application sent #{content_tag(:i, "", class: "fa fa-check-circle")}".html_safe, app_signup_path(@app_signup), rel: 'popover', data: {placement: "left", content:"Thanks for applying, we'll let you know just as soon as a decision has been made!"}, :class => "btn btn-block btn-success disabled"
             - elsif current_user && current_user.signedup?(@apprenticeship) && @app_signup.accepted?
               = link_to "Confirm apprenticeship", app_signup_path(@app_signup), rel: 'popover', data: {placement: "left", content:"Yay! You've been accepted for this apprenticeship. To get started please confirm by paying."}, :class => "btn btn-block btn-warning"
             - elsif current_user && current_user.signedup?(@apprenticeship) && @app_signup.confirmed?
-              = link_to "Working with #{@apprenticeship.user.first_name} #{content_tag(:i, "", class: "fa-check-circle")}".html_safe, app_signup_path(@app_signup), rel: 'popover', data: {placement: "left", content:"Yippee, you're all set to start your apprenticeship!"}, :class => "btn btn-block btn-success disabled"
+              = link_to "Working with #{@apprenticeship.user.first_name} #{content_tag(:i, "", class: "fa fa-check-circle")}".html_safe, app_signup_path(@app_signup), rel: 'popover', data: {placement: "left", content:"Yippee, you're all set to start your apprenticeship!"}, :class => "btn btn-block btn-success disabled"
             - elsif current_user && current_user.signedup?(@apprenticeship) && @app_signup.canceled?
               = link_to "Re-apply with #{@apprenticeship.user.first_name}".html_safe, edit_app_signup_path(@app_signup), rel: 'popover', data: {placement: "left", content:"Looks like you canceled your application, but never fear. We've saved your answers and you can re-apply!"}, :class => "btn btn-block btn-primary"
 
@@ -416,7 +416,7 @@
       - if !show
         .row-fluid
           #preview-buttons-bottom
-            = link_to "Preview #{content_tag(:i, "", class: "fa-external-link")}".html_safe, '#', class: 'btn preview-btn', data: { url: apprenticeship_path(@apprenticeship) }
+            = link_to "Preview #{content_tag(:i, "", class: "fa fa-external-link")}".html_safe, '#', class: 'btn preview-btn', data: { url: apprenticeship_path(@apprenticeship) }
             #proceed.preview-hide
               = link_to 'Next', private_apprenticeship_path(@apprenticeship), method: :get, class: 'btn btn-primary'
 

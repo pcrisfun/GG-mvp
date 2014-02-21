@@ -1,15 +1,15 @@
 %ul#album_nav.nav.nav-tabs.pull-right
   %li.dropdown
     %a.large.dropdown-toggle{ href: '', data: {toggle: "dropdown" }}
-      %i.fa-sort-down
+      %i.fa.fa-sort-down
       Albums
     %dl.dl-horizontal.dropdown-menu
-      %dt= link_to content_tag(:i, '  ',class: "fa-plus"), '#newAlbumModal', data: { toggle: "modal" }
+      %dt= link_to content_tag(:i, '  ',class: "fa fa-plus"), '#newAlbumModal', data: { toggle: "modal" }
       %dd= link_to 'Add Album', '#newAlbumModal', "data-toggle"=>"modal"
       - @albums.each do |album|
         %dt
           - if !album.event_id
-            = link_to content_tag(:i, '  ',class: "fa-times"), album, method: :delete, confirm: "Are you sure you want to delete this Album?\r\rNote: Your images will not be deleted."
+            = link_to content_tag(:i, '  ',class: "fa fa-times"), album, method: :delete, confirm: "Are you sure you want to delete this Album?\r\rNote: Your images will not be deleted."
         %dd= active_link_to album.title, album
 
 / Modal

@@ -13,9 +13,9 @@
     / Position button for Sorting
     %a.handle{ rel: 'tooltip', data: { toggle: 'tooltip', title: "Click and Hold to reposition" } }
     / Remove from Album button
-    %a.btn.btn-mini.fa-times.pull-right.relative{ rel: 'tooltip', data: {toggle: 'tooltip', title: "Remove from this collection", url: "#{remove_photos_albums_url}", behaviour: "removephotos", album: "#{@album.id}", photo: "#{photo.id}"} }
+    %a.btn.btn-mini.fa.fa-times.pull-right.relative{ rel: 'tooltip', data: {toggle: 'tooltip', title: "Remove from this collection", url: "#{remove_photos_albums_url}", behaviour: "removephotos", album: "#{@album.id}", photo: "#{photo.id}"} }
     / Feature Photo button
     - unless @album.featured_photo == photo
-      %a.feature.btn.btn-mini.fa-star-o.pull-right.relative{type: 'submit', rel: 'tooltip', data: {toggle: 'tooltip', title: "Use this as the cover image", url: "#{set_featured_albums_url}", behaviour: "setfeatured", album: "#{@album.id}", photo: "#{photo.id}" }}
+      %a.feature.btn.btn-mini.fa.fa-star-o.pull-right.relative{type: 'submit', rel: 'tooltip', data: {toggle: 'tooltip', title: "Use this as the cover image", url: "#{set_featured_albums_url}", behaviour: "setfeatured", album: "#{@album.id}", photo: "#{photo.id}" }}
   / Grab the photo
   = render 'photos/photo', photo: photo, size: (size ||= :medium), description: (description ||= false), edit: (edit ||= false)

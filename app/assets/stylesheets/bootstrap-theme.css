@@ -2223,7 +2223,7 @@ button.close {
   border-radius: 5px;
 }
 
-.btn-large [class^="icon-"] {
+.btn-large [class^="fa fa-"] {
   margin-top: 2px;
 }
 
@@ -2233,7 +2233,7 @@ button.close {
   line-height: 22px;
 }
 
-.btn-small [class^="icon-"] {
+.btn-small [class^="fa fa-"] {
   margin-top: 0px;
 }
 
@@ -2836,7 +2836,7 @@ input[type="submit"].btn.btn-mini {
   background-color: #41b7d8;
 }
 
-.nav-list [class^="icon-"] {
+.nav-list [class^="fa fa-"] {
   margin-right: 2px;
 }
 

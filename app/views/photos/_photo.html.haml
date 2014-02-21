@@ -16,7 +16,7 @@
     - if @album && !@album.photos.include?(photo)
       %br
       %button.btn.btn-mini.btn-success.pull-left{ data: { behaviour: 'addphotos', url: "#{add_photos_albums_url}", "album" => "#{@album.id}", "photo" => "#{photo.id}" } }
-        %i.fa-plus
+        %i.fa.fa-plus
         Add to Event
     / Photo Delete Button
     = simple_form_for photo, remote: true, html: {:class => "clearform"} do |b|
@@ -26,10 +26,10 @@
       / Disable Delete if Photo is protected
       - unless photo.protected
         %button.btn.btn-mini.btn-danger.pull-right{type: 'submit'}
-          %i.fa-trash-o
+          %i.fa.fa-trash-o
           /&nbsp;Delete
       - else
-        %button.btn.btn-mini.btn-danger.fa-trash.pull-right.disabled{type: 'button'}
-          %i.fa-trash-o
+        %button.btn.btn-mini.btn-danger.fa.fa-trash.pull-right.disabled{type: 'button'}
+          %i.fa.fa-trash-o
           /&nbsp;Delete
 

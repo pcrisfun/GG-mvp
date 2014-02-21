@@ -13,7 +13,7 @@
         %br
         • Hover on the
         %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"The question marks have tips to answer your questions!"} }
-          %i.fa-question-circle.small-iconnext
+          %i.fa.fa-question-circle.small-iconnext
         next to each field for tips & more info
         %br
         %p• We'll save automatically as you go, and we've emailed you a link to come back to it at any time
@@ -27,7 +27,7 @@
           - unless show
             .pull-right
               #preview-buttons-top
-                = link_to "Preview #{content_tag(:i, "", class: "fa-external-link")}".html_safe, '#', class: 'btn preview-btn', data: { url: workshop_path(@workshop) }
+                = link_to "Preview #{content_tag(:i, "", class: "fa fa-external-link")}".html_safe, '#', class: 'btn preview-btn', data: { url: workshop_path(@workshop) }
 
           //Banner //////////////////
           #banner
@@ -49,20 +49,20 @@
 
             %br
             - if !show
-              %i.fa-asterisk
+              %i.fa.fa-asterisk
             %h1#title.field.text
               = editable_link_to 'Topic of Your Workshop', field: :topic, resource: @workshop, type: :text
             - if !show
               %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Give a snappy title for the workshop. You could include the type of workshop in the name. Example: 'Production Workshop for Fab.com', or you could focus on what you'll be doing; 'Soldering and Casting Workshop' "} }
-                %i.fa-question-circle.small-icon
+                %i.fa.fa-question-circle.small-icon
             %br
             with
             - if !show
-              %i.fa-asterisk
+              %i.fa.fa-asterisk
             #first-name.field.text
               = editable_link_to 'Your First Name', field: :host_firstname, resource: @workshop, type: :text
             - if !show
-              %i.fa-asterisk
+              %i.fa.fa-asterisk
             #last-name.field.text
               = editable_link_to 'Your Last Name', field: :host_lastname, resource: @workshop, type: :text
             - if !show || @workshop.host_business.present?
@@ -77,16 +77,16 @@
             %br
 
             - if !show
-              %i.fa-asterisk
+              %i.fa.fa-asterisk
             #description.field.textarea
               = editable_link_to "Tell us about your workshop. Describe what you'll be making or doing, what level of experience you're teaching, as well as any expectations of those attending.", field: :description, resource: @workshop, type: :textarea
             - if !show
               %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Tell us about your workshop. Describe what you'll be doing as well as your expectations of those attending."} }
-                %i.fa-question-circle.small-icon
+                %i.fa.fa-question-circle.small-icon
             %br
             - if !show
               %br
-              %i.fa-asterisk
+              %i.fa.fa-asterisk
               %p.images-desc Upload 5 images of your studio & your work as it pertains to the workshop.
               %br
               %p.images-desc Max size: 1300px, Min size: 600px.
@@ -118,7 +118,7 @@
           %dl.dl-horizontal
             %dt
               - if !show
-                %i.fa-asterisk
+                %i.fa.fa-asterisk
               When
             %dd
               - if !show || @workshop.datetime_tba
@@ -138,7 +138,7 @@
                     = editable_link_to "End Time", field: :ends_at_time, resource: @workshop, type: :combodate, link_text: get_formated_date(@workshop.ends_at_time, format: "%l:%M %P"), data: { viewformat: 'h:mm a', template: 'h:mm a', format: "DD-MM-YYYY h:mm a"}
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Choose 'Schedule' to set the date of the workshop. Choose 'TBA' to let people 'follow it' to show their interest in it before you announce a date."} }
-                  %i.fa-question-sign.small-icon
+                  %i.fa.fa-question-sign.small-icon
 
               #close-registrations{class: ( @workshop.datetime_tba) ?  'hidden' : '' }
                 Signups close on
@@ -146,10 +146,10 @@
                   = editable_link_to "Date", field: :ends_at, resource: @workshop, type: :date, link_text: get_formated_date(@workshop.ends_at), data: { viewformat: 'MM d, yyyy', template: 'MM d, yyyy'}
                 - if !show
                   %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Think about how far in advance you would like to know if someone registers for your workshop. How much time will it take to prep. for that number of students?"} }
-                    %i.fa-question-circle.small-icon
+                    %i.fa.fa-question-circle.small-icon
             %dt
               - if !show
-                %i.fa-asterisk
+                %i.fa.fa-asterisk
               Where
             %dd
               - if !show || @workshop.location_private
@@ -169,7 +169,7 @@
                     neighborhood
                 - if !show
                   %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:'A "Public" address will be displayed on the workshop page with a map of the exact location, while a "Residential" address will only display a map of the neighborhood until the student has been accepted and confirmed.'} }
-                    %i.fa-question-circle.small-icon
+                    %i.fa.fa-question-circle.small-icon
                 %br
 
               - if !show || !@workshop.location_private || current_user && (current_user.signedup?(@workshop) or current_user==@workshop.user)
@@ -187,7 +187,7 @@
 
             %dt
               - if !show
-                %i.fa-asterisk
+                %i.fa.fa-asterisk
               Who
             %dd
               #gender.field.checkbox
@@ -204,11 +204,11 @@
                 = editable_link_to "Max Age", field: :age_max, resource: @workshop, type: :number
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"This is entirely up to you. We suggest a minimum age of 11 because our research has shown a need for fabulous mentors before middle school. If you need someone with a specific skill set or experience you may want to set the age higher and be clear about your needs in the workshop description above."} }
-                  %i.fa-question-circle.small-icon
+                  %i.fa.fa-question-circle.small-icon
 
             %dt
               - if !show
-                %i.fa-asterisk
+                %i.fa.fa-asterisk
               How Many
             %dd
               #registration-min.field.number
@@ -219,13 +219,13 @@
               participants.
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"What is the minimum number of participants you need to run the workshop? If fewer than this number have signed up by the time registration closes, the workshop will be cancelled. What is the maximum number of participants you can accommodate in the workshop? Once this many people have signed up, we will close registration for the workshop."} }
-                  %i.fa-question-circle.small-icon
+                  %i.fa.fa-question-circle.small-icon
               - if show
                 %b
                   = @workshop.spots_left
             %dt
               - if !show
-                %i.fa-asterisk
+                %i.fa.fa-asterisk
               Price
             %dd
               - if !show
@@ -240,7 +240,7 @@
                 per participant.
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Please list the total fee each girl will pay (remember to account for materials). We split it 80% / 20% and show you how much you'll receive per girl. See our FAQ page for details and examples of our cost structure."} }
-                  %i.fa-question-circle.small-icon
+                  %i.fa.fa-question-circle.small-icon
               - if show
                 $
                 %span#total-price.field
@@ -248,24 +248,24 @@
 
             %dt
               - if !show
-                %i.fa-asterisk
+                %i.fa.fa-asterisk
               Skills Taught
             %dd
               #skills.field.tags
                 = editable_link_to "Skills and techniques you'll be teaching", field: :skill_list, resource: @workshop, type: :select2
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", trigger: "hover", content:"Be as specific as possible so that we can give your student credit for learning new skills allow her to show them off in her portfolio!"} }
-                  %i.fa-question-circle.small-icon
+                  %i.fa.fa-question-circle.small-icon
             %dt
               - if !show
-                %i.fa-asterisk
+                %i.fa.fa-asterisk
               Tools Taught
             %dd
               #tools.field.tags
                 = editable_link_to "Tools and materials you'll be teaching", field: :tool_list, resource: @workshop, type: :select2
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", trigger: "hover", content:"Be as specific as possible so that we can give your student credit for learning new tools and allow her to show them off in her portfolio!"} }
-                  %i.fa-question-circle.small-icon
+                  %i.fa.fa-question-circle.small-icon
             - if !show || !@workshop.requirement_list.empty?
               %dt
                 Requirements
@@ -274,7 +274,7 @@
                   = editable_link_to 'Any required skills or tools participants should have previous experience with?', field: :requirement_list, resource: @workshop, type: :select2
                 - if !show
                   %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", trigger: "hover", content:"Is this workshop more collaborative, or more directed? Be honest about the help that you need right from the begining. Example: chopsaw, welding, javascript"} }
-                    %i.fa-question-circle.small-icon
+                    %i.fa.fa-question-circle.small-icon
             /- if !show || @workshop.other_needs
             /  %dt
             /    Preparations
@@ -283,7 +283,7 @@
             /      = editable_link_to 'Ex: "Must have their own laptop"', field: :other_needs, resource: @workshop, type: :text
             /    - if !show
             /      %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Let the student know what she should prepare to bring, wear, or read before you get started working together. Example: a car, a cellphone, a computer, a sense of humor."} }
-            /        %i.fa-question-circle.small-icon
+            /        %i.fa.fa-question-circle.small-icon
 
 
 
@@ -295,7 +295,7 @@
                 = mail_to @workshop.user.email
                 - if !show
                   %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content: "Don't worry, this will only be visible to participants AFTER they sign up!."} }
-                    %i.fa-question-circle.small-icon
+                    %i.fa.fa-question-circle.small-icon
                     = link_to "(Edit email)", edit_user_registration_path
 
             - if @workshop.user.bio.present?
@@ -346,7 +346,7 @@
         %span#applysidebar.span3
           - if show
             - if current_user && current_user.signedup?(@workshop) && @work_signup.confirmed?
-              = link_to "Signed up #{content_tag(:i, "", class: "fa-check-circle")}".html_safe, '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-success"
+              = link_to "Signed up #{content_tag(:i, "", class: "fa fa-check-circle")}".html_safe, '#workwithModal', data: {toggle: "modal"}, :class => "btn btn-block btn-success"
               #workwithModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "workwithModal", :role => "dialog", :tabindex => "-1"}
                 .modal-header
                   %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
@@ -427,7 +427,7 @@
       - if !show
         .row-fluid
           #preview-buttons-bottom
-            = link_to "Preview #{content_tag(:i, "", class: "fa-external-link")}".html_safe, '#', class: 'btn preview-btn', data: { url: workshop_path(@workshop) }
+            = link_to "Preview #{content_tag(:i, "", class: "fa fa-external-link")}".html_safe, '#', class: 'btn preview-btn', data: { url: workshop_path(@workshop) }
             #proceed.preview-hide
               = link_to 'Next', private_workshop_path(@workshop), method: :get, class: 'btn btn-primary'
 
