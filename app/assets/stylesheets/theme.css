@@ -412,7 +412,7 @@ figure {
   margin-left: 2em;
   text-indent: -1em;
 }
-.icons li [class^="icon-"], .icons li [class*=" icon-"] {
+.icons li [class^="fa-"], .icons li [class*=" fa-"] {
   display: inline-block;
   text-align: center;
   width: 1em;

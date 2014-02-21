@@ -208,7 +208,7 @@ a, a:hover, a:active, a:visited, a:focus
 .enormous-icon.circled
   line-height: 1.4em
 .btn
-  &[class^="icon-"], &[class*=" icon-"]
+  &[class^="fa-"], &[class*=" fa-"]
     font-family: 'FontAwesome'
 
 
@@ -266,7 +266,7 @@ li.alertnav
   a
     position: relative
     z-index: 1  // lower than the .alertbox below
-    [class^="icon-"]:before, [class*=" icon-"]:before
+    [class^="fa-"]:before, [class*=" fa-"]:before
       cursor: pointer
   .alertbox
     background-color: $plum-medium
@@ -348,7 +348,7 @@ li.alertnav
 // Accordion Nav ======================================================================================
 .accordionFAQ
   margin-left: 0px
-  .icon-chevron-down, .icon-envelope
+  .fa-chevron-down, .fa-envelope
     float: right
     margin: 5px -6px 0 0
     opacity: 0.5
@@ -511,7 +511,7 @@ li.alertnav
     .nav-header
       font-size: 18px
       color: #333
-  i.icon-chevron-down
+  i.fa-chevron-down
     float: right
     font-size: 30px
   .badge
@@ -537,7 +537,7 @@ li.alertnav
 
 // Forms ======================================================================================
 .simple_form, #apprenticeship-design, #workshop-design
-  .icon-asterisk:before
+  .fa-asterisk:before
     font-size: 10px
     vertical-align: middle
   label
@@ -791,7 +791,7 @@ input[type="radio"], input[type="checkbox"]
         display: inline
       hr
         margin: 11px 0
-      .icon-3x
+      .fa-3x
         position: relative
         color: $mint
       ul
@@ -1136,12 +1136,12 @@ input[type="radio"], input[type="checkbox"]
 
 #album_nav
   margin-bottom: 0px
-  [class^="icon-"], [class*=" icon-"]
+  [class^="fa-"], [class*=" fa-"]
     float: left
     margin: 1px 2px 0 0
     padding: 0 7px 0 1px
   .dl-horizontal
-    [class^="icon-"], [class*=" icon-"]
+    [class^="fa-"], [class*=" fa-"]
       float: none
 
 .large, #album_nav a.large
@@ -1661,7 +1661,7 @@ input[type="radio"], input[type="checkbox"]
 
 // Confirmations ===============================================================================
 #confirmed
-  .icon-check
+  .fa-check
     color: $grass
 
 
@@ -1786,7 +1786,7 @@ input[type="radio"], input[type="checkbox"]
   direction: rtl
   font-size: 30px
   unicode-bidi: bidi-override
-  span.icon-star-empty
+  span.fa-star-o
     display: inline-block
     font-family: FontAwesome
     font-style: normal
@@ -1797,7 +1797,7 @@ input[type="radio"], input[type="checkbox"]
       color: #999999
       padding-right: 5px
     &:hover
-      &:before, ~ span.icon-star-empty:before
+      &:before, ~ span.fa-star-o:before
         color: #E3CF7A
 
 

@@ -4,9 +4,7 @@
     .navbar-inner
       .container
         %a.btn.btn-navbar{"data-target" => ".nav-collapse", "data-toggle" => "collapse"}
-          %span.icon-bar
-          %span.icon-bar
-          %span.icon-bar
+          %span.fa-bars
         %a.brand{:href => root_path}
           %h1#logo GirlsGuild
         .nav-collapse
@@ -17,15 +15,15 @@
               /%ul.dropdown-menu
               /  = active_link_to( content_tag(:i, '')+ ' Apprenticeships', apprenticeships_path, :wrap_tag => :li, :active => :exclusive )
               /  = active_link_to( content_tag(:i, '')+ ' Workshops', workshops_path, :wrap_tag => :li, :active => :exclusive )
-              /  = active_link_to( content_tag(:i, '', class: 'icon-ok-sign')+ ' Get Involved for Girls', get_involved_girls_path, :wrap_tag => :li, :active => :exclusive )
-              /  = active_link_to( content_tag(:i, '', class: 'icon-bookmark')+ ' FAQ for Girls', faq_path, :wrap_tag => :li, :active => :exclusive )
+              /  = active_link_to( content_tag(:i, '', class: 'fa-check-circle')+ ' Get Involved for Girls', get_involved_girls_path, :wrap_tag => :li, :active => :exclusive )
+              /  = active_link_to( content_tag(:i, '', class: 'fa-bookmark')+ ' FAQ for Girls', faq_path, :wrap_tag => :li, :active => :exclusive )
 
             %li.dropdown
               %a{"data-target" => "#", :href => "#"}
                 Lead
               %ul.dropdown-menu
-                = active_link_to( content_tag(:i, '', class: 'icon-pencil icon-fixed-width')+ ' Post an Apprenticeship', new_apprenticeship_path, :wrap_tag => :li, :active => :exclusive )
-                = active_link_to( content_tag(:i, '', class: 'icon-pencil icon-fixed-width')+ ' Post a Workshop', new_workshop_path, :wrap_tag => :li, :active => :exclusive )
+                = active_link_to( content_tag(:i, '', class: 'fa-pencil fa-fw')+ ' Post an Apprenticeship', new_apprenticeship_path, :wrap_tag => :li, :active => :exclusive )
+                = active_link_to( content_tag(:i, '', class: 'fa-pencil fa-fw')+ ' Post a Workshop', new_workshop_path, :wrap_tag => :li, :active => :exclusive )
 
             %li.dropdown
               %a{"data-target" => "#", :href => "/apprenticeships/new"}
@@ -36,18 +34,18 @@
               %a{"data-target" => "#", :href => "#"}
                 About
               %ul.dropdown-menu
-                = active_link_to( content_tag(:i, '', class: 'icon-shield icon-fixed-width')+ ' Makers', makers_path, :wrap_tag => :li, :active => :exclusive )
-                = active_link_to( content_tag(:i, '', class: 'icon-bookmark icon-fixed-width')+ ' FAQ', faq_path, :wrap_tag => :li, :active => :exclusive )
-                = active_link_to( content_tag(:i, '', class: 'icon-comments-alt icon-fixed-width')+ ' Testimonials', testimonials_path, :wrap_tag => :li, :active => :exclusive )
-                = active_link_to( content_tag(:i, '', class: 'icon-map-marker icon-fixed-width')+ ' Contact', contact_path, :wrap_tag => :li, :active => :exclusive )
-                = active_link_to( content_tag(:i, '', class: 'icon-bolt icon-fixed-width')+ ' The Team', about_path, :wrap_tag => :li, :active => :exclusive )
-                = active_link_to content_tag(:i, '', class: 'icon-gift icon-fixed-width') + ' Scholarships', faq_path+"#donate", :wrap_tag => :li, :active => :exclusive
+                = active_link_to( content_tag(:i, '', class: 'fa-shield fa-fw')+ ' Makers', makers_path, :wrap_tag => :li, :active => :exclusive )
+                = active_link_to( content_tag(:i, '', class: 'fa-bookmark fa-fw')+ ' FAQ', faq_path, :wrap_tag => :li, :active => :exclusive )
+                = active_link_to( content_tag(:i, '', class: 'fa-comments-o fa-fw')+ ' Testimonials', testimonials_path, :wrap_tag => :li, :active => :exclusive )
+                = active_link_to( content_tag(:i, '', class: 'fa-map-marker fa-fw')+ ' Contact', contact_path, :wrap_tag => :li, :active => :exclusive )
+                = active_link_to( content_tag(:i, '', class: 'fa-bolt fa-fw')+ ' The Team', about_path, :wrap_tag => :li, :active => :exclusive )
+                = active_link_to content_tag(:i, '', class: 'fa-gift fa-fw') + ' Scholarships', faq_path+"#donate", :wrap_tag => :li, :active => :exclusive
 
 
             - if signed_in?
               / %li.dropdown.alertnav
               /   %a{"data-target" => "#", :href => "/dashboard"}
-              /     .i.icon-bell-alt
+              /     .i.fa-bell-o
               /   .alertbox
               /     1
 
@@ -56,14 +54,14 @@
                   = current_user.first_name
                   = avatar_for(current_user, size: 25, tag: 'small')
                 %ul.dropdown-menu
-                  = active_link_to( content_tag(:i, '', class: 'icon-calendar icon-fixed-width')+ ' My Events', dashboard_path, :wrap_tag => :li, :active => :exclusive )
-                  = active_link_to( content_tag(:i, '', class: 'icon-lock icon-fixed-width')+ ' Settings', edit_user_registration_path(current_user), :wrap_tag => :li, :active => :exclusive )
-                  = active_link_to( content_tag(:i, '', class: 'icon-user icon-fixed-width')+ ' Avatar', avatar_path, :wrap_tag => :li, :active => :exclusive )
-                  /= active_link_to content_tag(:i, '', class: 'icon-picture') + ' Portfolio', albums_path, :wrap_tag => :li, :active => :exclusive
+                  = active_link_to( content_tag(:i, '', class: 'fa-calendar fa-fw')+ ' My Events', dashboard_path, :wrap_tag => :li, :active => :exclusive )
+                  = active_link_to( content_tag(:i, '', class: 'fa-lock fa-fw')+ ' Settings', edit_user_registration_path(current_user), :wrap_tag => :li, :active => :exclusive )
+                  = active_link_to( content_tag(:i, '', class: 'fa-user fa-fw')+ ' Avatar', avatar_path, :wrap_tag => :li, :active => :exclusive )
+                  /= active_link_to content_tag(:i, '', class: 'fa-picture-o') + ' Portfolio', albums_path, :wrap_tag => :li, :active => :exclusive
                   %li.divider
                   = active_link_to 'Sign out', destroy_user_session_path, :wrap_tag => :li, method: "delete"
             - else
               = active_link_to 'Sign in', new_user_session_path, :wrap_tag => :li, class: 'signin-nav'
 
             / %li
-            /   = link_to( content_tag(:i, '', class: 'icon-pencil icon-fixed-width')+ "Post an Apprenticeship", new_apprenticeship_path, class: 'post-apprenticeship')
+            /   = link_to( content_tag(:i, '', class: 'fa-pencil fa-fw')+ "Post an Apprenticeship", new_apprenticeship_path, class: 'post-apprenticeship')

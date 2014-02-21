@@ -350,7 +350,7 @@ class AppSignup < Signup
     })
     return true
   end
-  #=link_to( "Follow this Maker #{content_tag(:i, "", class: "icon-eye-open")}".html_safe, preregs_path(event_id: event), method: 'POST', class: 'btn btn-block')
+  #=link_to( "Follow this Maker #{content_tag(:i, "", class: "fa-eye")}".html_safe, preregs_path(event_id: event), method: 'POST', class: 'btn btn-block')
   #<p><a href="#{preregs_path(event_id: event, method: 'POST')}">Follow this Maker</a></p>
 
 
