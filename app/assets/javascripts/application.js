@@ -64,7 +64,6 @@ $(document).ready(function () {
   $('#workshop_skill_list').tokenInput('/event_skills.json', { crossDomain: false, allowCustomEntry : true, theme: 'facebook', prePopulate: $('#workshop_skill_list').data('pre'), hintText: "Separate each with a comma" });
   $('#workshop_requirement_list').tokenInput('/event_requirements.json', { crossDomain: false, 'allowCustomEntry' : true, theme: 'facebook', prePopulate: $('#workshop_requirement_list').data('pre'), hintText: "Separate each with a comma" });
   $('#workshop_tool_list').tokenInput('/event_tools.json', { crossDomain: false, 'allowCustomEntry' : true,  theme: 'facebook', prePopulate: $('#workshop_tool_list').data('pre'), hintText: "Separate each with a comma" });
-  $( "#slider-range-max" ).slider({ range: "max", min: 1, max: 10, value: 2, slide: function( event, ui ) { $( "#amount" ).val( ui.value );} }); $( "#amount" ).val( $( "#slider-range-max" ).slider( "value" ) );
   $('.rotating-testimonials').easytabs({ animationSpeed: 400, updateHash: false, cycle: 9000 });
 });
 
