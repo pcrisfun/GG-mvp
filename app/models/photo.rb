@@ -4,6 +4,7 @@ class Photo < ActiveRecord::Base
 
   attr_accessible :caption, :file, :protected
   has_attached_file :file, styles: {thumb: "50x50#", box: "135x135#", medium: "270", large: "400x400#" }
+  validates_attachment_content_type :file, :content_type => %w(image/gif image/jpeg image/jpg image/png)
 
   before_create :default_caption
 
