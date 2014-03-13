@@ -1,3 +1,9 @@
+$.noConflict();
+
+jQuery ($) ->
+  $(window).load ->
+    loadAlbum()
+
 reloadAlbum = () ->
   $("#album_photos").imagesLoaded ->
     $(this).masonry("reload")
@@ -113,9 +119,6 @@ loadAlbum = () ->
       reloadAlbum()
       $(".featured").animate(backgroundColor: "#CCC", 1500)
 
-jQuery ->
-  $(window).load ->
-    loadAlbum()
 
 
 
