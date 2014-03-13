@@ -327,6 +327,14 @@
               %dd
                 = link_to @apprenticeship.user.twitter, nice_url(@apprenticeship.user.twitter)
 
+
+            - if show && current_user.admin? && @apprenticeship.pending?
+              %dt
+                Legal Name
+              %dd
+                = @apprenticeship.legal_name
+
+
             - if show
               - if current_user && current_user.signedup?(@apprenticeship) or current_user==@apprenticeship.user
                 %hr
