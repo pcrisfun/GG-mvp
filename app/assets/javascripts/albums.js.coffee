@@ -1,4 +1,4 @@
-$.noConflict();
+
 
 jQuery ($) ->
   $(window).load ->
