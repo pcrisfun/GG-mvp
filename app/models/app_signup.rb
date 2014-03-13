@@ -694,7 +694,7 @@ class AppSignup < Signup
     elsif self.pending?
         return "Your application is being reviewed. You should hear back by <strong>#{(self.state_stamps.last.stamp + 14.days).strftime("%b %d")}</strong>".html_safe
     elsif self.accepted?
-        return "Your application has been accepted! <a href=#{url_for(self)} class='bold'>Confirm</a> your apprenticeship!".html_safe
+        return "Your application has been accepted! <a href=#{app_signup_path(self)} class='bold'>Confirm</a> your apprenticeship!".html_safe
     elsif self.declined?
     elsif self.canceled?
         return "This event has been canceled"
