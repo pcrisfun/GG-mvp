@@ -13,7 +13,7 @@ class Apprenticeship < Event
   # Images
     validate :host_album_limit
   # Dates
-    #validates :begins_at, :date => {:after => Proc.new { Date.today }, :message => 'Oops! You need to plan your apprenticeship to start sometime after today. Please check the dates you set.'}, :if => :tba_is_blank
+    validates :begins_at, :date => {:after => Proc.new { Date.today }, :message => 'Oops! You need to plan your apprenticeship to start sometime after today. Please check the dates you set.'}, :if => :should_validate_begins_at
     validates :ends_at, :date => {:after => :begins_at, :message => "Oops! Please check the dates you set. Your apprenticeship can't end before it begins!"}, :if => :tba_is_blank
   # Hours & Availability
     validates_presence_of :hours
@@ -54,9 +54,9 @@ class Apprenticeship < Event
   validation_group :description do
     validates_presence_of :description
   end
-  #validation_group :begins_at do
-    #validates :begins_at, :date => {:after => Proc.new { Date.today }, :message => 'Sorry! You need to plan your apprenticeship to start sometime after today. Please check the dates you set.'}, :if => :tba_is_blank
-  #end
+  validation_group :begins_at do
+    validates :begins_at, :date => {:after => Proc.new { Date.today }, :message => 'Sorry! You need to plan your apprenticeship to start sometime after today. Please check the dates you set.'}, :if => :should_validate_begins_at
+  end
   validation_group :ends_at do
     validates :ends_at, :date => {:after => :begins_at, :message => "Oops! Please check the dates you set. Your apprenticeship can't end before it begins!"}, :if => :tba_is_blank
   end
@@ -95,6 +95,10 @@ class Apprenticeship < Event
   end
   validation_group :tool_list do
     validates_presence_of :tool_list
+  end
+
+  def should_validate_begins_at
+    :tba_is_blank && (:state == 'started' || :state == 'pending')
   end
 
   include Emailable
