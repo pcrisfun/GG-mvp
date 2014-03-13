@@ -718,7 +718,7 @@ class AppSignup < Signup
   def countdown_message_maker
     if self.started?
     elsif self.pending?
-      return "#{(self.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days left to <a href=#{url_for(self)} class='bold'>review</a> ".html_safe
+      return "#{(self.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days left to <a href=#{app_signup_path(self)} class='bold'>review</a> ".html_safe
     elsif self.accepted?
     elsif self.declined?
     elsif self.canceled?
