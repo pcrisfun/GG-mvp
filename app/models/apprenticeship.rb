@@ -239,14 +239,14 @@ end
     return true
   end
 
-  def self.complete_apprenticeship
-    Apprenticeship.where('ends_at <= ?', Date.today).where(datetime_tba: false).each do |app|
-      app.signups.each do |a|
-        a.complete
-      end
-      app.complete
-    end
-  end
+  #def self.complete_apprenticeship
+   # Apprenticeship.where(:state => ["accepted", "filled"].where('ends_at <= ?', Date.today).each do |app|
+    #  app.signups.where(:state => "confirmed").each do |a|
+     #   a.complete
+      #end
+     # app.complete
+    #end
+  #end
 
   def already_applied?(user)
     self.signups.where(:user_id => user.id).any?
