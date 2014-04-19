@@ -30,6 +30,5 @@ bundler_stubs/
 /public/system/*
 .idea
 
-.env
 
-app/assets/images/arrow.ai
+.env
