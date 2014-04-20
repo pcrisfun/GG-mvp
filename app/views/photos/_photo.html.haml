@@ -11,8 +11,9 @@
   /- if desc ||= false
   /%p.description
   /= photo.caption
-  %br
+
   - if edit ||= false
+    %br
     / Photo Add to Current Album Button
     - if @album && !@album.photos.include?(photo)
       %button.btn.btn-mini.btn-success.pull-left{ data: { behaviour: 'addphotos', url: "#{add_photos_albums_url}", "album" => "#{@album.id}", "photo" => "#{photo.id}" } }
