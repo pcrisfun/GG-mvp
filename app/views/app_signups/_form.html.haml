@@ -37,13 +37,13 @@
       .accordion-body
         .accordion-inner
           %br/
-          = f.input :happywhen, label: "I'm truly happy when:", required: true, input_html: { rows: "5", class: "span10", placeholder: "Give the maker a sense of who they'll be working with.", rel: 'popover', data: { :content => "Tell us a little bit about what makes you happy and what you love to do - just to give a sense of who you are and what you like." }}
+          = f.input :happywhen, label: "I'm truly happy when:", required: true, input_html: { maxlength: 2000, rows: "5", class: "span10", placeholder: "Give the maker a sense of who they'll be working with. (Max. 250 words)", rel: 'popover', data: { :content => "Tell us a little bit about what makes you happy and what you love to do - just to give a sense of who you are and what you like." }}
           %br/
-          = f.input :collaborate, label: "I like working together on projects because:", required: true, input_html: { rows: "5", class: "span10", placeholder: "Give the maker a sense of how you like to work.", rel: 'popover', data: { :content => "Tell us a bit about your working style and what kinds of collaboration you enjoy." }}
+          = f.input :collaborate, label: "I like working together on projects because:", required: true, input_html: { maxlength: 2000, rows: "5", class: "span10", placeholder: "Give the maker a sense of how you like to work. (Max. 250 words)", rel: 'popover', data: { :content => "Tell us a bit about your working style and what kinds of collaboration you enjoy." }}
           %br/
-          = f.input :interest, label: "What’s most interesting to me about this apprenticeship:", required: true, input_html: { rows: "5", class: "span10", placeholder: "Give the maker a sense of what you hope to learn.", rel: 'popover', data: { :content => "Tell us a bit about why this apprenticeship is something you want to do." }}
+          = f.input :interest, label: "What’s most interesting to me about this apprenticeship:", required: true, input_html: { maxlength: 2000, rows: "5", class: "span10", placeholder: "Give the maker a sense of what you hope to learn. (Max. 250 words)", rel: 'popover', data: { :content => "Tell us a bit about why this apprenticeship is something you want to do." }}
           %br/
-          = f.input :experience, label: "My experience with tools and making:", required: true, input_html: { rows: "5", class: "span10", placeholder: "Give the maker a sense of any making you've done before.", rel: 'popover', data: { :content => "What kinds of things have you made before? What kinds of tools or techniques have you used?" }}
+          = f.input :experience, label: "My experience with tools and making:", required: true, input_html: { maxlength: 2000, rows: "5", class: "span10", placeholder: "Give the maker a sense of any making you've done before. (Max. 250 words)", rel: 'popover', data: { :content => "What kinds of things have you made before? What kinds of tools or techniques have you used?" }}
           %br/
           - if @apprenticeship.requirement_list.present?
             = f.input :requirements, required: true do
