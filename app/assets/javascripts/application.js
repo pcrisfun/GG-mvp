@@ -14,24 +14,24 @@
 //= require jquery_ujs
 //= require jquery.ui.sortable
 //= require jquery.cookie
-//= require bootstrap
-//= require bootstrap-tooltip
-//= require bootstrap-datepicker
-//= require bootstrap-timepicker
 //= require jquery.tokeninput
-//= require rails.validations
-//= require rails.validations.simple_form
-//= require fancybox
+//= require jquery.hashchange.min
+//= require jquery.easytabs.min
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require masonry/jquery.masonry.min
 //= require masonry/jquery.imagesloaded.min
 //= require masonry/modernizr-transitions
+//= require bootstrap
+//= require bootstrap-tooltip
+//= require bootstrap-datepicker
+//= require bootstrap-timepicker
 //= require bootstrap-editable/bootstrap-editable
+//= require rails.validations
+//= require rails.validations.simple_form
+//= require fancybox
 //= require select2
 //= require moment
-//= require jquery.hashchange.min
-//= require jquery.easytabs.min
 //= require_tree .
 
 
