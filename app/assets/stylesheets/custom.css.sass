@@ -1806,6 +1806,23 @@ input[type="radio"], input[type="checkbox"]
         color: #E3CF7A
 
 
+// Datepicker (hack to get new Font-Awesome working with old Font-Awesome classes for datepicker x-editable)
+.icon-arrow-right:before
+  content: "\f061"
+.icon-arrow-left:before
+  content: "\f060"
+.icon-th:before
+  content: "\f00a"
+.icon-arrow-right, .icon-arrow-left, .icon-th
+  display: inline-block
+  font-family: FontAwesome
+  font-style: normal
+  font-weight: normal
+  line-height: 1
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+
+
 // Miscellaneous ======================================================================================
 .debug_dump /* Hartl */
   clear: both
@@ -1816,6 +1833,8 @@ input[type="radio"], input[type="checkbox"]
 
 #map
   margin: -30px 0px -30px -20px
+
+
 
 
 
