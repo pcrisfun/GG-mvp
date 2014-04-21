@@ -81,11 +81,11 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver
-    parent? ? deliver_parent : deliver_girl
+  def deliver(opts={})
+    parent? ? deliver_parent(opts) : deliver_girl(opts)
   end
 
-  def deliver_girl
+  def deliver_girl(opts={})
     return false unless valid?
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
@@ -102,7 +102,7 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_parent
+  def deliver_parent(opts={})
     return false unless valid?
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
@@ -119,11 +119,11 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_maker
-    parent? ? deliver_maker_daughter : deliver_maker_girl
+  def deliver_maker(opts={})
+    parent? ? deliver_maker_daughter(opts) : deliver_maker_girl(opts)
   end
 
-  def deliver_maker_girl
+  def deliver_maker_girl(opts={})
     return false unless valid?
     Pony.mail({
       :to => "#{event.user.name}<#{event.user.email}>",
@@ -140,7 +140,7 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_maker_daughter
+  def deliver_maker_daughter(opts={})
     return false unless valid?
     Pony.mail({
       :to => "#{event.user.name}<#{event.user.email}>",
@@ -157,11 +157,11 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_cancel
-    parent? ? deliver_cancel_parent : deliver_cancel_girl
+  def deliver_cancel(opts={})
+    parent? ? deliver_cancel_parent(opts) : deliver_cancel_girl(opts)
   end
 
-  def deliver_cancel_girl
+  def deliver_cancel_girl(opts={})
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
@@ -176,7 +176,7 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_cancel_parent
+  def deliver_cancel_parent(opts={})
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
@@ -221,11 +221,11 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_resubmit
-    parent? ? deliver_resubmit_parent : deliver_resubmit_girl
+  def deliver_resubmit(opts={})
+    parent? ? deliver_resubmit_parent(opts) : deliver_resubmit_girl(opts)
   end
 
-  def deliver_resubmit_girl
+  def deliver_resubmit_girl(opts={})
     return false unless valid?
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
@@ -242,7 +242,7 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_parent
+  def deliver_parent(opts={})
     return false unless valid?
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
@@ -259,11 +259,11 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_resubmit_maker
-    parent? ? deliver_resubmit_maker_daughter : deliver_resubmit_maker_girl
+  def deliver_resubmit_maker(opts={})
+    parent? ? deliver_resubmit_maker_daughter(opts) : deliver_resubmit_maker_girl(opts)
   end
 
-  def deliver_resubmit_maker_girl
+  def deliver_resubmit_maker_girl(opts={})
     return false unless valid?
     Pony.mail({
       :to => "#{event.user.name}<#{event.user.email}>",
@@ -280,7 +280,7 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_resubmit_maker_daughter
+  def deliver_resubmit_maker_daughter(opts={})
     return false unless valid?
     Pony.mail({
       :to => "#{event.user.name}<#{event.user.email}>",
@@ -298,11 +298,11 @@ class AppSignup < Signup
   end
 
 
-  def deliver_destroy
-    parent? ? deliver_destroy_parent : deliver_destroy_girl
+  def deliver_destroy(opts={})
+    parent? ? deliver_destroy_parent(opts) : deliver_destroy_girl(opts)
   end
 
-  def deliver_destroy_girl
+  def deliver_destroy_girl(opts={})
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
@@ -317,7 +317,7 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_destroy_parent
+  def deliver_destroy_parent(opts={})
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
@@ -332,11 +332,11 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_decline
-    parent? ? deliver_decline_parent : deliver_decline_girl
+  def deliver_decline(opts={})
+    parent? ? deliver_decline_parent(opts) : deliver_decline_girl(opts)
   end
 
-  def deliver_decline_girl
+  def deliver_decline_girl(opts={})
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
@@ -354,7 +354,7 @@ class AppSignup < Signup
   #<p><a href="#{preregs_path(event_id: event, method: 'POST')}">Follow this Maker</a></p>
 
 
-  def deliver_decline_parent
+  def deliver_decline_parent(opts={})
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
@@ -369,7 +369,7 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_decline_maker
+  def deliver_decline_maker(opts={})
     Pony.mail({
       :to => "#{event.user.name}<#{event.user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
@@ -382,11 +382,11 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_accept
-    parent? ? deliver_accept_parent : deliver_accept_girl
+  def deliver_accept(opts={})
+    parent? ? deliver_accept_parent(opts) : deliver_accept_girl(opts)
   end
 
-  def deliver_accept_girl
+  def deliver_accept_girl(opts={})
     Pony.mail({
       :to => "#{self.user.name}<#{self.user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
@@ -402,7 +402,7 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_accept_parent
+  def deliver_accept_parent(opts={})
     Pony.mail({
       :to => "#{self.user.name}<#{self.user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
@@ -418,11 +418,11 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_accept_maker
-    parent? ? deliver_accept_maker_daughter : deliver_accept_maker_girl
+  def deliver_accept_maker(opts={})
+    parent? ? deliver_accept_maker_daughter(opts) : deliver_accept_maker_girl(opts)
   end
 
-  def deliver_accept_maker_girl
+  def deliver_accept_maker_girl(opts={})
     Pony.mail({
       :to => "#{event.user.first_name}<#{event.user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
@@ -438,7 +438,7 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_accept_maker_daughter
+  def deliver_accept_maker_daughter(opts={})
     Pony.mail({
       :to => "#{event.user.first_name}<#{event.user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
@@ -454,17 +454,17 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_confirm
+  def deliver_confirm(opts={})
     if self.parent?
-      deliver_confirm_parent
+      deliver_confirm_parent(opts)
     elsif self.minor?
-      deliver_confirm_minor
+      deliver_confirm_minor(opts)
     else
-      deliver_confirm_self
+      deliver_confirm_self(opts)
     end
   end
 
-  def deliver_confirm_self
+  def deliver_confirm_self(opts={})
     return false unless valid?
     payment = opts[:payment]
     Pony.mail({
@@ -482,7 +482,7 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_confirm_minor
+  def deliver_confirm_minor(opts={})
     return false unless valid?
     payment = opts[:payment]
     Pony.mail({
@@ -501,7 +501,7 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_confirm_parent
+  def deliver_confirm_parent(opts={})
     return false unless valid?
     payment = opts[:payment]
     Pony.mail({
@@ -519,11 +519,11 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_confirm_maker
-    parent? ? deliver_confirm_maker_parent : deliver_confirm_maker_girl
+  def deliver_confirm_maker(opts={})
+    parent? ? deliver_confirm_maker_parent(opts) : deliver_confirm_maker_girl(opts)
   end
 
-  def deliver_confirm_maker_girl
+  def deliver_confirm_maker_girl(opts={})
     return false unless valid?
     Pony.mail({
       :to => "#{event.user.name}<#{event.user.email}>",
@@ -538,7 +538,7 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_confirm_maker_parent
+  def deliver_confirm_maker_parent(opts={})
     return false unless valid?
     Pony.mail({
       :to => "#{event.user.name}<#{event.user.email}>",
