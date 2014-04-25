@@ -10,7 +10,7 @@ Pony.options = {
 		:enable_starttls_auto => true,
 		:user_name => ENV["MANDRILL_USERNAME"],
 		:password => ENV["MANDRILL_API_KEY"],
-		:authentication => :login, # :plain, :login, :cram_md5, no auth by default
+		:authentication => :plain, # :plain, :login, :cram_md5, no auth by default
 		:domain => "girlsguild.com" # the HELO domain provided by the client to the server
 	}
 
