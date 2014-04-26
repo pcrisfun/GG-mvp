@@ -42,6 +42,44 @@ diana.skip_confirmation!
 diana.admin = true
 diana.save!(validate: false)
 
+admin = User.new( first_name: "Admin",
+                  last_name: "Istrator",
+                  birthday: "1980-01-01 17:00:00",
+                  email: "admin@girlsguild.com",
+                  password: "password",
+                  password_confirmation: "password",
+                  terms_of_service: true,
+                )
+admin.skip_confirmation!
+admin.admin = true
+admin.save!(validate: false)
+
+xochi = User.new( first_name: "Xochi",
+                  last_name: "Solis",
+                  birthday: "1980-08-08 17:00:00",
+                  email: "xochi@girlsguild.com",
+                  password: "password",
+                  password_confirmation: "password",
+                  terms_of_service: true,
+                )
+xochi.skip_confirmation!
+xochi.admin = false
+xochi.save!(validate: false)
+
+#xochi_gallery = xochi.Gallery.new
+
+nicole = User.new( first_name: "Nicole",
+                  last_name: "Anderson",
+                  birthday: "1993-01-01 17:00:00",
+                  email: "nicole@girlsguild.com",
+                  password: "password",
+                  password_confirmation: "password",
+                  terms_of_service: true,
+                )
+nicole.skip_confirmation!
+nicole.admin = false
+nicole.save!(validate: false)
+
 artist = User.new( first_name: "Martha",
                   last_name: "Smith",
                   birthday: "1980-08-08 17:00:00",
@@ -470,6 +508,267 @@ melissa.skip_confirmation!
 melissa.admin = false
 melissa.save!(validate: false)
 
+
+first_shehacks = xochi.apprenticeships.create!(         "host_firstname"=>"Xochi",
+                                                        "host_lastname"=>"Solis",
+                                                        "legal_name"=>"Xochi Solis",
+                                                        "host_business"=>"SheHacks",
+                                                        "topic"=>"Hacking",
+                                                        "kind"=>"Production",
+                                                        "description"=>"Maecenas sed diam eget risus varius blandit sit amet non magna. Donec id elit non mi porta gravida at eget metus.",
+                                                        "skill_list"=>"'information architecture','front-end development','back-end development'",
+                                                        "tool_list"=>"'Ruby on Rails','HTML5','HAML','CSS3','Sass','Javascript','text editor','Chrome Developer Tools','Git'",
+                                                        "requirement_list"=>"",
+                                                        "other_needs"=>"",
+                                                        "age_min"=>"14",
+                                                        "age_max"=>"99",
+                                                        "registration_max"=>"1",
+                                                        "begins_at"=>"10/01/2014",
+                                                        "ends_at"=>"12/01/2014",
+                                                        "datetime_tba"=>"0",
+                                                        "hours"=>"4",
+                                                        "hours_per"=>"week",
+                                                        "location_address"=>"1309 Chestnut Ave",
+                                                        "location_address2"=>"",
+                                                        "location_city"=>"Austin",
+                                                        "location_state"=>"TX",
+                                                        "location_zipcode"=>"78704",
+                                                        "location_private"=>"1",
+                                                        "location_nbrhood"=>"East Austin",
+                                                        "location_varies"=>"0",
+                                                        "respect_my_style"=>"1",
+                                                        "stripe_card_token"=>"",
+                                                        "permission"=>"1",
+                                                        "availability"=>"M-F, 3-7pm. Flexible on weekend days.",
+                                                        "state"=>"started",
+                                                     )
+
+#first_shehacks_album = Album.new( gallery_id: "1",
+ #                                 event_id: "1"
+  #                            )
+
+second_shehacks = xochi.apprenticeships.create!(         "host_firstname"=>"Xochi",
+                                                        "host_lastname"=>"Solis",
+                                                        "legal_name"=>"Xochi Solis",
+                                                        "host_business"=>"Frog Design",
+                                                        "topic"=>"Design",
+                                                        "kind"=>"Production",
+                                                        "description"=>"Maecenas sed diam eget risus varius blandit sit amet non magna. Donec id elit non mi porta gravida at eget metus.",
+                                                        "skill_list"=>"'design research','synthesis','ideation','human-centered design','concept development','prototyping','visual design'",
+                                                        "tool_list"=>"'participatory interviews','contextual inquiry','affinity diagrams','storyboards','wireframes','Illustrator','Photoshop'",
+                                                        "requirement_list"=>"",
+                                                        "other_needs"=>"",
+                                                        "age_min"=>"14",
+                                                        "age_max"=>"99",
+                                                        "registration_max"=>"1",
+                                                        "begins_at"=>"10/01/2014",
+                                                        "ends_at"=>"12/01/2014",
+                                                        "datetime_tba"=>"0",
+                                                        "hours"=>"4",
+                                                        "hours_per"=>"week",
+                                                        "location_address"=>"1309 Chestnut Ave",
+                                                        "location_address2"=>"",
+                                                        "location_city"=>"Austin",
+                                                        "location_state"=>"TX",
+                                                        "location_zipcode"=>"78704",
+                                                        "location_private"=>"1",
+                                                        "location_nbrhood"=>"East Austin",
+                                                        "location_varies"=>"0",
+                                                        "respect_my_style"=>"1",
+                                                        "stripe_card_token"=>"",
+                                                        "permission"=>"1",
+                                                        "availability"=>"M-F, 3-7pm. Flexible on weekend days.",
+                                                        "state"=>"started",
+                                                     )
+
+third_shehacks = xochi.apprenticeships.create!(         "host_firstname"=>"Xochi",
+                                                        "host_lastname"=>"Solis",
+                                                        "legal_name"=>"Xochi Solis",
+                                                        "host_business"=>"GirlsGuild",
+                                                        "topic"=>"Entrepreneurship",
+                                                        "kind"=>"Ongoing",
+                                                        "description"=>"Maecenas sed diam eget risus varius blandit sit amet non magna. Donec id elit non mi porta gravida at eget metus.",
+                                                        "skill_list"=>"'service design','product management','marketing','community management','event planning','business modeling','bookkeeping'",
+                                                        "tool_list"=>"'Google Docs','Mailchimp','social media','QuickBooks','Business Model Canvas','Wordpress','Eventbrite'",
+                                                        "requirement_list"=>"",
+                                                        "other_needs"=>"",
+                                                        "age_min"=>"14",
+                                                        "age_max"=>"99",
+                                                        "registration_max"=>"1",
+                                                        "begins_at"=>"10/01/2014",
+                                                        "ends_at"=>"12/01/2014",
+                                                        "datetime_tba"=>"0",
+                                                        "hours"=>"4",
+                                                        "hours_per"=>"week",
+                                                        "location_address"=>"1309 Chestnut Ave",
+                                                        "location_address2"=>"",
+                                                        "location_city"=>"Austin",
+                                                        "location_state"=>"TX",
+                                                        "location_zipcode"=>"78704",
+                                                        "location_private"=>"1",
+                                                        "location_nbrhood"=>"East Austin",
+                                                        "location_varies"=>"0",
+                                                        "respect_my_style"=>"1",
+                                                        "stripe_card_token"=>"",
+                                                        "permission"=>"1",
+                                                        "availability"=>"M-F, 3-7pm. Flexible on weekend days.",
+                                                        "state"=>"started",
+                                                     )
+
+fourth_shehacks = xochi.apprenticeships.create!(         "host_firstname"=>"Xochi",
+                                                        "host_lastname"=>"Solis",
+                                                        "legal_name"=>"Xochi Solis",
+                                                        "host_business"=>"Hatch Studio",
+                                                        "topic"=>"Woodworking",
+                                                        "kind"=>"Production",
+                                                        "description"=>"Maecenas sed diam eget risus varius blandit sit amet non magna. Donec id elit non mi porta gravida at eget metus.",
+                                                        "skill_list"=>"'furniture design','joinery','finishing'",
+                                                        "tool_list"=>"'table saw','skill saw','lathe','hammer'",
+                                                        "requirement_list"=>"",
+                                                        "other_needs"=>"",
+                                                        "age_min"=>"14",
+                                                        "age_max"=>"99",
+                                                        "registration_max"=>"1",
+                                                        "begins_at"=>"10/01/2014",
+                                                        "ends_at"=>"12/01/2014",
+                                                        "datetime_tba"=>"0",
+                                                        "hours"=>"4",
+                                                        "hours_per"=>"week",
+                                                        "location_address"=>"1309 Chestnut Ave",
+                                                        "location_address2"=>"",
+                                                        "location_city"=>"Austin",
+                                                        "location_state"=>"TX",
+                                                        "location_zipcode"=>"78704",
+                                                        "location_private"=>"1",
+                                                        "location_nbrhood"=>"East Austin",
+                                                        "location_varies"=>"0",
+                                                        "respect_my_style"=>"1",
+                                                        "stripe_card_token"=>"",
+                                                        "permission"=>"1",
+                                                        "availability"=>"M-F, 3-7pm. Flexible on weekend days.",
+                                                        "state"=>"accepted",
+                                                     )
+
+fifth_shehacks = xochi.apprenticeships.create!(         "host_firstname"=>"Xochi",
+                                                        "host_lastname"=>"Solis",
+                                                        "legal_name"=>"Xochi Solis",
+                                                        "host_business"=>"Bastrop Ceramic Studio",
+                                                        "topic"=>"Ceramics",
+                                                        "kind"=>"Production",
+                                                        "description"=>"Maecenas sed diam eget risus varius blandit sit amet non magna. Donec id elit non mi porta gravida at eget metus.",
+                                                        "skill_list"=>"'throwing pots','ceramics design','preparing kiln','firing clay'",
+                                                        "tool_list"=>"'clay','pottery wheel','kiln'",
+                                                        "requirement_list"=>"",
+                                                        "other_needs"=>"",
+                                                        "age_min"=>"14",
+                                                        "age_max"=>"99",
+                                                        "registration_max"=>"1",
+                                                        "begins_at"=>"10/01/2014",
+                                                        "ends_at"=>"12/01/2014",
+                                                        "datetime_tba"=>"0",
+                                                        "hours"=>"4",
+                                                        "hours_per"=>"week",
+                                                        "location_address"=>"1309 Chestnut Ave",
+                                                        "location_address2"=>"",
+                                                        "location_city"=>"Austin",
+                                                        "location_state"=>"TX",
+                                                        "location_zipcode"=>"78704",
+                                                        "location_private"=>"1",
+                                                        "location_nbrhood"=>"East Austin",
+                                                        "location_varies"=>"0",
+                                                        "respect_my_style"=>"1",
+                                                        "stripe_card_token"=>"",
+                                                        "permission"=>"1",
+                                                        "availability"=>"M-F, 3-7pm. Flexible on weekend days.",
+                                                        "state"=>"accepted",
+                                                     )
+
+sixth_shehacks = xochi.apprenticeships.create!(         "host_firstname"=>"Xochi",
+                                                        "host_lastname"=>"Solis",
+                                                        "legal_name"=>"Xochi Solis",
+                                                        "host_business"=>"Bouldin Design+Build",
+                                                        "topic"=>"Architecture",
+                                                        "kind"=>"Ongoing",
+                                                        "description"=>"Maecenas sed diam eget risus varius blandit sit amet non magna. Donec id elit non mi porta gravida at eget metus.",
+                                                        "skill_list"=>"'3-D rendering','model construction','blueprints','geometry','sketching'",
+                                                        "tool_list"=>"'CAD','balsa wood','graph paper','ruler'",
+                                                        "requirement_list"=>"",
+                                                        "other_needs"=>"",
+                                                        "age_min"=>"14",
+                                                        "age_max"=>"99",
+                                                        "registration_max"=>"1",
+                                                        "begins_at"=>"10/01/2014",
+                                                        "ends_at"=>"12/01/2014",
+                                                        "datetime_tba"=>"0",
+                                                        "hours"=>"4",
+                                                        "hours_per"=>"week",
+                                                        "location_address"=>"1309 Chestnut Ave",
+                                                        "location_address2"=>"",
+                                                        "location_city"=>"Austin",
+                                                        "location_state"=>"TX",
+                                                        "location_zipcode"=>"78704",
+                                                        "location_private"=>"1",
+                                                        "location_nbrhood"=>"East Austin",
+                                                        "location_varies"=>"0",
+                                                        "respect_my_style"=>"1",
+                                                        "stripe_card_token"=>"",
+                                                        "permission"=>"1",
+                                                        "availability"=>"M-F, 3-7pm. Flexible on weekend days.",
+                                                        "state"=>"accepted",
+                                                     )
+
+first_shehacks_app = nicole.app_signups.create!("event_id"=>"4",
+                                                      "happywhen"=>"I'm happiest when hanging out with a few close friends, because I'm able to be myself and be completely comfortable. Or when creating art, because working allows me to be in my own zone, developing my ideas, and expressing myself visually in a way I can't always do verbally.",
+                                                      "collaborate"=>"I like working together on projects because it allows for a better flow of ideas. Because everyone perceives and processes ideas differently, collaborations allow for more ideas to bounce between people and develop, so the product will have gone through more development and have had more thought put into it opposed to a solo work.",
+                                                      "interest"=>"I'm interested in seeing how an established artist works, especially seeing how they have turned their art into a small business. I am also interested because I work well with detail oriented tasks and I feel that this would make a productive apprentice.",
+                                                      "experience"=>"Sculpture; mobiles, vessels, icons, collages, installation. Using materials and tools such as; Clay (hand building, throwing on a wheel), rubber carving, shrink plastic, printmaking, origami, wire, jeweler's saw, sheet metal, wax casting, plaster bandaging, and paper casting. In these processes I have worked on some larger pieces but mostly I have worked on a smaller, more detailed scale.",
+                                                      "requirements"=>"1",
+                                                      "confirm_available"=>"1",
+                                                      "preferred_times"=>"Best days would be on weekends, some week day afternoons could work.",
+                                                      "confirm_unpaid"=>"1",
+                                                      "confirm_fee"=>"1",
+                                                      "state"=>"pending",
+                                                     )
+
+first_app_state_stamp = first_shehacks_app.state_stamps.create!( state: "pending",
+                                        stamp: "2014-04-24",
+                                    )
+
+second_shehacks_app = nicole.app_signups.create!("event_id"=>"5",
+                                                      "happywhen"=>"I'm happiest when hanging out with a few close friends, because I'm able to be myself and be completely comfortable. Or when creating art, because working allows me to be in my own zone, developing my ideas, and expressing myself visually in a way I can't always do verbally.",
+                                                      "collaborate"=>"I like working together on projects because it allows for a better flow of ideas. Because everyone perceives and processes ideas differently, collaborations allow for more ideas to bounce between people and develop, so the product will have gone through more development and have had more thought put into it opposed to a solo work.",
+                                                      "interest"=>"I'm interested in seeing how an established artist works, especially seeing how they have turned their art into a small business. I am also interested because I work well with detail oriented tasks and I feel that this would make a productive apprentice.",
+                                                      "experience"=>"Sculpture; mobiles, vessels, icons, collages, installation. Using materials and tools such as; Clay (hand building, throwing on a wheel), rubber carving, shrink plastic, printmaking, origami, wire, jeweler's saw, sheet metal, wax casting, plaster bandaging, and paper casting. In these processes I have worked on some larger pieces but mostly I have worked on a smaller, more detailed scale.",
+                                                      "requirements"=>"1",
+                                                      "confirm_available"=>"1",
+                                                      "preferred_times"=>"Best days would be on weekends, some week day afternoons could work.",
+                                                      "confirm_unpaid"=>"1",
+                                                      "confirm_fee"=>"1",
+                                                      "state"=>"pending",
+                                                     )
+
+second_app_state_stamp = second_shehacks_app.state_stamps.create!( state: "pending",
+                                        stamp: "2014-04-24",
+                                    )
+
+third_shehacks_app = nicole.app_signups.create!("event_id"=>"6",
+                                                      "happywhen"=>"I'm happiest when hanging out with a few close friends, because I'm able to be myself and be completely comfortable. Or when creating art, because working allows me to be in my own zone, developing my ideas, and expressing myself visually in a way I can't always do verbally.",
+                                                      "collaborate"=>"I like working together on projects because it allows for a better flow of ideas. Because everyone perceives and processes ideas differently, collaborations allow for more ideas to bounce between people and develop, so the product will have gone through more development and have had more thought put into it opposed to a solo work.",
+                                                      "interest"=>"I'm interested in seeing how an established artist works, especially seeing how they have turned their art into a small business. I am also interested because I work well with detail oriented tasks and I feel that this would make a productive apprentice.",
+                                                      "experience"=>"Sculpture; mobiles, vessels, icons, collages, installation. Using materials and tools such as; Clay (hand building, throwing on a wheel), rubber carving, shrink plastic, printmaking, origami, wire, jeweler's saw, sheet metal, wax casting, plaster bandaging, and paper casting. In these processes I have worked on some larger pieces but mostly I have worked on a smaller, more detailed scale.",
+                                                      "requirements"=>"1",
+                                                      "confirm_available"=>"1",
+                                                      "preferred_times"=>"Best days would be on weekends, some week day afternoons could work.",
+                                                      "confirm_unpaid"=>"1",
+                                                      "confirm_fee"=>"1",
+                                                      "state"=>"pending",
+                                                     )
+
+third_app_state_stamp = third_shehacks_app.state_stamps.create!( state: "pending",
+                                        stamp: "2014-04-24",
+                                    )
+
+
 first_workshop = lee.workshops.create!(              "host_firstname"=>"Lee",
                                                         "host_lastname"=>"Webster",
                                                         "legal_name"=>"Lee Webster",
@@ -504,10 +803,12 @@ first_workshop = lee.workshops.create!(              "host_firstname"=>"Lee",
                                                         "sendcheck_state"=>"",
                                                         "sendcheck_zip"=>"",
                                                         "respect_my_style"=>"0",
-                                                        "permission"=>"1"
+                                                        "permission"=>"1",
+                                                        "state"=>"accepted",
                                                       )
 
-first_workshop = stacey.workshops.create!(              "host_firstname"=>"Stacey",
+
+second_workshop = stacey.workshops.create!(             "host_firstname"=>"Stacey",
                                                         "host_lastname"=>"Blackman",
                                                         "legal_name"=>"Stacey Blackman",
                                                         "host_business"=>"Schoolhouse Austin",
@@ -541,10 +842,9 @@ first_workshop = stacey.workshops.create!(              "host_firstname"=>"Stace
                                                         "sendcheck_state"=>"",
                                                         "sendcheck_zip"=>"",
                                                         "respect_my_style"=>"0",
-                                                        "permission"=>"1"
+                                                        "permission"=>"1",
+                                                        "state"=>"accepted",
                                                       )
-
-
 
 
 first_apprenticeship = melissa.apprenticeships.create!( "host_firstname"=>"Melissa",
@@ -580,7 +880,8 @@ first_apprenticeship = melissa.apprenticeships.create!( "host_firstname"=>"Melis
                                                         "availability"=>"M-F, 3-7pm. Flexible on weekend days.",
                                                      )
 
-first_apprenticeship = teruko.apprenticeships.create!( "host_firstname"=>"Teruko Nimura &",
+
+second_apprenticeship = teruko.apprenticeships.create!( "host_firstname"=>"Teruko Nimura &",
                                                         "host_lastname"=>"Tahila Mintz",
                                                         "legal_name"=>"Teruko Nimura",
                                                         "host_business"=>"",
@@ -612,8 +913,9 @@ first_apprenticeship = teruko.apprenticeships.create!( "host_firstname"=>"Teruko
                                                         "permission"=>"1",
                                                         "availability"=>"Flexible on weekend days.",
                                                      )
+second_apprenticeship.save!(validate: false)
 
-first_apprenticeship = madelyn.apprenticeships.create!( "host_firstname"=>"Madelyn",
+third_apprenticeship = madelyn.apprenticeships.create!( "host_firstname"=>"Madelyn",
                                                         "host_lastname"=>"Thompson",
                                                         "legal_name"=>"Madelyn Thompson",
                                                         "host_business"=>"Like Honey Bakery",
