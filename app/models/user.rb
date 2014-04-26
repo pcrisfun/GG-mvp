@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   has_many :app_signups
   has_many :work_signups
   has_many :preregs
+  has_many :interviews
 
   has_one :gallery, :dependent => :destroy
   has_many :photos, :through => :gallery

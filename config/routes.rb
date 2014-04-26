@@ -1,5 +1,8 @@
 GirlsGuild::Application.routes.draw do
 
+  resources :interviews
+
+
   resources :signups
   resources :app_signups do
     collection do

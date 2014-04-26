@@ -1,5 +1,7 @@
 class AppSignup < Signup
 
+  has_many :interviews
+
   validation_group :save do
   end
 
@@ -10,6 +12,7 @@ class AppSignup < Signup
                   :event_id, :state
 
   include Emailable
+  
 
   def daughter_age_is_valid
     unless daughter_age && daughter_age >= self.event.age_min && daughter_age <= self.event.age_max

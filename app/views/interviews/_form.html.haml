@@ -1,0 +1,10 @@
+= simple_form_for(@interview) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :interview_time
+    - if current_user == @app_signup.event.user
+      = f.input :interview_location
+    
+  .form-actions
+    = f.button :submit
