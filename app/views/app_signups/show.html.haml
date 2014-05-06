@@ -33,6 +33,7 @@
             = render 'faq'
     - if @app_signup.pending?
       %h1 Apprenticeship Application
+
       - if @app_signup.user == current_user
         - if @app_signup.parent?
           %p
@@ -40,6 +41,7 @@
         - else
           %p
             Thanks #{@app_signup.user.first_name}! You've submitted your application for #{link_to "#{@app_signup.event.title}", apprenticeship_path(@app_signup.event)}. #{@apprenticeship.host_firstname} is looking it over, and we'll let you know when she's made her decision.
+
       - elsif current_user == @app_signup.event.user
         - if @app_signup.parent?
           %p

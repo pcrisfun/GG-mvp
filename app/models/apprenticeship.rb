@@ -108,7 +108,7 @@ end
   def deliver_save
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
-       :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You started building an apprenticeship!",
       :html_body => %(<h1>Hooray #{user.first_name}!</h1>

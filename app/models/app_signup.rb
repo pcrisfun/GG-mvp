@@ -7,7 +7,7 @@ class AppSignup < Signup
                   :happywhen, :collaborate, :interest, :experience,
                   :confirm_available, :preferred_times, :confirm_unpaid, :confirm_fee,
                   :parent, :parent_name, :parent_phone, :parent_email, :parents_waiver, :respect_agreement, :waiver, :decline_reason,
-                  :event_id, :state
+                  :event_id, :state, :maker_charge_id
 
   include Emailable
 
@@ -45,12 +45,37 @@ class AppSignup < Signup
         :description => "Apprenticeship fee for #{self.event.title} from #{self.user.email}"
       )
       update_attribute(:charge_id, charge.id)
-      logger.info "Processed payment #{charge.id}"
+      logger.info "Processed apprentice payment #{charge.id}"
     end
   rescue Stripe::InvalidRequestError => e
     logger.error "Stripe error while creating charge: #{e.message}"
     errors.add :base, "There was a problem with your credit card."
     false
+  end
+
+  def process_maker_fee
+    logger.info "Processing maker payment"
+    unless maker_charge_id.present?
+      charge = Stripe::Charge.create(
+        :amount => 3000, # amount in cents, again
+        :currency => "usd",
+        :customer => event.user.stripe_customer_id,
+        :description => "Maker payment from #{self.user.email}"
+      )
+      logger.debug(charge)
+      x = charge.id
+      self.maker_charge_id = x
+      self.save!
+      logger.info "Processed maker payment #{charge.id}"
+    end
+    rescue Stripe::CardError => e
+      logger.error "Stripe error while creating charge: #{e.message}"
+      #errors.add :base, e.message
+      false
+    rescue Stripe::InvalidRequestError => e
+      logger.error "Stripe error while creating charge: #{e.message}"
+      #errors.add :base, "There was a problem with your credit card."
+      false
   end
 
   def deliver_save
@@ -550,6 +575,20 @@ class AppSignup < Signup
       <p>If you'd prefer to have us facilitate the first meeting with you and #{self.daughter_firstname} at the GirlsGuild HQ, just reply to this email to let us know. Make sure to also print a copy of the <a href="http://girlsguild.com/waivers/ReleaseWaiver-adults.pdf">Participation Waiver</a> and the <a href="http://girlsguild.com/waivers/IndemnificationAgreement-minors.pdf">Indemnification Agreement for Minors</a> to have your apprentice(s) and their parents sign before you begin work! </p>
       <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_maker_payment_failed
+    return false unless valid?
+    Pony.mail({
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Maker payment failed for #{self.event.title}",
+      :html_body => %(<h1>Crap</h1>
+      <p>#{self.event.user.first_name}'s payment failed when #{self.user.first_name} confirmed the apprenticeship!</p>
+      <p>Look into it.</p>),
     })
     return true
   end
