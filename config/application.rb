@@ -15,6 +15,8 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+ENV['RAILS_RELATIVE_URL_ROOT'] = "/sub_url"
+
 # Load application ENV vars and merge with existing ENV vars. Loaded here so can use values in initializers.
 ENV.update YAML.load_file('config/application.yml')[Rails.env] rescue {}
 
