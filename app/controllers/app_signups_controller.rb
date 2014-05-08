@@ -133,6 +133,7 @@ class AppSignupsController < ApplicationController
   end
 
   def cancel
+    @app_signup = AppSignup.find(params[:id]) if params[:id]
     if @app_signup.confirmed? && @apprenticeship.filled?
       @apprenticeship.reopen
     end
@@ -141,11 +142,13 @@ class AppSignupsController < ApplicationController
   end
 
   def resubmit
-    if @app_signup.resubmit && @app_signup.deliver_resubmit && @app_signup.deliver_resubmit_maker
-      redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Thanks! Your application was resubmitted. #{@apprenticeship.host_firstname} will review it, and we'll let you know her decision within two weeks."} and return
-    else
-      raise
-    end
+    #if @app_signup.update_attributes(params[:app_signup])
+      if @app_signup.resubmit && @app_signup.deliver_resubmit && @app_signup.deliver_resubmit_maker
+        redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Thanks! Your application was resubmitted. #{@apprenticeship.host_firstname} will review it, and we'll let you know her decision within two weeks."} and return
+      else
+        raise
+      end
+    #end
   rescue
     error_msg = " "
     @app_signup.errors.each do |field, msg|
