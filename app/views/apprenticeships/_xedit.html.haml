@@ -464,7 +464,7 @@
                 = f.submit "Reject Apprenticeship", :name => "reject_button", :class => "btn"
               %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
               %br
-          = link_to "Approve Apprenticeship", { :controller => 'apprenticeships', :action => 'accept', :id => @apprenticeship.id }, class: "btn btn-success", :method => 'post'
+          = link_to "Approve Apprenticeship", { :controller => 'apprenticeships', :action => 'accept', :id => @apprenticeship.id }, class: "btn btn-success", :method => 'post', :data => { :confirm => 'Hey Nerds, did you do a background check yet?'}
 
           %br
           %br
