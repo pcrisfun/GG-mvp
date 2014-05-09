@@ -32,6 +32,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Added to fix assets handling in Firefox
+  def set_access_control_headers
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Request-Method'] = '*'
+  end
+
   private
   def render_error(status, exception)
     respond_to do |format|
