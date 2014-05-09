@@ -20,7 +20,6 @@ gem 'unicorn' , '4.8.2'
 gem 'newrelic_rpm' , '3.7.2.195'
 gem 'rollbar' , '0.12.11'
 gem 'lograge' , '0.2.2'
-gem 'font_assets'
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'
