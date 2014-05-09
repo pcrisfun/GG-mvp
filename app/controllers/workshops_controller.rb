@@ -13,7 +13,7 @@ class WorkshopsController < ApplicationController
       @allfilled_workshops = Workshop.find_all_by_state('filled').sort_by { |e| e.begins_at }
       @allcompleted_workshops = Workshop.find_all_by_state('completed').sort_by { |e| e.begins_at }
     end
-    @workshops = Workshop.where( datetime_tba: false, state: ['accepted']).sort_by { |e| e.begins_at }
+    @workshops = Workshop.where( datetime_tba: false, state: ['accepted']).sort_by { |e| e.created_at }.reverse!
     @tba_workshops = Workshop.where( datetime_tba: true, state: ['accepted']).sort_by { |e| e.created_at }
     @closed_workshops = Workshop.where( datetime_tba: false, state: ['filled','completed']).where("begins_at < :today", {today: Date.today}).sort_by { |e| e.begins_at }.reverse!
 
