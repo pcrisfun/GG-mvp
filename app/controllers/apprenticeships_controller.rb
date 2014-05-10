@@ -29,7 +29,7 @@ class ApprenticeshipsController < ApplicationController
     if params[:apprenticeship]
       @apprenticeship = current_user.apprenticeships.new(params[:apprenticeship])
     else
-      @apprenticeship = current_user.apprenticeships.new(topic: 'Your Apprenticeship Topic', host_firstname: current_user.first_name, host_lastname: current_user.last_name, kind: "Production", datetime_tba: false, hours: "4", availability: "On a flexible schedule", location_address: "1309 Chestnut Ave.", location_state: "TX", location_city: "Austin", location_nbrhood: "East Austin", location_zipcode: "78702", age_min: "12", age_max: "100", registration_max: "2")
+      @apprenticeship = current_user.apprenticeships.new(topic: 'Your Apprenticeship Topic', host_firstname: current_user.first_name, host_lastname: current_user.last_name, kind: "Production", datetime_tba: false, hours: "4", availability: "On a flexible schedule", location_address: "1309 Chestnut Ave.", location_state: "TX", location_city: "Austin", location_nbrhood: "East Austin", location_zipcode: "78702", age_min: "12", age_max: "100", registration_max: "1")
     end
     @apprenticeship.begins_at ||= Date.today + 7.day
     @apprenticeship.ends_at ||= Date.tomorrow + 97.day
