@@ -9,14 +9,14 @@ task :complete_events => :environment do
 end
 
 
-#2nd, based on close registrations date, cancel workshops that don't have minimum # signups
+#2nd, based on close registrations date, cancel accepted workshops that don't have minimum # signups
 desc "Cancel empty workshops"
 task :cancel_events => :environment do
   Workshop.cancel_workshop
 end
 
 
-#3rd, based on start date, send reminders if they haven't been sent yet
+#3rd, based on start date, send reminders for accepted/filled events & confirmed signups (if they haven't been sent yet)
 desc "Send event reminders"
 task :send_reminders => :environment do
   Workshop.maker_reminder
@@ -26,12 +26,11 @@ task :send_reminders => :environment do
 end
 
 
-#4th, based on end date, send follow up emails if they haven't been sent yet
+#4th, based on end date, send follow up emails for completed events & signups (if they haven't been sent yet)
 desc "Send followups after events"
 task :send_followups => :environment do
   Workshop.maker_followup
   AppSignup.followup
-  AppSignup.followup_maker
   WorkSignup.followup
 end
 

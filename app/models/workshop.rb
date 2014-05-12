@@ -303,7 +303,7 @@ include EventHelper
   end
 
   def get_signup_emails
-    "<ul>" + self.signups.where(:state => 'confirmed').map do |a|
+    "<ul>" + self.signups.where(:state => ["confirmed", "completed"]).map do |a|
       "<li>#{a.user.name}: #{a.user.email}</li>"
     end.join + "</ul>"
   end
@@ -342,7 +342,7 @@ include EventHelper
 
   def self.maker_followup
     date_range = (Date.today-3.days)..Date.today
-    Workshop.where(begins_at: date_range, state: "completed", datetime_tba: false, follow_up_sent: false).each do |work|
+    Workshop.where(begins_at: date_range, state: "completed", follow_up_sent: false).each do |work|
       work.deliver_maker_followup
     end
   end
