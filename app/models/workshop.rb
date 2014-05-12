@@ -317,12 +317,11 @@ include EventHelper
     end
 	end
 
-	def self.cancel_workshop
+  def self.cancel_workshop
     #Note: ends_at is the registration close date on workshops
-		workshops = Workshop.where('ends_at <= ?', Date.today).where(state: "accepted", datetime_tba: false).all
-		workshops.each do |w|
-			unless w.min_capacity_met?
-        w.cancel & w.deliver_cancel_lowsignups
+    Workshop.where(state: "accepted").where('ends_at <= ?', Date.today).each do |w|
+      unless w.min_capacity_met?
+        w.cancel && w.deliver_cancel_lowsignups
         w.signups.each do |s|
           s.cancel && s.deliver_cancel
 
@@ -331,8 +330,8 @@ include EventHelper
           :event_id => w.id)
         end
       end
-		end
-	end
+    end
+  end
 
   def self.maker_reminder
     date_range = Date.today..(Date.today+3.days)
