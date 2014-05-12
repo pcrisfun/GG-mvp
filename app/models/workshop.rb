@@ -12,7 +12,7 @@ include EventHelper
   # Images
     validate :host_album_limit
   # Date & Time
-    validates :begins_at, :date => {:after => Proc.new { Date.today }, :message => 'Sorry! You need to plan your workshop for a date after today. Please check the date you set.'}, :if => :tba_is_blank
+    validates :begins_at, :date => {:after => Proc.new { Date.today }, :message => 'Sorry! You need to plan your workshop for a date after today. Please check the date you set.'}, :if => :should_validate_begins_at?
     validates_presence_of :begins_at_time, :ends_at_time, :if => :tba_is_blank
     validate :ends_after_start_time
     validate :close_signups
@@ -48,7 +48,7 @@ include EventHelper
   end
 
   validation_group :begins_at do
-    validates :begins_at, :date => {:after => Proc.new { Date.today }, :message => 'Sorry! You need to plan your workshop for a date after today. Please check the date you set.'}, :if => :tba_is_blank
+    validates :begins_at, :date => {:after => Proc.new { Date.today }, :message => 'Sorry! You need to plan your workshop for a date after today. Please check the date you set.'}, :if => :should_validate_begins_at?
   end
 
   validation_group :begins_at_time do
@@ -309,9 +309,11 @@ include EventHelper
   end
 
 	def self.complete_workshop
-    Workshop.where('begins_at <= ?', Date.today).all.each do |workshop|
+    Workshop.where(:state => ["accepted", "filled"]).where('begins_at <= ?', Date.today).each do |workshop|
+      #I don't know why workshop.complete doesn't work, but it doesn't and this does:
+      workshop.state = "completed"
+      workshop.save!
       workshop.signups.where(:state => "confirmed").each {|w| w.complete}
-      workshop.complete
     end
 	end
 
@@ -406,13 +408,5 @@ include EventHelper
     return ''
   end
 
-	state_machine :state, :initial => :started do
-		event :complete do
-      transition :all => :completed
-    end
 
-    event :submit do
-      transition :started => :pending
-    end
-	end
 end

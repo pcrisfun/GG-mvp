@@ -99,10 +99,6 @@ class Apprenticeship < Event
     validates_presence_of :tool_list
   end
 
-def should_validate_begins_at?
-    :tba_is_blank && (self.started? || self.pending?)
-end
-
   include Emailable
 
   def deliver_save
@@ -239,14 +235,14 @@ end
     return true
   end
 
-  #def self.complete_apprenticeship
-   # Apprenticeship.where(:state => ["accepted", "filled"].where('ends_at <= ?', Date.today).each do |app|
-    #  app.signups.where(:state => "confirmed").each do |a|
-     #   a.complete
-      #end
-     # app.complete
-    #end
-  #end
+  def self.complete_apprenticeship
+    Apprenticeship.where(:state => ["accepted", "filled"]).where('ends_at <= ?', Date.today).each do |app|
+      #I don't know why app.complete doesn't work, but it doesn't and this does:
+      app.state = "completed"
+      app.save!
+      app.signups.where(:state => "confirmed").each {|a| a.complete}
+    end
+  end
 
   def already_applied?(user)
     self.signups.where(:user_id => user.id).any?
@@ -273,12 +269,6 @@ end
     checkmarks[:payment] = self.charge_id.present?
     self.errors.clear
     return checkmarks
-  end
-
-  state_machine :state, :initial => :started do
-    event :complete do
-      transition :all => :completed
-    end
   end
 
   def state_label
