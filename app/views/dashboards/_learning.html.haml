@@ -24,7 +24,7 @@
               %br
               = link_to 'Cancel registration', { :controller => 'work_signups', :action => 'cancel', :id => signup.id }, :method => :post, :data => { :confirm => 'Are you sure you want to cancel your registration for this workshop?'}
             - if event.type == "Apprenticeship"
-              - if signup.started? || signup.pending?
+              - if signup.started? || signup.pending? || signup.interview_requested? || signup.interview_scheduled?
                 %br
                 = link_to 'Cancel application', { :controller => 'app_signups', :action => 'cancel', :id => signup.id }, :method => :post, :data => { :confirm => 'Are you sure you want to cancel your application for this apprenticeship?'}
                 &nbsp; | &nbsp;

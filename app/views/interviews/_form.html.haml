@@ -1,10 +1,9 @@
-= simple_form_for(@interview) do |f|
+= simple_form_for(@interview, :url => url_for(controller: 'interviews', action: 'create', app_signup:@app_signup.id)) do |f|
   = f.error_notification
 
   .form-inputs
     = f.input :interview_time
-    - if current_user == @app_signup.event.user
-      = f.input :interview_location
-    
-  .form-actions
-    = f.button :submit
+    = f.input :interview_location
+    %br
+
+    = f.submit "Send Request", class: "btn btn-primary pull-right"
