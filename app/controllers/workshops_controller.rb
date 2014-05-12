@@ -32,7 +32,7 @@ class WorkshopsController < ApplicationController
     if params[:workshop]
       @workshop = current_user.workshops.new(params[:workshop])
     else
-      @workshop = current_user.workshops.new(topic: 'Your Workshop Topic', host_firstname: current_user.first_name, host_lastname: current_user.last_name, datetime_tba: true, begins_at_time: '12:00pm', ends_at_time: '2:00pm', location_nbrhood: "East Austin", location_address: "1309 Chestnut St.", location_city: "Austin", location_state: "TX", location_zipcode: "78702", age_min: "11", age_max: "100", registration_min: "2", registration_max: "10" )
+      @workshop = current_user.workshops.new(topic: 'Your Workshop Topic', host_firstname: current_user.first_name, host_lastname: current_user.last_name, datetime_tba: false, begins_at_time: '12:00pm', ends_at_time: '2:00pm', location_nbrhood: "East Austin", location_address: "1309 Chestnut St.", location_city: "Austin", location_state: "TX", location_zipcode: "78702", age_min: "11", age_max: "100", registration_min: "2", registration_max: "10" )
     end
     @workshop.begins_at ||= Date.today + 31.day
     @workshop.ends_at ||= Date.today + 29.day
