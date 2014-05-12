@@ -335,7 +335,7 @@ include EventHelper
 
   def self.maker_reminder
     date_range = Date.today..(Date.today+3.days)
-    Workshop.where(begins_at: date_range, :state => ["accepted", "filled"], datetime_tba: false, reminder_sent: false).each do |work|
+    Workshop.where(begins_at: date_range, :state => ["accepted", "filled"], reminder_sent: false).each do |work|
       work.deliver_maker_reminder
     end
   end

@@ -319,21 +319,21 @@ include EventHelper
 
   def self.first_reminder
     date_range = Date.today..(Date.today+3.days)
-    WorkSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'confirmed', work_first_reminder_sent: false).each do |work|
+    WorkSignup.joins(:event).where(events: {:begins_at => date_range}).where(state: 'confirmed', work_first_reminder_sent: false).each do |work|
       work.deliver_first_reminder
     end
   end
 
   def self.second_reminder
     date_range = Date.today..(Date.today+1.days)
-    WorkSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'confirmed', work_second_reminder_sent: false).each do |work|
+    WorkSignup.joins(:event).where(events: {:begins_at => date_range}).where(state: 'confirmed', work_second_reminder_sent: false).each do |work|
       work.deliver_second_reminder
     end
   end
 
   def self.followup
     date_range = (Date.today-3.days)..Date.today
-    WorkSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'completed', work_followup_sent: false).each do |work|
+    WorkSignup.joins(:event).where(events: {:begins_at => date_range}).where(state: 'completed', work_followup_sent: false).each do |work|
       work.deliver_followup
     end
   end
