@@ -10,7 +10,10 @@
         %h1 My Application for #{link_to "#{@app_signup.event.topic}", apprenticeship_path(@app_signup.event)}
       %p
         #{@app_signup.event.user.first_name} has
-        %span.badge.badge-success #{(@app_signup.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days
+        - if Date.today < @app_signup.state_stamps.last.stamp + 14.days
+          %span.badge.badge-success #{(@app_signup.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days
+        - else
+          %span.badge.badge-warning #{(@app_signup.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days
         to review your application and make her decision.
 
     - elsif current_user == @app_signup.event.user
@@ -20,7 +23,10 @@
         %h1 #{@app_signup.user.first_name}'s Application for #{link_to "#{@app_signup.event.topic}", apprenticeship_path(@app_signup.event)}
       %p
         You have
-        %span.badge.badge-success #{(@app_signup.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days
+        - if Date.today < @app_signup.state_stamps.last.stamp + 14.days
+          %span.badge.badge-success #{(@app_signup.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days
+        - else
+          %span.badge.badge-warning #{(@app_signup.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days
         to review her application and make your decision.
 
     - elsif current_user.admin?
@@ -30,7 +36,10 @@
         %h1 #{@app_signup.user.first_name}'s Application for #{link_to "#{@app_signup.event.topic}", apprenticeship_path(@app_signup.event)}
       %p
         #{@app_signup.event.user.first_name} has
-        %span.badge.badge-success #{(@app_signup.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days
+        - if Date.today < @app_signup.state_stamps.last.stamp + 14.days
+          %span.badge.badge-success #{(@app_signup.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days
+        - else
+          %span.badge.badge-warning #{(@app_signup.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days
         to review this application and make her decision.
 
 
