@@ -48,7 +48,7 @@ class AppSignupsController < ApplicationController
       elsif @app_signup.group_valid?(:save) && @app_signup.save(:validate => false) && @app_signup.deliver_save
         redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Nice! Your application was saved." }
       else
-        flash.now[:warning] = "POops! There was a problem saving your application. Please check all fields."
+        flash.now[:warning] = "Poops! There was a problem saving your application. Please check all fields."
         render 'new'
       end
     else

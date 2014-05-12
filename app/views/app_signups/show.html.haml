@@ -191,11 +191,11 @@
             .row-fluid
 
               .span4.pull-center
-                = link_to "Decline Apprentice", '#declineModal', data: {toggle: "modal"}, :class => "btn btn-danger pull-center"
+                = link_to "Decline Application", '#declineModal', data: {toggle: "modal"}, :class => "btn btn-danger pull-center"
                 #declineModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "declineModal", :role => "dialog", :tabindex => "-1"}
                   .modal-header
                     %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
-                    %h2#galleryModalLabel Decline Application
+                    %h2#declineModalLabel.center Decline Application
                   .modal-body
                     %p Are you sure you want to decline this applicant?
                     We'll send her a gentle email letting her know you were honored she applied, but you've chosen another apprentice.
@@ -221,7 +221,7 @@
                 #interviewModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "interviewModal", :role => "dialog", :tabindex => "-1"}
                   .modal-header
                     %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
-                    %h2#galleryModalLabel Request an Interview
+                    %h2#galleryModalLabel.center Request an Interview
                   .modal-body
                     %p What location and timeframe(s) are you available? We'll ask your applicant to choose 1 hour within the timeframe that works for her.
                     %br
@@ -241,7 +241,7 @@
                   #acceptModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "acceptModal", :role => "dialog", :tabindex => "-1"}
                     .modal-header
                       %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
-                      %h2#galleryModalLabel Accept this Apprentice
+                      %h2#galleryModalLabel.center Accept this Apprentice
                     .modal-body
                       %p Are you sure you want to accept this apprentice?
                       %br
