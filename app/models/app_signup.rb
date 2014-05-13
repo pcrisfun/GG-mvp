@@ -623,7 +623,7 @@ class AppSignup < Signup
   end
 
   def self.followup
-    date_range = (Date.today-7.days)..Date.today
+    date_range = (Date.today-3.days)..Date.today
     AppSignup.joins(:event).where(events: {:begins_at => date_range}).where(state: 'confirmed', app_followup_sent: false).each do |app|
       app.deliver_followup && app.deliver_followup_maker
     end

@@ -322,7 +322,7 @@ include EventHelper
     Workshop.where(state: "accepted").where('ends_at <= ?', Date.today).each do |w|
       unless w.min_capacity_met?
         w.cancel && w.deliver_cancel_lowsignups
-        w.signups.each do |s|
+        w.signups.where(state: "confirmed").each do |s|
           s.cancel && s.deliver_cancel
 
           Prereg.find_or_create_by_user_id_and_event_id!(
