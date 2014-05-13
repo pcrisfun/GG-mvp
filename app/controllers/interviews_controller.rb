@@ -74,8 +74,10 @@ class InterviewsController < ApplicationController
       if @interview.save
         if @interview.user_id == @app_signup.event.user.id
           @app_signup.update_attribute(:state, 'interview_requested')
+          @interview.deliver_interview_requested_maker && @interview.deliver_interview_requested
         elsif @interview.user_id == @app_signup.user.id
           @app_signup.update_attribute(:state, 'interview_scheduled')
+          @interview.deliver_interview_scheduled_maker && @interview.deliver_interview_scheduled
         end
         format.html { redirect_to @app_signup, notice: "Your Interview was successfully created. We've sent you both an email with the time & location." }
         format.json { render json: @app_signup, status: :created, location: @interview }
