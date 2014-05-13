@@ -1,9 +1,0 @@
-= simple_form_for(@interview, :url => url_for(controller: 'interviews', action: 'create', app_signup:@app_signup.id)) do |f|
-  = f.error_notification
-
-  .form-inputs
-    = f.input :interview_time, label: "Interview Timeframe(s)", required: true, input_html: { rel: 'popover', data: { placement: "right",  content: "Hint - You might want to include the times you put in your listing." }}
-    = f.input :interview_location, required: true, input_html: { rel: 'popover', data: { placement: "right",  content: "Be specific -- include an address or directions as well." }}
-    %br
-
-    = f.submit "Send Request", class: "btn btn-primary pull-right"

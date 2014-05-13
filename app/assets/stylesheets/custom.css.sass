@@ -638,11 +638,35 @@ li.alertnav
 .modal
   outline: none
 
-#interviewModal, #declineModal, #acceptModal
+#interviewModal, #rescheduleModal, #declineModal, #acceptModal
   text-align: left
-  .popover-title
-    padding: 0px
-    border-bottom: none
+.popover-title
+  padding: 0px
+  margin-top: -15px
+  opacity: 0
+  background-color: #333
+  border-color: #333
+  border-bottom: none
+
+
+.application
+  .span4.details
+    text-align: right
+    border-right: 1px solid $silver-light
+    padding-right: 30px
+    @media (max-width: 767px)
+      text-align: center
+      font-weight: 700
+      padding-right: 0
+      border-right: none
+  .span7
+    &.details
+      font-style: italic
+    .btn, .popover
+      font-style: normal
+    @media (max-width: 767px)
+      text-align: center
+      padding-bottom: 20px
 
 
 #admin
