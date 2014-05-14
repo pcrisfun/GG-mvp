@@ -161,27 +161,25 @@
     .row-fluid
       .span12.well
         #avatar
-          = avatar_for(@app_signup.user, size: 50, tag: :medium)
+          = avatar_for(@app_signup.user, size: 100, tag: :large)
+          %h3
+            - if @app_signup.parent?
+              = @app_signup.daughter_firstname
+            - else
+              = @app_signup.user.first_name
+            &nbsp;
+            %span.age
+              Age -
+              - unless @app_signup.parent?
+                = @app_signup.user.age
+              - else
+                = @app_signup.daughter_age
         %table.table.table-striped.table-bordered
           %thead
             %tr
               %th Question
               %th Answer
           %tbody
-            %tr
-              %td Name
-              %td
-                - if @app_signup.parent?
-                  = @app_signup.daughter_firstname
-                - else
-                  = @app_signup.user.first_name
-            %tr
-              %td Age
-              %td
-                - unless @app_signup.parent?
-                  = @app_signup.user.age
-                - else
-                  = @app_signup.daughter_age
             %tr
               %td I'm truly happy when
               %td= @app_signup.happywhen
@@ -281,7 +279,7 @@
                   %br
                   .well.fancyform-light
                     %h3 Want to Accept?
-                    After you accept this applicant we'll give her the chance to meet up with you first. Afterwards she'll confirm by paying, and once she does, we'll put you two in touch to get started!
+                    After you accept this applicant we'll give her the chance to meet up with you first. Afterwards she'll confirm by paying, and once she does, we'll put you in touch to get started!
 
 
 
