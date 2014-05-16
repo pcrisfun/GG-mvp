@@ -22,7 +22,7 @@
             %dd
               = "#{current_user.first_name} #{current_user.last_name}"
               %p.pull-right
-                Not you? #{link_to "Sign in as a different user.", destroy_user_session_path, :method => :delete}
+                Not you? #{link_to "Sign in as a different user.", destroy_user_session_path}
             %dt Email
             %dd= "#{current_user.email}"
             %dt Age

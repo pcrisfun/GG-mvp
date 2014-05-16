@@ -13,7 +13,7 @@ class ApprenticeshipsController < ApplicationController
       @allfilled_apprenticeships = Apprenticeship.find_all_by_state('filled').sort_by { |e| e.begins_at }
       @allcompleted_apprenticeships = Apprenticeship.find_all_by_state('completed').sort_by { |e| e.begins_at }
     end
-    @apprenticeships = Apprenticeship.where( datetime_tba: false, state: ['accepted']).sort_by { |e| e.created_at }.reverse!
+    @apprenticeships = Apprenticeship.where( datetime_tba: false, state: ['accepted']).sort_by { |e| e.begins_at }
     @tba_apprenticeships = Apprenticeship.where( datetime_tba: true, state: ['accepted']).sort_by { |e| e.created_at }
     @closed_apprenticeships = Apprenticeship.where( datetime_tba: false, state: ['filled','completed']).where("begins_at < :today", {today: Date.today}).sort_by { |e| e.begins_at }.reverse!
 
@@ -29,7 +29,7 @@ class ApprenticeshipsController < ApplicationController
     if params[:apprenticeship]
       @apprenticeship = current_user.apprenticeships.new(params[:apprenticeship])
     else
-      @apprenticeship = current_user.apprenticeships.new(topic: 'Your Apprenticeship Topic', host_firstname: current_user.first_name, host_lastname: current_user.last_name, kind: "Production", datetime_tba: false, hours: "4", availability: "On a flexible schedule", location_address: "1309 Chestnut Ave.", location_state: "TX", location_city: "Austin", location_nbrhood: "East Austin", location_zipcode: "78702", age_min: "12", age_max: "100", registration_max: "1")
+      @apprenticeship = current_user.apprenticeships.new(topic: 'Your Apprenticeship Topic', host_firstname: current_user.first_name, host_lastname: current_user.last_name, kind: "Production", datetime_tba: false, hours: "4", availability: "On a flexible schedule", location_address: "1309 Chestnut Ave.", location_state: "TX", location_city: "Austin", location_nbrhood: "East Austin", location_zipcode: "78702", age_min: "12", age_max: "100", registration_max: "2")
     end
     @apprenticeship.begins_at ||= Date.today + 7.day
     @apprenticeship.ends_at ||= Date.tomorrow + 97.day
@@ -87,7 +87,7 @@ class ApprenticeshipsController < ApplicationController
 
         elsif params[:apprenticeship][:stripe_card_token] && ( params[:apprenticeship][:stripe_card_token] != "" )
           if @apprenticeship.process_payment
-            @apprenticeship.submit
+            @apprenticeship.paid
             @apprenticeship.deliver
             redirect_to payment_confirmation_apprenticeship_path(@apprenticeship) and return
           else

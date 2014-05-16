@@ -4,7 +4,7 @@
       = content_tag(:input, '', name: 'album_id', value: @album.id, type: 'hidden' )
     %span.btn.btn-primary.fileinput-button
       %span#label
-        %i.fa.fa-cloud-upload
+        %i.icon-cloud-upload
         Upload Images
         %input{type:'file', multiple: true, name: "photo[file]", id:"add_photo_input" }
 - @gallery.photos.order("created_at desc").each do |photo|

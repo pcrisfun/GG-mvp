@@ -82,10 +82,6 @@ class Event < ActiveRecord::Base
     datetime_tba.blank?
   end
 
-  def should_validate_begins_at?
-    :tba_is_blank && (self.started? || self.pending?)
-  end
-
   def residential
     location_private == true
   end
@@ -129,18 +125,23 @@ class Event < ActiveRecord::Base
     end
 
     state :pending do
+
     end
 
     state :accepted do
+
     end
 
     state :canceled do
+
     end
 
     state :filled do
+
     end
 
     state :completed do
+
     end
 
     event :reject do
@@ -155,7 +156,7 @@ class Event < ActiveRecord::Base
       transition :accepted => :started
     end
 
-    event :submit do
+    event :paid do
       transition :started => :pending
     end
 
@@ -173,10 +174,6 @@ class Event < ActiveRecord::Base
 
     event :fill do
       transition :accepted => :filled
-    end
-
-    event :complete do
-      transition :all => :completed
     end
 
     event :reopen do

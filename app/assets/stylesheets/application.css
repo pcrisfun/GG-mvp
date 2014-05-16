@@ -22,7 +22,7 @@
  *= require fancybox
  *= require masonry/transitions
  *= require jquery.ui.all
- *= require bootstrap-editable/bootstrap-editable
+ *= require bootstrap-editable
  *= require select2
  *= require font-awesome
  *= require_tree .

@@ -367,7 +367,7 @@ figure {
   line-height: 1;
 }
 .page-header a {
-  color: #3498DB;
+  color: $niceblue;
 }
 .page-header a:hover {
   color: #555555;
@@ -412,7 +412,7 @@ figure {
   margin-left: 2em;
   text-indent: -1em;
 }
-.icons li [class^="fa fa-"], .icons li [class*=" fa fa-"] {
+.icons li [class^="icon-"], .icons li [class*=" icon-"] {
   display: inline-block;
   text-align: center;
   width: 1em;

@@ -1,7 +1,7 @@
 class Apprenticeship < Event
 
-  has_many :users, :through => :signup
-  has_many :users, :through => :prereg
+	has_many :users, :through => :signup
+	has_many :users, :through => :prereg
 
   validation_group :design do
   # Title & Description
@@ -13,7 +13,7 @@ class Apprenticeship < Event
   # Images
     validate :host_album_limit
   # Dates
-    validates :begins_at, :date => {:after => Proc.new { Date.today }, :message => 'Oops! You need to plan your apprenticeship to start sometime after today. Please check the dates you set.'}, :if => :should_validate_begins_at?
+    validates :begins_at, :date => {:after => Proc.new { Date.today }, :message => 'Oops! You need to plan your apprenticeship to start sometime after today. Please check the dates you set.'}, :if => :tba_is_blank
     validates :ends_at, :date => {:after => :begins_at, :message => "Oops! Please check the dates you set. Your apprenticeship can't end before it begins!"}, :if => :tba_is_blank
   # Hours & Availability
     validates_presence_of :hours
@@ -54,11 +54,9 @@ class Apprenticeship < Event
   validation_group :description do
     validates_presence_of :description
   end
-
   validation_group :begins_at do
-    validates :begins_at, :date => {:after => Proc.new { Date.today }, :message => 'Sorry! You need to plan your apprenticeship to start sometime after today. Please check the dates you set.'}, :if => :should_validate_begins_at?
+    validates :begins_at, :date => {:after => Proc.new { Date.today }, :message => 'Sorry! You need to plan your apprenticeship to start sometime after today. Please check the dates you set.'}, :if => :tba_is_blank
   end
-
   validation_group :ends_at do
     validates :ends_at, :date => {:after => :begins_at, :message => "Oops! Please check the dates you set. Your apprenticeship can't end before it begins!"}, :if => :tba_is_blank
   end
@@ -101,62 +99,62 @@ class Apprenticeship < Event
 
   include Emailable
 
-  def deliver_save
-    Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
-       :from => "Diana & Cheyenne<hello@girlsguild.com>",
-      :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "You started building an apprenticeship!",
-      :html_body => %(<h1>Hooray #{user.first_name}!</h1>
+	def deliver_save
+		Pony.mail({
+			:to => "#{user.name}<#{user.email}>",
+   		:from => "Diana & Cheyenne<hello@girlsguild.com>",
+			:reply_to => "GirlsGuild<hello@girlsguild.com>",
+			:subject => "You started building an apprenticeship!",
+			:html_body => %(<h1>Hooray #{user.first_name}!</h1>
         <p>We're thrilled you're building an apprenticeship! If you get stuck take a look at our <a href="#{faq_url}">FAQ</a>, or feel free to respond to this email with any questions you might have!</p>
         <p>You can <a href="#{edit_apprenticeship_url(self)}">edit your apprenticeship here</a> or monitor signups from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
-      :bcc => "hello@girlsguild.com",
-    })
-    return true
-  end
+			:bcc => "hello@girlsguild.com",
+		})
+		return true
+	end
 
-  def deliver(opts={})
-    return false unless valid?
+	def deliver(opts={})
+		return false unless valid?
     payment = opts[:payment]
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
-       :from => "Diana & Cheyenne<hello@girlsguild.com>",
-      :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Your apprenticeship has been submitted! - #{topic} with #{user.name}",
-      :html_body => %(<h1>Thanks #{user.first_name}!</h1>
+			:to => "#{user.name}<#{user.email}>",
+   		:from => "Diana & Cheyenne<hello@girlsguild.com>",
+			:reply_to => "GirlsGuild<hello@girlsguild.com>",
+			:subject => "Your apprenticeship has been submitted! - #{topic} with #{user.name}",
+			:html_body => %(<h1>Thanks #{user.first_name}!</h1>
         <p>We received your $30.00 listing fee, and your apprenticeship has been submitted and is pending while we take a look at it.</p>
         <p>You can review the submitted apprenticeship here - <a href="#{apprenticeship_url(self)}"> #{self.title}</a> or monitor signups from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>While you wait, go ahead and fill out your profile in your <a href="#{edit_user_registration_url(user)}">Settings Dashboard</a> like your bio, and links to your website, twitter, and facebook if you're into the social thing.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
-      :bcc => "hello@girlsguild.com",
-    })
-    return true
-  end
+			:bcc => "hello@girlsguild.com",
+		})
+		return true
+	end
 
-  def deliver_resubmit
-    return false unless valid?
-    Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
-       :from => "Diana & Cheyenne<hello@girlsguild.com>",
-      :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Your apprenticeship has been resubmitted! - #{topic} with #{user.name}",
-      :html_body => %(<h1>Nice!</h1>
+	def deliver_resubmit
+		return false unless valid?
+		Pony.mail({
+			:to => "#{user.name}<#{user.email}>",
+   		:from => "Diana & Cheyenne<hello@girlsguild.com>",
+			:reply_to => "GirlsGuild<hello@girlsguild.com>",
+			:subject => "Your apprenticeship has been resubmitted! - #{topic} with #{user.name}",
+			:html_body => %(<h1>Nice!</h1>
         <p>Your apprenticeship is currently pending while we take a look at your changes.</p>
         <p>You can review your resubmitted apprenticeship here - <a href="#{apprenticeship_url(self)}"> #{self.title}</a> or monitor signups from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
-      :bcc => "hello@girlsguild.com",
-    })
-    return true
-  end
+			:bcc => "hello@girlsguild.com",
+		})
+		return true
+	end
 
-  def deliver_accept
-    Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
-       :from => "Diana & Cheyenne<hello@girlsguild.com>",
-      :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Your apprenticeship has been posted! - #{topic} with #{user.name}",
-      :html_body => %(<h1>Congrats #{user.first_name}!</h1>
+	def deliver_accept
+		Pony.mail({
+			:to => "#{user.name}<#{user.email}>",
+   		:from => "Diana & Cheyenne<hello@girlsguild.com>",
+			:reply_to => "GirlsGuild<hello@girlsguild.com>",
+			:subject => "Your apprenticeship has been posted! - #{topic} with #{user.name}",
+			:html_body => %(<h1>Congrats #{user.first_name}!</h1>
         <p>Your apprenticeship has been posted and is now live! Check it out - <a href="#{apprenticeship_url(self)}"> #{self.title}</a></p>
         <p>Be sure to invite your friends and share it on your social networks!</p>
         <p>1. We'll forward you each application as soon as someone applies.
@@ -166,25 +164,25 @@ class Apprenticeship < Event
         <p>If by some bad luck you need to cancel your apprenticeship, you can do so from your <a href="#{dashboard_url}">Events Dashboard</a> - but we're crossing our fingers that won't happen!
           <br/>Let us know if you have any questions!</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
-      :bcc => "hello@girlsguild.com",
-    })
-    return true
-  end
+			:bcc => "hello@girlsguild.com",
+		})
+		return true
+	end
 
-  def deliver_cancel
-    Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
-       :from => "Diana & Cheyenne<hello@girlsguild.com>",
-      :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Your apprenticeship has been canceled - #{topic} with #{user.name}",
-      :html_body => %(<h1>Bummer!</h1>
+	def deliver_cancel
+		Pony.mail({
+			:to => "#{user.name}<#{user.email}>",
+   		:from => "Diana & Cheyenne<hello@girlsguild.com>",
+			:reply_to => "GirlsGuild<hello@girlsguild.com>",
+			:subject => "Your apprenticeship has been canceled - #{topic} with #{user.name}",
+			:html_body => %(<h1>Bummer!</h1>
         <p>You've canceled your apprenticeship. We hope you'll consider offering it again sometime!</p>
         <p>You can edit the apprenticeship and resubmit it anytime. Find it here - <a href="#{edit_apprenticeship_url(self)}"> #{self.title}</a></p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
-      :bcc => "hello@girlsguild.com",
-    })
-    return true
-  end
+			:bcc => "hello@girlsguild.com",
+		})
+		return true
+	end
 
   def deliver_cancel_applicants
     Pony.mail({
@@ -201,59 +199,59 @@ class Apprenticeship < Event
     return true
   end
 
-  def deliver_reject
-    Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
-       :from => "Diana & Cheyenne<hello@girlsguild.com>",
-      :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "We couldn't post your apprenticeship - #{topic} with #{user.name}",
-      :html_body => %(<h1>Sorry.</h1>
+	def deliver_reject
+		Pony.mail({
+			:to => "#{user.name}<#{user.email}>",
+   		:from => "Diana & Cheyenne<hello@girlsguild.com>",
+			:reply_to => "GirlsGuild<hello@girlsguild.com>",
+			:subject => "We couldn't post your apprenticeship - #{topic} with #{user.name}",
+			:html_body => %(<h1>Sorry.</h1>
         <p>We can't post your apprenticeship because there was a problem with your submission:</p>
         <p><i>#{self.reject_reason}</i></p>
         <p>If the problem is with the formatting or content of the apprenticeship, you can edit and resubmit it anytime. Find it here - <a href="#{edit_apprenticeship_url(self)}"> #{self.title}</a> or from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>Please let us know if you have any questions.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
-      :bcc => "hello@girlsguild.com",
-    })
-    return true
-  end
+			:bcc => "hello@girlsguild.com",
+		})
+		return true
+	end
 
-  def deliver_revoke
-    Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
-       :from => "Diana & Cheyenne<hello@girlsguild.com>",
-      :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Your apprenticeship has been taken down - #{topic} with #{user.name}",
-      :html_body => %(<h1>Sorry.</h1>
+	def deliver_revoke
+		Pony.mail({
+			:to => "#{user.name}<#{user.email}>",
+   		:from => "Diana & Cheyenne<hello@girlsguild.com>",
+			:reply_to => "GirlsGuild<hello@girlsguild.com>",
+			:subject => "Your apprenticeship has been taken down - #{topic} with #{user.name}",
+			:html_body => %(<h1>Sorry.</h1>
         <p>We've had to take down your apprenticeship because of an issue:</p>
         <p><i>#{self.revoke_reason}</i></p>
         <p>If the problem is with the formatting or content of the apprenticeship, you can edit and resubmit it anytime. Find it here - <a href="#{edit_apprenticeship_url(self)}"> #{self.title}</a> or from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>Please let us know if you have any questions.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
-      :bcc => "hello@girlsguild.com",
-    })
-    return true
-  end
+			:bcc => "hello@girlsguild.com",
+		})
+		return true
+	end
 
-  def self.complete_apprenticeship
-    Apprenticeship.where(:state => ["accepted", "filled"]).where('ends_at <= ?', Date.today).each do |app|
-      #I don't know why app.complete doesn't work, but it doesn't and this does:
-      app.state = "completed"
-      app.save!
-      app.signups.where(:state => "confirmed").each {|a| a.complete}
+	def self.complete_apprenticeship
+    Apprenticeship.where('ends_at <= ?', Date.today).where(datetime_tba: false).each do |app|
+      app.signups.each do |a|
+        a.complete
+      end
+      app.complete
     end
-  end
+	end
 
-  def already_applied?(user)
+	def already_applied?(user)
     self.signups.where(:user_id => user.id).any?
   end
 
   def get_signup(user)
-    if already_applied?(user)
-      return self.signups.where(user_id: user).first
-    else
-      return nil
-    end
+  	if already_applied?(user)
+  		return self.signups.where(user_id: user).first
+  	else
+  		return nil
+  	end
   end
 
   # def application_confirmed?(user)
@@ -270,6 +268,12 @@ class Apprenticeship < Event
     self.errors.clear
     return checkmarks
   end
+
+	state_machine :state, :initial => :started do
+		event :complete do
+      transition :all => :completed
+    end
+	end
 
   def state_label
     if self.started?

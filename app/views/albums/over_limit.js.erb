@@ -3,7 +3,7 @@ $('#galleryModal').modal('hide');
 var newdiv = document.createElement('div');
 newdiv.className = 'alert';
 newdiv.id = 'album-alert';
-newdiv.innerHTML = "<a class='close pull-left' data-dismiss='alert'><strong>x</strong></a> Please use <%= @album.limit %> images.  You can remove an image using the <a class='btn btn-mini fa fa-times'></a> before attempting to add another.";
+newdiv.innerHTML = "<a class='close pull-left' data-dismiss='alert'><strong>x</strong></a> Please use <%= @album.limit %> images.  You can remove an image using the <a class='btn btn-mini icon-remove'></a> before attempting to add another.";
 var reference = document.getElementById('#album_photos');
 $('#album_section').prepend(newdiv);
 

@@ -5,20 +5,20 @@
   %ul.nav.nav-pills
     %li{class: action[:edit] ? 'active' : ''}
       .number-circle
-        %i#checkmark-design.fa.fa-check.fa-2x{ class: checkmarks[:design] ? "" : "hidden"}
+        %i#checkmark-design.icon-ok.icon-2x{ class: checkmarks[:design] ? "" : "hidden"}
         #number-design.number-text{ class: !checkmarks[:design] ? "" : "hidden"}
           1
       = link_to "Public Posting", checkmarks[:design] ? edit_apprenticeship_path(@apprenticeship) : '#'
     %li{class: action[:private] ? 'active' : ''}
       .number-circle
-        %i#checkmark-private.fa.fa-check.fa-2x{ class: checkmarks[:private] ? "" : "hidden"}
+        %i#checkmark-private.icon-ok.icon-2x{ class: checkmarks[:private] ? "" : "hidden"}
         #number-private.number-text{ class: !checkmarks[:private] ? "" : "hidden"}
           2
       /Private Details
       = link_to "Private Details", checkmarks[:private] ? private_apprenticeship_path(@apprenticeship) : '#'
     %li{class: action[:payment] ? 'active' : ''}
       .number-circle
-        %i#checkmark-payment.fa.fa-check.fa-2x{ class: checkmarks[:payment] ? "" : "hidden"}
+        %i#checkmark-payment.icon-ok.icon-2x{ class: checkmarks[:payment] ? "" : "hidden"}
         #number-payment.number-text{ class: !checkmarks[:payment] ? "" : "hidden"}
           3
       /Payment

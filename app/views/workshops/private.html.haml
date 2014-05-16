@@ -17,7 +17,7 @@
               /  %span.simpleform-text I will be teaching my unique proprietary techniques. Please ask my apprentice to sign an agreement to respect this /information.
               /  %a{"data-content" => "We understand that for some makers, teaching your unique techniques can feel like risking your trade secrets. If this is /a concern for you, we'll ask your apprentice to sign an agreement to respect your proprietary techniques.", "data-placement" => "right", :href /=> "javascript:;", :rel => "popover"}
               /    Why
-              /    %i.fa.fa-question-circle.small-icon
+              /    %i.icon-question-sign.small-icon
               / BACKGROUND CHECK
               %br
               = f.input :permission, label: 'Background Check' do
@@ -25,7 +25,7 @@
                 %span.simpleform-text I give permission for GirlsGuild to run a background check on me.
                 %a{"data-content" => "We run background checks on all maker-mentors as part of our efforts to foster a safe community.", "data-placement" => "right", :href => "javascript:;", :rel => "popover"}
                   Why
-                  %i.fa.fa-question-circle.small-icon
+                  %i.icon-question-sign.small-icon
               = f.input :legal_name, label: 'Your Legal Full Name' do
                 = f.text_field :legal_name, rel: 'popover', placeholder: 'First Middle Last', data: {content: "We need your full, legal name to run the background check"}
               %hr

@@ -15,9 +15,6 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
-# Load application ENV vars and merge with existing ENV vars. Loaded here so can use values in initializers.
-ENV.update YAML.load_file('config/application.yml')[Rails.env] rescue {}
-
 ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
 
     html = %(<div class="field_with_errors">#{html_tag}</div>).html_safe

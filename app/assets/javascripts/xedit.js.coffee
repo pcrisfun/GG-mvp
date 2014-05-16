@@ -40,8 +40,6 @@ updateTotalPrice = (price)->
   $('#total-price').text(newTotal)
 
 jQuery ->
-  #modify buttons style
-  $.fn.editableform.buttons = "<button type=\"submit\" class=\"btn btn-success editable-submit btn-mini\"><i class=\"fa fa-check icon-white\"></i></button>" + "<button type=\"button\" class=\"btn editable-cancel btn-mini\"><i class=\"fa fa-times\"></i></button>"
   #set the cursor for editable tag fields after they are clicked
   $('.tags').children(".editable").on 'shown', (e, editable)->
     input = $(this).next().find('.select2-input').first()
