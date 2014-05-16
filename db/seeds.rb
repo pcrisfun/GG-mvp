@@ -54,32 +54,6 @@ admin.skip_confirmation!
 admin.admin = true
 admin.save!(validate: false)
 
-xochi = User.new( first_name: "Xochi",
-                  last_name: "Solis",
-                  birthday: "1980-08-08 17:00:00",
-                  email: "xochi@girlsguild.com",
-                  password: "password",
-                  password_confirmation: "password",
-                  terms_of_service: true,
-                )
-xochi.skip_confirmation!
-xochi.admin = false
-xochi.save!(validate: false)
-
-#xochi_gallery = xochi.Gallery.new
-
-nicole = User.new( first_name: "Nicole",
-                  last_name: "Anderson",
-                  birthday: "1993-01-01 17:00:00",
-                  email: "nicole@girlsguild.com",
-                  password: "password",
-                  password_confirmation: "password",
-                  terms_of_service: true,
-                )
-nicole.skip_confirmation!
-nicole.admin = false
-nicole.save!(validate: false)
-
 artist = User.new( first_name: "Martha",
                   last_name: "Smith",
                   birthday: "1980-08-08 17:00:00",
@@ -115,6 +89,32 @@ kid = User.new( first_name: "Lil",
 kid.skip_confirmation!
 kid.admin = false
 kid.save!(validate: false)
+
+xochi = User.new( first_name: "Xochi",
+                  last_name: "Solis",
+                  birthday: "1980-08-08 17:00:00",
+                  email: "xochi@girlsguild.com",
+                  password: "password",
+                  password_confirmation: "password",
+                  terms_of_service: true,
+                )
+xochi.skip_confirmation!
+xochi.admin = false
+xochi.save!(validate: false)
+
+#xochi_gallery = xochi.Gallery.new
+
+nicole = User.new( first_name: "Nicole",
+                  last_name: "Anderson",
+                  birthday: "1993-01-01 17:00:00",
+                  email: "nicole@girlsguild.com",
+                  password: "password",
+                  password_confirmation: "password",
+                  terms_of_service: true,
+                )
+nicole.skip_confirmation!
+nicole.admin = false
+nicole.save!(validate: false)
 
 lee = User.new( first_name: "Lee",
                   last_name: "Webster",
