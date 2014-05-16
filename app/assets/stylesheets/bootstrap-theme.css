@@ -2223,7 +2223,7 @@ button.close {
   border-radius: 5px;
 }
 
-.btn-large [class^="icon-"] {
+.btn-large [class^="fa fa-"] {
   margin-top: 2px;
 }
 
@@ -2233,7 +2233,7 @@ button.close {
   line-height: 22px;
 }
 
-.btn-small [class^="icon-"] {
+.btn-small [class^="fa fa-"] {
   margin-top: 0px;
 }
 
@@ -2836,7 +2836,7 @@ input[type="submit"].btn.btn-mini {
   background-color: #41b7d8;
 }
 
-.nav-list [class^="icon-"] {
+.nav-list [class^="fa fa-"] {
   margin-right: 2px;
 }
 
@@ -4074,7 +4074,7 @@ input[type="submit"].btn.btn-mini {
   left: 50%;
   margin-left: -10px;
   border-width: 10px 10px 0;
-  border-top-color: white;
+  border-top-color: #333;
 }
 .popover.top .arrow:after {
   border-width: 11px 11px 0;
@@ -4087,7 +4087,7 @@ input[type="submit"].btn.btn-mini {
   left: -10px;
   margin-top: -10px;
   border-width: 10px 10px 10px 0;
-  border-right-color: white;
+  border-right-color: #333;
 }
 .popover.right .arrow:after {
   border-width: 11px 11px 11px 0;
@@ -4100,7 +4100,7 @@ input[type="submit"].btn.btn-mini {
   left: 50%;
   margin-left: -10px;
   border-width: 0 10px 10px;
-  border-bottom-color: white;
+  border-bottom-color: #333;
 }
 .popover.bottom .arrow:after {
   border-width: 0 11px 11px;
@@ -4113,7 +4113,7 @@ input[type="submit"].btn.btn-mini {
   right: -10px;
   margin-top: -10px;
   border-width: 10px 0 10px 10px;
-  border-left-color: white;
+  border-left-color: #333;
 }
 .popover.left .arrow:after {
   border-width: 11px 0 11px 11px;
