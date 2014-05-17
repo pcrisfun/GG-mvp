@@ -587,36 +587,74 @@ li.alertnav
   a.sign-link
     font-size: 20px
     font-weight: bold
-  .borderblockleft
-    position: relative
-    margin-top: 0px
-    border-left: 1px solid $silver-shadow
-    height: 120px
-    padding-left: 30px
-    padding-top: 80px
-  .signin
-    margin-top: -200px
+
+//
+.fancyform
   .borderblockright
     border-right: 1px solid $silver-shadow
-  .signup
-    padding: 50px 0
+  .devise-links
+    p
+      position: relative
+      margin-top: 0px
+      border-left: 1px solid $silver-shadow
+    .signin, .signup
+      float: right
+      clear: both
+      margin: 0 0 20px
+      padding: 80px 20px
+      a
+        color: $grass
+        float: right
+      a:hover
+        color: $grass-shadow
+  #new-sessions-links, #create-sessions-links
+    .signin
+      margin-top: -200px
+      padding: 80px 40px
+  #new-user-links
+    p
+      border-left: 0px
+  #edit-passwords-links, #new-confirmations-links, #new-passwords-links, #update-passwords-links
+    .signin
+      border-left: 0px
+      margin: 0
+      padding: 10px
+    .signup
+      border-left: 0px
+      margin: 0
+      padding: 10px
 @media (max-width: 767px)
   .fancyform
     .borderblockright
       border-right: 0px
-    .borderblockleft
-      border-left: 0px
-      height: auto
-      padding-top: 10px
-    .signup
-      border-top: 1px solid $silver-shadow
-    .signin
-      margin-top: 0px
-      padding-bottom: 30px
+    .devise-links
+      a
+        display: inline-block
+      p
+        border-left: 0px
+        height: auto
+        padding-top: 0 10px 10px 10px
+    #new-sessions-links, #create-sessions-links, .devise-links
+      .signin, .signup
+        margin-top: 0
+        padding: 0 10px 10px 10px
+    #edit-passwords-links, #new-confirmations-links, #new-passwords-links, #update-passwords-links
+      min-height: 100px
 @media (min-width: 768px) and (max-width: 979px)
   .fancyform
-    .signin
-      margin-top: 0px
+    .borderblockright
+      border-right: 0px
+    .devise-links
+      a
+        display: inline-block
+      p
+        border-left: 0px
+    #new-sessions-links, #create-sessions-links, .devise-links
+      .signin, .signup
+        margin-top: 0
+        padding: 0 10px 10px 10px
+
+
 
 .fancyform-light
   background: $silver-bright
