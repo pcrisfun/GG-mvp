@@ -4,7 +4,7 @@
     %h2 Forgot your password?
     .row
       .span8.fancyform
-        = simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
+        = simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, id: "forgot-password" }) do |f|
           = f.error_notification
           = f.input :email, :required => true, :autofocus => true
           = f.button :submit, "Send me reset password instructions", :class => "btn btn-primary"

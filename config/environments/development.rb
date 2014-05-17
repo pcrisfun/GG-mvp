@@ -48,6 +48,9 @@ GirlsGuild::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
+  # Diable Asset Pipeline on Dev. to allow for immediate changes to CSS because of shitty Rails 3.2
+  config.serve_static_assets = true
+
   # According to RailsCasts #164: "This line isn’t required, but by adding it we’re adding a dependency to the gem in our application so that it gets installed when we deploy it."
  # config.gem 'whenever', :lib => false, :source => 'http://gems.github.com'
 end
