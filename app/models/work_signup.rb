@@ -8,7 +8,8 @@ include EventHelper
                   :requirements, :respect_agreement,
                   :daughter_firstname, :daughter_lastname, :daughter_age,
                   :daughter_age_is_valid,
-                  :parent_name, :parent_phone, :parent_email, :parents_waiver
+                  :parent_name, :parent_phone, :parent_email, :parents_waiver,
+                  :user_id, :event_id, :state, :work_first_reminder_sent, :work_second_reminder_sent
 
   validates_presence_of :interest, :message => "- Please tell us a bit about what you want to learn in this workshop."
   validates_acceptance_of :requirements, :if => :requirements?
