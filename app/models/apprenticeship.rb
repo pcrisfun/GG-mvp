@@ -239,7 +239,7 @@ class Apprenticeship < Event
     Apprenticeship.where(:state => ["accepted", "filled"]).where('ends_at <= ?', Date.today).each do |app|
       #I don't know why app.complete doesn't work, but it doesn't and this does:
       app.state = "completed"
-      app.save!
+      app.save!(validate: false)
       app.signups.where(:state => "confirmed").each {|a| a.complete}
     end
   end

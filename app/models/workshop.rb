@@ -312,7 +312,7 @@ include EventHelper
     Workshop.where(:state => ["accepted", "filled"]).where('begins_at <= ?', Date.today).each do |workshop|
       #I don't know why workshop.complete doesn't work, but it doesn't and this does:
       workshop.state = "completed"
-      workshop.save!
+      workshop.save!(validate: false)
       workshop.signups.where(:state => "confirmed").each {|w| w.complete}
     end
 	end
@@ -321,7 +321,7 @@ include EventHelper
     #Note: ends_at is the registration close date on workshops
     Workshop.where(state: "accepted").where('ends_at <= ?', Date.today).each do |w|
       unless w.min_capacity_met?
-        w.cancel && w.deliver_cancel_lowsignups
+        w.cancel(validate: false) && w.deliver_cancel_lowsignups
         w.signups.where(state: "confirmed").each do |s|
           s.cancel && s.deliver_cancel
 
