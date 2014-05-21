@@ -229,6 +229,10 @@ a, a:hover, a:active, a:visited, a:focus
       display: block
   .dropdown-menu
     margin-top: -15px
+    @media (min-width: 768px) and (max-width: 979px)
+      margin-top: 0px
+    @media (max-width: 767px)
+      margin-top: 0px
 
 .navbar .nav > .active > a,
 .navbar .nav > .active > a:hover,
@@ -241,9 +245,12 @@ a, a:hover, a:active, a:visited, a:focus
 .navbar
   .brand
     margin-left: -8px
-
 .navbar .nav > li
   height: 85px
+  @media (min-width: 768px) and (max-width: 979px)
+    height: auto
+  @media (max-width: 767px)
+    height: auto
   img
     margin-top: -5px
   .signin-nav
@@ -251,6 +258,7 @@ a, a:hover, a:active, a:visited, a:focus
     margin-left: 5px
 .navbar .nav > li.signin-nav
   border-left: 1px solid $silver-light
+
 
 .navbar .nav > li > a.post-apprenticeship
   font-size: 14px
