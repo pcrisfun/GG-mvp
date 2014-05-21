@@ -838,6 +838,10 @@ input[type="radio"], input[type="checkbox"]
       .smaller
         font-size: 38px
         display: inline
+      .btn
+        white-space: nowrap
+        @media (max-width: 767px)
+          margin-left: 10px
       hr
         margin: 11px 0
       .fa.fa-3x
@@ -852,12 +856,19 @@ input[type="radio"], input[type="checkbox"]
           color: $mint
           line-height: 22px
           margin: 20px 0
+          @media (max-width: 767px)
+            padding: 10px
       h2
         color: #555
         text-transform: none
         font-size: 38px
         text-align: right
         font-weight: 600
+        @media (min-width: 768px) and (max-width: 979px)
+          font-size: 28px
+        @media (max-width: 767px)
+          font-size: 40px
+          text-align: center
       h4
         font-size: 30px
         line-height: 30px
