@@ -309,7 +309,7 @@ include EventHelper
   end
 
 	def self.complete_workshop
-    Workshop.where(:state => ["accepted", "filled"]).where('begins_at <= ?', Date.today+1.days).each do |workshop|
+    Workshop.where(:state => ["accepted", "filled"]).where('begins_at <= ?', Date.today-1.days).each do |workshop|
       #I don't know why workshop.complete doesn't work, but it doesn't and this does:
       workshop.state = "completed"
       workshop.save!(validate: false)
