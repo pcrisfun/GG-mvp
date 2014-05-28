@@ -545,26 +545,7 @@ test1 = Apprenticeship.new( "user_id"=>5,
                             )
 test1.save!(validate:false)
 
-test1_app = AppSignup.new(  "user_id"=>6,
-                            "event_id"=>1,
-                            "happywhen"=>"1. Should get a followup email the day we seed, 2. then transition to completed the day after seeding",
-                            "collaborate"=>"I like working together on projects because it allows for a better flow of ideas. Because everyone perceives and processes ideas differently, collaborations allow for more ideas to bounce between people and develop, so the product will have gone through more development and have had more thought put into it opposed to a solo work.",
-                            "interest"=>"I'm interested in seeing how an established artist works, especially seeing how they have turned their art into a small business. I am also interested because I work well with detail oriented tasks and I feel that this would make a productive apprentice.",
-                            "experience"=>"Sculpture; mobiles, vessels, icons, collages, installation. Using materials and tools such as; Clay (hand building, throwing on a wheel), rubber carving, shrink plastic, printmaking, origami, wire, jeweler's saw, sheet metal, wax casting, plaster bandaging, and paper casting. In these processes I have worked on some larger pieces but mostly I have worked on a smaller, more detailed scale.",
-                            "requirements"=>"1",
-                            "confirm_available"=>"1",
-                            "preferred_times"=>"Best days would be on weekends, some week day afternoons could work.",
-                            "confirm_unpaid"=>"1",
-                            "confirm_fee"=>"1",
-                            "state"=>"confirmed",
-                            )
-test1_app.save!(validate: false)
-
-test1_app_state_stamp = test1_app.state_stamps.create!( state: "confirmed",
-                                                        stamp: Date.today-3,
-                                                      )
-
-test1_app2 = AppSignup.new(   "user_id"=>8,
+test1_app = AppSignup.new(    "user_id"=>6,
                               "event_id"=>1,
                               "happywhen"=>"1. Should get a followup email the day we seed, 2. then transition to completed the day after seeding",
                               "collaborate"=>"I like working together on projects because it allows for a better flow of ideas. Because everyone perceives and processes ideas differently, collaborations allow for more ideas to bounce between people and develop, so the product will have gone through more development and have had more thought put into it opposed to a solo work.",
@@ -575,6 +556,37 @@ test1_app2 = AppSignup.new(   "user_id"=>8,
                               "preferred_times"=>"Best days would be on weekends, some week day afternoons could work.",
                               "confirm_unpaid"=>"1",
                               "confirm_fee"=>"1",
+                              "parent_name"=>"Mama Jones",
+                              "parent_phone"=>"321-321-4321",
+                              "parent_email"=>"mamajones@girlsguild.com",
+                              "parents_waiver"=>"1",
+                              "waiver"=>"1",
+                              "charge_id"=>"anystringwilldo",
+                              "state"=>"confirmed",
+                            )
+test1_app.save!(validate: false)
+
+test1_app_state_stamp = test1_app.state_stamps.create!( state: "confirmed",
+                                                          stamp: Date.today-3,
+                                                          )
+
+test1_app2 = AppSignup.new(   "user_id"=>7,
+                              "event_id"=>1,
+                              "happywhen"=>"1. Should get a followup email the day we seed, 2. then transition to completed the day after seeding",
+                              "collaborate"=>"I like working together on projects because it allows for a better flow of ideas. Because everyone perceives and processes ideas differently, collaborations allow for more ideas to bounce between people and develop, so the product will have gone through more development and have had more thought put into it opposed to a solo work.",
+                              "interest"=>"I'm interested in seeing how an established artist works, especially seeing how they have turned their art into a small business. I am also interested because I work well with detail oriented tasks and I feel that this would make a productive apprentice.",
+                              "experience"=>"Sculpture; mobiles, vessels, icons, collages, installation. Using materials and tools such as; Clay (hand building, throwing on a wheel), rubber carving, shrink plastic, printmaking, origami, wire, jeweler's saw, sheet metal, wax casting, plaster bandaging, and paper casting. In these processes I have worked on some larger pieces but mostly I have worked on a smaller, more detailed scale.",
+                              "requirements"=>"1",
+                              "confirm_available"=>"1",
+                              "preferred_times"=>"Best days would be on weekends, some week day afternoons could work.",
+                              "confirm_unpaid"=>"1",
+                              "confirm_fee"=>"1",
+                              "parent_name"=>"Mama Kauffman",
+                              "parent_phone"=>"789-789-7890",
+                              "parent_email"=>"mamakauffman@girlsguild.com",
+                              "parents_waiver"=>"1",
+                              "waiver"=>"1",
+                              "charge_id"=>"anystringwilldo",
                               "state"=>"confirmed",
                             )
 test1_app2.save!(validate: false)
@@ -649,11 +661,11 @@ test2_app2 = AppSignup.new( "user_id"=>11,
                             "preferred_times"=>"Best days would be on weekends, some week day afternoons could work.",
                             "confirm_unpaid"=>"1",
                             "confirm_fee"=>"1",
-                            "state"=>"confirmed",
+                            "state"=>"accepted",
                           )
 test2_app2.save!(validate: false)
 
-test2_app2_state_stamp = test2_app2.state_stamps.create!( state: "confirmed",
+test2_app2_state_stamp = test2_app2.state_stamps.create!( state: "accepted",
                                                           stamp: Date.today-3,
                                                           )
 
