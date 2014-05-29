@@ -17,21 +17,22 @@ class ApplicationController < ActionController::Base
    end
   end
 
-def after_sign_in_path_for(resource)
-  session[:previous_url] || root_path
-end
+  #def after_sign_in_path_for(resource)
+  #  if Rails.env.production?
+  #    sign_in_url = url_for(:action => 'new', :controller => 'sessions', :only_path => false, :protocol => 'https')
+  #  else
+  #    sign_in_url = url_for(:action => 'new', :controller => 'sessions', :only_path => false, :protocol => 'http')
+  #  end
+  #  if request.referer == sign_in_url
+  #    session["user_return_to"] || root_path
+  #  else
+  #    stored_location_for(resource) || request.referer || root_path
+  #  end
+  #end
 
+  # If your model is called User
   def after_sign_in_path_for(resource)
-    if Rails.env.production?
-      sign_in_url = url_for(:action => 'new', :controller => 'sessions', :only_path => false, :protocol => 'https')
-    else
-      sign_in_url = url_for(:action => 'new', :controller => 'sessions', :only_path => false, :protocol => 'http')
-    end
-    if request.referer == sign_in_url
-      session[:previous_url] || root_path
-    else
-      stored_location_for(resource) || request.referer || root_path
-    end
+    session["user_return_to"] || root_path
   end
 
   private
