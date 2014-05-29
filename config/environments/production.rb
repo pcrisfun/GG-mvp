@@ -99,3 +99,6 @@ GirlsGuild::Application.configure do
   end
 
 end
+
+GirlsGuild::Application.middleware.use( Oink::Middleware, :logger => Hodel3000CompliantLogger.new(STDOUT))
+

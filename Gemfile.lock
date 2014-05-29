@@ -163,6 +163,7 @@ GEM
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
     hike (1.2.3)
+    hodel_3000_compliant_logger (0.1.1)
     hominid (3.0.5)
     httparty (0.13.0)
       json (~> 1.8)
@@ -212,6 +213,9 @@ GEM
     nio4r (1.0.0)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
+    oink (0.10.1)
+      activerecord
+      hodel_3000_compliant_logger
     orm_adapter (0.5.0)
     paperclip (4.1.0)
       activemodel (>= 3.0.0)
@@ -355,7 +359,7 @@ DEPENDENCIES
   faker (= 1.2.0)
   fancybox2-rails (= 0.2.6)
   figaro (= 0.7.0)
-  font-awesome-rails (= 4.0.3.2)
+  font-awesome-rails (= 4.0.3.1)
   google-webfonts-rails
   grouped_validations (= 0.3.3)
   growl (= 1.0.3)
@@ -375,6 +379,7 @@ DEPENDENCIES
   momentjs-rails (= 2.5.1)
   newrelic_rpm (= 3.7.2.195)
   nokogiri (= 1.6.1)
+  oink
   paperclip (= 4.1.0)
   pg (= 0.12.2)
   pony (= 1.8)
