@@ -328,7 +328,7 @@
 
 
             - if show
-              - if current_user && current_user.signedup?(@workshop) or current_user==@workshop.user or current_user.admin?
+              - if current_user && current_user.signedup?(@workshop) || current_user && current_user==@workshop.user || current_user && current_user.admin?
                 %hr
                 %dt
                   Attendee(s)
