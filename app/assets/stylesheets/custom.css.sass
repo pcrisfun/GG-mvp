@@ -822,7 +822,7 @@ input[type="radio"], input[type="checkbox"]
     height: 40px
     width: 260px
   #goals
-    background-color: $mint-slight
+    background-color: $mint-muted
     font-style: italic
     padding: 0 0
     position: static
@@ -855,18 +855,20 @@ input[type="radio"], input[type="checkbox"]
         li
           list-style: none
           font-family: $opensans
-          font-weight: bold
-          color: $mint
-          line-height: 22px
+          font-size: 18px
+          color: #1D9D74
           margin: 20px 0
           @media (max-width: 767px)
             padding: 10px
       h2
-        color: #555
+        color: #333
+        text-shadow: 4px 3px 0 #C7E4DD, 9px 8px 0 rgba(0, 0, 0, 0.15)
+        margin-top: 10px
+        font-style: normal
         text-transform: none
         font-size: 38px
         text-align: right
-        font-weight: 600
+        font-weight: 800
         @media (min-width: 768px) and (max-width: 979px)
           font-size: 28px
         @media (max-width: 767px)
@@ -909,6 +911,7 @@ input[type="radio"], input[type="checkbox"]
           font-weight: 500
   #newsletter
     background-color: #323232
+    padding: 0 0 20px
     form
       position: relative
       z-index: 1
