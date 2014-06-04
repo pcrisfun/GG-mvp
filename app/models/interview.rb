@@ -54,7 +54,7 @@ class Interview < ActiveRecord::Base
           <b>Timeframe(s): </b> <i>#{interview_time}</i><br/>
           <b>Location: </b> <i>#{interview_location}</i>
         </p>
-        <p>Please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>choose 1 hour within these timeframe(s) that will work for you</a>, or to suggest a different time.</p>
+        <p>Please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>choose 1 hour within these timeframe(s) that will work for you</a>, or to reschedule for a different time.</p>
         <p>For now - spend some time thinking about your goals for the apprenticeship so that you can let #{user.first_name} know during your chat.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
@@ -74,7 +74,7 @@ class Interview < ActiveRecord::Base
           <b>Timeframe: </b> <i>#{interview_time}</i><br/>
           <b>Location: </b> <i>#{interview_location}</i>
         </p>
-        <p>Please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>choose 1 hour within these timeframe(s) that will work for you and #{app_signup.daughter_firstname}</a>, or to suggest a different time.</p>
+        <p>Please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>choose 1 hour within these timeframe(s) that will work for you and #{app_signup.daughter_firstname}</a>, or to reschedule for a different time.</p>
         <p>For now - you and #{app_signup.daughter_firstname} should chat about her goals for the apprenticeship so that you can let #{user.first_name} know during your meeting.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
@@ -169,7 +169,7 @@ class Interview < ActiveRecord::Base
           <b>Message: </b> <i>#{interview_message}</i>
         </p>
         <p>Go ahead and add it to your calendar - you're all set! <br/>
-        If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>suggest a different time</a>.</p>
+        If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule for a different time</a>.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -190,7 +190,7 @@ class Interview < ActiveRecord::Base
           <b>Message: </b> <i>#{interview_message}</i>
         </p>
         <p>Go ahead and add it to your calendar - you're all set! <br/>
-        If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>suggest a different time</a>.</p>
+        If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule for a different time</a>.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -211,7 +211,7 @@ class Interview < ActiveRecord::Base
           <b>Message: </b> <i>#{interview_message}</i>
         </p>
         <p>Go ahead and add it to your calendar - you're all set! <br/>
-        If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>suggest a different time</a>.</p>
+        If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule for a different time</a>.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -239,7 +239,7 @@ class Interview < ActiveRecord::Base
           <b>Location: </b> <i>#{interview_location}</i>
         </p>
         <p>Go ahead and add it to your calendar - you're all set! <br/>
-        If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>suggest a different time</a>.</p>
+        If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule for a different time</a>.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -261,7 +261,7 @@ class Interview < ActiveRecord::Base
           <b>Location: </b> <i>#{interview_location}</i>
         </p>
         <p>Go ahead and add it to your calendar - you're all set! <br/>
-        If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>suggest a different time</a>.</p>
+        If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule for a different time</a>.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -283,7 +283,7 @@ class Interview < ActiveRecord::Base
           <b>Location: </b> <i>#{interview_location}</i>
         </p>
         <p>Go ahead and add it to your calendar - you're all set! <br/>
-        If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>suggest a different time</a>.</p>
+        If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule for a different time</a>.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -311,7 +311,7 @@ class Interview < ActiveRecord::Base
           <b>Location: </b> <i>#{interview_location}</i>
         </p>
         <p>Go ahead and add it to your calendar - you're all set! <br/>
-        If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>suggest a different time</a>.</p>
+        If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule for a different time</a>.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
