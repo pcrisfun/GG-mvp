@@ -7,7 +7,7 @@ class Interview < ActiveRecord::Base
   include ActionDispatch::Routing::UrlFor
 
   attr_accessible :app_signup, :interview_location, :interview_time, :user, :interview_message
-
+  has_many :messages
 
 
   def app_signup
@@ -278,6 +278,34 @@ class Interview < ActiveRecord::Base
         <p>Here's the updated info:</p>
         <p>
           <b>Message: </b> <i style="color: green;">#{interview_message}</i><br/>
+          <br/>
+          <b>Time: </b> <i>#{interview_time}</i><br/>
+          <b>Location: </b> <i>#{interview_location}</i>
+        </p>
+        <p>Go ahead and add it to your calendar - you're all set! <br/>
+        If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>suggest a different time</a>.</p>
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_new_message(message)
+    sender = message.user
+    if sender == user
+      recipient = app_signup.user
+    elsif sender == app_signup.user
+      recipient = user
+    end
+    Pony.mail({
+      :to => "#{recipient.name}<#{recipient.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "You have an interview message from #{sender.first_name}!!",
+      :html_body => %(<h1>You have an interview message from #{sender.first_name}</h1>
+        <p>Here's the updated info:</p>
+        <p>
+          <b>Message: </b> <i style="color: green;">#{message.message_text}</i><br/>
           <br/>
           <b>Time: </b> <i>#{interview_time}</i><br/>
           <b>Location: </b> <i>#{interview_location}</i>

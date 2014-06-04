@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   has_many :work_signups
   has_many :preregs
   has_many :interviews
+  has_many :messages
 
   has_one :gallery, :dependent => :destroy
   has_many :photos, :through => :gallery

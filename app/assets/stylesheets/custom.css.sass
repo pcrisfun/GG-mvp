@@ -27,6 +27,7 @@ $ocean-medium: #59a8eb
 $ocean: #3498DB
 $ocean-shadow: #2f6a9c
 $ocean-black: #133552
+$ocean-muted-light: #d5ecf2
 $ocean-muted: #B3E1ED
 $ocean-muddy: #41798F
 
@@ -43,6 +44,7 @@ $grass-black: #017c4c
 $mint-slight: #F1F9F7
 $mint-light: #e7f5f0
 $mint: #71b99f
+$mint-muted-light: #dff2ed
 $mint-muted: #C7E4DD
 $mint-muddy: #537a70
 
@@ -676,8 +678,6 @@ li.alertnav
 .modal
   outline: none
 
-#interviewModal, #rescheduleModal, #declineModal, #acceptModal
-  text-align: left
 .popover-title
   padding: 0px
   margin-top: -5px
@@ -686,25 +686,6 @@ li.alertnav
   border-color: #333
   border-bottom: none
 
-
-.application
-  .span4.details
-    text-align: right
-    border-right: 1px solid $silver-light
-    padding-right: 30px
-    @media (max-width: 767px)
-      text-align: center
-      font-weight: 700
-      padding-right: 0
-      border-right: none
-  .span7
-    &.details
-      font-style: italic
-    .btn, .popover
-      font-style: normal
-    @media (max-width: 767px)
-      text-align: center
-      padding-bottom: 20px
 
 
 #admin
@@ -771,6 +752,40 @@ input[type="radio"], input[type="checkbox"]
   margin-top: -10px
 
 
+// Interviews & Messages ======================================================================================
+#interviewModal, #rescheduleModal, #declineModal, #acceptModal
+  text-align: left
+
+.application
+  .span4.details
+    text-align: right
+    border-right: 1px solid $silver-light
+    padding-right: 30px
+    @media (max-width: 767px)
+      text-align: center
+      font-weight: 700
+      padding-right: 0
+      border-right: none
+  .span7
+    &.details
+      font-style: italic
+    .btn, .popover
+      font-style: normal
+    @media (max-width: 767px)
+      text-align: center
+      padding-bottom: 20px
+.my-message
+  background-color: $mint-muted-light
+  margin: 3px
+  padding: 3px 5px
+  +roundcorners
+  display: inline-block
+.their-message
+  background-color: $ocean-muted-light
+  margin: 3px
+  padding: 3px 5px
+  +roundcorners
+  display: inline-block
 
 
 // Partials ======================================================================================

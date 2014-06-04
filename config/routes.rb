@@ -1,7 +1,7 @@
 GirlsGuild::Application.routes.draw do
 
   resources :interviews
-
+  resources :messages
 
   resources :signups
   resources :app_signups do
