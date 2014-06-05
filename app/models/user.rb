@@ -27,6 +27,7 @@ class User < ActiveRecord::Base
   has_many :photos, :through => :gallery
   after_create :create_gallery
   has_attached_file :avatar, :styles => { :large => "214x214#", :medium => "50x50#", :small => "25x25#" }
+  validates_attachment :avatar, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
 
   attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :birthday, :terms_of_service, :remember_me, :avatar, :use_gravatar, :phone, :maker_id, :twitter, :facebook, :bio, :website, :webshop
 

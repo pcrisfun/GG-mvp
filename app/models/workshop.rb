@@ -12,7 +12,7 @@ include EventHelper
   # Images
     validate :host_album_limit
   # Date & Time
-    validates :begins_at, :date => {:after => Proc.new { Date.today }, :message => 'Sorry! You need to plan your workshop for a date after today. Please check the date you set.'}, :if => :tba_is_blank
+    validates :begins_at, :date => {:after => Proc.new { Date.today }, :message => 'Sorry! You need to plan your workshop for a date after today. Please check the date you set.'}, :if => :should_validate_begins_at?
     validates_presence_of :begins_at_time, :ends_at_time, :if => :tba_is_blank
     validate :ends_after_start_time
     validate :close_signups
@@ -48,7 +48,7 @@ include EventHelper
   end
 
   validation_group :begins_at do
-    validates :begins_at, :date => {:after => Proc.new { Date.today }, :message => 'Sorry! You need to plan your workshop for a date after today. Please check the date you set.'}, :if => :tba_is_blank
+    validates :begins_at, :date => {:after => Proc.new { Date.today }, :message => 'Sorry! You need to plan your workshop for a date after today. Please check the date you set.'}, :if => :should_validate_begins_at?
   end
 
   validation_group :begins_at_time do
@@ -193,7 +193,7 @@ include EventHelper
 			:html_body => %(<h1>Congrats #{user.first_name}!</h1>
         <p>Your workshop has been posted and is now live! Check it out - <a href="#{url_for(self)}"> #{self.title}</a></p>
         <p>Be sure to invite your friends and share it on your social networks!</p>
-        <p>If it's posted as TBA we'll email you as people follow it, so you can decide when to set the date. If you already set a date, we'll let you know whenever someone signs up. Registrations will be closed when #{self.registration_max} people have signed up or on the date you set. </p>
+        <p>We'll let you know whenever someone signs up. Registrations will be closed when #{self.registration_max} people have signed up or on the date you set. </p>
         <p>If by some bad luck you need to cancel your workshop, you can do so from your <a href="#{dashboard_url}">Events Dashboard</a>. Likewise, if it turns out fewer than your minimum #{self.registration_min} participants sign up, the workshop will automatically be canceled on #{get_formated_date(self.ends_at, format: "%b %e, %Y")}. We think it's going to rock, though!</p>
         <p>Let us know if you have any questions!</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
@@ -303,25 +303,26 @@ include EventHelper
   end
 
   def get_signup_emails
-    "<ul>" + self.signups.where(:state => 'confirmed').map do |a|
+    "<ul>" + self.signups.where(:state => ["confirmed", "completed"]).map do |a|
       "<li>#{a.user.name}: #{a.user.email}</li>"
     end.join + "</ul>"
   end
 
 	def self.complete_workshop
-    Workshop.where('begins_at <= ?', Date.today).all.each do |workshop|
+    Workshop.where(:state => ["accepted", "filled"]).where('begins_at <= ?', Date.today-1.days).each do |workshop|
+      #I don't know why workshop.complete doesn't work, but it doesn't and this does:
+      workshop.state = "completed"
+      workshop.save!(validate: false)
       workshop.signups.where(:state => "confirmed").each {|w| w.complete}
-      workshop.complete
     end
 	end
 
-	def self.cancel_workshop
+  def self.cancel_workshop
     #Note: ends_at is the registration close date on workshops
-		workshops = Workshop.where('ends_at <= ?', Date.today).where(state: "accepted", datetime_tba: false).all
-		workshops.each do |w|
-			unless w.min_capacity_met?
-        w.cancel & w.deliver_cancel_lowsignups
-        w.signups.each do |s|
+    Workshop.where(state: "accepted").where('ends_at <= ?', Date.today).each do |w|
+      unless w.min_capacity_met?
+        w.cancel(validate: false) && w.deliver_cancel_lowsignups
+        w.signups.where(state: "confirmed").each do |s|
           s.cancel && s.deliver_cancel
 
           Prereg.find_or_create_by_user_id_and_event_id!(
@@ -329,19 +330,19 @@ include EventHelper
           :event_id => w.id)
         end
       end
-		end
-	end
+    end
+  end
 
   def self.maker_reminder
     date_range = Date.today..(Date.today+3.days)
-    Workshop.where(begins_at: date_range, :state => ["accepted", "filled"], datetime_tba: false, reminder_sent: false).each do |work|
+    Workshop.where(begins_at: date_range, :state => ["accepted", "filled"], reminder_sent: false).each do |work|
       work.deliver_maker_reminder
     end
   end
 
   def self.maker_followup
     date_range = (Date.today-3.days)..Date.today
-    Workshop.where(begins_at: date_range, state: "completed", datetime_tba: false, follow_up_sent: false).each do |work|
+    Workshop.where(begins_at: date_range, state: "completed", follow_up_sent: false).each do |work|
       work.deliver_maker_followup
     end
   end
@@ -406,13 +407,5 @@ include EventHelper
     return ''
   end
 
-	state_machine :state, :initial => :started do
-		event :complete do
-      transition :all => :completed
-    end
 
-    event :submit do
-      transition :started => :pending
-    end
-	end
 end
