@@ -100,7 +100,6 @@ class Interview < ActiveRecord::Base
         <p>
           <b>Time: </b> <i>#{interview_time}</i><br/>
           <b>Location: </b> <i>#{interview_location}</i><br/>
-          <b>Message: </b> <i>#{interview_message}</i>
         </p>
         <p>Please log in to if you need to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule</a> or <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>send a message</a>.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
@@ -120,7 +119,6 @@ class Interview < ActiveRecord::Base
         <p>
           <b>Time: </b> <i>#{interview_time}</i><br/>
           <b>Location: </b> <i>#{interview_location}</i><br/>
-          <b>Message: </b> <i>#{interview_message}</i>
         </p>
         <p>Please log in to if you need to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule</a> or <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>send a message</a>.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
@@ -140,7 +138,6 @@ class Interview < ActiveRecord::Base
         <p>
           <b>Time: </b> <i>#{interview_time}</i><br/>
           <b>Location: </b> <i>#{interview_location}</i><br/>
-          <b>Message: </b> <i>#{interview_message}</i>
         </p>
         <p>Please log in to if you need to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule</a> or <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>send a message</a>.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
@@ -166,7 +163,6 @@ class Interview < ActiveRecord::Base
         <p>
           <b>Time: </b> <i>#{interview_time}</i><br/>
           <b>Location: </b> <i>#{interview_location}</i><br/>
-          <b>Message: </b> <i>#{interview_message}</i>
         </p>
         <p>Go ahead and add it to your calendar - you're all set! <br/>
         If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule for a different time</a>.</p>
@@ -187,7 +183,6 @@ class Interview < ActiveRecord::Base
         <p>
           <b>Time: </b> <i>#{interview_time}</i><br/>
           <b>Location: </b> <i>#{interview_location}</i><br/>
-          <b>Message: </b> <i>#{interview_message}</i>
         </p>
         <p>Go ahead and add it to your calendar - you're all set! <br/>
         If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule for a different time</a>.</p>
@@ -208,7 +203,6 @@ class Interview < ActiveRecord::Base
         <p>
           <b>Time: </b> <i>#{interview_time}</i><br/>
           <b>Location: </b> <i>#{interview_location}</i><br/>
-          <b>Message: </b> <i>#{interview_message}</i>
         </p>
         <p>Go ahead and add it to your calendar - you're all set! <br/>
         If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule for a different time</a>.</p>
@@ -220,75 +214,6 @@ class Interview < ActiveRecord::Base
 
 
 
-  def deliver_interview_message(opts={})
-    app_signup.parent? ? deliver_interview_message_parent(opts) : deliver_interview_message_girl(opts)
-  end
-
-  def deliver_interview_message_girl(opts={})
-    Pony.mail({
-      :to => "#{app_signup.user.name}<#{app_signup.user.email}>",
-      :from => "Diana & Cheyenne<hello@girlsguild.com>",
-      :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "You have an interview message from #{user.first_name}!!",
-      :html_body => %(<h1>You have an interview message from #{user.first_name}</h1>
-        <p>Here's the updated info:</p>
-        <p>
-          <b>Message: </b> <i style="color: green;">#{interview_message}</i><br/>
-          <br/>
-          <b>Time: </b> <i>#{interview_time}</i><br/>
-          <b>Location: </b> <i>#{interview_location}</i>
-        </p>
-        <p>Go ahead and add it to your calendar - you're all set! <br/>
-        If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule for a different time</a>.</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
-      :bcc => "hello@girlsguild.com",
-    })
-    return true
-  end
-
-  def deliver_interview_message_parent(opts={})
-    Pony.mail({
-      :to => "#{app_signup.user.name}<#{app_signup.user.email}>",
-      :from => "Diana & Cheyenne<hello@girlsguild.com>",
-      :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "You have an interview message from #{user.first_name}!!",
-      :html_body => %(<h1>You have an interview message from #{user.first_name}</h1>
-        <p>Here's the updated info:</p>
-        <p>
-          <b>Message: </b> <i style="color: green;">#{interview_message}</i><br/>
-          <br/>
-          <b>Time: </b> <i>#{interview_time}</i><br/>
-          <b>Location: </b> <i>#{interview_location}</i>
-        </p>
-        <p>Go ahead and add it to your calendar - you're all set! <br/>
-        If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule for a different time</a>.</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
-      :bcc => "hello@girlsguild.com",
-    })
-    return true
-  end
-
-  def deliver_interview_message_maker(opts={})
-    Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
-      :from => "Diana & Cheyenne<hello@girlsguild.com>",
-      :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "You have an interview message from #{app_signup.user.first_name}!!",
-      :html_body => %(<h1>You have an interview message from #{app_signup.user.first_name}</h1>
-        <p>Here's the updated info:</p>
-        <p>
-          <b>Message: </b> <i style="color: green;">#{interview_message}</i><br/>
-          <br/>
-          <b>Time: </b> <i>#{interview_time}</i><br/>
-          <b>Location: </b> <i>#{interview_location}</i>
-        </p>
-        <p>Go ahead and add it to your calendar - you're all set! <br/>
-        If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule for a different time</a>.</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
-      :bcc => "hello@girlsguild.com",
-    })
-    return true
-  end
 
   def deliver_new_message(message)
     sender = message.user
