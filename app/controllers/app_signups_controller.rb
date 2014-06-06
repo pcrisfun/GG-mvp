@@ -10,6 +10,9 @@ class AppSignupsController < ApplicationController
       @app_signup = AppSignup.find(params[:id]) if params[:id]
     end
     @apprenticeship = @app_signup.event if @app_signup
+    @interview = Interview.new
+    # @interview.app_signup_id = @app_signup.id
+    # @interview = Interview.new(add : @app_signup.id)
   end
 
   def new
@@ -39,13 +42,13 @@ class AppSignupsController < ApplicationController
         if @app_signup.save(:validate => false) && @app_signup.deliver_save_parent
           redirect_to apprenticeship_path(@app_signup.event), flash: { success: "Nice! Your application was saved." }
         else
-          flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
+          flash.now[:warning] = "Heck! There was a problem saving your application. Please check all fields."
           render 'new_parent_app_signup'
         end
       elsif @app_signup.group_valid?(:save) && @app_signup.save(:validate => false) && @app_signup.deliver_save
         redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Nice! Your application was saved." }
       else
-        flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
+        flash.now[:warning] = "Poops! There was a problem saving your application. Please check all fields."
         render 'new'
       end
     else
@@ -58,7 +61,7 @@ class AppSignupsController < ApplicationController
           redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Awesome, you've applied to work with #{@apprenticeship.host_firstname}. We've sent an email to #{current_user.email} with the details." }
         end
       else
-        flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
+        flash.now[:warning] = "Ding-dang! There was a problem saving your application. Please check all fields."
         if @app_signup.parent?
           render 'new_parent_app_signup'
         else
@@ -86,7 +89,7 @@ class AppSignupsController < ApplicationController
       if @app_signup.update_attributes(params[:app_signup])
         redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Nice! Your application was saved." }
       else
-        flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
+        flash.now[:warning] = "Bloops! There was a problem saving your application. Please check all fields."
         if @app_signup.parent?
           render 'new_parent_app_signup'
         else
@@ -112,7 +115,8 @@ class AppSignupsController < ApplicationController
           @app_signup.deliver && @app_signup.deliver_maker
           redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Awesome, you've applied to work with #{@apprenticeship.host_firstname}." }
         else
-          flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
+          barf
+          flash.now[:warning] = "Toots! There was a problem saving your application. Please check all fields."
           if @app_signup.parent?
             render 'new_parent_app_signup'
           else

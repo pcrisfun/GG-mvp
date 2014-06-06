@@ -30,7 +30,7 @@ class Event < ActiveRecord::Base
   end
 
   def title_html
-    "<span class='title-topic'>#{self.topic}</span> <span class='with'>with</span><span class='title-name'> #{self.host_firstname} #{self.host_lastname}</span>".html_safe
+    "<span class='title-topic'>#{self.topic}</span> <span class='with'>with</span><span class='title-name'> #{self.host_firstname}</span>".html_safe
   end
 
   attr_accessible :stripe_card_token
@@ -302,7 +302,7 @@ class Event < ActiveRecord::Base
   end
 
   def submitted_signups
-    return self.signups.where(:state => ["pending", "accepted", "confirmed", "completed", "declined"])
+    return self.signups.where(:state => ["pending", "accepted", "confirmed", "completed", "declined", "interview_requested", "interview_scheduled"])
   end
 
   def confirmed_signups
