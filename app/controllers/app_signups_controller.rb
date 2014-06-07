@@ -108,6 +108,13 @@ class AppSignupsController < ApplicationController
       @app_signup.deliver_accept
       @app_signup.deliver_accept_maker
       redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Yahooo! You've accepted this apprentice. She'll have 2 weeks to confirm, and when she does we'll put you in touch!" }
+    elsif params[:resubmit_button]
+      @app_signup.update_attributes(params[:app_signup])
+      if @app_signup.resubmit && @app_signup.deliver_resubmit && @app_signup.deliver_resubmit_maker
+        redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Thanks! Your application was resubmitted. #{@apprenticeship.host_firstname} will review it, and we'll let you know her decision within two weeks."} and return
+      else
+        raise
+      end
     else
       if @app_signup.update_attributes(params[:app_signup])
         if @app_signup.apply
@@ -144,20 +151,20 @@ class AppSignupsController < ApplicationController
     redirect_to apprenticeship_path(@app_signup.event), :flash => { :warning => "Drat! Your application has been canceled."}
   end
 
-  def resubmit
-    if @app_signup.resubmit && @app_signup.deliver_resubmit && @app_signup.deliver_resubmit_maker
-      redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Thanks! Your application was resubmitted. #{@apprenticeship.host_firstname} will review it, and we'll let you know her decision within two weeks."} and return
-    else
-      raise
-    end
-  rescue
-    error_msg = " "
-    @app_signup.errors.each do |field, msg|
-      error_msg << "<br/>"
-      error_msg << msg
-    end
-    redirect_to :back, :flash => { warning: "Oops. The following error(s) occured while attempting to resubmit your application: #{error_msg}".html_safe} and return
-  end
+  # def resubmit
+  #   if @app_signup.resubmit && @app_signup.deliver_resubmit && @app_signup.deliver_resubmit_maker
+  #     redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Thanks! Your application was resubmitted. #{@apprenticeship.host_firstname} will review it, and we'll let you know her decision within two weeks."} and return
+  #   else
+  #     raise
+  #   end
+  # rescue
+  #   error_msg = " "
+  #   @app_signup.errors.each do |field, msg|
+  #     error_msg << "<br/>"
+  #     error_msg << msg
+  #   end
+  #   redirect_to :back, :flash => { warning: "Oops. The following error(s) occured while attempting to resubmit your application: #{error_msg}".html_safe} and return
+  # end
 
   def confirm
     current_user.update_attributes!(params[:user])
