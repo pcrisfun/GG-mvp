@@ -44,6 +44,9 @@ GirlsGuild::Application.configure do
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
+  config.action_controller.asset_host =  "//#{ENV['FOG_DIRECTORY']}.s3.amazonaws.com"
+  config.action_mailer.asset_host = "http://#{ENV['FOG_DIRECTORY']}.s3.amazonaws.com"
+
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w( search.js )
@@ -60,7 +63,7 @@ GirlsGuild::Application.configure do
     :address   => "smtp.mandrillapp.com",
     :port      => 587,
     :user_name => ENV["MANDRILL_USERNAME"],
-    :password  => ENV["MANDRILL_API_KEY"]
+    :password  => ENV["MANDRILL_APIKEY"]
   }
 
   # Enable threaded mode
@@ -99,6 +102,3 @@ GirlsGuild::Application.configure do
   end
 
 end
-
-GirlsGuild::Application.middleware.use( Oink::Middleware, :logger => Hodel3000CompliantLogger.new(STDOUT))
-

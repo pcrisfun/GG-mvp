@@ -1,0 +1,25 @@
+- provide(:title, 'Admin')
+%section#dashboard-display.section.alt-grey
+  .container
+    .row-fluid
+      .span12.pull-right
+        %h1 Admin
+        %br
+
+        %h2 Applications
+        .fancyform-light
+          = render 'applications', events: @events
+
+        %h2 Acceptances
+        .fancyform-light
+          = render 'acceptances', events: @events
+        %h2 Confirmations
+        .fancyform-light
+          = render 'confirmations', events: @events
+        %h2 Cancelations
+        .fancyform-light
+          = render 'cancelations', events: @events
+        %h2 Completions
+        .fancyform-light
+          = render 'completions', events: @events
+

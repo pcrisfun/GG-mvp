@@ -69,7 +69,25 @@
           /   }
           /   });
 
-
+    %section.section#goals
+      .container
+        .row-fluid
+          .span12.calloutbubble
+            .row-fluid
+              .span4.center
+                %br
+                %h2
+                  ap&bull;pren&bull;tice&bull;ship:
+                %br
+              .span6
+                %ul
+                  %li
+                    %br
+                    More hands-on than a “mentorship”, more supportive than an “internship”; we define apprenticeships as a collaborative way to trade knowledge and skills for help with making.
+              .span2
+                %br
+                %br
+                %a{"data-target" => "#", :href => "/apprenticeships/new", class: "btn btn-large btn-success"} How it Works »
 
     %section.section#newsletter
       .container
@@ -161,30 +179,6 @@
             = render 'events/event-home', events: @events
           - unless @tba_events.blank?
             = render 'events/event-home', events: @tba_events
-
-
-    %section.section#goals
-      .container
-        .row-fluid
-          .span12.calloutbubble
-            .row-fluid
-              .span4.center
-                %br
-                %h2
-                  ap&bull;pren&bull;tice&bull;ship
-                %br
-              .span6
-                %ul
-                  %li
-                    %br
-                    More hands-on than a mentorship, more supportive than an internship;
-                    %br a collaborative way to trade knowledge and skills for help with making.
-                    %br
-
-              .span2
-                %br
-                %br
-                %a{"data-target" => "#", :href => "/apprenticeships/new", class: "btn btn-large btn-success"} How it Works »
 
 
     %section

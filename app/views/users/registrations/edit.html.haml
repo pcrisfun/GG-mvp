@@ -12,7 +12,7 @@
             = f.input :birthday do
               .form-inline
                 = f.text_field :birthday, :class => "span4", :value=>@user.birthday.strftime("%B / %d / %Y"), data: { behaviour: 'combodate', format: 'MMMM D, YYYY', template: 'MMMM / D / YYYY' }
-                %a{"data-content" => "Individuals under the age of 13 cannot create an account. Those under 18 must at all times use GirlsGuild's services only in conjunction with and under the supervision of a parent or legal guardian who is at least 18 years of age. In this all cases, the adult is the user and is responsible for any and all activities.", "data-placement" => "right", :href => "#", :rel => "popover"}
+                %a{"data-content" => "Individuals under the age of 18 must at all times use GirlsGuild's services only in conjunction with and under the supervision of a parent or legal guardian who is at least 18 years of age. In this all cases, the adult is the user and is responsible for any and all activities.", "data-placement" => "right", :href => "#", :rel => "popover"}
                   Why?
                   %i.fa.fa-question-circle.small-icon
 
