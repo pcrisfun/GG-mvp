@@ -27,7 +27,6 @@ $ocean-medium: #59a8eb
 $ocean: #3498DB
 $ocean-shadow: #2f6a9c
 $ocean-black: #133552
-$ocean-muted-light: #d5ecf2
 $ocean-muted: #B3E1ED
 $ocean-muddy: #41798F
 
@@ -44,7 +43,6 @@ $grass-black: #017c4c
 $mint-slight: #F1F9F7
 $mint-light: #e7f5f0
 $mint: #71b99f
-$mint-muted-light: #dff2ed
 $mint-muted: #C7E4DD
 $mint-muddy: #537a70
 
@@ -461,7 +459,7 @@ li.alertnav
       font-style: italic
       p
         font-size: 15px
-        line-height: 20px
+        line-height: 23px
         padding-bottom: 7px
       footer
         a
@@ -601,7 +599,6 @@ li.alertnav
     font-size: 20px
     font-weight: bold
 
-
 // Devise ==========
 .fancyform
   .borderblockright
@@ -690,15 +687,6 @@ li.alertnav
 .modal
   outline: none
 
-.popover-title
-  padding: 0px
-  margin-top: -5px
-  opacity: 0
-  background-color: #333
-  border-color: #333
-  border-bottom: none
-
-
 
 #admin
   .fancyform-light
@@ -764,40 +752,6 @@ input[type="radio"], input[type="checkbox"]
   margin-top: -10px
 
 
-// Interviews & Messages ======================================================================================
-#interviewModal, #rescheduleModal, #declineModal, #acceptModal
-  text-align: left
-
-.application
-  .span4.details
-    text-align: right
-    border-right: 1px solid $silver-light
-    padding-right: 30px
-    @media (max-width: 767px)
-      text-align: center
-      font-weight: 700
-      padding-right: 0
-      border-right: none
-  .span7
-    &.details
-      font-style: italic
-    .btn, .popover
-      font-style: normal
-    @media (max-width: 767px)
-      text-align: center
-      padding-bottom: 20px
-.my-message
-  background-color: $mint-muted-light
-  margin: 3px
-  padding: 3px 5px
-  +roundcorners
-  display: inline-block
-.their-message
-  background-color: $ocean-muted-light
-  margin: 3px
-  padding: 3px 5px
-  +roundcorners
-  display: inline-block
 
 
 // Partials ======================================================================================
@@ -830,47 +784,45 @@ input[type="radio"], input[type="checkbox"]
     .btn-primary
       font-size: 22px
       font-weight: 500
-  #promo
-    padding: 15px 0 0
-    .carousel
-      margin-bottom: 0px
-      .learning
-        p
-          font-size: 14px
-      .well
-        margin-top: 15px
-      .carousel-control
-        height: 230px
-        width: 45px
-        opacity: 1
-        font-size: 160px
-        &:hover
-          opacity: .7
-      .carousel-control.right
-        right: -50px
-      .carousel-control.left
-        left: -50px
-      .extra
-        margin-top: 140px
-        height: 80px
-        width: 190px
-      .left.extra
-        background: url(banners/arrow-learn.png) no-repeat center center transparent
-      .right.extra
-        background: url(banners/arrow-lead.png) no-repeat center center transparent
-      .item
-        //height: 425px
-      .overview
-        background: url(banners/hmpg-spotlight-overview.png) repeat-x center center transparent
-      .learning
-        background: url(banners/hmpg-spotlight-learn.png) repeat-x center center transparent
-      .leading
-        background: url(banners/hmpg-spotlight-lead.png) repeat-x center center transparent
-    .socials
-      height: 40px
-      width: 260px
+  .carousel
+    margin-bottom: 0px
+    .learning
+      p
+        font-size: 14px
+    .well
+      margin-top: 15px
+    .carousel-control
+      height: 230px
+      width: 45px
+      opacity: 1
+      font-size: 160px
+      &:hover
+        opacity: .7
+    .carousel-control.right
+      right: -50px
+    .carousel-control.left
+      left: -50px
+    .extra
+      margin-top: 140px
+      height: 80px
+      width: 190px
+    .left.extra
+      background: url(banners/arrow-learn.png) no-repeat center center transparent
+    .right.extra
+      background: url(banners/arrow-lead.png) no-repeat center center transparent
+    .item
+      //height: 425px
+    .overview
+      background: url(banners/hmpg-spotlight-overview.png) repeat-x center center transparent
+    .learning
+      background: url(banners/hmpg-spotlight-learn.png) repeat-x center center transparent
+    .leading
+      background: url(banners/hmpg-spotlight-lead.png) repeat-x center center transparent
+  .socials
+    height: 40px
+    width: 260px
   #goals
-    background-color: $mint-muted
+    background-color: $mint-slight
     font-style: italic
     padding: 0 0
     position: static
@@ -903,20 +855,18 @@ input[type="radio"], input[type="checkbox"]
         li
           list-style: none
           font-family: $opensans
-          font-size: 18px
-          color: #1D9D74
+          font-weight: bold
+          color: $mint
+          line-height: 22px
           margin: 20px 0
           @media (max-width: 767px)
             padding: 10px
       h2
-        color: #333
-        text-shadow: 4px 3px 0 #C7E4DD, 9px 8px 0 rgba(0, 0, 0, 0.15)
-        margin-top: 10px
-        font-style: normal
+        color: #555
         text-transform: none
         font-size: 38px
         text-align: right
-        font-weight: 800
+        font-weight: 600
         @media (min-width: 768px) and (max-width: 979px)
           font-size: 28px
         @media (max-width: 767px)
@@ -959,7 +909,6 @@ input[type="radio"], input[type="checkbox"]
           font-weight: 500
   #newsletter
     background-color: #323232
-    padding: 0 0 20px
     form
       position: relative
       z-index: 1
@@ -987,7 +936,6 @@ input[type="radio"], input[type="checkbox"]
       text-shadow: 1px 1px 1px #000
 
   #event-previews
-    padding-top: 10px
     h3
       display: inline
     a.more-events
@@ -1705,9 +1653,6 @@ input[type="radio"], input[type="checkbox"]
 // Events Show Pages ======================================================================================
 #apprenticeship-show, #workshop-show
   margin-top: 10px
-  a
-    &.btn
-      margin: 5px
   #banner
     padding-top: 0px
     #title
@@ -1849,14 +1794,6 @@ input[type="radio"], input[type="checkbox"]
     margin-bottom: 10px
     img
       border-radius: 500px 500px 500px 500px
-    h3
-      font-size: 24px
-      display: inline
-      text-transform: none
-      margin: 0 20px
-      .age
-        font-weight: 500
-        font-size: 18px
 .dl-application
   dt
     width: 170px

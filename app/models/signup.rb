@@ -39,12 +39,6 @@ class Signup < ActiveRecord::Base
     state :canceled do
     end
 
-    state :interview_requested do
-    end
-
-    state :interview_scheduled do
-    end
-
     state :confirmed do
     end
 
@@ -87,8 +81,6 @@ class Signup < ActiveRecord::Base
   def state_label_class
     labels = { started: "label-info",
                pending: "label-warning",
-               interview_requested: "label-warning btn-block",
-               interview_scheduled: "label-warning btn-block",
                accepted: "label-success",
                declined: "",
                canceled: "label-important",

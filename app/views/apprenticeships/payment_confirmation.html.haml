@@ -11,17 +11,18 @@
           .fancyform-light.form-horizontal
             %p
               Thanks for paying the <strong>$30.00</strong> apprenticeship listing fee for
-              = link_to @apprenticeship.topic, apprenticeship_path(@apprenticeship)
+              = link_to @apprenticeship.title, apprenticeship_path(@apprenticeship)
               %br
               A receipt will be sent to your email.
-
+            %p
+              We'll review your apprenticeship proposal and let you know as soon as it's been posted live!
+              %br
+              You can check on the status of your proposal any time by visiting your #{link_to "Events Dashboard", dashboard_path}
+            %br
             .alert.alert-info
               %strong
                 Note:
-              We'll review your apprenticeship proposal and let you know as soon as it's been posted live!
-              You can check on the status of your proposal any time by visiting your
-              %strong
-                #{link_to "Events Dashboard", dashboard_path}
+              You will not be able to edit your apprenticeship until we've had a chance to approve it. Then any edits will need to be re-approved.
 
             %h2 What to expect
             %ol

@@ -1,7 +1,5 @@
 class AppSignup < Signup
 
-  has_many :interviews
-
   validation_group :save do
   end
 
@@ -12,7 +10,6 @@ class AppSignup < Signup
                   :event_id, :state, :user_id
 
   include Emailable
-
 
   def daughter_age_is_valid
     unless daughter_age && daughter_age >= self.event.age_min && daughter_age <= self.event.age_max
@@ -275,9 +272,9 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{user.first_name} has re-applied to work with you!",
       :html_body => %(<h1>Yippee #{event.user.first_name}!</h1>
-        <p>#{user.first_name} resubmitted her application to apprentice with you! You can <a href=#{url_for(self)}>review her application</a>. We've notified #{user.first_name} that you'll make your decision on the application within 2 weeks.</p>
-        <p>If you'd like to meet up with her in person before you decide to accept or decline her application, you can <a href=#{url_for(self)}>schedule an interview</a>.  We'll set up a meeting with her and then confirm it with you.</p>
-        <p>Once you've made your decision, just go back to the application page and use the "Accept" or "Decline" buttons to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll ask her to confirm, and once she does, we'll charge you the connection fee and put you two in touch to get started!</p>
+        <p>#{user.first_name} resubmitted her application to apprentice with you! You can review her application <a href=#{url_for(self)}>here</a>. We've notified #{user.first_name} that you'll make your decision on the application within 2 weeks.</p>
+        <p>If you'd like to meet up with her in person before you decide to accept or decline her application, just reply to this email to tell us where you'd like to meet up (or if you'd prefer a phone interview), and a few date/time options when you're available. We'll set up a meeting with her and then confirm it with you.</p>
+        <p>Once you've made your decision, just go back to the application page and use the "Accept" or "Decline" buttons to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll ask her to confirm, and once she does, we'll put you two in touch to get started!</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -292,9 +289,9 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{self.daughter_firstname} has applied to work with you!",
       :html_body => %(<h1>Yippee #{event.user.first_name}!</h1>
-        <p>#{user.first_name} has helped their daughter, #{self.daughter_firstname}, resubmit her application to apprentice with you! You can <a href=#{url_for(self)}>review her application</a>. We've notified #{user.first_name} and #{self.daughter_firstname} that you'll make your decision on the application within 2 weeks.</p>
-        <p>If you'd like to meet up with her in person before you decide to accept or decline her application, you can <a href=#{url_for(self)}>schedule an interview</a>. We'll set up a meeting with #{user.first_name} and #{self.daughter_firstname} and then confirm it with you.</p>
-        <p>Once you've made your decision, just go back to the application page and use the "Accept" or "Decline" buttons to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll ask her to confirm, and once she does, we'll charge you the connection fee and put you two in touch to get started!</p>
+        <p>#{user.first_name} has helped their daughter, #{self.daughter_firstname}, resubmit her application to apprentice with you! You can review her application <a href=#{url_for(self)}>here</a>. We've notified #{user.first_name} and #{self.daughter_firstname} that you'll make your decision on the application within 2 weeks.</p>
+        <p>If you'd like to meet up with her in person before you decide to accept or decline her application, just reply to this email to tell us where you'd like to meet up (or if you'd prefer a phone interview), and a few date/time options when you're available. We'll set up a meeting with #{user.first_name} and #{self.daughter_firstname} and then confirm it with you.</p>
+        <p>Once you've made your decision, just go back to the application page and use the "Accept" or "Decline" buttons to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll ask her to confirm, and once she does, we'll put you two in touch to get started!</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -686,8 +683,6 @@ class AppSignup < Signup
       return "saved"
     elsif self.confirmed?
       return "going on"
-    elsif self.interview_requested? || self.interview_scheduled?
-      return "interviewing"
     else
       return self.state
     end
@@ -695,28 +690,24 @@ class AppSignup < Signup
 
   def countdown_message
     if self.started?
-      return "Your application is saved. <br/><a href=#{edit_app_signup_path(self)} class='bold'>Finish applying!</a>".html_safe
+        return "Your application is saved. <br/><a href=#{edit_app_signup_path(self)} class='bold'>Finish applying!</a>".html_safe
     elsif self.pending?
-      return "Your application is being reviewed. You should hear back by <strong>#{(self.state_stamps.last.stamp + 14.days).strftime("%b %d")}</strong>".html_safe
-    elsif self.interview_requested?
-      return "#{self.event.user.first_name} has <a href=#{app_signup_path(self)}>requested an interview.</a>".html_safe
-    elsif self.interview_scheduled?
-      return "Your <a href=#{app_signup_path(self)}>interview is scheduled</a>.".html_safe
+        return "Your application is being reviewed. You should hear back by <strong>#{(self.state_stamps.last.stamp + 14.days).strftime("%b %d")}</strong>".html_safe
     elsif self.accepted?
-      return "Your application has been accepted! <a href=#{app_signup_path(self)} class='bold'>Confirm</a> your apprenticeship!".html_safe
+        return "Your application has been accepted! <a href=#{app_signup_path(self)} class='bold'>Confirm</a> your apprenticeship!".html_safe
     elsif self.declined?
     elsif self.canceled?
-      return "This event has been canceled"
+        return "This event has been canceled"
     elsif self.confirmed?
-      if self.event.datetime_tba
-        return ''
-      elsif self.event.begins_at && Date.today < self.event.begins_at
-        return "<strong>#{(self.event.begins_at.mjd - Date.today.mjd)}</strong> days until your apprenticeship begins!".html_safe
-      elsif self.event.ends_at && Date.today < self.event.ends_at
-        return "#{self.event.ends_at.mjd - Date.today.mjd} more days of your Apprenticeship"
-      else
-        return false
-      end
+        if self.event.datetime_tba
+          return ''
+        elsif self.event.begins_at && Date.today < self.event.begins_at
+          return "<strong>#{(self.event.begins_at.mjd - Date.today.mjd)}</strong> days until your apprenticeship begins!".html_safe
+        elsif self.event.ends_at && Date.today < self.event.ends_at
+          return "#{self.event.ends_at.mjd - Date.today.mjd} more days of your Apprenticeship"
+        else
+          return false
+        end
     elsif self.completed?
       return "Your apprenticeship is over :-)"
     else
@@ -726,7 +717,7 @@ class AppSignup < Signup
 
   def countdown_message_maker
     if self.started?
-    elsif self.pending? || self.interview_scheduled? || self.interview_requested?
+    elsif self.pending?
       return "#{(self.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days left to <a href=#{app_signup_path(self)} class='bold'>review</a> ".html_safe
     elsif self.accepted?
     elsif self.declined?
