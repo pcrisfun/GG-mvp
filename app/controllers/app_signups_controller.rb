@@ -102,6 +102,12 @@ class AppSignupsController < ApplicationController
       @app_signup.deliver_decline
       @app_signup.deliver_decline_maker
       redirect_to apprenticeship_path(@app_signup.event), :flash => { :warning => "Application declined. Thanks! We'll let her know you were honored that she wanted to work together but you found someone else." }
+    elsif params[:accept_button]
+      @app_signup.update_attributes(params[:app_signup])
+      @app_signup.accept
+      @app_signup.deliver_accept
+      @app_signup.deliver_accept_maker
+      redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Yahooo! You've accepted this apprentice. She'll have 2 weeks to confirm, and when she does we'll put you in touch!" }
     else
       if @app_signup.update_attributes(params[:app_signup])
         if @app_signup.apply
@@ -128,12 +134,6 @@ class AppSignupsController < ApplicationController
   end
 
   def show
-  end
-
-  def accept
-    @app_signup = AppSignup.find(params[:id]) if params[:id]
-    @app_signup.accept && @app_signup.deliver_accept && @app_signup.deliver_accept_maker
-    redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Yahooo! You've accepted this apprentice. She'll have 2 weeks to confirm, and when she does we'll put you in touch!" }
   end
 
   def cancel
