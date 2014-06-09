@@ -291,7 +291,7 @@
                       %p Are you sure you want to accept this apprentice?
                       %br
                       = simple_form_for(@app_signup) do |f|
-                        = f.submit "Send Acceptance", :name => "accept_button", class: "btn btn-success pull-right"
+                        = f.submit "Send Acceptance", name: "accept_button", class: "btn btn-success pull-right"
                       %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
                   %br
                   %br
