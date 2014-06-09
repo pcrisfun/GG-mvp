@@ -302,10 +302,33 @@ include EventHelper
     return true
   end
 
+  def deliver_help_posting
+    Pony.mail({
+        :to => "#{user.name}<#{user.email}>",
+        :from => "Diana & Cheyenne<hello@girlsguild.com>",
+        :reply_to => "GirlsGuild<hello@girlsguild.com>",
+        :subject => "Any questions we can help with?",
+        :html_body => %(<p>Hey #{user.first_name},</p>
+          <p>We're glad you started a workshop posting the other day. Do you have any questions about it?</p>
+          <p>For more details on how it works, check out the <a href="#{faq_url}">FAQ</a>. And if you have specific questions, just hit reply! We're happy to chat about it.</p>
+          <p>To continue the posting and submit it, you can find it here - <a href="#{edit_workshop_url(self)}"> #{self.title}</a>
+          <p>~<br/>Thanks,<br/><br/>Cheyenne & Diana<br/>GirlsGuild Co-Founders</p>),
+        :bcc => "hello@girlsguild.com",
+    })
+    self.update_column(:help_posting_sent, true)
+    return true
+  end
+
   def get_signup_emails
     "<ul>" + self.signups.where(:state => ["confirmed", "completed"]).map do |a|
       "<li>#{a.user.name}: #{a.user.email}</li>"
     end.join + "</ul>"
+  end
+
+  def self.help_posting
+    Workshop.where(:state => "started", :help_posting_sent => false).where(state_stamps.last.stamp <= Date.today-3.days).each do |workshop|
+      workshop.deliver_help_posting
+    end
   end
 
 	def self.complete_workshop

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140121233432) do
+ActiveRecord::Schema.define(:version => 20140609164231) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(:version => 20140121233432) do
     t.text     "reject_reason"
     t.text     "revoke_reason"
     t.string   "legal_name"
+    t.boolean  "help_posting_sent",                                :default => false,     :null => false
   end
 
   add_index "events", ["charge_id"], :name => "index_events_on_charge_id"
@@ -105,6 +106,24 @@ ActiveRecord::Schema.define(:version => 20140121233432) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "user_id"
+  end
+
+  create_table "interviews", :force => true do |t|
+    t.integer  "app_signup_id"
+    t.integer  "user_id"
+    t.string   "interview_time"
+    t.string   "interview_location"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.text     "interview_message"
+  end
+
+  create_table "messages", :force => true do |t|
+    t.string   "message_text"
+    t.integer  "user_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "interview_id"
   end
 
   create_table "photos", :force => true do |t|

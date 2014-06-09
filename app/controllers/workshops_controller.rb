@@ -39,6 +39,7 @@ class WorkshopsController < ApplicationController
     @workshop.generate_title
 
     if @workshop.save(validate: false) && @workshop.deliver_save
+      @workshop.make_stamp
       redirect_to edit_workshop_path(@workshop)
     else
       raise

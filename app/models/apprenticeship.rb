@@ -235,6 +235,29 @@ class Apprenticeship < Event
     return true
   end
 
+  def deliver_help_posting
+    Pony.mail({
+        :to => "#{user.name}<#{user.email}>",
+        :from => "Diana & Cheyenne<hello@girlsguild.com>",
+        :reply_to => "GirlsGuild<hello@girlsguild.com>",
+        :subject => "Any questions we can help with?",
+        :html_body => %(<p>Hey #{user.first_name},</p>
+          <p>We're glad you started an apprenticeship posting the other day. Do you have any questions about it?</p>
+          <p>To find out what to expect from the process, take a look at our <a href="#{new_apprenticeship_url}">How it Works</a> page. For more details, check out the <a href="#{faq_url}">FAQ</a>. And if you have specific questions, just hit reply! We're happy to chat about it.</p>
+          <p>To continue the posting and submit it, you can find it here - <a href="#{edit_apprenticeship_url(self)}"> #{self.title}</a>
+          <p>~<br/>Thanks,<br/><br/>Cheyenne & Diana<br/>GirlsGuild Co-Founders</p>),
+        :bcc => "hello@girlsguild.com",
+    })
+    self.update_column(:help_posting_sent, true)
+    return true
+  end
+
+  def self.help_posting
+    Apprenticeship.where(:state => "started", :help_posting_sent => false).where(state_stamps.last.stamp <= Date.today-3.days).each do |app|
+      app.deliver_help_posting
+    end
+  end
+
   def self.complete_apprenticeship
     Apprenticeship.where(:state => ["accepted", "filled"]).where('ends_at <= ?', Date.today-1.days).each do |app|
       #I don't know why app.complete doesn't work, but it doesn't and this does:
