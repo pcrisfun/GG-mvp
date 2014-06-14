@@ -11,7 +11,7 @@ class MessagesController < ApplicationController
         if @message.interview_id
           @message.interview.deliver_new_message(@message)
         end
-        format.html { redirect_to :back, notice: 'Message was sent' }
+        format.html { redirect_to :back, notice: 'Nice! Your message was sent via email' }
         format.json { render json: @message, status: :created, location: @message }
       else
         format.html { redirect_to :back, notice: @message.errors}

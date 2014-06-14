@@ -231,7 +231,6 @@ class Interview < ActiveRecord::Base
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You have an interview message from #{user.first_name}!!",
       :html_body => %(<h1>You have an interview message from #{user.first_name}</h1>
-        <p>Here's the updated info:</p>
         <p>
           <b>Message: </b> <i style="color: green;">#{interview_message}</i><br/>
           <br/>
@@ -253,7 +252,6 @@ class Interview < ActiveRecord::Base
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You have an interview message from #{user.first_name}!!",
       :html_body => %(<h1>You have an interview message from #{user.first_name}</h1>
-        <p>Here's the updated info:</p>
         <p>
           <b>Message: </b> <i style="color: green;">#{interview_message}</i><br/>
           <br/>
@@ -275,7 +273,6 @@ class Interview < ActiveRecord::Base
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You have an interview message from #{app_signup.user.first_name}!!",
       :html_body => %(<h1>You have an interview message from #{app_signup.user.first_name}</h1>
-        <p>Here's the updated info:</p>
         <p>
           <b>Message: </b> <i style="color: green;">#{interview_message}</i><br/>
           <br/>
@@ -303,7 +300,6 @@ class Interview < ActiveRecord::Base
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You have an interview message from #{sender.first_name}!!",
       :html_body => %(<h1>You have an interview message from #{sender.first_name}</h1>
-        <p>Here's the updated info:</p>
         <p>
           <b>Message: </b> <i style="color: green;">#{message.message_text}</i><br/>
           <br/>
