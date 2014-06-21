@@ -56,8 +56,12 @@ include EventHelper
   #
   # Returns true if sign up completed successfully, raises exception otherwise.
   def process_signup!
-    raise PaymentError unless process_workshop_fee
-
+    unless self.event.price == 0
+      raise PaymentError unless process_workshop_fee
+    else
+      update_attribute(:charge_id, "nocharge")
+      logger.info "Processed signup without payment"
+    end
     #raise SignupError  unless signup
   end
 
@@ -99,7 +103,7 @@ include EventHelper
       :subject => "You signed up for #{event.topic} with #{event.host_firstname} #{event.host_lastname}",
       :html_body => %(<h1>Yay #{user.first_name}!</h1>
         <p>You're all signed up for <a href="#{url_for(self.event)}">#{event.title}</a>.
-        <p>We received your payment of #{sprintf('$%0.2f', payment.amount.to_f / 100.0)}</p>
+        <p>#{self.get_payment_amount}</p>
         <p>Here are the workshop details to remember:</p>
         <p>
           <b>When:</b> #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}
@@ -123,7 +127,7 @@ include EventHelper
       :subject => "You signed up for #{event.topic} with #{event.host_firstname} #{event.host_lastname}",
       :html_body => %(<h1>Yay #{user.first_name}!</h1>
         <p>You're all signed up for <a href="#{url_for(self.event)}">#{event.title}</a>.
-        <p>We received your payment of #{sprintf('$%0.2f', payment.amount.to_f / 100.0)}</p>
+        <p>#{self.get_payment_amount}</p>
         <p>Here are the workshop details to remember:</p>
         <p>
           <b>When:</b> #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}
@@ -147,7 +151,7 @@ include EventHelper
       :subject => "You signed up for #{event.topic} with #{event.host_firstname} #{event.host_lastname}",
       :html_body => %(<h1>Yay #{user.first_name}!</h1>
         <p>Thanks for helping your daughter, #{self.daughter_firstname} sign up for <a href=#{url_for(event)}>#{event.title}</a>.
-        <p>We received your payment of #{sprintf('$%0.2f', payment.amount.to_f / 100.0)}</p>
+        <p>#{self.get_payment_amount}</p>
         <p>Here are the workshop details to remember:</p>
         <p>
           <b>When:</b> #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}
@@ -159,6 +163,15 @@ include EventHelper
       :bcc => "hello@girlsguild.com",
     })
     return true
+  end
+
+  def get_payment_amount(opts={})
+    payment = opts[:payment]
+    unless self.event.price == 0
+      "We received your payment of #{sprintf('$%0.2f', payment.amount.to_f / 100.0)}"
+    else
+      ""
+    end
   end
 
   def deliver_maker(opts={})

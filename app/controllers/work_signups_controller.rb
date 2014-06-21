@@ -87,7 +87,11 @@ class WorkSignupsController < ApplicationController
   def process_signup
     begin
       @work_signup.process_signup!
-      @charge = Stripe::Charge.retrieve(@work_signup.charge_id)
+        unless @work_signup.event.price == 0
+          @charge = Stripe::Charge.retrieve(@work_signup.charge_id)
+        else
+          @charge = @work_signup.charge_id
+        end
       @work_signup.signup
       if @work_signup.parent?
         @work_signup.deliver_parent(payment: @charge)
