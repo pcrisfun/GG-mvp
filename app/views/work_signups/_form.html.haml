@@ -14,7 +14,7 @@
           %dd
             = "#{current_user.first_name} #{current_user.last_name}"
             %span.pull-right
-              Not you? #{link_to "Sign in as a different user.", destroy_user_session_path}
+              Not you? #{link_to "Sign in as a different user.", destroy_user_session_path, :method => :delete}
               %br/
               - unless current_user && current_user.age < @workshop.age_min
                 Or, you can #{link_to "sign up your daughter.", new_parent_work_signup_path(workshop_id: @workshop)}
@@ -131,5 +131,8 @@
           %br/
           %h3 Workshop fee: $#{@workshop.price.to_i}
           %br/
-          = render :partial => "shared/credit_card", :locals => { :f => f, :paid => @work_signup.charge_id.present? }
+          - unless @workshop.price == 0
+            = render :partial => "shared/credit_card", :locals => { :f => f, :paid => @work_signup.charge_id.present? }
+          - else
+            %p You're good to go!
           %br/

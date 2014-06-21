@@ -8,7 +8,8 @@ include EventHelper
                   :requirements, :respect_agreement,
                   :daughter_firstname, :daughter_lastname, :daughter_age,
                   :daughter_age_is_valid,
-                  :parent_name, :parent_phone, :parent_email, :parents_waiver
+                  :parent_name, :parent_phone, :parent_email, :parents_waiver,
+                  :user_id, :event_id, :state, :work_first_reminder_sent, :work_second_reminder_sent
 
   validates_presence_of :interest, :message => "- Please tell us a bit about what you want to learn in this workshop."
   validates_acceptance_of :requirements, :if => :requirements?
@@ -55,8 +56,12 @@ include EventHelper
   #
   # Returns true if sign up completed successfully, raises exception otherwise.
   def process_signup!
-    raise PaymentError unless process_workshop_fee
-
+    unless self.event.price == 0
+      raise PaymentError unless process_workshop_fee
+    else
+      update_attribute(:charge_id, "nocharge")
+      logger.info "Processed signup without payment"
+    end
     #raise SignupError  unless signup
   end
 
@@ -98,7 +103,7 @@ include EventHelper
       :subject => "You signed up for #{event.topic} with #{event.host_firstname} #{event.host_lastname}",
       :html_body => %(<h1>Yay #{user.first_name}!</h1>
         <p>You're all signed up for <a href="#{url_for(self.event)}">#{event.title}</a>.
-        <p>We received your payment of #{sprintf('$%0.2f', payment.amount.to_f / 100.0)}</p>
+        <p>#{self.get_payment_amount}</p>
         <p>Here are the workshop details to remember:</p>
         <p>
           <b>When:</b> #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}
@@ -122,7 +127,7 @@ include EventHelper
       :subject => "You signed up for #{event.topic} with #{event.host_firstname} #{event.host_lastname}",
       :html_body => %(<h1>Yay #{user.first_name}!</h1>
         <p>You're all signed up for <a href="#{url_for(self.event)}">#{event.title}</a>.
-        <p>We received your payment of #{sprintf('$%0.2f', payment.amount.to_f / 100.0)}</p>
+        <p>#{self.get_payment_amount}</p>
         <p>Here are the workshop details to remember:</p>
         <p>
           <b>When:</b> #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}
@@ -146,7 +151,7 @@ include EventHelper
       :subject => "You signed up for #{event.topic} with #{event.host_firstname} #{event.host_lastname}",
       :html_body => %(<h1>Yay #{user.first_name}!</h1>
         <p>Thanks for helping your daughter, #{self.daughter_firstname} sign up for <a href=#{url_for(event)}>#{event.title}</a>.
-        <p>We received your payment of #{sprintf('$%0.2f', payment.amount.to_f / 100.0)}</p>
+        <p>#{self.get_payment_amount}</p>
         <p>Here are the workshop details to remember:</p>
         <p>
           <b>When:</b> #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}
@@ -158,6 +163,15 @@ include EventHelper
       :bcc => "hello@girlsguild.com",
     })
     return true
+  end
+
+  def get_payment_amount(opts={})
+    payment = opts[:payment]
+    unless self.event.price == 0
+      "We received your payment of #{sprintf('$%0.2f', payment.amount.to_f / 100.0)}"
+    else
+      ""
+    end
   end
 
   def deliver_maker(opts={})
@@ -202,7 +216,7 @@ include EventHelper
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Your workshop signup has been deleted - #{event.topic} with #{user.name}",
+      :subject => "Your workshop signup has been deleted - #{event.title}",
       :html_body => %(<h1>Bummer!</h1>
         <p>You've deleted your workshop signup to work with #{self.event.user.first_name}. We hope you'll consider working with #{self.event.user.first_name} or someone else soon.</p>
         <p>Please let us know if there's a way we can help make this signup process easier by simply replying to this email. We would really appreciate your feedback!</p>
@@ -217,7 +231,7 @@ include EventHelper
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Your daughter's workshop signup has been deleted - #{event.topic} with #{user.name}",
+      :subject => "Your daughter's workshop signup has been deleted - #{event.title}",
       :html_body => %(<h1>Bummer!</h1>
         <p>You've deleted your daughter's signup to work with #{self.event.user.first_name}. We hope you'll consider helping her apply to work with #{self.event.user.first_name} or someone else soon.</p>
         <p>Please let us know if there's a way we can help make this signup process easier by simply replying to this email. We would really appreciate your feedback!</p>
@@ -232,7 +246,7 @@ include EventHelper
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Your workshop has been canceled - #{event.topic} with #{user.name}",
+      :subject => "Your workshop has been canceled - #{event.title}",
       :html_body => %(<h1>We're sorry.</h1>
         <p>The workshop on #{event.topic} you signed up for with #{self.event.user.first_name} has been canceled. We'll refund your signup fee, and let you know the next time #{self.event.user.first_name} is hosting a workshop or apprenticeship.</p>
         <p>Please let us know if you have any questions.</p>
@@ -248,7 +262,7 @@ include EventHelper
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "You canceled your signup- #{event.topic} with #{user.name}",
+      :subject => "You canceled your signup - #{event.title}",
       :html_body => %(<h1>Darn.</h1>
         <p>You canceled your signup for #{self.event.user.first_name}'s workshop on #{event.topic}. If there are at least 7 days before the workshop date, we'll refund your signup fee in the next two days. We hope you'll find another workshop you're interested in, and we'll let you know the next time #{self.event.user.first_name} is hosting a workshop or apprenticeship.</p>
         <p>Please let us know if there's a way we can help make this process easier by simply replying to this email. We would really appreciate your feedback!</p>
@@ -319,21 +333,21 @@ include EventHelper
 
   def self.first_reminder
     date_range = Date.today..(Date.today+3.days)
-    WorkSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'confirmed', work_first_reminder_sent: false).each do |work|
+    WorkSignup.joins(:event).where(events: {:begins_at => date_range}).where(state: 'confirmed', work_first_reminder_sent: false).each do |work|
       work.deliver_first_reminder
     end
   end
 
   def self.second_reminder
     date_range = Date.today..(Date.today+1.days)
-    WorkSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'confirmed', work_second_reminder_sent: false).each do |work|
+    WorkSignup.joins(:event).where(events: {:begins_at => date_range}).where(state: 'confirmed', work_second_reminder_sent: false).each do |work|
       work.deliver_second_reminder
     end
   end
 
   def self.followup
     date_range = (Date.today-3.days)..Date.today
-    WorkSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'completed', work_followup_sent: false).each do |work|
+    WorkSignup.joins(:event).where(events: {:begins_at => date_range}).where(state: 'completed', work_followup_sent: false).each do |work|
       work.deliver_followup
     end
   end

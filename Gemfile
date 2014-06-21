@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby '2.1.1'
 gem 'rails', '3.2.11'
 gem 'bootstrap-sass', '2.3.2.0'
 # gem 'bootstrap-sass', '3.1.1.0'
@@ -20,6 +20,7 @@ gem 'unicorn' , '4.8.2'
 gem 'newrelic_rpm' , '3.7.2.195'
 gem 'rollbar' , '0.12.11'
 gem 'lograge' , '0.2.2'
+gem 'oink'
 
 group :development, :test do
   gem 'sqlite3', '1.3.5'
@@ -38,7 +39,6 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'asset_sync', '1.0.0'
   gem 'sass-rails',   '3.2.5'
   gem 'coffee-rails', '3.2.2'
   gem 'uglifier', '1.2.3'

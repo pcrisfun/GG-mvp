@@ -11,25 +11,28 @@ class ApplicationController < ActionController::Base
   after_filter :store_location
 
   def store_location
-   # store last url - this is needed for post-login redirect to whatever the user last visited.
-      if (request.fullpath != "/users/sign_in" && \
-          request.fullpath != "/users/sign_up" && \
-          !request.xhr?) # don't store ajax calls
-        session[:previous_url] = request.fullpath
-      end
+   if (!request.fullpath.match("/users") &&
+    !request.xhr?) # don't store ajax calls
+    session[:previous_url] = request.fullpath
+   end
   end
 
+  #def after_sign_in_path_for(resource)
+  #  if Rails.env.production?
+  #    sign_in_url = url_for(:action => 'new', :controller => 'sessions', :only_path => false, :protocol => 'https')
+  #  else
+  #    sign_in_url = url_for(:action => 'new', :controller => 'sessions', :only_path => false, :protocol => 'http')
+  #  end
+  #  if request.referer == sign_in_url
+  #    session["user_return_to"] || root_path
+  #  else
+  #    stored_location_for(resource) || request.referer || root_path
+  #  end
+  #end
+
+  # If your model is called User
   def after_sign_in_path_for(resource)
-    if Rails.env.production?
-      sign_in_url = url_for(:action => 'new', :controller => 'sessions', :only_path => false, :protocol => 'https')
-    else
-      sign_in_url = url_for(:action => 'new', :controller => 'sessions', :only_path => false, :protocol => 'http')
-    end
-    if request.referer == sign_in_url
-      session[:previous_url] || root_path
-    else
-      stored_location_for(resource) || request.referer || root_path
-    end
+    session["user_return_to"] || root_path
   end
 
   private

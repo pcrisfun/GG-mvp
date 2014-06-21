@@ -142,6 +142,9 @@ a, a:hover, a:active, a:visited, a:focus
   font-weight: bold
 .unbold
   font-weight: normal
+.thumbnail-figure img
+  transition: none
+
 
 
 // Buttons ======================================================================================
@@ -229,6 +232,10 @@ a, a:hover, a:active, a:visited, a:focus
       display: block
   .dropdown-menu
     margin-top: -15px
+    @media (min-width: 768px) and (max-width: 979px)
+      margin-top: 0px
+    @media (max-width: 767px)
+      margin-top: 0px
 
 .navbar .nav > .active > a,
 .navbar .nav > .active > a:hover,
@@ -241,9 +248,12 @@ a, a:hover, a:active, a:visited, a:focus
 .navbar
   .brand
     margin-left: -8px
-
 .navbar .nav > li
   height: 85px
+  @media (min-width: 768px) and (max-width: 979px)
+    height: auto
+  @media (max-width: 767px)
+    height: auto
   img
     margin-top: -5px
   .signin-nav
@@ -251,6 +261,7 @@ a, a:hover, a:active, a:visited, a:focus
     margin-left: 5px
 .navbar .nav > li.signin-nav
   border-left: 1px solid $silver-light
+
 
 .navbar .nav > li > a.post-apprenticeship
   font-size: 14px
@@ -587,36 +598,74 @@ li.alertnav
   a.sign-link
     font-size: 20px
     font-weight: bold
-  .borderblockleft
-    position: relative
-    margin-top: 0px
-    border-left: 1px solid $silver-shadow
-    height: 120px
-    padding-left: 30px
-    padding-top: 80px
-  .signin
-    margin-top: -200px
+
+// Devise ==========
+.fancyform
   .borderblockright
     border-right: 1px solid $silver-shadow
-  .signup
-    padding: 50px 0
+  .devise-links
+    p
+      position: relative
+      margin-top: 0px
+      border-left: 1px solid $silver-shadow
+    .signin, .signup
+      float: right
+      clear: both
+      margin: 0 0 20px
+      padding: 80px 18px
+      a
+        color: $grass
+        //float: right
+      a:hover
+        color: $grass-shadow
+  #new-sessions-links, #create-sessions-links
+    .signin
+      margin-top: -200px
+      padding: 80px 40px
+  #new-user-links
+    p
+      border-left: 0px
+  #new-confirmations-links, #create-confirmations-links, #edit-confirmations-links, #update-confirmations-links, #show-confirmations-links, #read-confirmations-links, #new-passwords-links, #create-passwords-links, #edit-passwords-links, #update-passwords-links, #show-passwords-links, #read-passwords-links
+    .signin
+      border-left: 0px
+      margin: 0
+      padding: 10px
+    .signup
+      border-left: 0px
+      margin: 0
+      padding: 10px
 @media (max-width: 767px)
   .fancyform
     .borderblockright
       border-right: 0px
-    .borderblockleft
-      border-left: 0px
-      height: auto
-      padding-top: 10px
-    .signup
-      border-top: 1px solid $silver-shadow
-    .signin
-      margin-top: 0px
-      padding-bottom: 30px
+    .devise-links
+      a
+        display: inline-block
+      p
+        border-left: 0px
+        height: auto
+        padding-top: 0 10px 10px 10px
+    #new-sessions-links, #create-sessions-links, .devise-links
+      .signin, .signup
+        margin-top: 0
+        padding: 0 10px 10px 10px
+    #new-confirmations-links, #create-confirmations-links, #edit-confirmations-links, #update-confirmations-links, #show-confirmations-links, #read-confirmations-links, #new-passwords-links, #create-passwords-links, #edit-passwords-links, #update-passwords-links, #show-passwords-links, #read-passwords-links
+      min-height: 100px
 @media (min-width: 768px) and (max-width: 979px)
   .fancyform
-    .signin
-      margin-top: 0px
+    .borderblockright
+      border-right: 0px
+    .devise-links
+      a
+        display: inline-block
+      p
+        border-left: 0px
+    #new-sessions-links, #create-sessions-links, .devise-links
+      .signin, .signup
+        margin-top: 0
+        padding: 0 10px 10px 10px
+
+
 
 .fancyform-light
   background: $silver-bright
@@ -792,6 +841,10 @@ input[type="radio"], input[type="checkbox"]
       .smaller
         font-size: 38px
         display: inline
+      .btn
+        white-space: nowrap
+        @media (max-width: 767px)
+          margin-left: 10px
       hr
         margin: 11px 0
       .fa.fa-3x
@@ -806,12 +859,19 @@ input[type="radio"], input[type="checkbox"]
           color: $mint
           line-height: 22px
           margin: 20px 0
+          @media (max-width: 767px)
+            padding: 10px
       h2
         color: #555
         text-transform: none
         font-size: 38px
         text-align: right
         font-weight: 600
+        @media (min-width: 768px) and (max-width: 979px)
+          font-size: 28px
+        @media (max-width: 767px)
+          font-size: 40px
+          text-align: center
       h4
         font-size: 30px
         line-height: 30px
@@ -1760,7 +1820,9 @@ input[type="radio"], input[type="checkbox"]
     color: $plum
   .thumbnail-title
     top: 75%
-
+  .low
+    margin-top: 40px
+    font-size: 14px
 
 // Avatar ======================================================================================
 .file-upload
