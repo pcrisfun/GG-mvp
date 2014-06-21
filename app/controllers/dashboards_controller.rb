@@ -1,12 +1,21 @@
 class DashboardsController < ApplicationController
 
   before_filter :authenticate_user!
+  before_filter :current_admin, only: :admin
 
   def display
     if current_user
       @events = current_user.events.sort_by { |e| e.created_at }.reverse!
       @signups = current_user.signups.sort_by { |s| s.created_at }.reverse!
       @preregs = current_user.preregs.sort_by { |p| p.created_at }.reverse!
+    end
+  end
+
+  def admin
+    if current_user && current_user.admin?
+      @events = Event.all.sort_by { |e| e.created_at }.reverse!
+      @signups = Signup.all.sort_by { |s| s.created_at }.reverse!
+      @accepted_signups = AppSignup.where(state: 'accepted').sort_by { |e| e.created_at }.reverse!
     end
   end
 
