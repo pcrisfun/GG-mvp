@@ -253,7 +253,8 @@ class Apprenticeship < Event
   end
 
   def self.help_posting
-    Apprenticeship.where(:state => "started", :help_posting_sent => false).where(state_stamps.last.stamp <= Date.today-3.days).each do |app|
+    date_range = (Date.today-5.days)..(Date.today+1)
+    Apprenticeship.where(state: "started", help_posting_sent: false, :created_at => date_range).each do |app|
       app.deliver_help_posting
     end
   end
