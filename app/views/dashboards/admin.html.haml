@@ -3,23 +3,47 @@
   .container
     .row-fluid
       .span12.pull-right
-        %h1 Admin
+        %h1 Apprenticeships
         %br
 
-        %h2 Applications
+        %h2 Pending Apprenticeships
         .fancyform-light
-          = render 'applications', events: @events
+          = render 'pending', events: @apprenticeships
+        %h2 Posted Apprenticeships
+        .fancyform-light
+          = render 'posted', events: @apprenticeships
+        %h2 Filled Apprenticeships
+        .fancyform-light
+          = render 'filled', events: @apprenticeships
+        %h2 Saved Apprenticeships
+        .fancyform-light
+          = render 'saved', events: @apprenticeships
+        %h2 Cancelled Apprenticeships
+        .fancyform-light
+          = render 'canceled', events: @apprenticeships
+        %h2 Completed Apprenticeships
+        .fancyform-light
+          = render 'completed', events: @apprenticeships
 
-        %h2 Acceptances
+        %h1 Workshops
+        %br
+
+        %h2 Pending Workshops
         .fancyform-light
-          = render 'acceptances', events: @events
-        %h2 Confirmations
+          = render 'pending', events: @workshops
+        %h2 Posted Workshops
         .fancyform-light
-          = render 'confirmations', events: @events
-        %h2 Cancelations
+          = render 'posted', events: @workshops
+        %h2 Filled Workshops
         .fancyform-light
-          = render 'cancelations', events: @events
-        %h2 Completions
+          = render 'filled', events: @workshops
+        %h2 Saved Workshops
         .fancyform-light
-          = render 'completions', events: @events
+          = render 'saved', events: @workshops
+        %h2 Cancelled Workshops
+        .fancyform-light
+          = render 'canceled', events: @workshops
+        %h2 Completed Workshops
+        .fancyform-light
+          = render 'completed', events: @workshops
 

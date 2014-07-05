@@ -1,6 +1,6 @@
 - if (events||=false)
   - events.each do |event|
-    - if event.accepted?
+    - if event.completed?
       %table.table.table-bordered.table-striped.table-hover.table-condensed
         %tbody
           - submitted_signups = event.submitted_signups.sort_by { |s| s.created_at }.reverse!
