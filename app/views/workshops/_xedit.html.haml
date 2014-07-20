@@ -319,8 +319,16 @@
               %dd
                 = link_to @workshop.user.twitter, nice_url(@workshop.user.twitter)
 
+
+            - if show && current_user && current_user.admin? && @workshop.pending?
+              %dt
+                Legal Name
+              %dd
+                = @workshop.legal_name
+
+
             - if show
-              - if current_user && current_user.signedup?(@workshop) or current_user==@workshop.user
+            - if current_user && current_user.signedup?(@workshop) || current_user && current_user==@workshop.user || current_user && current_user.admin?
                 %hr
                 %dt
                   Attendee(s)
