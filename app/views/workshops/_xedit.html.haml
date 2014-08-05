@@ -8,15 +8,12 @@
           = link_to "Edit", edit_workshop_path(@workshop), name: "edit_button", class: "btn btn-primary pull-right"
 
       - unless show
-        %h2 Nice! Let's design your workshop
-        • Click on the text to edit any field you want to change
-        %br
-        • Hover on the
-        %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"The question marks have tips to answer your questions!"} }
-          %i.fa.fa-question-circle.small-iconnext
-        next to each field for tips & more info
-        %br
-        %p• We'll save automatically as you go, and we've emailed you a link to come back to it at any time
+        %h2 Let's design your workshop
+        .alert
+          Click on the text to edit any field you want to change. &nbsp; Hover on the
+          %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"The question marks have tips to answer your questions!"} }
+            %i.fa.fa-question-circle.small-iconnext
+          next to each field for tips & more info. &nbsp; We'll save automatically as you go, and we've emailed you a link to come back to it at any time.
         %br
         %h1#page-header.pull-right Build your Workshop
         %br
@@ -76,20 +73,14 @@
                 Workshop
             %br
 
-            - if !show
-              %i.fa.fa-asterisk
             #description.field.textarea
               = editable_link_to "Tell us about your workshop. Describe what you'll be making or doing, what level of experience you're teaching, as well as any expectations of those attending.", field: :description, resource: @workshop, type: :textarea
-            - if !show
-              %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Tell us about your workshop. Describe what you'll be doing as well as your expectations of those attending."} }
-                %i.fa.fa-question-circle.small-icon
             %br
             - if !show
               %br
-              %i.fa.fa-asterisk
-              %p.images-desc Upload 5 images of your studio & your work as it pertains to the workshop.
-              %br
-              %p.images-desc Max size: 1300px, Min size: 600px.
+              %p.images-desc
+                %i.fa.fa-asterisk
+                Upload 5 images of your studio & your work as it pertains to this workshop.
 
             //Social bttns //////////////////
             - if show
@@ -270,16 +261,6 @@
                 - if !show
                   %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", trigger: "hover", content:"Is this workshop more collaborative, or more directed? Be honest about the help that you need right from the begining. Example: chopsaw, welding, javascript"} }
                     %i.fa.fa-question-circle.small-icon
-            /- if !show || @workshop.other_needs
-            /  %dt
-            /    Preparations
-            /  %dd
-            /    #preparations.field.tags.optional
-            /      = editable_link_to 'Ex: "Must have their own laptop"', field: :other_needs, resource: @workshop, type: :text
-            /    - if !show
-            /      %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Let the student know what she should prepare to bring, wear, or read before you get started working together. Example: a car, a cellphone, a computer, a sense of humor."} }
-            /        %i.fa.fa-question-circle.small-icon
-
 
 
             - if current_user && current_user.signedup?(@workshop) or current_user==@workshop.user
@@ -290,7 +271,7 @@
                 = mail_to @workshop.user.email
                 - if !show
                   %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content: "Don't worry, this will only be visible to participants AFTER they sign up!."} }
-                    %i.fa.fa-question-circle.small-icon
+                    %i.fa.fa-question-circle.small-icon &nbsp;&nbsp;&nbsp;
                     = link_to "(Edit email)", edit_user_registration_path
 
             - if @workshop.user.bio.present?
@@ -328,7 +309,7 @@
 
 
             - if show
-            - if current_user && current_user.signedup?(@workshop) || current_user && current_user==@workshop.user || current_user && current_user.admin?
+              - if current_user && current_user.signedup?(@workshop) || current_user && current_user==@workshop.user || current_user && current_user.admin?
                 %hr
                 %dt
                   Attendee(s)
