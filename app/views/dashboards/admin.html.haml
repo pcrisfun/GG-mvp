@@ -1,47 +1,48 @@
-- provide(:title, 'Admin')
-%section#dashboard-display.section.alt-grey
-  .container
-    .row-fluid
-      .span12.pull-right
-        %h1 Apprenticeships
-        %br
-        - if @pending_apprenticeships && !@pending_apprenticeships.empty?
-          %h2 Pending Apprenticeships
-          = render 'events', events: @pending_apprenticeships
-        - if @posted_apprenticeships && !@posted_apprenticeships.empty?
-          %h2 Posted Apprenticeships
-          = render 'events', events: @posted_apprenticeships
-        - if @filled_apprenticeships && !@filled_apprenticeships.empty?
-          %h2 Filled Apprenticeships
-          = render 'events', events: @filled_apprenticeships
-        - if @saved_apprenticeships && !@saved_apprenticeships.empty?
-          %h2 Saved Apprenticeships
-          = render 'events', events: @saved_apprenticeships
-        - if @canceled_apprenticeships && !@canceled_apprenticeships.empty?
-          %h2 Canceled Apprenticeships
-          = render 'events', events: @canceled_apprenticeships
-        - if @completed_apprenticeships && !@completed_apprenticeships.empty?
-          %h2 Completed Apprenticeships
-          = render 'events', events: @completed_apprenticeships
+-if current_user.admin?
+  - provide(:title, 'Admin')
+  %section#dashboard-display.section.alt-grey
+    .container
+      .row-fluid
+        .span12.pull-right
+          %h1 Apprenticeships
+          %br
+          - if @pending_apprenticeships && !@pending_apprenticeships.empty?
+            %h2 Pending Apprenticeships
+            = render 'events', events: @pending_apprenticeships
+          - if @posted_apprenticeships && !@posted_apprenticeships.empty?
+            %h2 Posted Apprenticeships
+            = render 'events', events: @posted_apprenticeships
+          - if @filled_apprenticeships && !@filled_apprenticeships.empty?
+            %h2 Filled Apprenticeships
+            = render 'events', events: @filled_apprenticeships
+          - if @saved_apprenticeships && !@saved_apprenticeships.empty?
+            %h2 Saved Apprenticeships
+            = render 'events', events: @saved_apprenticeships
+          - if @canceled_apprenticeships && !@canceled_apprenticeships.empty?
+            %h2 Canceled Apprenticeships
+            = render 'events', events: @canceled_apprenticeships
+          - if @completed_apprenticeships && !@completed_apprenticeships.empty?
+            %h2 Completed Apprenticeships
+            = render 'events', events: @completed_apprenticeships
 
-        %h1 Workshops
-        %br
-        - if @pending_workshops && !@pending_workshops.empty?
-          %h2 Pending Workshops
-          = render 'events', events: @pending_workshops
-        - if @posted_workshops && !@posted_workshops.empty?
-          %h2 Posted Workshops
-          = render 'events', events: @posted_workshops
-        - if @filled_workshops && !@filled_workshops.empty?
-          %h2 Filled Workshops
-          = render 'events', events: @filled_workshops
-        - if @saved_workshops && !@saved_workshops.empty?
-          %h2 Saved Workshops
-          = render 'events', events: @saved_workshops
-        - if @canceled_workshops && !@canceled_workshops.empty?
-          %h2 Canceled Workshops
-          = render 'events', events: @canceled_workshops
-        - if @completed_workshops&& !@completed_workshops.empty?
-          %h2 Completed Workshops
-          = render 'events', events: @completed_workshops
+          %h1 Workshops
+          %br
+          - if @pending_workshops && !@pending_workshops.empty?
+            %h2 Pending Workshops
+            = render 'events', events: @pending_workshops
+          - if @posted_workshops && !@posted_workshops.empty?
+            %h2 Posted Workshops
+            = render 'events', events: @posted_workshops
+          - if @filled_workshops && !@filled_workshops.empty?
+            %h2 Filled Workshops
+            = render 'events', events: @filled_workshops
+          - if @saved_workshops && !@saved_workshops.empty?
+            %h2 Saved Workshops
+            = render 'events', events: @saved_workshops
+          - if @canceled_workshops && !@canceled_workshops.empty?
+            %h2 Canceled Workshops
+            = render 'events', events: @canceled_workshops
+          - if @completed_workshops&& !@completed_workshops.empty?
+            %h2 Completed Workshops
+            = render 'events', events: @completed_workshops
 

@@ -79,9 +79,6 @@
                             = signup.user.age
                         %td.dates
                           = signup.created_at.strftime('%B %e, %Y')
-                        %td.state
-                          %span.label.btn-block{class: signup.state_label_class}
-                            = signup.state_label
                         %td.countdown
                           = signup.countdown_message_maker
           - if !submitted_preregs.empty?
@@ -99,7 +96,5 @@
                         %td.age
                           age
                           = prereg.user.age
-                        %td.state
-                          .label.btn-block following
                         %td.countdown
 
