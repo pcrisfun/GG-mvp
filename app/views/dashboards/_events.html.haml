@@ -53,18 +53,24 @@
                           -if event.type == "Apprenticeship"
                             = link_to "Application #{signup.id}", app_signup_path(signup.id)
                           .statebar
-                            saved
-                            %span.section.saved
-                            applied
-                            %span.section.applied
-                            int-req
-                            %span.section.interview_requested
-                            int-sch
-                            %span.section.interview_scheduled
-                            accepted
-                            %span.section.accepted
-                            confirmed
-                            %span.section.confirmed
+                            -if signup.started?
+                              saved
+                              %span.section.saved
+                            -if signup.pending?
+                              applied
+                              %span.section.applied
+                            / -if signup.interview_requested?
+                            / int-req
+                            /  %span.section.interview_requested
+                            / -if signup.interview_scheduled?
+                            /  int-sch
+                            /  %span.section.interview_scheduled
+                            -if signup.accepted?
+                              accepted
+                              %span.section.accepted
+                            -if signup.confirmed?
+                              confirmed
+                              %span.section.confirmed
                         %td.age
                           age
                           - if signup.parent?
