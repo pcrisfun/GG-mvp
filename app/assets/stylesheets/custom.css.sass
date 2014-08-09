@@ -46,6 +46,13 @@ $mint: #71b99f
 $mint-muted: #C7E4DD
 $mint-muddy: #537a70
 
+$avocado-slight: #d8e29f
+$avocado-light: #bacc71
+$avocado-medium: #a7bf51
+$avocado: #7a9139
+$avocado-shadow: #607026
+$avocado-black: #424c16
+
 $star-bright: #f8fbfc
 $star-light: #eff6f8
 $star-medium: #e4edef
@@ -1822,6 +1829,35 @@ input[type="radio"], input[type="checkbox"]
           width: 45%
         &.age
           width: 19.5%
+  .statebar
+    font-size: 10px
+    margin: 5px 5px 5px 0px
+    .section
+      height: 3px
+      padding: 0
+      margin: 0
+      display: block
+      +roundcorners
+    .saved
+      background-color: $avocado-slight
+      width: 6%
+    .applied
+      background-color:  $avocado-light
+      width: 10%
+    .interview_requested
+      background-color:  $avocado-medium
+      width: 15%
+    .interview_scheduled
+      background-color:  $avocado
+      width: 20%
+    .accepted
+      background-color:  $avocado-shadow
+      width: 25%
+    .confirmed
+      background-color:  $avocado-black
+      width: 30%
+//    .notyet
+//      background-color: $silver
 
 
 // Event SignUps ======================================================================================

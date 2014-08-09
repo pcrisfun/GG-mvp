@@ -1,0 +1,100 @@
+.fancyform-light
+  - if (events||=false)
+    - events.each do |event|
+      %table.table.table-bordered.table-striped.table-hover.table-condensed
+        %tbody
+          - submitted_signups = event.submitted_signups.sort_by { |s| s.created_at }.reverse!
+          - submitted_preregs = event.submitted_preregs.sort_by { |p| p.created_at }.reverse!
+          %tr
+            %td.image
+              - if event.host_album
+                - if event.host_album.featured_photo
+                  = render 'photos/photo', photo: event.host_album.featured_photo, size: :thumb
+                - elsif event.host_album.photos.first
+                  = render 'photos/photo', photo: event.host_album.photos.sort_by { |photo| photo.position(album_id: event.host_album.id) }.first, size: :thumb, url: url_for(event)
+                - else
+                  %a{ href: url_for(event) }
+                    %img.default-photo-thumb
+            %td.title
+              - if event.type == "Apprenticeship"
+                .label.pull-right Apprenticeship
+              - elsif event.type == "Workshop"
+                .label.pull-right Workshop
+              = link_to event.title_html, url_for(controller: event.class.name.underscore.pluralize, action: 'show', id: event.id ), class: "title-boxlink"
+              - if event.started? or event.accepted? or event.canceled? or event.filled?
+                = link_to "Edit", url_for(controller: event.class.name.underscore.pluralize, action: 'edit', id: event.id ), class: ""
+            %td.spots
+              = event.spots_left
+            %td.dates
+              - if event.type == "Apprenticeship"
+                = event.nice_dates_apprenticeships
+              - elsif event.type == "Workshop"
+                = event.nice_dates_workshops
+            %td.state
+              %span.label{class: event.state_label_class}
+                = event.state_label
+            %td.countdown
+              = event.countdown_message
+          - if !submitted_signups.empty?
+            %tr
+              %td.nested-table{ colspan: 6 }
+                %table.table.table-bordered.table-hover.table-condensed.table-subtable
+                  %tbody
+                    - submitted_signups.each_with_index do |signup, index|
+                      %tr
+                        %td.image
+                          = index + 1
+                        %td.name
+                          = avatar_for(signup.user, size: 25, tag: :small)
+                          - if signup.parent?
+                            #{signup.user.name}'s daughter #{signup.daughter_firstname}
+                          - else
+                            = signup.user.name
+                          -if event.type == "Apprenticeship"
+                            = link_to "Application #{signup.id}", app_signup_path(signup.id)
+                          .statebar
+                            -if signup.started?
+                              saved
+                              %span.section.saved
+                            -if signup.pending?
+                              applied
+                              %span.section.applied
+                            / -if signup.interview_requested?
+                            / int-req
+                            /  %span.section.interview_requested
+                            / -if signup.interview_scheduled?
+                            /  int-sch
+                            /  %span.section.interview_scheduled
+                            -if signup.accepted?
+                              accepted
+                              %span.section.accepted
+                            -if signup.confirmed?
+                              confirmed
+                              %span.section.confirmed
+                        %td.age
+                          age
+                          - if signup.parent?
+                            = signup.daughter_age
+                          - else
+                            = signup.user.age
+                        %td.dates
+                          = signup.created_at.strftime('%B %e, %Y')
+                        %td.countdown
+                          = signup.countdown_message_maker
+          - if !submitted_preregs.empty?
+            %tr
+              %td.nested-table{ colspan: 6 }
+                %table.table.table-bordered.table-hover.table-condensed.table-subtable
+                  %tbody
+                    - submitted_preregs.each_with_index do |prereg, index|
+                      %tr
+                        %td.image
+                          = index + 1
+                        %td.name
+                          = avatar_for(prereg.user, size: 25, tag: :small)
+                          = prereg.user.name
+                        %td.age
+                          age
+                          = prereg.user.age
+                        %td.countdown
+
