@@ -466,7 +466,7 @@ li.alertnav
       font-style: italic
       p
         font-size: 15px
-        line-height: 23px
+        line-height: 20px
         padding-bottom: 7px
       footer
         a
@@ -476,7 +476,33 @@ li.alertnav
           font-style: normal
 
 
-// New Event (How it Works Page) =================================================================
+// How it Works Page (Apprenticeships New) =================================================================
+
+.hero-howitworks
+  position: relative
+  h1
+    position: relative
+    z-index: 1
+  h1:after
+    font-family: fontAwesome
+    //content: "\f013"
+    color: rgba(255, 255, 255, 0.1)
+    font-size: 6em
+    width: 1em
+    position: absolute
+    display: inline-block
+    text-align: center
+    top: 0
+    left: 50%
+    margin-left: -0.5em
+    margin-top: -100px
+    z-index: -1
+    opacity: 0.5
+  .span9
+    position: relative
+    z-index: 2
+
+
 #darkspan
   padding: 45px 0
   background-color: #323232
@@ -487,6 +513,14 @@ li.alertnav
   .btn
     margin: 2px 0px
 
+.checklist
+  li
+    line-height: 28px
+    list-style: none
+  li:before
+    font-family: fontAwesome
+    content: "\f00c"
+    color: $grass
 
 
 // FAQ ======================================================================================
@@ -734,14 +768,13 @@ li.alertnav
 ul.token-input-list-facebook
   clear: none
 
-.popover.left, .popover.right, .popover.top, .popover.bottom
+.popover
+  .left, .right, .top, .bottom
   background: #333
   text-align: left
   font-size: 13px
   .arrow
     border-right-color: #333
-.popover
-  .left
 .popover-inner
   text-align: left
 .popover-title
@@ -791,45 +824,47 @@ input[type="radio"], input[type="checkbox"]
     .btn-primary
       font-size: 22px
       font-weight: 500
-  .carousel
-    margin-bottom: 0px
-    .learning
-      p
-        font-size: 14px
-    .well
-      margin-top: 15px
-    .carousel-control
-      height: 230px
-      width: 45px
-      opacity: 1
-      font-size: 160px
-      &:hover
-        opacity: .7
-    .carousel-control.right
-      right: -50px
-    .carousel-control.left
-      left: -50px
-    .extra
-      margin-top: 140px
-      height: 80px
-      width: 190px
-    .left.extra
-      background: url(banners/arrow-learn.png) no-repeat center center transparent
-    .right.extra
-      background: url(banners/arrow-lead.png) no-repeat center center transparent
-    .item
-      //height: 425px
-    .overview
-      background: url(banners/hmpg-spotlight-overview.png) repeat-x center center transparent
-    .learning
-      background: url(banners/hmpg-spotlight-learn.png) repeat-x center center transparent
-    .leading
-      background: url(banners/hmpg-spotlight-lead.png) repeat-x center center transparent
-  .socials
-    height: 40px
-    width: 260px
+  #promo
+    padding: 15px 0 0
+    .carousel
+      margin-bottom: 0px
+      .learning
+        p
+          font-size: 14px
+      .well
+        margin-top: 15px
+      .carousel-control
+        height: 230px
+        width: 45px
+        opacity: 1
+        font-size: 160px
+        &:hover
+          opacity: .7
+      .carousel-control.right
+        right: -50px
+      .carousel-control.left
+        left: -50px
+      .extra
+        margin-top: 140px
+        height: 80px
+        width: 190px
+      .left.extra
+        background: url(banners/arrow-learn.png) no-repeat center center transparent
+      .right.extra
+        background: url(banners/arrow-lead.png) no-repeat center center transparent
+      .item
+        //height: 425px
+      .overview
+        background: url(banners/hmpg-spotlight-overview.png) repeat-x center center transparent
+      .learning
+        background: url(banners/hmpg-spotlight-learn.png) repeat-x center center transparent
+      .leading
+        background: url(banners/hmpg-spotlight-lead.png) repeat-x center center transparent
+    .socials
+      height: 40px
+      width: 260px
   #goals
-    background-color: $mint-slight
+    background-color: $mint-muted
     font-style: italic
     padding: 0 0
     position: static
@@ -862,18 +897,20 @@ input[type="radio"], input[type="checkbox"]
         li
           list-style: none
           font-family: $opensans
-          font-weight: bold
-          color: $mint
-          line-height: 22px
+          font-size: 18px
+          color: #1D9D74
           margin: 20px 0
           @media (max-width: 767px)
             padding: 10px
       h2
-        color: #555
+        color: #333
+        text-shadow: 4px 3px 0 #C7E4DD, 9px 8px 0 rgba(0, 0, 0, 0.15)
+        margin-top: 10px
+        font-style: normal
         text-transform: none
         font-size: 38px
         text-align: right
-        font-weight: 600
+        font-weight: 800
         @media (min-width: 768px) and (max-width: 979px)
           font-size: 28px
         @media (max-width: 767px)
@@ -916,6 +953,7 @@ input[type="radio"], input[type="checkbox"]
           font-weight: 500
   #newsletter
     background-color: #323232
+    padding: 0 0 20px
     form
       position: relative
       z-index: 1
@@ -943,6 +981,7 @@ input[type="radio"], input[type="checkbox"]
       text-shadow: 1px 1px 1px #000
 
   #event-previews
+    padding-top: 10px
     h3
       display: inline
     a.more-events
@@ -1555,9 +1594,9 @@ input[type="radio"], input[type="checkbox"]
   .images-desc
     font-size: 14px
     color: $silver-dark
-    margin-bottom: -20px
+    margin: 10px 0 -40px 0
   #private-address
-    margin-top: 4px
+    margin: 0 0 4px 0
   #dates, #from, #address, #nbrhood-toggle
     display: inline
     &.hidden

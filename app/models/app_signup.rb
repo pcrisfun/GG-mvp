@@ -615,6 +615,13 @@ class AppSignup < Signup
     return true
   end
 
+  def self.remind_maker_to_review
+    # UPDATE: date_range = (Date.today-5.days)..(Date.today+1)
+    # UPDATE: Apprenticeship.where(state: "started", help_posting_sent: false, :created_at => date_range).each do |app|
+      # UPDATE: app.deliver_help_posting
+    # end
+  end
+
   def self.reminder
     date_range = Date.today..(Date.today+3.days)
     AppSignup.joins(:event).where(events: {:begins_at => date_range}).where(state: 'confirmed', app_reminder_sent: false).each do |app|
