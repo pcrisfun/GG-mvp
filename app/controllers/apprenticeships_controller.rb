@@ -82,6 +82,10 @@ class ApprenticeshipsController < ApplicationController
             redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship rejected." } and return
           end
 
+        # add syntax like the above for the :close_button
+          # add logic to change state from "accepted" to "filled" (see events.rb model for state_machine logic)
+          # add redirect_back with flash message "Your apprenticeship is closed for applications"
+
         elsif params[:commit] == 'Save'
           redirect_to :back, flash: { success: "Your apprenticeship has been saved"} and return
 
