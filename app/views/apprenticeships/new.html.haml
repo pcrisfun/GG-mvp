@@ -1,181 +1,155 @@
 %section#apprenticeship-info.section.alt.newevent
   .container
-    .hero-unit.center
-      %h1 ap&bull;pren&bull;tice&bull;ship
+    .hero-unit.center.hero-howitworks
+      %h1 How Apprenticeships Work
       %br
-      .span7.offset2
+      .span9.offset1
         %b Our Definition:
-        More hands-on than a "mentorship", more supportive than an "internship"; apprenticeships are a collaborative way to trade knowledge and skills for help with making.
+        %i &nbsp; More hands-on than a "mentorship", more supportive than an "internship"; apprenticeships are a collaborative way to trade knowledge and skills for help with making.
       %br
       %br
 
 %section.section#FAQ.newevent
   .container
-    .row-fluid
-      /%hr
-      /%h2.center Choose a Type of Apprenticeship
-      /.row-fluid
-      /  .well.span3
-      /    %h3
-      /      Production
-      /    %p If you need help producing a big order or a new line of your work, you might consider taking on a girl to help you as /a production apprentice.
-      /  .well.span3
-      /    %h3
-      /      Event
-      /    %p If you have an upcoming event you could use a hand with, consider an apprentice to help plan, prepare for, and carry /it out.
-      /  .well.span3
-      /    %h3
-      /      Ongoing
-      /    %p Or if you're simply interested in new collaborations and the chance to teach your skills and share your process, an /ongoing apprenticeship carries a lot of possibilities.
-      /  .well.span3
-      /    %h3
-      /      1-Day (Workshops)
-      /    %p We’ve renamed workshops to 1-Day apprenticeships to focus on the short timeframe and collaborative atmosphere of our workshop setting.
+    .row-fluid#howitworks
+      .span6.maker.center
+        %blockquote.blockquote-fancy.blockquote-fancy-small
+          .blockquote-img
+            %img{:alt => "", :src => "../images/assets/testimonials/NDavis.jpeg"}/
+        %h3.center Posting an Apprenticeship
+        %ul
+          %li
+            %h4
+              Post
+          %li
+            %i.fa.fa-caret-right
+            =link_to "Choose a type:", faq_path(anchor: "chooseatype")
+            production, event, ongoing, or 1-day apprenticeship.
+          %li
+            %i.fa.fa-caret-right
+            Edit the details.
+          %li
+            %i.fa.fa-caret-right
+            Pay a $30.00
+            =link_to "listing fee.", faq_path(anchor: "postingfee")
+        %ul
+          %li
+            %h4
+              Choose
+          %li
+            %i.fa.fa-caret-right
+            =link_to "Review applications", faq_path(anchor: "applicationslook")
+            from your dashboard.
+          %li
+            %i.fa.fa-caret-right
+            Optionally
+            =link_to "meet up", faq_path(anchor: "caniinterview")
+            to see if it's a good fit.
+          %li
+            %i.fa.fa-caret-right
+            =link_to "Choose", faq_path(anchor: "obligatedtochoose")
+            who works best.
+        %ul
+          %li
+            %h4
+              Confirm
+          %li
+            %i.fa.fa-caret-right
+            =link_to "Review tips", faq_path(anchor: "tips")
+            for having a great apprenticeship.
+          %li
+            %i.fa.fa-caret-right
+            We'll remind you when you're about to start.
+          %li
+            %i.fa.fa-caret-right
+            We'll put you in touch when your apprentice has confirmed.
+        %ul
+          %li
+            %h4
+              Support
+              /.badge.badge-inverse Coming Soon!
+          %li
+            %i.fa.fa-caret-right
+            The GirlsGuild team is here to help you along the way.
+          %li
+            %i.fa.fa-caret-right
+            We'll send occasional feedback prompts.
+          %li
+            %i.fa.fa-caret-right
+            We help
+            =link_to "track the skills and tools", faq_path(anchor: "whatwetrack")
+            you're teaching.
 
 
-
-      %h2.center How Apprenticeships Work
-      .row-fluid#howitworks
-        .span6.maker.center
-          %blockquote.blockquote-fancy.blockquote-fancy-small
-            .blockquote-img
-              %img{:alt => "", :src => "../images/assets/testimonials/maker.png"}/
-          %h3.center Posting an Apprenticeship
-          %br/
-          %ul
-            %li
-              %h4
-                Post
-            %li
-              %i.fa.fa-caret-right
-              =link_to "Choose a type:", faq_path(anchor: "chooseatype")
-              production, event, ongoing, or 1-day apprenticeship.
-            %li
-              %i.fa.fa-caret-right
-              Edit the details.
-            %li
-              %i.fa.fa-caret-right
-              Pay a $30.00
-              =link_to "listing fee.", faq_path(anchor: "postingfee")
-          %ul
-            %li
-              %h4
-                Choose
-            %li
-              %i.fa.fa-caret-right
-              =link_to "Review applications", faq_path(anchor: "applicationslook")
-              from your dashboard.
-            %li
-              %i.fa.fa-caret-right
-              Optionally
-              =link_to "meet up", faq_path(anchor: "caniinterview")
-              to see if it's a good fit.
-            %li
-              %i.fa.fa-caret-right
-              =link_to "Choose", faq_path(anchor: "obligatedtochoose")
-              who works best.
-          %ul
-            %li
-              %h4
-                Confirm
-            %li
-              %i.fa.fa-caret-right
-              =link_to "Review tips", faq_path(anchor: "tips")
-              for having a great apprenticeship.
-            %li
-              %i.fa.fa-caret-right
-              We'll remind you when you're about to start.
-            %li
-              %i.fa.fa-caret-right
-              We'll put you in touch when your apprentice has confirmed.
-          %ul
-            %li
-              %h4
-                Support
-                /.badge.badge-inverse Coming Soon!
-            %li
-              %i.fa.fa-caret-right
-              The GirlsGuild team is here to help you along the way.
-            %li
-              %i.fa.fa-caret-right
-              We'll send occasional feedback prompts.
-            %li
-              %i.fa.fa-caret-right
-              We help
-              =link_to "track the skills and tools", faq_path(anchor: "whatwetrack")
-              you're teaching.
-
-
-        .span6.girl.center
-          %blockquote.blockquote-fancy.blockquote-fancy-small
-            .blockquote-img
-              %img{:alt => "", :src => "../images/assets/testimonials/apprentice.png"}/
-          %h3.center Joining an Apprenticeship
-          %br/
-          %ul
-            %li
-              %h4
-                Apply
-            %li
-              %i.fa.fa-caret-right
-              =link_to "Answer 4 questions", faq_path(anchor: "applicationslook")
-              about why you're interested.
-            %li
-              %i.fa.fa-caret-right
-              It's always free to apply & you'll
-              =link_to "hear back", faq_path(anchor: "myapplication")
-              within 2 weeks.
-            %li
-              %i.fa.fa-caret-right
-              Or, sign up for a
-              =link_to "workshop", faq_path(anchor: "how1dayswork")
-              (1-Day apprenticeship).
-          %ul
-            %li
-              %h4
-                Confirm
-            %li
-              %i.fa.fa-caret-right
-              Possibly meet up to see if it's a good fit.
-            %li
-              %i.fa.fa-caret-right
-              Pay a
-              =link_to "$30.00 matching fee", faq_path(anchor: "howmuchtoapply")
-              to confirm.
-            %li
-              %i.fa.fa-caret-right
-              Do a little dance!
-          %ul
-            %li
-              %h4
-                Track
-            %li
-              %i.fa.fa-caret-right
-              We'll help
-              =link_to "track the skills and tools", faq_path(anchor: "whatwetrack")
-              you're learning.
-            %li
-              %i.fa.fa-caret-right
-              We'll send occasional feedback emails.
-            %li
-              %i.fa.fa-caret-right
-              We're here to help with anything along the way!
-          %ul
-            %li
-              %h4
-                Progress
-                .badge.badge-inverse Coming Soon!
-            %li
-              %i.fa.fa-caret-right
-              We'll build out
-              =link_to "a portfolio", faq_path(anchor: "whatportfolio")
-              that shows off your skills.
-            %li
-              %i.fa.fa-caret-right
-              Makers will search portfolios and find <i>you</i>!
-            %li
-              %i.fa.fa-caret-right
-              Use it to apply for schools or a job.
+      .span6.girl.center
+        %blockquote.blockquote-fancy.blockquote-fancy-small
+          .blockquote-img
+            %img{:alt => "", :src => "../images/assets/testimonials/Helen.jpeg"}/
+        %h3.center Becoming an Apprentice
+        %ul
+          %li
+            %h4
+              Apply
+          %li
+            %i.fa.fa-caret-right
+            =link_to "Answer 4 questions", faq_path(anchor: "applicationslook")
+            about why you're interested.
+          %li
+            %i.fa.fa-caret-right
+            It's always free to apply & you'll
+            =link_to "hear back", faq_path(anchor: "myapplication")
+            within 2 weeks.
+          %li
+            %i.fa.fa-caret-right
+            Or, sign up for a
+            =link_to "workshop", faq_path(anchor: "how1dayswork")
+            (1-Day apprenticeship).
+        %ul
+          %li
+            %h4
+              Confirm
+          %li
+            %i.fa.fa-caret-right
+            Possibly meet up to see if it's a good fit.
+          %li
+            %i.fa.fa-caret-right
+            Pay a
+            =link_to "$30.00 matching fee", faq_path(anchor: "howmuchtoapply")
+            to confirm.
+          %li
+            %i.fa.fa-caret-right
+            Do a little dance!
+        %ul
+          %li
+            %h4
+              Track
+          %li
+            %i.fa.fa-caret-right
+            We'll help
+            =link_to "track the skills and tools", faq_path(anchor: "whatwetrack")
+            you're learning.
+          %li
+            %i.fa.fa-caret-right
+            We'll send occasional feedback emails.
+          %li
+            %i.fa.fa-caret-right
+            We're here to help with anything along the way!
+        %ul
+          %li
+            %h4
+              Progress
+              .badge.badge-inverse Coming Soon!
+          %li
+            %i.fa.fa-caret-right
+            We'll build out
+            =link_to "a portfolio", faq_path(anchor: "whatportfolio")
+            that shows off your skills.
+          %li
+            %i.fa.fa-caret-right
+            Makers will search portfolios and find <i>you</i>!
+          %li
+            %i.fa.fa-caret-right
+            Use it to apply for schools or a job.
 
 
 %section.section#darkspan
@@ -183,12 +157,72 @@
     .row-fluid
       .span6
         #buttons.center
-          = link_to "Post an Apprenticeship", { controller: :apprenticeships, action: :create } , {method: :post, style: 'button', class: 'btn btn-large btn-success' }
+          = link_to "Post an Apprenticeship", { controller: :apprenticeships, action: :create } , {method: :post, style: 'button', class: 'btn btn-large btn-primary' }
       .span6
         #buttons.center
           = link_to "Browse Apprenticeships", events_path, {style: 'button', class: 'btn btn-large btn-primary' }
 
-%section.section#FAQ.newevent
+%section.section.alt#FAQ
+  .container
+    %br
+    %h2
+      What to expect
+      %small / &nbsp; Here's how to structure an equitable exchange...
+      %hr
+    .row-fluid
+      .span6
+        %h3
+          As a Maker
+          %small.kristi
+        %ul.checklist
+          %li
+            %b Hours:
+            We suggest you schedule an average of 16 hours/week to get your apprentice up to speed quickly. It's best if you decide on a consistent schedule at the start, and stick to it.
+          %br
+          %li
+            %b Timeframe:
+            We suggest you divide the timeframe up into 4 equal parts. You'll spend the first part teaching, the second part practicing, and the last two parts instructing when needed while working together.
+          %br
+          %li
+            %b Instruction:
+            We ask that you work in the same location for at least 50% of the time you've scheduled for the apprenticeship in order to allow for questions and feedback to happen naturally.
+          %br
+          %li
+            %b Skills:
+            You should be teaching the skills and tools that are required for the kind of work that you need help with. It's ok to require some pre-existing skills related to the work - but count on teaching the main skills.
+          %br
+          %li
+            %b Feedback:
+            You'll need to give feedback on how the apprentice is doing as she learns, allowing her to ask questions, make mistakes and practice. We're happy to help facilitate a mid-way check in to chat about goals and progress.
+      .span6
+        %h3
+          As an Apprentice
+          %small.kristi
+        %ul.checklist
+          %li
+            %b Hours:
+            Be honest about your availability. Once you decide on a set schedule, make sure it's on your calendar. You should always give your maker-mentor at least 24 hours notice for cancellations.
+          %br
+          %li
+            %b Timeframe:
+            We suggest the timeframe be divided into 4 equal parts. You'll spend the first part learning, the second part practicing, and the last two parts asking for feedback when needed and working together.
+          %br
+          %li
+            %b Instruction:
+            We ask that you work in the same location for at least 50% of the time you've scheduled for the apprenticeship in order to allow for questions and feedback to happen naturally.
+          %br
+          %li
+            %b Skills:
+            You should be learning the skills and tools that are required for the kind of work that you're helping with. You may be required to have some pre-existing skills related to the work, but you'll be learning the main skills.
+          %br
+          %li
+            %b Feedback:
+            Practice asking for feedback on how you're doing as you learn. It's ok to ask lots of questions, make mistakes and practice! We're happy to help facilitate a mid-way check in to chat about goals and progress, or if any issues arise.
+    %br
+
+
+
+%section.section#FAQ.newevent#darkspan
   .container
     .row-fluid
       .span6.testimonials
@@ -241,29 +275,74 @@
               %a{:href => "#t2"} Christina-Valentine
 
 
-    %hr
-    %br
-    %br
 
-    %h2.center How to Have a Great Apprenticeship
+
+/%section.section.alt#FAQ
+/  .container
+/    %br
+/    %h2
+/      Is this for me?
+/      %small / &nbsp; Here are a few personalities that get a lot out of GirlsGuild...
+/    %hr
+/    .row-fluid
+/      .span6
+/        %h4 The Entrepreneur
+/        %p You’re busy building a business that’s growing and need some help but aren’t quite ready to hire.  We’re here to help you learn a lot about /leadership by training someone in the skills and tools of your arsenal.
+/
+/        %h4 The Collaborator
+/        %p You like bouncing ideas off other people because the process helps your creative thinking. You find that having another person around really helps /you get more done, and you’d be happy to bring someone in on your projects for their help.
+/
+/        %h4 The Teacher
+/        %p You really love teaching the skills and tools that will help someone get closer to their goals. You appreciate how important it is to pass on /skills, and get excited thinking about empowering someone who’s inspired by your work as they gain real-world experience working with you.
+/
+/        %h4 The Mentor
+/        %p You need to get a lot done but you also enjoy chatting while you work. Conversations just tend to happen organically about how you ended up doing /what you do, the struggles and accomplishments you’ve had, and some of the more personal aspects of doing your kind of work.
+/
+/      .span6
+/        %h4 Play
+/        %p
+/
+/        %h4 Passion
+/        %p
+/
+/        %h4 Purpose
+/        %p
+/
+/    %br
+/    %hr
+/    %br
+
+%section.section#FAQ.newevent
+  .container
     %br
-    .row-fluid
-      .well.span3
-        %h3
-          Challenge
-        The apprentice should be learning new things frequently enough to stay challenged, but don't forget to have them also practice what they're learning.
-      .well.span3
-        %h3
-          World View
-        Think about giving the apprentice a feel for what its like to run a small business, OR why you choose not to.
-      .well.span3
-        %h3
-          Feedback
-        Remember to give gentle but constructive feedback. Help her learn from her mistakes which is often the best way to gain experience.
-      .well.span3
-        %h3
-          Encouragement
-        Get to know each others goals and dreams! We want to help you build a mentor network because we're all stronger when we learn together.
+    %h2 Still not sure if you're ready?
+    %p
+      We've put together a
+      %a{href: "../handbook/ReadyforanApprentice.pdf"} checklist
+      to help you decide if you're ready to host an apprenticeship.
+
+
+
+
+    /%h2 How to Have a Great Apprenticeship
+    /%br
+    /.row-fluid
+    /  .well.span3
+    /    %h3
+    /      Challenge
+    /    The apprentice should be learning new things frequently enough to stay challenged, but don't forget to have them also practice what they're learning.
+    /  .well.span3
+    /    %h3
+    /      World View
+    /    Think about giving the apprentice a feel for what its like to run a small business, OR why you choose not to.
+    /  .well.span3
+    /    %h3
+    /      Feedback
+    /    Remember to give gentle but constructive feedback. Help her learn from her mistakes which is often the best way to gain experience.
+    /  .well.span3
+    /    %h3
+    /      Encouragement
+    /    Get to know each others goals and dreams! We want to help you build a mentor network because we're all stronger when we learn together.
 
 
 

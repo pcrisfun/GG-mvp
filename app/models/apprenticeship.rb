@@ -36,7 +36,7 @@ class Apprenticeship < Event
 
   validation_group :private do
     validates_presence_of :permission, :message => "We need your permission to run a background check."
-    validates_presence_of :legal_name, :message => "We'll need your legal full name in order to run a background check."
+    validates_presence_of :legal_name, :message => "We'll need your full legal name in order to run a background check."
   end
 
   validation_group :topic do
@@ -253,7 +253,8 @@ class Apprenticeship < Event
   end
 
   def self.help_posting
-    Apprenticeship.where(:state => "started", :help_posting_sent => false).where(state_stamps.last.stamp <= Date.today-3.days).each do |app|
+    date_range = (Date.today-5.days)..(Date.today+1)
+    Apprenticeship.where(state: "started", help_posting_sent: false, :created_at => date_range).each do |app|
       app.deliver_help_posting
     end
   end
