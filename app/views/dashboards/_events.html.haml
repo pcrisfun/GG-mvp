@@ -52,6 +52,16 @@
                             = signup.user.name
                           -if event.type == "Apprenticeship"
                             = link_to "Application #{signup.id}", app_signup_path(signup.id)
+                        %td.age
+                          age
+                          - if signup.parent?
+                            = signup.daughter_age
+                          - else
+                            = signup.user.age
+                        %td.dates
+                          = signup.created_at.strftime('%B %e, %Y')
+                        %td.none
+                        %td.countdown
                           .statebar
                             -if signup.started?
                               saved
@@ -71,16 +81,7 @@
                             -if signup.confirmed?
                               confirmed
                               %span.section.confirmed
-                        %td.age
-                          age
-                          - if signup.parent?
-                            = signup.daughter_age
-                          - else
-                            = signup.user.age
-                        %td.dates
-                          = signup.created_at.strftime('%B %e, %Y')
-                        %td.countdown
-                          = signup.countdown_message_maker
+                          /= signup.countdown_message_maker
           - if !submitted_preregs.empty?
             %tr
               %td.nested-table{ colspan: 6 }
