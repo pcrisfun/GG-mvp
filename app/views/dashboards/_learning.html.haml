@@ -1,7 +1,7 @@
 - if (signups||=false)
   - signups.each do |signup|
     /- unless signup.event.type == "Workshop" && signup.state == "started"
-    %table.table.table-bordered.table-striped.table-hover.table-condensed
+    %table.table.table-bordered.table-hover.table-condensed
       %tbody
         - event = signup.event
         %tr

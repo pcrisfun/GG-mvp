@@ -1776,7 +1776,7 @@ input[type="radio"], input[type="checkbox"]
     color: $grass
 
 
-// Dashboard ======================================================================================
+// Dashboards ======================================================================================
 #dashboard-display
   .fancyform-light
     background-color: #FFF
@@ -1784,6 +1784,7 @@ input[type="radio"], input[type="checkbox"]
   .label
     font-size: 11px
   table
+    background-color: $silver-light
     margin-bottom: 10px
     td
       line-height: 17px
@@ -1791,7 +1792,7 @@ input[type="radio"], input[type="checkbox"]
       width: 7%
       text-align: center
     .title
-      width: 45%
+      width: 35%
       .title-boxlink
         font-size: 14px
         height: inherit
@@ -1804,10 +1805,7 @@ input[type="radio"], input[type="checkbox"]
       text-align: center
     .countdown
       width: 20%
-      background-color: $alert-yellow
-    .nested-table
-      padding: 0px
-      border: none
+      //background-color: $alert-yellow
     &.table-subtable
       margin: 0px
       border: 0px
@@ -1817,19 +1815,30 @@ input[type="radio"], input[type="checkbox"]
         border-top: 0px
         border-bottom: 0px
     .nested-table
+      padding: 0px
+      border: none
       table
         border-radius: 0px
       td
-        background-color: $silver-light
+        background-color: $silver-bright
         border-radius: 0px
         border-top: 1px solid #DDD
-        &.name, &.state, &.countdown, &.age
+        &.name, &.state, &.countdown, &.age, &.dates
           border-left: 0px
         &.name
-          width: 45%
+          width: 35%
         &.age
-          width: 8.5%
-        &.none
+          width: 19.5%
+
+// Admin Dashboards ======
+#dashboard-display
+  h2
+    text-transform: none
+  #admindashboard
+    .countdown
+    .nested-table
+      td
+        &.age
           width: 8.5%
   .statebar
     font-size: 10px
@@ -1840,26 +1849,28 @@ input[type="radio"], input[type="checkbox"]
       margin: 0
       display: block
       +roundcorners
-    .saved
+    .canceled
+      background-color: $silver
+      width: 14%
+    .started
       background-color: $avocado-slight
-      width: 16%
+      width: 28%
     .applied
       background-color:  $avocado-light
-      width: 33%
+      width: 42%
     .interview_requested
       background-color:  $avocado-medium
-      width: 50%
+      width: 56%
     .interview_scheduled
       background-color:  $avocado
-      width: 66%
+      width: 70%
     .accepted
       background-color:  $avocado-shadow
-      width: 83%
+      width: 84%
     .confirmed
       background-color:  $avocado-black
       width: 100%
-//    .notyet
-//      background-color: $silver
+
 
 
 // Event SignUps ======================================================================================
