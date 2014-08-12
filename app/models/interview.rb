@@ -100,7 +100,6 @@ class Interview < ActiveRecord::Base
         <p>
           <b>Time: </b> <i>#{interview_time}</i><br/>
           <b>Location: </b> <i>#{interview_location}</i><br/>
-          <b>Message: </b> <i>#{interview_message}</i>
         </p>
         <p>Please log in to if you need to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule</a> or <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>send a message</a>.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
@@ -120,7 +119,6 @@ class Interview < ActiveRecord::Base
         <p>
           <b>Time: </b> <i>#{interview_time}</i><br/>
           <b>Location: </b> <i>#{interview_location}</i><br/>
-          <b>Message: </b> <i>#{interview_message}</i>
         </p>
         <p>Please log in to if you need to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule</a> or <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>send a message</a>.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
@@ -140,7 +138,6 @@ class Interview < ActiveRecord::Base
         <p>
           <b>Time: </b> <i>#{interview_time}</i><br/>
           <b>Location: </b> <i>#{interview_location}</i><br/>
-          <b>Message: </b> <i>#{interview_message}</i>
         </p>
         <p>Please log in to if you need to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule</a> or <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>send a message</a>.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
@@ -166,7 +163,6 @@ class Interview < ActiveRecord::Base
         <p>
           <b>Time: </b> <i>#{interview_time}</i><br/>
           <b>Location: </b> <i>#{interview_location}</i><br/>
-          <b>Message: </b> <i>#{interview_message}</i>
         </p>
         <p>Go ahead and add it to your calendar - you're all set! <br/>
         If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule for a different time</a>.</p>
@@ -187,7 +183,6 @@ class Interview < ActiveRecord::Base
         <p>
           <b>Time: </b> <i>#{interview_time}</i><br/>
           <b>Location: </b> <i>#{interview_location}</i><br/>
-          <b>Message: </b> <i>#{interview_message}</i>
         </p>
         <p>Go ahead and add it to your calendar - you're all set! <br/>
         If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule for a different time</a>.</p>
@@ -208,7 +203,6 @@ class Interview < ActiveRecord::Base
         <p>
           <b>Time: </b> <i>#{interview_time}</i><br/>
           <b>Location: </b> <i>#{interview_location}</i><br/>
-          <b>Message: </b> <i>#{interview_message}</i>
         </p>
         <p>Go ahead and add it to your calendar - you're all set! <br/>
         If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule for a different time</a>.</p>
