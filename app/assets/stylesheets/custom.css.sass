@@ -183,9 +183,9 @@ a, a:hover, a:active, a:visited, a:focus
     color: #FFF
 .btn-inverse
   text-shadow: 1px 1px 1px #333
-  background-color: $plum-shadow
+  background-color: $plum-black
   &:hover
-    background-color: $plum-black
+    background-color: $plum-shadow
 .btn-following
   &:hover
     background-color: $coral
@@ -1753,6 +1753,8 @@ input[type="radio"], input[type="checkbox"]
     img
       width: 124px
       border-radius: 500px
+      @media (min-width: 768px) and (max-width: 979px)
+        width: 80px
   .well
     background: $silver-bright
     h3.name
