@@ -199,8 +199,11 @@
       - else
         .alert.alert-success
           Congratulations, #{"#{@apprenticeship.host_firstname}"} would love to work with you!  Please fill out these details so we can put you two in touch.
-        /%p
-        /  Let us know if you’d like to request an interview before you confirm - just to make sure it’s a good fit for both of you.
+        %p
+          Let us know if you’d like to request an interview before you confirm - just to make sure it’s a good fit for both of you.
+          %a{href: "mailto:hello@girlsguild.com?Subject=I'd like to schedule an interview with #{"#{@apprenticeship.host_firstname}"} before confirming", class: "btn btn-primary pull-right"}
+            Request an Interview
+        %br
         /  - if @app_signup.interview_requested?
         /    = link_to "Interview Requested", '#', class: "btn pull-right disabled"
         /  - elsif @app_signup.interview_scheduled?
