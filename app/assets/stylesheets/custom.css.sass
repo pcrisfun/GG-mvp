@@ -43,6 +43,7 @@ $grass-black: #017c4c
 
 $mint-slight: #F1F9F7
 $mint-light: #e7f5f0
+$mint-bright: #61cea4
 $mint: #71b99f
 $mint-muted-light: #dff2ed
 $mint-muted: #C7E4DD
@@ -182,6 +183,9 @@ a, a:hover, a:active, a:visited, a:focus
     color: #FFF
 .btn-inverse
   text-shadow: 1px 1px 1px #333
+  background-color: $plum-shadow
+  &:hover
+    background-color: $plum-black
 .btn-following
   &:hover
     background-color: $coral
@@ -193,7 +197,7 @@ a, a:hover, a:active, a:visited, a:focus
 
 .prereg
   .btn-success
-    background-color: #333
+    //background-color: #333
 
 // Badges & Labels ======================================================================================
 .label-success, .badge-success
@@ -1736,18 +1740,46 @@ input[type="radio"], input[type="checkbox"]
 // Makers Page ================================================================================
 #makers-index
   .btn
-    margin: 15px 0 0 0
+    margin-right: 29px
+    margin-top: 15px
     font-size: 14px
     line-height: 22px
     padding: 3px 9px
-  h3.name
-    display: inline
   img
+    border: 2px #eee solid
     margin-top: 10px
   .avatar
-    text-align: center
+    margin-top: 30px
     img
       width: 124px
+      border-radius: 500px
+  .well
+    background: $silver-bright
+    h3.name
+      display: inline
+      text-transform: none
+      border-bottom: 0px
+      box-shadow: none
+      font-size: 25px
+      font-weight: 100
+  .event
+    font-weight: 800
+  .row-fluid
+    .span2
+      width: 15.8%
+      @media (max-width: 767px)
+        width: 100%
+        text-align: center
+  .row-fluid [class*="span"]
+    margin-left: .8%
+  .spots
+    font-weight: 600
+    color: $mint
+    a
+      color: $mint
+      text-decoration: underline
+      &:hover
+        color: $mint-bright
 
 
 // Confirmations ===============================================================================
