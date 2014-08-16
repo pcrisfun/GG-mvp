@@ -27,7 +27,7 @@
                 - elsif event.accepted? or event.canceled? or event.filled?
                   = link_to "Edit", url_for(controller: event.class.name.underscore.pluralize, action: 'edit', id: event.id ), class: ""
                 - if event.filled? or event.completed?
-                  \|
+                  \&nbsp; | &nbsp;
                   = link_to "Duplicate", url_for(controller: event.class.name.underscore.pluralize, action: 'duplicate', id: event.id ), class: ""
           %td.spots
             = event.spots_left
