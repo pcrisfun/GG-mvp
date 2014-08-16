@@ -11,7 +11,10 @@
       %span.spots
         - unless event.datetime_tba
           - if event.accepted?
-            %b &nbsp;-&nbsp; Apply&nbsp;
+            - if event.type == "Apprenticeship"
+              %b &nbsp;-&nbsp; Apply&nbsp;
+            - elsif event.type == "Workshop"
+              %b &nbsp;-&nbsp; Sign Up&nbsp;
             = link_to event.spots_left, url_for(controller: event.class.name.underscore.pluralize, action: 'show', id: event.id )
           - elsif event.filled? || event.completed?
             \&nbsp;-&nbsp; Closed
