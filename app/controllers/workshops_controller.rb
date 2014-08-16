@@ -213,7 +213,8 @@ class WorkshopsController < ApplicationController
     #@workshop.revoke && @workshop.deliver_revoke
     #redirect_to workshops_path, :flash => { :warning => "Workshop revoked."} and return
   #end
-
+  def duplicate
+  end
 
   def show
     @workshop = Workshop.find(params[:id])

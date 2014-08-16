@@ -48,6 +48,7 @@ GirlsGuild::Application.routes.draw do
       post :cancel
       post :accept
       post :resubmit
+      get :duplicate
       get :checkmarks
     end
   end
@@ -60,6 +61,7 @@ GirlsGuild::Application.routes.draw do
       post :cancel
       post :accept
       post :resubmit
+      get :duplicate
       get :checkmarks
     end
   end
