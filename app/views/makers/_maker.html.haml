@@ -7,7 +7,10 @@
       = render :partial => "shared/prereg", :locals => {:event => event}
     .event
       = link_to event.topic, url_for(controller: event.class.name.underscore.pluralize, action: 'show', id: event.id )
-      = link_to event.type, url_for(controller: event.class.name.underscore.pluralize, action: 'show', id: event.id )
+      - if event.type == "Apprenticeship"
+        .label Apprenticeship
+      - elsif event.type == "Workshop"
+        .label Workshop
       %span.spots
         - unless event.datetime_tba
           - if event.accepted?
