@@ -25,8 +25,10 @@
               /- elsif event.type == "Workshop"
               /  .label.pull-right Workshop
               = link_to event.title_html, url_for(controller: event.class.name.underscore.pluralize, action: 'show', id: event.id ), class: "title-boxlink"
-              - if event.started? or event.accepted? or event.canceled? or event.filled?
-                = link_to "Edit", url_for(controller: event.class.name.underscore.pluralize, action: 'edit', id: event.id ), class: ""
+              - if event.started? or event.pending? or event.accepted?
+                = link_to "Edit", url_for(controller: event.class.name.underscore.pluralize, action: 'edit', id: event.id )
+              - if event.canceled? or event.filled? or event.completed?
+                = link_to "Duplicate", url_for(controller: event.class.name.underscore.pluralize, action: 'duplicate', id: event.id )
             %td.spots
               = event.spots_left
             %td.dates

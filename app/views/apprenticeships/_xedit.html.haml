@@ -4,8 +4,10 @@
   %section.section
     .container
       - if show
-        - if current_user && current_user==@apprenticeship.user
+        - if current_user && current_user==@apprenticeship.user && (@apprenticeship.started? or @apprenticeship.pending? or @apprenticeship.accepted?)
           = link_to "Edit", edit_apprenticeship_path(@apprenticeship), name: "edit_button", class: "btn btn-primary pull-right"
+        - if current_user && (current_user==@apprenticeship.user or current_user.admin?) && (@apprenticeship.canceled? or @apprenticeship.filled? or @apprenticeship.completed?)
+          = link_to "Duplicate", url_for(controller: :apprenticeships, action: :duplicate, id: @apprenticeship.id ), class: "btn btn-primary pull-right", rel: 'popover', data: {placement: "bottom", content:"'Duplicate' will start a new listing pre-populated with the information from this apprenticeship listing. You will still be able to edit any information you've copied over before submitting your new listing."}
           / copy the above syntax to create a "Close applications" button
         - if current_user && @app_signup && current_user==@app_signup.user
           - if @app_signup.started?
@@ -352,7 +354,7 @@
               = link_to "Re-apply with #{@apprenticeship.user.first_name}".html_safe, edit_app_signup_path(@app_signup), rel: 'popover', data: {placement: "left", content:"Looks like you canceled your application, but never fear. We've saved your answers and you can re-apply!"}, :class => "btn btn-block btn-primary"
 
             - elsif @apprenticeship.completed?
-              = link_to "Apprenticeship passed", apprenticeship_path, rel: 'popover', data: {placement: "left", content:"Sorry, this apprenticeship has passed, but you can follow this maker to be the first to know next time she's teaching."}, :class => "btn btn-block btn-inverse disabled"
+              = link_to "Apprenticeship completed", apprenticeship_path, rel: 'popover', data: {placement: "left", content:"Sorry, this apprenticeship has passed, but you can follow this maker to be the first to know next time she's teaching."}, :class => "btn btn-block btn-inverse disabled"
 
             - elsif @apprenticeship.filled?
               = link_to "Apprenticeship closed", apprenticeship_path, rel: 'popover', data: {placement: "left", content:"Sorry, this apprenticeship has already been filled, but you can follow this maker to be the first to know next time she's teaching."}, :class => "btn btn-block disabled"

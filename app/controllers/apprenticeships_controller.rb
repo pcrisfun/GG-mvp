@@ -7,8 +7,8 @@ class ApprenticeshipsController < ApplicationController
 
   def index
     unless current_user.blank?
-      @allpending_apprenticeships = Apprenticeship.find_all_by_state('pending').sort_by { |e| e.begins_at }
       @allsaved_apprenticeships = Apprenticeship.find_all_by_state('started').sort_by { |e| e.begins_at }
+      @allpending_apprenticeships = Apprenticeship.find_all_by_state('pending').sort_by { |e| e.begins_at }
       @allcanceled_apprenticeships = Apprenticeship.find_all_by_state('canceled').sort_by { |e| e.begins_at }
       @allfilled_apprenticeships = Apprenticeship.find_all_by_state('filled').sort_by { |e| e.begins_at }
       @allcompleted_apprenticeships = Apprenticeship.find_all_by_state('completed').sort_by { |e| e.begins_at }
@@ -209,7 +209,8 @@ class ApprenticeshipsController < ApplicationController
 
   def duplicate
       old_apprenticeship = Apprenticeship.find(params[:id])
-      @apprenticeship = current_user.apprenticeships.new( title: old_apprenticeship.title,
+      maker = old_apprenticeship.user
+      @apprenticeship = maker.apprenticeships.new( title: old_apprenticeship.title,
                                              topic: old_apprenticeship.topic,
                                              kind: old_apprenticeship.kind,
                                              availability: old_apprenticeship.availability,
