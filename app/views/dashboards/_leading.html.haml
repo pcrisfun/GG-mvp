@@ -23,6 +23,9 @@
             - unless current_user.blank?
               - if event.user == current_user and (event.started? or event.pending? or event.accepted?)
                 = link_to "Edit", url_for(controller: event.class.name.underscore.pluralize, action: 'edit', id: event.id )
+              - if event.started?
+                \&nbsp; | &nbsp;
+                = link_to "Delete", url_for(controller: event.class.name.underscore.pluralize, action: 'destroy', id: event.id), method: :delete
               - if event.canceled? or event.filled? or event.completed?
                 = link_to "Duplicate", url_for(controller: event.class.name.underscore.pluralize, action: 'duplicate', id: event.id )
           %td.spots
