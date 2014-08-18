@@ -6,43 +6,116 @@
         .span12.pull-right
           %h1 Apprenticeships
           %br
-          - if @pending_apprenticeships && !@pending_apprenticeships.empty?
-            %h2 Pending Apprenticeships
-            = render 'events', events: @pending_apprenticeships
-          - if @posted_apprenticeships && !@posted_apprenticeships.empty?
-            %h2 Posted Apprenticeships
-            = render 'events', events: @posted_apprenticeships
-          - if @filled_apprenticeships && !@filled_apprenticeships.empty?
-            %h2 Filled Apprenticeships
-            = render 'events', events: @filled_apprenticeships
-          - if @saved_apprenticeships && !@saved_apprenticeships.empty?
-            %h2 Saved Apprenticeships
-            = render 'events', events: @saved_apprenticeships
-          - if @canceled_apprenticeships && !@canceled_apprenticeships.empty?
-            %h2 Canceled Apprenticeships
-            = render 'events', events: @canceled_apprenticeships
-          - if @completed_apprenticeships && !@completed_apprenticeships.empty?
-            %h2 Completed Apprenticeships
-            = render 'events', events: @completed_apprenticeships
 
+          - if @saved_apprenticeships && !@saved_apprenticeships.empty?
+            %a{:id => "startedapprenticeships", class: "anchor"}
+            %a.accordion-toggle{"data-toggle" => "collapse", :href => "#startedapprenticeships-toggle"}
+              %h2
+                %i.fa.fa-angle-down
+                Started Apprenticeships
+            #startedapprenticeships-toggle.accordion-body.collapse
+              = render 'events', events: @saved_apprenticeships
+
+          - if @pending_apprenticeships && !@pending_apprenticeships.empty?
+            %a{:id => "pendingapprenticeships", class: "anchor"}
+            %a.accordion-toggle{"data-toggle" => "collapse", :href => "#pendingapprenticeships-toggle"}
+              %h2
+                %i.fa.fa-angle-down
+                Pending Apprenticeships
+            #pendingapprenticeships-toggle.accordion-body.collapse.in
+              = render 'events', events: @pending_apprenticeships
+
+          - if @posted_apprenticeships && !@posted_apprenticeships.empty?
+            %a{:id => "postedapprenticeships", class: "anchor"}
+            %a.accordion-toggle{"data-toggle" => "collapse", :href => "#postedapprenticeships-toggle"}
+              %h2
+                %i.fa.fa-angle-down
+                Posted Apprenticeships
+            #postedapprenticeships-toggle.accordion-body.collapse.in
+              = render 'events', events: @posted_apprenticeships
+
+          - if @filled_apprenticeships && !@filled_apprenticeships.empty?
+            %a{:id => "filledapprenticeships", class: "anchor"}
+            %a.accordion-toggle{"data-toggle" => "collapse", :href => "#filledapprenticeships-toggle"}
+              %h2
+                %i.fa.fa-angle-down
+                Filled Apprenticeships
+            #filledapprenticeships-toggle.accordion-body.collapse.in
+              = render 'events', events: @filled_apprenticeships
+
+          - if @completed_apprenticeships && !@completed_apprenticeships.empty?
+            %a{:id => "completedapprenticeships", class: "anchor"}
+            %a.accordion-toggle{"data-toggle" => "collapse", :href => "#completedapprenticeships-toggle"}
+              %h2
+                %i.fa.fa-angle-down
+                Completed Apprenticeships
+            #completedapprenticeships-toggle.accordion-body.collapse.in
+              = render 'events', events: @completed_apprenticeships
+
+          - if @canceled_apprenticeships && !@canceled_apprenticeships.empty?
+            %a{:id => "canceledapprenticeships", class: "anchor"}
+            %a.accordion-toggle{"data-toggle" => "collapse", :href => "#canceledapprenticeships-toggle"}
+              %h2
+                %i.fa.fa-angle-down
+                Canceled Apprenticeships
+            #canceledapprenticeships-toggle.accordion-body.collapse.in
+              = render 'events', events: @canceled_apprenticeships
+
+          %br
+          %hr
           %h1 Workshops
           %br
-          - if @pending_workshops && !@pending_workshops.empty?
-            %h2 Pending Workshops
-            = render 'events', events: @pending_workshops
-          - if @posted_workshops && !@posted_workshops.empty?
-            %h2 Posted Workshops
-            = render 'events', events: @posted_workshops
-          - if @filled_workshops && !@filled_workshops.empty?
-            %h2 Filled Workshops
-            = render 'events', events: @filled_workshops
           - if @saved_workshops && !@saved_workshops.empty?
-            %h2 Saved Workshops
-            = render 'events', events: @saved_workshops
-          - if @canceled_workshops && !@canceled_workshops.empty?
-            %h2 Canceled Workshops
-            = render 'events', events: @canceled_workshops
+            %a{:id => "savedworkshops", class: "anchor"}
+            %a.accordion-toggle{"data-toggle" => "collapse", :href => "#savedworkshops-toggle"}
+              %h2
+                %i.fa.fa-angle-downSaved
+                Workshops
+            #savedworkshops-toggle.accordion-body.collapse
+              = render 'events', events: @saved_workshops
+
+          - if @pending_workshops && !@pending_workshops.empty?
+            %a{:id => "pendingworkshops", class: "anchor"}
+            %a.accordion-toggle{"data-toggle" => "collapse", :href => "#pendingworkshops-toggle"}
+              %h2
+                %i.fa.fa-angle-down
+                Pending Workshops
+            #pendingworkshops-toggle.accordion-body.collapse.in
+              = render 'events', events: @pending_workshops
+
+          - if @posted_workshops && !@posted_workshops.empty?
+            %a{:id => "postedworkshops", class: "anchor"}
+            %a.accordion-toggle{"data-toggle" => "collapse", :href => "#postedworkshops-toggle"}
+              %h2
+                %i.fa.fa-angle-down
+                Posted Workshops
+            #postedworkshops-toggle.accordion-body.collapse.in
+              = render 'events', events: @posted_workshops
+
+          - if @filled_workshops && !@filled_workshops.empty?
+            %a{:id => "filledworkshops", class: "anchor"}
+            %a.accordion-toggle{"data-toggle" => "collapse", :href => "#filledworkshops-toggle"}
+              %h2
+                %i.fa.fa-angle-down
+                Filled Workshops
+            #filledworkshops-toggle.accordion-body.collapse.in
+              = render 'events', events: @filled_workshops
+
           - if @completed_workshops&& !@completed_workshops.empty?
-            %h2 Completed Workshops
-            = render 'events', events: @completed_workshops
+            %a{:id => "completedworkshops", class: "anchor"}
+            %a.accordion-toggle{"data-toggle" => "collapse", :href => "#completedworkshops-toggle"}
+              %h2
+                %i.fa.fa-angle-down
+                Completed Workshops
+            #completedworkshops-toggle.accordion-body.collapse.in
+              = render 'events', events: @completed_workshops
+
+          - if @canceled_workshops && !@canceled_workshops.empty?
+            %a{:id => "canceledworkshops", class: "anchor"}
+            %a.accordion-toggle{"data-toggle" => "collapse", :href => "#canceledworkshops-toggle"}
+              %h2
+                %i.fa.fa-angle-down
+                Canceled Workshops
+            #canceledworkshops-toggle.accordion-body.collapse.in
+              = render 'events', events: @canceled_workshops
 
