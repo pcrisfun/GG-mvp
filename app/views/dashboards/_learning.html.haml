@@ -35,7 +35,7 @@
                 = link_to 'Cancel application', { :controller => 'app_signups', :action => 'cancel', :id => signup.id }, :method => :post, :data => { :confirm => 'Are you sure you want to cancel your application for this apprenticeship?'}
                 &nbsp; | &nbsp;
                 = link_to 'Confirm application', { :controller => 'app_signups', :action => 'show', :id => signup.id }
-              - if signup.canceled?
+              - if signup.canceled? && !event.canceled?
                 %br
                 = link_to 'Edit & resubmit application', { :controller => 'app_signups', :action => 'edit', :id => signup.id }
               - if signup.confirmed? || signup.completed?
