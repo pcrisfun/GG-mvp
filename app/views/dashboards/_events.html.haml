@@ -54,7 +54,7 @@
                             #{signup.user.name}'s daughter #{signup.daughter_firstname}
                           - else
                             = signup.user.name
-                          -if event.type == "Apprenticeship"
+                          - if event.type == "Apprenticeship"
                             = link_to "Application #{signup.id}", app_signup_path(signup.id)
                         %td.age
                           age
@@ -67,48 +67,53 @@
                           / add how many days left for maker to make a decision?
                         %td.countdown
                           .statebar
-                            -if signup.canceled?
+                            - if signup.canceled?
                               canceled
                               %span.section.canceled
-                            -if signup.started?
+                            - if signup.started?
                               started
                               %span.section.started
-                            -if signup.pending?
+                            - if signup.pending?
                               applied
                               %span.section.applied
-                            /-if signup.interview_requested?
+                            /- if signup.interview_requested?
                             /  int-req
                             /  %span.section.interview_requested
-                            /-if signup.interview_scheduled?
+                            /- if signup.interview_scheduled?
                             /  int-sch
                             /  %span.section.interview_scheduled
-                            -if signup.accepted?
+                            - if signup.accepted?
                               accepted
                               %span.section.accepted
-                            -if signup.declined?
+                            - if signup.declined?
                               declined
                               %span.section.declined
-                            -if signup.confirmed?
+                            - if signup.confirmed?
                               confirmed
                               %span.section.confirmed
-                            -if signup.completed?
+                            - if signup.completed?
                               completed
                               %span.section.completed
                           /= signup.countdown_message_maker
           - if !submitted_preregs.empty?
-            %tr
+            %tr#following
               %td.nested-table{ colspan: 6 }
                 %table.table.table-bordered.table-hover.table-condensed.table-subtable
                   %tbody
                     - submitted_preregs.each_with_index do |prereg, index|
                       %tr
                         %td.image
-                          = index + 1
                         %td.name
                           = avatar_for(prereg.user, size: 25, tag: :small)
                           = prereg.user.name
+                          &nbsp;
+                          = mail_to prereg.user.email, prereg.user.email
                         %td.age
                           age
                           = prereg.user.age
+                        %td.dates
+                          = prereg.created_at.strftime('%b %e')
                         %td.countdown
-
+                          .statebar
+                            following
+                            %span.section.following
