@@ -20,15 +20,16 @@
                   %a{ href: url_for(event) }
                     %img.default-photo-thumb
             %td.title
-              /- if event.type == "Apprenticeship"
-              /  .label.pull-right Apprenticeship
-              /- elsif event.type == "Workshop"
-              /  .label.pull-right Workshop
               = link_to event.title_html, url_for(controller: event.class.name.underscore.pluralize, action: 'show', id: event.id ), class: "title-boxlink"
+
               - if event.started? or event.pending? or event.accepted?
                 = link_to "Edit", url_for(controller: event.class.name.underscore.pluralize, action: 'edit', id: event.id )
+              - if event.started?
+                &nbsp; | &nbsp;
+                = link_to "Delete", url_for(controller: event.class.name.underscore.pluralize, action: 'destroy', id: event.id), method: :delete, data: { :confirm => "Are you sure? This apprenticeship will be deleted permanantly." }
               - if event.canceled? or event.filled? or event.completed?
                 = link_to "Duplicate", url_for(controller: event.class.name.underscore.pluralize, action: 'duplicate', id: event.id )
+
             %td.spots
               = event.spots_left
             %td.dates
@@ -36,9 +37,6 @@
                 = event.nice_dates_apprenticeships
               - elsif event.type == "Workshop"
                 = event.nice_dates_workshops
-            /%td.state
-            /  %span.label{class: event.state_label_class}
-            /    = event.state_label
             %td.countdown
               = event.countdown_message
           - if !submitted_signups.empty?
@@ -66,7 +64,7 @@
                             = signup.user.age
                         %td.dates
                           = signup.created_at.strftime('%b %e')
-
+                          / add how many days left for maker to make a decision?
                         %td.countdown
                           .statebar
                             -if signup.canceled?
@@ -93,6 +91,9 @@
                             -if signup.confirmed?
                               confirmed
                               %span.section.confirmed
+                            -if signup.completed?
+                              completed
+                              %span.section.completed
                           /= signup.countdown_message_maker
           - if !submitted_preregs.empty?
             %tr

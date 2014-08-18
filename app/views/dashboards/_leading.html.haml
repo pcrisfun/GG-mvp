@@ -23,11 +23,15 @@
             - unless current_user.blank?
               - if event.user == current_user and (event.started? or event.pending? or event.accepted?)
                 = link_to "Edit", url_for(controller: event.class.name.underscore.pluralize, action: 'edit', id: event.id )
+              - if event.pending? or event.accepted? or event.filled?
+                &nbsp; | &nbsp;
+                = link_to "Cancel", url_for(controller: event.class.name.underscore.pluralize, action: 'cancel', id: event.id), method: :post, data: { :confirm => "Are you sure? Your apprenticeship will be saved in your Dashboard, but you'll have to resubmit it in order to post it again." }
               - if event.started?
-                \&nbsp; | &nbsp;
-                = link_to "Delete", url_for(controller: event.class.name.underscore.pluralize, action: 'destroy', id: event.id), method: :delete
+                &nbsp; | &nbsp;
+                = link_to "Delete", url_for(controller: event.class.name.underscore.pluralize, action: 'destroy', id: event.id), method: :delete, data: { :confirm => "Are you sure? Your apprenticeship will be deleted permanantly." }
               - if event.canceled? or event.filled? or event.completed?
-                = link_to "Duplicate", url_for(controller: event.class.name.underscore.pluralize, action: 'duplicate', id: event.id )
+                = link_to "Duplicate", url_for(controller: event.class.name.underscore.pluralize, action: 'duplicate', id: event.id ), data: { :confirm => "Are you sure? 'Duplicate' will start a new listing pre-populated with the information from this apprenticeship listing." }
+
           %td.spots
             = event.spots_left
           %td.dates
