@@ -56,6 +56,8 @@
                             = signup.user.name
                           - if event.type == "Apprenticeship"
                             = link_to "Application #{signup.id}", app_signup_path(signup.id)
+                          .pull-right
+                            = mail_to signup.user.email, signup.user.email
                         %td.age
                           age
                           - if signup.parent?
@@ -106,8 +108,8 @@
                         %td.name
                           = avatar_for(prereg.user, size: 25, tag: :small)
                           = prereg.user.name
-                          &nbsp;
-                          = mail_to prereg.user.email, prereg.user.email
+                          .pull-right
+                            = mail_to prereg.user.email, prereg.user.email
                         %td.age
                           age
                           = prereg.user.age
@@ -115,5 +117,5 @@
                           = prereg.created_at.strftime('%b %e')
                         %td.countdown
                           .statebar
-                            following
+                            %i.fa.fa-eye.fa-lg
                             %span.section.following
