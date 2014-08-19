@@ -113,7 +113,9 @@ class Event < ActiveRecord::Base
   end
 
   def countdown_message
-
+    if self.canceled?
+      return "Your blarp has been canceled"
+    end
   end
 
   state_machine :state, :initial => :started do
@@ -293,7 +295,7 @@ class Event < ActiveRecord::Base
                pending: "label-warning btn-block",
                accepted: "label-success btn-block",
                confirmed: "label-success btn-block",
-               canceled: "label-important btn-block",
+               canceled: "label btn-block",
                filled: "label-success btn-block",
                in_progress: "label-success btn-block",
                completed: "label-inverse btn-block"
@@ -320,6 +322,8 @@ class Event < ActiveRecord::Base
   def spots_left
     if self.filled?
       return "Full"
+    elsif self.canceled?
+      return "Canceled"
     elsif self.completed?
       return "Past"
     elsif self.registration_max

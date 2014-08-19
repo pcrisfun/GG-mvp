@@ -1,6 +1,6 @@
 - if (events||=false)
   - events.each do |event|
-    %table.table.table-bordered.table-hover.table-condensed
+    %table.table.table-bordered.table-hover.table-condensed#userdashboard
       %tbody
         - submitted_signups = event.submitted_signups.sort_by { |s| s.created_at }.reverse!
         - submitted_preregs = event.submitted_preregs.sort_by { |p| p.created_at }.reverse!
@@ -23,14 +23,14 @@
             - unless current_user.blank?
               - if event.user == current_user and (event.started? or event.pending? or event.accepted?)
                 = link_to "Edit", url_for(controller: event.class.name.underscore.pluralize, action: 'edit', id: event.id )
+              - if event.canceled? or event.filled? or event.completed?
+                = link_to "Duplicate", url_for(controller: event.class.name.underscore.pluralize, action: 'duplicate', id: event.id ), data: { :confirm => "Are you sure? 'Duplicate' will start a new listing pre-populated with the information from this apprenticeship listing." }
               - if event.pending? or event.accepted? or event.filled?
                 &nbsp; | &nbsp;
                 = link_to "Cancel", url_for(controller: event.class.name.underscore.pluralize, action: 'cancel', id: event.id), method: :post, data: { :confirm => "Are you sure? Your apprenticeship will be saved in your Dashboard, but you'll have to resubmit it in order to post it again." }
               - if event.started?
                 &nbsp; | &nbsp;
                 = link_to "Delete", url_for(controller: event.class.name.underscore.pluralize, action: 'destroy', id: event.id), method: :delete, data: { :confirm => "Are you sure? Your apprenticeship will be deleted permanantly." }
-              - if event.canceled? or event.filled? or event.completed?
-                = link_to "Duplicate", url_for(controller: event.class.name.underscore.pluralize, action: 'duplicate', id: event.id ), data: { :confirm => "Are you sure? 'Duplicate' will start a new listing pre-populated with the information from this apprenticeship listing." }
 
           %td.spots
             = event.spots_left
@@ -66,7 +66,7 @@
                         - else
                           = signup.user.age
                       %td.state
-                        %span.label.btn-block{class: signup.state_label_class}
+                        %span{class: signup.state_label_class}
                           = signup.state_label
                       %td.countdown
                         = signup.countdown_message_maker
@@ -86,6 +86,6 @@
                         age
                         = prereg.user.age
                       %td.state
-                        .label.btn-block following
+                        .following &nbsp;following
                       %td.countdown
 
