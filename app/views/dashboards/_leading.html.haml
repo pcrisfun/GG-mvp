@@ -78,7 +78,7 @@
                   - submitted_preregs.each_with_index do |prereg, index|
                     %tr
                       %td.image
-                        = index + 1
+
                       %td.name
                         = avatar_for(prereg.user, size: 25, tag: :small)
                         = prereg.user.name

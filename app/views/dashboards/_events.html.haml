@@ -66,7 +66,7 @@
                             = signup.user.age
                         %td.dates
                           = signup.created_at.strftime('%b %e')
-                          / add how many days left for maker to make a decision?
+                          /= "#{(self.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days left"
                         %td.countdown
                           .statebar
                             - if signup.canceled?

@@ -304,7 +304,7 @@ class Event < ActiveRecord::Base
   end
 
   def submitted_signups
-    return self.signups.where(:state => ["pending", "accepted", "confirmed", "completed", "declined"])
+    return self.signups.where(:state => ["pending", "accepted", "confirmed", "completed", "declined", "canceled" ])
   end
 
   def confirmed_signups

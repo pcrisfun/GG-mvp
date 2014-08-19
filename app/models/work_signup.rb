@@ -399,7 +399,7 @@ include EventHelper
         return ''
       end
     elsif self.completed?
-      return "Your workshop is over :-)"
+      return "Your workshop is over"
     else
     end
     return ''

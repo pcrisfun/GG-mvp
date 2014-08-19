@@ -697,7 +697,7 @@ class AppSignup < Signup
 
   def countdown_message
     if self.started?
-      return "Your application is saved. <br/><a href=#{edit_app_signup_path(self)} class='bold'>Finish applying!</a>".html_safe
+      return "Your application is saved. <a href=#{edit_app_signup_path(self)} class='bold'>Finish applying!</a>".html_safe
     elsif self.pending?
       return "Your application is being reviewed. You should hear back by <strong>#{(self.state_stamps.last.stamp + 14.days).strftime("%b %d")}</strong>".html_safe
     elsif self.accepted?
@@ -709,7 +709,11 @@ class AppSignup < Signup
     #elsif self.interview_scheduled?
       return "Your interview has been scheduled."
     elsif self.canceled?
-      return "Your application has been canceled"
+      if self.event.canceled?
+        return "This event has been canceled"
+      else
+        return "Your application has been canceled"
+      end
     #elsif self.canceled?
     #  return "This event has been canceled"
     elsif self.confirmed?
