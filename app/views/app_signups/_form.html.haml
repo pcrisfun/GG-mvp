@@ -93,3 +93,17 @@
               %strong $30
               matching fee to GirlsGuild before being connected with #{"#{@apprenticeship.host_firstname}"} for the apprenticeship.
           %br/
+
+      %br/
+      .accordion-group
+        .accordion-heading
+          %h2
+            %a.accordion-toggle
+              3. Payment Info - You won't be charged yet
+        .accordion-body
+          .accordion-inner
+            %br/
+            %h3 [Explain that you will be charged if you are accepted and confirm]
+            %br/
+            = render :partial => "shared/credit_card", :locals => { :f => f, :paid => @app_signup.charge_id.present? }
+            %br/

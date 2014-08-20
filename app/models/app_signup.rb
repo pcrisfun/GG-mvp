@@ -35,18 +35,42 @@ class AppSignup < Signup
     end
   end
 
+  def save_payment_info
+    logger.info "Saving payment info"
+    if user.stripe_customer_id.present?
+      logger.info "Customer already exists"
+    else
+      logger.info "Creating customer"
+      customer = Stripe::Customer.create(
+        :card => stripe_card_token,
+        :description => user.email
+      )
+      x = customer.id
+      self.user.stripe_customer_id = x
+      self.user.save!
+    end
+  end
+
   def process_apprent_fee
-    logger.info "Processing payment"
+    logger.info "Processing apprentice payment"
     unless charge_id.present?
       charge = Stripe::Charge.create(
         :amount => 3000, # amount in cents, again
         :currency => "usd",
-        :card => stripe_card_token,
+        :card => user.stripe_customer_id,
         :description => "Apprenticeship fee for #{self.event.title} from #{self.user.email}"
       )
-      update_attribute(:charge_id, charge.id)
+      logger.debug(charge)
+      x = charge.id
+      self.charge_id = x
+      self.save!
+      # update_attribute(:charge_id, charge.id)
       logger.info "Processed apprentice payment #{charge.id}"
     end
+  rescue Stripe::CardError => e
+    logger.error "Stripe error while creating charge: #{e.message}"
+    #errors.add :base, e.message
+    false
   rescue Stripe::InvalidRequestError => e
     logger.error "Stripe error while creating charge: #{e.message}"
     errors.add :base, "There was a problem with your credit card."
@@ -60,7 +84,7 @@ class AppSignup < Signup
         :amount => 3000, # amount in cents, again
         :currency => "usd",
         :customer => event.user.stripe_customer_id,
-        :description => "Maker payment from #{self.user.email}"
+        :description => "Maker payment from #{self.event.user.email}"
       )
       logger.debug(charge)
       x = charge.id
