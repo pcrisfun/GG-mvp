@@ -22,8 +22,6 @@ class ApprenticeshipsController < ApplicationController
   def new
   end
 
-
-
 #---- create
   def create
     if params[:apprenticeship]

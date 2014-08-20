@@ -162,13 +162,13 @@ class AppSignupsController < ApplicationController
       if @app_signup.update_attributes(params[:app_signup])
         if @app_signup.process_apprent_fee
           if @app_signup.confirm
+            @app_signup.deliver_confirm
             @app_signup.process_maker_fee
             if @app_signup.maker_charge_id.present?
               @app_signup.deliver_confirm_maker
             else
               @app_signup.deliver_maker_payment_failed
             end
-            @app_signup.deliver_confirm
             redirect_to payment_confirmation_app_signup_path(@app_signup), flash: { success: "Awesome, you're confirmed to work with #{@apprenticeship.host_firstname}." } and return
           else
             flash[:warning] = "Oh snap, there was a problem saving your form. Please check all fields and try again."
