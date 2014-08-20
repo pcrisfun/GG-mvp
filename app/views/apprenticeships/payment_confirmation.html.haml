@@ -19,10 +19,12 @@
               %br
               You can check on the status of your proposal any time by visiting your #{link_to "Events Dashboard", dashboard_path}
             %br
-            .alert.alert-info
+            .alert.alert-warning
               %strong
                 Note:
-              You will not be able to edit your apprenticeship until we've had a chance to approve it. Then any edits will need to be re-approved.
+              You can edit the details of your apprenticeship, but if you edit something important
+              %a{:href => contact_path} email us,
+              because we may have already scheduled a newsletter.
 
             %h2 What to expect
             %ol
@@ -35,12 +37,13 @@
                 =link_to "two weeks to decide", faq_path(anchor: "howlongdoihave"), target: "_blank"
                 weather to accept or decline each apprentice.
               %li
-                If you'd like to
-                =link_to "meet up first", faq_path(anchor: "caniinterview"), target: "_blank"
-                to determine weather you'll be a good fit, just let us know. We'd be happy to set up a meeting to help you make the decision!
+                You can also
+                =link_to "schedule an interview", faq_path(anchor: "caniinterview"), target: "_blank"
+                first to determine weather you'll be a good fit.
               %li
                 The post will be closed when you've accepted #{@apprenticeship.registration_max} apprentices. If you don't find a good fit
-                =link_to "you're not obligated to accept an apprentice.", faq_path(anchor: "obligatedtochoose"), target: "_blank"
+                =link_to "you're not obligated", faq_path(anchor: "obligatedtochoose"), target: "_blank"
+                to accept an apprentice.
 
 
         .span4
