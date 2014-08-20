@@ -49,13 +49,16 @@ class AppSignupsController < ApplicationController
         render 'new'
       end
     else
-      if @app_signup.save && @app_signup.apply
-        if @app_signup.parent?
-          @app_signup.deliver_parent && @app_signup.deliver_maker_daughter
-          redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Awesome, you've helped your daughter apply to work with #{@apprenticeship.host_firstname}. We've sent an email to #{current_user.email} with the details." }
-        else
-          @app_signup.deliver && @app_signup.deliver_maker
-          redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Awesome, you've applied to work with #{@apprenticeship.host_firstname}. We've sent an email to #{current_user.email} with the details." }
+      if @app_signup.save
+        if @app_signup.save_payment_info
+          @app_signup.apply
+          if @app_signup.parent?
+            @app_signup.deliver_parent && @app_signup.deliver_maker_daughter
+            redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Awesome, you've helped your daughter apply to work with #{@apprenticeship.host_firstname}. We've sent an email to #{current_user.email} with the details." }
+          else
+            @app_signup.deliver && @app_signup.deliver_maker
+            redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Awesome, you've applied to work with #{@apprenticeship.host_firstname}. We've sent an email to #{current_user.email} with the details." }
+          end
         end
       else
         flash.now[:warning] = "Oops! There was a problem saving your application. Please check all fields."
@@ -158,6 +161,7 @@ class AppSignupsController < ApplicationController
   def confirm
     current_user.update_attributes!(params[:user])
 
+    #SHOULD THERE NOT BE A STRIPE CARD TOKEN HERE?
     if params[:app_signup][:stripe_card_token].present?
       if @app_signup.update_attributes(params[:app_signup])
         if @app_signup.process_apprent_fee
@@ -182,6 +186,8 @@ class AppSignupsController < ApplicationController
         flash[:warning] = "Oh snap, there was a problem saving your form. Please check all fields and try again."
         render 'show'
       end
+
+    # WHAT IS THIS FOR? WHY WOULD THERE EVER BE A CHARGE ID PRESENT AT THIS POINT
     else @app_signup.charge_id.present?
       if @app_signup.update_attributes(params[:app_signup])
         if @app_signup.confirm && @app_signup.deliver_confirm && @app_signup.deliver_confirm_maker
