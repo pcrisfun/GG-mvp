@@ -129,7 +129,7 @@ end
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your apprenticeship has been submitted! - #{topic} with #{user.name}",
       :html_body => %(<h1>Thanks #{user.first_name}!</h1>
-        <p>We received your $30.00 listing fee, and your apprenticeship has been submitted and is pending while we take a look at it.</p>
+        <p>Your apprenticeship has been submitted and is pending while we take a look at it. We recieved your billing information, but we won't charge you until you have a confirmed apprentice.</p>
         <p>You can review the submitted apprenticeship here - <a href="#{apprenticeship_url(self)}"> #{self.title}</a> or monitor signups from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>While you wait, go ahead and fill out your profile in your <a href="#{edit_user_registration_url(user)}">Settings Dashboard</a> like your bio, and links to your website, twitter, and facebook if you're into the social thing.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
@@ -162,11 +162,12 @@ end
       :subject => "Your apprenticeship has been posted! - #{topic} with #{user.name}",
       :html_body => %(<h1>Congrats #{user.first_name}!</h1>
         <p>Your apprenticeship has been posted and is now live! Check it out - <a href="#{apprenticeship_url(self)}"> #{self.title}</a></p>
-        <p>Be sure to invite your friends and share it on your social networks!</p>
+        <p>Be sure to invite your friends and share it on your social networks - and we'll do the same.</p>
         <p>1. We'll forward you each application as soon as someone applies.
           <br/>2. You'll have two weeks to decide whether to accept or decline each apprentice.
-          <br/>3. If you'd like to meet up first to determine whether you'll be a good fit, just let us know and we'd be happy to set up a meeting before you accept an apprentice!
-          <br/>4. The post will be closed when you've accepted #{self.registration_max} apprentices. If you don't find a good fit you're not obligated to accept an apprentice.</p>
+          <br/>3. You can schedule an interview before making the decision to accept or decline so that you can both determine whether it'll be a good fit!
+          <br/>4. The post will be closed when you've accepted #{self.registration_max} apprentices. If you don't find a good fit you're not obligated to accept an apprentice.
+          <br/>5. We'll only charge you after the apprentice you've chosen has confirmed the apprenticeship.</p>
         <p>If by some bad luck you need to cancel your apprenticeship, you can do so from your <a href="#{dashboard_url}">Events Dashboard</a> - but we're crossing our fingers that won't happen!
           <br/>Let us know if you have any questions!</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
