@@ -99,11 +99,13 @@
         .accordion-heading
           %h2
             %a.accordion-toggle
-              3. Payment Info - You won't be charged yet
+              3. Payment Info
         .accordion-body
           .accordion-inner
             %br/
-            %h3 [Explain that you will be charged if you are accepted and confirm]
+            %h3 Please submit your billing information - you won't be charged yet.
+            %p If you're accepted, we will email you a link to confirm the apprenticeship, and we'll charge your card at that point.
+            .alert.alert-warning <b>Note:</b> If we <i>don't</i> recieve your confirmation, we'll assume you've begun working together and go ahead with confirming by charging your credit card.
             %br/
             = render :partial => "shared/credit_card", :locals => { :f => f, :paid => @app_signup.charge_id.present? }
             %br/
