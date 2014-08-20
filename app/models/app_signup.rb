@@ -57,7 +57,7 @@ class AppSignup < Signup
       charge = Stripe::Charge.create(
         :amount => 3000, # amount in cents, again
         :currency => "usd",
-        :card => user.stripe_customer_id,
+        :customer => user.stripe_customer_id,
         :description => "Apprenticeship fee for #{self.event.title} from #{self.user.email}"
       )
       logger.debug(charge)

@@ -161,8 +161,7 @@ class AppSignupsController < ApplicationController
   def confirm
     current_user.update_attributes!(params[:user])
 
-    #SHOULD THERE NOT BE A STRIPE CARD TOKEN HERE?
-    if params[:app_signup][:stripe_card_token].present?
+    if params[:app_signup] && @app_signup.user.stripe_customer_id.present?
       if @app_signup.update_attributes(params[:app_signup])
         if @app_signup.process_apprent_fee
           if @app_signup.confirm
@@ -187,19 +186,10 @@ class AppSignupsController < ApplicationController
         render 'show'
       end
 
-    # WHAT IS THIS FOR? WHY WOULD THERE EVER BE A CHARGE ID PRESENT AT THIS POINT
-    else @app_signup.charge_id.present?
-      if @app_signup.update_attributes(params[:app_signup])
-        if @app_signup.confirm && @app_signup.deliver_confirm && @app_signup.deliver_confirm_maker
-          redirect_to payment_confirmation_app_signup_path(@app_signup), flash: { success: "Awesome, you're confirmed to work with #{@apprenticeship.host_firstname}." } and return
-        else
-          flash[:warning] = "Oh snap, there was a problem saving your form. Please check all fields and try again."
-          render 'show'
-        end
-      else
-        flash[:warning] = "Oh snap, there was a problem saving your form. Please check all fields and try again."
-        render 'show'
-      end
+    #It gets here if there's no stripe_customer_id for the applicant
+    else
+      flash[:warning] = "Oh snap, there was a problem saving your form. Please check all fields and try again."
+      render 'show'
     end
   end
 

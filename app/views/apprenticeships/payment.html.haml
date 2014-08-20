@@ -8,7 +8,10 @@
       #full
         .row-fluid
           .span9
-            %h2 Please provide payment info - you won't be charged yet!
+            - unless @apprenticeship.user.stripe_customer_id.present?
+              %h2 Please provide payment info - you won't be charged yet!
+            - else
+              %h2 We've got your payment info - you won't be charged yet!
             %p
               When you choose an apprentice and she confirms that she'll take on the apprenticeship, you'll be charged the $30 matching fee to be connected with her. This fee covers:
               %ol
@@ -30,20 +33,22 @@
               but we'll do our best! We do not offer refunds on posting fees.
 
             %hr
-            = simple_form_for @apprenticeship, html: { class: 'form-horizontal payment_form' }, validate: false do |f|
-              = render 'shared/error_messages', form_model: @apprenticeship
-              = render partial: "shared/credit_card", locals: { f: f, paid: @apprenticeship.charge_id.present? }
-              - if @apprenticeship.charge_id.present?
-                = link_to "Payment Confirmation", payment_confirmation_apprenticeship_path(@apprenticeship)
-                %br
-                - if @apprenticeship.completed?
-                  #preview-buttons-bottom.pull-center
-                    = link_to 'Resubmit', { :controller => 'apprenticeships', :action => 'resubmit', :id => @apprenticeship.id }, method: 'post', class: 'btn btn-primary'
-              - else
+            - unless @apprenticeship.user.stripe_customer_id.present?
+              = simple_form_for @apprenticeship, html: { class: 'form-horizontal payment_form' }, validate: false do |f|
+                = render 'shared/error_messages', form_model: @apprenticeship
+                = render partial: "shared/credit_card", locals: { f: f, paid: @apprenticeship.charge_id.present? }
                 %br
                 %br
                 #preview-buttons-bottom.pull-center
-                  = f.submit 'Save Payment Info', class: 'btn btn-primary', id: 'cc_process'
+                  = f.submit 'Submit', class: 'btn btn-primary', id: 'cc_process'
+            - else
+              = link_to "Update payment info"
+              %br
+              %br
+              #preview-buttons-bottom.pull-center
+                = link_to 'Submit', { :controller => 'apprenticeships', :action => 'update' }, class: 'btn btn-primary'
+                / TODO: This gets as far as the update action but doesn't make it to @apprenticeship.submitted
+
 
           .span3
             %br
