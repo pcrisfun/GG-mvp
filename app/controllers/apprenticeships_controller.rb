@@ -83,15 +83,17 @@ class ApprenticeshipsController < ApplicationController
         elsif params[:commit] == 'Save'
           redirect_to :back, flash: { success: "Your apprenticeship has been saved"} and return
 
-        elsif params[:apprenticeship][:stripe_card_token] && ( params[:apprenticeship][:stripe_card_token] != "" )
-          if @apprenticeship.save_payment_info
-            @apprenticeship.submitted
-            @apprenticeship.deliver
-            redirect_to payment_confirmation_apprenticeship_path(@apprenticeship) and return
-          else
-            Rails.logger.info("This will end up in papertrail: #{current_user} ")
-            Rollbar.report_exception({:error_message => 'Apprenticeship Payment Failed'}, rollbar_request_data, rollbar_person_data)
-            redirect_to payment_apprenticeship_path(@apprenticeship), :flash => { warning: "There was a problem processing your payment: #{@apprenticeship.errors.full_messages}" } and return
+        elsif params[:apprenticeship][:stripe_card_token]
+          if ( params[:apprenticeship][:stripe_card_token] != "" ) || @apprenticeship.user.stripe_customer_id.present?
+            if @apprenticeship.save_payment_info
+              @apprenticeship.submitted
+              @apprenticeship.deliver
+              redirect_to payment_confirmation_apprenticeship_path(@apprenticeship) and return
+            else
+              Rails.logger.info("This will end up in papertrail: #{current_user} ")
+              Rollbar.report_exception({:error_message => 'Apprenticeship Payment Failed'}, rollbar_request_data, rollbar_person_data)
+              redirect_to payment_apprenticeship_path(@apprenticeship), :flash => { warning: "There was a problem processing your payment: #{@apprenticeship.errors.full_messages}" } and return
+            end
           end
         else
           redirect_to payment_apprenticeship_path(@apprenticeship) and return

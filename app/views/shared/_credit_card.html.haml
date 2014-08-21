@@ -32,11 +32,16 @@
       = select_month nil, {add_month_numbers_true: true}, {name: nil, id: "card_month", class: "span2" }
       = select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year", class: "span2" }
 
+  / = f.hidden_field :stripe_card_token, :id => "stripe_card_token"
 
-  = f.hidden_field :stripe_card_token, :id => "stripe_card_token"
 - else
+
   .alert.alert-success
     %strong Awesome!
-    %span.message Thanks for paying already!
+    %span.message
+      We've got your payment info on file.
+      = link_to "Update payment info" #fill in here
+
+= f.hidden_field :stripe_card_token, :id => "stripe_card_token"
 
 
