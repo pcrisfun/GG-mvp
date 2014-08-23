@@ -51,6 +51,13 @@ class AppSignup < Signup
     end
   end
 
+  #TODO figure this out
+  def update_payment_info
+    #sort of same as above but pulling the existing customer & updating their card.
+    #damn I just realized this probably actually goes in stripe.js
+    #here is a new change
+  end
+
   def process_apprent_fee
     logger.info "Processing apprentice payment"
     unless charge_id.present?
