@@ -706,9 +706,9 @@ class AppSignup < Signup
     elsif self.pending?
       return "Your application is being reviewed. You should hear back by <strong>#{(self.state_stamps.last.stamp + 14.days).strftime("%b %d")}</strong>".html_safe
     elsif self.interview_requested?
-      return "#{self.event.user.first_name} has <a href=#{app_signup_path(self)}>requested an interview.</a>".html_safe
-    elsif self.interview_scheduled?
-      return "Your <a href=#{app_signup_path(self)}>interview is scheduled</a>.".html_safe
+      return "#{self.event.user.first_name} has <a href=#{app_signup_path(self)}>requested an interview.</a>".html_safe
+    elsif self.interview_scheduled?
+      return "Your <a href=#{app_signup_path(self)}>interview is scheduled</a>.".html_safe
     elsif self.accepted?
       return "Your application has been accepted! <a href=#{app_signup_path(self)} class='bold'>Confirm</a> your apprenticeship!".html_safe
     elsif self.declined?
@@ -737,9 +737,9 @@ class AppSignup < Signup
   end
 
   def countdown_message_maker
-if self.started?
-    elsif self.pending? || self.interview_scheduled? || self.interview_requested?
-      return "#{(self.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days left to <a href=#{app_signup_path(self)} class='bold'>review</a> ".html_safe
+  if self.started?
+    elsif self.pending? || self.interview_scheduled? || self.interview_requested?
+      return "#{(self.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days left to <a href=#{app_signup_path(self)} class='bold'>review</a> ".html_safe
     elsif self.accepted?
     elsif self.declined?
     elsif self.canceled?

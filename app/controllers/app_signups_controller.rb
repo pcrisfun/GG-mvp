@@ -10,6 +10,9 @@ class AppSignupsController < ApplicationController
       @app_signup = AppSignup.find(params[:id]) if params[:id]
     end
     @apprenticeship = @app_signup.event if @app_signup
+    @interview = Interview.new
+    # @interview.app_signup_id = @app_signup.id
+    # @interview = Interview.new(add : @app_signup.id)
   end
 
   def new
