@@ -237,7 +237,7 @@ class ApprenticeshipsController < ApplicationController
       @apprenticeship.begins_at ||= Date.today + 7.day
       @apprenticeship.ends_at ||= Date.tomorrow + 97.day
 
-      if @apprenticeship.save(validate: false) && @apprenticeship.deliver_save
+      if @apprenticeship.save(validate: false) && @apprenticeship.deliver_duplicate
         redirect_to edit_apprenticeship_path(@apprenticeship)#, :flash => { :success => "Nice! Let's start by designing your apprenticeship. Click on the text to edit, and hover on the blue question marks for more info. We'll save this form as you go so you can come back to it at any time." }
       else
         raise

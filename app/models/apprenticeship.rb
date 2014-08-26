@@ -116,6 +116,21 @@ class Apprenticeship < Event
     return true
   end
 
+  def deliver_duplicate
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+       :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "You duplicated your previous apprenticeship",
+      :html_body => %(<h1>Sweet #{user.first_name}!</h1>
+        <p>We're happy you've duplicated your previous apprenticeship! You can still edit any details before submitting. If you get stuck take a look at our <a href="#{faq_url}">FAQ</a>, or feel free to respond to this email with any questions you might have!</p>
+        <p>You can <a href="#{edit_apprenticeship_url(self)}">edit your apprenticeship here</a> or monitor signups from your <a href="#{dashboard_url}">Events Dashboard</a></p>
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
   def deliver(opts={})
     return false unless valid?
     payment = opts[:payment]
@@ -179,7 +194,7 @@ class Apprenticeship < Event
       :subject => "Your apprenticeship has been canceled - #{topic} with #{user.name}",
       :html_body => %(<h1>Bummer!</h1>
         <p>You've canceled your apprenticeship. We hope you'll consider offering it again sometime!</p>
-        <p>You can edit the apprenticeship and resubmit it anytime. Find it here - <a href="#{edit_apprenticeship_url(self)}"> #{self.title}</a></p>
+        <p>You can duplicate your canceled apprenticeship and submit it again anytime. Find it in your <a href="#{dashboard_url}">Events Dashboard</a></a></p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -343,7 +358,7 @@ class Apprenticeship < Event
           return ''
         end
     elsif self.completed?
-      return "Your apprenticeship is over :-)"
+      return "Your apprenticeship is complete"
     end
     return ''
   end

@@ -1789,22 +1789,22 @@ input[type="radio"], input[type="checkbox"]
     td
       line-height: 17px
     .image
-      width: 7%
+      width: 5%
       text-align: center
     .title
-      width: 35%
+      width: 37%
       .title-boxlink
         font-size: 14px
         height: inherit
     .spots
-      width: 8.5%
+      width: 6%
     .dates
-      width: 11%
+      width: 13%
     .state
       width: 8.5%
       text-align: center
     .countdown
-      width: 20%
+      width: 18%
       //background-color: $alert-yellow
     &.table-subtable
       margin: 0px
@@ -1823,23 +1823,70 @@ input[type="radio"], input[type="checkbox"]
         background-color: #FFF
         border-radius: 0px
         border-top: 1px solid #DDD
+        &.image
+          width: 5.75%
         &.name, &.state, &.countdown, &.age, &.dates
           border-left: 0px
         &.name
-          width: 35%
+          width: 37%
+        &.state
+          text-align: left
         &.age
           width: 19.5%
+  #userdashboard ///////////// user dashboard
+    .started:before
+      font-family: FontAwesome
+      content: "\f040"
+      color: $ocean
+    .pending:before
+      font-family: FontAwesome
+      content: "\f056"
+      color: $tangerine
+    .interview_requested
+      font-family: FontAwesome
+      content: "\f0e5"
+      color: $tangerine
+    .interview_scheduled
+      font-family: FontAwesome
+      content: "\f075"
+      color: $tangerine
+    .accepted:before
+      font-family: FontAwesome
+      content: "\f055"
+      color: $grass
+    .declined:before
+      font-family: FontAwesome
+      content: "\f056"
+      color: $silver-shadow
+    .confirmed:before
+      font-family: FontAwesome
+      content: "\f058"
+      color: $plum
+    .canceled:before
+      font-family: FontAwesome
+      content: "\f057"
+      color: $silver-shadow
+    .completed:before
+      font-family: FontAwesome
+      content: "\f091"
+      color: $grass
+    .following:before
+      font-family: FontAwesome
+      content: "\f06e"
+      color: $silver-black
 
 // Admin Dashboards ======
 #dashboard-display
   h2
     text-transform: none
-  #admindashboard
+  #admindashboard //////////// admin dashboard
+    tr#following
+      background-color: $silver-light
     .countdown
     .nested-table
       td
         &.age
-          width: 8.5%
+          width: 6.5%
   .statebar
     font-size: 10px
     margin: 5px 5px 5px 0px
@@ -1851,24 +1898,30 @@ input[type="radio"], input[type="checkbox"]
       +roundcorners
     .canceled
       background-color: $silver
-      width: 14%
+      width: 16%
+    .declined
+      background-color: $silver
+      width: 16%
     .started
       background-color: $avocado-slight
-      width: 28%
+      width: 16%
     .applied
       background-color:  $avocado-light
-      width: 42%
+      width: 32%
     .interview_requested
       background-color:  $avocado-medium
-      width: 56%
+      width: 48%
     .interview_scheduled
       background-color:  $avocado
-      width: 70%
+      width: 64%
     .accepted
       background-color:  $avocado-shadow
-      width: 84%
+      width: 80%
     .confirmed
       background-color:  $avocado-black
+      width: 100%
+    .completed
+      background-color:  $silver
       width: 100%
 
 

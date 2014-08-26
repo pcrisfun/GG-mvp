@@ -79,13 +79,15 @@ class Signup < ActiveRecord::Base
   end
 
   def state_label_class
-    labels = { started: "label-info",
-               pending: "label-warning",
-               accepted: "label-success",
-               declined: "",
-               canceled: "label-important",
-               confirmed: "label-success",
-               completed: "label-inverse"
+    labels = { started: "started",
+               pending: "pending",
+               interview_requested: "interviewing",
+               interview_scheduled: "interviewing",
+               accepted: "accepted",
+               declined: "declined",
+               confirmed: "confirmed",
+               canceled: "canceled",
+               completed: "completed"
              }
     return labels[self.state.to_sym]
   end

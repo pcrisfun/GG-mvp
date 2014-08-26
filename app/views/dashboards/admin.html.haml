@@ -30,7 +30,7 @@
             %a.accordion-toggle{"data-toggle" => "collapse", :href => "#postedapprenticeships-toggle"}
               %h2
                 %i.fa.fa-angle-down
-                Posted Apprenticeships
+                Accepted Apprenticeships
             #postedapprenticeships-toggle.accordion-body.collapse.in
               = render 'events', events: @posted_apprenticeships
 
@@ -69,8 +69,8 @@
             %a{:id => "savedworkshops", class: "anchor"}
             %a.accordion-toggle{"data-toggle" => "collapse", :href => "#savedworkshops-toggle"}
               %h2
-                %i.fa.fa-angle-downSaved
-                Workshops
+                %i.fa.fa-angle-down
+                Started Workshops
             #savedworkshops-toggle.accordion-body.collapse
               = render 'events', events: @saved_workshops
 
@@ -88,7 +88,7 @@
             %a.accordion-toggle{"data-toggle" => "collapse", :href => "#postedworkshops-toggle"}
               %h2
                 %i.fa.fa-angle-down
-                Posted Workshops
+                Accepted Workshops
             #postedworkshops-toggle.accordion-body.collapse.in
               = render 'events', events: @posted_workshops
 
