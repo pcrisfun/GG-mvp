@@ -10,6 +10,13 @@ class DashboardsController < ApplicationController
       @preregs = current_user.preregs.sort_by { |p| p.created_at }.reverse!
     end
   end
+  def admin
+    if current_user
+      @events = Event.all.sort_by { |e| e.created_at }.reverse!
+      @signups = Signup.all.sort_by { |s| s.created_at }.reverse!
+      @accepted_signups = AppSignup.where(state: 'accepted').sort_by { |e| e.created_at }.reverse!
+    end
+  end
 
   def admin
     if current_user && current_user.admin?

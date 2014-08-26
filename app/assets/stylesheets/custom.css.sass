@@ -42,6 +42,7 @@ $grass-black: #017c4c
 
 $mint-slight: #F1F9F7
 $mint-light: #e7f5f0
+$mint-bright: #61cea4
 $mint: #71b99f
 $mint-muted: #C7E4DD
 $mint-muddy: #537a70
@@ -149,9 +150,6 @@ a, a:hover, a:active, a:visited, a:focus
   font-weight: bold
 .unbold
   font-weight: normal
-.thumbnail-figure img
-  transition: none
-
 
 
 // Buttons ======================================================================================
@@ -190,6 +188,9 @@ a, a:hover, a:active, a:visited, a:focus
     color: #FFF
 .btn-inverse
   text-shadow: 1px 1px 1px #333
+  background-color: $plum-black
+  &:hover
+    background-color: $plum-shadow
 .btn-following
   &:hover
     background-color: $coral
@@ -201,7 +202,7 @@ a, a:hover, a:active, a:visited, a:focus
 
 .prereg
   .btn-success
-    background-color: #333
+    //background-color: #333
 
 // Badges & Labels ======================================================================================
 .label-success, .badge-success
@@ -239,10 +240,6 @@ a, a:hover, a:active, a:visited, a:focus
       display: block
   .dropdown-menu
     margin-top: -15px
-    @media (min-width: 768px) and (max-width: 979px)
-      margin-top: 0px
-    @media (max-width: 767px)
-      margin-top: 0px
 
 .navbar .nav > .active > a,
 .navbar .nav > .active > a:hover,
@@ -255,12 +252,9 @@ a, a:hover, a:active, a:visited, a:focus
 .navbar
   .brand
     margin-left: -8px
+
 .navbar .nav > li
   height: 85px
-  @media (min-width: 768px) and (max-width: 979px)
-    height: auto
-  @media (max-width: 767px)
-    height: auto
   img
     margin-top: -5px
   .signin-nav
@@ -268,7 +262,6 @@ a, a:hover, a:active, a:visited, a:focus
     margin-left: 5px
 .navbar .nav > li.signin-nav
   border-left: 1px solid $silver-light
-
 
 .navbar .nav > li > a.post-apprenticeship
   font-size: 14px
@@ -466,7 +459,7 @@ li.alertnav
       font-style: italic
       p
         font-size: 15px
-        line-height: 20px
+        line-height: 23px
         padding-bottom: 7px
       footer
         a
@@ -640,6 +633,7 @@ li.alertnav
     font-size: 20px
     font-weight: bold
 
+
 // Devise ==========
 .fancyform
   .borderblockright
@@ -653,10 +647,10 @@ li.alertnav
       float: right
       clear: both
       margin: 0 0 20px
-      padding: 80px 18px
+      padding: 80px 20px
       a
         color: $grass
-        //float: right
+        float: right
       a:hover
         color: $grass-shadow
   #new-sessions-links, #create-sessions-links
@@ -666,7 +660,7 @@ li.alertnav
   #new-user-links
     p
       border-left: 0px
-  #new-confirmations-links, #create-confirmations-links, #edit-confirmations-links, #update-confirmations-links, #show-confirmations-links, #read-confirmations-links, #new-passwords-links, #create-passwords-links, #edit-passwords-links, #update-passwords-links, #show-passwords-links, #read-passwords-links
+  #edit-passwords-links, #new-confirmations-links, #new-passwords-links, #update-passwords-links
     .signin
       border-left: 0px
       margin: 0
@@ -690,7 +684,7 @@ li.alertnav
       .signin, .signup
         margin-top: 0
         padding: 0 10px 10px 10px
-    #new-confirmations-links, #create-confirmations-links, #edit-confirmations-links, #update-confirmations-links, #show-confirmations-links, #read-confirmations-links, #new-passwords-links, #create-passwords-links, #edit-passwords-links, #update-passwords-links, #show-passwords-links, #read-passwords-links
+    #edit-passwords-links, #new-confirmations-links, #new-passwords-links, #update-passwords-links
       min-height: 100px
 @media (min-width: 768px) and (max-width: 979px)
   .fancyform
@@ -824,47 +818,45 @@ input[type="radio"], input[type="checkbox"]
     .btn-primary
       font-size: 22px
       font-weight: 500
-  #promo
-    padding: 15px 0 0
-    .carousel
-      margin-bottom: 0px
-      .learning
-        p
-          font-size: 14px
-      .well
-        margin-top: 15px
-      .carousel-control
-        height: 230px
-        width: 45px
-        opacity: 1
-        font-size: 160px
-        &:hover
-          opacity: .7
-      .carousel-control.right
-        right: -50px
-      .carousel-control.left
-        left: -50px
-      .extra
-        margin-top: 140px
-        height: 80px
-        width: 190px
-      .left.extra
-        background: url(banners/arrow-learn.png) no-repeat center center transparent
-      .right.extra
-        background: url(banners/arrow-lead.png) no-repeat center center transparent
-      .item
-        //height: 425px
-      .overview
-        background: url(banners/hmpg-spotlight-overview.png) repeat-x center center transparent
-      .learning
-        background: url(banners/hmpg-spotlight-learn.png) repeat-x center center transparent
-      .leading
-        background: url(banners/hmpg-spotlight-lead.png) repeat-x center center transparent
-    .socials
-      height: 40px
-      width: 260px
+  .carousel
+    margin-bottom: 0px
+    .learning
+      p
+        font-size: 14px
+    .well
+      margin-top: 15px
+    .carousel-control
+      height: 230px
+      width: 45px
+      opacity: 1
+      font-size: 160px
+      &:hover
+        opacity: .7
+    .carousel-control.right
+      right: -50px
+    .carousel-control.left
+      left: -50px
+    .extra
+      margin-top: 140px
+      height: 80px
+      width: 190px
+    .left.extra
+      background: url(banners/arrow-learn.png) no-repeat center center transparent
+    .right.extra
+      background: url(banners/arrow-lead.png) no-repeat center center transparent
+    .item
+      //height: 425px
+    .overview
+      background: url(banners/hmpg-spotlight-overview.png) repeat-x center center transparent
+    .learning
+      background: url(banners/hmpg-spotlight-learn.png) repeat-x center center transparent
+    .leading
+      background: url(banners/hmpg-spotlight-lead.png) repeat-x center center transparent
+  .socials
+    height: 40px
+    width: 260px
   #goals
-    background-color: $mint-muted
+    background-color: $mint-slight
     font-style: italic
     padding: 0 0
     position: static
@@ -883,10 +875,6 @@ input[type="radio"], input[type="checkbox"]
       .smaller
         font-size: 38px
         display: inline
-      .btn
-        white-space: nowrap
-        @media (max-width: 767px)
-          margin-left: 10px
       hr
         margin: 11px 0
       .fa.fa-3x
@@ -897,25 +885,16 @@ input[type="radio"], input[type="checkbox"]
         li
           list-style: none
           font-family: $opensans
-          font-size: 18px
-          color: #1D9D74
+          font-weight: bold
+          color: $mint
+          line-height: 22px
           margin: 20px 0
-          @media (max-width: 767px)
-            padding: 10px
       h2
-        color: #333
-        text-shadow: 4px 3px 0 #C7E4DD, 9px 8px 0 rgba(0, 0, 0, 0.15)
-        margin-top: 10px
-        font-style: normal
+        color: #555
         text-transform: none
         font-size: 38px
         text-align: right
-        font-weight: 800
-        @media (min-width: 768px) and (max-width: 979px)
-          font-size: 28px
-        @media (max-width: 767px)
-          font-size: 40px
-          text-align: center
+        font-weight: 600
       h4
         font-size: 30px
         line-height: 30px
@@ -953,7 +932,6 @@ input[type="radio"], input[type="checkbox"]
           font-weight: 500
   #newsletter
     background-color: #323232
-    padding: 0 0 20px
     form
       position: relative
       z-index: 1
@@ -981,7 +959,6 @@ input[type="radio"], input[type="checkbox"]
       text-shadow: 1px 1px 1px #000
 
   #event-previews
-    padding-top: 10px
     h3
       display: inline
     a.more-events
@@ -1756,18 +1733,50 @@ input[type="radio"], input[type="checkbox"]
 // Makers Page ================================================================================
 #makers-index
   .btn
-    margin: 15px 0 0 0
+    margin-right: 29px
+    margin-top: 15px
     font-size: 14px
     line-height: 22px
     padding: 3px 9px
-  h3.name
-    display: inline
   img
+    border: 2px #eee solid
     margin-top: 10px
   .avatar
-    text-align: center
+    margin-top: 30px
     img
       width: 124px
+      border-radius: 500px
+      @media (min-width: 768px) and (max-width: 979px)
+        width: 80px
+  .well
+    background: $silver-bright
+    h3.name
+      display: inline
+      text-transform: none
+      border-bottom: 0px
+      box-shadow: none
+      font-size: 25px
+      font-weight: 100
+  .event
+    font-weight: 800
+    .label
+      display: inline-block
+  .row-fluid
+    .span2
+      width: 15.8%
+      @media (max-width: 767px)
+        width: 100%
+        text-align: center
+  .row-fluid [class*="span"]
+    margin-left: .8%
+  .spots
+    font-weight: 600
+    color: $mint
+    a
+      color: $mint
+      text-decoration: underline
+      &:hover
+        color: $mint-bright
 
 
 // Confirmations ===============================================================================
@@ -1961,9 +1970,7 @@ input[type="radio"], input[type="checkbox"]
     color: $plum
   .thumbnail-title
     top: 75%
-  .low
-    margin-top: 40px
-    font-size: 14px
+
 
 // Avatar ======================================================================================
 .file-upload

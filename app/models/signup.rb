@@ -55,7 +55,7 @@ class Signup < ActiveRecord::Base
     end
 
     event :accept do
-      transition :pending => :accepted
+      transition all => :accepted
     end
 
     event :cancel do
@@ -63,7 +63,7 @@ class Signup < ActiveRecord::Base
     end
 
     event :decline do
-      transition :pending => :declined
+      transition all => :declined
     end
 
     event :confirm do

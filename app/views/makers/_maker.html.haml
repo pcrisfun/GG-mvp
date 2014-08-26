@@ -1,18 +1,30 @@
 - event = maker.events.where(:state => ['accepted', 'filled', 'in_progress', 'completed']).last
-.row-fluid
+.well.alt
   .row-fluid
     %h3.name
       = maker.name
-    .event.pull-right
+    .prereg.pull-right
+      = render :partial => "shared/prereg", :locals => {:event => event}
+    .event
       = link_to event.topic, url_for(controller: event.class.name.underscore.pluralize, action: 'show', id: event.id )
-      = link_to event.type, url_for(controller: event.class.name.underscore.pluralize, action: 'show', id: event.id ), class: "label"
+      - if event.type == "Apprenticeship"
+        .label Apprenticeship
+      - elsif event.type == "Workshop"
+        .label Workshop
+      %span.spots
+        - unless event.datetime_tba
+          - if event.accepted?
+            - if event.type == "Apprenticeship"
+              %b &nbsp;-&nbsp; Apply&nbsp;
+            - elsif event.type == "Workshop"
+              %b &nbsp;-&nbsp; Sign Up&nbsp;
+            = link_to event.spots_left, url_for(controller: event.class.name.underscore.pluralize, action: 'show', id: event.id )
+          - elsif event.filled? || event.completed?
+            \&nbsp;-&nbsp; Closed
   .row-fluid
     .span2.avatar
       = avatar_for(maker, size: 214, tag: 'large')
-      .prereg
-        = render :partial => "shared/prereg", :locals => {:event => event}
     - event.host_album.photos.limit(5).each do |photo|
       .span2
         = render 'photos/photo', photo: photo, size: :large, description: (description ||= false), edit: (edit ||= false)
 
-%hr
