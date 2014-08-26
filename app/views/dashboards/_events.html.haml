@@ -56,7 +56,7 @@
                             #{signup.user.name}'s daughter #{signup.daughter_firstname}
                           - else
                             = signup.user.name
-                          -if event.type == "Apprenticeship"
+                          - if event.type == "Apprenticeship"
                             = link_to "Application #{signup.id}", app_signup_path(signup.id)
                         %td.age
                           age
@@ -69,25 +69,25 @@
 
                         %td.countdown
                           .statebar
-                            -if signup.canceled?
+                            - if signup.canceled?
                               canceled
                               %span.section.canceled
-                            -if signup.started?
+                            - if signup.started?
                               started
                               %span.section.started
-                            -if signup.pending?
+                            - if signup.pending?
                               applied
                               %span.section.applied
-                            / -if signup.interview_requested?
+                            / - if signup.interview_requested?
                             / int-req
                             /  %span.section.interview_requested
-                            / -if signup.interview_scheduled?
+                            / - if signup.interview_scheduled?
                             /  int-sch
                             /  %span.section.interview_scheduled
-                            -if signup.accepted?
+                            - if signup.accepted?
                               accepted
                               %span.section.accepted
-                            -if signup.confirmed?
+                            - if signup.confirmed?
                               confirmed
                               %span.section.confirmed
                           /= signup.countdown_message_maker
