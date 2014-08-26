@@ -9,9 +9,7 @@ class Signup < ActiveRecord::Base
 	belongs_to :event
   has_many :state_stamps
 
-	attr_accessible :collaborate, :happywhen, :interest, :experience, :requirements, :confirm_available, :preferred_times, :confirm_unpaid, :confirm_fee, :parent_phone, :parent_name, :parent_email, :waiver, :parents_waiver, :respect_agreement, :charge_id, :parent, :daughter_name, :daughter_age
-
-  attr_accessible :stripe_card_token
+	attr_accessible :collaborate, :happywhen, :interest, :experience, :requirements, :confirm_available, :preferred_times, :confirm_unpaid, :confirm_fee, :parent_phone, :parent_name, :parent_email, :waiver, :parents_waiver, :respect_agreement, :charge_id, :parent, :daughter_name, :daughter_age, :stripe_card_token
   attr_accessor :stripe_card_token
 
   def make_stamp
@@ -39,6 +37,12 @@ class Signup < ActiveRecord::Base
     state :canceled do
     end
 
+    state :interview_requested do
+    end
+
+    state :interview_scheduled do
+    end
+
     state :confirmed do
     end
 
@@ -55,7 +59,7 @@ class Signup < ActiveRecord::Base
     end
 
     event :accept do
-      transition :pending => :accepted
+      transition all => :accepted
     end
 
     event :cancel do
@@ -63,7 +67,7 @@ class Signup < ActiveRecord::Base
     end
 
     event :decline do
-      transition :pending => :declined
+      transition all => :declined
     end
 
     event :confirm do

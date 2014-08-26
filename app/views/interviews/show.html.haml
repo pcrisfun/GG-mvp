@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b App signup:
+  = @app_signup
+%p
+  %b User:
+  = @user
+%p
+  %b Interview time:
+  = @interview.interview_time
+%p
+  %b Interview location:
+  = @interview.interview_location
+%p
+  %b Interview Message:
+  = @interview.interview_message
+
+= link_to 'Edit', edit_interview_path(@interview)
+\|
+= link_to 'Back', interviews_path

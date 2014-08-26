@@ -112,7 +112,12 @@
                 %i.fa.fa-asterisk
               When
             %dd
+              - if !show || @workshop.datetime_tba
+                #tba.field.checkbox.optional
+                  = editable_link_to "Date Options", field: :datetime_tba, resource: @workshop, type: :select, link_text: @workshop.datetime_tba ? "TBA" : "Schedule",  data: { source: '{false : "Schedule", true : "TBA"}'}
               - if !show || !@workshop.datetime_tba
+                #from{class: (show || @workshop.datetime_tba) ?  'hidden' : '' }
+                  this Workshop on
                 #dates{class: @workshop.datetime_tba ?  'hidden' : '' }
                   #begins-at.field.date.optional
                     = editable_link_to "Date", field: :begins_at, resource: @workshop, type: :date, link_text: get_formated_date(@workshop.begins_at), data: { viewformat: 'MM d, yyyy', template: 'MM d, yyyy'}
@@ -300,16 +305,8 @@
               %dd
                 = link_to @workshop.user.twitter, nice_url(@workshop.user.twitter)
 
-
-            - if show && current_user && current_user.admin? && @workshop.pending?
-              %dt
-                Legal Name
-              %dd
-                = @workshop.legal_name
-
-
             - if show
-              - if current_user && current_user.signedup?(@workshop) || current_user && current_user==@workshop.user || current_user && current_user.admin?
+              - if current_user && current_user.signedup?(@workshop) or current_user==@workshop.user
                 %hr
                 %dt
                   Attendee(s)
@@ -442,7 +439,7 @@
                 = f.submit "Reject Workshop", :name => "reject_button", :class => "btn"
               %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
               %br
-          = link_to "Approve Workshop", { :controller => 'workshops', :action => 'accept', :id => @workshop.id }, class: "btn btn-success", :method => 'post', :data => { :confirm => 'Hey Nerds, did you do a background check yet?'}
+          = link_to "Approve Workshop", { :controller => 'workshops', :action => 'accept', :id => @workshop.id }, class: "btn btn-success", :method => 'post'
 
           %br
           %br

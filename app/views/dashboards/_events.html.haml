@@ -78,12 +78,12 @@
                             - if signup.pending?
                               applied
                               %span.section.applied
-                            /- if signup.interview_requested?
-                            /  int-req
-                            /  %span.section.interview_requested
-                            /- if signup.interview_scheduled?
-                            /  int-sch
-                            /  %span.section.interview_scheduled
+                            - if signup.interview_requested?
+                              int-req
+                              %span.section.interview_requested
+                            - if signup.interview_scheduled?
+                              int-sch
+                              %span.section.interview_scheduled
                             - if signup.accepted?
                               accepted
                               %span.section.accepted

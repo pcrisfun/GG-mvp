@@ -240,7 +240,7 @@
             %dd
               Up to
               #registration-max.field.number
-                = editable_link_to "2", field: :registration_max, resource: @apprenticeship, type: :select, data: { source: '{1: "1", 2:"2", 3:"3", 4:"4", 5:"5"}', showbuttons: false, value: '1' }
+                = editable_link_to "2", field: :registration_max, resource: @apprenticeship, type: :text
               Apprentice(s)
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"We suggest you start with 1-2 apprentice(s) if you're new to teaching or collaborating. You can always post again for another apprentice."} }
@@ -314,7 +314,7 @@
                 = link_to @apprenticeship.user.twitter, nice_url(@apprenticeship.user.twitter)
 
 
-            - if show && current_user && current_user.admin? && @apprenticeship.pending?
+            - if show && current_user.admin? && @apprenticeship.pending?
               %dt
                 Legal Name
               %dd
@@ -457,7 +457,7 @@
                 = f.submit "Reject Apprenticeship", :name => "reject_button", :class => "btn"
               %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
               %br
-          = link_to "Approve Apprenticeship", { :controller => 'apprenticeships', :action => 'accept', :id => @apprenticeship.id }, class: "btn btn-success", :method => 'post', :data => { :confirm => 'Hey Nerds, did you do a background check yet?'}
+          = link_to "Approve Apprenticeship", { :controller => 'apprenticeships', :action => 'accept', :id => @apprenticeship.id }, class: "btn btn-success", :method => 'post'
 
           %br
           %br
