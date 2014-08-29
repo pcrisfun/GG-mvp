@@ -47,6 +47,7 @@ GirlsGuild::Application.routes.draw do
     collection do
       post :cancel
       post :accept
+      post :close
       post :resubmit
       get :duplicate
       get :checkmarks

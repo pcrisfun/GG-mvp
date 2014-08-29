@@ -480,12 +480,14 @@
               %br
           %br
           %br
-
         - if current_user && current_user == @apprenticeship.user && !@apprenticeship.started? && !@apprenticeship.completed? && !@apprenticeship.canceled?
           = link_to "Cancel Apprenticeship", { :controller => 'apprenticeships', :action => 'cancel', :id => @apprenticeship.id }, class: "btn btn-danger", :method => 'post', data: { :confirm => "Are you sure? Your apprenticeship will be saved in your Dashboard, but you'll have to resubmit it in order to post it again." }
           %br
           %br
-
+        - if current_user && current_user == @apprenticeship.user && @apprenticeship.accepted?
+          = link_to "Close Apprenticeship", { :controller => 'apprenticeships', :action => 'close', :id => @apprenticeship.id }, class: "btn btn-small btn-danger", :method => 'post', data: { :confirm => "Are you sure you want to stop accepting applications?" }
+          %br
+          %br
         - if current_user && current_user == @apprenticeship.user && @apprenticeship.started?
           = link_to "Delete Apprenticeship", { :controller => 'apprenticeships', :action => 'destroy', :id => @apprenticeship.id }, class: "btn btn-small btn-danger pull-left", :method => 'delete', data: { :confirm => "Are you sure? You can't undo after you delete your apprenticeship. It will really be gone!" }
           %br

@@ -155,7 +155,21 @@ class ApprenticeshipsController < ApplicationController
     end
     redirect_to :back, :flash => { warning: "Blarf.  The following error(s) occured while attempting to cancel your apprenticeship: #{error_msg}".html_safe} and return
   end
-
+#---- close
+  def close
+    if @apprenticeship.fill @apprenticeship.deliver_close
+      redirect_to apprenticeships_path, :flash => { :warning => "Your apprenticeship was closed."} and return
+    else
+      raise
+    end
+  rescue
+    error_msg = " "
+    @apprenticeship.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
+    redirect_to :back, :flash => { warning: "Blarf.  The following error(s) occured while attempting to close your apprenticeship: #{error_msg}".html_safe} and return
+  end
 #---- accept
   def accept
     if @apprenticeship.accept && @apprenticeship.deliver_accept
