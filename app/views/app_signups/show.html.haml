@@ -350,7 +350,7 @@
                   We suggest you meet up first before you accept so you can both see if it's a good fit. Let us know when you're available. We'll set it up and confirm it for you.
 
               .span4.pull-center
-                - if @app_signup.event.filled?
+                - if @app_signup.event.max_capacity_met?
                   = link_to "Accept Apprentice", app_signup_path(@app_signup), rel: 'popover', data: {placement: "top", content: "Sorry, you can't accept this applicant because you've already filled your apprenticeship. Let us know if this is an error or if you'd like to accept another apprentice."}, class: "btn btn-success disabled"
                 - else
                   = link_to "Accept Apprentice", '#acceptModal', data: {toggle: "modal"}, :class => "btn btn-success pull-center"
@@ -369,6 +369,3 @@
                   .well.fancyform-light
                     %h3 Want to Accept?
                     After you accept this applicant we'll give her the chance to meet up with you first. Afterwards she'll confirm by paying, and once she does, we'll put you in touch to get started!
-
-
-
