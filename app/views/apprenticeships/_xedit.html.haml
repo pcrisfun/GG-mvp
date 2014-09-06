@@ -485,7 +485,11 @@
           %br
           %br
         - if current_user && current_user == @apprenticeship.user && @apprenticeship.accepted?
-          = link_to "Close Apprenticeship", { :controller => 'apprenticeships', :action => 'close', :id => @apprenticeship.id }, class: "btn btn-small btn-danger", :method => 'post', data: { :confirm => "Are you sure you want to stop accepting applications?" }
+          = link_to "Close Apprenticeship", { :controller => 'apprenticeships', :action => 'close', :id => @apprenticeship.id }, class: "btn btn-warning", :method => 'post', data: { :confirm => "Are you sure you want to stop accepting applications?" }
+          %br
+          %br
+        - if current_user && current_user == @apprenticeship.user && @apprenticeship.filled? && !@apprenticeship.max_capacity_met?
+          = link_to "Re-Open Apprenticeship", { :controller => 'apprenticeships', :action => 'reopen', :id => @apprenticeship.id }, class: "btn btn-success", :method => 'post', data: { :confirm => "Are you sure you want to re-open your apprenticeship for applications?" }
           %br
           %br
         - if current_user && current_user == @apprenticeship.user && @apprenticeship.started?
