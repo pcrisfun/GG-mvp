@@ -79,7 +79,9 @@ class Signup < ActiveRecord::Base
   end
 
   def check_capacity
-    self.event.fill! if self.event.max_capacity_met?
+    if self.event.max_capacity_met? && !self.event.filled?
+      self.event.fill! 
+    end
   end
 
   def state_label_class
