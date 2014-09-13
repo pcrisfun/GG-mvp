@@ -462,6 +462,14 @@
               %br
           %br
           %br
+        - if current_user && current_user == @workshop.user && @workshop.accepted?
+          = link_to "Close Workshop", { :controller => 'workshops', :action => 'close', :id => @workshop.id }, class: "btn btn-warning", :method => 'post', data: { :confirm => "Are you sure you want to stop accepting signups?" }
+          %br
+          %br
+        - if current_user && current_user == @workshop.user && @workshop.filled? && !@workshop.max_capacity_met?
+          = link_to "Re-Open Workshop", { :controller => 'workshops', :action => 'reopen', :id => @workshop.id }, class: "btn btn-success", :method => 'post', data: { :confirm => "Are you sure you want to re-open your workshop for signups?" }
+          %br
+          %br
 
         - if current_user && current_user == @workshop.user && !@workshop.started? && !@workshop.completed? && !@workshop.canceled?
           = link_to "Cancel Workshop", { :controller => 'workshops', :action => 'cancel', :id => @workshop.id }, class: "btn btn-danger", :method => 'post', data: { :confirm => "Are you sure? Your workshop will be saved in your Dashboard, but you'll have to resubmit it in order to post it again." }

@@ -158,7 +158,7 @@ class ApprenticeshipsController < ApplicationController
 #---- close
   def close
     if @apprenticeship.fill && @apprenticeship.deliver_close
-      redirect_to apprenticeships_path, :flash => { :warning => "Your apprenticeship was closed."} and return
+      redirect_to :back, :flash => { :warning => "Your apprenticeship was closed."} and return
     else
       raise
     end

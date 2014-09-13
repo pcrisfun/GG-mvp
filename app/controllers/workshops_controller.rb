@@ -167,7 +167,36 @@ class WorkshopsController < ApplicationController
     end
     redirect_to :back, :flash => { warning: "Fudge.  The following error(s) occured while attempting to cancel your workshop: #{error_msg}".html_safe} and return
   end
-
+#---- close
+  def close
+    if @workshop.fill && @workshop.deliver_close
+      redirect_to :back, :flash => { :warning => "Your workshop was closed."} and return
+    else
+      raise
+    end
+  rescue
+    error_msg = " "
+    @workshop.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
+    redirect_to :back, :flash => { warning: "Blarf.  The following error(s) occured while attempting to close your workshop: #{error_msg}".html_safe} and return
+  end
+#---- reopen
+  def reopen
+    if @workshop.reopen && @workshop.deliver_reopen
+      redirect_to :back, :flash => {:success => "Great! Your workshop is open for signups again."} and return
+    else
+      raise
+    end
+  rescue
+    error_msg = " "
+    @workshop.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
+    redirect_to :back, :flash => { warning: "Blarf.  The following error(s) occured while attempting to reopen your workshop: #{error_msg}".html_safe} and return
+  end
 #---- accept
   def accept
     if @workshop.accept && @workshop.deliver_accept
