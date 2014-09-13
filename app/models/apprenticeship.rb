@@ -220,6 +220,34 @@ end
     return true
   end
 
+  def deliver_close
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+       :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Your apprenticeship has been closed - #{topic} with #{user.name}",
+      :html_body => %(<h1>Bam!</h1>
+        <p>You've closed your apprenticeship. This means that it will appear to be full and you won't receive more applications.</p>
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_reopen
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+       :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Your apprenticeship has been reopened - #{topic} with #{user.name}",
+      :html_body => %(<h1>Wowsers!</h1>
+        <p>You've reopened your apprenticeship for applications. We'll keep you posted as new applications come in.</p>
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
   def deliver_reject
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
