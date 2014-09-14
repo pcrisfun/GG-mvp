@@ -226,9 +226,9 @@
               ages
               #min-age.field.select
                 = editable_link_to "12", field: :age_min, resource: @apprenticeship, type: :number
-              to
+              \-
               #max-age.field.select
-                = editable_link_to "and up", field: :age_max, resource: @apprenticeship, type: :select, data: {source: "{'12':'12', '13':'13','14':'14','15':'15','16':'16','17':'17','18':'18', 100 :'and up' }"}
+                = editable_link_to "and Up", field: :age_max, resource: @apprenticeship, type: :select, data: {source: "{'12':'12', '13':'13','14':'14','15':'15','16':'16','17':'17','18':'18', 100 :'and Up' }"}
 
               - if !show
                 %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"This is entirely up to you. We suggest a minimum age of 11 because our research has shown a need for fabulous mentors before middle school. If you need someone with a specific skill set or experience you may want to set the age higher and be clear about your needs in the apprenticeship description above."} }

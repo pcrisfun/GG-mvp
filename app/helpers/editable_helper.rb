@@ -31,6 +31,10 @@ module EditableHelper
       if options[:field] && options[:resource] && !options[:link_text]
         if !options[:resource].send(options[:field]).nil?
           link_text = options[:resource].send(options[:field])
+          #special case added for change to age max
+          if (options[:field] == :age_max) && (params[:action] != 'edit') && (link_text == 100)
+            link_text = 'and Up'
+          end
         else
           options[:class] << " editable-empty"
           #add class for required fields
@@ -51,6 +55,7 @@ module EditableHelper
     if options[:link_text]
       link_text = options[:link_text]
     end
+
     unless params[:action] == 'edit'
       if link_text.blank?
         return content_tag(:span, "required", class: 'editable-empty', style: 'font-style: italic')
