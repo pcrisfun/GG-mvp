@@ -29,6 +29,9 @@ GirlsGuild::Application.configure do
     :password  => ENV["MANDRILL_API_KEY"]
   }
 
+  # set the default host for url_for
+  Rails.application.routes.default_url_options[:host] = 'localhost:3000'
+
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 
