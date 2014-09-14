@@ -36,6 +36,7 @@ class Interview < ActiveRecord::Base
           <b>Location: </b> <i>#{interview_location}</i>
         </p>
         <p>If something changes, you can reschedule any time by logging in and clicking <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule</a>.</p>
+        <p>Please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -55,7 +56,7 @@ class Interview < ActiveRecord::Base
           <b>Location: </b> <i>#{interview_location}</i>
         </p>
         <p>Please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>choose 1 hour within these timeframe(s) that will work for you</a>, or to reschedule for a different time.</p>
-        <p>For now - spend some time thinking about your goals for the apprenticeship so that you can let #{user.first_name} know during your chat.</p>
+        <p>Please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -75,7 +76,7 @@ class Interview < ActiveRecord::Base
           <b>Location: </b> <i>#{interview_location}</i>
         </p>
         <p>Please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>choose 1 hour within these timeframe(s) that will work for you and #{app_signup.daughter_firstname}</a>, or to reschedule for a different time.</p>
-        <p>For now - you and #{app_signup.daughter_firstname} should chat about her goals for the apprenticeship so that you can let #{user.first_name} know during your meeting.</p>
+        <p>Please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -102,6 +103,7 @@ class Interview < ActiveRecord::Base
           <b>Location: </b> <i>#{interview_location}</i><br/>
         </p>
         <p>Please log in to if you need to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule</a> or <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>send a message</a>.</p>
+        <p>If you haven't already, please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -121,6 +123,7 @@ class Interview < ActiveRecord::Base
           <b>Location: </b> <i>#{interview_location}</i><br/>
         </p>
         <p>Please log in to if you need to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule</a> or <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>send a message</a>.</p>
+        <p>If you haven't already, please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -140,6 +143,7 @@ class Interview < ActiveRecord::Base
           <b>Location: </b> <i>#{interview_location}</i><br/>
         </p>
         <p>Please log in to if you need to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule</a> or <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>send a message</a>.</p>
+        <p>If you haven't already, please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -166,6 +170,7 @@ class Interview < ActiveRecord::Base
         </p>
         <p>Go ahead and add it to your calendar - you're all set! <br/>
         If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule for a different time</a>.</p>
+        <p>If you haven't already, please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -186,6 +191,7 @@ class Interview < ActiveRecord::Base
         </p>
         <p>Go ahead and add it to your calendar - you're all set! <br/>
         If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule for a different time</a>.</p>
+        <p>If you haven't already, please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -206,6 +212,7 @@ class Interview < ActiveRecord::Base
         </p>
         <p>Go ahead and add it to your calendar - you're all set! <br/>
         If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule for a different time</a>.</p>
+        <p>If you haven't already, please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -233,6 +240,7 @@ class Interview < ActiveRecord::Base
         </p>
         <p>Go ahead and add it to your calendar - you're all set! <br/>
         If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule for a different time</a>.</p>
+        <p>If you haven't already, please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -254,6 +262,7 @@ class Interview < ActiveRecord::Base
         </p>
         <p>Go ahead and add it to your calendar - you're all set! <br/>
         If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule for a different time</a>.</p>
+        <p>If you haven't already, please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -275,6 +284,7 @@ class Interview < ActiveRecord::Base
         </p>
         <p>Go ahead and add it to your calendar - you're all set! <br/>
         If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule for a different time</a>.</p>
+        <p>If you haven't already, please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -302,6 +312,7 @@ class Interview < ActiveRecord::Base
         </p>
         <p>Go ahead and add it to your calendar - you're all set! <br/>
         If this doesn't work for you please login to <a href=#{url_for(controller: 'app_signups', action: 'show', id: app_signup_id, :host=>'localhost:3000')}>reschedule for a different time</a>.</p>
+        <p>If you haven't already, please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
