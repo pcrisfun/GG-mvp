@@ -22,9 +22,15 @@ class Interview < ActiveRecord::Base
     app_signup.parent? ? deliver_interview_requested_parent(opts) : deliver_interview_requested_girl(opts)
   end
 
+  def self.default_url_options
+    ActionMailer::Base.default_url_options
+  end
+
   def url_for_app_signup
     url_for(controller: 'app_signups', action: 'show', id: app_signup_id)
   end
+
+
 
 
   def deliver_interview_requested_maker(opts={})
