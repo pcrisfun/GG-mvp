@@ -23,7 +23,7 @@ class Interview < ActiveRecord::Base
   end
 
   def url_for_app_signup
-    url_for_app_signup
+    url_for(controller: 'app_signups', action: 'show', id: app_signup_id)
   end
 
 
