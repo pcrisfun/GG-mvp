@@ -1,0 +1,176 @@
+-if current_user.admin?
+  - provide(:title, 'Admin')
+  %section#dashboard-display.section.alt-grey
+    .container
+      .row-fluid
+        .span12.pull-right
+          %h1 Apprenticeships
+          %br
+
+          - if @saved_apprenticeships && !@saved_apprenticeships.empty?
+            %a{:id => "startedapprenticeships", class: "anchor"}
+            %a.accordion-toggle{"data-toggle" => "collapse", :href => "#startedapprenticeships-toggle"}
+              %h2
+                %i.fa.fa-angle-down
+                Started Apprenticeships
+            #startedapprenticeships-toggle.accordion-body.collapse
+              = render 'events', events: @saved_apprenticeships
+
+          - if @pending_apprenticeships && !@pending_apprenticeships.empty?
+            %a{:id => "pendingapprenticeships", class: "anchor"}
+            %a.accordion-toggle{"data-toggle" => "collapse", :href => "#pendingapprenticeships-toggle"}
+              %h2
+                %i.fa.fa-angle-down
+                Pending Apprenticeships
+            #pendingapprenticeships-toggle.accordion-body.collapse.in
+              = render 'events', events: @pending_apprenticeships
+
+          - if @posted_apprenticeships && !@posted_apprenticeships.empty?
+            %a{:id => "postedapprenticeships", class: "anchor"}
+            %a.accordion-toggle{"data-toggle" => "collapse", :href => "#postedapprenticeships-toggle"}
+              %h2
+                %i.fa.fa-angle-down
+                Accepted Apprenticeships
+            #postedapprenticeships-toggle.accordion-body.collapse.in
+              = render 'events', events: @posted_apprenticeships
+
+          - if @filled_apprenticeships && !@filled_apprenticeships.empty?
+            %a{:id => "filledapprenticeships", class: "anchor"}
+            %a.accordion-toggle{"data-toggle" => "collapse", :href => "#filledapprenticeships-toggle"}
+              %h2
+                %i.fa.fa-angle-down
+                Filled Apprenticeships
+            #filledapprenticeships-toggle.accordion-body.collapse.in
+              = render 'events', events: @filled_apprenticeships
+
+          - if @completed_apprenticeships && !@completed_apprenticeships.empty?
+            %a{:id => "completedapprenticeships", class: "anchor"}
+            %a.accordion-toggle{"data-toggle" => "collapse", :href => "#completedapprenticeships-toggle"}
+              %h2
+                %i.fa.fa-angle-down
+                Completed Apprenticeships
+            #completedapprenticeships-toggle.accordion-body.collapse.in
+              = render 'events', events: @completed_apprenticeships
+
+          - if @canceled_apprenticeships && !@canceled_apprenticeships.empty?
+            %a{:id => "canceledapprenticeships", class: "anchor"}
+            %a.accordion-toggle{"data-toggle" => "collapse", :href => "#canceledapprenticeships-toggle"}
+              %h2
+                %i.fa.fa-angle-down
+                Canceled Apprenticeships
+            #canceledapprenticeships-toggle.accordion-body.collapse.in
+              = render 'events', events: @canceled_apprenticeships
+
+          %br
+          %hr
+          %h1 Workshops
+          %br
+          - if @saved_workshops && !@saved_workshops.empty?
+            %a{:id => "savedworkshops", class: "anchor"}
+            %a.accordion-toggle{"data-toggle" => "collapse", :href => "#savedworkshops-toggle"}
+              %h2
+                %i.fa.fa-angle-down
+                Started Workshops
+            #savedworkshops-toggle.accordion-body.collapse
+              = render 'events', events: @saved_workshops
+
+          - if @pending_workshops && !@pending_workshops.empty?
+            %a{:id => "pendingworkshops", class: "anchor"}
+            %a.accordion-toggle{"data-toggle" => "collapse", :href => "#pendingworkshops-toggle"}
+              %h2
+                %i.fa.fa-angle-down
+                Pending Workshops
+            #pendingworkshops-toggle.accordion-body.collapse.in
+              = render 'events', events: @pending_workshops
+
+          - if @posted_workshops && !@posted_workshops.empty?
+            %a{:id => "postedworkshops", class: "anchor"}
+            %a.accordion-toggle{"data-toggle" => "collapse", :href => "#postedworkshops-toggle"}
+              %h2
+                %i.fa.fa-angle-down
+                Accepted Workshops
+            #postedworkshops-toggle.accordion-body.collapse.in
+              = render 'events', events: @posted_workshops
+
+          - if @filled_workshops && !@filled_workshops.empty?
+            %a{:id => "filledworkshops", class: "anchor"}
+            %a.accordion-toggle{"data-toggle" => "collapse", :href => "#filledworkshops-toggle"}
+              %h2
+                %i.fa.fa-angle-down
+                Filled Workshops
+            #filledworkshops-toggle.accordion-body.collapse.in
+              = render 'events', events: @filled_workshops
+
+          - if @completed_workshops&& !@completed_workshops.empty?
+            %a{:id => "completedworkshops", class: "anchor"}
+            %a.accordion-toggle{"data-toggle" => "collapse", :href => "#completedworkshops-toggle"}
+              %h2
+                %i.fa.fa-angle-down
+                Completed Workshops
+            #completedworkshops-toggle.accordion-body.collapse.in
+              = render 'events', events: @completed_workshops
+
+          - if @canceled_workshops && !@canceled_workshops.empty?
+            %a{:id => "canceledworkshops", class: "anchor"}
+            %a.accordion-toggle{"data-toggle" => "collapse", :href => "#canceledworkshops-toggle"}
+              %h2
+                %i.fa.fa-angle-down
+                Canceled Workshops
+            #canceledworkshops-toggle.accordion-body.collapse.in
+              = render 'events', events: @canceled_workshops
+
+          %hr
+          %h1 Metrics
+          %br
+          User accounts:
+          = User.count
+          %br
+          Active users:
+          = (User.all.select { |u| u.events.count >= 1 }).count + (User.all.select { |u| u.signups.count >= 1 && u.events.count == 0 }).count
+          %br
+          Active makers:
+          = User.all.select { |u| u.events.where(state: ["accepted", "filled", "completed"]).count >= 1 }.count
+          %br
+          %br
+          Makers who have posted apprenticeships:
+          = User.all.select { |u| u.apprenticeships.where(state: ["accepted", "filled", "completed"]).count >= 1 }.count
+          %br
+          Total apprenticeship postings:
+          = Apprenticeship.where(:state => ["accepted", "filled", "completed"]).count
+          %br
+          Applications for apprenticeships:
+          = AppSignup.count+51
+          %br
+          Confirmed apprentices:
+          = AppSignup.where(:state => ["confirmed", "completed"]).count+18
+          %br
+          %br
+          Makers who have posted workshops:
+          = User.all.select { |u| u.workshops.where(state: ["accepted", "filled", "completed"]).count >= 1 }.count
+          %br
+          Total workshop postings:
+          = Workshop.where(:state => ["accepted", "filled", "completed"]).count
+          %br
+          Workshop participants:
+          = WorkSignup.where(state: ["confirmed","completed"]).count
+          %br
+          %br
+          Makers with repeat apprenticeship postings:
+          = User.all.select { |u| u.apprenticeships.count > 1 }.count
+          %br
+          Repeat signups for any events:
+          = User.all.select { |u| u.signups.count > 1 }.count
+          %br
+          Repeat applicants for apprenticeships:
+          = User.all.select { |u| u.app_signups.count > 1 }.count
+          %br
+          Repeat apprentices:
+          = User.all.select { |u| u.app_signups.where(:state => ["confirmed", "completed"]).count > 1 }.count
+          %br
+          Applicants declined more than once:
+          = User.all.select { |u| u.signups.where(:state => "declined").count > 1 }.count
+          %br
+          %br
+          Apprentices who have become Makers:
+          = User.all.select { |u| u.app_signups.where(:state => ["confirmed", "completed"]).count >= 1 && u.events.count >= 1 }.count
+

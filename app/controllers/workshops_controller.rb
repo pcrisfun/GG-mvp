@@ -13,7 +13,7 @@ class WorkshopsController < ApplicationController
       @allfilled_workshops = Workshop.find_all_by_state('filled').sort_by { |e| e.begins_at }
       @allcompleted_workshops = Workshop.find_all_by_state('completed').sort_by { |e| e.begins_at }
     end
-    @workshops = Workshop.where( datetime_tba: false, state: ['accepted']).sort_by { |e| e.created_at }.reverse!
+    @workshops = Workshop.where( datetime_tba: false, state: ['accepted']).sort_by { |e| e.begins_at }
     @tba_workshops = Workshop.where( datetime_tba: true, state: ['accepted']).sort_by { |e| e.created_at }
     @closed_workshops = Workshop.where( datetime_tba: false, state: ['filled','completed']).where("begins_at < :today", {today: Date.today}).sort_by { |e| e.begins_at }.reverse!
 
@@ -167,7 +167,36 @@ class WorkshopsController < ApplicationController
     end
     redirect_to :back, :flash => { warning: "Fudge.  The following error(s) occured while attempting to cancel your workshop: #{error_msg}".html_safe} and return
   end
-
+#---- close
+  def close
+    if @workshop.fill && @workshop.deliver_close
+      redirect_to :back, :flash => { :warning => "Your workshop was closed."} and return
+    else
+      raise
+    end
+  rescue
+    error_msg = " "
+    @workshop.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
+    redirect_to :back, :flash => { warning: "Blarf.  The following error(s) occured while attempting to close your workshop: #{error_msg}".html_safe} and return
+  end
+#---- reopen
+  def reopen
+    if @workshop.reopen && @workshop.deliver_reopen
+      redirect_to :back, :flash => {:success => "Great! Your workshop is open for signups again."} and return
+    else
+      raise
+    end
+  rescue
+    error_msg = " "
+    @workshop.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
+    redirect_to :back, :flash => { warning: "Blarf.  The following error(s) occured while attempting to reopen your workshop: #{error_msg}".html_safe} and return
+  end
 #---- accept
   def accept
     if @workshop.accept && @workshop.deliver_accept
@@ -213,7 +242,8 @@ class WorkshopsController < ApplicationController
     #@workshop.revoke && @workshop.deliver_revoke
     #redirect_to workshops_path, :flash => { :warning => "Workshop revoked."} and return
   #end
-
+  def duplicate
+  end
 
   def show
     @workshop = Workshop.find(params[:id])

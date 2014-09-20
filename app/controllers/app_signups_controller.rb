@@ -10,6 +10,9 @@ class AppSignupsController < ApplicationController
       @app_signup = AppSignup.find(params[:id]) if params[:id]
     end
     @apprenticeship = @app_signup.event if @app_signup
+    @interview = Interview.new
+    # @interview.app_signup_id = @app_signup.id
+    # @interview = Interview.new(add : @app_signup.id)
   end
 
   def new
@@ -99,6 +102,12 @@ class AppSignupsController < ApplicationController
       @app_signup.deliver_decline
       @app_signup.deliver_decline_maker
       redirect_to apprenticeship_path(@app_signup.event), :flash => { :warning => "Application declined. Thanks! We'll let her know you were honored that she wanted to work together but you found someone else." }
+    elsif params[:accept_button]
+      @app_signup.update_attributes(params[:app_signup])
+      @app_signup.accept
+      @app_signup.deliver_accept
+      @app_signup.deliver_accept_maker
+      redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Yahooo! You've accepted this apprentice. She'll have 2 weeks to confirm, and when she does we'll put you in touch!" }
     elsif params[:resubmit_button]
       @app_signup.update_attributes(params[:app_signup])
       if @app_signup.resubmit && @app_signup.deliver_resubmit && @app_signup.deliver_resubmit_maker
@@ -128,32 +137,33 @@ class AppSignupsController < ApplicationController
         end
       end
     end
-  rescue
-    error_msg = " "
-    @app_signup.errors.each do |field, msg|
-      error_msg << "<br/>"
-      error_msg << field.to_s + ": " + msg
-    end
-    redirect_to :back, :flash => { warning: "Oops. The following error(s) occured while attempting to update your application: #{error_msg}".html_safe} and return
   end
 
   def show
   end
 
-  def accept
-    @app_signup = AppSignup.find(params[:id]) if params[:id]
-    @app_signup.accept && @app_signup.deliver_accept && @app_signup.deliver_accept_maker
-    redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Yahooo! You've accepted this apprentice. She'll have 2 weeks to confirm, and when she does we'll put you in touch!" }
-  end
-
   def cancel
-    @app_signup = AppSignup.find(params[:id]) if params[:id]
     if @app_signup.confirmed? && @apprenticeship.filled?
       @apprenticeship.reopen
     end
     @app_signup.cancel && @app_signup.deliver_cancel && @app_signup.deliver_cancel_maker
     redirect_to apprenticeship_path(@app_signup.event), :flash => { :warning => "Drat! Your application has been canceled."}
   end
+
+  # def resubmit
+  #   if @app_signup.resubmit && @app_signup.deliver_resubmit && @app_signup.deliver_resubmit_maker
+  #     redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Thanks! Your application was resubmitted. #{@apprenticeship.host_firstname} will review it, and we'll let you know her decision within two weeks."} and return
+  #   else
+  #     raise
+  #   end
+  # rescue
+  #   error_msg = " "
+  #   @app_signup.errors.each do |field, msg|
+  #     error_msg << "<br/>"
+  #     error_msg << msg
+  #   end
+  #   redirect_to :back, :flash => { warning: "Oops. The following error(s) occured while attempting to resubmit your application: #{error_msg}".html_safe} and return
+  # end
 
   def confirm
     current_user.update_attributes!(params[:user])

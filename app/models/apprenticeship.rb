@@ -36,7 +36,7 @@ class Apprenticeship < Event
 
   validation_group :private do
     validates_presence_of :permission, :message => "We need your permission to run a background check."
-    validates_presence_of :legal_name, :message => "We'll need your legal full name in order to run a background check."
+    validates_presence_of :legal_name, :message => "We'll need your full legal name in order to run a background check."
   end
 
   validation_group :topic do
@@ -99,6 +99,10 @@ class Apprenticeship < Event
     validates_presence_of :tool_list
   end
 
+def should_validate_begins_at?
+    :tba_is_blank && (self.started? || self.pending?)
+end
+
   include Emailable
 
   def deliver_save
@@ -109,6 +113,21 @@ class Apprenticeship < Event
       :subject => "You started building an apprenticeship!",
       :html_body => %(<h1>Hooray #{user.first_name}!</h1>
         <p>We're thrilled you're building an apprenticeship! If you get stuck take a look at our <a href="#{faq_url}">FAQ</a>, or feel free to respond to this email with any questions you might have!</p>
+        <p>You can <a href="#{edit_apprenticeship_url(self)}">edit your apprenticeship here</a> or monitor signups from your <a href="#{dashboard_url}">Events Dashboard</a></p>
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_duplicate
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+       :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "You duplicated your previous apprenticeship",
+      :html_body => %(<h1>Sweet #{user.first_name}!</h1>
+        <p>We're happy you've duplicated your previous apprenticeship! You can still edit any details before submitting. If you get stuck take a look at our <a href="#{faq_url}">FAQ</a>, or feel free to respond to this email with any questions you might have!</p>
         <p>You can <a href="#{edit_apprenticeship_url(self)}">edit your apprenticeship here</a> or monitor signups from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
@@ -179,7 +198,7 @@ class Apprenticeship < Event
       :subject => "Your apprenticeship has been canceled - #{topic} with #{user.name}",
       :html_body => %(<h1>Bummer!</h1>
         <p>You've canceled your apprenticeship. We hope you'll consider offering it again sometime!</p>
-        <p>You can edit the apprenticeship and resubmit it anytime. Find it here - <a href="#{edit_apprenticeship_url(self)}"> #{self.title}</a></p>
+        <p>You can duplicate your canceled apprenticeship and submit it again anytime. Find it in your <a href="#{dashboard_url}">Events Dashboard</a></a></p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -195,6 +214,34 @@ class Apprenticeship < Event
       :html_body => %(<h1>Bummer!</h1>
         <p>We're sorry to say that #{user.name} has had to cancel her apprenticeship. It may be rescheduled later, and if it is you'll be the first to know!</p>
         <p>In the meantime you can check out other upcoming apprenticehsips you might like here: <a href="#{url_for(apprenticeships)}"> #{apprenticeships_path}</a></p>
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_close
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+       :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Your apprenticeship has been closed - #{topic} with #{user.name}",
+      :html_body => %(<h1>Bam!</h1>
+        <p>You've closed your apprenticeship. This means that it will appear to be full and you won't receive more applications.</p>
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_reopen
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+       :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Your apprenticeship has been reopened - #{topic} with #{user.name}",
+      :html_body => %(<h1>Wowsers!</h1>
+        <p>You've reopened your apprenticeship for applications. We'll keep you posted as new applications come in.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -295,6 +342,12 @@ class Apprenticeship < Event
     return checkmarks
   end
 
+  state_machine :state, :initial => :started do
+    event :complete do
+      transition :all => :completed
+    end
+  end
+
   def state_label
     if self.started?
       return "saved"
@@ -343,7 +396,7 @@ class Apprenticeship < Event
           return ''
         end
     elsif self.completed?
-      return "Your apprenticeship is over :-)"
+      return "Your apprenticeship is complete"
     end
     return ''
   end

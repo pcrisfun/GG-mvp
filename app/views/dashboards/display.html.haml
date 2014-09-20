@@ -1,13 +1,21 @@
 - provide(:title, 'My Events')
 %section#dashboard-display.section.alt-grey
   .container
+    /.row-fluid
+    /  .span2.pull-left
+    /    = render 'dashboards/nav'
+    /  .span10
+    /    %h1 My Events
+    %br
     .row-fluid
-      .span2.pull-left
-        = render 'dashboards/nav'
-      .span10.pull-right
+      .span12
         %h1 My Events
-        %br
         - if current_user
+          /- if @events && !@events.empty?
+          /  .fancyform-light
+          /    %h2 Apprenticeships I'm Leading
+          /    = render 'leading', events: @events
+          /  %br
           - if @events && !@events.empty?
             .fancyform-light
               %h2 I'm Leading

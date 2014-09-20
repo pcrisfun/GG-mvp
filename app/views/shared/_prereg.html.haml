@@ -3,4 +3,4 @@
   =link_to( "You're following".html_safe, prereg, method: 'DELETE', class: 'btn btn-success btn-following btn-block')
 
 - else
-  =link_to( "Follow this Maker #{content_tag(:i, "", class: "fa fa-eye")}".html_safe, preregs_path(event_id: event), method: 'POST', class: 'btn btn-block btn-primary')
+  =link_to( "Follow this Maker #{content_tag(:i, "", class: "fa fa-eye")}".html_safe, preregs_path(event_id: event), method: 'POST', class: 'btn btn-block btn-inverse')

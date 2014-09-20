@@ -22,7 +22,7 @@ class Event < ActiveRecord::Base
                   :location_address, :location_address2, :location_city, :location_state, :location_zipcode,
                   :location_private, :location_nbrhood, :location_varies, :age_min, :age_max,
                   :registration_min, :registration_max, :price, :respect_my_style, :gender, :reject_reason, :revoke_reason,
-                  :state, :legal_name, :user_id
+                  :state, :legal_name
 
   def generate_title
     self.title = "#{self.topic} with #{self.host_firstname} #{self.host_lastname}"
@@ -82,10 +82,6 @@ class Event < ActiveRecord::Base
     datetime_tba.blank?
   end
 
-  def should_validate_begins_at?
-    :tba_is_blank && (self.started? || self.pending?)
-  end
-
   def residential
     location_private == true
   end
@@ -113,7 +109,9 @@ class Event < ActiveRecord::Base
   end
 
   def countdown_message
-
+    if self.canceled?
+      return "Your blarp has been canceled"
+    end
   end
 
   state_machine :state, :initial => :started do
@@ -129,18 +127,23 @@ class Event < ActiveRecord::Base
     end
 
     state :pending do
+
     end
 
     state :accepted do
+
     end
 
     state :canceled do
+
     end
 
     state :filled do
+
     end
 
     state :completed do
+
     end
 
     event :reject do
@@ -155,7 +158,7 @@ class Event < ActiveRecord::Base
       transition :accepted => :started
     end
 
-    event :submit do
+    event :paid do
       transition :started => :pending
     end
 
@@ -173,10 +176,6 @@ class Event < ActiveRecord::Base
 
     event :fill do
       transition :accepted => :filled
-    end
-
-    event :complete do
-      transition :all => :completed
     end
 
     event :reopen do
@@ -293,7 +292,7 @@ class Event < ActiveRecord::Base
                pending: "label-warning btn-block",
                accepted: "label-success btn-block",
                confirmed: "label-success btn-block",
-               canceled: "label-important btn-block",
+               canceled: "label btn-block",
                filled: "label-success btn-block",
                in_progress: "label-success btn-block",
                completed: "label-inverse btn-block"
@@ -302,7 +301,7 @@ class Event < ActiveRecord::Base
   end
 
   def submitted_signups
-    return self.signups.where(:state => ["pending", "accepted", "confirmed", "completed", "declined"])
+    return self.signups.where(:state => ["pending", "accepted", "confirmed", "completed", "declined", "canceled", "interview_requested", "interview_scheduled" ])
   end
 
   def confirmed_signups
@@ -320,6 +319,8 @@ class Event < ActiveRecord::Base
   def spots_left
     if self.filled?
       return "Full"
+    elsif self.canceled?
+      return "Canceled"
     elsif self.completed?
       return "Past"
     elsif self.registration_max
