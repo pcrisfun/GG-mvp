@@ -119,12 +119,7 @@
                 %i.fa.fa-asterisk
               When
             %dd
-              - if !show || @workshop.datetime_tba
-                #tba.field.checkbox.optional
-                  = editable_link_to "Date Options", field: :datetime_tba, resource: @workshop, type: :select, link_text: @workshop.datetime_tba ? "TBA" : "Schedule",  data: { source: '{false : "Schedule", true : "TBA"}'}
               - if !show || !@workshop.datetime_tba
-                #from{class: (show || @workshop.datetime_tba) ?  'hidden' : '' }
-                  this Workshop on
                 #dates{class: @workshop.datetime_tba ?  'hidden' : '' }
                   #begins-at.field.date.optional
                     = editable_link_to "Date", field: :begins_at, resource: @workshop, type: :date, link_text: get_formated_date(@workshop.begins_at), data: { viewformat: 'MM d, yyyy', template: 'MM d, yyyy'}

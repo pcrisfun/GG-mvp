@@ -193,7 +193,7 @@ include EventHelper
 			:html_body => %(<h1>Congrats #{user.first_name}!</h1>
         <p>Your workshop has been posted and is now live! Check it out - <a href="#{url_for(self)}"> #{self.title}</a></p>
         <p>Be sure to invite your friends and share it on your social networks!</p>
-        <p>If it's posted as TBA we'll email you as people follow it, so you can decide when to set the date. If you already set a date, we'll let you know whenever someone signs up. Registrations will be closed when #{self.registration_max} people have signed up or on the date you set. </p>
+        <p>We'll let you know whenever someone signs up. Registrations will be closed when #{self.registration_max} people have signed up or on the date you set. </p>
         <p>If by some bad luck you need to cancel your workshop, you can do so from your <a href="#{dashboard_url}">Events Dashboard</a>. Likewise, if it turns out fewer than your minimum #{self.registration_min} participants sign up, the workshop will automatically be canceled on #{get_formated_date(self.ends_at, format: "%b %e, %Y")}. We think it's going to rock, though!</p>
         <p>Let us know if you have any questions!</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
