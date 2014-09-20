@@ -4,6 +4,13 @@
   %section.section
     .container
       - if show
+
+        - if current_user && current_user == @workshop.user && @workshop.accepted?
+          = link_to "Close Signups", { :controller => 'workshops', :action => 'close', :id => @workshop.id }, class: "btn pull-left", :method => 'post', data: { :confirm => "Are you sure you want to stop accepting signups?" }
+
+        - if current_user && current_user == @workshop.user && @workshop.filled? && !@workshop.max_capacity_met?
+          = link_to "Re-Open Signups", { :controller => 'workshops', :action => 'reopen', :id => @workshop.id }, class: "btn pull-left", :method => 'post', data: { :confirm => "Are you sure you want to re-open your workshop for signups?" }
+
         - if current_user && current_user==@workshop.user
           = link_to "Edit", edit_workshop_path(@workshop), name: "edit_button", class: "btn btn-primary pull-right"
 
@@ -455,14 +462,6 @@
                 = f.submit "Revoke Workshop", :name => "revoke_button", :class => "btn btn-warning"
               %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
               %br
-          %br
-          %br
-        - if current_user && current_user == @workshop.user && @workshop.accepted?
-          = link_to "Close Workshop", { :controller => 'workshops', :action => 'close', :id => @workshop.id }, class: "btn btn-warning", :method => 'post', data: { :confirm => "Are you sure you want to stop accepting signups?" }
-          %br
-          %br
-        - if current_user && current_user == @workshop.user && @workshop.filled? && !@workshop.max_capacity_met?
-          = link_to "Re-Open Workshop", { :controller => 'workshops', :action => 'reopen', :id => @workshop.id }, class: "btn btn-success", :method => 'post', data: { :confirm => "Are you sure you want to re-open your workshop for signups?" }
           %br
           %br
 
