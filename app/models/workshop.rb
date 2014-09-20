@@ -223,8 +223,10 @@ include EventHelper
        :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your workshop has been closed - #{topic} with #{user.name}",
-      :html_body => %(<h1>Bam!</h1>
+      :html_body => %(<h1>Closed!</h1>
         <p>You've closed your workshop. This means that it will appear to be full and you won't receive more signups.</p>
+        <p>You can keep track of your signups from your <a href="#{dashboard_url}">Events Dashboard</a></p>
+        <p>There are currently #{self.signups.where(:state => 'confirmed').count} people signed up, here are their email addresses: #{self.get_signup_emails}</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -237,8 +239,10 @@ include EventHelper
        :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your workshop has been reopened - #{topic} with #{user.name}",
-      :html_body => %(<h1>Wowsers!</h1>
+      :html_body => %(<h1>Reopened!</h1>
         <p>You've reopened your workshop for signups. We'll keep you posted as new signups come in.</p>
+        <p>There are currently #{self.signups.where(:state => 'confirmed').count} people signed up.</p>
+        <p>You can keep track of your signups from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
