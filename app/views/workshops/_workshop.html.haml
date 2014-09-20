@@ -21,8 +21,11 @@
       Ages
       %span.label
         = workshop.age_min ? workshop.age_min : '_'
-        to
-        = workshop.age_max ? workshop.age_max : '_'
+        - if workshop.age_max > 18
+          = "and Up"
+        - else
+          to
+          = workshop.age_max ? workshop.age_max : '_'
       %br
       %span.date
         - if workshop.datetime_tba == false
