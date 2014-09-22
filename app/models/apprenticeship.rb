@@ -226,8 +226,11 @@ end
        :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your apprenticeship has been closed - #{topic} with #{user.name}",
-      :html_body => %(<h1>Bam!</h1>
-        <p>You've closed your apprenticeship. This means that it will appear to be full and you won't receive more applications.</p>
+      :html_body => %(<h1>Closed!</h1>
+        <p>You've closed applications to your apprenticeship. This means that it will appear to be full and you won't receive anymore applications.</p>
+        <p>You can keep track of your current applications from your <a href="#{dashboard_url}">Events Dashboard</a>.</p>
+        <p>There are currently #{self.signups.where(:state => ['pending','interview_requested','interview_scheduled', 'accepted']).count} open applications:</p>
+        <p>#{self.list_applications}</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -240,8 +243,11 @@ end
        :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your apprenticeship has been reopened - #{topic} with #{user.name}",
-      :html_body => %(<h1>Wowsers!</h1>
+      :html_body => %(<h1>Reopened!</h1>
         <p>You've reopened your apprenticeship for applications. We'll keep you posted as new applications come in.</p>
+        <p>You can keep track of your current applications from your <a href="#{dashboard_url}">Events Dashboard</a>.</p>
+        <p>There are currently #{self.signups.where(:state => ['pending','interview_requested','interview_scheduled', 'accepted']).count} open applications:</p>
+        <p>#{self.list_applications}</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -304,6 +310,12 @@ end
     Apprenticeship.where(state: "started", help_posting_sent: false, :created_at => date_range).each do |app|
       app.deliver_help_posting
     end
+  end
+
+  def list_applications
+    "<ul>" + self.signups.where(:state => ['pending','interview_requested','interview_scheduled', 'accepted']).map do |a|
+      "<li><a href=#{url_for(a)}> #{a.user.first_name}</a> (#{a.state})</li>"
+    end.join + "</ul>"
   end
 
   def self.complete_apprenticeship
