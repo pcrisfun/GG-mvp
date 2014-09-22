@@ -170,7 +170,7 @@ class WorkshopsController < ApplicationController
 #---- close
   def close
     if @workshop.fill && @workshop.deliver_close
-      redirect_to :back, :flash => { :warning => "Your workshop was closed."} and return
+      redirect_to :back, :flash => { :warning => "Your workshop was closed for signups."} and return
     else
       raise
     end
@@ -180,7 +180,7 @@ class WorkshopsController < ApplicationController
       error_msg << "<br/>"
       error_msg << msg
     end
-    redirect_to :back, :flash => { warning: "Blarf.  The following error(s) occured while attempting to close your workshop: #{error_msg}".html_safe} and return
+    redirect_to :back, :flash => { warning: "Whoops, the following error(s) occured while attempting to close your workshop: #{error_msg}".html_safe} and return
   end
 #---- reopen
   def reopen
@@ -195,7 +195,7 @@ class WorkshopsController < ApplicationController
       error_msg << "<br/>"
       error_msg << msg
     end
-    redirect_to :back, :flash => { warning: "Blarf.  The following error(s) occured while attempting to reopen your workshop: #{error_msg}".html_safe} and return
+    redirect_to :back, :flash => { warning: "Whoops, the following error(s) occured while attempting to reopen your workshop: #{error_msg}".html_safe} and return
   end
 #---- accept
   def accept

@@ -158,7 +158,7 @@ class ApprenticeshipsController < ApplicationController
 #---- close
   def close
     if @apprenticeship.fill && @apprenticeship.deliver_close
-      redirect_to :back, :flash => { :warning => "Your apprenticeship was closed."} and return
+      redirect_to :back, :flash => { :warning => "Your apprenticeship was closed for applications."} and return
     else
       raise
     end
@@ -168,7 +168,7 @@ class ApprenticeshipsController < ApplicationController
       error_msg << "<br/>"
       error_msg << msg
     end
-    redirect_to :back, :flash => { warning: "Blarf.  The following error(s) occured while attempting to close your apprenticeship: #{error_msg}".html_safe} and return
+    redirect_to :back, :flash => { warning: "Whoops, the following error(s) occured while attempting to close your apprenticeship: #{error_msg}".html_safe} and return
   end
 #---- reopen
   def reopen
@@ -183,7 +183,7 @@ class ApprenticeshipsController < ApplicationController
       error_msg << "<br/>"
       error_msg << msg
     end
-    redirect_to :back, :flash => { warning: "Blarf.  The following error(s) occured while attempting to reopen your apprenticeship: #{error_msg}".html_safe} and return
+    redirect_to :back, :flash => { warning: "Whoops, the following error(s) occured while attempting to reopen your apprenticeship: #{error_msg}".html_safe} and return
   end
 #---- accept
   def accept
