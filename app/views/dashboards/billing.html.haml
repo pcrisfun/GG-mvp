@@ -1,0 +1,12 @@
+- provide(:title, 'Edit Billing Info')
+%section#dashboard-display.section.alt-grey
+  .container
+    .row-fluid
+      .span3.pull-left
+        = render 'dashboards/nav'
+      .span9.pull-right
+        .fancyform-light
+          = simple_form_for(@user, :url => update_billing_path, defaults: { input_html: { class: 'span5 payment_form' } }, html: { :method => :put } ) do |f|
+            = render '/shared/credit_card_form', f: f
+            .form-actions
+              = f.button :submit, "Save!", :class => "btn btn-large btn-primary"

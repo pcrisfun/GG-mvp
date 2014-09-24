@@ -77,6 +77,8 @@ GirlsGuild::Application.routes.draw do
   match '/admin', to: 'dashboards#admin'
   match 'users/avatar', to: 'dashboards#avatar', as: :avatar
   match 'users/update_avatar', to: 'dashboards#update_avatar', as: :update_avatar
+  match 'users/billing', to: 'dashboards#billing', as: :billing
+  match 'users/update_billing', to: 'dashboards#update_billing', as: :update_billing
 
   match '/events', to: 'events#index'
 

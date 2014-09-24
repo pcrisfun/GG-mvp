@@ -30,4 +30,22 @@ class DashboardsController < ApplicationController
     end
   end
 
+  def billing
+    @user = User.find(current_user.id)
+  end
+
+  def update_billing
+    @user = User.find(current_user.id)
+    logger.info "Updating customer"
+    customer = Stripe::Customer.retrieve(@user.stripe_customer_id)
+    customer.card = stripe_card_token
+    customer.description = user.email
+
+    if customer.save
+      redirect_to request.referrer, flash: { success: "Your billing information was successfully updated" }
+    else
+      redirect_to request.referrer, flash: { warning: "The following error(s) occurred: #{@user.errors.full_messages}"}
+    end
+  end
+
 end
