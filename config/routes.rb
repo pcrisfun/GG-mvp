@@ -50,6 +50,7 @@ GirlsGuild::Application.routes.draw do
       post :close
       post :reopen
       post :resubmit
+      post :set_featured_listing
       get :duplicate
       get :checkmarks
     end
@@ -65,6 +66,7 @@ GirlsGuild::Application.routes.draw do
       post :close
       post :reopen
       post :resubmit
+      post :set_featured_listing
       get :duplicate
       get :checkmarks
     end

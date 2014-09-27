@@ -229,6 +229,14 @@ class ApprenticeshipsController < ApplicationController
     #redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship revoked."} and return
   #end
 
+  def set_featured_listing
+    @apprenticeship = Event.find(params[:add_featured])
+    @apprenticeship.toggle!(:featured)
+    # respond_to do |format|
+    #   format.js { render 'events/add_featured' }
+    # end
+  end
+
   def show
     @apprenticeship = Apprenticeship.find(params[:id])
     if current_user && !@apprenticeship.signups.empty?

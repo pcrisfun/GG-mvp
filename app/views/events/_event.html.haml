@@ -18,6 +18,10 @@
                   = link_to "Edit", edit_apprenticeship_path(event), class: "btn btn-mini pull-right"
                 - elsif event.accepted?
                   = link_to "Edit", edit_apprenticeship_path(event), class: "btn btn-mini pull-right"
+              - if current_user.admin?
+                %a.feature.btn.featured-btn.fa.fa-star-o.pull-right.relative{type: 'submit', rel: 'tooltip', data: {toggle: 'tooltip', title: "Display this listing on the home page", url: "#{set_featured_listing_apprenticeships_url}", behaviour: "setfeatured" }}
+                / may need to add back apprenticeship: #{@apprenticeship.id}
+
 
             = link_to event.title_html, apprenticeship_path(event), class: "title-boxlink"
             = event.type
@@ -64,6 +68,9 @@
                   = link_to "Edit", edit_workshop_path(event), class: "btn btn-mini pull-right"
                 - elsif event.accepted?
                   = link_to "Edit", edit_workshop_path(event), class: "btn btn-mini pull-right"
+              - if current_user.admin?
+                %a.feature.btn.featured-btn.fa.fa-star-o.pull-right.relative{type: 'submit', rel: 'tooltip', data: {toggle: 'tooltip', title: "Display this listing on the home page", url: "#{set_featured_listing_workshops_url}", behaviour: "setfeatured" }}
+                / may need to add back workshop: #{@workshop.id}
 
             = link_to event.title_html, workshop_path(event), class: "title-boxlink"
             = event.type
