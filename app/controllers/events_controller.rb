@@ -9,7 +9,7 @@ class EventsController < ApplicationController
 
   #Does this need to be in the Apprent / Workshop controllers because of the routes?
   def set_featured_listing
-    @event = Event.find(params[:add_featured])
+    @event = Event.find(params[:id])
     @event.toggle!(:featured)
     # respond_to do |format|
     #   format.js { render 'events/add_featured' }
