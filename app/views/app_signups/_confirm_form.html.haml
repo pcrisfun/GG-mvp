@@ -128,6 +128,7 @@
     .accordion-body
       .accordion-inner
         %br/
-        %dl.dl-horizontal.dl-application
+        / %dl.dl-horizontal.dl-application
         %p We already have your billing information, you'll be charged upon confirming - Thanks!
-        %a.pull-right Update my billing info.
+        = link_to "Update my billing info", billing_path, class: 'pull-right'
+        %br

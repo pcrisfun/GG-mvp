@@ -122,7 +122,15 @@
     .accordion-body
       .accordion-inner
         %br/
-        %h3 [Explain that you will be charged if you are accepted and confirm]
+        %h3 Please submit your billing information - you won't be charged yet!
+        %p
+          We'll only charge your card if you're accepted and you decide to confirm the apprenticeship.
+          %br
+          (If you decide <i>not</i> to confirm the apprenticeship, please cancel via
+          = link_to "your dashboard", dashboard_path
+          to let us know.)
+        /If you're accepted, we will email you a link to confirm the apprenticeship, and we'll charge your card at that point.
+        .alert.alert-warning <b>Note:</b> If your application is accepted and you do <i>not</i> confirm or cancel, we'll assume you've already begun working together and go ahead with confirming by charging your card.
         %br/
-        = render :partial => "shared/credit_card", :locals => { :f => f, :paid => @app_signup.charge_id.present? }
+        = render :partial => "shared/credit_card", :locals => { :f => f, :paid => @app_signup.user.stripe_customer_id.present? }
         %br/

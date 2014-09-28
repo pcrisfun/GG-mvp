@@ -15,8 +15,13 @@ task :cancel_events => :environment do
   Workshop.cancel_workshop
 end
 
+#3rd, based on the date stamp of the transition to state "accepted", confirm & process payment for app_signups that haven't confirmed or canceled yet
+desc "Auto-confirm app_signups after one week"
+task :auto_confirm_apprent => :environment do
+  AppSignup.auto_confirm_apprenticeship
+end
 
-#3rd, based on start date, send reminders if they haven't been sent yet
+#4th, based on start date, send reminders if they haven't been sent yet
 desc "Send event reminders"
 task :send_reminders => :environment do
   Workshop.maker_reminder
@@ -26,7 +31,7 @@ task :send_reminders => :environment do
 end
 
 
-#4th, based on end date, send follow up emails if they haven't been sent yet
+#5th, based on end date, send follow up emails if they haven't been sent yet
 desc "Send followups after events"
 task :send_followups => :environment do
   Workshop.maker_followup

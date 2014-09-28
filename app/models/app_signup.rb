@@ -51,13 +51,6 @@ class AppSignup < Signup
     end
   end
 
-  #TODO figure this out
-  def update_payment_info
-    #sort of same as above but pulling the existing customer & updating their card.
-    #damn I just realized this probably actually goes in stripe.js
-    #here is a new change
-  end
-
   def process_apprent_fee
     logger.info "Processing apprentice payment"
     unless charge_id.present?
@@ -107,6 +100,25 @@ class AppSignup < Signup
       logger.error "Stripe error while creating charge: #{e.message}"
       #errors.add :base, "There was a problem with your credit card."
       false
+  end
+
+  def process_auto_payment
+    if self.process_apprent_fee
+      if self.confirm
+        self.deliver_confirm_auto
+        self.process_maker_fee
+        if self.maker_charge_id.present?
+          self.deliver_confirm_maker_auto
+        else
+          self.deliver_maker_payment_failed
+        end
+        logger.info "#{self.user.first_name}'s signup for #{self.event.title} has been confirmed. Maker and apprentice payments were processed."
+      else
+        logger.error "State transition to 'Confirmed' failed: App Signup #{self.id}, #{self.user.first_name}"
+      end
+    else
+      logger.error "#{self.user.first_name}'s payment for #{self.event.title} failed. App Signup #{self.id} has not been confirmed."
+    end
   end
 
   def deliver_save
@@ -454,7 +466,7 @@ class AppSignup < Signup
       :html_body => %(<h1>Yeehaw #{self.user.first_name}!</h1>
         <p>We're excited to let you know that #{self.event.user.first_name} has reviewed your application for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a> and would like to work with you as her apprentice!</p>
         <p>To accept the apprenticeship, please fill out the <a href=#{url_for(self)}>confirmation form</a> and the $30.00 apprenticeship fee will be charged to the card we have on file. Just so you know, your confirmation is your commitment to take on the apprenticeship, so once you've paid, we don't offer a refund.</p>
-        <p>You still have the chance to decline the apprenticeship, but if you don't respond to the confirmation email within a week of being accepted, we'll assume you've begun working together and will go ahead with the confirmation and charge your credit card.</p>
+        <p>You still have the chance to cancel your application via your <a href="#{dashboard_url}">Events Dashboard</a>, but if you don't respond to the confirmation email within a week of being accepted, we'll assume you've begun working together and will go ahead with the confirmation by charging your credit card.</p>
         <p>If you have any questions feel free to respond to this email or email #{self.event.user.first_name} directly at - #{self.event.user.email}</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
@@ -471,8 +483,8 @@ class AppSignup < Signup
       :html_body => %(<h1>Yeehaw!</h1>
         <p>We're excited to let you know that #{self.event.user.first_name} has reviewed your daughter's application for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a> and would like to work with #{self.daughter_firstname} as her apprentice!</p>
         <p>To accept the apprenticeship, please fill out the <a href=#{url_for(self)}>confirmation form</a> and the $30.00 apprenticeship fee will be charged to the card we have on file. Just so you know, your daughter's confirmation is her commitment to take on the apprenticeship, so once you've paid, we don't offer a refund.</p>
-        <p>You still have the chance to decline the apprenticeship, but if you don't respond to the confirmation email within a week of being accepted, we'll assume you've begun working together and will go ahead with the confirmation and charge your credit card.</p>
-        <p>If you have any questions feel free to respond to this email. or email #{self.event.user.first_name} directly at - #{self.event.user.email}</p>
+        <p>You still have the chance to cancel your application via your <a href="#{dashboard_url}">Events Dashboard</a>, but if you don't respond to the confirmation email within a week of being accepted, we'll assume you've begun working together and will go ahead with the confirmation by charging your credit card.</p>
+        <p>If you have any questions feel free to respond to this email or email #{self.event.user.first_name} directly at - #{self.event.user.email}</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -490,7 +502,7 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You've accepted #{user.first_name} as your apprentice!",
       :html_body => %(<h1>Hoorah!</h1>
-        <p>You've accepted #{user.first_name} as your apprentice for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>! We've asked her to confirm her commitment by submitting her apprenticeship fee. Once she confirms, we'll put you two in touch to get started! If we don't hear from her, we'll assume you've already begun working together and go ahead and confirm the apprenticeship by charging your credit card.</p>
+        <p>You've accepted #{user.first_name} as your apprentice for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>! We've asked her to confirm her commitment by submitting her apprenticeship fee. Once she confirms, we'll put you two in touch to get started! If we don't hear from her within a week, we'll assume you've already begun working together and go ahead and confirm the apprenticeship by charging your credit card.</p>
         <p>Make sure to also print a copy of the <a href="http://girlsguild.com/waivers/ReleaseWaiver-adults.pdf">Participation Waiver</a> to have your apprentice(s) sign before you begin work!</p>
         <p>If you have any questions feel free to respond to this email.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
@@ -506,7 +518,7 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You've accepted #{self.daughter_firstname} as your apprentice!",
       :html_body => %(<h1>Hoorah!</h1>
-        <p>You've accepted #{self.daughter_firstname} as your apprentice for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>! We've asked her (and her parent, #{user.first_name}) to confirm her commitment by submitting her apprenticeship fee. Once she confirms, we'll put you two in touch to get started! If we don't hear from her, we'll assume you've already begun working together and go ahead and confirm the apprenticeship by charging your credit card.</p>
+        <p>You've accepted #{self.daughter_firstname} as your apprentice for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>! We've asked her (and her parent, #{user.first_name}) to confirm her commitment by submitting her apprenticeship fee. Once she confirms, we'll put you two in touch to get started! If we don't hear from her within a week, we'll assume you've already begun working together and go ahead and confirm the apprenticeship by charging your credit card.</p>
         <p>Make sure to also print a copy of the <a href="http://girlsguild.com/waivers/ReleaseWaiver-adults.pdf">Participation Waiver</a> and the <a href="http://girlsguild.com/waivers/IndemnificationAgreement-minors.pdf">Indemnification Agreement for Minors</a> to have your apprentice's parent sign before you begin work!</p>
         <p>If you have any questions feel free to respond to this email.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
@@ -580,6 +592,71 @@ class AppSignup < Signup
     return true
   end
 
+  def deliver_confirm_auto(opts={})
+    if self.parent?
+      deliver_confirm_parent_auto(opts)
+    elsif self.minor?
+      deliver_confirm_minor_auto(opts)
+    else
+      deliver_confirm_self_auto(opts)
+    end
+  end
+
+  def deliver_confirm_self_auto(opts={})
+    return false unless valid?
+    payment = opts[:payment]
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Your apprenticeship is good to go! - #{self.event.title}",
+      :html_body => %(<h1>Yesss!</h1>
+        <p>You're all set for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>! We processed your confirmation and have charged the card on file for your payment of $30.</p>
+        <p>If you haven't yet, you can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan your first meeting together.</p>
+        <p>We'll follow up soon to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_confirm_minor_auto(opts={})
+    return false unless valid?
+    payment = opts[:payment]
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Your apprenticeship is good to go! - #{self.event.title}",
+      :html_body => %(<h1>Yesss!</h1>
+        <p>You're all set for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>! We processed your confirmation and have charged the card on file for your payment of $30.</p>
+        <p>If you haven't yet, you can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan your first meeting together.</p>
+        <p>We'll follow up soon to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+      :cc => "#{self.parent_name}<#{self.parent_email}>",
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_confirm_parent_auto(opts={})
+    return false unless valid?
+    payment = opts[:payment]
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Your apprenticeship is good to go! - #{self.event.title}",
+      :html_body => %(<h1>Yesss!</h1>
+        <p>#{self.daughter_firstname} is all set for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>! We processed your confirmation and have charged the card on file for your payment of $30.</p>
+        <p>If you haven't yet, you can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan their first meeting together.</p>
+        <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
   def deliver_confirm_maker(opts={})
     parent? ? deliver_confirm_maker_parent(opts) : deliver_confirm_maker_girl(opts)
   end
@@ -591,7 +668,7 @@ class AppSignup < Signup
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your apprenticeship with #{user.first_name} is ready to start! - #{self.event.title}",
-      :html_body => %(<h1>Yesss, #{user.first_name} has confirmed the apprenticeship!</h1> <p>We've gone ahead and charged your card the $30.00 confirmation fee. You're all set to work with #{user.first_name} for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>! To get things rolling, you can contact #{user.first_name} at #{user.email} or #{user.phone} to set up your first meeting together.</p>
+      :html_body => %(<h1>Yesss, #{user.first_name} has confirmed the apprenticeship!</h1> <p>We've gone ahead and charged your card the $30 confirmation fee. You're all set to work with #{user.first_name} for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>! To get things rolling, you can contact #{user.first_name} at #{user.email} or #{user.phone} to set up your first meeting together.</p>
       <p>If you'd prefer to have us facilitate the first meeting with you and #{user.first_name} at the GirlsGuild HQ, just reply to this email to let us know. Make sure to also print a copy of the <a href="http://girlsguild.com/waivers/ReleaseWaiver-adults.pdf">Participation Waiver</a>, and if she's under 19, the  <a href="http://girlsguild.com/waivers/IndemnificationAgreement-minors.pdf">Indemnification Agreement for Minors</a> to have your apprentice(s) and their parents sign before you begin work! </p>
       <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
@@ -606,7 +683,41 @@ class AppSignup < Signup
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your apprenticeship with #{self.daughter_firstname} is ready to start! - #{self.event.title}",
-      :html_body => %(<h1>Yesss, #{self.daughter_firstname} has confirmed the apprenticeship! </h1> <p>We've gone ahead and charged your card the $30.00 confirmation fee. You're all set to work with #{self.daughter_firstname} for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>! To get things rolling, you can contact her parent, #{user.first_name}, at #{user.email} or #{user.phone} to set up your first meeting with #{self.daughter_firstname}.</p>
+      :html_body => %(<h1>Yesss, #{self.daughter_firstname} has confirmed the apprenticeship! </h1> <p>We've gone ahead and charged your card the $30 confirmation fee. You're all set to work with #{self.daughter_firstname} for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>! To get things rolling, you can contact her parent, #{user.first_name}, at #{user.email} or #{user.phone} to set up your first meeting with #{self.daughter_firstname}.</p>
+      <p>If you'd prefer to have us facilitate the first meeting with you and #{self.daughter_firstname} at the GirlsGuild HQ, just reply to this email to let us know. Make sure to also print a copy of the <a href="http://girlsguild.com/waivers/ReleaseWaiver-adults.pdf">Participation Waiver</a> and the <a href="http://girlsguild.com/waivers/IndemnificationAgreement-minors.pdf">Indemnification Agreement for Minors</a> to have your apprentice(s) and their parents sign before you begin work! </p>
+      <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_confirm_maker_auto(opts={})
+    parent? ? deliver_confirm_maker_parent_auto(opts) : deliver_confirm_maker_girl_auto(opts)
+  end
+
+  def deliver_confirm_maker_girl_auto(opts={})
+    return false unless valid?
+    Pony.mail({
+      :to => "#{event.user.name}<#{event.user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Your apprenticeship with #{user.first_name} is good to go! - #{self.event.title}",
+      :html_body => %(<h1>Yesss, we've confirmed your apprenticeship with #{user.first_name}!</h1> <p>We've gone ahead and charged your card the $30 confirmation fee. You're all set to work with #{user.first_name} for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>! To get things rolling, you can contact #{user.first_name} at #{user.email} or #{user.phone} to set up your first meeting together.</p>
+      <p>If you'd prefer to have us facilitate the first meeting with you and #{user.first_name} at the GirlsGuild HQ, just reply to this email to let us know. Make sure to also print a copy of the <a href="http://girlsguild.com/waivers/ReleaseWaiver-adults.pdf">Participation Waiver</a>, and if she's under 19, the  <a href="http://girlsguild.com/waivers/IndemnificationAgreement-minors.pdf">Indemnification Agreement for Minors</a> to have your apprentice(s) and their parents sign before you begin work! </p>
+      <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_confirm_maker_parent_auto(opts={})
+    return false unless valid?
+    Pony.mail({
+      :to => "#{event.user.name}<#{event.user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Your apprenticeship with #{self.daughter_firstname} is good to go! - #{self.event.title}",
+      :html_body => %(<h1>Yesss, we've confirmed your apprenticeship with #{self.daughter_firstname}! </h1> <p>We've gone ahead and charged your card the $30 confirmation fee. You're all set to work with #{self.daughter_firstname} for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>! To get things rolling, you can contact her parent, #{user.first_name}, at #{user.email} or #{user.phone} to set up your first meeting with #{self.daughter_firstname}.</p>
       <p>If you'd prefer to have us facilitate the first meeting with you and #{self.daughter_firstname} at the GirlsGuild HQ, just reply to this email to let us know. Make sure to also print a copy of the <a href="http://girlsguild.com/waivers/ReleaseWaiver-adults.pdf">Participation Waiver</a> and the <a href="http://girlsguild.com/waivers/IndemnificationAgreement-minors.pdf">Indemnification Agreement for Minors</a> to have your apprentice(s) and their parents sign before you begin work! </p>
       <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
@@ -682,7 +793,13 @@ class AppSignup < Signup
     return true
   end
 
-  #Ask Pete: event.begins_at gets a "no such column" error. (So does self.event.begins_at, @apprenticeship.begins_at, apprenticeship.begins_at, begins_at...)
+  def auto_confirm_apprenticeship
+    date_range = (Date.today-7.days)..Date.today
+    AppSignup.where(:state => "accepted", self.state_stamps.last.stamp => date_range).each do |app|
+      app.process_auto_payment
+    end
+  end
+
   def self.reminder
     date_range = Date.today..(Date.today+3.days)
     AppSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'confirmed', app_reminder_sent: false).each do |app|
