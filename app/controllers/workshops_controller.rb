@@ -32,13 +32,14 @@ class WorkshopsController < ApplicationController
     if params[:workshop]
       @workshop = current_user.workshops.new(params[:workshop])
     else
-      @workshop = current_user.workshops.new(topic: 'Your Workshop Topic', host_firstname: current_user.first_name, host_lastname: current_user.last_name, datetime_tba: true, begins_at_time: '12:00pm', ends_at_time: '2:00pm', location_nbrhood: "East Austin", location_address: "1309 Chestnut St.", location_city: "Austin", location_state: "TX", location_zipcode: "78702", age_min: "11", age_max: "100", registration_min: "2", registration_max: "10" )
+      @workshop = current_user.workshops.new(topic: 'Your Workshop Topic', host_firstname: current_user.first_name, host_lastname: current_user.last_name, datetime_tba: false, begins_at_time: '12:00pm', ends_at_time: '2:00pm', location_nbrhood: "East Austin", location_address: "1309 Chestnut St.", location_city: "Austin", location_state: "TX", location_zipcode: "78702", age_min: "11", age_max: "100", registration_min: "2", registration_max: "10" )
     end
     @workshop.begins_at ||= Date.today + 31.day
     @workshop.ends_at ||= Date.today + 29.day
     @workshop.generate_title
 
     if @workshop.save(validate: false) && @workshop.deliver_save
+      @workshop.make_stamp
       redirect_to edit_workshop_path(@workshop)
     else
       raise
@@ -166,7 +167,36 @@ class WorkshopsController < ApplicationController
     end
     redirect_to :back, :flash => { warning: "Fudge.  The following error(s) occured while attempting to cancel your workshop: #{error_msg}".html_safe} and return
   end
-
+#---- close
+  def close
+    if @workshop.fill && @workshop.deliver_close
+      redirect_to :back, :flash => { :warning => "Your workshop was closed for signups."} and return
+    else
+      raise
+    end
+  rescue
+    error_msg = " "
+    @workshop.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
+    redirect_to :back, :flash => { warning: "Whoops, the following error(s) occured while attempting to close your workshop: #{error_msg}".html_safe} and return
+  end
+#---- reopen
+  def reopen
+    if @workshop.reopen && @workshop.deliver_reopen
+      redirect_to :back, :flash => {:success => "Great! Your workshop is open for signups again."} and return
+    else
+      raise
+    end
+  rescue
+    error_msg = " "
+    @workshop.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
+    redirect_to :back, :flash => { warning: "Whoops, the following error(s) occured while attempting to reopen your workshop: #{error_msg}".html_safe} and return
+  end
 #---- accept
   def accept
     if @workshop.accept && @workshop.deliver_accept
@@ -212,7 +242,8 @@ class WorkshopsController < ApplicationController
     #@workshop.revoke && @workshop.deliver_revoke
     #redirect_to workshops_path, :flash => { :warning => "Workshop revoked."} and return
   #end
-
+  def duplicate
+  end
 
   def show
     @workshop = Workshop.find(params[:id])

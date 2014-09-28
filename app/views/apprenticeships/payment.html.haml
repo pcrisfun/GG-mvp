@@ -30,13 +30,14 @@
               but we'll do our best! We do not offer refunds on posting fees.
 
             %hr
-              = simple_form_for @apprenticeship, html: { class: 'form-horizontal payment_form' }, validate: false do |f|
-                = render 'shared/error_messages', form_model: @apprenticeship
-                = render partial: "shared/credit_card", locals: { f: f, paid: @apprenticeship.user.stripe_customer_id.present? }
-                %br
-                %br
-                #preview-buttons-bottom.pull-center
-                  = f.submit 'Submit your Apprenticeship', class: 'btn btn-primary', id: 'cc_process'
+
+            = simple_form_for @apprenticeship, html: { class: 'form-horizontal payment_form' }, validate: false do |f|
+              = render 'shared/error_messages', form_model: @apprenticeship
+              = render partial: "shared/credit_card", locals: { f: f, paid: @apprenticeship.user.stripe_customer_id.present? }
+              %br
+              %br
+              #preview-buttons-bottom.pull-center
+                = f.submit 'Submit your Apprenticeship', class: 'btn btn-primary', id: 'cc_process'
 
           .span3
             %br

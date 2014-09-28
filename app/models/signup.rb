@@ -9,9 +9,7 @@ class Signup < ActiveRecord::Base
 	belongs_to :event
   has_many :state_stamps
 
-	attr_accessible :collaborate, :happywhen, :interest, :experience, :requirements, :confirm_available, :preferred_times, :confirm_unpaid, :confirm_fee, :parent_phone, :parent_name, :parent_email, :waiver, :parents_waiver, :respect_agreement, :charge_id, :parent, :daughter_name, :daughter_age
-
-  attr_accessible :stripe_card_token
+	attr_accessible :collaborate, :happywhen, :interest, :experience, :requirements, :confirm_available, :preferred_times, :confirm_unpaid, :confirm_fee, :parent_phone, :parent_name, :parent_email, :waiver, :parents_waiver, :respect_agreement, :charge_id, :parent, :daughter_name, :daughter_age, :stripe_card_token
   attr_accessor :stripe_card_token
 
   def make_stamp
@@ -39,6 +37,12 @@ class Signup < ActiveRecord::Base
     state :canceled do
     end
 
+    state :interview_requested do
+    end
+
+    state :interview_scheduled do
+    end
+
     state :confirmed do
     end
 
@@ -55,7 +59,7 @@ class Signup < ActiveRecord::Base
     end
 
     event :accept do
-      transition :pending => :accepted
+      transition all => :accepted
     end
 
     event :cancel do
@@ -63,7 +67,7 @@ class Signup < ActiveRecord::Base
     end
 
     event :decline do
-      transition :pending => :declined
+      transition all => :declined
     end
 
     event :confirm do
@@ -75,17 +79,21 @@ class Signup < ActiveRecord::Base
   end
 
   def check_capacity
-    self.event.fill! if self.event.max_capacity_met?
+    if self.event.max_capacity_met? && !self.event.filled?
+      self.event.fill! 
+    end
   end
 
   def state_label_class
-    labels = { started: "label-info",
-               pending: "label-warning",
-               accepted: "label-success",
-               declined: "",
-               canceled: "label-important",
-               confirmed: "label-success",
-               completed: "label-inverse"
+    labels = { started: "started",
+               pending: "pending",
+               interview_requested: "interviewing",
+               interview_scheduled: "interviewing",
+               accepted: "accepted",
+               declined: "declined",
+               confirmed: "confirmed",
+               canceled: "canceled",
+               completed: "completed"
              }
     return labels[self.state.to_sym]
   end

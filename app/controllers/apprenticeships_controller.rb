@@ -1,14 +1,14 @@
 class ApprenticeshipsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show, :new]
-  before_filter :current_apprenticeship, except: [:index, :new, :create, :save]
+  before_filter :current_apprenticeship, except: [:index, :new, :create, :save, :duplicate]
   before_filter :owner_user, only: [:edit, :private, :payment, :payment_confirmation, :update]
   before_filter :current_admin, only: :destroy
   before_filter :load_user_gallery
 
   def index
     unless current_user.blank?
-      @allpending_apprenticeships = Apprenticeship.find_all_by_state('pending').sort_by { |e| e.begins_at }
       @allsaved_apprenticeships = Apprenticeship.find_all_by_state('started').sort_by { |e| e.begins_at }
+      @allpending_apprenticeships = Apprenticeship.find_all_by_state('pending').sort_by { |e| e.begins_at }
       @allcanceled_apprenticeships = Apprenticeship.find_all_by_state('canceled').sort_by { |e| e.begins_at }
       @allfilled_apprenticeships = Apprenticeship.find_all_by_state('filled').sort_by { |e| e.begins_at }
       @allcompleted_apprenticeships = Apprenticeship.find_all_by_state('completed').sort_by { |e| e.begins_at }
@@ -79,6 +79,10 @@ class ApprenticeshipsController < ApplicationController
           if current_user.admin? && @apprenticeship.reject && @apprenticeship.deliver_reject
             redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship rejected." } and return
           end
+
+        # add syntax like the above for the :close_button
+          # add logic to change state from "accepted" to "filled" (see events.rb model for state_machine logic)
+          # add redirect_back with flash message "Your apprenticeship is closed for applications"
 
         elsif params[:commit] == 'Save'
           redirect_to :back, flash: { success: "Your apprenticeship has been saved"} and return
@@ -151,7 +155,36 @@ class ApprenticeshipsController < ApplicationController
     end
     redirect_to :back, :flash => { warning: "Blarf.  The following error(s) occured while attempting to cancel your apprenticeship: #{error_msg}".html_safe} and return
   end
-
+#---- close
+  def close
+    if @apprenticeship.fill && @apprenticeship.deliver_close
+      redirect_to :back, :flash => { :warning => "Your apprenticeship was closed for applications."} and return
+    else
+      raise
+    end
+  rescue
+    error_msg = " "
+    @apprenticeship.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
+    redirect_to :back, :flash => { warning: "Whoops, the following error(s) occured while attempting to close your apprenticeship: #{error_msg}".html_safe} and return
+  end
+#---- reopen
+  def reopen
+    if @apprenticeship.reopen && @apprenticeship.deliver_reopen
+      redirect_to :back, :flash => {:success => "Great! Your apprenticeship is open for applications again."} and return
+    else
+      raise
+    end
+  rescue
+    error_msg = " "
+    @apprenticeship.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
+    redirect_to :back, :flash => { warning: "Whoops, the following error(s) occured while attempting to reopen your apprenticeship: #{error_msg}".html_safe} and return
+  end
 #---- accept
   def accept
     if @apprenticeship.accept && @apprenticeship.deliver_accept
@@ -201,6 +234,53 @@ class ApprenticeshipsController < ApplicationController
     if current_user && !@apprenticeship.signups.empty?
       @app_signup = @apprenticeship.signups.where(user_id: current_user.id).first
     end
+  end
+
+  def duplicate
+      old_apprenticeship = Apprenticeship.find(params[:id])
+      maker = old_apprenticeship.user
+      @apprenticeship = maker.apprenticeships.new( title: old_apprenticeship.title,
+                                             topic: old_apprenticeship.topic,
+                                             kind: old_apprenticeship.kind,
+                                             availability: old_apprenticeship.availability,
+                                             host_firstname: old_apprenticeship.host_firstname,
+                                             host_lastname: old_apprenticeship.host_lastname,
+                                             host_business: old_apprenticeship.host_business,
+                                             description: old_apprenticeship.description,
+                                             hours: old_apprenticeship.hours,
+                                             location_private: old_apprenticeship.location_private,
+                                             location_nbrhood: old_apprenticeship.location_nbrhood,
+                                             location_address: old_apprenticeship.location_address,
+                                             location_city: old_apprenticeship.location_city,
+                                             location_state: old_apprenticeship.location_state,
+                                             location_zipcode: old_apprenticeship.location_zipcode,
+                                             gender: old_apprenticeship.gender,
+                                             age_min: old_apprenticeship.age_min,
+                                             age_max: old_apprenticeship.age_max,
+                                             registration_max: old_apprenticeship.registration_max,
+                                             skill_list: old_apprenticeship.skill_list,
+                                             tool_list: old_apprenticeship.tool_list,
+                                             requirement_list: old_apprenticeship.requirement_list
+                                            )
+
+      @apprenticeship.begins_at ||= Date.today + 7.day
+      @apprenticeship.ends_at ||= Date.tomorrow + 97.day
+
+      if @apprenticeship.save(validate: false) && @apprenticeship.deliver_duplicate
+        redirect_to edit_apprenticeship_path(@apprenticeship)#, :flash => { :success => "Nice! Let's start by designing your apprenticeship. Click on the text to edit, and hover on the blue question marks for more info. We'll save this form as you go so you can come back to it at any time." }
+      else
+        raise
+      end
+    rescue
+      error_msg = " "
+      @apprenticeship.errors.each do |field, msg|
+        error_msg << "<br/>"
+        error_msg << msg
+      end
+      respond_to do |format|
+        format.json { render json: { errors: $!.inspect } and return }
+        format.html { redirect_to :back, :flash => { warning: "Blarf.  The following error(s) occured while attempting to duplicate your apprenticeship: #{error_msg}. Try creating a new apprenticeship from scratch.".html_safe} and return }
+      end
   end
 
   def private

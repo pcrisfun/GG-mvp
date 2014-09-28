@@ -37,7 +37,11 @@
         %td
           = apprenticeship.age_min
           &nbsp;-&nbsp;
-          = apprenticeship.age_max
+            - if apprenticeship.age_max > 18
+              and Up
+            - else
+              to
+              = apprenticeship.age_max
         %td
           = apprenticeship.begins_at.strftime('%a, %b %d')
           &nbsp;-&nbsp;

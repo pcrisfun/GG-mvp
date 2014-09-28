@@ -1,7 +1,7 @@
 - if (signups||=false)
   - signups.each do |signup|
     /- unless signup.event.type == "Workshop" && signup.state == "started"
-    %table.table.table-bordered.table-striped.table-hover.table-condensed
+    %table.table.table-bordered.table-hover.table-condensed#userdashboard
       %tbody
         - event = signup.event
         %tr
@@ -24,21 +24,26 @@
               %br
               = link_to 'Cancel registration', { :controller => 'work_signups', :action => 'cancel', :id => signup.id }, :method => :post, :data => { :confirm => 'Are you sure you want to cancel your registration for this workshop?'}
             - if event.type == "Apprenticeship"
-              - if signup.started? || signup.pending?
+              - if signup.started? || signup.pending? || signup.interview_requested? || signup.interview_scheduled?
                 %br
                 = link_to 'Cancel application', { :controller => 'app_signups', :action => 'cancel', :id => signup.id }, :method => :post, :data => { :confirm => 'Are you sure you want to cancel your application for this apprenticeship?'}
                 &nbsp; | &nbsp;
                 = link_to 'View application', { :controller => 'app_signups', :action => 'show', :id => signup.id }
-              - if signup.accepted?
+
+              - if signup.accepted? || signup.confirmed?
                 %br
-                = link_to 'Cancel application', { :controller => 'app_signups', :action => 'cancel', :id => signup.id }, :method => :post, :data => { :confirm => 'Are you sure you want to cancel your application for this apprenticeship?'}
+                = link_to 'Cancel application', { :controller => 'app_signups', :action => 'cancel', :id => signup.id }, :method => :post, :data => { :confirm => "Are you sure you want to cancel your application for this apprenticeship? We won't be able to offer you a refund if you've already paid."}
+              - if signup.accepted?
                 &nbsp; | &nbsp;
                 = link_to 'Confirm application', { :controller => 'app_signups', :action => 'show', :id => signup.id }
-              - if signup.canceled?
+
+
+
+              - if signup.canceled? && !event.canceled?
                 %br
                 = link_to 'Edit & resubmit application', { :controller => 'app_signups', :action => 'edit', :id => signup.id }
               - if signup.confirmed? || signup.completed?
-                %br
+                &nbsp; | &nbsp;
                 = mail_to event.user.email, 'Email the maker'
           %td.spots
             = event.spots_left
@@ -48,7 +53,7 @@
             - elsif event.type == "Workshop"
               = event.nice_dates_workshops
           %td.state
-            %span.label.btn-block{class: signup.state_label_class}
+            %span{class: signup.state_label_class}
               = signup.state_label
           %td.countdown
             = signup.countdown_message

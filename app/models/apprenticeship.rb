@@ -36,7 +36,7 @@ class Apprenticeship < Event
 
   validation_group :private do
     validates_presence_of :permission, :message => "We need your permission to run a background check."
-    validates_presence_of :legal_name, :message => "We'll need your legal full name in order to run a background check."
+    validates_presence_of :legal_name, :message => "We'll need your full legal name in order to run a background check."
   end
 
   validation_group :topic do
@@ -120,6 +120,21 @@ end
     return true
   end
 
+  def deliver_duplicate
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+       :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "You duplicated your previous apprenticeship",
+      :html_body => %(<h1>Sweet #{user.first_name}!</h1>
+        <p>We're happy you've duplicated your previous apprenticeship! You can still edit any details before submitting. If you get stuck take a look at our <a href="#{faq_url}">FAQ</a>, or feel free to respond to this email with any questions you might have!</p>
+        <p>You can <a href="#{edit_apprenticeship_url(self)}">edit your apprenticeship here</a> or monitor signups from your <a href="#{dashboard_url}">Events Dashboard</a></p>
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
   def deliver(opts={})
     return false unless valid?
     payment = opts[:payment]
@@ -184,7 +199,7 @@ end
       :subject => "Your apprenticeship has been canceled - #{topic} with #{user.name}",
       :html_body => %(<h1>Bummer!</h1>
         <p>You've canceled your apprenticeship. We hope you'll consider offering it again sometime!</p>
-        <p>You can edit the apprenticeship and resubmit it anytime. Find it here - <a href="#{edit_apprenticeship_url(self)}"> #{self.title}</a></p>
+        <p>You can duplicate your canceled apprenticeship and submit it again anytime. Find it in your <a href="#{dashboard_url}">Events Dashboard</a></a></p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -200,6 +215,40 @@ end
       :html_body => %(<h1>Bummer!</h1>
         <p>We're sorry to say that #{user.name} has had to cancel her apprenticeship. It may be rescheduled later, and if it is you'll be the first to know!</p>
         <p>In the meantime you can check out other upcoming apprenticehsips you might like here: <a href="#{url_for(apprenticeships)}"> #{apprenticeships_path}</a></p>
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_close
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+       :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Your apprenticeship has been closed - #{topic} with #{user.name}",
+      :html_body => %(<h1>Closed!</h1>
+        <p>You've closed applications to your apprenticeship. This means that it will appear to be full and you won't receive anymore applications.</p>
+        <p>You can keep track of your current applications from your <a href="#{dashboard_url}">Events Dashboard</a>.</p>
+        <p>There are currently #{self.signups.where(:state => ['pending','interview_requested','interview_scheduled', 'accepted']).count} open applications:</p>
+        <p>#{self.list_applications}</p>
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_reopen
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+       :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Your apprenticeship has been reopened - #{topic} with #{user.name}",
+      :html_body => %(<h1>Reopened!</h1>
+        <p>You've reopened your apprenticeship for applications. We'll keep you posted as new applications come in.</p>
+        <p>You can keep track of your current applications from your <a href="#{dashboard_url}">Events Dashboard</a>.</p>
+        <p>There are currently #{self.signups.where(:state => ['pending','interview_requested','interview_scheduled', 'accepted']).count} open applications:</p>
+        <p>#{self.list_applications}</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -240,14 +289,44 @@ end
     return true
   end
 
-  #def self.complete_apprenticeship
-   # Apprenticeship.where(:state => ["accepted", "filled"].where('ends_at <= ?', Date.today).each do |app|
-    #  app.signups.where(:state => "confirmed").each do |a|
-     #   a.complete
-      #end
-     # app.complete
-    #end
-  #end
+  def deliver_help_posting
+    Pony.mail({
+        :to => "#{user.name}<#{user.email}>",
+        :from => "Diana & Cheyenne<hello@girlsguild.com>",
+        :reply_to => "GirlsGuild<hello@girlsguild.com>",
+        :subject => "Any questions we can help with?",
+        :html_body => %(<p>Hey #{user.first_name},</p>
+          <p>We're glad you started an apprenticeship posting the other day. Do you have any questions about it?</p>
+          <p>To find out what to expect from the process, take a look at our <a href="#{new_apprenticeship_url}">How it Works</a> page. For more details, check out the <a href="#{faq_url}">FAQ</a>. And if you have specific questions, just hit reply! We're happy to chat about it.</p>
+          <p>To continue the posting and submit it, you can find it here - <a href="#{edit_apprenticeship_url(self)}"> #{self.title}</a>
+          <p>~<br/>Thanks,<br/><br/>Cheyenne & Diana<br/>GirlsGuild Co-Founders</p>),
+        :bcc => "hello@girlsguild.com",
+    })
+    self.update_column(:help_posting_sent, true)
+    return true
+  end
+
+  def self.help_posting
+    date_range = (Date.today-5.days)..(Date.today+1)
+    Apprenticeship.where(state: "started", help_posting_sent: false, :created_at => date_range).each do |app|
+      app.deliver_help_posting
+    end
+  end
+
+  def list_applications
+    "<ul>" + self.signups.where(:state => ['pending','interview_requested','interview_scheduled', 'accepted']).map do |a|
+      "<li><a href=#{url_for(a)}> #{a.user.first_name}</a> (#{a.state})</li>"
+    end.join + "</ul>"
+  end
+
+  def self.complete_apprenticeship
+    Apprenticeship.where(:state => ["accepted", "filled"]).where('ends_at <= ?', Date.today-1.days).each do |app|
+      #I don't know why app.complete doesn't work, but it doesn't and this does:
+      app.state = "completed"
+      app.save!(validate: false)
+      app.signups.where(:state => "confirmed").each {|a| a.complete}
+    end
+  end
 
   def already_applied?(user)
     self.signups.where(:user_id => user.id).any?
@@ -330,7 +409,7 @@ end
           return ''
         end
     elsif self.completed?
-      return "Your apprenticeship is over :-)"
+      return "Your apprenticeship is complete"
     end
     return ''
   end

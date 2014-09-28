@@ -1,5 +1,7 @@
 class AppSignup < Signup
 
+  has_many :interviews
+
   validation_group :save do
   end
 
@@ -135,6 +137,7 @@ class AppSignup < Signup
     })
     return true
   end
+
   def deliver_save_parent
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
@@ -800,6 +803,13 @@ class AppSignup < Signup
     end
   end
 
+  def self.remind_maker_to_review
+    # UPDATE: date_range = (Date.today-5.days)..(Date.today+1)
+    # UPDATE: Apprenticeship.where(state: "started", help_posting_sent: false, :created_at => date_range).each do |app|
+      # UPDATE: app.deliver_help_posting
+    # end
+  end
+
   def self.reminder
     date_range = Date.today..(Date.today+3.days)
     AppSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'confirmed', app_reminder_sent: false).each do |app|
@@ -875,6 +885,8 @@ class AppSignup < Signup
       return "saved"
     elsif self.confirmed?
       return "going on"
+    elsif self.interview_requested? || self.interview_scheduled?
+      return "interviewing"
     else
       return self.state
     end
@@ -882,34 +894,43 @@ class AppSignup < Signup
 
   def countdown_message
     if self.started?
-        return "Your application is saved. <br/><a href=#{edit_app_signup_path(self)} class='bold'>Finish applying!</a>".html_safe
+      return "Your application is saved. <a href=#{edit_app_signup_path(self)} class='bold'>Finish applying!</a>".html_safe
     elsif self.pending?
-        return "Your application is being reviewed. You should hear back by <strong>#{(self.state_stamps.last.stamp + 14.days).strftime("%b %d")}</strong>".html_safe
+      return "Your application is being reviewed. You should hear back by <strong>#{(self.state_stamps.last.stamp + 14.days).strftime("%b %d")}</strong>".html_safe
+    elsif self.interview_requested?
+      return "#{self.event.user.first_name} has <a href=#{app_signup_path(self)}>requested an interview.</a>".html_safe
+    elsif self.interview_scheduled?
+      return "Your <a href=#{app_signup_path(self)}>interview is scheduled</a>.".html_safe
     elsif self.accepted?
-        return "Your application has been accepted! <a href=#{app_signup_path(self)} class='bold'>Confirm</a> your apprenticeship!".html_safe
+      return "Your application has been accepted! <a href=#{app_signup_path(self)} class='bold'>Confirm</a> your apprenticeship!".html_safe
     elsif self.declined?
+      return "It did't work out, but you're still awesome!"
     elsif self.canceled?
+      if self.event.canceled?
         return "This event has been canceled"
+      else
+        return "Your application has been canceled"
+      end
     elsif self.confirmed?
-        if self.event.datetime_tba
-          return ''
-        elsif self.event.begins_at && Date.today < self.event.begins_at
-          return "<strong>#{(self.event.begins_at.mjd - Date.today.mjd)}</strong> days until your apprenticeship begins!".html_safe
-        elsif self.event.ends_at && Date.today < self.event.ends_at
-          return "#{self.event.ends_at.mjd - Date.today.mjd} more days of your Apprenticeship"
-        else
-          return false
-        end
+      if self.event.datetime_tba
+        return ''
+      elsif self.event.begins_at && Date.today < self.event.begins_at
+        return "<strong>#{(self.event.begins_at.mjd - Date.today.mjd)}</strong> days until your apprenticeship begins!".html_safe
+      elsif self.event.ends_at && Date.today < self.event.ends_at
+        return "#{self.event.ends_at.mjd - Date.today.mjd} more days of your Apprenticeship"
+      else
+        return false
+      end
     elsif self.completed?
-      return "Your apprenticeship is over :-)"
+      return "Your apprenticeship is complete"
     else
     end
     return ''
   end
 
   def countdown_message_maker
-    if self.started?
-    elsif self.pending?
+  if self.started?
+    elsif self.pending? || self.interview_scheduled? || self.interview_requested?
       return "#{(self.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days left to <a href=#{app_signup_path(self)} class='bold'>review</a> ".html_safe
     elsif self.accepted?
     elsif self.declined?

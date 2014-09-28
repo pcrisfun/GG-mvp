@@ -1,6 +1,6 @@
 -if (preregs||=false)
   - preregs.each do |prereg|
-    %table.table.table-bordered.table-striped.table-hover.table-condensed
+    %table.table.table-bordered.table-striped.table-hover.table-condensed#userdashboard
       %tbody
         - event = prereg.event
         %tr
@@ -27,8 +27,7 @@
             - elsif event.type == "Workshop"
               = event.nice_dates_workshops
           %td.state
-            %span.label.btn-block
-              following
+            .following &nbsp;following
           %td.countdown
             We'll email you when #{event.host_firstname} sets a date!
             %b

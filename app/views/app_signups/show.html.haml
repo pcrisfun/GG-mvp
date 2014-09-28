@@ -1,90 +1,269 @@
 = content_tag :section, :class => "section alt-grey", :id => 'apply' do
-  = content_tag :div, :class => "container" do
+  = content_tag :div, :class => "container application" do
     - provide(:title, "Application for Apprenticeship")
-    - if current_user == @app_signup.event.user && @app_signup.canceled?
-      %h2 Rats! It looks like #{@app_signup.user.first_name} has canceled this application
-      %br
-    - if @app_signup.accepted? && @app_signup.user == current_user
-      %h1 Apprenticeship Confirmation
+
+
+    / TITLE AND TIME REMAINING =======================================================================================
+    - if current_user == @app_signup.user && (@app_signup.started? or @app_signup.pending? or @app_signup.interview_requested? or @app_signup.interview_scheduled? or @app_signup.confirmed? or @app_signup.declined? or @app_signup.canceled?)
       - if @app_signup.parent?
-        %p
-          Congratulations #{@app_signup.user.first_name} and #{@app_signup.daughter_firstname}! We’re so happy to connect you with #{@apprenticeship.host_firstname} for #{link_to "#{@app_signup.event.title}", apprenticeship_path(@app_signup.event)}.
-        %p
-          After you confirm this apprenticeship by completing this form, we’ll send you an email with all the details, including #{"#{@apprenticeship.host_firstname}"}'s direct contact info.
+        %h1 #{@app_signup.daughter_firstname}'s Application for #{link_to "#{@app_signup.event.topic}", apprenticeship_path(@app_signup.event)}
       - else
+        %h1 My Application for #{link_to "#{@app_signup.event.topic}", apprenticeship_path(@app_signup.event)}
+      - if @app_signup.pending? or @app_signup.interview_requested? or @app_signup.interview_scheduled?
         %p
-          Congratulations #{@app_signup.user.first_name}! We’re so happy to connect you with #{@apprenticeship.host_firstname} for #{link_to "#{@app_signup.event.title}", apprenticeship_path(@app_signup.event)}.
+          #{@app_signup.event.user.first_name} has
+          - if Date.today < @app_signup.state_stamps.last.stamp + 14.days
+            %span.badge.badge-success #{(@app_signup.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days
+          - else
+            %span.badge.badge-warning #{(@app_signup.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days
+          to review your application and make her decision.
+      - elsif @app_signup.declined?
+        .alert.alert-warning So sorry - #{@app_signup.event.user.first_name} has accepted another apprentice, but she was honored you applied.
+
+    - elsif current_user == @app_signup.event.user
+      - if @app_signup.parent?
+        %h1 #{@app_signup.daughter_firstname}'s Application for #{link_to "#{@app_signup.event.topic}", apprenticeship_path(@app_signup.event)}
+      - else
+        %h1 #{@app_signup.user.first_name}'s Application for #{link_to "#{@app_signup.event.topic}", apprenticeship_path(@app_signup.event)}
+      - if @app_signup.pending? or @app_signup.interview_requested? or @app_signup.interview_scheduled?
         %p
-          After you confirm this apprenticeship by completing this form, we’ll send you an email with all the details, including #{"#{@apprenticeship.host_firstname}"}'s direct contact info.
-      %br/
+          You have
+          - if Date.today < @app_signup.state_stamps.last.stamp + 14.days
+            %span.badge.badge-success #{(@app_signup.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days
+          - else
+            %span.badge.badge-warning #{(@app_signup.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days
+          to review her application and make your decision.
+      - elsif @app_signup.accepted?
+        .alert.alert-success
+          %i.fa.fa-check
+          Thanks for accepting #{@app_signup.user.first_name} - we'll let you know when she confirms!
+      - elsif @app_signup.declined?
+        .alert.alert-warning Thanks for making the tough decision to decline #{@app_signup.user.first_name}. We've let her know.
+
+
+    - elsif current_user.admin?
+      - if @app_signup.parent?
+        %h1 #{@app_signup.daughter_firstname}'s Application for #{link_to "#{@app_signup.event.topic}", apprenticeship_path(@app_signup.event)}
+      - else
+        %h1 #{@app_signup.user.first_name}'s Application for #{link_to "#{@app_signup.event.topic}", apprenticeship_path(@app_signup.event)}
+      - if @app_signup.pending? or @app_signup.interview_requested? or @app_signup.interview_scheduled?
+        %p
+          #{@app_signup.event.user.first_name} has
+          - if Date.today < @app_signup.state_stamps.last.stamp + 14.days
+            %span.badge.badge-success #{(@app_signup.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days
+          - else
+            %span.badge.badge-warning #{(@app_signup.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days
+          to review this application and make her decision.
+      - elsif @app_signup.accepted?
+        .alert.alert-success
+          %i.fa.fa-check
+          #{@app_signup.event.user.first_name} has accepted #{@app_signup.user.first_name} - keep yr eyes peeled for a confirmation!
+      - elsif @app_signup.declined?
+        .alert.alert-warning Whelp - this applicant was declined, bummer.
+
+
+
+    - if @app_signup.interviews.count != 0
+      .row-fluid
+
+        / INTERVIEW REQUESTED =========================================================================================
+        - if @app_signup.state == 'interview_requested'
+          .span12.well
+            - if current_user == @app_signup.user
+              %h3 What hour work best for you to meet?
+              %br
+              .span4.details Within this timeframe:
+              .span7.details
+                = @app_signup.interviews.last.interview_time
+
+              .span4.details At this location:
+              .span7.details
+                = @app_signup.interviews.last.interview_location
+
+              .span4.details Choose one hour:
+              .span7.details
+                = simple_form_for(@interview, :url => url_for(controller: 'interviews', action: 'create', app_signup:@app_signup.id)) do |f|
+                  = f.error_notification
+                  .form-inputs
+                    = f.input :interview_time, label: false
+                    - if current_user == @app_signup.event.user
+                      = f.input :interview_location, required: true, input_html: { rel: 'popover', data: { placement: "right",  content: "Be specific -- include an address or directions as well." }}
+                    %br
+                    = f.submit "Schedule Interview", class: "btn btn-primary pull-right"
+            - else current_user == @app_signup.event.user
+              .alert.alert-success Interview requested! Waiting for  #{@app_signup.user.first_name} to respond.
+
+
+          / INTERVIEW SCHEDULED ==========================================================================================
+        - elsif @app_signup.state == 'interview_scheduled'
+          .span12.well
+            %center
+              - if current_user == @app_signup.user
+                %h3
+                  %i.fa.fa-check
+                  You're all set to meet up with #{@app_signup.event.user.first_name}!
+              - else current_user == @app_signup.event.user
+                %h3
+                  %i.fa.fa-check
+                  You're all set to meet up with #{@app_signup.user.first_name}!
+            %br
+            %b.span4.details Time:
+            .span7.details
+              = @app_signup.interviews.last.interview_time
+
+            %b.span4.details Location:
+            .span7.details
+              = @app_signup.interviews.last.interview_location
+
+            .span11
+              .pull-right
+                = link_to "Reschedule", '#rescheduleModal', data: {toggle: "modal"}
+                #rescheduleModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "rescheduleModal", :role => "dialog", :tabindex => "-1"}
+                  .modal-header.center
+                    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                    %h2#rescheduleModalLabel Reschedule the Interview
+                  .modal-body
+                    %p What time or location would you like to suggest for a reschedule?
+                    %br
+                    = simple_form_for(@app_signup.interviews.last) do |f|
+                      = f.error_notification
+
+                      .form-inputs
+                        = f.input :interview_time, label: "Interview Timeframe(s)", required: true, input_html: { rel: 'popover', data: { placement: "right",  content: "Hint - You might want to include the times of availability in the listing." }}
+                        = f.input :interview_location, required: true, input_html: { rel: 'popover', data: { placement: "right",  content: "Be specific -- include an address or directions as well." }}
+                        %br
+                        = f.submit "Send Reschedule Request", class: "btn btn-primary pull-right"
+                    %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
+                    %br
+            .row-fluid
+            %hr
+            - if !@app_signup.interviews.last.messages.empty?
+              - @app_signup.interviews.last.messages.each do |message|
+                - if current_user == message.user
+                  .span4.details
+                    #{message.user.first_name}:
+                  .span7.details
+                    .my-message
+                      = message.message_text
+                - else
+                  .span4.details
+                    #{message.user.first_name}:
+                  .span7.details
+                    .their-message
+                      = message.message_text
+            .row-fluid
+            %br
+            %b.span4.details Optional Message:
+            .span7.details
+              = simple_form_for(:message, url: { controller: "messages", action: "create" }) do |f|
+                = f.error_notification
+                .form-inputs
+                  = f.hidden_field :interview_id, value: @app_signup.interviews.last.id
+                  = f.input :message_text, label: false, required: true, input_html: { rows: "4", rel: 'popover', data: { placement: "right",  content: "You might want to give directions, describe what you'll be wearing, or provide a contact number - we'll send her an email." }}
+                  = f.submit "Send", :name => "message_button", :class => "btn btn-primary pull-right"
+                %br
+                %br
+
+      / APPRENTICESHIP CANCELED ===================================================================================================
+    - if current_user == @app_signup.event.user && @apprenticeship.canceled?
+      .alert.alert-danger Rats! It looks like you canceled this apprenticeship.
+    - elsif current_user == @app_signup.user && @apprenticeship.canceled?
+      .alert.alert-danger Sorry, it looks like #{@app_signup.event.user.first_name} has canceled this apprenticeship.
+    - elsif current_user.admin? && @apprenticeship.canceled?
+      .alert.alert-danger Shucks, looks like #{@app_signup.event.user.first_name} has canceled this apprenticeship.
+
+      / APPLICATION CANCELED ===================================================================================================
+    - elsif current_user == @app_signup.event.user && @app_signup.canceled?
+      .alert.alert-danger Rats! It looks like #{@app_signup.user.first_name} has canceled this application.
+    - elsif current_user == @app_signup.user && @app_signup.canceled?
+      .alert.alert-danger Darn, looks like you canceled this application.
+    - elsif current_user.admin? && @app_signup.canceled?
+      .alert.alert-danger Shucks, looks like #{@app_signup.user.first_name} has canceled her application with #{"#{@apprenticeship.host_firstname}"}
+
+      / APPLICATION CONFIRMED ==================================================================================================
+    - elsif current_user == @app_signup.event.user && @app_signup.confirmed?
+      .alert.alert-success Rad, looks like #{@app_signup.user.first_name} has confirmed this application. We've emailed you both contact info to start making.
+    - elsif current_user == @app_signup.user && @app_signup.confirmed?
+      .alert.alert-success Sweet, looks like you've already confirmed this application. We've emailed you both contact info to start making.
+    - elsif current_user.admin? && @app_signup.confirmed?
+      .alert.alert-success Hurrah, looks like #{@app_signup.user.first_name} has confirmed her application with #{"#{@apprenticeship.host_firstname}"}. (We've sent them both contact info to get started).
+
+      / CONFIRM APPRENTICESHIP ================================================================================================
+    - elsif @app_signup.accepted? && @app_signup.user == current_user
+      %h1 Confirm My Apprenticeship for #{link_to "#{@app_signup.event.topic}", apprenticeship_path(@app_signup.event)}
+      - if @app_signup.parent?
+        .alert.alert-success
+          Congratulations, #{"#{@apprenticeship.host_firstname}"} would love to work with #{@app_signup.daughter_firstname}!  Please fill out these details so we can put you two in touch.
+        /%p
+        /  Let us know if you’d like to request an interview before you confirm - just to make sure it’s a good fit for both of you.
+      - else
+        .alert.alert-success
+          Congratulations, #{"#{@apprenticeship.host_firstname}"} would love to work with you!  Please fill out these details so we can put you two in touch.
+        %p
+          Let us know if you’d like to request an interview before you confirm - just to make sure it’s a good fit for both of you.
+          %a{href: "mailto:hello@girlsguild.com?Subject=I'd like to schedule an interview with #{"#{@apprenticeship.host_firstname}"} before confirming", class: "btn btn-primary pull-right"}
+            Request an Interview
+        %br
+        /  - if @app_signup.interview_requested?
+        /    = link_to "Interview Requested", '#', class: "btn pull-right disabled"
+        /  - elsif @app_signup.interview_scheduled?
+        /    = link_to "Interview Scheduled", '#', class: "btn pull-right disabled"
+        /  - else
+        /    = link_to "Request Interview", '#interviewModal', data: {toggle: "modal"}, class: "btn btn-primary pull-right"
+        /  #interviewModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "interviewModal", :role => "dialog", :tabindex/ => "-1"}
+        /    .modal-header
+        /      %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+        /      %h2#galleryModalLabel.center Request an Interview
+        /    .modal-body
+        /      %p What location and timeframe(s) are you available? We'll ask #{"#{@apprenticeship.host_firstname}"} to choose 1 hour /within the timeframe that works for her.
+        /      %br
+        /      = simple_form_for(@interview, :url => url_for(controller: 'interviews', action: 'create', app_signup:@app_signup.id)) do/ |f|
+        /        = f.error_notification
+        /        .form-inputs
+        /          = f.input :interview_time, label: "Interview Timeframe(s)", required: true, input_html: { rel: 'popover', data: { /placement: "right",  content: "Hint - You might want to check the times she's available in the listing." }}
+        /          - if current_user == @app_signup.event.user
+        /            = f.input :interview_location, required: true, input_html: { rel: 'popover', data: { placement: "right",  content:/ "Be specific -- include an address or directions as well." }}
+        /          %br
+        /          = f.submit "Send Request", class: "btn btn-primary pull-right"
+        /      %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
+
 
       .row-fluid
         .span9
           = simple_form_for @app_signup, class: 'form-horizontal', html: {class: "payment_form"}, url: confirm_app_signups_path, method: :post, :validate => true, defaults: { input_html: { class: 'span6' } }  do |f|
             = render 'confirm_form', f: f
             = f.hidden_field :id, value: @app_signup.id
-            = f.submit "Confirm Apprenticeship", name: 'confirm_button', class: "btn btn-primary btn-create pull-right", id: "cc_process"
+            = f.submit "Confirm Apprenticeship", name: 'confirm_button', class: "btn btn-success btn-create pull-right", id: "cc_process"
             = link_to "Cancel Application", { :controller => 'app_signups', :action => 'cancel', :id => @app_signup.id }, class: "btn btn-danger btn-create", :method => 'post', :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you will not be able to resubmit it."}
-          %br/
-          %br/
+          %br
+          %br
           %h2 Your Accepted Application
         .span3.accordionFAQ
           - if current_user == @app_signup.user
             = render 'faq'
-    - if @app_signup.pending?
-      %h1 Apprenticeship Application
 
-      - if @app_signup.user == current_user
-        - if @app_signup.parent?
-          %p
-            Thanks #{@app_signup.user.first_name}! You've submitted #{@app_signup.daughter_firstname}'s application for #{link_to "#{@app_signup.event.title}", apprenticeship_path(@app_signup.event)}. #{@apprenticeship.host_firstname} is looking it over, and we'll let you know when she's made her decision.
-        - else
-          %p
-            Thanks #{@app_signup.user.first_name}! You've submitted your application for #{link_to "#{@app_signup.event.title}", apprenticeship_path(@app_signup.event)}. #{@apprenticeship.host_firstname} is looking it over, and we'll let you know when she's made her decision.
-
-      - elsif current_user == @app_signup.event.user
-        - if @app_signup.parent?
-          %p
-            Rad, #{@apprenticeship.host_firstname}! #{@app_signup.user.first_name} helped her daughter #{@app_signup.daughter_firstname} apply for your apprenticeship, #{link_to "#{@app_signup.event.topic}", apprenticeship_path(@app_signup.event)}.
-        - else
-          %p
-            Rad, #{@apprenticeship.host_firstname}! #{@app_signup.user.first_name} applied for your apprenticeship, #{link_to "#{@app_signup.event.topic}", apprenticeship_path(@app_signup.event)}.
-        %p
-          You have #{(@app_signup.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days to review her application and make your decision.
-        %h4
-          Want to meet up first?
-        %p
-          If you'd like to interview her before you decide, email us at
-          =mail_to "hello@girlsguild.com"
-          and tell us: 1) which applicant(s) you'd like to interview, 2) where you'd like to meet up (or if you'd prefer a phone interview), and 3) a few date/time options when you're available. We'll set it up with the applicant(s) and then confirm it with you.
-        %h4
-          Made your decision?
-        %p
-          Once you've made your decision, use the "Accept" or "Decline" buttons below to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll ask her to confirm, and once she does, we'll put you two in touch to get started!
     .row-fluid
       .span12.well
         #avatar
-          = avatar_for(@app_signup.user, size: 50, tag: :medium)
+          = avatar_for(@app_signup.user, size: 100, tag: :large)
+          %h3
+            - if @app_signup.parent?
+              = @app_signup.daughter_firstname
+            - else
+              = @app_signup.user.first_name
+            &nbsp;
+            %span.age
+              Age -
+              - unless @app_signup.parent?
+                = @app_signup.user.age
+              - else
+                = @app_signup.daughter_age
         %table.table.table-striped.table-bordered
           %thead
             %tr
               %th Question
               %th Answer
           %tbody
-            %tr
-              %td Name
-              %td
-                - if @app_signup.parent?
-                  = @app_signup.daughter_firstname
-                - else
-                  = @app_signup.user.first_name
-            %tr
-              %td Age
-              %td
-                - unless @app_signup.parent?
-                  = @app_signup.user.age
-                - else
-                  = @app_signup.daughter_age
             %tr
               %td I'm truly happy when
               %td= @app_signup.happywhen
@@ -97,11 +276,6 @@
             %tr
               %td Experience with tools and making
               %td= @app_signup.experience
-            /
-              <tr>
-              <td>Display requirements rating</td>
-              <td> </td>
-              </tr>
             %tr
               %td Preferred meeting times
               %td= @app_signup.preferred_times
@@ -110,35 +284,83 @@
             - if @app_signup.started? && @app_signup.user == current_user
               = link_to 'Resume', edit_app_signup_path(@app_signup), class: "btn btn-warning"
               = link_to 'Delete', @app_signup, :method => :delete, class: "btn btn-danger", :data => { :confirm => 'Are you sure you want to delete this application? Deleting cannot be undone.' }
-            / - elsif !@app_signup.canceled? && !@app_signup.started? && @app_signup.user == current_user
-            /   = link_to 'Cancel my application', { :controller => 'app_signups', :action => 'cancel'}, :method => :post, :data => { :confirm => 'Are you sure you want to cancel your application for this apprenticeship?'}, class: "btn btn-danger"
-            - if @app_signup.user == current_user && @app_signup.pending? || @app_signup.accepted?
-              = link_to "Cancel Application", { :controller => 'app_signups', :action => 'cancel' }, class: "btn btn-danger pull-right", :method => 'post', data: { :confirm => "Are you sure? Your application will be saved in your Dashboard, but you'll have to resubmit it in order to apply again." }
 
-          - if current_user == @app_signup.event.user && @app_signup.pending?
+
+          - if current_user == @app_signup.event.user && (@app_signup.pending? || @app_signup.interview_requested? || @app_signup.interview_scheduled?)
             .pull-center
-              %hr/
-              %h3 Makers, it's your call
-            = link_to "Decline Apprentice", '#declineModal', data: {toggle: "modal"}, :class => "btn btn-danger pull-left"
-            #declineModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "declineModal", :role => "dialog", :tabindex => "-1"}
-              .modal-header
-                %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
-                %h3#galleryModalLabel Decline Application
-                .modal-body
-                %p Are you sure you want to decline this applicant?
-                %p We'll send her a gentle email letting her know you were honored she applied, but you've chosen another apprentice.
-                %p You can include a (totally optional) personal message if you'd like.
-                %br
-                = simple_form_for(@app_signup) do |f|
-                  = f.input :decline_reason, input_html: { class: "span12", rows: 5, placeholder: "You can write a personal message, or leave this blank."}
-                  = f.submit "Decline Application", :name => "decline_button", class: "btn btn-danger pull-right"
-                %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
-                %br
+              %br
+              %br
+              %h3 #{@app_signup.event.user.first_name}, it's your call
 
-            / = link_to "Decline Apprentice", {:action => "decline", id: @app_signup, :controller => "app_signups"}, :method => :post, class: "btn btn-danger pull-left", :data => { :confirm => 'Are you sure you want to decline this applicant? Declining cannot be undone.'}
+            .row-fluid
 
-            - if @app_signup.event.filled?
-              = link_to "Accept Apprentice", app_signup_path(@app_signup), rel: 'popover', data: {placement: "top", content: "Sorry, you can't accept this applicant because you've already filled your apprenticeship. Let us know if this is an error or if you'd like to accept another apprentice."},class: "btn btn-success pull-right disabled"
-            - else
-              /%a.btn.btn-warning.center{:href => scheduleinterview_path} Schedule an Interview
-              = link_to "Accept Apprentice", {:action => "accept", id: @app_signup, :controller => "app_signups"}, :method => :post, class: "btn btn-success pull-right", :data => { :confirm => "Are you sure you want to accept this applicant as your apprentice now? If you would like to schedule an interview before making a decision, we'd be happy to set that up first. If so, click 'cancel' and send us an email at hello@girlsguild.com with at least 3 preferred interview time. Thanks!"}
+              .span4.pull-center
+                = link_to "Decline Application", '#declineModal', data: {toggle: "modal"}, :class => "btn btn-danger pull-center"
+                #declineModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "declineModal", :role => "dialog", :tabindex => "-1"}
+                  .modal-header
+                    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                    %h2#declineModalLabel.center Decline Application
+                  .modal-body
+                    %p Are you sure you want to decline this applicant?
+                    We'll send her a gentle email letting her know you were honored she applied, but you've chosen another apprentice.
+                    %p You can include a (totally optional) personal message if you'd like.
+                    %br
+                    = simple_form_for(@app_signup) do |f|
+                      = f.input :decline_reason, input_html: { class: "span12", rows: 5, placeholder: "You can write a personal message, or leave this blank."}
+                      = f.submit "Decline Application", :name => "decline_button", class: "btn btn-danger pull-right"
+                    %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
+                %br
+                %br
+                .well.fancyform-light
+                  %h3 Want to Decline?
+                  We'll send a gentle email letting the applicant know you were honored she applied but you went with someone else. You can even personalize the message it if you'd like.
+
+              .span4.pull-center
+                - if @app_signup.interview_requested?
+                  = link_to "Interview Requested", '#', class: "btn pull-center disabled"
+                - elsif @app_signup.interview_scheduled?
+                  = link_to "Interview Scheduled", '#', class: "btn pull-center disabled"
+                - else
+                  = link_to "Request Interview", '#interviewModal', data: {toggle: "modal"}, class: "btn btn-primary pull-center"
+                #interviewModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "interviewModal", :role => "dialog", :tabindex => "-1"}
+                  .modal-header
+                    %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                    %h2#galleryModalLabel.center Request an Interview
+                  .modal-body
+                    %p What location and timeframe(s) are you available? We'll ask your applicant to choose 1 hour within the timeframe that works for her.
+                    %br
+                    = simple_form_for(@interview, :url => url_for(controller: 'interviews', action: 'create', app_signup:@app_signup.id)) do |f|
+                      = f.error_notification
+                      .form-inputs
+                        = f.input :interview_time, label: "Interview Timeframe(s)", required: true, input_html: { rel: 'popover', data: { placement: "right",  content: "Hint - You might want to include the times you put in your listing." }}
+                        - if current_user == @app_signup.event.user
+                          = f.input :interview_location, required: true, input_html: { rel: 'popover', data: { placement: "right",  content: "Be specific -- include an address or directions as well." }}
+                        %br
+                        = f.submit "Send Request", class: "btn btn-primary pull-right"
+                    %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
+                %br
+                %br
+                .well.fancyform-light
+                  %h3 Meet up first?
+                  We suggest you meet up first before you accept so you can both see if it's a good fit. Let us know when you're available. We'll set it up and confirm it for you.
+
+              .span4.pull-center
+                - if @app_signup.event.max_capacity_met?
+                  = link_to "Accept Apprentice", app_signup_path(@app_signup), rel: 'popover', data: {placement: "top", content: "Sorry, you can't accept this applicant because you've already filled your apprenticeship. Let us know if this is an error or if you'd like to accept another apprentice."}, class: "btn btn-success disabled"
+                - else
+                  = link_to "Accept Apprentice", '#acceptModal', data: {toggle: "modal"}, :class => "btn btn-success pull-center"
+                  #acceptModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "acceptModal", :role => "dialog", :tabindex => "-1"}
+                    .modal-header
+                      %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                      %h2#galleryModalLabel.center Accept this Apprentice
+                    .modal-body
+                      %p Are you sure you want to accept this apprentice?
+                      %br
+                      = simple_form_for(@app_signup) do |f|
+                        = f.submit "Send Acceptance", name: "accept_button", class: "btn btn-success pull-right"
+                      %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
+                  %br
+                  %br
+                  .well.fancyform-light
+                    %h3 Want to Accept?
+                    After you accept this applicant we'll give her the chance to meet up with you first. Afterwards she'll confirm by paying, and once she does, we'll put you in touch to get started!

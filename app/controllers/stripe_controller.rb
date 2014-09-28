@@ -18,7 +18,7 @@ class StripeController < ApplicationController
       #work_signup.deliver(payment: event.data.object) if work_signup
 
       app = Apprenticeship.find_by_charge_id(event.data.object.id)
-     # app.deliver(payment: event.data.object) if app
+      #app.deliver(payment: event.data.object) if app
 
       raise "Unable to find model for charge_id: #{event.data.object.id}" unless app_signup || work_signup || app
     end

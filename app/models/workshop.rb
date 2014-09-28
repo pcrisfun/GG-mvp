@@ -34,7 +34,7 @@ include EventHelper
 
   validation_group :private do
     validates_presence_of :permission, :message => "We need your permission to run a background check."
-    validates_presence_of :legal_name, :message => "We'll need your legal full name in order to run a background check."
+    validates_presence_of :legal_name, :message => "We'll need your full legal name in order to run a background check."
     validates_presence_of :payment_options
     validate :send_payment_to
   end
@@ -193,7 +193,7 @@ include EventHelper
 			:html_body => %(<h1>Congrats #{user.first_name}!</h1>
         <p>Your workshop has been posted and is now live! Check it out - <a href="#{url_for(self)}"> #{self.title}</a></p>
         <p>Be sure to invite your friends and share it on your social networks!</p>
-        <p>If it's posted as TBA we'll email you as people follow it, so you can decide when to set the date. If you already set a date, we'll let you know whenever someone signs up. Registrations will be closed when #{self.registration_max} people have signed up or on the date you set. </p>
+        <p>We'll let you know whenever someone signs up. Registrations will be closed when #{self.registration_max} people have signed up or on the date you set. </p>
         <p>If by some bad luck you need to cancel your workshop, you can do so from your <a href="#{dashboard_url}">Events Dashboard</a>. Likewise, if it turns out fewer than your minimum #{self.registration_min} participants sign up, the workshop will automatically be canceled on #{get_formated_date(self.ends_at, format: "%b %e, %Y")}. We think it's going to rock, though!</p>
         <p>Let us know if you have any questions!</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
@@ -216,6 +216,38 @@ include EventHelper
 		})
 		return true
 	end
+
+    def deliver_close
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+       :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Your workshop has been closed - #{topic} with #{user.name}",
+      :html_body => %(<h1>Closed!</h1>
+        <p>You've closed your workshop. This means that it will appear to be full and you won't receive more signups.</p>
+        <p>You can keep track of your signups from your <a href="#{dashboard_url}">Events Dashboard</a></p>
+        <p>There are currently #{self.signups.where(:state => 'confirmed').count} people signed up, here are their email addresses: #{self.get_signup_emails}</p>
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_reopen
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+       :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Your workshop has been reopened - #{topic} with #{user.name}",
+      :html_body => %(<h1>Reopened!</h1>
+        <p>You've reopened your workshop for signups. We'll keep you posted as new signups come in.</p>
+        <p>There are currently #{self.signups.where(:state => 'confirmed').count} people signed up.</p>
+        <p>You can keep track of your signups from your <a href="#{dashboard_url}">Events Dashboard</a></p>
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
 
   def deliver_cancel_lowsignups
     Pony.mail({
@@ -302,10 +334,33 @@ include EventHelper
     return true
   end
 
+  def deliver_help_posting
+    Pony.mail({
+        :to => "#{user.name}<#{user.email}>",
+        :from => "Diana & Cheyenne<hello@girlsguild.com>",
+        :reply_to => "GirlsGuild<hello@girlsguild.com>",
+        :subject => "Any questions we can help with?",
+        :html_body => %(<p>Hey #{user.first_name},</p>
+          <p>We're glad you started a workshop posting the other day. Do you have any questions about it?</p>
+          <p>For more details on how it works, check out the <a href="#{faq_url}">FAQ</a>. And if you have specific questions, just hit reply! We're happy to chat about it.</p>
+          <p>To continue the posting and submit it, you can find it here - <a href="#{edit_workshop_url(self)}"> #{self.title}</a>
+          <p>~<br/>Thanks,<br/><br/>Cheyenne & Diana<br/>GirlsGuild Co-Founders</p>),
+        :bcc => "hello@girlsguild.com",
+    })
+    self.update_column(:help_posting_sent, true)
+    return true
+  end
+
   def get_signup_emails
     "<ul>" + self.signups.where(:state => 'confirmed').map do |a|
       "<li>#{a.user.name}: #{a.user.email}</li>"
     end.join + "</ul>"
+  end
+
+  def self.help_posting
+    Workshop.where(:state => "started", :help_posting_sent => false).where(state_stamps.last.stamp <= Date.today-3.days).each do |workshop|
+      workshop.deliver_help_posting
+    end
   end
 
 	def self.complete_workshop
@@ -401,7 +456,7 @@ include EventHelper
         return ''
       end
     elsif self.completed?
-      return "Your workshop is over :-)"
+      return "Your workshop is over"
     end
     return ''
   end

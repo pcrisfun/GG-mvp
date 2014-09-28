@@ -1,0 +1,123 @@
+.fancyform-light
+  - if (events||=false)
+    - events.each do |event|
+      %table.table.table-bordered.table-hover.table-condensed#admindashboard
+        %tbody
+          - if params[:action] == 'admin'
+            - submitted_signups = event.signups.sort_by { |s| s.created_at }.reverse!
+            - submitted_preregs = event.preregs.sort_by { |p| p.created_at }.reverse!
+          - else
+            - submitted_signups = event.submitted_signups.sort_by { |s| s.created_at }.reverse!
+            - submitted_preregs = event.submitted_preregs.sort_by { |p| p.created_at }.reverse!
+          %tr
+            %td.image
+              - if event.host_album
+                - if event.host_album.featured_photo
+                  = render 'photos/photo', photo: event.host_album.featured_photo, size: :thumb
+                - elsif event.host_album.photos.first
+                  = render 'photos/photo', photo: event.host_album.photos.sort_by { |photo| photo.position(album_id: event.host_album.id) }.first, size: :thumb, url: url_for(event)
+                - else
+                  %a{ href: url_for(event) }
+                    %img.default-photo-thumb
+            %td.title
+              = link_to event.title_html, url_for(controller: event.class.name.underscore.pluralize, action: 'show', id: event.id ), class: "title-boxlink"
+
+              - if event.started? or event.pending? or event.accepted?
+                = link_to "Edit", url_for(controller: event.class.name.underscore.pluralize, action: 'edit', id: event.id )
+              - if event.started?
+                &nbsp; | &nbsp;
+                = link_to "Delete", url_for(controller: event.class.name.underscore.pluralize, action: 'destroy', id: event.id), method: :delete, data: { :confirm => "Are you sure? This apprenticeship will be deleted permanantly." }
+              - if event.canceled? or event.filled? or event.completed?
+                = link_to "Duplicate", url_for(controller: event.class.name.underscore.pluralize, action: 'duplicate', id: event.id )
+
+            %td.spots
+              = event.spots_left
+            %td.dates
+              - if event.type == "Apprenticeship"
+                = event.nice_dates_apprenticeships
+              - elsif event.type == "Workshop"
+                = event.nice_dates_workshops
+            %td.countdown
+              = event.countdown_message
+          - if !submitted_signups.empty?
+            %tr
+              %td.nested-table{ colspan: 6 }
+                %table.table.table-bordered.table-hover.table-condensed.table-subtable
+                  %tbody
+                    - submitted_signups.each_with_index do |signup, index|
+                      %tr
+                        %td.image
+                          = index + 1
+                        %td.name
+                          = avatar_for(signup.user, size: 25, tag: :small)
+                          - if signup.parent?
+                            #{signup.user.name}'s daughter #{signup.daughter_firstname}
+                          - else
+                            = signup.user.name
+                          - if event.type == "Apprenticeship"
+                            = link_to "Application #{signup.id}", app_signup_path(signup.id)
+                          .pull-right
+                            = mail_to signup.user.email, signup.user.email
+                        %td.age
+                          age
+                          - if signup.parent?
+                            = signup.daughter_age
+                          - else
+                            = signup.user.age
+                        %td.dates
+                          - if signup.pending? or signup.interview_requested? or signup.interview_scheduled?
+                            = "#{(signup.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days left"
+                          - elsif signup.accepted?
+                            = "#{(signup.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days to confirm"
+                        %td.countdown
+                          .statebar
+                            - if signup.canceled?
+                              canceled
+                              %span.section.canceled
+                            - if signup.started?
+                              started
+                              %span.section.started
+                            - if signup.pending?
+                              applied
+                              %span.section.applied
+                            - if signup.interview_requested?
+                              int-req
+                              %span.section.interview_requested
+                            - if signup.interview_scheduled?
+                              int-sch
+                              %span.section.interview_scheduled
+                            - if signup.accepted?
+                              accepted
+                              %span.section.accepted
+                            - if signup.declined?
+                              declined
+                              %span.section.declined
+                            - if signup.confirmed?
+                              confirmed
+                              %span.section.confirmed
+                            - if signup.completed?
+                              completed
+                              %span.section.completed
+                          /= signup.countdown_message_maker
+          - if !submitted_preregs.empty?
+            %tr#following
+              %td.nested-table{ colspan: 6 }
+                %table.table.table-bordered.table-hover.table-condensed.table-subtable
+                  %tbody
+                    - submitted_preregs.each_with_index do |prereg, index|
+                      %tr
+                        %td.image
+                        %td.name
+                          = avatar_for(prereg.user, size: 25, tag: :small)
+                          = prereg.user.name
+                          .pull-right
+                            = mail_to prereg.user.email, prereg.user.email
+                        %td.age
+                          age
+                          = prereg.user.age
+                        %td.dates
+                          = prereg.created_at.strftime('%b %e')
+                        %td.countdown
+                          .statebar
+                            %i.fa.fa-eye.fa-lg
+                            %span.section.following

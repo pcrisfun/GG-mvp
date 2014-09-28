@@ -126,5 +126,8 @@
         %br/
         %h3 Workshop fee: $#{@workshop.price.to_i}
         %br/
-        = render :partial => "shared/credit_card", :locals => { :f => f, :paid => @work_signup.charge_id.present? }
+        - unless @workshop.price == 0
+          = render :partial => "shared/credit_card", :locals => { :f => f, :paid => @work_signup.charge_id.present? }
+        - else
+          %p You're good to go!
         %br/

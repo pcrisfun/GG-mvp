@@ -1,13 +1,14 @@
 GirlsGuild::Application.routes.draw do
 
+
+  resources :interviews
+  resources :messages
   resources :signups
   resources :app_signups do
     collection do
-      post :accept
-      post :decline
       post :confirm
       post :cancel
-      post :resubmit
+
     end
   end
   match 'app_signups/:id/confirmation' => 'app_signups#payment_confirmation', as: :payment_confirmation_app_signup
@@ -46,7 +47,10 @@ GirlsGuild::Application.routes.draw do
     collection do
       post :cancel
       post :accept
+      post :close
+      post :reopen
       post :resubmit
+      get :duplicate
       get :checkmarks
     end
   end
@@ -58,7 +62,10 @@ GirlsGuild::Application.routes.draw do
     collection do
       post :cancel
       post :accept
+      post :close
+      post :reopen
       post :resubmit
+      get :duplicate
       get :checkmarks
     end
   end

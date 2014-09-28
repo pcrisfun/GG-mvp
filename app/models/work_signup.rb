@@ -55,8 +55,12 @@ include EventHelper
   #
   # Returns true if sign up completed successfully, raises exception otherwise.
   def process_signup!
-    raise PaymentError unless process_workshop_fee
-
+    unless self.event.price == 0
+      raise PaymentError unless process_workshop_fee
+    else
+      update_attribute(:charge_id, "nocharge")
+      logger.info "Processed signup without payment"
+    end
     #raise SignupError  unless signup
   end
 
@@ -80,12 +84,14 @@ include EventHelper
 
   #deliver gets called from webhooks in stripe_controller.rb
   def deliver(opts={})
-   if self.parent?
-     deliver_parent(opts) && deliver_maker_daughter(opts)
-   elsif self.minor?
-     deliver_minor(opts) && deliver_maker(opts)
+    if self.event.price == 0
+      deliver_free && deliver_maker(opts)
+    elsif self.parent?
+      deliver_parent(opts) && deliver_maker_daughter(opts)
+    elsif self.minor?
+      deliver_minor(opts) && deliver_maker(opts)
     else
-     deliver_self(opts) && deliver_maker(opts)
+      deliver_self(opts) && deliver_maker(opts)
     end
   end
 
@@ -97,8 +103,7 @@ include EventHelper
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You signed up for #{event.topic} with #{event.host_firstname} #{event.host_lastname}",
       :html_body => %(<h1>Yay #{user.first_name}!</h1>
-        <p>You're all signed up for <a href="#{url_for(self.event)}">#{event.title}</a>.
-        <p>We received your payment of #{sprintf('$%0.2f', payment.amount.to_f / 100.0)}</p>
+        <p>You're all signed up for <a href="#{url_for(self.event)}">#{event.title}</a>. We received your payment of #{sprintf('$%0.2f', payment.amount.to_f / 100.0)}</p>
         <p>Here are the workshop details to remember:</p>
         <p>
           <b>When:</b> #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}
@@ -121,8 +126,7 @@ include EventHelper
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You signed up for #{event.topic} with #{event.host_firstname} #{event.host_lastname}",
       :html_body => %(<h1>Yay #{user.first_name}!</h1>
-        <p>You're all signed up for <a href="#{url_for(self.event)}">#{event.title}</a>.
-        <p>We received your payment of #{sprintf('$%0.2f', payment.amount.to_f / 100.0)}</p>
+        <p>You're all signed up for <a href="#{url_for(self.event)}">#{event.title}</a>. We received your payment of #{sprintf('$%0.2f', payment.amount.to_f / 100.0)}</p>
         <p>Here are the workshop details to remember:</p>
         <p>
           <b>When:</b> #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}
@@ -145,8 +149,7 @@ include EventHelper
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You signed up for #{event.topic} with #{event.host_firstname} #{event.host_lastname}",
       :html_body => %(<h1>Yay #{user.first_name}!</h1>
-        <p>Thanks for helping your daughter, #{self.daughter_firstname} sign up for <a href=#{url_for(event)}>#{event.title}</a>.
-        <p>We received your payment of #{sprintf('$%0.2f', payment.amount.to_f / 100.0)}</p>
+        <p>Thanks for helping your daughter, #{self.daughter_firstname} sign up for <a href=#{url_for(event)}>#{event.title}</a>. We received your payment of #{sprintf('$%0.2f', payment.amount.to_f / 100.0)}</p>
         <p>Here are the workshop details to remember:</p>
         <p>
           <b>When:</b> #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}
@@ -159,6 +162,38 @@ include EventHelper
     })
     return true
   end
+
+  def deliver_free
+    Pony.mail({
+      :to => "#{user.name}<#{user.email}>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "You signed up for #{event.topic} with #{event.host_firstname} #{event.host_lastname}",
+      :html_body => %(<h1>Yay #{user.first_name}!</h1>
+        <p>You're all signed up for <a href="#{url_for(self.event)}">#{event.title}</a>.</p>
+        <p>Here are the workshop details to remember:</p>
+        <p>
+          <b>When:</b> #{get_formated_date(event.begins_at_time, format: "%l:%M %P")} - #{get_formated_date(event.ends_at_time, format: "%l:%M %P")}, #{get_formated_date(event.begins_at, format: "%b %e, %Y")}
+          <br/><b>Where:</b> #{event.location_address} #{event.location_address2}, #{event.location_city}, #{event.location_state}
+          <br/><b>Maker's Email:</b> #{event.user.email}
+        </p>
+        <p>You can review the <a href="#{url_for(self.event)}">workshop details page</a> for more info on what to expect and prepare for, and if by some bad luck it turns out you can't make it, you can cancel your registration on your <a href="#{dashboard_url}">Events Dashboard</a>.
+          <br/>Note that you'll need to cancel at least 7 days in advance to have your fee refunded. Let us know if you have any questions!</p>
+        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+      :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  # Tried this to replace the "We received your payment" line so we wouldn't need the deliver_free email, but it keeps failing on paid workshops with "Undefined method 'amount' for nil:NilClass"
+  # def get_payment_amount(opts={})
+  #   unless self.event.price == 0
+  #     payment = opts[:payment]
+  #     "We received your payment of #{sprintf('$%0.2f', payment.amount.to_f / 100.0)}"
+  #   else
+  #     ""
+  #   end
+  # end
 
   def deliver_maker(opts={})
     Pony.mail({
@@ -363,7 +398,7 @@ include EventHelper
         return ''
       end
     elsif self.completed?
-      return "Your workshop is over :-)"
+      return "Your workshop is over"
     else
     end
     return ''
