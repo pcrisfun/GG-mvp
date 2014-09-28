@@ -41,25 +41,13 @@
     .accordion-body
       .accordion-inner
         %br/
-        = f.input :happywhen, label: "I'm truly happy when:", input_html: { rows: "3",                                                                            |
-          placeholder: "Give the maker a sense of who they'll be working with.",                                                                                    |
-          rel: 'popover',                                                                                                                                           |
-          data: { :content => "Tell us a little bit about what makes your daughter happy and what she loves to do - just to give a sense of who she is and what she likes." }} |
+        = f.input :happywhen, label: "I'm truly happy when:", input_html: { rows: "5", class: "span10", placeholder: "Give the maker a sense of who they'll be working with.", rel: 'popover', data: { :content => "Tell us a little bit about what makes your daughter happy and what she loves to do - just to give a sense of who she is and what she likes." }}
         %br/
-        = f.input :collaborate, label: "I like working together on projects because:", input_html: { rows: "3",       |
-          placeholder: "Give the maker a sense of who they'll be working with.",                                        |
-          rel: 'popover',                                                                                               |
-          data: { :content => "Tell us a bit about your daughter's working style and what kinds of collaboration she enjoys." }} |
+        = f.input :collaborate, label: "I like working together on projects because:", input_html: { rows: "5", class: "span10", placeholder: "Give the maker a sense of who they'll be working with.", rel: 'popover', data: { :content => "Tell us a bit about your daughter's working style and what kinds of collaboration she enjoys." }}
         %br/
-        = f.input :interest, label: "What’s most interesting to me about this apprenticeship:", input_html: { rows: "3", |
-          placeholder: "Give the maker a sense of who they'll be working with.",                                              |
-          rel: 'popover',                                                                                                     |
-          data: { :content => "Tell us a bit about why this apprenticeship is something your daughter wants to do." }}                   |
+        = f.input :interest, label: "What’s most interesting to me about this apprenticeship:", input_html: { rows: "5", class: "span10", placeholder: "Give the maker a sense of who they'll be working with.", rel: 'popover', data: { :content => "Tell us a bit about why this apprenticeship is something your daughter wants to do." }}
         %br/
-        = f.input :experience, label: "My experience with tools and making:", input_html: { rows: "3",                       |
-          placeholder: "Give the maker a sense of who they'll be working with.",                                               |
-          rel: 'popover',                                                                                                      |
-          data: { :content => "What kinds of things has your daughter made before? What kinds of tools or techniques has she used?" }} |
+        = f.input :experience, label: "My experience with tools and making:", input_html: { rows: "5", class: "span10", placeholder: "Give the maker a sense of who they'll be working with.", rel: 'popover', data: { :content => "What kinds of things has your daughter made before? What kinds of tools or techniques has she used?" }}
         %br/
         - if @apprenticeship.requirement_list.present?
           = f.input :requirements do
@@ -85,10 +73,7 @@
             = succeed "." do
               %strong= "#{@apprenticeship.ends_at.strftime('%A, %B %d')}"
         %br/
-        = f.input :preferred_times, label: 'Preferred meeting times',                                                                                                                                       |
-          placeholder: "Flexible within the times above? What are the best days/times for you?",                                                                                                            |
-          input_html: { rel: 'popover',                                                                                                                                                                     |
-          :data => { :content => "Example: “I’m flexible but prefer Mondays & Wednesdays, 4-6pm.” Or: “I’m flexible but NOT available Thursdays and Fridays.” Or: “I’m only available Sunday mornings.”" }} |
+        = f.input :preferred_times, label: 'Preferred meeting times', placeholder: "Flexible within the times above? What are the best days/times for you?", input_html: { rows: "3", class: "span10", rel: 'popover', :data => { :content => "Example: “I’m flexible but prefer Mondays & Wednesdays, 4-6pm.” Or: “I’m flexible but NOT available Thursdays and Fridays.” Or: “I’m only available Sunday mornings.”" }}
         %br/
   %br/
   .accordion-group
