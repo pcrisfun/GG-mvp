@@ -69,7 +69,7 @@
               = succeed "." do
                 %strong= "#{@apprenticeship.ends_at.strftime('%A, %B %d')}"
           %br/
-          = f.input :preferred_times, label: 'Preferred meeting times', required: true, rows: "3", class: "span10", placeholder: "Flexible within the times above? What are the best days/times for you?", input_html: { rel: 'popover':data => { :content => "Example: “I’m flexible but prefer Mondays & Wednesdays, 4-6pm.” Or: “I’m flexible but NOT available Thursdays and Fridays.” Or: “I’m only available Sunday mornings.”" }}
+          = f.input :preferred_times, label: 'Preferred meeting times', required: true, placeholder: "Flexible within the times above? What are the best days/times for you?", input_html: { rows: "3", class: "span10", rel: 'popover', :data => { :content => "Example: “I’m flexible but prefer Mondays & Wednesdays, 4-6pm.” Or: “I’m flexible but NOT available Thursdays and Fridays.” Or: “I’m only available Sunday mornings.”" }}
           %br/
     %br/
     .accordion-group
