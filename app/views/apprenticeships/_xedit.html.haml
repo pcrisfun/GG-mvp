@@ -285,14 +285,14 @@
                     %i.fa.fa-question-circle.small-icon
 
 
-            - if current_user && current_user.signedup?(@apprenticeship) or current_user==@apprenticeship.user
+            - if current_user && current_user==@apprenticeship.user or (current_user.signedup?(@apprenticeship) && @app_signup.accepted? or @app_signup.confirmed? or @app_signup.completed?)
               %hr
               %dt
                 Email
               %dd
                 = mail_to @apprenticeship.user.email
                 - if !show
-                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content: "Don't worry, this will only be visible to apprentices AFTER they've applied'! To use a different email address, you can edit your Settings (under your name in the top right corner)."} }
+                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content: "Don't worry, this will only be visible to apprentices AFTER they've been accepted as your apprentice'! To use a different email address, you can edit your Settings (under your name in the top right corner)."} }
                     %i.fa.fa-question-circle.small-icon &nbsp;&nbsp;&nbsp;
                     = link_to "(Edit email)", edit_user_registration_path
 
@@ -331,7 +331,7 @@
 
 
             - if show
-              - if current_user && current_user.signedup?(@apprenticeship) or current_user==@apprenticeship.user
+              - if current_user && current_user==@apprenticeship.user or (current_user.signedup?(@apprenticeship) && @app_signup.accepted? or @app_signup.confirmed? or @app_signup.completed?)
                 %hr
                 %dt
                   Apprentice(s)
@@ -441,7 +441,7 @@
       //Disqus //////////////////
       - if show
         - if current_user && current_user.signedup?(@apprenticeship)
-          - if @app_signup.pending? || @app_signup.accepted? || @app_signup.confirmed? || @app_signup.completed?
+          - if @app_signup.pending? || @app_signup.accepted? || @app_signup.interview_requested? || @app_signup.interview_scheduled? || @app_signup.confirmed? || @app_signup.completed?
             = render 'disqus'
         - if current_user==@apprenticeship.user
           = render 'disqus'
