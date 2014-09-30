@@ -246,7 +246,7 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_parent(opts={})
+  def deliver_resubmit_parent(opts={})
     return false unless valid?
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
