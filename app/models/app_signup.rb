@@ -37,6 +37,12 @@ class AppSignup < Signup
     end
   end
 
+  def ready_to_apprentice?
+    if self.accepted? or self.confirmed? or self.completed?
+      return true
+    end
+  end
+
   def process_apprent_fee
     logger.info "Processing payment"
     unless charge_id.present?
