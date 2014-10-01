@@ -80,7 +80,7 @@
               .span7.details
                 = @app_signup.interviews.last.interview_location
 
-              .span4.details Choose one hour:
+              .span4.details Choose a date and time (one hour):
               .span7.details
                 = simple_form_for(@interview, :url => url_for(controller: 'interviews', action: 'create', app_signup:@app_signup.id)) do |f|
                   = f.error_notification
@@ -291,7 +291,7 @@
               = link_to 'Delete', @app_signup, :method => :delete, class: "btn btn-danger", :data => { :confirm => 'Are you sure you want to delete this application? Deleting cannot be undone.' }
 
 
-          - if current_user == @app_signup.event.user && (@app_signup.pending? || @app_signup.interview_requested? || @app_signup.interview_scheduled?)
+          - if (current_user == @app_signup.event.user or current_user.admin?) && (@app_signup.pending? || @app_signup.interview_requested? || @app_signup.interview_scheduled?)
             .pull-center
               %br
               %br
