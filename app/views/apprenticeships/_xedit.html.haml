@@ -86,12 +86,12 @@
             - if !show || @apprenticeship.host_business.present?
               of
               #business.field.text.optional
-                = editable_link_to 'Your Business (optional)', field: :host_business, resource: @apprenticeship, type: :text
+                = editable_link_to 'Your Business', field: :host_business, resource: @apprenticeship, type: :text
             %br
             - if !show
               %i.fa.fa-asterisk
             #kind.field.label.label-inverse
-              = editable_link_to 'Kind of', field: :kind, resource: @apprenticeship, type: :select, data: {source: "{'Event':'Event', 'Production':'Production','Business':'Business','Ongoing':'Ongoing','1-Day':'1-Day' }"}
+              = editable_link_to 'Kind of', field: :kind, resource: @apprenticeship, type: :select, data: {source: "{'In-House':'In-House', 'Event':'Event', 'Production':'Production','Business':'Business','Ongoing':'Ongoing','1-Day':'1-Day' }"}
               Apprenticeship
             - if !show
               %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Is this an Event Apprenticeship with a specific timeline? Is it a Production Apprenticeship, where you need help making a run or building something in particular? Or is it an Ongoing Apprenticeship, through which you share your knowledge and creative practice for help with day-to-day business and the timeline is less set (though we suggest an initial 3 month timeline)?"} }
@@ -154,7 +154,7 @@
               #ends-at.field.date.optional
                 = editable_link_to "Ending date", field: :ends_at, resource: @apprenticeship, type: :date, link_text: get_formated_date(@apprenticeship.ends_at), data: { viewformat: 'MM d, yyyy', template: 'MM d, yyyy', firstItem: 'none'}
               - if !show
-                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"When do you want the apprenticeship to start? This will be an approximate start date, based on how you work out a schedule with your apprentice. How long is the apprenticeship? We suggest an initial 1-3 month period to see how it goes. You can always offer to extend it!"} }
+                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"When do you want the apprenticeship to start? This will be an approximate start date, based on how you work out a schedule with your apprentice. We suggest doing a 3 month apprenticeship. You can always offer to extend it!"} }
                   %i.fa.fa-question-circle.small-icon
               %br
             %dt
@@ -166,7 +166,7 @@
                 = editable_link_to "How many?", field: :hours, resource: @apprenticeship, type: :text
               hours per week
               - if !show
-                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"How often will you meet?"} }
+                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"How often will you meet? We suggest between 8-16 hours per week"} }
                   %i.fa.fa-question-circle.small-icon
             %dt
               - if !show
@@ -252,7 +252,7 @@
                 = editable_link_to "2", field: :registration_max, resource: @apprenticeship, type: :text
               Apprentice(s)
               - if !show
-                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"We suggest you start with 1-2 apprentice(s) if you're new to teaching or collaborating. You can always post again for another apprentice."} }
+                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"We suggest you start with 1 or 2 apprentice(s) if you're new to apprenticeships. You can always post again for another apprentice."} }
                   %i.fa.fa-question-circle.small-icon
             %dt
               - if !show
@@ -262,7 +262,7 @@
               #skills.field.tags
                 = editable_link_to 'Skills and techniques will you be teaching', field: :skill_list, resource: @apprenticeship, type: :select2
               - if !show
-                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Be as specific as possible so that we can give your apprentice credit for learning new skills allow her to show them off in her portfolio!"} }
+                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Be as specific as possible so that we can give your apprentice credit for learning new skills, and allow her to track them off in her portfolio."} }
                   %i.fa.fa-question-circle.small-icon
             %dt
               - if !show
@@ -272,7 +272,7 @@
               #tools.field.tags
                 = editable_link_to 'Tools and materials will you be teaching or using', field: :tool_list, resource: @apprenticeship, type: :select2
               - if !show
-                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Be as specific as possible so that we can give your apprentice credit for learning new tools and allow her to show them off in her portfolio!"} }
+                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Be as specific as possible so that we can give your apprentice credit for learning new tools, and allow her to track them off in her portfolio!"} }
                   %i.fa.fa-question-circle.small-icon
             - if !show || !@apprenticeship.requirement_list.empty?
               %dt
@@ -281,7 +281,7 @@
                 #prequisites.field.tags.optional
                   = editable_link_to '(Optional) Any required skills or tools your apprentice should have experience with?', field: :requirement_list, resource: @apprenticeship, type: :select2
                 - if !show
-                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Will this apprenticeship be doable for someone without certain skills, or are there related skills that would be helpful to have beforehand? Note: We generally do not accept proposals that request someone have the exact skills you're planning to teach so that we can guarantee an equitable trade."} }
+                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Will this apprenticeship be doable for someone without certain skills, or are there related skills that would be helpful to have beforehand?"} }
                     %i.fa.fa-question-circle.small-icon
 
 
