@@ -28,3 +28,8 @@
  *= require_tree .
  *= require custom
  */
+
+@font-face {
+  font-family: FontAwesome;
+  src: url('https://s3.amazonaws.com/girlsguild-assets/assets/FontAwesome.otf');
+  }
