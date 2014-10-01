@@ -107,7 +107,7 @@ end
 
   def deliver_save
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
        :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You started building an apprenticeship!",
@@ -122,7 +122,7 @@ end
 
   def deliver_duplicate
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
        :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You duplicated your previous apprenticeship",
@@ -139,7 +139,7 @@ end
     return false unless valid?
     payment = opts[:payment]
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
        :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your apprenticeship has been submitted! - #{topic} with #{user.name}",
@@ -156,7 +156,7 @@ end
   def deliver_resubmit
     return false unless valid?
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
        :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your apprenticeship has been resubmitted! - #{topic} with #{user.name}",
@@ -171,7 +171,7 @@ end
 
   def deliver_accept
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
        :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your apprenticeship has been posted! - #{topic} with #{user.name}",
@@ -192,7 +192,7 @@ end
 
   def deliver_cancel
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
        :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your apprenticeship has been canceled - #{topic} with #{user.name}",
@@ -207,7 +207,7 @@ end
 
   def deliver_cancel_applicants
     Pony.mail({
-      :to => "#{self.signup.user.name}<#{self.signup.user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Cheyenne & Diana<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Apprenticeship has been canceled - #{topic} with #{user.name}",
@@ -222,7 +222,7 @@ end
 
   def deliver_close
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
        :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your apprenticeship has been closed - #{topic} with #{user.name}",
@@ -239,7 +239,7 @@ end
 
   def deliver_reopen
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
        :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your apprenticeship has been reopened - #{topic} with #{user.name}",
@@ -256,7 +256,7 @@ end
 
   def deliver_reject
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
        :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "We couldn't post your apprenticeship - #{topic} with #{user.name}",
@@ -273,7 +273,7 @@ end
 
   def deliver_revoke
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
        :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your apprenticeship has been taken down - #{topic} with #{user.name}",
@@ -290,7 +290,7 @@ end
 
   def deliver_help_posting
     Pony.mail({
-        :to => "#{user.name}<#{user.email}>",
+        :to => "Diana & Cheyenne<hello@girlsguild.com>",
         :from => "Diana & Cheyenne<hello@girlsguild.com>",
         :reply_to => "GirlsGuild<hello@girlsguild.com>",
         :subject => "Any questions we can help with?",

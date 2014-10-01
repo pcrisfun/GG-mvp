@@ -35,7 +35,7 @@ class Interview < ActiveRecord::Base
 
   def deliver_interview_requested_maker(opts={})
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "We've notified #{app_signup.user.first_name} that you'd like to meet up",
@@ -56,7 +56,7 @@ class Interview < ActiveRecord::Base
 
   def deliver_interview_requested_girl(opts={})
     Pony.mail({
-      :to => "#{app_signup.user.name}<#{app_signup.user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{user.first_name} would like to meet up",
@@ -76,7 +76,7 @@ class Interview < ActiveRecord::Base
 
   def deliver_interview_requested_parent(opts={})
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{user.first_name} would like to meet up",
@@ -103,7 +103,7 @@ class Interview < ActiveRecord::Base
 
   def deliver_interview_scheduled_girl(opts={})
     Pony.mail({
-      :to => "#{app_signup.user.name}<#{app_signup.user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You're all set to meet up with #{user.first_name}",
@@ -123,7 +123,7 @@ class Interview < ActiveRecord::Base
 
   def deliver_interview_scheduled_parent(opts={})
     Pony.mail({
-      :to => "#{app_signup.user.name}<#{app_signup.user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You're all set to meet up with #{user.first_name}",
@@ -143,7 +143,7 @@ class Interview < ActiveRecord::Base
 
   def deliver_interview_scheduled_maker(opts={})
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You're all set to meet up with #{app_signup.user.first_name}",
@@ -169,7 +169,7 @@ class Interview < ActiveRecord::Base
 
   def deliver_interview_rescheduled_girl(opts={})
     Pony.mail({
-      :to => "#{app_signup.user.name}<#{app_signup.user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your interview with #{user.first_name} has changed!!",
@@ -190,7 +190,7 @@ class Interview < ActiveRecord::Base
 
   def deliver_interview_rescheduled_parent(opts={})
     Pony.mail({
-      :to => "#{app_signup.user.name}<#{app_signup.user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your interview with #{user.first_name} has changed!!",
@@ -211,7 +211,7 @@ class Interview < ActiveRecord::Base
 
   def deliver_interview_rescheduled_maker(opts={})
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your interview with #{app_signup.user.first_name} has changed!!",
@@ -238,7 +238,7 @@ class Interview < ActiveRecord::Base
 
   def deliver_interview_message_girl(opts={})
     Pony.mail({
-      :to => "#{app_signup.user.name}<#{app_signup.user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You have an interview message from #{user.first_name}!!",
@@ -260,7 +260,7 @@ class Interview < ActiveRecord::Base
 
   def deliver_interview_message_parent(opts={})
     Pony.mail({
-      :to => "#{app_signup.user.name}<#{app_signup.user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You have an interview message from #{user.first_name}!!",
@@ -282,7 +282,7 @@ class Interview < ActiveRecord::Base
 
   def deliver_interview_message_maker(opts={})
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You have an interview message from #{app_signup.user.first_name}!!",
@@ -310,7 +310,7 @@ class Interview < ActiveRecord::Base
       recipient = user
     end
     Pony.mail({
-      :to => "#{recipient.name}<#{recipient.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You have an interview message from #{sender.first_name}!!",

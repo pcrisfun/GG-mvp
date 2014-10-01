@@ -63,7 +63,7 @@ class AppSignup < Signup
 
   def deliver_save
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your application has been saved - #{self.event.title}",
@@ -78,7 +78,7 @@ class AppSignup < Signup
 
   def deliver_save_parent
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your daughter's application has been saved - #{self.event.title}",
@@ -98,7 +98,7 @@ class AppSignup < Signup
   def deliver_girl(opts={})
     return false unless valid?
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Thanks for applying for #{event.title}",
@@ -115,7 +115,7 @@ class AppSignup < Signup
   def deliver_parent(opts={})
     return false unless valid?
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Thanks for helping your daughter apply for #{event.title}",
@@ -136,7 +136,7 @@ class AppSignup < Signup
   def deliver_maker_girl(opts={})
     return false unless valid?
     Pony.mail({
-      :to => "#{event.user.name}<#{event.user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{user.first_name} has applied to work with you!",
@@ -153,7 +153,7 @@ class AppSignup < Signup
   def deliver_maker_daughter(opts={})
     return false unless valid?
     Pony.mail({
-      :to => "#{event.user.name}<#{event.user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{self.daughter_firstname} has applied to work with you!",
@@ -173,7 +173,7 @@ class AppSignup < Signup
 
   def deliver_cancel_girl(opts={})
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your application has been canceled - #{event.topic} with #{event.user.name}",
@@ -188,7 +188,7 @@ class AppSignup < Signup
 
   def deliver_cancel_parent(opts={})
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your daughter's application has been canceled - #{event.topic} with #{event.user.name}",
@@ -203,7 +203,7 @@ class AppSignup < Signup
 
   def deliver_cancel_maker
     Pony.mail({
-      :to => "#{self.event.user.name}<#{self.event.user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{user.name} has canceled her application for #{event.topic}",
@@ -218,7 +218,7 @@ class AppSignup < Signup
 
   def deliver_cancel_bymaker
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{event.user.name} has canceled this apprenticeship - #{event.topic}",
@@ -238,7 +238,7 @@ class AppSignup < Signup
   def deliver_resubmit_girl(opts={})
     return false unless valid?
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Thanks for re-applying for #{event.title}",
@@ -255,7 +255,7 @@ class AppSignup < Signup
   def deliver_resubmit_parent(opts={})
     return false unless valid?
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Thanks for helping your daughter re-apply for #{event.title}",
@@ -276,7 +276,7 @@ class AppSignup < Signup
   def deliver_resubmit_maker_girl(opts={})
     return false unless valid?
     Pony.mail({
-      :to => "#{event.user.name}<#{event.user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{user.first_name} has re-applied to work with you!",
@@ -293,7 +293,7 @@ class AppSignup < Signup
   def deliver_resubmit_maker_daughter(opts={})
     return false unless valid?
     Pony.mail({
-      :to => "#{event.user.name}<#{event.user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{self.daughter_firstname} has applied to work with you!",
@@ -314,7 +314,7 @@ class AppSignup < Signup
 
   def deliver_destroy_girl(opts={})
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your application has been deleted - #{event.topic} with #{user.name}",
@@ -329,7 +329,7 @@ class AppSignup < Signup
 
   def deliver_destroy_parent(opts={})
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your daughter's application has been deleted - #{event.topic} with #{user.name}",
@@ -348,7 +348,7 @@ class AppSignup < Signup
 
   def deliver_decline_girl(opts={})
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{event.user.first_name} filled the apprenticeship",
@@ -366,7 +366,7 @@ class AppSignup < Signup
 
   def deliver_decline_parent(opts={})
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{self.event.user.first_name} filled the apprenticeship",
@@ -381,7 +381,7 @@ class AppSignup < Signup
 
   def deliver_decline_maker(opts={})
     Pony.mail({
-      :to => "#{event.user.name}<#{event.user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "We've notified #{user.first_name} of your decision",
@@ -398,7 +398,7 @@ class AppSignup < Signup
 
   def deliver_accept_girl(opts={})
     Pony.mail({
-      :to => "#{self.user.name}<#{self.user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{self.event.user.first_name} would like to work with you!",
@@ -414,7 +414,7 @@ class AppSignup < Signup
 
   def deliver_accept_parent(opts={})
     Pony.mail({
-      :to => "#{self.user.name}<#{self.user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{self.event.user.first_name} would like to work with #{self.daughter_firstname}!",
@@ -434,7 +434,7 @@ class AppSignup < Signup
 
   def deliver_accept_maker_girl(opts={})
     Pony.mail({
-      :to => "#{event.user.first_name}<#{event.user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You've accepted #{user.first_name} as your apprentice!",
@@ -450,7 +450,7 @@ class AppSignup < Signup
 
   def deliver_accept_maker_daughter(opts={})
     Pony.mail({
-      :to => "#{event.user.first_name}<#{event.user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You've accepted #{self.daughter_firstname} as your apprentice!",
@@ -478,7 +478,7 @@ class AppSignup < Signup
     return false unless valid?
     payment = opts[:payment]
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your apprenticeship is ready to start! - #{self.event.title}",
@@ -496,7 +496,7 @@ class AppSignup < Signup
     return false unless valid?
     payment = opts[:payment]
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your apprenticeship is ready to start! - #{self.event.title}",
@@ -515,7 +515,7 @@ class AppSignup < Signup
     return false unless valid?
     payment = opts[:payment]
     Pony.mail({
-      :to => "#{user.name}<#{user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your apprenticeship is ready to start! - #{self.event.title}",
@@ -536,7 +536,7 @@ class AppSignup < Signup
   def deliver_confirm_maker_girl(opts={})
     return false unless valid?
     Pony.mail({
-      :to => "#{event.user.name}<#{event.user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your apprenticeship with #{user.first_name} is ready to start! - #{self.event.title}",
@@ -551,7 +551,7 @@ class AppSignup < Signup
   def deliver_confirm_maker_parent(opts={})
     return false unless valid?
     Pony.mail({
-      :to => "#{event.user.name}<#{event.user.email}>",
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your apprenticeship with #{self.daughter_firstname} is ready to start! - #{self.event.title}",
@@ -566,7 +566,7 @@ class AppSignup < Signup
   def deliver_reminder
     return false unless valid?
     Pony.mail({
-        :to => "#{user.name}<#{user.email}>, #{event.user.name}<#{event.user.email}>",
+        :to => "Diana & Cheyenne<hello@girlsguild.com>",
         :from => "Diana & Cheyenne<hello@girlsguild.com>",
         :reply_to => "GirlsGuild<hello@girlsguild.com>",
         :subject => "Your apprenticeship is set to start soon! - #{self.event.title}",
@@ -584,7 +584,7 @@ class AppSignup < Signup
   def deliver_followup
     return false unless valid?
     Pony.mail({
-        :to => "#{user.name}<#{user.email}>",
+        :to => "Diana & Cheyenne<hello@girlsguild.com>",
         :from => "Diana & Cheyenne<hello@girlsguild.com>",
         :reply_to => "GirlsGuild<hello@girlsguild.com>",
         :subject => "How's it going? - #{self.event.title}",
@@ -602,7 +602,7 @@ class AppSignup < Signup
   def deliver_followup_maker
     return false unless valid?
     Pony.mail({
-        :to => "#{event.user.name}<#{event.user.email}>",
+        :to => "Diana & Cheyenne<hello@girlsguild.com>",
         :from => "Diana & Cheyenne<hello@girlsguild.com>",
         :reply_to => "GirlsGuild<hello@girlsguild.com>",
         :subject => "How's it going with #{user.first_name}?",
