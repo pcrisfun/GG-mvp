@@ -94,7 +94,7 @@
               = editable_link_to 'Kind of', field: :kind, resource: @apprenticeship, type: :select, data: {source: "{'In-House':'In-House', 'Event':'Event', 'Production':'Production','Business':'Business','Ongoing':'Ongoing','1-Day':'1-Day' }"}
               Apprenticeship
             - if !show
-              %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Is this an Event Apprenticeship with a specific timeline? Is it a Production Apprenticeship, where you need help making a run or building something in particular? Or is it an Ongoing Apprenticeship, through which you share your knowledge and creative practice for help with day-to-day business and the timeline is less set (though we suggest an initial 3 month timeline)?"} }
+              %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Is this an In-House Apprenticeship where you'll need managerial approval to bring on an Apprentice? Or maybe an Event Apprenticeship with a specific timeline culminating in an event? Is it a Production Apprenticeship, where you need help making a run or building something in particular? Is it a Business Apprenticeship where you're teaching specifics about running your business? Or is it an Ongoing Apprenticeship, through which you share your knowledge and creative practice for help with your day-to-day?"} }
                 %i.fa.fa-question-circle.small-icon
             %br
             - if !show
@@ -262,7 +262,7 @@
               #skills.field.tags
                 = editable_link_to 'Skills and techniques will you be teaching', field: :skill_list, resource: @apprenticeship, type: :select2
               - if !show
-                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Be as specific as possible so that we can give your apprentice credit for learning new skills, and allow her to track them off in her portfolio."} }
+                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Be as specific as possible so that we can give your apprentice credit for learning new skills, and allow her to track them in her portfolio."} }
                   %i.fa.fa-question-circle.small-icon
             %dt
               - if !show
@@ -272,7 +272,7 @@
               #tools.field.tags
                 = editable_link_to 'Tools and materials will you be teaching or using', field: :tool_list, resource: @apprenticeship, type: :select2
               - if !show
-                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Be as specific as possible so that we can give your apprentice credit for learning new tools, and allow her to track them off in her portfolio!"} }
+                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Be as specific as possible so that we can give your apprentice credit for learning new tools, and allow her to track them in her portfolio!"} }
                   %i.fa.fa-question-circle.small-icon
             - if !show || !@apprenticeship.requirement_list.empty?
               %dt

@@ -3,9 +3,10 @@
     .hero-unit.center.hero-howitworks
       %h1 In-House Apprenticeships
       %br
-      .span9.offset1
-        %b Our Definition:
-        %i &nbsp; More hands-on than a "mentorship", more supportive than an "internship"; apprenticeships are a collaborative way to trade knowledge and skills for help with making.
+      .small These are apprenticeships that take place within a larger business whereby the Maker-mentor is an employee.
+      %br
+      .btn.btn-large.btn-success
+        = render 'send-tomy-boss'
 
 %section.section#darkspan
   .container
@@ -36,10 +37,10 @@
           %br
           %small / Any Woman or Girl interested in Learning
         %ul
-          %li Find more meaning & engagement in your work.
-          %li Create a deeper understanding of your work by sharing it.
-          %li Learn leadership skills and discover your creative voice.
-          %li Network with other Guild members in your field.
+          %li Build a creative voice through collaboration.
+          %li Learn how to ask and recieve feedback.
+          %li Build a portfolio that will help you get a job or apply for school.
+          %li Gain the skills and techniques directly useful in the job market.
 
 
 %section.section#FAQ.newevent
@@ -51,10 +52,10 @@
       %hr
     .row-fluid#howitworks
       .span6.maker.center
+        %h3.center Posting an Apprenticeship
         %blockquote.blockquote-fancy.blockquote-fancy-small
           .blockquote-img
             %img{:alt => "", :src => "../images/assets/testimonials/NDavis.jpeg"}/
-        %h3.center Posting an Apprenticeship
         %ul
           %li
             %h4
@@ -120,10 +121,10 @@
 
 
       .span6.girl.center
+        %h3.center Becoming an Apprentice
         %blockquote.blockquote-fancy.blockquote-fancy-small
           .blockquote-img
             %img{:alt => "", :src => "../images/assets/testimonials/Helen.jpeg"}/
-        %h3.center Becoming an Apprentice
         %ul
           %li
             %h4
@@ -205,6 +206,11 @@
       What to expect
       %small / &nbsp; Here's how to structure an equitable exchange...
       %hr
+
+    %b Our Definition:
+    %br
+    %i &nbsp; More hands-on than a "mentorship", more supportive than an "internship"; apprenticeships are a collaborative way to trade knowledge and skills for help with making.
+    %hr
     .row-fluid
       .span6
         %h3
@@ -221,7 +227,7 @@
           %br
           %li
             %b Payment:
-            We ask for a beta connection fee of 30.00 from both Maker and Apprentice. This fee covers our services and support. These are also typically paid apprenticeships whereby the Apprentice is brought on and paid by the business no less than minimum-wage.
+            We ask for a beta connection fee of $75.00 from the Maker. This fee covers our services and support. These are also typically paid apprenticeships whereby the Apprentice is brought on and paid by the business no less than minimum-wage. These details are the responsibility of the Maker's business to address.
           %br
           %li
             %b Instruction:
@@ -249,7 +255,7 @@
           %br
           %li
             %b Payment:
-            We ask for a beta connection fee of 30.00 from both Maker and Apprentice. This fee covers our services and support. These are also typically paid apprenticeships whereby the Apprentice is brought on and paid by the business no less than minimum-wage.
+            We ask for a beta connection fee of $25.00 from the Apprentice. This fee covers our services and support. These are also typically paid apprenticeships whereby the Apprentice is brought on and paid by the business no less than minimum-wage. These details are the responsibility of the Maker's business to address.
           %br
           %li
             %b Instruction:
@@ -327,8 +333,7 @@
       Need buy-in from your Manager?
       .pull-right
         .btn.btn-large.btn-success
-          %a{href: "mailto:hello@girlsguild.com?Subject=Why bring on a GirlsGuild Apprentice?"}
-            Send this info to your Boss
+          = render 'send-tomy-boss'
 
     Send this content to your Manager and just let us know! We'd be happy to schedule a meeting with your Manager to chat about the benefits of having in-house apprenticeships!
     %br
