@@ -352,7 +352,7 @@ include EventHelper
   end
 
   def get_signup_emails
-    "<ul>" + self.signups.where(:state => 'confirmed').map do |a|
+    "<ul>" + self.signups.where(:state => ["confirmed", "completed"]).map do |a|
       "<li>#{a.user.name}: #{a.user.email}</li>"
     end.join + "</ul>"
   end
@@ -372,11 +372,10 @@ include EventHelper
 
 	def self.cancel_workshop
     #Note: ends_at is the registration close date on workshops
-		workshops = Workshop.where('ends_at <= ?', Date.today).where(state: "accepted", datetime_tba: false).all
-		workshops.each do |w|
-			unless w.min_capacity_met?
-        w.cancel & w.deliver_cancel_lowsignups
-        w.signups.each do |s|
+    Workshop.where(state: "accepted").where('ends_at <= ?', Date.today).each do |w|
+      unless w.min_capacity_met?
+        w.cancel && w.deliver_cancel_lowsignups
+        w.signups.where(state: "confirmed").each do |s|
           s.cancel && s.deliver_cancel
 
           Prereg.find_or_create_by_user_id_and_event_id!(
@@ -389,14 +388,14 @@ include EventHelper
 
   def self.maker_reminder
     date_range = Date.today..(Date.today+3.days)
-    Workshop.where(begins_at: date_range, :state => ["accepted", "filled"], datetime_tba: false, reminder_sent: false).each do |work|
+    Workshop.where(begins_at: date_range, :state => ["accepted", "filled"], reminder_sent: false).each do |work|
       work.deliver_maker_reminder
     end
   end
 
   def self.maker_followup
     date_range = (Date.today-3.days)..Date.today
-    Workshop.where(begins_at: date_range, state: "completed", datetime_tba: false, follow_up_sent: false).each do |work|
+    Workshop.where(begins_at: date_range, state: "completed", follow_up_sent: false).each do |work|
       work.deliver_maker_followup
     end
   end

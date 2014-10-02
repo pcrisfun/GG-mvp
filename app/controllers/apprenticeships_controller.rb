@@ -91,7 +91,7 @@ class ApprenticeshipsController < ApplicationController
 
         elsif params[:apprenticeship][:stripe_card_token] && ( params[:apprenticeship][:stripe_card_token] != "" )
           if @apprenticeship.process_payment
-            @apprenticeship.paid
+            @apprenticeship.submit
             @apprenticeship.deliver
             redirect_to payment_confirmation_apprenticeship_path(@apprenticeship) and return
           else

@@ -55,6 +55,10 @@ class Event < ActiveRecord::Base
      write_attribute(:ends_at, Chronic::parse(new_date).strftime("%Y-%m-%d %H:%M:%S"))
   end
 
+  def should_validate_begins_at?
+    :tba_is_blank && (self.started? || self.pending?)
+  end
+
   def process_payment
     logger.info "Processing payment"
     unless charge_id.present?
@@ -158,7 +162,7 @@ class Event < ActiveRecord::Base
       transition :accepted => :started
     end
 
-    event :paid do
+    event :submit do
       transition :started => :pending
     end
 
@@ -176,6 +180,10 @@ class Event < ActiveRecord::Base
 
     event :fill do
       transition :accepted => :filled
+    end
+
+    event :complete do
+      transition :all => :completed
     end
 
     event :reopen do

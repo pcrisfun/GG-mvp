@@ -143,6 +143,7 @@ class AppSignupsController < ApplicationController
   end
 
   def cancel
+    @app_signup = AppSignup.find(params[:id]) if params[:id]
     if @app_signup.confirmed? && @apprenticeship.filled?
       @apprenticeship.reopen
     end
