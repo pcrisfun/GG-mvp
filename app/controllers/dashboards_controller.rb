@@ -58,6 +58,7 @@ class DashboardsController < ApplicationController
     customer.description = "Updated card for #{@user.email}"
 
     if customer.save
+      logger.info "#{@user.first_name}'s Stripe customer info was updated"
       redirect_to request.referrer, flash: { success: "Your billing information was successfully updated" }
     else
       redirect_to request.referrer, flash: { warning: "The following error(s) occurred: #{@user.errors.full_messages}"}
