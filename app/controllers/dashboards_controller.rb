@@ -54,7 +54,7 @@ class DashboardsController < ApplicationController
     @user = User.find(current_user.id)
     customer = Stripe::Customer.retrieve(@user.stripe_customer_id)
     logger.info "Retrieved Stripe customer"
-    customer.card = stripe_card_token
+    customer.card = params[:stripe_card_token]
     customer.description = "Updated card for #{@user.email}"
 
     if customer.save

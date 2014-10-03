@@ -23,8 +23,9 @@
           \- a third party service certified for security and compliance.
           %br
           %br
-          = simple_form_for(@user, :url => update_billing_path, defaults: { input_html: { class: 'payment_form' } }, html: { :method => :put } ) do |f|
+          = simple_form_for(@user, :url => update_billing_path, html: { :method => :put, :class => 'payment_form' } ) do |f|
             = render '/shared/credit_card_form', f: f
             .form-actions
-              = f.button :submit, "Update billing info", :class => "btn btn-large btn-primary"
+              = f.button :submit, "Update billing info", :class => "btn btn-large btn-primary cc_process"
+            = hidden_field_tag :stripe_card_token, '', :id => "stripe_card_token"
 
