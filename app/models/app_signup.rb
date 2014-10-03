@@ -68,6 +68,8 @@ class AppSignup < Signup
       self.save!
       # update_attribute(:charge_id, charge.id)
       logger.info "Processed apprentice payment #{charge.id}"
+    else
+      return
     end
   rescue Stripe::CardError => e
     logger.error "Stripe error while creating charge: #{e.message}"
@@ -86,7 +88,7 @@ class AppSignup < Signup
         :amount => 3000, # amount in cents, again
         :currency => "usd",
         :customer => event.user.stripe_customer_id,
-        :description => "Maker payment from #{self.event.user.email}"
+        :description => "Maker payment from #{self.event.user.email} for #{self.user.first_name}'s apprenticeship"
       )
       logger.debug(charge)
       x = charge.id
@@ -796,12 +798,13 @@ class AppSignup < Signup
     return true
   end
 
-  def auto_confirm_apprenticeship
-    date_range = (Date.today-7.days)..Date.today
-    AppSignup.where(:state => "accepted", self.state_stamps.last.stamp => date_range).each do |app|
+  def self.auto_confirm_apprenticeship
+    date_range = (Date.today-14.days)..(Date.today-7.days)
+    AppSignup.where(:updated_at => date_range, :state => "accepted").map.each do |app|
       app.process_auto_payment
     end
   end
+
 
   def self.remind_maker_to_review
     # UPDATE: date_range = (Date.today-5.days)..(Date.today+1)
