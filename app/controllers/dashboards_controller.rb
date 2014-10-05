@@ -33,6 +33,12 @@ class DashboardsController < ApplicationController
     end
   end
 
+  def metrics
+    if current_user && current_user.admin?
+      logger.info "Rendering metrics dashboard"
+    end
+  end
+
   def avatar
     @user = User.find(current_user.id)
   end

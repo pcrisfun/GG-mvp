@@ -37,6 +37,12 @@ class AppSignup < Signup
     end
   end
 
+  def ready_to_apprentice?
+    if self.accepted? or self.confirmed? or self.completed?
+      return true
+    end
+  end
+
   def save_payment_info
     logger.info "Saving payment info"
     if user.stripe_customer_id.present?
@@ -553,8 +559,9 @@ class AppSignup < Signup
       :html_body => %(<h1>Yesss!</h1>
         <p>You're all set for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>! We received your confirmation and have charged the card on file for your payment of $30.</p>
         <p>You can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan your first meeting together.</p>
-        <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>If you haven't already, please download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> which covers some guidelines for the apprenticeship.
+        <br/>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -571,8 +578,9 @@ class AppSignup < Signup
       :html_body => %(<h1>Yesss!</h1>
         <p>You're all set for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>! We received your confirmation and have charged the card on file for your payment of $30.</p>
         <p>You can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan your first meeting together.</p>
-        <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>If you haven't already, please download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> which covers some guidelines for the apprenticeship.
+        <br/>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :cc => "#{self.parent_name}<#{self.parent_email}>",
       :bcc => "hello@girlsguild.com",
     })
@@ -590,8 +598,9 @@ class AppSignup < Signup
       :html_body => %(<h1>Yesss!</h1>
         <p>#{self.daughter_firstname} is all set for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>! We received your confirmation and have charged the card on file for your payment of $30.</p>
         <p>You can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan their first meeting together.</p>
-        <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>If you haven't already, please download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> which covers some guidelines for the apprenticeship.
+        <br/>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -618,8 +627,9 @@ class AppSignup < Signup
       :html_body => %(<h1>Yesss!</h1>
         <p>You're all set for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>! We processed your confirmation and have charged the card on file for your payment of $30.</p>
         <p>If you haven't yet, you can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan your first meeting together.</p>
-        <p>We'll follow up soon to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>If you haven't already, please download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> which covers some guidelines for the apprenticeship.
+        <br/>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -636,8 +646,9 @@ class AppSignup < Signup
       :html_body => %(<h1>Yesss!</h1>
         <p>You're all set for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>! We processed your confirmation and have charged the card on file for your payment of $30.</p>
         <p>If you haven't yet, you can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan your first meeting together.</p>
-        <p>We'll follow up soon to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>If you haven't already, please download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> which covers some guidelines for the apprenticeship.
+        <br/>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :cc => "#{self.parent_name}<#{self.parent_email}>",
       :bcc => "hello@girlsguild.com",
     })
@@ -655,8 +666,9 @@ class AppSignup < Signup
       :html_body => %(<h1>Yesss!</h1>
         <p>#{self.daughter_firstname} is all set for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>! We processed your confirmation and have charged the card on file for your payment of $30.</p>
         <p>If you haven't yet, you can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan their first meeting together.</p>
-        <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>If you haven't already, please download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> which covers some guidelines for the apprenticeship.
+        <br/>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
