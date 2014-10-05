@@ -286,7 +286,7 @@
               = link_to 'Delete', @app_signup, :method => :delete, class: "btn btn-danger", :data => { :confirm => 'Are you sure you want to delete this application? Deleting cannot be undone.' }
 
 
-          - if current_user == @app_signup.event.user && (@app_signup.pending? || @app_signup.interview_requested? || @app_signup.interview_scheduled?)
+          - if (current_user == @app_signup.event.user or current_user.admin?) && (@app_signup.pending? || @app_signup.interview_requested? || @app_signup.interview_scheduled?)
             .pull-center
               %br
               %br
