@@ -36,7 +36,7 @@
       - elsif @app_signup.accepted?
         .alert.alert-success
           %i.fa.fa-check
-          Thanks for accepting #{@app_signup.user.first_name} - we'll let you know when she confirms!
+          Thanks for accepting #{@app_signup.user.first_name} - we'll put you in touch to get started!
       - elsif @app_signup.declined?
         .alert.alert-warning Thanks for making the tough decision to decline #{@app_signup.user.first_name}. We've let her know.
 
@@ -182,28 +182,27 @@
 
       / APPLICATION CONFIRMED ==================================================================================================
     - elsif current_user == @app_signup.event.user && @app_signup.confirmed?
-      .alert.alert-success Rad, looks like #{@app_signup.user.first_name} has confirmed this application. We've emailed you both contact info to start making.
+      .alert.alert-success Rad, #{@app_signup.user.first_name}'s application is confirmed. We've emailed you both contact info to start making.
     - elsif current_user == @app_signup.user && @app_signup.confirmed?
-      .alert.alert-success Sweet, looks like you've already confirmed this application. We've emailed you both contact info to start making.
+      .alert.alert-success Sweet, looks like you're already confirmed for this apprenticeship. We've emailed you both contact info to start making.
     - elsif current_user.admin? && @app_signup.confirmed?
-      .alert.alert-success Hurrah, looks like #{@app_signup.user.first_name} has confirmed her application with #{"#{@apprenticeship.host_firstname}"}. (We've sent them both contact info to get started).
+      .alert.alert-success Hurrah, looks like #{@app_signup.user.first_name}'s application with #{"#{@apprenticeship.host_firstname}"} was confirmed. (We've sent them both contact info to get started).
 
       / CONFIRM APPRENTICESHIP ================================================================================================
     - elsif @app_signup.accepted? && @app_signup.user == current_user
-      %h1 Confirm My Apprenticeship for #{link_to "#{@app_signup.event.topic}", apprenticeship_path(@app_signup.event)}
+      %h1 Start My Apprenticeship for #{link_to "#{@app_signup.event.topic}", apprenticeship_path(@app_signup.event)}
       - if @app_signup.parent?
         .alert.alert-success
-          Congratulations, #{"#{@apprenticeship.host_firstname}"} would love to work with #{@app_signup.daughter_firstname}!  Please fill out these details so we can put you two in touch.
+          Congratulations, #{@apprenticeship.host_firstname} would love to work with #{@app_signup.daughter_firstname}! You can contact her at #{@apprenticeship.user.email} to plan their first meeting.
         /%p
         /  Let us know if you’d like to request an interview before you confirm - just to make sure it’s a good fit for both of you.
       - else
         .alert.alert-success
-          Congratulations, #{"#{@apprenticeship.host_firstname}"} would love to work with you!  Please fill out these details so we can put you two in touch.
-        %p
-          Let us know if you’d like to request an interview before you confirm - just to make sure it’s a good fit for both of you.
-          %a{href: "mailto:hello@girlsguild.com?Subject=I'd like to schedule an interview with #{"#{@apprenticeship.host_firstname}"} before confirming", class: "btn btn-primary pull-right"}
-            Request an Interview
-        %br
+          Congratulations, #{"#{@apprenticeship.host_firstname}"} would love to work with you! You can contact her at #{@apprenticeship.user.email} to plan your first meeting.
+      %p
+        Let us know if you’d like to request an interview before you confirm - just to make sure it’s a good fit for both of you.
+        %a{href: "mailto:hello@girlsguild.com?Subject=I'd like to schedule an interview with #{"#{@apprenticeship.host_firstname}"} before confirming", class: "btn btn-primary pull-right"}
+          Request an Interview
         /  - if @app_signup.interview_requested?
         /    = link_to "Interview Requested", '#', class: "btn pull-right disabled"
         /  - elsif @app_signup.interview_scheduled?
@@ -226,21 +225,17 @@
         /          %br
         /          = f.submit "Send Request", class: "btn btn-primary pull-right"
         /      %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
-
-
-      .row-fluid
-        .span9
-          = simple_form_for @app_signup, class: 'form-horizontal', html: {class: "payment_form"}, url: confirm_app_signups_path, method: :post, :validate => true, defaults: { input_html: { class: 'span6' } }  do |f|
-            = render 'confirm_form', f: f
-            = f.hidden_field :id, value: @app_signup.id
-            = f.submit "Confirm Apprenticeship", name: 'confirm_button', class: "btn btn-success btn-create pull-right", id: "cc_process"
-            = link_to "Cancel Application", { :controller => 'app_signups', :action => 'cancel', :id => @app_signup.id }, class: "btn btn-danger btn-create", :method => 'post', :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you will not be able to resubmit it."}
-          %br
-          %br
-          %h2 Your Accepted Application
-        .span3.accordionFAQ
-          - if current_user == @app_signup.user
-            = render 'faq'
+      %p
+        You have
+        %strong #{(@app_signup.state_stamps.last.stamp + 7.days).mjd - Date.today.mjd} days to cancel
+        before we go ahead and charge the card we have on file for the $30 apprenticeship fee.
+        = link_to "Cancel Application", { :controller => 'app_signups', :action => 'cancel', :id => @app_signup.id }, class: "btn btn-danger btn-create pull-right", :method => 'post', :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you will not be able to resubmit it."}
+      %br
+      %br
+    %h2 Your Accepted Application
+    / .span3.accordionFAQ
+    /   - if current_user == @app_signup.user
+    /     = render 'faq'
 
     .row-fluid
       .span12.well

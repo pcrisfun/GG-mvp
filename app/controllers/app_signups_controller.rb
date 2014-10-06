@@ -168,43 +168,40 @@ class AppSignupsController < ApplicationController
   #   redirect_to :back, :flash => { warning: "Oops. The following error(s) occured while attempting to resubmit your application: #{error_msg}".html_safe} and return
   # end
 
-  def confirm
-    current_user.update_attributes!(params[:user])
+  # def confirm
+  #   current_user.update_attributes!(params[:user])
 
-    if params[:app_signup] && @app_signup.user.stripe_customer_id.present?
-      if @app_signup.update_attributes(params[:app_signup])
-        if @app_signup.process_apprent_fee
-          if @app_signup.confirm
-            @app_signup.deliver_confirm
-            @app_signup.process_maker_fee
-            if @app_signup.maker_charge_id.present?
-              @app_signup.deliver_confirm_maker
-            else
-              @app_signup.deliver_maker_payment_failed
-            end
-            redirect_to payment_confirmation_app_signup_path(@app_signup), flash: { success: "Awesome, you're confirmed to work with #{@apprenticeship.host_firstname}." } and return
-          else
-            flash[:warning] = "Oh snap, there was a problem saving your form. Please check all fields and try again."
-            render 'show'
-          end
-        else
-          flash[:warning] = "Hmm, we couldn't process payment. Please try again."
-          render 'show'
-        end
-      else
-        flash[:warning] = "Oh snap, there was a problem saving your form. Please check all fields and try again."
-        render 'show'
-      end
+  #   if params[:app_signup] && @app_signup.user.stripe_customer_id.present?
+  #     if @app_signup.update_attributes(params[:app_signup])
+  #       if @app_signup.process_apprent_fee
+  #         if @app_signup.confirm
+  #           @app_signup.deliver_confirm
+  #           @app_signup.process_maker_fee
+  #           if @app_signup.maker_charge_id.present?
+  #             @app_signup.deliver_confirm_maker
+  #           else
+  #             @app_signup.deliver_maker_payment_failed
+  #           end
+  #           redirect_to payment_confirmation_app_signup_path(@app_signup), flash: { success: "Awesome, you're confirmed to work with #{@apprenticeship.host_firstname}." } and return
+  #         else
+  #           flash[:warning] = "Oh snap, there was a problem saving your form. Please check all fields and try again."
+  #           render 'show'
+  #         end
+  #       else
+  #         flash[:warning] = "Hmm, we couldn't process payment. Please try again."
+  #         render 'show'
+  #       end
+  #     else
+  #       flash[:warning] = "Oh snap, there was a problem saving your form. Please check all fields and try again."
+  #       render 'show'
+  #     end
 
-    #It gets here if there's no stripe_customer_id for the applicant
-    else
-      flash[:warning] = "Oh snap, there was a problem saving your form. Please check all fields and try again."
-      render 'show'
-    end
-  end
-
-  def payment_confirmation
-  end
+  #   #It gets here if there's no stripe_customer_id for the applicant
+  #   else
+  #     flash[:warning] = "Oh snap, there was a problem saving your form. Please check all fields and try again."
+  #     render 'show'
+  #   end
+  # end
 
   def edit
   end
