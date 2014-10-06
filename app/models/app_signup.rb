@@ -54,6 +54,18 @@ class AppSignup < Signup
     end
   end
 
+  def assign_personal_contact
+    if self.id.odd?
+      self.personal_contact_name = "Cheyenne"
+      self.personal_contact_email = "cheyenne@girlsguild.com"
+      self.save!
+    elsif self.id.even?
+      self.personal_contact_name = "Diana"
+      self.personal_contact_email = "diana@girlsguild.com"
+      self.save!
+    end
+  end
+
   def save_payment_info
     logger.info "Saving payment info"
     if user.stripe_customer_id.present?
@@ -126,6 +138,7 @@ class AppSignup < Signup
   def process_auto_payment
     if self.process_apprent_fee
       if self.confirm
+        self.assign_personal_contact
         self.deliver_confirm_auto
         self.process_maker_fee
         if self.maker_charge_id.present?
@@ -138,6 +151,7 @@ class AppSignup < Signup
         logger.error "State transition to 'Confirmed' failed: App Signup #{self.id}, #{self.user.first_name}"
       end
     else
+      self.deliver_apprentice_payment_failed
       logger.error "#{self.user.first_name}'s payment for #{self.event.title} failed. App Signup #{self.id} has not been confirmed."
     end
   end
@@ -488,8 +502,11 @@ class AppSignup < Signup
       :html_body => %(<h1>Yeehaw #{self.user.first_name}!</h1>
         <p>We're excited to let you know that #{self.event.user.first_name} has reviewed your application for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a> and would like to work with you as her apprentice!</p>
         <h3>Next Steps</h3>
-        <p>If you haven't met up yet, you can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan your first meeting together. Please download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> to bring with you - it covers some guidelines for the apprenticeship.</p>
-        <p>You can also check out our <a href="http://girlsguild.com/handbook/GirlsGuildHandbook.pdf">Apprenticeship Handbook</a> for ideas on how to get the most out of your apprenticeship experience.</p>
+        <p>If you haven't met up yet, you can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan your first meeting together. The apprenticeship will be happening at:
+        <br/><strong>#{self.event.location_address} #{self.event.location_address2}
+        <br/><strong>#{self.event.location_city}, #{self.event.location_state}</p>
+        <p>Please download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> to bring with you - it covers some guidelines for the apprenticeship.</p>
+        <p>You can review the <a href="#{apprenticeship_url(self)}">apprenticeship details page</a> for more info on what to expect and prepare for, or check out our <a href="http://girlsguild.com/handbook/GirlsGuildHandbook.pdf">Apprenticeship Handbook</a> for ideas on how to get the most out of your apprenticeship experience.</p>
         <h3>Payment & Cancellation</h3>
         <p>In case you decide not to take on the apprenticeship, you have <strong>7 days to cancel</strong> your application via your <a href="#{dashboard_url}">Events Dashboard</a>. If you don't cancel within a week of being accepted, we'll assume you've begun working together and will go ahead with confirmation by charging your credit card for the $30.00 apprenticeship fee.</p>
         <p>If you need to update your billing information, you can do so <a href="#{billing_url}">here</a>. Just so you know, this fee is your commitment to take on the apprenticeship, so once you've paid, we don't offer a refund.</p>
@@ -510,8 +527,11 @@ class AppSignup < Signup
       :html_body => %(<h1>Yeehaw!</h1>
         <p>We're excited to let you know that #{self.event.user.first_name} has reviewed your daughter's application for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a> and would like to work with #{self.daughter_firstname} as her apprentice!</p>
         <h3>Next Steps</h3>
-        <p>If they haven't met up yet, you can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan their first meeting together. Please download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> to bring with you - it covers some guidelines for the apprenticeship.</p>
-        <p>You can also check out our <a href="http://girlsguild.com/handbook/GirlsGuildHandbook.pdf">Apprenticeship Handbook</a> for ideas on how to get the most out of your apprenticeship experience.</p>
+        <p>If they haven't met up yet, you can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan their first meeting together. The apprenticeship will be happening at:
+        <br/><strong>#{self.event.location_address} #{self.event.location_address2}
+        <br/><strong>#{self.event.location_city}, #{self.event.location_state}</p>
+        <p>Please download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> to bring with you - it covers some guidelines for the apprenticeship.</p>
+        <p>You can review the <a href="#{apprenticeship_url(self)}">apprenticeship details page</a> for more info on what to expect and prepare for, or check out our <a href="http://girlsguild.com/handbook/GirlsGuildHandbook.pdf">Apprenticeship Handbook</a> for ideas on how to get the most out of your apprenticeship experience.</p>
         <h3>Payment & Cancellation</h3>
         <p>In case you and #{self.daughter_firstname} decide not to take on the apprenticeship, you have <strong>7 days to cancel</strong> her application via your <a href="#{dashboard_url}">Events Dashboard</a>. If you don't cancel within a week of being accepted, we'll assume they've begun working together and will go ahead with confirmation by charging your credit card for the $30.00 apprenticeship fee.</p>
         <p>If you need to update your billing information, you can do so <a href="#{billing_url}">here</a>. Just so you know, this fee is your commitment to take on the apprenticeship, so once you've paid, we don't offer a refund.</p>
@@ -603,8 +623,15 @@ class AppSignup < Signup
       :subject => "Your apprenticeship is good to go! - #{self.event.title}",
       :html_body => %(<h1>Yesss!</h1>
         <p>You're all set for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>! We have charged the card on file for your payment of $30.</p>
-        <p>If you haven't yet, you can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan your first meeting together. Don't forget to download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> to set out some guidelines together for having a great apprenticeship.</p>
-        <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
+        <p>If you haven't yet, you can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan your first meeting together. Don't forget to download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> to set out some guidelines together.</p>
+        <p>Keep in mind these tips for having a great apprenticeship:</p>
+        <ul>
+          <li><strong>Get Dirty</strong> - Roll up your sleeves! You should be learning new things frequently enough to stay challenged, but don't be afraid to practice what you're learning; you're there to both learn and be helpful!</li>
+          <li><strong>Be Curious</strong> - Ask what it's like to run a small business, how she got to where she is in her field, and the challenges she's had along the way - it's likely that you've experienced some of the same stuff.</li>
+          <li><strong>Ask for Feedback</strong> - Remember to ask for gentle but constructive feedback. You'll gain the best kind of real-life experience when you're learning from your mistakes.</li>
+          <li><strong>Share Goals</strong> - Get to know each others goals and dreams! We want to help you build a mentor network because we're all stronger when we learn together.</li>
+        </ul>
+        <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns, I (#{self.personal_contact_name}) will be your personal contact throughout the apprenticeship. You can reach me at #{self.personal_contact_email} or by replying to this email. I'm here to help!</p>
         <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -621,8 +648,15 @@ class AppSignup < Signup
       :subject => "Your apprenticeship is good to go! - #{self.event.title}",
       :html_body => %(<h1>Yesss!</h1>
         <p>You're all set for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>! We have charged the card on file for your payment of $30.</p>
-        <p>If you haven't yet, you can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan your first meeting together. Don't forget to download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> to set out some guidelines together for having a great apprenticeship.</p>
-        <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
+        <p>If you haven't yet, you can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan your first meeting together. Don't forget to download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> to set out some guidelines together.</p>
+        <p>Keep in mind these tips for having a great apprenticeship:</p>
+        <ul>
+          <li><strong>Get Dirty</strong> - Roll up your sleeves! You should be learning new things frequently enough to stay challenged, but don't be afraid to practice what you're learning; you're there to both learn and be helpful!</li>
+          <li><strong>Be Curious</strong> - Ask what it's like to run a small business, how she got to where she is in her field, and the challenges she's had along the way - it's likely that you've experienced some of the same stuff.</li>
+          <li><strong>Ask for Feedback</strong> - Remember to ask for gentle but constructive feedback. You'll gain the best kind of real-life experience when you're learning from your mistakes.</li>
+          <li><strong>Share Goals</strong> - Get to know each others goals and dreams! We want to help you build a mentor network because we're all stronger when we learn together.</li>
+        </ul>
+        <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns, I (#{self.personal_contact_name}) will be your personal contact throughout the apprenticeship. You can reach me at #{self.personal_contact_email} or by replying to this email. I'm here to help!</p>
         <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :cc => "#{self.parent_name}<#{self.parent_email}>",
       :bcc => "hello@girlsguild.com",
@@ -640,8 +674,15 @@ class AppSignup < Signup
       :subject => "Your apprenticeship is good to go! - #{self.event.title}",
       :html_body => %(<h1>Yesss!</h1>
         <p>#{self.daughter_firstname} is all set for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>! We have charged the card on file for your payment of $30.</p>
-        <p>If you haven't yet, you can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan their first meeting together. Don't forget to download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> to set out some guidelines together for having a great apprenticeship.</p>
-        <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
+        <p>If you haven't yet, you can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan their first meeting together. Don't forget to download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> to set out some guidelines together.</p>
+        <p>Help #{self.daughter_firstname} remember these tips for having a great apprenticeship:</p>
+        <ul>
+          <li><strong>Get Dirty</strong> - Roll up your sleeves! You should be learning new things frequently enough to stay challenged, but don't be afraid to practice what you're learning; you're there to both learn and be helpful!</li>
+          <li><strong>Be Curious</strong> - Ask what it's like to run a small business, how she got to where she is in her field, and the challenges she's had along the way - it's likely that you've experienced some of the same stuff.</li>
+          <li><strong>Ask for Feedback</strong> - Remember to ask for gentle but constructive feedback. You'll gain the best kind of real-life experience when you're learning from your mistakes.</li>
+          <li><strong>Share Goals</strong> - Get to know each others goals and dreams! We want to help you build a mentor network because we're all stronger when we learn together.</li>
+        </ul>
+        <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns, I (#{self.personal_contact_name}) will be your personal contact throughout the apprenticeship. You can reach me at #{self.personal_contact_email} or by replying to this email. I'm here to help!</p>
         <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -662,7 +703,7 @@ class AppSignup < Signup
       :html_body => %(<h1>Yesss, we've confirmed your apprenticeship with #{user.first_name}!</h1>
         <p>We've gone ahead and charged your card the $30 confirmation fee. You're all set to work with #{user.first_name} for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>!</p>
         <p>If you haven't yet, you can contact #{user.first_name} at #{user.email} or #{user.phone} to set up your first meeting together. You'll need a copy of the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> to set out some guidelines together for having a great apprenticeship, as well as the <a href="http://girlsguild.com/waivers/ReleaseWaiver-adults.pdf">Participation Waiver</a>, and if she's under 19, the <a href="http://girlsguild.com/waivers/IndemnificationAgreement-minors.pdf">Indemnification Agreement for Minors</a>.</p>
-        <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
+        <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns, I (#{self.personal_contact_name}) will be your personal contact throughout the apprenticeship. You can reach me at #{self.personal_contact_email} or by replying to this email. I'm here to help!</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -679,9 +720,23 @@ class AppSignup < Signup
       :html_body => %(<h1>Yesss, we've confirmed your apprenticeship with #{self.daughter_firstname}! </h1>
         <p>We've gone ahead and charged your card the $30 confirmation fee. You're all set to work with #{self.daughter_firstname} for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>!</p>
         <p>If you haven't yet, you can contact her parent, #{user.first_name}, at #{user.email} or #{user.phone} to set up your first meeting with #{self.daughter_firstname}. You'll need a copy of the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> to set out some guidelines together for having a great apprenticeship, as well as the <a href="http://girlsguild.com/waivers/ReleaseWaiver-adults.pdf">Participation Waiver</a> and the <a href="http://girlsguild.com/waivers/IndemnificationAgreement-minors.pdf">Indemnification Agreement for Minors</a>.</p>
-        <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
+        <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns, I (#{self.personal_contact_name}) will be your personal contact throughout the apprenticeship. You can reach me at #{self.personal_contact_email} or by replying to this email. I'm here to help!</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_apprentice_payment_failed
+    return false unless valid?
+    Pony.mail({
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Apprentice payment failed for #{self.event.title}",
+      :html_body => %(<h1>Crap</h1>
+      <p>#{self.user.first_name}'s payment failed when we tried to confirm the apprenticeship!</p>
+      <p>Look into it, dudes.</p>),
     })
     return true
   end
@@ -852,7 +907,7 @@ class AppSignup < Signup
     elsif self.interview_scheduled?
       return "Your <a href=#{app_signup_path(self)}>interview is scheduled</a>.".html_safe
     elsif self.accepted?
-      return "Your application has been accepted! <a href=#{app_signup_path(self)} class='bold'>Confirm</a> your apprenticeship!".html_safe
+      return "Your application has been accepted! <br/> We'll confirm it and process your apprenticeship fee in #{(self.state_stamps.last.stamp + 7.days).mjd - Date.today.mjd} days.".html_safe
     elsif self.declined?
       return "It did't work out, but you're still awesome!"
     elsif self.canceled?
@@ -883,6 +938,7 @@ class AppSignup < Signup
     elsif self.pending? || self.interview_scheduled? || self.interview_requested?
       return "#{(self.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days left to <a href=#{app_signup_path(self)} class='bold'>review</a> ".html_safe
     elsif self.accepted?
+      return "#{(self.state_stamps.last.stamp + 7.days).mjd - Date.today.mjd} days until we process your payment.</a> ".html_safe
     elsif self.declined?
     elsif self.canceled?
     elsif self.confirmed?

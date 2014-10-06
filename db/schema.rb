@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140927165601) do
+ActiveRecord::Schema.define(:version => 20141006155350) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -183,6 +183,8 @@ ActiveRecord::Schema.define(:version => 20140927165601) do
     t.boolean  "work_followup_sent",        :default => false,     :null => false
     t.text     "decline_reason"
     t.string   "maker_charge_id"
+    t.string   "personal_contact_name"
+    t.string   "personal_contact_email"
   end
 
   add_index "signups", ["charge_id"], :name => "index_signups_on_charge_id"
