@@ -52,7 +52,7 @@ class AppSignupsController < ApplicationController
         render 'new'
       end
     else
-      if @app_signup.save
+      if @app_signup.save && @app_signup.group_valid?(:apply)
         if @app_signup.save_payment_info
           @app_signup.apply
           if @app_signup.parent?
@@ -119,7 +119,7 @@ class AppSignupsController < ApplicationController
         raise
       end
     else
-      if @app_signup.update_attributes(params[:app_signup])
+      if @app_signup.update_attributes(params[:app_signup]) && @app_signup.group_valid?(:apply)
         if @app_signup.apply
           @app_signup.deliver && @app_signup.deliver_maker
           redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Awesome, you've applied to work with #{@apprenticeship.host_firstname}." }

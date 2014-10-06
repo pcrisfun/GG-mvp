@@ -2,9 +2,6 @@ class AppSignup < Signup
 
   has_many :interviews
 
-  validation_group :save do
-  end
-
   attr_accessible :daughter_firstname, :daughter_lastname, :daughter_age,
                   :happywhen, :collaborate, :interest, :experience,
                   :confirm_available, :preferred_times, :confirm_unpaid, :confirm_fee,
@@ -12,6 +9,20 @@ class AppSignup < Signup
                   :event_id, :state, :maker_charge_id
 
   include Emailable
+
+  validation_group :save do
+  end
+
+  validation_group :apply do
+    validates_presence_of :happywhen, :collaborate, :interest, :experience, :preferred_times, :message => ' must be included in order to submit your form.'
+    validates_acceptance_of :confirm_available, :confirm_unpaid, :message => ' must agree to submit your form.'
+    validates_presence_of :daughter_firstname, :daughter_lastname, :daughter_age, :if => :parent?
+    validate :daughter_age_is_valid, :if => :parent?
+    validates_acceptance_of :requirements, :if => :requirements?
+    validates_presence_of :parent_name, :parent_phone, :parent_email, :if => :minor?
+    validates_acceptance_of :parents_waiver, :message => "Sorry, you must agree to the indemnification agreement.", :if => :minor? || :parent?
+    validates_acceptance_of :waiver, :message => "Sorry, you must agree to the waiver."
+  end
 
   def daughter_age_is_valid
     unless daughter_age && daughter_age >= self.event.age_min && daughter_age <= self.event.age_max
@@ -324,7 +335,7 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_parent(opts={})
+  def deliver_resubmit_parent(opts={})
     return false unless valid?
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
@@ -859,11 +870,6 @@ class AppSignup < Signup
     end
 
     state :pending do
-      validates_presence_of :happywhen, :collaborate, :interest, :experience, :preferred_times, :message => ' must be included in order to submit your form.'
-      validates_acceptance_of :confirm_available, :confirm_unpaid, :confirm_fee, :message => ' must agree to submit your form.'
-      validates_presence_of :daughter_firstname, :daughter_lastname, :daughter_age, :if => :parent?
-      validate :daughter_age_is_valid, :if => :parent?
-      validates_acceptance_of :requirements, :if => :requirements?
     end
 
     state :accepted do
@@ -876,11 +882,7 @@ class AppSignup < Signup
     end
 
     state :confirmed do
-      validates_acceptance_of :respect_agreement, :message => "You must agree to respect the artist's style and techniques.", :if => :respect_agreement?
-      validates_presence_of :parent_name, :parent_phone, :parent_email, :if => :minor?
-      validates_acceptance_of :parents_waiver, :message => "Sorry, you must agree to the indemnification agreement.", :if => :minor? || :parent?
-
-      validates_acceptance_of :waiver, :message => "Sorry, you must agree to the waiver."
+      # validates_acceptance_of :respect_agreement, :message => "You must agree to respect the artist's style and techniques.", :if => :respect_agreement?
     end
 
     state :completed do
