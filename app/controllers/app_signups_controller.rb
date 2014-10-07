@@ -110,7 +110,7 @@ class AppSignupsController < ApplicationController
       @app_signup.accept
       @app_signup.deliver_accept
       @app_signup.deliver_accept_maker
-      redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Yahooo! You've accepted this apprentice. She'll have 2 weeks to confirm, and when she does we'll put you in touch!" }
+      redirect_to apprenticeship_path(@app_signup.event), :flash => { :success => "Yahooo! You've accepted this apprentice. We'll put you in touch! Unless she has to cancel, we'll charge you the apprenticeship fee in one week." }
     elsif params[:resubmit_button]
       @app_signup.update_attributes(params[:app_signup])
       if @app_signup.resubmit && @app_signup.deliver_resubmit && @app_signup.deliver_resubmit_maker

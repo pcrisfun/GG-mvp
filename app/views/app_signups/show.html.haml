@@ -80,7 +80,7 @@
               .span7.details
                 = @app_signup.interviews.last.interview_location
 
-              .span4.details Choose one hour:
+              .span4.details Choose a date & time (one hour):
               .span7.details
                 = simple_form_for(@interview, :url => url_for(controller: 'interviews', action: 'create', app_signup:@app_signup.id)) do |f|
                   = f.error_notification
@@ -232,10 +232,10 @@
         = link_to "Cancel Application", { :controller => 'app_signups', :action => 'cancel', :id => @app_signup.id }, class: "btn btn-danger btn-create pull-right", :method => 'post', :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you will not be able to resubmit it."}
       %br
       %br
-    %h2 Your Accepted Application
-    / .span3.accordionFAQ
-    /   - if current_user == @app_signup.user
-    /     = render 'faq'
+      %h2 Your Accepted Application
+      / .span3.accordionFAQ
+      /   - if current_user == @app_signup.user
+      /     = render 'faq'
 
     .row-fluid
       .span12.well
@@ -327,9 +327,9 @@
                     = simple_form_for(@interview, :url => url_for(controller: 'interviews', action: 'create', app_signup:@app_signup.id)) do |f|
                       = f.error_notification
                       .form-inputs
-                        = f.input :interview_time, label: "Interview Timeframe(s)", required: true, input_html: { rel: 'popover', data: { placement: "right",  content: "Hint - You might want to include the times you put in your listing." }}
+                        = f.input :interview_time, label: "Interview Timeframe(s)", required: true, input_html: { rel: 'popover', data: { placement: "right",  content: "Hint - You might want to include the times you put in your listing. Example - 3-5pm Mon, Mar 20th; 2-7pm Tue, Mar 21st." }}
                         - if current_user == @app_signup.event.user
-                          = f.input :interview_location, required: true, input_html: { rel: 'popover', data: { placement: "right",  content: "Be specific -- include an address or directions as well." }}
+                          = f.input :interview_location, required: true, input_html: { value: "#{@app_signup.event.location_address}, #{@app_signup.event.location_city}, #{@app_signup.event.location_state}", rel: 'popover', data: { placement: "right",  content: "Be specific -- include an address or directions as well." }}
                         %br
                         = f.submit "Send Request", class: "btn btn-primary pull-right"
                     %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel

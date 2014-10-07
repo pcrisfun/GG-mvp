@@ -80,7 +80,7 @@ class Interview < ActiveRecord::Base
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{user.first_name} would like to meet up",
-      :html_body => %(<h1>Howdy #{app_signup.first_name},</h1>
+      :html_body => %(<h1>Howdy #{app_signup.user.first_name},</h1>
         <p>#{user.first_name} would love to meet up to see if the apprenticeship is a good fit for both her and #{app_signup.daughter_firstname}.</p>
         <p>
           <b>Timeframe: </b> <i>#{interview_time}</i><br/>
