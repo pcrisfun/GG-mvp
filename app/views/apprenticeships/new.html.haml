@@ -1,12 +1,14 @@
 %section#apprenticeship-info.section.alt.newevent
   .container
     .hero-unit.center.hero-howitworks
-      %h1 In-House Apprenticeships
+      %i.fa.fa-home.enormous-icon.pull-center.fa-4x
+      %h1 In-house Apprenticeships
       %br
-      .small These are apprenticeships that take place within a larger business whereby the Maker-mentor is an employee.
-      %br
-      .btn.btn-large.btn-success
-        = render 'send-tomy-boss'
+      .small We're glad you're interested in hosting in-house apprenticeships in your office!<br/> &nbsp; We partner with companies on the forefront of innovation to help them build a culture of collaboration through apprenticeship.<br/>
+      /.small Want to host an apprenticeship in your office? &nbsp; We can help!
+      /%br
+      /.btn.btn-large.btn-success
+      /  = render 'send-tomy-boss'
 
 %section.section#darkspan
   .container
@@ -15,32 +17,29 @@
         %h2
           Employer Benefits
           %br
-          %small / Any Organization employing "Makers"
+          %small / Any organization employing "Makers"
         %ul
-          %li <i>Diversify</i>, and define a brighter future for girls and women.
-          %li Start a new hire pipeline for training skilled future employees.
-          %li Create a team who feels truly valued for their skills.
-          %li Awesome PR! We'll make you feel like a big deal, promise!
+          %li Create a new hire pipeline.
+          %li Build a vibrant culture of collaboration.
+          %li Blaze a trail with tomorrow’s professional women.
       .span4
         %h2
           Maker Benefits
           %br
-          %small / An Employee, or "Maker-mentor"
+          %small / An employee in a creative field
         %ul
-          %li Find more meaning & engagement in your work.
-          %li Create a deeper understanding of your work by sharing it.
-          %li Learn leadership skills and discover your creative voice.
-          %li Network with other Guild members in your field.
+          %li Get help with your projects at work.
+          %li Grow your skills by teaching them.
+          %li Help someone find their creative voice.
       .span4
         %h2
           Apprentice Benefits
           %br
-          %small / Any Woman or Girl interested in Learning
+          %small / Women or girls interested in learning
         %ul
-          %li Build a creative voice through collaboration.
-          %li Learn how to ask and recieve feedback.
-          %li Build a portfolio that will help you get a job or apply for school.
-          %li Gain the skills and techniques directly useful in the job market.
+          %li Gain access to new and cutting-edge fields.
+          %li Learn to be an effective collaborator.
+          %li Build a killer portfolio for jobs or school.
 
 %section.section#FAQ.newevent
   .container
@@ -68,15 +67,14 @@
           %li
             %i.fa.fa-caret-right
             Pay a $75.00
-            =link_to "service fee.", faq_path(anchor: "postingfee")
+            =link_to "connection fee.", faq_path(anchor: "postingfee")
         %ul
           %li
             %h4
-              Choose
+              Match
           %li
             %i.fa.fa-caret-right
-            =link_to "Review applications", faq_path(anchor: "applicationslook")
-            from your dashboard.
+            =link_to "Review applications.", faq_path(anchor: "applicationslook")
           %li
             %i.fa.fa-caret-right
             Optionally
@@ -84,12 +82,12 @@
             to see if it's a good fit for both of you.
           %li
             %i.fa.fa-caret-right
-            =link_to "Choose", faq_path(anchor: "obligatedtochoose")
-            who works best.
+            =link_to "Accept who's", faq_path(anchor: "obligatedtochoose")
+            the best fit.
         %ul
           %li
             %h4
-              Support
+              Track
           %li
             %i.fa.fa-caret-right
             =link_to "Review tips", faq_path(anchor: "tips")
@@ -104,7 +102,7 @@
         %ul
           %li
             %h4
-              Track
+              Profile
               /.badge.badge-inverse Coming Soon!
           %li
             %i.fa.fa-caret-right
@@ -113,7 +111,7 @@
             you're teaching.
           %li
             %i.fa.fa-caret-right
-            Use the portfolio to facilitate feedback for your Apprentice.
+            We'll help facilitate feedback between you and your Apprentice.
           %li
             %i.fa.fa-caret-right
             We'll create a Maker profile for you and invite you to Guild events!
@@ -160,7 +158,7 @@
         %ul
           %li
             %h4
-              Support
+              Track
           %li
             %i.fa.fa-caret-right
             We'll help you set goals, track progress, and ask for feedback.
@@ -334,7 +332,7 @@
         .btn.btn-large.btn-success
           = render 'send-tomy-boss'
 
-    Send this content to your Manager, and let us know! We'd be happy to schedule a meeting with your Manager to chat about the benefits of having in-house apprenticeships!
+    Send this content to your Manager, and let us know! &nbsp; We'd be happy to schedule a meeting with them to chat about the benefits of having in-house apprenticeships!
     %br
     %br
     .row-fluid#howitworks
