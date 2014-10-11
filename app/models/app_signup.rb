@@ -708,7 +708,7 @@ class AppSignup < Signup
         <li>and if she's under 19, the <a href="http://girlsguild.com/waivers/IndemnificationAgreement-minors.pdf">Indemnification Agreement for Minors</a>.</li>
         </ul>
         <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns, I (#{self.personal_contact_name}) will be your personal contact throughout the apprenticeship. You can reach me at #{self.personal_contact_email} or by replying to this email. I'm here to help!</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -731,7 +731,7 @@ class AppSignup < Signup
         <li>the <a href="http://girlsguild.com/waivers/IndemnificationAgreement-minors.pdf">Indemnification Agreement for Minors</a>.</li>
         </ul>
         <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns, I (#{self.personal_contact_name}) will be your personal contact throughout the apprenticeship. You can reach me at #{self.personal_contact_email} or by replying to this email. I'm here to help!</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
