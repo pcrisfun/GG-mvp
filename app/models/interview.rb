@@ -80,7 +80,7 @@ class Interview < ActiveRecord::Base
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{user.first_name} would like to meet up",
-      :html_body => %(<h1>Howdy #{app_signup.first_name},</h1>
+      :html_body => %(<h1>Howdy #{app_signup.user.first_name},</h1>
         <p>#{user.first_name} would love to meet up to see if the apprenticeship is a good fit for both her and #{app_signup.daughter_firstname}.</p>
         <p>
           <b>Timeframe: </b> <i>#{interview_time}</i><br/>
@@ -113,7 +113,7 @@ class Interview < ActiveRecord::Base
           <b>Time: </b> <i>#{interview_time}</i><br/>
           <b>Location: </b> <i>#{interview_location}</i><br/>
         </p>
-        <p>Please log in to if you need to <a href=#{url_for_app_signup}>reschedule</a> or <a href=#{url_for_app_signup}>send a message</a>.</p>
+        <p>Please log in if you need to <a href=#{url_for_app_signup}>reschedule</a> or <a href=#{url_for_app_signup}>send a message</a>.</p>
         <p>If you haven't already, please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
@@ -133,7 +133,7 @@ class Interview < ActiveRecord::Base
           <b>Time: </b> <i>#{interview_time}</i><br/>
           <b>Location: </b> <i>#{interview_location}</i><br/>
         </p>
-        <p>Please log in to if you need to <a href=#{url_for_app_signup}>reschedule</a> or <a href=#{url_for_app_signup}>send a message</a>.</p>
+        <p>Please log in if you need to <a href=#{url_for_app_signup}>reschedule</a> or <a href=#{url_for_app_signup}>send a message</a>.</p>
         <p>If you haven't already, please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
@@ -153,7 +153,7 @@ class Interview < ActiveRecord::Base
           <b>Time: </b> <i>#{interview_time}</i><br/>
           <b>Location: </b> <i>#{interview_location}</i><br/>
         </p>
-        <p>Please log in to if you need to <a href=#{url_for_app_signup}>reschedule</a> or <a href=#{url_for_app_signup}>send a message</a>.</p>
+        <p>Please log in if you need to <a href=#{url_for_app_signup}>reschedule</a> or <a href=#{url_for_app_signup}>send a message</a>.</p>
         <p>If you haven't already, please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
         <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
