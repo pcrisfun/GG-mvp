@@ -129,7 +129,7 @@
                       = f.error_notification
 
                       .form-inputs
-                        = f.input :interview_time, label: "Interview Timeframe(s)", required: true, input_html: { rel: 'popover', data: { placement: "right",  content: "Hint - You might want to include the times of availability in the listing." }}
+                        = f.input :interview_time, label: "Interview Timeframe(s)", required: true, input_html: { rel: 'popover', data: { placement: "right",  content: "Hint - Suggest another date/time when you're available. Example - 3pm Mon, Mar 20th." }}
                         = f.input :interview_location, required: true, input_html: { rel: 'popover', data: { placement: "right",  content: "Be specific -- include an address or directions as well." }}
                         %br
                         = f.submit "Send Reschedule Request", class: "btn btn-primary pull-right"
