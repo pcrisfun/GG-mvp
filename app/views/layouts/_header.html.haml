@@ -8,38 +8,30 @@
         %a.brand{:href => root_path}
           %h1#logo GirlsGuild
         .nav-collapse
+          %ul.nav.pull-left
+            %li.unlinked Apprenticeships &nbsp;&nbsp;
+            = active_link_to( content_tag(:i, '', class: 'fa fa-pencil fa-fw')+ ' Start', new_apprenticeship_path, :wrap_tag => :li, class: 'apprentlinks', :active => :exclusive )
+            = active_link_to( content_tag(:i, '', class: 'fa fa-search fa-fw')+ ' Find', events_path, :wrap_tag => :li, class: 'apprentlinks', :active => :exclusive )
+
           %ul.nav.pull-right
-            %li.dropdown
-              %a{"data-target" => "#", :href => "/events"}
-                Learn
-              /%ul.dropdown-menu
-              /  = active_link_to( content_tag(:i, '')+ ' Apprenticeships', apprenticeships_path, :wrap_tag => :li, :active => :exclusive )
-              /  = active_link_to( content_tag(:i, '')+ ' Workshops', workshops_path, :wrap_tag => :li, :active => :exclusive )
-              /  = active_link_to( content_tag(:i, '', class: 'fa fa-check-circle')+ ' Get Involved for Girls', get_involved_girls_path, :wrap_tag => :li, :active => :exclusive )
-              /  = active_link_to( content_tag(:i, '', class: 'fa fa-bookmark')+ ' FAQ for Girls', faq_path, :wrap_tag => :li, :active => :exclusive )
+            = active_link_to 'Makers', makers_path, :wrap_tag => :li, :active => :exclusive
+            / %li.dropdown.apprentlinks
+            /   %a{"data-target" => "#", :href => "/events"}
+            /     Makers
+            /   %ul.dropdown-menu
+            /     = active_link_to( content_tag(:i, '', class: 'fa fa-eye fa-fw')+ ' Follow Makers', makers_path, :wrap_tag => :li, :active => :exclusive )
+            /     = active_link_to( content_tag(:i, '', class: 'fa fa-list fa-fw')+ ' Get Listed', new_apprenticeship_path, :wrap_tag => :li, :active => :exclusive )
+
+            = active_link_to 'How it works', new_apprenticeship_path, :wrap_tag => :li, :active => :exclusive
 
             %li.dropdown
               %a{"data-target" => "#", :href => "#"}
-                Lead
+                Help
               %ul.dropdown-menu
-                = active_link_to( content_tag(:i, '', class: 'fa fa-pencil fa-fw')+ ' Post an Apprenticeship', new_apprenticeship_path, :wrap_tag => :li, :active => :exclusive )
-                = active_link_to( content_tag(:i, '', class: 'fa fa-pencil fa-fw')+ ' Post a Workshop', new_workshop_path, :wrap_tag => :li, :active => :exclusive )
-
-            %li.dropdown
-              %a{"data-target" => "#", :href => "/apprenticeships/new"}
-                How it Works
-
-
-            %li.dropdown
-              %a{"data-target" => "#", :href => "#"}
-                About
-              %ul.dropdown-menu
-                = active_link_to( content_tag(:i, '', class: 'fa fa-shield fa-fw')+ ' Makers', makers_path, :wrap_tag => :li, :active => :exclusive )
                 = active_link_to( content_tag(:i, '', class: 'fa fa-bookmark fa-fw')+ ' FAQ', faq_path, :wrap_tag => :li, :active => :exclusive )
                 = active_link_to( content_tag(:i, '', class: 'fa fa-comments-o fa-fw')+ ' Testimonials', testimonials_path, :wrap_tag => :li, :active => :exclusive )
-                = active_link_to( content_tag(:i, '', class: 'fa fa-map-marker fa-fw')+ ' Contact', contact_path, :wrap_tag => :li, :active => :exclusive )
-                = active_link_to( content_tag(:i, '', class: 'fa fa-bolt fa-fw')+ ' The Team', about_path, :wrap_tag => :li, :active => :exclusive )
                 = active_link_to content_tag(:i, '', class: 'fa fa-gift fa-fw') + ' Scholarships', faq_path+"#donate", :wrap_tag => :li, :active => :exclusive
+                = active_link_to( content_tag(:i, '', class: 'fa fa-map-marker fa-fw')+ ' Contact', contact_path, :wrap_tag => :li, :active => :exclusive )
 
 
             - if signed_in?

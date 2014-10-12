@@ -15,6 +15,7 @@ $salmon-light: #fcbfb6
 $salmon-medium: #fc7859
 $salmon: #fd5a3f
 $salmon-shadow: #ed503b
+$salmon-dark: #b13b2b
 $salmon-black: #411110
 
 $coral-light: #fcb1b1
@@ -244,6 +245,8 @@ a, a:hover, a:active, a:visited, a:focus
   ul.nav
     li.dropdown:hover > ul.dropdown-menu
       display: block
+  ul.nav.pull-left
+    margin-left: 15px
   .dropdown-menu
     margin-top: -15px
     @media (min-width: 768px) and (max-width: 979px)
@@ -279,12 +282,20 @@ a, a:hover, a:active, a:visited, a:focus
   margin-top: 26px
   margin-left: -5px
   height: 20px
+.navbar .nav > li.unlinked
+  color: $silver-dark
+  margin-top: 26px
+  margin-left: -5px
+  height: 20px
+  font-style: italic
 .navbar .nav > li.login-nav
   border-left: 1px solid $silver-light
-.navbar .nav > li.login-nav > a, .navbar .nav > li.signup-nav > a
+.navbar .nav > li.login-nav > a
   text-transform: none
   font-weight: normal
 .navbar .nav > li.signup-nav > a
+  text-transform: none
+  font-weight: normal
   border: 1px solid $plum
   border-radius: $radius
   padding: 5px
@@ -292,6 +303,8 @@ a, a:hover, a:active, a:visited, a:focus
   color: $plum
   &:hover
     color: $plum-light
+.navbar .nav > li.apprentlinks > a
+
 
 .navbar .nav > li > a.post-apprenticeship
   font-size: 14px
