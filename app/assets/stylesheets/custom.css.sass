@@ -1,4 +1,5 @@
 // Variables ======================================================================================
+$plum-light: #c53d6c
 $plum-medium: #ad3961
 $plum: #923052
 $plum-shadow: #673c58
@@ -270,12 +271,27 @@ a, a:hover, a:active, a:visited, a:focus
     height: auto
   img
     margin-top: -5px
-  .signin-nav
+  .login-nav, .signup-nav
     padding-left: 5px
     margin-left: 5px
-.navbar .nav > li.signin-nav
+.navbar .nav > li.or
+  color: $silver
+  margin-top: 26px
+  margin-left: -5px
+  height: 20px
+.navbar .nav > li.login-nav
   border-left: 1px solid $silver-light
-
+.navbar .nav > li.login-nav > a, .navbar .nav > li.signup-nav > a
+  text-transform: none
+  font-weight: normal
+.navbar .nav > li.signup-nav > a
+  border: 1px solid $plum
+  border-radius: $radius
+  padding: 5px
+  margin-top: 24px
+  color: $plum
+  &:hover
+    color: $plum-light
 
 .navbar .nav > li > a.post-apprenticeship
   font-size: 14px
@@ -286,6 +302,7 @@ a, a:hover, a:active, a:visited, a:focus
   right: 0px
   margin: 0px
   padding: 0px
+
 
 li.alertnav
   padding-right: 5px
