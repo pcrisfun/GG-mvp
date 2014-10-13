@@ -776,7 +776,7 @@ class AppSignup < Signup
           <p>Just a reminder that your apprenticeship should be starting in a few days. If you've already set up your first meeting, you're good to go! If you haven't connected already, you'll want to get in touch to set up your first meeting - #{self.event.user.email}</p>
           <p>#{user.first_name}, remember to print and sign a copy of the <a href="http://girlsguild.com/waivers/ReleaseWaiver-adults.pdf">Participation Waiver</a> (and if you're under 18, have your parents sign the <a href="http://girlsguild.com/waivers/IndemnificationAgreement-minors.pdf">Indemnification Agreement for Minors</a>) and give it to #{self.event.host_firstname} before you begin work! </p>
           <p>Let us know if you have any questions before you get started!</p>
-          <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+          <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
         :bcc => "hello@girlsguild.com",
     })
     self.update_column(:app_reminder_sent, true)
@@ -794,7 +794,7 @@ class AppSignup < Signup
           <p>We just wanted to check in and see how your apprenticeship is going with #{event.user.first_name}. Do you have any feedback, good or bad, about the process so far? We'd love to hear it.</p>
           <p>We'd be oh so grateful if you'd take a few minutes to answer <a href="http://www.surveymonkey.com/s/TNVMCT6">a quick, anonymous survey</a> about your experience with GirlsGuild.
           <p>And of course, if you have any questions or concerns, don't hesitate to ask! </p>
-          <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+          <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
         :bcc => "hello@girlsguild.com",
     })
     self.update_column(:app_followup_sent, true)
@@ -812,7 +812,7 @@ class AppSignup < Signup
           <p>We just wanted to check in and see how your apprenticeship is going with #{user.first_name}. Do you have any feedback, good or bad, about the process so far? We'd love to hear it.</p>
           <p>We'd be oh so grateful if you'd take a few minutes to answer <a href="http://www.surveymonkey.com/s/ZNVPB8Q">a quick, anonymous survey</a> about your experience with GirlsGuild.
           <p>And of course, if you have any questions or concerns, don't hesitate to ask!</p>
-          <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+          <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
         :bcc => "hello@girlsguild.com",
     })
     self.update_column(:app_followup_maker_sent, true)

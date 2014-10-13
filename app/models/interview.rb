@@ -48,7 +48,7 @@ class Interview < ActiveRecord::Base
         </p>
         <p>If something changes, you can reschedule any time by logging in and clicking <a href=#{url_for_app_signup}> reschedule</a>.</p>
         <p>Please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -68,7 +68,7 @@ class Interview < ActiveRecord::Base
         </p>
         <p>Please login to <a href=#{url_for_app_signup}>choose 1 hour within these timeframe(s) that will work for you</a>, or to reschedule for a different time.</p>
         <p>Please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -88,7 +88,7 @@ class Interview < ActiveRecord::Base
         </p>
         <p>Please login to <a href=#{url_for_app_signup}>choose 1 hour within these timeframe(s) that will work for you and #{app_signup.daughter_firstname}</a>, or to reschedule for a different time.</p>
         <p>Please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -115,7 +115,7 @@ class Interview < ActiveRecord::Base
         </p>
         <p>Please log in to if you need to <a href=#{url_for_app_signup}>reschedule</a> or <a href=#{url_for_app_signup}>send a message</a>.</p>
         <p>If you haven't already, please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -135,7 +135,7 @@ class Interview < ActiveRecord::Base
         </p>
         <p>Please log in to if you need to <a href=#{url_for_app_signup}>reschedule</a> or <a href=#{url_for_app_signup}>send a message</a>.</p>
         <p>If you haven't already, please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -155,7 +155,7 @@ class Interview < ActiveRecord::Base
         </p>
         <p>Please log in to if you need to <a href=#{url_for_app_signup}>reschedule</a> or <a href=#{url_for_app_signup}>send a message</a>.</p>
         <p>If you haven't already, please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -182,7 +182,7 @@ class Interview < ActiveRecord::Base
         <p>Go ahead and add it to your calendar - you're all set! <br/>
         If this doesn't work for you please login to <a href=#{url_for_app_signup}>reschedule for a different time</a>.</p>
         <p>If you haven't already, please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -203,7 +203,7 @@ class Interview < ActiveRecord::Base
         <p>Go ahead and add it to your calendar - you're all set! <br/>
         If this doesn't work for you please login to <a href=#{url_for_app_signup}>reschedule for a different time</a>.</p>
         <p>If you haven't already, please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -224,7 +224,7 @@ class Interview < ActiveRecord::Base
         <p>Go ahead and add it to your calendar - you're all set! <br/>
         If this doesn't work for you please login to <a href=#{url_for_app_signup}>reschedule for a different time</a>.</p>
         <p>If you haven't already, please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -252,7 +252,7 @@ class Interview < ActiveRecord::Base
         <p>Go ahead and add it to your calendar - you're all set! <br/>
         If this doesn't work for you please login to <a href=#{url_for_app_signup}>reschedule for a different time</a>.</p>
         <p>If you haven't already, please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -274,7 +274,7 @@ class Interview < ActiveRecord::Base
         <p>Go ahead and add it to your calendar - you're all set! <br/>
         If this doesn't work for you please login to <a href=#{url_for_app_signup}>reschedule for a different time</a>.</p>
         <p>If you haven't already, please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -296,7 +296,7 @@ class Interview < ActiveRecord::Base
         <p>Go ahead and add it to your calendar - you're all set! <br/>
         If this doesn't work for you please login to <a href=#{url_for_app_signup}>reschedule for a different time</a>.</p>
         <p>If you haven't already, please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -324,7 +324,7 @@ class Interview < ActiveRecord::Base
         <p>Go ahead and add it to your calendar - you're all set! <br/>
         If this doesn't work for you please login to <a href=#{url_for_app_signup}>reschedule for a different time</a>.</p>
         <p>If you haven't already, please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true

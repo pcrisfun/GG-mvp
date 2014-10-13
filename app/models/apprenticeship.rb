@@ -114,7 +114,7 @@ end
       :html_body => %(<h1>Hooray #{user.first_name}!</h1>
         <p>We're thrilled you're building an apprenticeship! If you get stuck take a look at our <a href="#{faq_url}">FAQ</a>, or feel free to respond to this email with any questions you might have!</p>
         <p>You can <a href="#{edit_apprenticeship_url(self)}">edit your apprenticeship here</a> or monitor signups from your <a href="#{dashboard_url}">Events Dashboard</a></p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -129,7 +129,7 @@ end
       :html_body => %(<h1>Sweet #{user.first_name}!</h1>
         <p>We're happy you've duplicated your previous apprenticeship! You can still edit any details before submitting. If you get stuck take a look at our <a href="#{faq_url}">FAQ</a>, or feel free to respond to this email with any questions you might have!</p>
         <p>You can <a href="#{edit_apprenticeship_url(self)}">edit your apprenticeship here</a> or monitor signups from your <a href="#{dashboard_url}">Events Dashboard</a></p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -144,10 +144,10 @@ end
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "Your apprenticeship has been submitted! - #{topic} with #{user.name}",
       :html_body => %(<h1>Thanks #{user.first_name}!</h1>
-        <p>Your apprenticeship has been submitted and is pending while we take a look at it. We recieved your billing information, but we won't charge you until you have a confirmed apprentice.</p>
-        <p>You can review the submitted apprenticeship here - <a href="#{apprenticeship_url(self)}"> #{self.title}</a> or monitor signups from your <a href="#{dashboard_url}">Events Dashboard</a></p>
-        <p>While you wait, go ahead and fill out your profile in your <a href="#{edit_user_registration_url(user)}">Settings Dashboard</a> like your bio, and links to your website, twitter, and facebook if you're into the social thing.</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>Your apprenticeship has been submitted and is pending while we take a look at it. We recieved your billing information, but we won't charge you the $30/per apprentice fee until your accepted apprentice(s) confirms.  You can update your <a href="#{update_billing_url}">Billing Info</a> at any time.</p>
+        <p>You can review or edit the submitted apprenticeship here - <a href="#{apprenticeship_url(self)}"> #{self.title}</a> or monitor signups from your <a href="#{dashboard_url}">Events Dashboard</a></p>
+        <p>If you havn't already, go ahead and fill out your profile in your <a href="#{edit_user_registration_url(user)}">Settings Dashboard</a> like your bio, and links to your website, twitter, and facebook - this will help us get the word out!</p>
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -163,7 +163,7 @@ end
       :html_body => %(<h1>Nice!</h1>
         <p>Your apprenticeship is currently pending while we take a look at your changes.</p>
         <p>You can review your resubmitted apprenticeship here - <a href="#{apprenticeship_url(self)}"> #{self.title}</a> or monitor signups from your <a href="#{dashboard_url}">Events Dashboard</a></p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -182,10 +182,10 @@ end
           <br/>2. You'll have two weeks to decide whether to accept or decline each apprentice.
           <br/>3. You can schedule an interview before making the decision to accept or decline so that you can both determine whether it'll be a good fit!
           <br/>4. The post will be closed when you've accepted #{self.registration_max} apprentices. If you don't find a good fit you're not obligated to accept an apprentice.
-          <br/>5. We'll only charge you after the apprentice you've chosen has confirmed the apprenticeship.</p>
-        <p>If by some bad luck you need to cancel your apprenticeship, you can do so from your <a href="#{dashboard_url}">Events Dashboard</a> - but we're crossing our fingers that won't happen!
+          <br/>5. We'll only charge you the $30.00/apprentice fee after each apprentice you've chosen has confirmed the apprenticeship.</p>
+        <p>If for some reason you need to cancel your apprenticeship, you can do so from your <a href="#{dashboard_url}">Events Dashboard.</a>
           <br/>Let us know if you have any questions!</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -200,7 +200,7 @@ end
       :html_body => %(<h1>Bummer!</h1>
         <p>You've canceled your apprenticeship. We hope you'll consider offering it again sometime!</p>
         <p>You can duplicate your canceled apprenticeship and submit it again anytime. Find it in your <a href="#{dashboard_url}">Events Dashboard</a></a></p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -215,7 +215,7 @@ end
       :html_body => %(<h1>Bummer!</h1>
         <p>We're sorry to say that #{user.name} has had to cancel her apprenticeship. It may be rescheduled later, and if it is you'll be the first to know!</p>
         <p>In the meantime you can check out other upcoming apprenticehsips you might like here: <a href="#{url_for(apprenticeships)}"> #{apprenticeships_path}</a></p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -232,7 +232,7 @@ end
         <p>You can keep track of your current applications from your <a href="#{dashboard_url}">Events Dashboard</a>.</p>
         <p>There are currently #{self.signups.where(:state => ['pending','interview_requested','interview_scheduled', 'accepted']).count} open applications:</p>
         <p>#{self.list_applications}</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -249,7 +249,7 @@ end
         <p>You can keep track of your current applications from your <a href="#{dashboard_url}">Events Dashboard</a>.</p>
         <p>There are currently #{self.signups.where(:state => ['pending','interview_requested','interview_scheduled', 'accepted']).count} open applications:</p>
         <p>#{self.list_applications}</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -266,7 +266,7 @@ end
         <p><i>#{self.reject_reason}</i></p>
         <p>If the problem is with the formatting or content of the apprenticeship, you can edit and resubmit it anytime. Find it here - <a href="#{edit_apprenticeship_url(self)}"> #{self.title}</a> or from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>Please let us know if you have any questions.</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -283,7 +283,7 @@ end
         <p><i>#{self.revoke_reason}</i></p>
         <p>If the problem is with the formatting or content of the apprenticeship, you can edit and resubmit it anytime. Find it here - <a href="#{edit_apprenticeship_url(self)}"> #{self.title}</a> or from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>Please let us know if you have any questions.</p>
-        <p>~<br/>Thanks,</br>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
