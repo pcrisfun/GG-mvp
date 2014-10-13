@@ -8,26 +8,25 @@
       #full
         .row-fluid
           .span9
-            %h2 Please provide payment info - you won't be charged yet!
-            %p
-              When you accept an apprentice and she commits to the apprenticeship, you'll be charged the $30 matching fee to be connected with her. This fee covers:
-              %ol
-                %li
-                  Promoting your apprenticeship through our
-                  =link_to "newsletter", "http://eepurl.com/HRKVP", target: "_blank"
-                  and social media,
-                %li
-                  =link_to "Collecting applications", faq_path(anchor: "applicationslook"), target: "_blank"
-                  for you to review,
-                %li
-                  =link_to "Setting up an optional interview,", faq_path(anchor: "caniinterview"), target: "_blank"
-                  and
-                %li
-                  =link_to "Connecting you with the apprentice(s) you choose.", faq_path(anchor: "howlongtofill"), target: "_blank"
-              %i.fa.fa-exclamation
-              Note: We
+            %h2 Billing info
+            .alert
+              You won't be charged yet! &nbsp; You will only be charged the $30 matching <i>if</i> you accept an apprentice <i>and</i> she confirms the apprenticeship. &nbsp; We
               =link_to "can't guarantee applicants,", faq_path(anchor: "nobodyapplies"), target: "_blank"
               but we'll do our best!
+            %p This fee covers:
+            %ol
+              %li
+                Promoting your apprenticeship through our
+                =link_to "newsletter", "http://eepurl.com/HRKVP", target: "_blank"
+                and social media,
+              %li
+                =link_to "Collecting applications", faq_path(anchor: "applicationslook"), target: "_blank"
+                for you to review,
+              %li
+                =link_to "Setting up an optional interview,", faq_path(anchor: "caniinterview"), target: "_blank"
+                and
+              %li
+                =link_to "Connecting you with the apprentice(s) you choose.", faq_path(anchor: "howlongtofill"), target: "_blank"
 
             %hr
 

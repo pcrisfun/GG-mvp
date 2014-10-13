@@ -10,28 +10,30 @@
         .span8
           .fancyform-light.form-horizontal
             %p
-              Thanks for submitting your listing for
+              Thanks for submitting your listing -
               = link_to @apprenticeship.title, apprenticeship_path(@apprenticeship)
-              %br
-              We'll email you confirmation that we've received it.
             %p
-              We'll review your apprenticeship proposal and let you know as soon as it's been posted live!
+              We'll review it and let you know as soon as it's been posted live!
               %br
-              You can check on the status of your proposal any time by visiting your #{link_to "Events Dashboard", dashboard_path}
-            %br
+
             .alert.alert-warning
               %strong
                 Note:
-              You can edit the details of your apprenticeship, but if you edit something important
+              You can edit the details of your apprenticeship any time, but if you edit something important
               %a{:href => contact_path} email us,
-              because we may have already scheduled a newsletter.
+              because we may have already written a newsletter.
+
+            You can check on the status of your event any time by visiting your:
+            .btn.btn-success.btn-large
+              #{link_to "Events Dashboard", dashboard_path}
+            %br
+            %br
 
             %h2 What to expect
             %ol
               %li
                 As soon as someone applies we'll
-                =link_to "forward you the application", faq_path(anchor: "applicationslook"), target: "_blank"
-                .
+                =link_to "forward you the application.", faq_path(anchor: "applicationslook"), target: "_blank"
               %li
                 You'll have
                 =link_to "two weeks to decide", faq_path(anchor: "howlongdoihave"), target: "_blank"
