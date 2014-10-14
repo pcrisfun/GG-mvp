@@ -1,26 +1,20 @@
 - provide(:title, 'Edit Billing Info')
-%section#dashboard-display.section.alt-grey
+%section#admin.section.alt-grey
   .container
     .row-fluid
-      .span3.pull-left
+      .span2.pull-left
         = render 'dashboards/nav'
-        %br
-        %br
-        %ul.nav.nav-list
-          %li.header
-            Your Billing Info is Secure
-          All transactions on GirlsGuild use a certified secure connection and we use
-          %a{ href: "https://stripe.com/us/features#seamless-security" }Stripe
-          \- a respected third party service to fulfill payments, refunds, and ensure security.
-      .span9.pull-right
-        .fancyform-light
+
+      .span10.pull-right
+        .fancyform-light.form-horizontal
           %h2 Update your billing information
           %p We save your billing information so that you are only charged for an apprenticeship after you've been connected to start working together. When you post or sign up for a workshop, we don't store any billing information.
-          Your credit card information is
-          %strong never
-          saved in our database; we store it securely using
-          %a{ href: "https://stripe.com/us/features#seamless-security" }Stripe
-          \- a third party service certified for security and compliance.
+          %p
+            Your credit card information is
+            %strong never
+            saved in our database; we store it securely using
+            %a{ href: "https://stripe.com/us/features#seamless-security" }Stripe
+            \- a third party service certified for security and compliance.
           %br
           %br
           = simple_form_for(@user, :url => update_billing_path, html: { :method => :put, :class => 'payment_form' } ) do |f|
