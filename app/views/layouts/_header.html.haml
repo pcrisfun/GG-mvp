@@ -9,7 +9,7 @@
           %h1#logo GirlsGuild
         .nav-collapse
           %ul.nav.pull-left
-            %li.unlinked Apprenticeships &nbsp;&nbsp;
+            %li.unlinked Apprenticeships &nbsp;
             = active_link_to( content_tag(:i, '', class: 'fa fa-pencil fa-fw')+ ' Start', new_apprenticeship_path, :wrap_tag => :li, class: 'apprentlinks', :active => :exclusive )
             = active_link_to( content_tag(:i, '', class: 'fa fa-search fa-fw')+ ' Find', events_path, :wrap_tag => :li, class: 'apprentlinks', :active => :exclusive )
 

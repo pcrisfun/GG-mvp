@@ -7,9 +7,9 @@
       %br
       #full
         .row-fluid
-          .span12
+          .span8
             = simple_form_for @apprenticeship, class: 'form-horizontal', validate: false do |f|
-              %h2 A Few More Details
+              %h2 Private Details
               / / RESPECT MY STYLE
               / %br/
               / = f.input :respect_my_style, label: 'Respect my Style' do
@@ -19,18 +19,23 @@
               /     Why
               /     %i.fa.fa-question-circle.small-icon
               / BACKGROUND CHECK
-              %br/
+              %br
               = f.input :permission, label: 'Background Check' do
                 = f.check_box :permission
                 %span.simpleform-text I give permission for GirlsGuild to run a background check on me.
                 %a{"data-content" => "We run background checks on all maker-mentors to keep our community safe.", "data-placement" => "right", :href => "javascript:;", :rel => "popover"}
                   Why
                   %i.fa.fa-question-circle.small-icon
+              %br
               = f.input :legal_name, label: 'Your Full Legal Name' do
                 = f.text_field :legal_name, rel: 'popover', placeholder: 'First Middle Last', data: {content: "We need your full, legal name to run the background check"}
               %br
               %br
               .row-fluid
-                #preview-buttons-bottom.pull-center
-                  = f.submit 'Save', save_button: true, class: 'btn btn-large'
-                  = f.submit 'Next', class: 'btn btn-large btn-primary'
+                #preview-buttons-bottom.pull-right
+                  = f.submit 'Save', save_button: true, class: 'btn'
+                  = f.submit 'Next', class: 'btn btn-primary'
+
+          //FAQ Section //////////////////
+          %span#details.span4.accordionFAQ
+            = render 'faq-private'

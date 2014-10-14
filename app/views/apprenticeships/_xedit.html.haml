@@ -224,10 +224,10 @@
             %dd
               #gender.field.checkbox
                 - if @apprenticeship.gender == true
-                  - gender_text = "Girls/Women & Boys/Men"
+                  - gender_text = "Everyone"
                 - elsif @apprenticeship.gender == false
                   - gender_text = "Girls/Women"
-                = editable_link_to "Describe your apprentice(s)", field: :gender, resource: @apprenticeship, type: :select, link_text: gender_text, data: { source: '{"false" : "Girls/Women", "true" : "Girls/Women & Boys/Men"}'}
+                = editable_link_to "Describe your apprentice(s)", field: :gender, resource: @apprenticeship, type: :select, link_text: gender_text, data: { source: '{"false" : "Girls/Women", "true" : "Everyone"}'}
               ages
               #min-age.field.select
                 = editable_link_to "12", field: :age_min, resource: @apprenticeship, type: :number
@@ -350,7 +350,7 @@
         //FAQ Section //////////////////
         - if !show
           %span#details.span3.accordionFAQ
-            = render 'faqlisting'
+            = render 'faq-listing'
 
         //Apply Sidebar //////////////////
         %span#applysidebar.span3
@@ -448,8 +448,9 @@
         = link_to "Cancel Apprenticeship", { :controller => 'apprenticeships', :action => 'cancel', :id => @apprenticeship.id }, class: "btn btn-small btn-danger pull-left", :method => 'post', data: { :confirm => "Are you sure? Your apprenticeship will be saved in your Dashboard, but you'll have to resubmit it in order to post it again." }
       - if current_user && current_user == @apprenticeship.user && @apprenticeship.started?
         = link_to "Delete Apprenticeship", { :controller => 'apprenticeships', :action => 'destroy', :id => @apprenticeship.id }, class: "btn btn-small btn-danger pull-left", :method => 'delete', data: { :confirm => "Are you sure? You can't undo after you delete your apprenticeship. It will really be gone!" }
-      - if current_user && current_user==@apprenticeship.user && (@apprenticeship.started? or @apprenticeship.pending? or @apprenticeship.accepted?)
-        = link_to "Edit", edit_apprenticeship_path(@apprenticeship), name: "edit_button", class: "btn btn-primary btn-small pull-right"
+      - if show
+        - if current_user && current_user==@apprenticeship.user && (@apprenticeship.started? or @apprenticeship.pending? or @apprenticeship.accepted?)
+          = link_to "Edit", edit_apprenticeship_path(@apprenticeship), name: "edit_button", class: "btn btn-primary btn-small pull-right"
 
       %br
       %br

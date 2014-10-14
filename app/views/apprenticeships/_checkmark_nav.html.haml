@@ -22,5 +22,5 @@
         #number-payment.number-text{ class: !checkmarks[:payment] ? "" : "hidden"}
           3
       /Payment
-      = link_to "Payment", checkmarks[:payment] ? payment_apprenticeship_path(@apprenticeship) : '#'
+      = link_to "Billing Info", checkmarks[:payment] ? payment_apprenticeship_path(@apprenticeship) : '#'
 #checkmarks-url.hidden{ data: { url: "#{checkmarks_apprenticeships_path}", id: "#{@apprenticeship.id}" } }
