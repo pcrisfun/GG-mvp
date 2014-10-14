@@ -11,16 +11,18 @@
           .fancyform-light.form-horizontal
             %p
               Thanks for submitting your listing -
-              = link_to @apprenticeship.title, apprenticeship_path(@apprenticeship)
+              = link_to @apprenticeship.title, apprenticeship_path(@apprenticeship), target: "_blank"
             %p
-              We'll review it and let you know as soon as it's been posted live!
+              We'll review it and let you know as soon as it's live!
               %br
 
             .alert.alert-warning
               %strong
                 Note:
               You can edit the details of your apprenticeship any time, but if you edit something important
-              %a{:href => contact_path} email us,
+              %a{:href => contact_path, target: "_blank"}
+                email us
+                %i.fa.fa-external-link,
               because we may have already written a newsletter.
 
             You can check on the status of your event any time by visiting your:
@@ -32,20 +34,13 @@
             %h2 What to expect
             %ol
               %li
-                As soon as someone applies we'll
-                =link_to "forward you the application.", faq_path(anchor: "applicationslook"), target: "_blank"
+                As soon as someone applies we'll forward you the application.
               %li
-                You'll have
-                =link_to "two weeks to decide", faq_path(anchor: "howlongdoihave"), target: "_blank"
-                whether to accept or decline each apprentice.
+                You'll have two weeks to decide whether to accept or decline each apprentice.
               %li
-                You can also
-                =link_to "schedule an interview", faq_path(anchor: "caniinterview"), target: "_blank"
-                first to determine whether you'll be a good fit.
+                You can schedule an interview first to determine whether you'll be a good fit.
               %li
-                The post will be closed when you've accepted #{@apprenticeship.registration_max} apprentices. If you don't find a good fit
-                =link_to "you're not obligated", faq_path(anchor: "obligatedtochoose"), target: "_blank"
-                to accept an apprentice.
+                The post will be closed when you've accepted #{@apprenticeship.registration_max} apprentices.
 
 
         .span4
@@ -55,7 +50,7 @@
             %li
               %i.fa.fa-bookmark
               For more info check out the
-              %a{href: "/faq"}
+              %a{href: "/faq", target: "_blank"}
                 FAQ
             %li
               %i.fa.fa-envelope
@@ -65,7 +60,6 @@
 
 
       .span12
-        %hr
         %br
         %h2 Tips for a great apprenticeship
         .row-fluid
