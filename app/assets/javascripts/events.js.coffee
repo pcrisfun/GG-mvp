@@ -1,8 +1,7 @@
-$(document).on 'click', "[data-behaviour~='setfeatured']", ->
-  $.post $(this).data("url"),
-    id: $(this).data("event")
-    // add_featured: $(this).data("photo")
-  , ->
-    $(".featured").css "background-color", "#7dbc0f"
-    reloadAlbum()
-    $(".featured").animate(backgroundColor: "#CCC", 1500)
+jQuery ->
+  $(".featured-btn").click ->
+    $(this).removeClass("fa")
+    $(this).addClass("fa")
+    $(this).toggleClass("fa-star-o")
+    $(this).toggleClass("fa-star")
+    $.post $(this).data("url")

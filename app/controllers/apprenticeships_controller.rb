@@ -230,11 +230,7 @@ class ApprenticeshipsController < ApplicationController
   #end
 
   def set_featured_listing
-    @apprenticeship = Event.find(params[:add_featured])
-    @apprenticeship.toggle!(:featured)
-    # respond_to do |format|
-    #   format.js { render 'events/add_featured' }
-    # end
+    @apprenticeship.toggle!(:featured) and return
   end
 
   def show
