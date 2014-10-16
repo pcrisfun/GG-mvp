@@ -11,7 +11,8 @@
       .span9
         = simple_form_for @app_signup, class: 'form-horizontal', html: {class: "payment_form"}, :validate => false, defaults: { input_html: { class: 'span6' } }  do |f|
           = render 'parent_form', f: f
+          = link_to 'Delete', @app_signup, :method => :delete, :class => "btn btn-danger", :data => { :confirm => "Are you sure you want to delete your application? It will be removed permanently." }
           = f.submit "Save for Later", name: 'save_button', class: "btn"
-          = f.submit "Submit Application", name: 'create_parent_button', class: "btn btn-primary"
+          = f.submit "Apply!", name: 'create_parent_button', class: "btn btn-primary pull-right"
       .span3.accordionFAQ
         = render 'faq'

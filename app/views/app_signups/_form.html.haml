@@ -156,23 +156,23 @@
             = f.check_box :waiver
             %span.simpleform-text I have read and agree to the apprenticeship participation waiver.
 
-      %br/
-      .accordion-group
-        .accordion-heading
-          %h2
-            %a.accordion-toggle
-              3. Payment Info
-        .accordion-body
-          .accordion-inner
-            %br/
-            %h3 Please submit your billing information - you won't be charged yet!
-            %p
-              We'll only charge your card if you're accepted and you decide to take on the apprenticeship.
-              %br/
-              (If you decide <i>not</i> to take on the apprenticeship, please cancel via
-              = link_to "your dashboard", dashboard_path
-              to let us know.)
-            .alert.alert-warning <b>Note:</b> If your application is accepted and you do <i>not</i> cancel within 7 days, we'll assume you've already begun working together and go ahead with confirming by charging your card.
-            %br/
-            = render :partial => "shared/credit_card", :locals => { :f => f, :paid => @app_signup.user.stripe_customer_id.present? }
-            %br/
+    %br/
+    .accordion-group
+      .accordion-heading
+        %h2
+          %a.accordion-toggle
+            4. Billing Info
+      .accordion-body
+        .accordion-inner
+          %br/
+          %h3 Please submit your billing info - you won't be charged yet!
+          %p
+            We'll only charge your card if you’re accepted.
+          .alert.alert-warning
+            <b>Note: </b>You’ll have 7 days after you’re accepted to cancel your application via
+            = link_to "your dashboard", dashboard_path
+            before we charge your card. &nbsp; You can still cancel after 7 days, but we won’t be able to offer a refund.
+
+          %br/
+          = render :partial => "shared/credit_card", :locals => { :f => f, :paid => @app_signup.user.stripe_customer_id.present? }
+          %br/
