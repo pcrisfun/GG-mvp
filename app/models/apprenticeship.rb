@@ -147,6 +147,7 @@ end
         <p>Your apprenticeship has been submitted and is pending while we take a look at it. We recieved your billing information, but we won't charge you the $30/per apprentice fee until your accepted apprentice(s) confirms.  You can update your <a href="#{update_billing_url}">Billing Info</a> at any time.</p>
         <p>You can review or edit the submitted apprenticeship here - <a href="#{apprenticeship_url(self)}"> #{self.title}</a> or monitor signups from your <a href="#{dashboard_url}">Events Dashboard</a></p>
         <p>If you havn't already, go ahead and fill out your profile in your <a href="#{edit_user_registration_url(user)}">Settings Dashboard</a> like your bio, and links to your website, twitter, and facebook - this will help us get the word out!</p>
+        <p><u>Please add hello@girlsguild.com to your address book so nothing hits your spam folder!</u></p>
         <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
