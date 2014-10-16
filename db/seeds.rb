@@ -797,6 +797,7 @@ first_shehacks_app = nicole.app_signups.create!("event_id"=>"3",
                                                       "preferred_times"=>"Best days would be on weekends, some week day afternoons could work.",
                                                       "confirm_unpaid"=>"1",
                                                       "confirm_fee"=>"1",
+                                                      "waiver"=>"1",
                                                       "state"=>"started",
                                                      )
 
@@ -814,6 +815,7 @@ second_shehacks_app = nicole.app_signups.create!("event_id"=>"4",
                                                       "preferred_times"=>"Best days would be on weekends, some week day afternoons could work.",
                                                       "confirm_unpaid"=>"1",
                                                       "confirm_fee"=>"1",
+                                                      "waiver"=>"1",
                                                       "state"=>"pending",
                                                      )
 
@@ -831,6 +833,7 @@ third_shehacks_app = nicole.app_signups.create!("event_id"=>"5",
                                                       "preferred_times"=>"Best days would be on weekends, some week day afternoons could work.",
                                                       "confirm_unpaid"=>"1",
                                                       "confirm_fee"=>"1",
+                                                      "waiver"=>"1",
                                                       "state"=>"accepted",
                                                      )
 
@@ -849,6 +852,7 @@ confirmed = nicole.app_signups.create!("event_id"=>"6",
                                                       "preferred_times"=>"Best days would be on weekends, some week day afternoons could work.",
                                                       "confirm_unpaid"=>"1",
                                                       "confirm_fee"=>"1",
+                                                      "waiver"=>"1",
                                                       "state"=>"confirmed",
                                                      )
 
@@ -867,6 +871,7 @@ canceled = nicole.app_signups.create!("event_id"=>"3",
                                                       "preferred_times"=>"Best days would be on weekends, some week day afternoons could work.",
                                                       "confirm_unpaid"=>"1",
                                                       "confirm_fee"=>"1",
+                                                      "waiver"=>"1",
                                                       "state"=>"canceled",
                                                      )
 
@@ -885,6 +890,7 @@ declined = nicole.app_signups.create!("event_id"=>"4",
                                                       "preferred_times"=>"Best days would be on weekends, some week day afternoons could work.",
                                                       "confirm_unpaid"=>"1",
                                                       "confirm_fee"=>"1",
+                                                      "waiver"=>"1",
                                                       "state"=>"declined",
                                                      )
 
