@@ -140,6 +140,16 @@ class AppSignupsController < ApplicationController
         end
       end
     end
+    rescue
+      error_msg = " "
+      @app_signup.errors.each do |field, msg|
+        error_msg << "<br/>"
+        error_msg << msg
+      end
+      respond_to do |format|
+        format.json { render json: { errors: $!.inspect } and return }
+        format.html { redirect_to :back, :flash => { warning: "Blarf.  The following error(s) occured while attempting to create your application: #{error_msg}".html_safe} and return }
+      end
   end
 
   def show
