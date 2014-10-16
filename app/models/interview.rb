@@ -172,14 +172,14 @@ class Interview < ActiveRecord::Base
       :to => "#{app_signup.user.name}<#{app_signup.user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Your interview with #{user.first_name} has changed!!",
+      :subject => "Your meeting with #{user.first_name} has changed!!",
       :html_body => %(<h1>Your meeting with #{user.first_name} has been rescheduled</h1>
         <p>Here are the new suggested time/locations:</p>
         <p>
           <b>Time: </b> <i>#{interview_time}</i><br/>
           <b>Location: </b> <i>#{interview_location}</i><br/>
         </p>
-        <p>Go ahead and add it to your calendar - you're all set! <br/>
+
         If this doesn't work for you please login to <a href=#{url_for_app_signup}>reschedule for a different time</a>.</p>
         <p>If you haven't already, please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
         <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
@@ -193,14 +193,14 @@ class Interview < ActiveRecord::Base
       :to => "#{app_signup.user.name}<#{app_signup.user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Your interview with #{user.first_name} has changed!!",
+      :subject => "Your meeting with #{user.first_name} has changed!!",
       :html_body => %(<h1>Your meeting with #{user.first_name} has been rescheduled</h1>
         <p>Here are the new suggested time/locations:</p>
         <p>
           <b>Time: </b> <i>#{interview_time}</i><br/>
           <b>Location: </b> <i>#{interview_location}</i><br/>
         </p>
-        <p>Go ahead and add it to your calendar - you're all set! <br/>
+
         If this doesn't work for you please login to <a href=#{url_for_app_signup}>reschedule for a different time</a>.</p>
         <p>If you haven't already, please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
         <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
@@ -214,14 +214,14 @@ class Interview < ActiveRecord::Base
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Your interview with #{app_signup.user.first_name} has changed!!",
+      :subject => "Your meeting with #{app_signup.user.first_name} has changed!!",
       :html_body => %(<h1>Your meeting with #{app_signup.user.first_name} has been rescheduled</h1>
         <p>Here are the new suggested time/locations:</p>
         <p>
           <b>Time: </b> <i>#{interview_time}</i><br/>
           <b>Location: </b> <i>#{interview_location}</i><br/>
         </p>
-        <p>Go ahead and add it to your calendar - you're all set! <br/>
+
         If this doesn't work for you please login to <a href=#{url_for_app_signup}>reschedule for a different time</a>.</p>
         <p>If you haven't already, please <a href="http://girlsguild.com/docs/interview_topics.pdf">print and bring this worksheet</a> of topics you should cover during the interview for communicating clear goals and expectations to see if it's a good fit for both of you.</p>
         <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
@@ -241,10 +241,11 @@ class Interview < ActiveRecord::Base
       :to => "#{app_signup.user.name}<#{app_signup.user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "You have an interview message from #{user.first_name}!!",
-      :html_body => %(<h1>You have an interview message from #{user.first_name}</h1>
+      :subject => "You have a message from #{user.first_name}!!",
+      :html_body => %(<h1>You have a message from #{user.first_name}</h1>
         <p>
           <b>Message: </b> <i style="color: green;">#{interview_message}</i><br/>
+          <a href=#{url_for_app_signup}>Log in to respond</a><br/>
           <br/>
           <b>Time: </b> <i>#{interview_time}</i><br/>
           <b>Location: </b> <i>#{interview_location}</i>
@@ -263,10 +264,11 @@ class Interview < ActiveRecord::Base
       :to => "#{app_signup.user.name}<#{app_signup.user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "You have an interview message from #{user.first_name}!!",
-      :html_body => %(<h1>You have an interview message from #{user.first_name}</h1>
+      :subject => "You have a message from #{user.first_name}!!",
+      :html_body => %(<h1>You have a message from #{user.first_name}</h1>
         <p>
           <b>Message: </b> <i style="color: green;">#{interview_message}</i><br/>
+          <a href=#{url_for_app_signup}>Log in to respond</a><br/>
           <br/>
           <b>Time: </b> <i>#{interview_time}</i><br/>
           <b>Location: </b> <i>#{interview_location}</i>
@@ -285,10 +287,11 @@ class Interview < ActiveRecord::Base
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "You have an interview message from #{app_signup.user.first_name}!!",
-      :html_body => %(<h1>You have an interview message from #{app_signup.user.first_name}</h1>
+      :subject => "You have a message from #{app_signup.user.first_name}!!",
+      :html_body => %(<h1>You have a message from #{app_signup.user.first_name}</h1>
         <p>
           <b>Message: </b> <i style="color: green;">#{interview_message}</i><br/>
+          <a href=#{url_for_app_signup}>Log in to respond</a><br/>
           <br/>
           <b>Time: </b> <i>#{interview_time}</i><br/>
           <b>Location: </b> <i>#{interview_location}</i>
@@ -313,10 +316,11 @@ class Interview < ActiveRecord::Base
       :to => "#{recipient.name}<#{recipient.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "You have an interview message from #{sender.first_name}!!",
-      :html_body => %(<h1>You have an interview message from #{sender.first_name}</h1>
+      :subject => "You have a message from #{sender.first_name}!!",
+      :html_body => %(<h1>You have a message from #{sender.first_name}</h1>
         <p>
           <b>Message: </b> <i style="color: green;">#{message.message_text}</i><br/>
+          <a href=#{url_for_app_signup}>Log in to respond</a><br/>
           <br/>
           <b>Time: </b> <i>#{interview_time}</i><br/>
           <b>Location: </b> <i>#{interview_location}</i>
