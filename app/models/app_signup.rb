@@ -164,6 +164,7 @@ class AppSignup < Signup
       :subject => "Your application has been saved - #{self.event.title}",
       :html_body => %(<h1>Yay #{user.first_name}!</h1>
         <p>We're thrilled you're applying to work with #{self.event.user.first_name}! If you get stuck take a look at our <a href="#{faq_url}">FAQ</a>, or feel free to respond to this email with any questions you might have!</p>
+        <p><u>Please add hello@girlsguild.com to your address book so nothing hits your spam folder!</u></p>
         <p>You can edit your application here - <a href="#{url_for(self)}"> Application for #{self.event.title}</a></p>
         <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
@@ -179,6 +180,7 @@ class AppSignup < Signup
       :subject => "Your daughter's application has been saved - #{self.event.title}",
       :html_body => %(<h1>Yay #{user.first_name}!</h1>
         <p>We're thrilled you're helping your daughter apply to work with #{self.event.user.first_name}! If you get stuck take a look at our <a href="#{faq_url}">FAQ</a>, or feel free to respond to this email with any questions you might have!</p>
+        <p><u>Please add hello@girlsguild.com to your address book so nothing hits your spam folder!</u></p>
         <p>You can edit your application here - <a href="#{url_for(self)}"> Application for #{self.event.title}</a></p>
         <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
@@ -202,6 +204,7 @@ class AppSignup < Signup
         <br/>
         We'll send #{event.user.first_name} your application right away and let you know as soon as she makes her decision within 2 weeks. She may decide she'd like to meet up first. If so, we'll email you to confirm a good time. Until then, hold tight and be proud of your awesomeness!</p>
         <p>We've sucessfully recieved your billing information, but we won't charge you unless you've been accepted and you agree to confirm the apprenticeship. You'll still have the chance to decline the apprenticeship, but if you don't respond to the confirmation email within a week of being accepted, we'll assume you've begun working together and will go ahead with the confirmation and charge your credit card.</p>
+        <p><u>Please add hello@girlsguild.com to your address book so nothing hits your spam folder!</u></p>
         <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -220,6 +223,7 @@ class AppSignup < Signup
         <br/>
         We'll send #{event.user.first_name} her application right away and let you know as soon as she makes her decision within 2 weeks. She may decide she'd like to meet up first. If so, we'll email you to confirm a good time.
         <p>We've sucessfully recieved your billing information, but we won't charge you unless you've been accepted and you agree to confirm the apprenticeship. You'll still have the chance to decline the apprenticeship, but if you don't respond to the confirmation email within a week of being accepted, we'll assume you've begun working together and will go ahead with the confirmation and charge your credit card.</p>
+        <p><u>Please add hello@girlsguild.com to your address book so nothing hits your spam folder!</u></p>
         <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })

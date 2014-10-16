@@ -91,7 +91,27 @@
                     %br
                     = f.submit "Schedule Interview", class: "btn btn-primary pull-right"
             - else current_user == @app_signup.event.user
-              .alert.alert-success Interview requested! Waiting for  #{@app_signup.user.first_name} to respond.
+              .alert.alert-success
+                Meeting requested! Waiting for  #{@app_signup.user.first_name} to respond.
+                .pull-right
+                  = link_to "Reschedule", '#rescheduleModal', data: {toggle: "modal"}
+              #rescheduleModal.modal.hide.fade{"aria-hidden" => "true", "aria-labelledby" => "rescheduleModal", :role => "dialog", :tabindex => "-1"}
+                .modal-header.center
+                  %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+                  %h2#rescheduleModalLabel Reschedule the Interview
+                .modal-body
+                  %p What time or location would you like to suggest for a reschedule?
+                  %br
+                  = simple_form_for(@app_signup.interviews.last) do |f|
+                    = f.error_notification
+
+                    .form-inputs
+                      = f.input :interview_time, label: "Interview Timeframe(s)", required: true, input_html: { rel: 'popover', data: { placement: "right",  content: "Hint - You might want to include the times you put in your listing. Example - 3-5pm Mon Mar 20th, 2-7pm Tue Mar 21st." }}
+                      = f.input :interview_location, required: true, input_html: { rel: 'popover', data: { placement: "right",  content: "Be specific -- include an address or directions as well." }}
+                      %br
+                      = f.submit "Send Reschedule Request", class: "btn btn-primary pull-right"
+                  %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
+                  %br
 
 
           / INTERVIEW SCHEDULED ==========================================================================================
@@ -129,14 +149,18 @@
                       = f.error_notification
 
                       .form-inputs
-                        = f.input :interview_time, label: "Interview Timeframe(s)", required: true, input_html: { rel: 'popover', data: { placement: "right",  content: "Hint - Suggest another date/time when you're available. Example - 3pm Mon, Mar 20th." }}
+                        = f.input :interview_time, label: "Interview Timeframe(s)", required: true, input_html: { rel: 'popover', data: { placement: "right",  content: "Hint - You might want to include the times you put in your listing. Example - 3-5pm Mon Mar 20th, 2-7pm Tue Mar 21st." }}
                         = f.input :interview_location, required: true, input_html: { rel: 'popover', data: { placement: "right",  content: "Be specific -- include an address or directions as well." }}
                         %br
                         = f.submit "Send Reschedule Request", class: "btn btn-primary pull-right"
                     %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
                     %br
-            .row-fluid
-            %hr
+
+        .row-fluid
+          .span12.well
+            %h3
+              Forget to mention something?
+
             - if !@app_signup.interviews.last.messages.empty?
               - @app_signup.interviews.last.messages.each do |message|
                 - if current_user == message.user
@@ -153,7 +177,7 @@
                       = message.message_text
             .row-fluid
             %br
-            %b.span4.details Optional Message:
+            %b.span4.details Email #{@app_signup.event.user.first_name} an optional message:
             .span7.details
               = simple_form_for(:message, url: { controller: "messages", action: "create" }) do |f|
                 = f.error_notification
@@ -247,12 +271,12 @@
             - else
               = @app_signup.user.first_name
             &nbsp;
-            %span.age
-              Age -
-              - unless @app_signup.parent?
-                = @app_signup.user.age
-              - else
-                = @app_signup.daughter_age
+            / %span.age
+            /   Age -
+            /   - unless @app_signup.parent?
+            /     = @app_signup.user.age
+            /   - else
+            /     = @app_signup.daughter_age
         %table.table.table-striped.table-bordered
           %thead
             %tr
@@ -327,11 +351,11 @@
                     = simple_form_for(@interview, :url => url_for(controller: 'interviews', action: 'create', app_signup:@app_signup.id)) do |f|
                       = f.error_notification
                       .form-inputs
-                        = f.input :interview_time, label: "Interview Timeframe(s)", required: true, input_html: { rel: 'popover', data: { placement: "right",  content: "Hint - You might want to include the times you put in your listing. Example - 3-5pm Mon, Mar 20th; 2-7pm Tue, Mar 21st." }}
+                        = f.input :interview_time, label: "Interview Timeframe(s)", required: true, input_html: { value: "#{@app_signup.event.availability}", rel: 'popover', data: { placement: "right",  content: "Hint - You might want to include the times you put in your listing. Example - 3-5pm Mon Mar 20th, 2-7pm Tue Mar 21st." }}
                         - if current_user == @app_signup.event.user
                           = f.input :interview_location, required: true, input_html: { value: "#{@app_signup.event.location_address}, #{@app_signup.event.location_city}, #{@app_signup.event.location_state}", rel: 'popover', data: { placement: "right",  content: "Be specific -- include an address or directions as well." }}
                         %br
-                        = f.submit "Send Request", class: "btn btn-primary pull-right"
+                        = f.submit "Email #{@app_signup.user.first_name}", class: "btn btn-primary pull-right"
                     %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
                 %br
                 %br
