@@ -229,6 +229,16 @@ class ApprenticeshipsController < ApplicationController
     #redirect_to apprenticeships_path, :flash => { :warning => "Apprenticeship revoked."} and return
   #end
 
+  def set_featured_listing
+    @apprenticeship.toggle!(:featured) and return
+    rescue
+    error_msg = " "
+    @apprenticeship.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
+  end
+
   def show
     @apprenticeship = Apprenticeship.find(params[:id])
     if current_user && !@apprenticeship.signups.empty?
