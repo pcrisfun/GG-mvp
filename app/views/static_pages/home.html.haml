@@ -106,8 +106,12 @@
         %h2.pull-center Coming Up
         = link_to "Browse Events »", events_path, class: "more-events"
         .row
-          - unless @events.blank?
-            = render 'events/event-home', events: @events
+          - unless @featured_events.blank?
+            = render 'events/event-home', events: @featured_events
+          - unless @events1.blank?
+            = render 'events/event-home', events: @events1
+          - unless @events2.blank?
+            = render 'events/event-home', events: @events2
           - unless @tba_events.blank?
             = render 'events/event-home', events: @tba_events
 

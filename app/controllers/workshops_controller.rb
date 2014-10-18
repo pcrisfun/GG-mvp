@@ -231,6 +231,9 @@ class WorkshopsController < ApplicationController
     redirect_to :back, :flash => { warning: "Fudge.  The following error(s) occured while attempting to resubmit your workshop: #{error_msg}".html_safe} and return
   end
 
+  def set_featured_listing
+    @workshop.toggle!(:featured) and return
+  end
 #---- reject
   #def reject
     #@workshop.reject && @workshop.deliver_reject
