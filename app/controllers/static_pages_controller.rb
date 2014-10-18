@@ -1,7 +1,10 @@
 class StaticPagesController < ApplicationController
   def home
-     @events = Event.where( datetime_tba: false, state: ['accepted']).where("begins_at >= :recent", {recent: Date.today-30.days}).sort_by { |e| e.begins_at }.reverse!.take(4)
-     @tba_events = Event.where( datetime_tba: true, state: ['accepted','filled','completed']).limit(4 - @events.count).sort_by { |e| e.created_at }
+    @featured_events = Event.where(featured: true).sort_by { |e| e.begins_at }.reverse!.take(2)
+    if @featured_events.count < 4
+      @events = Event.where( featured: false, state: ['accepted']).where("begins_at >= :recent", {recent: Date.today-60.days}).sort_by { |e| e.begins_at }.take(4-@fea)
+      # @tba_events = Event.where( datetime_tba: true, state: ['accepted','filled','completed']).limit(4 - @events.count).sort_by { |e| e.created_at }
+    end
     #@events = Event.where( state: ['accepted','filled','completed']).where("begins_at >= :today", {today: Date.today}).limit(4).sort_by { |e| e.begins_at }
     #@events = Event.where( state: ['accepted']).limit(4).sort_by { |e| e.created_at }.reverse!
   end
