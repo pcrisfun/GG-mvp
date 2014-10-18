@@ -108,6 +108,24 @@ ActiveRecord::Schema.define(:version => 20140920160359) do
     t.integer  "user_id"
   end
 
+  create_table "interviews", :force => true do |t|
+    t.integer  "app_signup_id"
+    t.integer  "user_id"
+    t.string   "interview_time"
+    t.string   "interview_location"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.text     "interview_message"
+  end
+
+  create_table "messages", :force => true do |t|
+    t.string   "message_text"
+    t.integer  "user_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.integer  "interview_id"
+  end
+
   create_table "photos", :force => true do |t|
     t.string   "caption"
     t.boolean  "protected",         :default => false
