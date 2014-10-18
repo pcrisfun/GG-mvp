@@ -919,7 +919,7 @@ class AppSignup < Signup
     elsif self.interview_requested?
       return "#{self.event.user.first_name} has <a href=#{app_signup_path(self)}>requested an interview.</a>".html_safe
     elsif self.interview_scheduled?
-      return "Your <a href=#{app_signup_path(self)}>interview is scheduled</a>.".html_safe
+      return "Your interview is scheduled.<br/> <b><a href=#{app_signup_path(self)}>Reschedule,</a></b> or <b><a href=#{app_signup_path(self)}>send a message</a></b>".html_safe
     elsif self.accepted?
       return "Your application has been accepted! <br/> We'll confirm it and process your apprenticeship fee in #{(self.state_stamps.last.stamp + 7.days).mjd - Date.today.mjd} days.".html_safe
     elsif self.declined?

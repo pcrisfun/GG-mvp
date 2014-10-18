@@ -156,37 +156,38 @@
                     %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
                     %br
 
-        .row-fluid
-          .span12.well
-            %h3
-              Forget to mention something?
 
-            - if !@app_signup.interviews.last.messages.empty?
-              - @app_signup.interviews.last.messages.each do |message|
-                - if current_user == message.user
-                  .span4.details
-                    #{message.user.first_name}:
-                  .span7.details
-                    .my-message
-                      = message.message_text
-                - else
-                  .span4.details
-                    #{message.user.first_name}:
-                  .span7.details
-                    .their-message
-                      = message.message_text
-            .row-fluid
-            %br
-            %b.span4.details Email #{@app_signup.event.user.first_name} an optional message:
-            .span7.details
-              = simple_form_for(:message, url: { controller: "messages", action: "create" }) do |f|
-                = f.error_notification
-                .form-inputs
-                  = f.hidden_field :interview_id, value: @app_signup.interviews.last.id
-                  = f.input :message_text, label: false, required: true, input_html: { rows: "4", rel: 'popover', data: { placement: "right",  content: "You might want to give directions, describe what you'll be wearing, or provide a contact number - we'll send her an email." }}
-                  = f.submit "Send", :name => "message_button", :class => "btn btn-primary pull-right"
-                %br
-                %br
+          .row-fluid
+            .span12.well
+              %h3
+                Forget to mention something?
+
+              - if !@app_signup.interviews.last.messages.empty?
+                - @app_signup.interviews.last.messages.each do |message|
+                  - if current_user == message.user
+                    .span4.details
+                      #{message.user.first_name}:
+                    .span7.details
+                      .my-message
+                        = message.message_text
+                  - else
+                    .span4.details
+                      #{message.user.first_name}:
+                    .span7.details
+                      .their-message
+                        = message.message_text
+              .row-fluid
+              %br
+              %b.span4.details Email #{@app_signup.event.user.first_name} an optional message:
+              .span7.details
+                = simple_form_for(:message, url: { controller: "messages", action: "create" }) do |f|
+                  = f.error_notification
+                  .form-inputs
+                    = f.hidden_field :interview_id, value: @app_signup.interviews.last.id
+                    = f.input :message_text, label: false, required: true, input_html: { rows: "4", rel: 'popover', data: { placement: "right",  content: "You might want to give directions, describe what you'll be wearing, or provide a contact number - we'll send her an email." }}
+                    = f.submit "Send", :name => "message_button", :class => "btn btn-primary pull-right"
+                  %br
+                  %br
 
       / APPRENTICESHIP CANCELED ===================================================================================================
     - if current_user == @app_signup.event.user && @apprenticeship.canceled?
