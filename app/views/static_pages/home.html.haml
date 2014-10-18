@@ -108,10 +108,8 @@
         .row
           - unless @featured_events.blank?
             = render 'events/event-home', events: @featured_events
-          - unless @events1.blank?
-            = render 'events/event-home', events: @events1
-          - unless @events2.blank?
-            = render 'events/event-home', events: @events2
+          - unless @events.blank?
+            = render 'events/event-home', events: @events
           - unless @tba_events.blank?
             = render 'events/event-home', events: @tba_events
 
