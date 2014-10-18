@@ -231,6 +231,12 @@ class ApprenticeshipsController < ApplicationController
 
   def set_featured_listing
     @apprenticeship.toggle!(:featured) and return
+    rescue
+    error_msg = " "
+    @apprenticeship.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
   end
 
   def show
