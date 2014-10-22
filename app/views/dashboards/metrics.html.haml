@@ -11,24 +11,24 @@
           = User.count
           %br
           Active users:
-/ REPLACE THIS QUERY
+          / REPLACE THIS QUERY
           = (User.all.select { |u| u.events.count >= 1 }).count + (User.all.select { |u| u.signups.count >= 1 && u.events.count == 0 }).count
-     / NEW QUERY IN PROGRESS
+          / NEW QUERY IN PROGRESS
           / = User.includes(:events).where('COUNT(events) >= 1').count
 
           %br
           Active makers:
-     / OLD QUERY
+          / OLD QUERY
           / = User.all.select { |u| u.events.where(state: ["accepted", "filled", "completed"]).count >= 1 }.count
-     / NEW QUERY
+          / NEW QUERY
           = User.includes(:events).where(:events => {:state => ["accepted", "filled", "completed"]}).count
           %br
 
           %br
           Makers who have posted apprenticeships:
-     / OLD QUERY
+          / OLD QUERY
           / = User.all.select { |u| u.apprenticeships.where(state: ["accepted", "filled", "completed"]).count >= 1 }.count
-     / NEW QUERY
+          / NEW QUERY
           = User.includes(:apprenticeships).where(:events => {:state => ["accepted", "filled", "completed"]}).count
 
           %br
@@ -43,9 +43,9 @@
           %br
           %br
           Makers who have posted workshops:
-     / OLD QUERY
+          / OLD QUERY
           / = User.all.select { |u| u.workshops.where(state: ["accepted", "filled", "completed"]).count >= 1 }.count
-     / NEW QUERY
+          / NEW QUERY
           = User.includes(:workshops).where(:events => {:state => ["accepted", "filled", "completed"]}).count
 
           %br
@@ -57,27 +57,27 @@
           %br
           %br
           Makers with repeat apprenticeship postings:
-/ REPLACE THIS QUERY
+          / REPLACE THIS QUERY
           = User.all.select { |u| u.apprenticeships.count > 1 }.count
           %br
           Repeat signups for any events:
-/ REPLACE THIS QUERY
+          / REPLACE THIS QUERY
           = User.all.select { |u| u.signups.count > 1 }.count
           %br
           Repeat applicants for apprenticeships:
-/ REPLACE THIS QUERY
+          / REPLACE THIS QUERY
           = User.all.select { |u| u.app_signups.count > 1 }.count
           %br
           Repeat apprentices:
-/ REPLACE THIS QUERY
+          / REPLACE THIS QUERY
           = User.all.select { |u| u.app_signups.where(:state => ["confirmed", "completed"]).count > 1 }.count
           %br
           Applicants declined more than once:
-/ REPLACE THIS QUERY
+          / REPLACE THIS QUERY
           = User.all.select { |u| u.signups.where(:state => "declined").count > 1 }.count
           %br
           %br
           Apprentices who have become Makers:
-/ REPLACE THIS QUERY
+          / REPLACE THIS QUERY
           = User.all.select { |u| u.app_signups.where(:state => ["confirmed", "completed"]).count >= 1 && u.events.count >= 1 }.count
 
