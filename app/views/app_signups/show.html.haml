@@ -224,8 +224,15 @@
       - else
         .alert.alert-success
           Congratulations, #{"#{@apprenticeship.host_firstname}"} would love to work with you! You can contact her at #{@apprenticeship.user.email} to plan your first meeting.
+
       %p
-        Let us know if you’d like to request an interview before you confirm - just to make sure it’s a good fit for both of you.
+        You have
+        %strong.badge.badge-warning #{(@app_signup.state_stamps.last.stamp + 7.days).mjd - Date.today.mjd} days
+        before we charge the card we have on file for the $30 apprenticeship fee.
+        = link_to "(Need to cancel your application?)", { :controller => 'app_signups', :action => 'cancel', :id => @app_signup.id }, class: " ", :method => 'post', :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you will not be able to resubmit it."}
+
+      %p
+        Let us know if you’d like to request an interview before it's confirmed - just to make sure it’s a good fit for both of you.
         %a{href: "mailto:hello@girlsguild.com?Subject=I'd like to schedule an interview with #{"#{@apprenticeship.host_firstname}"} before confirming", class: "btn btn-primary pull-right"}
           Request an Interview
         /  - if @app_signup.interview_requested?
@@ -250,11 +257,7 @@
         /          %br
         /          = f.submit "Send Request", class: "btn btn-primary pull-right"
         /      %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
-      %p
-        You have
-        %strong #{(@app_signup.state_stamps.last.stamp + 7.days).mjd - Date.today.mjd} days to cancel
-        before we go ahead and charge the card we have on file for the $30 apprenticeship fee.
-        = link_to "Cancel Application", { :controller => 'app_signups', :action => 'cancel', :id => @app_signup.id }, class: "btn btn-danger btn-create pull-right", :method => 'post', :data => { :confirm => "Are you sure you want to cancel your application? It will be closed for review and you will not be able to resubmit it."}
+
       %br
       %br
       %h2 Your Accepted Application

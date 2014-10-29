@@ -203,7 +203,7 @@ class AppSignup < Signup
         <p>You've applied for <a href=#{url_for(event)}>#{event.title}</a>. You can see your application <a href=#{url_for(self)}>here</a>.
         <br/>
         We'll send #{event.user.first_name} your application right away and let you know as soon as she makes her decision within 2 weeks. She may decide she'd like to meet up first. If so, we'll email you to confirm a good time. Until then, hold tight and be proud of your awesomeness!</p>
-        <p>We've sucessfully recieved your billing information, but we won't charge you unless you've been accepted and you agree to confirm the apprenticeship. You'll still have the chance to decline the apprenticeship, but if you don't respond to the confirmation email within a week of being accepted, we'll assume you've begun working together and will go ahead with the confirmation and charge your credit card.</p>
+        <p>We've sucessfully received your billing information, but we won't charge you until you've been accepted. You'll still have the chance to cancel your application, but if you don't cancel within a week of being accepted, we'll assume you've begun working together and will go ahead and charge your credit card.</p>
         <p><u>Please add hello@girlsguild.com to your address book so nothing hits your spam folder!</u></p>
         <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
@@ -222,7 +222,7 @@ class AppSignup < Signup
         <p>Thanks for helping your daughter, #{self.daughter_firstname} apply for <a href=#{url_for(event)}>#{event.title}</a>. You can see her application <a href=#{url_for(self)}>here</a>.
         <br/>
         We'll send #{event.user.first_name} her application right away and let you know as soon as she makes her decision within 2 weeks. She may decide she'd like to meet up first. If so, we'll email you to confirm a good time.
-        <p>We've sucessfully recieved your billing information, but we won't charge you unless you've been accepted and you agree to confirm the apprenticeship. You'll still have the chance to decline the apprenticeship, but if you don't respond to the confirmation email within a week of being accepted, we'll assume you've begun working together and will go ahead with the confirmation and charge your credit card.</p>
+        <p>We've sucessfully received your billing information, but we won't charge you until you've been accepted. You'll still have the chance to cancel your application, but if you don't cancel within a week of being accepted, we'll assume you've begun working together and will go ahead and charge your credit card.</p>
         <p><u>Please add hello@girlsguild.com to your address book so nothing hits your spam folder!</u></p>
         <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
@@ -244,7 +244,7 @@ class AppSignup < Signup
       :html_body => %(<h1>Yippee #{event.user.first_name}!</h1>
         <p>#{user.first_name} has applied to apprentice with you! You can review her application <a href=#{url_for(self)}>here</a>. We've notified #{user.first_name} that you'll make your decision on the application within 2 weeks.</p>
         <p>If you'd like to meet up with her in person before you decide to accept or decline her application you can <a href=#{url_for(self)}>"Request an Interview"</a>.</p>
-        <p>Once you've made your decision, just go back to the <a href=#{url_for(self)}>application page</a> and use the "Accept" or "Decline" buttons to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll ask her to confirm by paying $30.00, and once she does, we'll put you two in touch to get started!</p>
+        <p>Once you've made your decision, just go back to the <a href=#{url_for(self)}>application page</a> and use the "Accept" or "Decline" buttons to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll charge the $30 matching fee (unless she cancels within a week), and we'll put you two in touch to get started!</p>
         <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -261,7 +261,7 @@ class AppSignup < Signup
       :html_body => %(<h1>Yippee #{event.user.first_name}!</h1>
         <p>#{user.first_name} has helped their daughter, #{self.daughter_firstname}, apply to apprentice with you! You can review her application <a href=#{url_for(self)}>here</a>. We've notified #{user.first_name} and #{self.daughter_firstname} that you'll make your decision on the application within 2 weeks.</p>
         <p>If you'd like to meet up with her in person before you decide to accept or decline her application you can <a href=#{url_for(self)}>"Request an Interview"</a>.</p>
-        <p>Once you've made your decision, just go back to the <a href=#{url_for(self)}>application page</a> and use the "Accept" or "Decline" buttons to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll ask her to confirmby paying $30.00, and once she does, we'll put you two in touch to get started!</p>
+        <p>Once you've made your decision, just go back to the <a href=#{url_for(self)}>application page</a> and use the "Accept" or "Decline" buttons to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll charge the $30 matching fee (unless she cancels within a week), and we'll put you two in touch to get started!</p>
         <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -384,7 +384,7 @@ class AppSignup < Signup
       :html_body => %(<h1>Yippee #{event.user.first_name}!</h1>
         <p>#{user.first_name} resubmitted her application to apprentice with you! You can review her application <a href=#{url_for(self)}>here</a>. We've notified #{user.first_name} that you'll make your decision on the application within 2 weeks.</p>
         <p>If you'd like to meet up with her in person before you decide to accept or decline her application you can <a href=#{url_for(self)}>"Request an Interview"</a>.</p>
-        <p>Once you've made your decision, just go back to the <a href=#{url_for(self)}>application page</a> and use the "Accept" or "Decline" buttons to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll ask her to confirm by paying $30.00, and once she does, we'll put you two in touch to get started!</p>
+        <p>Once you've made your decision, just go back to the <a href=#{url_for(self)}>application page</a> and use the "Accept" or "Decline" buttons to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll charge the $30 matching fee (unless she cancels within a week), and we'll put you two in touch to get started!</p>
         <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
@@ -401,7 +401,7 @@ class AppSignup < Signup
       :html_body => %(<h1>Yippee #{event.user.first_name}!</h1>
         <p>#{user.first_name} has helped their daughter, #{self.daughter_firstname}, resubmit her application to apprentice with you! You can review her application <a href=#{url_for(self)}>here</a>. We've notified #{user.first_name} and #{self.daughter_firstname} that you'll make your decision on the application within 2 weeks.</p>
         <p>If you'd like to meet up with her in person before you decide to accept or decline her application you can <a href=#{url_for(self)}>"Request an Interview"</a>.</p>
-        <p>Once you've made your decision, just go back to the <a href=#{url_for(self)}>application page</a> and use the "Accept" or "Decline" buttons to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll ask her to confirm by paying $30.00, and once she does, we'll put you two in touch to get started!</p>
+        <p>Once you've made your decision, just go back to the <a href=#{url_for(self)}>application page</a> and use the "Accept" or "Decline" buttons to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll charge the $30 matching fee (unless she cancels within a week), and we'll put you two in touch to get started!</p>
         <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })

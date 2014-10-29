@@ -361,9 +361,6 @@
             - elsif current_user && current_user.signedup?(@apprenticeship) && @app_signup.pending?
               = link_to "Application sent #{content_tag(:i, "", class: "fa fa-check-circle")}".html_safe, app_signup_path(@app_signup), rel: 'popover', data: {placement: "left", content:"Thanks for applying, we'll let you know just as soon as a decision has been made!"}, :class => "btn btn-block btn-success disabled"
 
-            - elsif current_user && current_user.signedup?(@apprenticeship) && @app_signup.accepted?
-              = link_to "Confirm apprenticeship", app_signup_path(@app_signup), rel: 'popover', data: {placement: "left", content:"Yay! You've been accepted for this apprenticeship. To get started please confirm by paying."}, :class => "btn btn-block btn-warning"
-
             - elsif current_user && current_user.signedup?(@apprenticeship) && @app_signup.confirmed?
               = link_to "Working with #{@apprenticeship.user.first_name} #{content_tag(:i, "", class: "fa fa-check-circle")}".html_safe, app_signup_path(@app_signup), rel: 'popover', data: {placement: "left", content:"Yippee, you're all set to start your apprenticeship!"}, :class => "btn btn-block btn-success disabled"
 
