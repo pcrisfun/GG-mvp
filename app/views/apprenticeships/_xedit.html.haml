@@ -68,7 +68,7 @@
             %h1#title.field.text
               = editable_link_to 'Topic of Your Apprenticeship', field: :topic, resource: @apprenticeship, type: :text
             - if !show
-              %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Give it a title that focuses on the type of work you'll be doing together."} }
+              %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"What's the topic of your apprenticeship? Keep it short and sweet!"} }
                 %i.fa.fa-question-circle.small-icon
             %br
             with
@@ -151,7 +151,7 @@
               #ends-at.field.date.optional
                 = editable_link_to "Ending date", field: :ends_at, resource: @apprenticeship, type: :date, link_text: get_formated_date(@apprenticeship.ends_at), data: { viewformat: 'MM d, yyyy', template: 'MM d, yyyy', firstItem: 'none'}
               - if !show
-                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"When do you want the apprenticeship to start? This will be an approximate start date, based on how you work out a schedule with your apprentice. How long is the apprenticeship? We suggest an initial 1-3 month period to see how it goes. You can always offer to extend it!"} }
+                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"When do you want the apprenticeship to start? This will be an approximate start date, based on how you work out a schedule with your apprentice. We suggest an initial 1-3 month period to see how it goes. We have a limit of 6 months."} }
                   %i.fa.fa-question-circle.small-icon
               %br
             %dt
