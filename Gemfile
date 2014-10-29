@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby '2.1.1'
 gem 'rails', '3.2.11'
 gem 'bootstrap-sass', '2.3.2.0'
 # gem 'bootstrap-sass', '3.1.1.0'
@@ -38,6 +38,7 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
+  gem 'asset_sync', '1.0.0'
   gem 'sass-rails',   '3.2.5'
   gem 'coffee-rails', '3.2.2'
   gem 'uglifier', '1.2.3'

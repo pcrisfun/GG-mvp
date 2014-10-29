@@ -23,7 +23,7 @@
               Post
           %li
             %i.fa.fa-caret-right
-            =link_to "Choose a type:", faq_path(anchor: "chooseatype")
+            =link_to( content_tag(:i, '', class: 'fa fa-external-link fa-fw')+ 'Choose a type:', faq_path(anchor: "chooseatype"), target: "_blank" )
             production, event, ongoing, or 1-day apprenticeship.
           %li
             %i.fa.fa-caret-right
@@ -31,23 +31,23 @@
           %li
             %i.fa.fa-caret-right
             Pay a $30.00
-            =link_to "listing fee.", faq_path(anchor: "postingfee")
+            =link_to( content_tag(:i, '', class: 'fa fa-external-link fa-fw')+ 'listing fee.', faq_path(anchor: "postingfee"), target: "_blank" )
         %ul
           %li
             %h4
               Choose
           %li
             %i.fa.fa-caret-right
-            =link_to "Review applications", faq_path(anchor: "applicationslook")
+            =link_to( content_tag(:i, '', class: 'fa fa-external-link fa-fw')+ 'Review applications', faq_path(anchor: "applicationslook"), target: "_blank" )
             from your dashboard.
           %li
             %i.fa.fa-caret-right
             Optionally
-            =link_to "meet up", faq_path(anchor: "caniinterview")
+            =link_to( content_tag(:i, '', class: 'fa fa-external-link fa-fw')+ 'meet up', faq_path(anchor: "caniinterview"), target: "_blank" )
             to see if it's a good fit.
           %li
             %i.fa.fa-caret-right
-            =link_to "Choose", faq_path(anchor: "obligatedtochoose")
+            =link_to( content_tag(:i, '', class: 'fa fa-external-link fa-fw')+ 'Choose', faq_path(anchor: "obligatedtochoose"), target: "_blank" )
             who works best.
         %ul
           %li
@@ -55,7 +55,7 @@
               Confirm
           %li
             %i.fa.fa-caret-right
-            =link_to "Review tips", faq_path(anchor: "tips")
+            =link_to( content_tag(:i, '', class: 'fa fa-external-link fa-fw')+ 'Review tips', faq_path(anchor: "tips"), target: "_blank" )
             for having a great apprenticeship.
           %li
             %i.fa.fa-caret-right
@@ -77,7 +77,7 @@
           %li
             %i.fa.fa-caret-right
             We help
-            =link_to "track the skills and tools", faq_path(anchor: "whatwetrack")
+            =link_to( content_tag(:i, '', class: 'fa fa-external-link fa-fw')+ 'track the skills and tools', faq_path(anchor: "whatwetrack"), target: "_blank" )
             you're teaching.
 
 
@@ -92,17 +92,17 @@
               Apply
           %li
             %i.fa.fa-caret-right
-            =link_to "Answer 4 questions", faq_path(anchor: "applicationslook")
+            =link_to( content_tag(:i, '', class: 'fa fa-external-link fa-fw')+ 'Answer 4 questions', faq_path(anchor: "applicationslook"), target: "_blank" )
             about why you're interested.
           %li
             %i.fa.fa-caret-right
             It's always free to apply & you'll
-            =link_to "hear back", faq_path(anchor: "myapplication")
+            =link_to( content_tag(:i, '', class: 'fa fa-external-link fa-fw')+ "hear back", faq_path(anchor: "myapplication"), target: "_blank" )
             within 2 weeks.
           %li
             %i.fa.fa-caret-right
             Or, sign up for a
-            =link_to "workshop", faq_path(anchor: "how1dayswork")
+            =link_to( content_tag(:i, '', class: 'fa fa-external-link fa-fw')+ "workshop", faq_path(anchor: "how1dayswork"), target: "_blank" )
             (1-Day apprenticeship).
         %ul
           %li
@@ -114,7 +114,7 @@
           %li
             %i.fa.fa-caret-right
             Pay a
-            =link_to "$30.00 matching fee", faq_path(anchor: "howmuchtoapply")
+            =link_to( content_tag(:i, '', class: 'fa fa-external-link fa-fw')+ "$30.00 matching fee", faq_path(anchor: "howmuchtoapply"), target: "_blank" )
             to confirm.
           %li
             %i.fa.fa-caret-right
@@ -126,7 +126,7 @@
           %li
             %i.fa.fa-caret-right
             We'll help
-            =link_to "track the skills and tools", faq_path(anchor: "whatwetrack")
+            =link_to( content_tag(:i, '', class: 'fa fa-external-link fa-fw')+ "track the skills and tools", faq_path(anchor: "whatwetrack"), target: "_blank" )
             you're learning.
           %li
             %i.fa.fa-caret-right
@@ -142,7 +142,7 @@
           %li
             %i.fa.fa-caret-right
             We'll build out
-            =link_to "a portfolio", faq_path(anchor: "whatportfolio")
+            =link_to( ("a portfolio" + content_tag(:i, '', class: 'fa fa-external-link fa-fw')).html_safe, faq_path(anchor: "whatportfolio"), target: "_blank" )
             that shows off your skills.
           %li
             %i.fa.fa-caret-right

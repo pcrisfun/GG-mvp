@@ -22,7 +22,7 @@
             %dd
               = "#{current_user.first_name} #{current_user.last_name}"
               %p.pull-right
-                Not you? #{link_to "Sign in as a different user.", destroy_user_session_path, :method => :delete}
+                Not you? #{link_to "Log in as a different user.", destroy_user_session_path}
             %dt Email
             %dd= "#{current_user.email}"
             %dt Age
@@ -128,7 +128,7 @@
     .accordion-body
       .accordion-inner
         %br/
-        %h3 Apprenticeship fee: $30
-        %br/
-        = render :partial => "shared/credit_card", :locals => { :f => f, :paid => @app_signup.charge_id.present? }
-        %br/
+        / %dl.dl-horizontal.dl-application
+        %p We already have your billing information, you'll be charged upon confirming - Thanks!
+        = link_to "Update my billing info", billing_path, class: 'pull-right'
+        %br

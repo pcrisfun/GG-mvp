@@ -14,7 +14,7 @@
           %dd
             = "#{current_user.first_name} #{current_user.last_name}"
             %span.pull-right
-              Not you? #{link_to "Sign in as a different user.", destroy_user_session_path, :method => :delete}
+              Not you? #{link_to "Log in as a different user.", destroy_user_session_path}
               %br/
               - unless current_user && current_user.age > @workshop.age_max
                 Or, you can #{link_to "sign yourself up.", new_work_signup_path(workshop_id: @workshop)}

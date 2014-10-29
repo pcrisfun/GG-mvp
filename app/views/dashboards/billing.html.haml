@@ -1,0 +1,25 @@
+- provide(:title, 'Edit Billing Info')
+%section#admin.section.alt-grey
+  .container
+    .row-fluid
+      .span2.pull-left
+        = render 'dashboards/nav'
+
+      .span10.pull-right
+        .fancyform-light.form-horizontal
+          %h2 Update your billing information
+          %p We save your billing information so that you are only charged for an apprenticeship after you've been connected to start working together. When you post or sign up for a workshop, we don't store any billing information.
+          %p
+            Your credit card information is
+            %strong never
+            saved in our database; we store it securely using
+            %a{ href: "https://stripe.com/us/features#seamless-security" }Stripe
+            \- a third party service certified for security and compliance.
+          %br
+          %br
+          = simple_form_for(@user, :url => update_billing_path, html: { :method => :put, :class => 'payment_form' } ) do |f|
+            = render '/shared/credit_card_form', f: f
+            .form-actions
+              = f.button :submit, "Update billing info", :class => "btn btn-large btn-primary cc_process"
+            = hidden_field_tag :stripe_card_token, '', :id => "stripe_card_token"
+

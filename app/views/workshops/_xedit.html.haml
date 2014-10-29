@@ -57,7 +57,7 @@
             %h1#title.field.text
               = editable_link_to 'Topic of Your Workshop', field: :topic, resource: @workshop, type: :text
             - if !show
-              %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Give a snappy title for the workshop. You could include the type of workshop in the name. Example: 'Production Workshop for Fab.com', or you could focus on what you'll be doing; 'Soldering and Casting Workshop' "} }
+              %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Give a snappy title for the workshop. You could include the type of workshop in the name. Example: 'Production Workshop for Etsy', or you could focus on what you'll be doing; 'Soldering and Casting Workshop' "} }
                 %i.fa.fa-question-circle.small-icon
             %br
             with
@@ -441,7 +441,7 @@
                 = f.submit "Reject Workshop", :name => "reject_button", :class => "btn"
               %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
               %br
-          = link_to "Approve Workshop", { :controller => 'workshops', :action => 'accept', :id => @workshop.id }, class: "btn btn-success", :method => 'post', :data => { :confirm => 'Hey Nerds, did you do a background check yet?'}
+          = link_to "Approve Workshop", { :controller => 'workshops', :action => 'accept', :id => @workshop.id }, class: "btn btn-success", :method => 'post'
 
           %br
           %br

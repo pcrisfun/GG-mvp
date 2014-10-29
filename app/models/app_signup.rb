@@ -2,16 +2,27 @@ class AppSignup < Signup
 
   has_many :interviews
 
-  validation_group :save do
-  end
-
   attr_accessible :daughter_firstname, :daughter_lastname, :daughter_age,
                   :happywhen, :collaborate, :interest, :experience,
                   :confirm_available, :preferred_times, :confirm_unpaid, :confirm_fee,
                   :parent, :parent_name, :parent_phone, :parent_email, :parents_waiver, :respect_agreement, :waiver, :decline_reason,
-                  :event_id, :state
+                  :event_id, :state, :maker_charge_id
 
   include Emailable
+
+  validation_group :save do
+  end
+
+  validation_group :apply do
+    validates_presence_of :happywhen, :collaborate, :interest, :experience, :preferred_times, :message => ' must be included in order to submit your form.'
+    validates_acceptance_of :confirm_available, :confirm_unpaid, :message => ' must agree to submit your form.'
+    validates_presence_of :daughter_firstname, :daughter_lastname, :daughter_age, :if => :parent?
+    validate :daughter_age_is_valid, :if => :parent?
+    validates_acceptance_of :requirements, :if => :requirements?
+    validates_presence_of :parent_name, :parent_phone, :parent_email, :if => :minor?
+    validates_acceptance_of :parents_waiver, :message => "Sorry, you must agree to the indemnification agreement.", :if => :minor? || :parent?
+    validates_acceptance_of :waiver, :message => "Sorry, you must agree to the waiver."
+  end
 
   def daughter_age_is_valid
     unless daughter_age && daughter_age >= self.event.age_min && daughter_age <= self.event.age_max
@@ -43,22 +54,106 @@ class AppSignup < Signup
     end
   end
 
+  def assign_personal_contact
+    if self.id.odd?
+      self.personal_contact_name = "Cheyenne"
+      self.personal_contact_email = "cheyenne@girlsguild.com"
+      self.save!
+    elsif self.id.even?
+      self.personal_contact_name = "Diana"
+      self.personal_contact_email = "diana@girlsguild.com"
+      self.save!
+    end
+  end
+
+  def save_payment_info
+    logger.info "Saving payment info"
+    if user.stripe_customer_id.present?
+      logger.info "Customer already exists"
+    else
+      logger.info "Creating customer"
+      customer = Stripe::Customer.create(
+        :card => stripe_card_token,
+        :description => user.email
+      )
+      x = customer.id
+      self.user.stripe_customer_id = x
+      self.user.save!
+    end
+  end
+
   def process_apprent_fee
-    logger.info "Processing payment"
+    logger.info "Processing apprentice payment"
     unless charge_id.present?
       charge = Stripe::Charge.create(
         :amount => 3000, # amount in cents, again
         :currency => "usd",
-        :card => stripe_card_token,
+        :customer => user.stripe_customer_id,
         :description => "Apprenticeship fee for #{self.event.title} from #{self.user.email}"
       )
-      update_attribute(:charge_id, charge.id)
-      logger.info "Processed payment #{charge.id}"
+      logger.debug(charge)
+      x = charge.id
+      self.charge_id = x
+      self.save!
+      # update_attribute(:charge_id, charge.id)
+      logger.info "Processed apprentice payment #{charge.id}"
+    else
+      return
     end
+  rescue Stripe::CardError => e
+    logger.error "Stripe error while creating charge: #{e.message}"
+    #errors.add :base, e.message
+    false
   rescue Stripe::InvalidRequestError => e
     logger.error "Stripe error while creating charge: #{e.message}"
     errors.add :base, "There was a problem with your credit card."
     false
+  end
+
+  def process_maker_fee
+    logger.info "Processing maker payment"
+    unless maker_charge_id.present?
+      charge = Stripe::Charge.create(
+        :amount => 3000, # amount in cents, again
+        :currency => "usd",
+        :customer => event.user.stripe_customer_id,
+        :description => "Maker payment from #{self.event.user.email} for #{self.user.first_name}'s apprenticeship"
+      )
+      logger.debug(charge)
+      x = charge.id
+      self.maker_charge_id = x
+      self.save!
+      logger.info "Processed maker payment #{charge.id}"
+    end
+    rescue Stripe::CardError => e
+      logger.error "Stripe error while creating charge: #{e.message}"
+      #errors.add :base, e.message
+      false
+    rescue Stripe::InvalidRequestError => e
+      logger.error "Stripe error while creating charge: #{e.message}"
+      #errors.add :base, "There was a problem with your credit card."
+      false
+  end
+
+  def process_auto_payment
+    if self.process_apprent_fee
+      if self.confirm
+        self.assign_personal_contact
+        self.deliver_confirm_auto
+        self.process_maker_fee
+        if self.maker_charge_id.present?
+          self.deliver_confirm_maker_auto
+        else
+          self.deliver_maker_payment_failed
+        end
+        logger.info "#{self.user.first_name}'s signup for #{self.event.title} has been confirmed. Maker and apprentice payments were processed."
+      else
+        logger.error "State transition to 'Confirmed' failed: App Signup #{self.id}, #{self.user.first_name}"
+      end
+    else
+      self.deliver_apprentice_payment_failed
+      logger.error "#{self.user.first_name}'s payment for #{self.event.title} failed. App Signup #{self.id} has not been confirmed."
+    end
   end
 
   def deliver_save
@@ -69,8 +164,9 @@ class AppSignup < Signup
       :subject => "Your application has been saved - #{self.event.title}",
       :html_body => %(<h1>Yay #{user.first_name}!</h1>
         <p>We're thrilled you're applying to work with #{self.event.user.first_name}! If you get stuck take a look at our <a href="#{faq_url}">FAQ</a>, or feel free to respond to this email with any questions you might have!</p>
+        <p><u>Please add hello@girlsguild.com to your address book so nothing hits your spam folder!</u></p>
         <p>You can edit your application here - <a href="#{url_for(self)}"> Application for #{self.event.title}</a></p>
-        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -84,8 +180,9 @@ class AppSignup < Signup
       :subject => "Your daughter's application has been saved - #{self.event.title}",
       :html_body => %(<h1>Yay #{user.first_name}!</h1>
         <p>We're thrilled you're helping your daughter apply to work with #{self.event.user.first_name}! If you get stuck take a look at our <a href="#{faq_url}">FAQ</a>, or feel free to respond to this email with any questions you might have!</p>
+        <p><u>Please add hello@girlsguild.com to your address book so nothing hits your spam folder!</u></p>
         <p>You can edit your application here - <a href="#{url_for(self)}"> Application for #{self.event.title}</a></p>
-        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -105,8 +202,10 @@ class AppSignup < Signup
       :html_body => %(<h1>Righteous!</h1>
         <p>You've applied for <a href=#{url_for(event)}>#{event.title}</a>. You can see your application <a href=#{url_for(self)}>here</a>.
         <br/>
-        We'll send #{event.user.first_name} your application right away and let you know as soon as she makes her decision within 2 weeks. She may decide she'd like to meet up first. If so, we'll email you to confirm a good time. Until then, hold tight and be proud of your awesomeness!
-        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
+        We'll send #{event.user.first_name} your application right away and let you know as soon as she makes her decision within 2 weeks. She may decide she'd like to meet up first. If so, we'll email you to confirm a good time. Until then, hold tight and be proud of your awesomeness!</p>
+        <p>We've sucessfully received your billing information, but we won't charge you until you've been accepted. You'll still have the chance to cancel your application, but if you don't cancel within a week of being accepted, we'll assume you've begun working together and will go ahead and charge your credit card.</p>
+        <p><u>Please add hello@girlsguild.com to your address book so nothing hits your spam folder!</u></p>
+        <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -123,7 +222,9 @@ class AppSignup < Signup
         <p>Thanks for helping your daughter, #{self.daughter_firstname} apply for <a href=#{url_for(event)}>#{event.title}</a>. You can see her application <a href=#{url_for(self)}>here</a>.
         <br/>
         We'll send #{event.user.first_name} her application right away and let you know as soon as she makes her decision within 2 weeks. She may decide she'd like to meet up first. If so, we'll email you to confirm a good time.
-        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
+        <p>We've sucessfully received your billing information, but we won't charge you until you've been accepted. You'll still have the chance to cancel your application, but if you don't cancel within a week of being accepted, we'll assume you've begun working together and will go ahead and charge your credit card.</p>
+        <p><u>Please add hello@girlsguild.com to your address book so nothing hits your spam folder!</u></p>
+        <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -142,9 +243,9 @@ class AppSignup < Signup
       :subject => "#{user.first_name} has applied to work with you!",
       :html_body => %(<h1>Yippee #{event.user.first_name}!</h1>
         <p>#{user.first_name} has applied to apprentice with you! You can review her application <a href=#{url_for(self)}>here</a>. We've notified #{user.first_name} that you'll make your decision on the application within 2 weeks.</p>
-        <p>You can make your decision from her application page - if you want to meet up with her in person before you decide to accept or decline her application, just choose the "Request Interview" option and suggest some date and time options along with a location.</p>
-        <p>Once you've made your decision, just go back to the application page and use the "Accept" or "Decline" buttons to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll ask her to confirm, and once she does, we'll put you two in touch to get started!</p>
-        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
+        <p>If you'd like to meet up with her in person before you decide to accept or decline her application you can <a href=#{url_for(self)}>"Request an Interview"</a>.</p>
+        <p>Once you've made your decision, just go back to the <a href=#{url_for(self)}>application page</a> and use the "Accept" or "Decline" buttons to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll charge the $30 matching fee (unless she cancels within a week), and we'll put you two in touch to get started!</p>
+        <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -159,9 +260,9 @@ class AppSignup < Signup
       :subject => "#{self.daughter_firstname} has applied to work with you!",
       :html_body => %(<h1>Yippee #{event.user.first_name}!</h1>
         <p>#{user.first_name} has helped their daughter, #{self.daughter_firstname}, apply to apprentice with you! You can review her application <a href=#{url_for(self)}>here</a>. We've notified #{user.first_name} and #{self.daughter_firstname} that you'll make your decision on the application within 2 weeks.</p>
-        <p>You can make your decision from her application page - if you want to meet up with #{self.daughter_firstname} and #{user.first_name} in person before you decide to accept or decline her application, just choose the "Request Interview" option and suggest some date and time options along with a location.</p>
-        <p>Once you've made your decision, just go back to the application page and use the "Accept" or "Decline" buttons to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll ask her to confirm, and once she does, we'll put you two in touch to get started!</p>
-        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
+        <p>If you'd like to meet up with her in person before you decide to accept or decline her application you can <a href=#{url_for(self)}>"Request an Interview"</a>.</p>
+        <p>Once you've made your decision, just go back to the <a href=#{url_for(self)}>application page</a> and use the "Accept" or "Decline" buttons to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll charge the $30 matching fee (unless she cancels within a week), and we'll put you two in touch to get started!</p>
+        <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -180,7 +281,7 @@ class AppSignup < Signup
       :html_body => %(<h1>Bummer!</h1>
         <p>You've canceled your application to work with #{self.event.user.first_name}. We hope you'll consider applying to work with someone else!</p>
         <p>Please let us know if there's a way we can help make this application process easier by simply replying to this email. We would really appreciate your feedback!</p>
-        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -195,7 +296,7 @@ class AppSignup < Signup
       :html_body => %(<h1>Bummer!</h1>
         <p>You've canceled your daughter's application to work with #{self.event.user.first_name}. We hope you'll consider helping her apply to work with someone else!</p>
         <p>Please let us know if there's a way we can help make this application process easier by simply replying to this email. We would really appreciate your feedback!</p>
-        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -210,7 +311,7 @@ class AppSignup < Signup
       :html_body => %(<h1>Shucks</h1>
         <p>#{user.name} has canceled her application for #{event.topic}.</p> You can check open applications on your <a href="#{dashboard_url}">Events Dashboard</a>.
         <p>Please let us know if there's a way we can help make this process easier by simply replying to this email. We would really appreciate your feedback!</p>
-        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -225,7 +326,7 @@ class AppSignup < Signup
       :html_body => %(<h1>We're sorry</h1>
         <p>The apprenticeship #{event.topic}, you signed up for with #{self.event.user.first_name} has been canceled. We'll let you know the next time #{self.event.user.first_name} is hosting a workshop or apprenticeship.</p>
         <p>Please let us know if there's a way we can help make this process easier by simply replying to this email. We would really appreciate your feedback!</p>
-        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -246,7 +347,7 @@ class AppSignup < Signup
         <p>We're glad you resubmitted your application for <a href=#{url_for(event)}>#{event.title}</a>. You can see your application <a href=#{url_for(self)}>here</a>.
         <br/>
         We'll send #{event.user.first_name} your application right away and let you know as soon as she makes her decision within 2 weeks. She may decide she'd like to meet up first. If so, we'll email you to confirm a good time. Until then, hold tight and be proud of your awesomeness! </p>
-        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -263,7 +364,7 @@ class AppSignup < Signup
         <p>Thanks for helping your daughter, #{self.daughter_firstname} resubmit her application for <a href=#{url_for(event)}>#{event.title}</a>. You can see her application <a href=#{url_for(self)}>here</a>.
         <br/>
         We'll send #{event.user.first_name} her application right away and let you know as soon as she makes her decision within 2 weeks. She may decide she'd like to meet up first. If so, we'll email you to confirm a good time.
-        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -282,9 +383,9 @@ class AppSignup < Signup
       :subject => "#{user.first_name} has re-applied to work with you!",
       :html_body => %(<h1>Yippee #{event.user.first_name}!</h1>
         <p>#{user.first_name} resubmitted her application to apprentice with you! You can review her application <a href=#{url_for(self)}>here</a>. We've notified #{user.first_name} that you'll make your decision on the application within 2 weeks.</p>
-        <p>If you'd like to meet up with her in person before you decide to accept or decline her application, just reply to this email to tell us where you'd like to meet up (or if you'd prefer a phone interview), and a few date/time options when you're available. We'll set up a meeting with her and then confirm it with you.</p>
-        <p>Once you've made your decision, just go back to the application page and use the "Accept" or "Decline" buttons to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll ask her to confirm, and once she does, we'll put you two in touch to get started!</p>
-        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
+        <p>If you'd like to meet up with her in person before you decide to accept or decline her application you can <a href=#{url_for(self)}>"Request an Interview"</a>.</p>
+        <p>Once you've made your decision, just go back to the <a href=#{url_for(self)}>application page</a> and use the "Accept" or "Decline" buttons to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll charge the $30 matching fee (unless she cancels within a week), and we'll put you two in touch to get started!</p>
+        <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -299,9 +400,9 @@ class AppSignup < Signup
       :subject => "#{self.daughter_firstname} has applied to work with you!",
       :html_body => %(<h1>Yippee #{event.user.first_name}!</h1>
         <p>#{user.first_name} has helped their daughter, #{self.daughter_firstname}, resubmit her application to apprentice with you! You can review her application <a href=#{url_for(self)}>here</a>. We've notified #{user.first_name} and #{self.daughter_firstname} that you'll make your decision on the application within 2 weeks.</p>
-        <p>If you'd like to meet up with her in person before you decide to accept or decline her application, just reply to this email to tell us where you'd like to meet up (or if you'd prefer a phone interview), and a few date/time options when you're available. We'll set up a meeting with #{user.first_name} and #{self.daughter_firstname} and then confirm it with you.</p>
-        <p>Once you've made your decision, just go back to the application page and use the "Accept" or "Decline" buttons to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll ask her to confirm, and once she does, we'll put you two in touch to get started!</p>
-        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
+        <p>If you'd like to meet up with her in person before you decide to accept or decline her application you can <a href=#{url_for(self)}>"Request an Interview"</a>.</p>
+        <p>Once you've made your decision, just go back to the <a href=#{url_for(self)}>application page</a> and use the "Accept" or "Decline" buttons to make the call. If you decline the application, we'll send a gentle email letting her know. If you accept the application, we'll charge the $30 matching fee (unless she cancels within a week), and we'll put you two in touch to get started!</p>
+        <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -321,7 +422,7 @@ class AppSignup < Signup
       :html_body => %(<h1>Bummer!</h1>
         <p>You've deleted your application to work with #{self.event.user.first_name}. We hope you'll re-consider applying to work with #{self.event.user.first_name} or someone else.</p>
         <p>Please let us know if there's a way we can help make this application process easier by simply replying to this email. We would really appreciate your feedback!</p>
-        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -336,7 +437,7 @@ class AppSignup < Signup
       :html_body => %(<h1>Bummer!</h1>
         <p>You've deleted your daughter's application to work with #{self.event.user.first_name}. We hope you'll re-consider helping her apply to work with #{self.event.user.first_name} or someone else.</p>
         <p>Please let us know if there's a way we can help make this application process easier by simply replying to this email. We would really appreciate your feedback!</p>
-        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -355,7 +456,7 @@ class AppSignup < Signup
       :html_body => %(<p>Thanks for your application #{user.first_name}. For this apprenticeship #{event.user.first_name} chose a different applicant, but she was honored that you were interested in working together. We'll let you know about other possibilities for collaboration with her in the future!</p>
         <p>In the meantime, we hope you'll find another apprenticeship you'd be interested in - check out our <a href="#{url_for(apprenticeships_path)}"> our apprenticeship listings</a> to see what's available.</p>
         <p>#{self.include_decline_reason}</p>
-        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -373,7 +474,7 @@ class AppSignup < Signup
       :html_body => %(<p>Thanks for #{self.daughter_firstname}'s application! For this apprenticeship #{self.event.user.first_name} chose a different applicant, but she was super excited that your daughter was interested in working together. We'll let you know about other possibilities for collaboration with her in the future.</p>
         <p>In the meantime, we hope you and #{self.daughter_firstname} will find another apprenticeship you'd be interested in - check out our <a href="#{url_for(apprenticeships_path)}"> our apprenticeship listings</a> to see what's available.</p>
         <p>#{self.include_decline_reason}</p>
-        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -386,7 +487,7 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "We've notified #{user.first_name} of your decision",
       :html_body => %(<p>Thanks for making that tough decision. We've notified #{user.first_name} that you chose a different applicant, but that you were honored that she was interested in working together and we'll let her know about other possibilities for collaboration with you in the future.</p>
-        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
+        <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -403,11 +504,18 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{self.event.user.first_name} would like to work with you!",
       :html_body => %(<h1>Yeehaw #{self.user.first_name}!</h1>
-        <p>We're excited to let you know that #{self.event.user.first_name} has reviewed your application for #{self.event.title} and would like to work with you as her apprentice!</p>
-        <p>There's ONE MORE STEP: To accept the apprenticeship, please fill out the <a href=#{url_for(self)}>confirmation form</a> and submit the $30.00 apprenticeship fee so that we can connect you two to get started!  Just so you know, your confirmation is your commitment to take on the apprenticeship, so once you've paid, we don't offer a refund.</p>
-        <p>Also, please download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> which covers some guidelines for the apprenticeship.
-        <br/>If you have any questions feel free to respond to this email or email #{self.event.user.first_name} directly at - #{self.event.user.email}</p>
-        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
+        <p>We're excited to let you know that #{self.event.user.first_name} has reviewed your application for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a> and would like to work with you as her apprentice!</p>
+        <h3>Next Steps</h3>
+        <p>If you haven't met up yet, you can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan your first meeting together. The apprenticeship will be happening at:
+        <ul><li>#{self.event.location_address}, #{self.event.location_city}, #{self.event.location_state}</li></ul>
+        <p>Please download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> to bring with you - it covers some guidelines for the apprenticeship.</p>
+        <p>You can review the <a href="#{apprenticeship_url(self)}">apprenticeship details page</a> for more info on what to expect and prepare for, or check out our <a href="http://girlsguild.com/handbook/GirlsGuildHandbook.pdf">Apprenticeship Handbook</a> for ideas on how to get the most out of your apprenticeship experience.</p>
+        <h3>Payment & Cancellation</h3>
+        <p>In case you decide not to take on the apprenticeship, you have <strong>7 days to cancel</strong> your application via your <a href="#{dashboard_url}">Events Dashboard</a>. If you don't cancel within a week of being accepted, we'll assume you've begun working together and will go ahead with confirmation by charging your credit card for the $30.00 apprenticeship fee.</p>
+        <p>If you need to update your billing information, you can do so <a href="#{billing_url}">here</a>. Just so you know, this fee is your commitment to take on the apprenticeship, so once you've paid, we don't offer a refund.</p>
+        <h3>Questions or Feedback?</h3>
+        <p>If you have any questions or feedback, just respond to this email - we're here to support you throughout your apprenticeship!</p>
+        <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -420,11 +528,18 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "#{self.event.user.first_name} would like to work with #{self.daughter_firstname}!",
       :html_body => %(<h1>Yeehaw!</h1>
-        <p>We're excited to let you know that #{self.event.user.first_name} has reviewed your daughter's application for #{self.event.title} and would like to work with #{self.daughter_firstname} as her apprentice!</p>
-        <p>There's ONE MORE STEP: To accept the apprenticeship, please fill out the <a href=#{url_for(self)}>confirmation form</a> and submit the $30.00 apprenticeship fee so that we can connect you two to get started!. Just so you know, your daughter's confirmation is her commitment to take on the apprenticeship, so once you've paid, we don't offer a refund.</p>
-        <p>Also, please download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> which covers some guidelines for the apprenticeship.
-        <br/>If you have any questions feel free to respond to this email. or email #{self.event.user.first_name} directly at - #{self.event.user.email}</p>
-        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
+        <p>We're excited to let you know that #{self.event.user.first_name} has reviewed your daughter's application for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a> and would like to work with #{self.daughter_firstname} as her apprentice!</p>
+        <h3>Next Steps</h3>
+        <p>If they haven't met up yet, you can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan their first meeting together. The apprenticeship will be happening at:
+        <ul><li>#{self.event.location_address}, #{self.event.location_city}, #{self.event.location_state}</li></ul>
+        <p>Please download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> to bring with you - it covers some guidelines for the apprenticeship.</p>
+        <p>You can review the <a href="#{apprenticeship_url(self)}">apprenticeship details page</a> for more info on what to expect and prepare for, or check out our <a href="http://girlsguild.com/handbook/GirlsGuildHandbook.pdf">Apprenticeship Handbook</a> for ideas on how to get the most out of your apprenticeship experience.</p>
+        <h3>Payment & Cancellation</h3>
+        <p>In case you and #{self.daughter_firstname} decide not to take on the apprenticeship, you have <strong>7 days to cancel</strong> her application via your <a href="#{dashboard_url}">Events Dashboard</a>. If you don't cancel within a week of being accepted, we'll assume they've begun working together and will go ahead with confirmation by charging your credit card for the $30.00 apprenticeship fee.</p>
+        <p>If you need to update your billing information, you can do so <a href="#{billing_url}">here</a>. Just so you know, this fee is your commitment to take on the apprenticeship, so once you've paid, we don't offer a refund.</p>
+        <h3>Questions or Feedback?</h3>
+        <p>If you have any questions just respond to this email - we're here to support you throughout your apprenticeship!</p>
+        <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -441,11 +556,22 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You've accepted #{user.first_name} as your apprentice!",
       :html_body => %(<h1>Hoorah!</h1>
-        <p>You've accepted #{user.first_name} as your apprentice! We've asked her to confirm her commitment by submitting her apprenticeship fee. Once she confirms, we'll put you two in touch to get started!</p>
-        <p>Make sure to also print a copy of the <a href="http://girlsguild.com/waivers/ReleaseWaiver-adults.pdf">Participation Waiver</a> to have your apprentice(s) sign before you begin work!</p>
-        <p>Also, please download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> which you'll both want to sign on your first day. It covers some basic expectations and guidelines for the apprenticeship.
-        <br/>If you have any questions feel free to respond to this email.</p>
-        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
+        <p>You've accepted #{user.first_name} as your apprentice for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>!</p>
+        <h3>Next Steps</h3>
+        <p>To get things rolling, you can contact #{user.first_name} at #{user.email} or #{user.phone} to set up your first meeting together. If you'd prefer to have us facilitate the first meeting with you and #{user.first_name} at the GirlsGuild HQ, just reply to this email to let us know.</p>
+        <p>Make sure to also print copies of:</p>
+        <ul>
+          <li>the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> - it covers some guidelines for the apprenticeship,</li>
+          <li>the <a href="http://girlsguild.com/waivers/ReleaseWaiver-adults.pdf">Participation Waiver</a>,</li>
+          <li>and if she's under 19, the <a href="http://girlsguild.com/waivers/IndemnificationAgreement-minors.pdf">Indemnification Agreement for Minors</a>.</li>
+        </ul>
+        <p>Your apprentice (and for minors, their parents) should sign each of these before you begin work!</p>
+        <p>You can also check out our <a href="http://girlsguild.com/handbook/GirlsGuildHandbook.pdf">Apprenticeship Handbook</a> for ideas on how to get the most out of your apprenticeship experience.</p>
+        <h3>Payment and Cancellation</h3>
+        <p>In case she can't take on the commitment, #{user.first_name} still has 7 days to cancel her application. If we don't hear from her within a week, we'll assume you've already begun working together and go ahead and confirm the apprenticeship by charging your credit card. If you need to update your billing information before then, you can do so <a href="#{billing_url}">here</a>.</p>
+        <h3>Questions or Feedback?</h3>
+        <p>If you have any questions or feedback, just respond to this email - we're here to support you throughout the apprenticeship!</p>
+        <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
@@ -458,58 +584,81 @@ class AppSignup < Signup
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
       :subject => "You've accepted #{self.daughter_firstname} as your apprentice!",
       :html_body => %(<h1>Hoorah!</h1>
-        <p>You've accepted #{self.daughter_firstname} as your apprentice! We've asked her (and her parent, #{user.first_name}) to confirm her commitment by submitting her apprenticeship fee. Once she confirms, we'll put you two in touch to get started!</p>
-        <p>Make sure to also print a copy of the <a href="http://girlsguild.com/waivers/ReleaseWaiver-adults.pdf">Participation Waiver</a> and the <a href="http://girlsguild.com/waivers/IndemnificationAgreement-minors.pdf">Indemnification Agreement for Minors</a> to have your apprentice's parent sign before you begin work!</p>
-        <p>Also, please download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> which you'll both want to sign on your first day. It covers some basic expectations and guidelines for the apprenticeship.
-        <br/>If you have any questions feel free to respond to this email.</p>
-        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
+        <p>You've accepted #{self.daughter_firstname} as your apprentice for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>!</p>
+        <h3>Next Steps</h3>
+        <p>To get things rolling, you can contact her parent, #{user.first_name}, at #{user.email} or #{user.phone} to set up your first meeting together. If you'd prefer to have us facilitate the first meeting with you, #{self.daughter_firstname} and #{user.first_name} at the GirlsGuild HQ, just reply to this email to let us know.</p>
+        <p>Make sure to also print copies of:</p>
+        <ul>
+          <li>the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> - it covers some guidelines for the apprenticeship,</li>
+          <li>the <a href="http://girlsguild.com/waivers/ReleaseWaiver-adults.pdf">Participation Waiver</a>,</li>
+          <li>and if she's under 19, the <a href="http://girlsguild.com/waivers/IndemnificationAgreement-minors.pdf">Indemnification Agreement for Minors</a>.</li>
+        </ul>
+        <p>Your apprentice and her parent should sign each of these before you begin work!</p>
+        <p>You can also check out our <a href="http://girlsguild.com/handbook/GirlsGuildHandbook.pdf">Apprenticeship Handbook</a> for ideas on how to get the most out of your apprenticeship experience.</p>
+        <h3>Payment and Cancellation</h3>
+        <p>In case she can't take on the commitment, #{user.first_name} still has 7 days to cancel the application. If we don't hear from her within a week, we'll assume you and #{self.daughter_firstname} have already begun working together, and go ahead and confirm the apprenticeship by charging your credit card. If you need to update your billing information before then, you can do so <a href="#{billing_url}">here</a>.</p>
+        <h3>Questions or Feedback?</h3>
+        <p>If you have any questions feel free to respond to this email.</p>
+        <p>~<br/>Thanks,</br>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
   end
 
-  def deliver_confirm(opts={})
+  def deliver_confirm_auto(opts={})
     if self.parent?
-      deliver_confirm_parent(opts)
+      deliver_confirm_parent_auto(opts)
     elsif self.minor?
-      deliver_confirm_minor(opts)
+      deliver_confirm_minor_auto(opts)
     else
-      deliver_confirm_self(opts)
+      deliver_confirm_self_auto(opts)
     end
   end
 
-  def deliver_confirm_self(opts={})
+  def deliver_confirm_self_auto(opts={})
     return false unless valid?
     payment = opts[:payment]
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Your apprenticeship is ready to start! - #{self.event.title}",
+      :subject => "Your apprenticeship is good to go! - #{self.event.title}",
       :html_body => %(<h1>Yesss!</h1>
-        <p>You're all set for #{self.event.title}! We received your confirmation and your payment of $30.</p>
-        <p>You can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan your first meeting together.</p>
-        <p>If you haven't already, please download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> which covers some guidelines for the apprenticeship.
-        <br/>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
+        <p>You're all set for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>! We have charged the card on file for your payment of $30.</p>
+        <p>If you haven't yet, you can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan your first meeting together. Don't forget to download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> to set out some guidelines together.</p>
+        <p>Keep in mind these tips for having a great apprenticeship:</p>
+        <ul>
+          <li><strong>Get Dirty</strong> - Roll up your sleeves! You should be learning new things frequently enough to stay challenged, but don't be afraid to practice what you're learning; you're there to both learn and be helpful!</li>
+          <li><strong>Be Curious</strong> - Ask what it's like to run a small business, how she got to where she is in her field, and the challenges she's had along the way - it's likely that you've experienced some of the same stuff.</li>
+          <li><strong>Ask for Feedback</strong> - Remember to ask for gentle but constructive feedback. You'll gain the best kind of real-life experience when you're learning from your mistakes.</li>
+          <li><strong>Share Goals</strong> - Get to know each others goals and dreams! We want to help you build a mentor network because we're all stronger when we learn together.</li>
+        </ul>
+        <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns, I (#{self.personal_contact_name}) will be your personal contact throughout the apprenticeship. You can reach me at #{self.personal_contact_email} or by replying to this email. I'm here to help!</p>
         <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
   end
 
-  def deliver_confirm_minor(opts={})
+  def deliver_confirm_minor_auto(opts={})
     return false unless valid?
     payment = opts[:payment]
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Your apprenticeship is ready to start! - #{self.event.title}",
+      :subject => "Your apprenticeship is good to go! - #{self.event.title}",
       :html_body => %(<h1>Yesss!</h1>
-        <p>You're all set for #{self.event.title}! We received your confirmation and your payment of $30.</p>
-        <p>You can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan your first meeting together.</p>
-        <p>If you haven't already, please download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> which covers some guidelines for the apprenticeship.
-        <br/>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
+        <p>You're all set for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>! We have charged the card on file for your payment of $30.</p>
+        <p>If you haven't yet, you can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan your first meeting together. Don't forget to download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> to set out some guidelines together.</p>
+        <p>Keep in mind these tips for having a great apprenticeship:</p>
+        <ul>
+          <li><strong>Get Dirty</strong> - Roll up your sleeves! You should be learning new things frequently enough to stay challenged, but don't be afraid to practice what you're learning; you're there to both learn and be helpful!</li>
+          <li><strong>Be Curious</strong> - Ask what it's like to run a small business, how she got to where she is in her field, and the challenges she's had along the way - it's likely that you've experienced some of the same stuff.</li>
+          <li><strong>Ask for Feedback</strong> - Remember to ask for gentle but constructive feedback. You'll gain the best kind of real-life experience when you're learning from your mistakes.</li>
+          <li><strong>Share Goals</strong> - Get to know each others goals and dreams! We want to help you build a mentor network because we're all stronger when we learn together.</li>
+        </ul>
+        <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns, I (#{self.personal_contact_name}) will be your personal contact throughout the apprenticeship. You can reach me at #{self.personal_contact_email} or by replying to this email. I'm here to help!</p>
         <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :cc => "#{self.parent_name}<#{self.parent_email}>",
       :bcc => "hello@girlsguild.com",
@@ -517,55 +666,105 @@ class AppSignup < Signup
     return true
   end
 
-  def deliver_confirm_parent(opts={})
+  def deliver_confirm_parent_auto(opts={})
     return false unless valid?
     payment = opts[:payment]
     Pony.mail({
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Your apprenticeship is ready to start! - #{self.event.title}",
+      :subject => "Your apprenticeship is good to go! - #{self.event.title}",
       :html_body => %(<h1>Yesss!</h1>
-        <p>#{self.daughter_firstname} is all set for #{self.event.title}! We received your confirmation and your payment of $30.</p>
-        <p>You can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan their first meeting together.</p>
-        <p>If you haven't already, please download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> which covers some guidelines for the apprenticeship.
-        <br/>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns just let us know!</p>
+        <p>#{self.daughter_firstname} is all set for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>! We have charged the card on file for your payment of $30.</p>
+        <p>If you haven't yet, you can get in touch with #{self.event.user.name} by email at #{self.event.user.email} to plan their first meeting together. Don't forget to download and print the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> to set out some guidelines together.</p>
+        <p>Help #{self.daughter_firstname} remember these tips for having a great apprenticeship:</p>
+        <ul>
+          <li><strong>Get Dirty</strong> - Roll up your sleeves! You should be learning new things frequently enough to stay challenged, but don't be afraid to practice what you're learning; you're there to both learn and be helpful!</li>
+          <li><strong>Be Curious</strong> - Ask what it's like to run a small business, how she got to where she is in her field, and the challenges she's had along the way - it's likely that you've experienced some of the same stuff.</li>
+          <li><strong>Ask for Feedback</strong> - Remember to ask for gentle but constructive feedback. You'll gain the best kind of real-life experience when you're learning from your mistakes.</li>
+          <li><strong>Share Goals</strong> - Get to know each others goals and dreams! We want to help you build a mentor network because we're all stronger when we learn together.</li>
+        </ul>
+        <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns, I (#{self.personal_contact_name}) will be your personal contact throughout the apprenticeship. You can reach me at #{self.personal_contact_email} or by replying to this email. I'm here to help!</p>
         <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
   end
 
-  def deliver_confirm_maker(opts={})
-    parent? ? deliver_confirm_maker_parent(opts) : deliver_confirm_maker_girl(opts)
+  def deliver_confirm_maker_auto(opts={})
+    parent? ? deliver_confirm_maker_parent_auto(opts) : deliver_confirm_maker_girl_auto(opts)
   end
 
-  def deliver_confirm_maker_girl(opts={})
+  def deliver_confirm_maker_girl_auto(opts={})
     return false unless valid?
     Pony.mail({
       :to => "#{event.user.name}<#{event.user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Your apprenticeship with #{user.first_name} is ready to start! - #{self.event.title}",
-      :html_body => %(<h1>Yesss, #{user.first_name} has confirmed the apprenticeship!</h1> <p>You're all set to work with #{user.first_name} for #{self.event.title}! To get things rolling, you can contact #{user.first_name} at #{user.email} or #{user.phone} to set up your first meeting together.</p>
-      <p>If you'd prefer to have us facilitate the first meeting with you and #{user.first_name} at the GirlsGuild HQ, just reply to this email to let us know. Make sure to also print a copy of the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> and the <a href="http://girlsguild.com/waivers/ReleaseWaiver-adults.pdf">Participation Waiver</a>, and if she's under 19, the  <a href="http://girlsguild.com/waivers/IndemnificationAgreement-minors.pdf">Indemnification Agreement for Minors</a> to have your apprentice(s) and their parents sign before you begin work! </p>
-      <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
+      :subject => "Your apprenticeship with #{user.first_name} is good to go! - #{self.event.title}",
+      :html_body => %(<h1>Yesss!</h1>
+        <p>You're all set to work with #{user.first_name} for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>! We've gone ahead and charged your card the $30 confirmation fee. </p>
+        <p>If you haven't yet, you can contact #{user.first_name} at #{user.email} or #{user.phone} to set up your first meeting together.</p>
+        <p>Don't forget to bring a copy of:</p>
+        <ul>
+        <li>the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> to set out some guidelines together,</li>
+        <li>the <a href="http://girlsguild.com/waivers/ReleaseWaiver-adults.pdf">Participation Waiver</a>,</li>
+        <li>and if she's under 19, the <a href="http://girlsguild.com/waivers/IndemnificationAgreement-minors.pdf">Indemnification Agreement for Minors</a>.</li>
+        </ul>
+        <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns, I (#{self.personal_contact_name}) will be your personal contact throughout the apprenticeship. You can reach me at #{self.personal_contact_email} or by replying to this email. I'm here to help!</p>
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
     })
     return true
   end
 
-  def deliver_confirm_maker_parent(opts={})
+  def deliver_confirm_maker_parent_auto(opts={})
     return false unless valid?
     Pony.mail({
       :to => "#{event.user.name}<#{event.user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Your apprenticeship with #{self.daughter_firstname} is ready to start! - #{self.event.title}",
-      :html_body => %(<h1>Yesss, #{self.daughter_firstname} has confirmed the apprenticeship!</h1> <p>You're all set to work with #{self.daughter_firstname} for #{self.event.title}! To get things rolling, you can contact her parent, #{user.first_name}, at #{user.email} or #{user.phone} to set up your first meeting with #{self.daughter_firstname}.</p>
-      <p>If you'd prefer to have us facilitate the first meeting with you and #{self.daughter_firstname} at the GirlsGuild HQ, just reply to this email to let us know. Make sure to also print a copy of the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> and the <a href="http://girlsguild.com/waivers/ReleaseWaiver-adults.pdf">Participation Waiver</a> and the <a href="http://girlsguild.com/waivers/IndemnificationAgreement-minors.pdf">Indemnification Agreement for Minors</a> to have your apprentice(s) and their parents sign before you begin work! </p>
-      <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
+      :subject => "Your apprenticeship with #{self.daughter_firstname} is good to go! - #{self.event.title}",
+      :html_body => %(<h1>Yesss! </h1>
+        <p>You're all set to work with #{self.daughter_firstname} for <a href="#{apprenticeship_url(self)}"> #{self.event.title}</a>! We've gone ahead and charged your card the $30 confirmation fee. </p>
+        <p>If you haven't yet, you can contact her parent, #{user.first_name}, at #{user.email} or #{user.phone} to set up your first meeting with #{self.daughter_firstname}.
+        <p>Don't forget to bring a copy of:</p>
+        <ul>
+        <li>the <a href="http://girlsguild.com/docs/Apprenticeship_Agreement.pdf">Apprenticeship Agreement</a> to set out some guidelines together,</li>
+        <li>the <a href="http://girlsguild.com/waivers/ReleaseWaiver-adults.pdf">Participation Waiver</a>,</li>
+        <li>the <a href="http://girlsguild.com/waivers/IndemnificationAgreement-minors.pdf">Indemnification Agreement for Minors</a>.</li>
+        </ul>
+        <p>We'll follow up in a week or so to see how things are going, but in the meantime if you have any questions or concerns, I (#{self.personal_contact_name}) will be your personal contact throughout the apprenticeship. You can reach me at #{self.personal_contact_email} or by replying to this email. I'm here to help!</p>
+        <p>~<br/>Thanks,<br/>Cheyenne & Diana<br/>The GirlsGuild Team</p>),
       :bcc => "hello@girlsguild.com",
+    })
+    return true
+  end
+
+  def deliver_apprentice_payment_failed
+    return false unless valid?
+    Pony.mail({
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Apprentice payment failed for #{self.event.title}",
+      :html_body => %(<h1>Crap</h1>
+      <p>#{self.user.first_name}'s payment failed when we tried to confirm the apprenticeship!</p>
+      <p>Look into it, dudes.</p>),
+    })
+    return true
+  end
+
+  def deliver_maker_payment_failed
+    return false unless valid?
+    Pony.mail({
+      :to => "Diana & Cheyenne<hello@girlsguild.com>",
+      :from => "Diana & Cheyenne<hello@girlsguild.com>",
+      :reply_to => "GirlsGuild<hello@girlsguild.com>",
+      :subject => "Maker payment failed for #{self.event.title}",
+      :html_body => %(<h1>Crap</h1>
+      <p>#{self.event.user.first_name}'s payment failed when #{self.user.first_name} confirmed the apprenticeship!</p>
+      <p>Look into it, dudes.</p>),
     })
     return true
   end
@@ -624,6 +823,14 @@ class AppSignup < Signup
     return true
   end
 
+  def self.auto_confirm_apprenticeship
+    date_range = (Date.today-14.days)..(Date.today-7.days)
+    AppSignup.where(:updated_at => date_range, :state => "accepted").map.each do |app|
+      app.process_auto_payment
+    end
+  end
+
+
   def self.remind_maker_to_review
     # UPDATE: date_range = (Date.today-5.days)..(Date.today+1)
     # UPDATE: Apprenticeship.where(state: "started", help_posting_sent: false, :created_at => date_range).each do |app|
@@ -633,14 +840,15 @@ class AppSignup < Signup
 
   def self.reminder
     date_range = Date.today..(Date.today+3.days)
-    AppSignup.joins(:event).where(events: {:begins_at => date_range}).where(state: 'confirmed', app_reminder_sent: false).each do |app|      app.deliver_reminder
+    AppSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'confirmed', app_reminder_sent: false).each do |app|
+      app.deliver_reminder
     end
   end
 
   def self.followup
     date_range = (Date.today-7.days)..Date.today
-    AppSignup.joins(:event).where(events: {:begins_at => date_range}).where(state: 'confirmed', app_followup_sent: false).each do |app|
-      app.deliver_followup && app.deliver_followup_maker
+    AppSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'confirmed', app_followup_sent: false).each do |app|
+      app.deliver_followup
     end
   end
 
@@ -664,11 +872,6 @@ class AppSignup < Signup
     end
 
     state :pending do
-      validates_presence_of :happywhen, :collaborate, :interest, :experience, :preferred_times, :message => ' must be included in order to submit your form.'
-      validates_acceptance_of :confirm_available, :confirm_unpaid, :confirm_fee, :message => ' must agree to submit your form.'
-      validates_presence_of :daughter_firstname, :daughter_lastname, :daughter_age, :if => :parent?
-      validate :daughter_age_is_valid, :if => :parent?
-      validates_acceptance_of :requirements, :if => :requirements?
     end
 
     state :accepted do
@@ -681,11 +884,7 @@ class AppSignup < Signup
     end
 
     state :confirmed do
-      validates_acceptance_of :respect_agreement, :message => "You must agree to respect the artist's style and techniques.", :if => :respect_agreement?
-      validates_presence_of :parent_name, :parent_phone, :parent_email, :if => :minor?
-      validates_acceptance_of :parents_waiver, :message => "Sorry, you must agree to the indemnification agreement.", :if => :minor? || :parent?
-
-      validates_acceptance_of :waiver, :message => "Sorry, you must agree to the waiver."
+      # validates_acceptance_of :respect_agreement, :message => "You must agree to respect the artist's style and techniques.", :if => :respect_agreement?
     end
 
     state :completed do
@@ -720,9 +919,9 @@ class AppSignup < Signup
     elsif self.interview_requested?
       return "#{self.event.user.first_name} has <a href=#{app_signup_path(self)}>requested an interview.</a>".html_safe
     elsif self.interview_scheduled?
-      return "Your <a href=#{app_signup_path(self)}>interview is scheduled</a>.".html_safe
+      return "Your interview is scheduled.<br/> <b><a href=#{app_signup_path(self)}>Reschedule,</a></b> or <b><a href=#{app_signup_path(self)}>send a message</a></b>".html_safe
     elsif self.accepted?
-      return "Your application has been accepted! <a href=#{app_signup_path(self)} class='bold'>Confirm</a> your apprenticeship!".html_safe
+      return "Your application has been accepted! <br/> We'll confirm it and process your apprenticeship fee in #{(self.state_stamps.last.stamp + 7.days).mjd - Date.today.mjd} days.".html_safe
     elsif self.declined?
       return "It did't work out, but you're still awesome!"
     elsif self.canceled?
@@ -753,6 +952,7 @@ class AppSignup < Signup
     elsif self.pending? || self.interview_scheduled? || self.interview_requested?
       return "#{(self.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days left to <a href=#{app_signup_path(self)} class='bold'>review</a> ".html_safe
     elsif self.accepted?
+      return "#{(self.state_stamps.last.stamp + 7.days).mjd - Date.today.mjd} days until we process your payment.</a> ".html_safe
     elsif self.declined?
     elsif self.canceled?
     elsif self.confirmed?

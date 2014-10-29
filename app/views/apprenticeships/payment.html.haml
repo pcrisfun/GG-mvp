@@ -1,57 +1,45 @@
 #private-info
   %section.section.alt-grey
     .container
-      %h1#page-header.pull-right Payment
+      %h1#page-header
       %br
       = render 'checkmark_nav'
       %br
       #full
         .row-fluid
           .span9
-            %h2 One time fee - $30
-            %p
-              This fee covers:
-              %ol
-                %li
-                  Promoting your apprenticeship through our
-                  =link_to "newsletter", "http://eepurl.com/HRKVP", target: "_blank"
-                  and social media,
-                %li
-                  =link_to "Collecting applications", faq_path(anchor: "applicationslook"), target: "_blank"
-                  for you to review,
-                %li
-                  =link_to "Setting up an optional interview,", faq_path(anchor: "caniinterview"), target: "_blank"
-                  and
-                %li
-                  =link_to "Connecting you with the apprentice(s) you choose.", faq_path(anchor: "howlongtofill"), target: "_blank"
-              %i.fa.fa-exclamation
-              Note: We
-              =link_to "can't guarantee applicants,", faq_path(anchor: "nobodyapplies"), target: "_blank"
-              but we'll do our best! We do not offer refunds on posting fees.
+            %h2 Billing info
+            .alert
+              <b>You won't be charged yet!</b>
+              <br/>You will only be charged the $30 matching fee for <i>each</i> apprentice you accept.
+              /<i>and</i> she confirms the apprenticeship.
+
+            %p This fee covers:
+            %ol
+              %li
+                Promoting your apprenticeship through our
+                =link_to "newsletter", "http://eepurl.com/HRKVP", target: "_blank"
+                and social media,
+              %li
+                Collecting applications for you to review,
+              %li
+                Setting up an optional interview,
+              %li
+                Connecting you with the apprentice(s) you choose, and
+              %li
+                Supporting you both throughout the apprenticeship!
 
             %hr
+
             = simple_form_for @apprenticeship, html: { class: 'form-horizontal payment_form' }, validate: false do |f|
               = render 'shared/error_messages', form_model: @apprenticeship
-              = render partial: "shared/credit_card", locals: { f: f, paid: @apprenticeship.charge_id.present? }
-              - if @apprenticeship.charge_id.present?
-                = link_to "Payment Confirmation", payment_confirmation_apprenticeship_path(@apprenticeship)
-                %br
-                / WE REMOVED THIS RESUBMIT BUTTON IN FAVOR OF DUPLICATING THE APPRENTICESHIP
-                /- if @apprenticeship.completed?
-                /  #preview-buttons-bottom.pull-center
-                /    = link_to 'Resubmit', { :controller => 'apprenticeships', :action => 'resubmit', :id => @apprenticeship.id }, /method: 'post', class: 'btn btn-primary'
-              - else
-                %br
-                %br
-                #preview-buttons-bottom.pull-center
-                  = f.submit 'Submit Payment', class: 'btn btn-primary', id: 'cc_process'
+              = render partial: "shared/credit_card", locals: { f: f, paid: @apprenticeship.user.stripe_customer_id.present? }
+              %br
+              #preview-buttons-bottom.pull-right
+                = f.submit 'Submit Apprenticeship', class: 'btn btn-primary', id: 'cc_process'
 
-          .span3
-            %br
-            %br
-            %ul.nav.nav-list
-              %li.header
-                Your Payment is Secure
-              All transactions on GirlsGuild are over a certified secure connection and we use
-              %a{ href: "https://stripe.com/" }Stripe
-              \- a respected third party service to fulfill payments, refunds, and security.
+          //FAQ Section //////////////////
+          %span#details.span3.accordionFAQ
+            = render 'faq-billing'
+
+

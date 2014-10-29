@@ -60,11 +60,11 @@
                       %td.image
                         = index + 1
                       %td.name
-                        = avatar_for(signup.user, size: 25, tag: :small)
+                        = link_to avatar_for(signup.user, size: 25, tag: :small), url_for(controller: signup.class.name.underscore.pluralize, action: 'show', id: signup.id )
                         - if signup.parent?
-                          #{signup.user.name}'s daughter #{signup.daughter_firstname}
+                          = link_to "#{signup.user.name}'s daughter #{signup.daughter_firstname}".html_safe, url_for(controller: signup.class.name.underscore.pluralize, action: 'show', id: signup.id )
                         - else
-                          = signup.user.name
+                          = link_to signup.user.name, url_for(controller: signup.class.name.underscore.pluralize, action: 'show', id: signup.id )
                       %td.age
                         age
                         - if signup.parent?

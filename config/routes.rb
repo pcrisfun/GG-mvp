@@ -6,12 +6,12 @@ GirlsGuild::Application.routes.draw do
   resources :signups
   resources :app_signups do
     collection do
-      post :confirm
+      # post :confirm
       post :cancel
 
     end
   end
-  match 'app_signups/:id/confirmation' => 'app_signups#payment_confirmation', as: :payment_confirmation_app_signup
+  # match 'app_signups/:id/confirmation' => 'app_signups#payment_confirmation', as: :payment_confirmation_app_signup
 
   resources :work_signups do
     collection do
@@ -87,6 +87,8 @@ GirlsGuild::Application.routes.draw do
   match '/metrics', to: 'dashboards#metrics'
   match 'users/avatar', to: 'dashboards#avatar', as: :avatar
   match 'users/update_avatar', to: 'dashboards#update_avatar', as: :update_avatar
+  match 'users/billing', to: 'dashboards#billing', as: :billing
+  match 'users/update_billing', to: 'dashboards#update_billing', as: :update_billing
 
   match '/events', to: 'events#index'
 

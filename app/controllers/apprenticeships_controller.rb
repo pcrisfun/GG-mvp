@@ -13,7 +13,7 @@ class ApprenticeshipsController < ApplicationController
       @allfilled_apprenticeships = Apprenticeship.find_all_by_state('filled').sort_by { |e| e.begins_at }
       @allcompleted_apprenticeships = Apprenticeship.find_all_by_state('completed').sort_by { |e| e.begins_at }
     end
-    @apprenticeships = Apprenticeship.where( datetime_tba: false, state: ['accepted']).sort_by { |e| e.created_at }.reverse!
+    @apprenticeships = Apprenticeship.where( datetime_tba: false, state: ['accepted']).sort_by { |e| e.begins_at }
     @tba_apprenticeships = Apprenticeship.where( datetime_tba: true, state: ['accepted']).sort_by { |e| e.created_at }
     @closed_apprenticeships = Apprenticeship.where( datetime_tba: false, state: ['filled','completed']).where("begins_at < :today", {today: Date.today}).sort_by { |e| e.begins_at }.reverse!
 
@@ -21,8 +21,6 @@ class ApprenticeshipsController < ApplicationController
 
   def new
   end
-
-
 
 #---- create
   def create
@@ -89,15 +87,17 @@ class ApprenticeshipsController < ApplicationController
         elsif params[:commit] == 'Save'
           redirect_to :back, flash: { success: "Your apprenticeship has been saved"} and return
 
-        elsif params[:apprenticeship][:stripe_card_token] && ( params[:apprenticeship][:stripe_card_token] != "" )
-          if @apprenticeship.process_payment
-            @apprenticeship.submit
-            @apprenticeship.deliver
-            redirect_to payment_confirmation_apprenticeship_path(@apprenticeship) and return
-          else
-            Rails.logger.info("This will end up in papertrail: #{current_user} ")
-            Rollbar.report_exception({:error_message => 'Apprenticeship Payment Failed'}, rollbar_request_data, rollbar_person_data)
-            redirect_to payment_apprenticeship_path(@apprenticeship), :flash => { warning: "There was a problem processing your payment: #{@apprenticeship.errors.full_messages}" } and return
+        elsif params[:apprenticeship][:stripe_card_token]
+          if ( params[:apprenticeship][:stripe_card_token] != "" ) || @apprenticeship.user.stripe_customer_id.present?
+            if @apprenticeship.save_payment_info
+              @apprenticeship.submitted
+              @apprenticeship.deliver
+              redirect_to payment_confirmation_apprenticeship_path(@apprenticeship) and return
+            else
+              Rails.logger.info("This will end up in papertrail: #{current_user} ")
+              Rollbar.report_exception({:error_message => 'Apprenticeship Payment Failed'}, rollbar_request_data, rollbar_person_data)
+              redirect_to payment_apprenticeship_path(@apprenticeship), :flash => { warning: "There was a problem processing your billing information: #{@apprenticeship.errors.full_messages}" } and return
+            end
           end
         else
           redirect_to payment_apprenticeship_path(@apprenticeship) and return
@@ -231,6 +231,12 @@ class ApprenticeshipsController < ApplicationController
 
   def set_featured_listing
     @apprenticeship.toggle!(:featured) and return
+    rescue
+    error_msg = " "
+    @apprenticeship.errors.each do |field, msg|
+      error_msg << "<br/>"
+      error_msg << msg
+    end
   end
 
   def show
@@ -295,10 +301,10 @@ class ApprenticeshipsController < ApplicationController
 
   def payment
     unless @apprenticeship.group_valid?(:design)
-      redirect_to edit_apprenticeship_path(@apprenticeship), flash: { warning: "Before you pay, please correct the following: #{@apprenticeship.errors.full_messages}"} and return
+      redirect_to edit_apprenticeship_path(@apprenticeship), flash: { warning: "Before continuing, please correct the following: #{@apprenticeship.errors.full_messages}"} and return
     end
     unless @apprenticeship.group_valid?(:private)
-      redirect_to private_apprenticeship_path(@apprenticeship), :flash => { warning: "Before you pay, please correct the following: #{@apprenticeship.errors.full_messages}" } and return
+      redirect_to private_apprenticeship_path(@apprenticeship), :flash => { warning: "Before continuing, please correct the following: #{@apprenticeship.errors.full_messages}" } and return
     end
   end
 

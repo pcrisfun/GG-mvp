@@ -14,7 +14,7 @@
           %dd
             = "#{current_user.first_name} #{current_user.last_name}"
             %span.pull-right
-              Not you? #{link_to "Sign in as a different user.", destroy_user_session_path, :method => :delete}
+              Not you? #{link_to "Log in as a different user.", destroy_user_session_path}
               %br/
               - unless current_user && current_user.age < @apprenticeship.age_min
                 Or, you can #{link_to "Apply for your daughter.", new_parent_app_signup_path(apprenticeship_id: @apprenticeship)}
@@ -25,8 +25,11 @@
             %dd
               = current_user.age
               years old
-            %br
-        %br/
+            %br/
+            %dt Phone Number
+            %dd
+              = text_field_tag "user[phone]", current_user.phone, label: 'Phone Number', :required => true, :validate => true
+            %br/
   %br/
   - if current_user && current_user.age >= @apprenticeship.age_min && current_user.age <= @apprenticeship.age_max
     .accordion-group
@@ -76,20 +79,100 @@
       .accordion-heading
         %h2
           %a.accordion-toggle
-            3. Things to Note
+            3. If I'm Accepted as an Apprentice...
       .accordion-body
         .accordion-inner
           %br/
+          - if @app_signup.minor?
+            %h3 The boring stuff...
+            .alert Since you're under 18, you'll need to ask your parents to finish the rest of the form.
+            - if @app_signup.minor?
+              %br/
+              = f.input :parent_name, label: "Parent's name", :required => true, :validate => true
+              = f.input :parent_phone, label: "Parent's phone", :required => true, :validate => true
+              = f.input :parent_email, label: "Parent's email", :required => true, :validate => true
+              %br/
+
           = f.input :confirm_unpaid, label: 'Yes', required: true do
             = f.check_box :confirm_unpaid
             %span.simpleform-text
               I understand that this is an unpaid apprenticeship. I agree that if accepted I will work with #{"#{@apprenticeship.host_firstname}"} in return for the chance to learn from her.
-          = f.input :confirm_fee, label: 'Yes', required: true do
-            = f.check_box :confirm_fee
-            %span.simpleform-text
-              I agree that
-              %strong if accepted
-              as an apprentice I will pay the
-              %strong $30
-              matching fee to GirlsGuild before being connected with #{"#{@apprenticeship.host_firstname}"} for the apprenticeship.
+          / = f.input :confirm_fee, label: 'Yes', required: true do
+          /   = f.check_box :confirm_fee
+          /   %span.simpleform-text
+          /     I agree that
+          /     %strong if accepted
+          /     as an apprentice I will pay the
+          /     %strong $30
+          /     matching fee to GirlsGuild before being connected with #{"#{@apprenticeship.host_firstname}"} for the apprenticeship.
+          - if @app_signup.minor?
+            = f.input :parents_waiver, label: "Indemnification Agreement for Minors", required: true do
+              %textarea.span10{:readonly => "true", :rows => "3"}
+                INDEMNIFICATION AGREEMENT FOR MINOR
+                In consideration for #{self.current_user.name}, age #{self.current_user.age} (the “Minor”), being permitted by GirlsGuild to participate in the class titled #{@app_signup.event.title} (the “Session”) being held at #{@app_signup.event.location_address} #{@app_signup.event.location_address2} #{@app_signup.event.location_city} #{@app_signup.event.location_state} #{@app_signup.event.location_zipcode} (the “Facility”), and contemporaneously with and as part of the execution of that certain Participation Waiver and Release Agreement by the undersigned parent or guardian (hereinafter referred to as the “Agreement”, the terms defined therein and not otherwise defined herein, being used herein as therein defined), I agree to the following WAIVER, RELEASE, AND INDEMNIFICATION:
+
+                The undersigned parent and guardian of the minor, for themselves and on behalf of the minor, join in the foregoing WAIVER AND RELEASE and stipulates and agrees that it does KNOWINGLY AND INTENTIONALLY WAIVE AND RELEASE, INDEMNIFY AND HOLD HARMLESS GIRLSGUILD AND ANY OF ITS OFFICERS, AGENTS, SERVANTS, EMPLOYEES, CONTRACTORS, ASSIGNS, AND ALL PERSONS, NATURAL OR CORPORATE, IN PRIVITY WITH GIRLSGUILD OR ANY OF FOREGOING PERSONS from and against any and all claims, actions, damages, liability, costs, and expenses, in connection with any loss of life, any injury or damage to person or property or any other type of injury or damage (including reasonable attorney’s fees) of any kind or nature whatsoever, whether foreseen or unforeseen, arising directly or indirectly out of or resulting from the Minor’s participation in the Session, including without limitation, any damage to my property or the property of the Minor, or any injury or death to the Minor, REGARDLESS OF WHETHER ANY SUCH LOSS, LIABILITY, CLAIM OR DAMAGE RESULTS FROM THE SOLE, CONTRIBUTORY, PARTIAL, JOINT, COMPARATIVE OR CONCURRENT NEGLIGENCE OF GIRLSGUILD OR ANY OF ITS OFFICERS, AGENTS, SERVANTS, EMPLOYEES, CONTRACTORS, ASSIGNS, ALL PERSONS NATURAL OR CORPORATE, IN PRIVITY WITH GIRLSGUILD OR ANY OF THE FOREGOING PERSONS, OR ANY OTHER PERSON PARTICIPATING IN THE SESSION UNDER THE EXPRESS OR IMPLIED INVITATION OF GIRLSGUILD, AND REGARDLESS OF WHETHER THE MINOR IS ACCOMPANIED OR UNACCOMPANIED AT THE FACILITY BY THE UNDERSIGNED.
+
+                I HEREBY REPRESENT THAT THE MINOR IS IN GOOD HEALTH, THAT THERE ARE NO SPECIAL PROBLEMS ASSOCIATED WITH THE CARE OF THE MINOR, AND THAT I HAVE LEFT NO SPECIAL INSTRUCTIONS REGARDING THE MINOR.
+              %br/
+              %span.form-inline
+                = f.check_box :parents_waiver, :validate => true
+                %span.simpleform-text I am the legal parent/guardian of the apprenticeship participant, and have read and agree to this indemnification agreement.
+          - elsif @app_signup.parent?
+            = f.input :parents_waiver, label: "Indemnification Agreement for Minors", required: true do
+              %textarea.span10{:readonly => "true", :rows => "3"}
+                INDEMNIFICATION AGREEMENT FOR MINOR
+                In consideration for my daughter (the “Minor”), being permitted by GirlsGuild to participate in the apprenticeship titled #{@app_signup.event.title} (the “Session”) being held at #{@app_signup.event.location_address} #{@app_signup.event.location_address2} #{@app_signup.event.location_city} #{@app_signup.event.location_state} #{@app_signup.event.location_zipcode} (the “Facility”), and contemporaneously with and as part of the execution of that certain Participation Waiver and Release Agreement by the undersigned parent or guardian (hereinafter referred to as the “Agreement”, the terms defined therein and not otherwise defined herein, being used herein as therein defined), I agree to the following WAIVER, RELEASE, AND INDEMNIFICATION:
+
+                The undersigned parent and guardian of the minor, for themselves and on behalf of the minor, join in the foregoing WAIVER AND RELEASE and stipulates and agrees that it does KNOWINGLY AND INTENTIONALLY WAIVE AND RELEASE, INDEMNIFY AND HOLD HARMLESS GIRLSGUILD AND ANY OF ITS OFFICERS, AGENTS, SERVANTS, EMPLOYEES, CONTRACTORS, ASSIGNS, AND ALL PERSONS, NATURAL OR CORPORATE, IN PRIVITY WITH GIRLSGUILD OR ANY OF FOREGOING PERSONS from and against any and all claims, actions, damages, liability, costs, and expenses, in connection with any loss of life, any injury or damage to person or property or any other type of injury or damage (including reasonable attorney’s fees) of any kind or nature whatsoever, whether foreseen or unforeseen, arising directly or indirectly out of or resulting from the Minor’s participation in the Session, including without limitation, any damage to my property or the property of the Minor, or any injury or death to the Minor, REGARDLESS OF WHETHER ANY SUCH LOSS, LIABILITY, CLAIM OR DAMAGE RESULTS FROM THE SOLE, CONTRIBUTORY, PARTIAL, JOINT, COMPARATIVE OR CONCURRENT NEGLIGENCE OF GIRLSGUILD OR ANY OF ITS OFFICERS, AGENTS, SERVANTS, EMPLOYEES, CONTRACTORS, ASSIGNS, ALL PERSONS NATURAL OR CORPORATE, IN PRIVITY WITH GIRLSGUILD OR ANY OF THE FOREGOING PERSONS, OR ANY OTHER PERSON PARTICIPATING IN THE SESSION UNDER THE EXPRESS OR IMPLIED INVITATION OF GIRLSGUILD, AND REGARDLESS OF WHETHER THE MINOR IS ACCOMPANIED OR UNACCOMPANIED AT THE FACILITY BY THE UNDERSIGNED.
+
+                I HEREBY REPRESENT THAT THE MINOR IS IN GOOD HEALTH, THAT THERE ARE NO SPECIAL PROBLEMS ASSOCIATED WITH THE CARE OF THE MINOR, AND THAT I HAVE LEFT NO SPECIAL INSTRUCTIONS REGARDING THE MINOR.
+              %br/
+              %span.form-inline
+                = f.check_box :parents_waiver, :validate => true
+                %span.simpleform-text I am the legal parent/guardian of the apprenticeship participant, and have read and agree to this indeminification agreement.
+          = f.input :waiver, label: "Participation Waiver", required: true do
+            %textarea.span10{:readonly => "true", :rows => "3"}
+              PARTICIPATION WAIVER AND RELEASE AGREEMENT PLEASE READ CAREFULLY BEFORE SIGNING. THIS IS A RELEASE OF LIABILITY AND WAIVER OF CERTAIN LEGAL RIGHTS.
+              In consideration for my being permitted by Girls Guild to participate in the apprenticeship titled #{@app_signup.event.title} (the “Session”) being held at #{@app_signup.event.location_address} #{@app_signup.event.location_address2} #{@app_signup.event.location_city} #{@app_signup.event.location_state} #{@app_signup.event.location_zipcode} (the “Facility”), I hereby agree to the following waiver and release:
+
+              1. I understand that my participation in the Session may include the use and operation of inherently dangerous tools, equipment, machines, chemicals and other hazardous materials and/or substances.
+
+              2. I agree to attend the safety orientation at the beginning of the Session and will not operate any equipment or use any materials without first familiarizing myself without their safe use. I agree that under no circumstances will I operate or use any tools, equipment, machinery or any other materials or substances at the Facility which have not been expressly mentioned during the safety orientation as being included and associated with participation in the Session. If I believe anything to be unsafe, I will immediately notify a member of the Girls Guild staff.
+
+              3. I, ON BEHALF OF MYSELF AND EACH OF MY HEIRS, LEGAL REPRESENTATIVES, SUCCESSORS AND ANYONE ELSE WHO MAY ACT ON MY BEHALF, KNOWINGLY AND INTENTIONALLY WAIVE AND RELEASE, INDEMNIFY AND HOLD HARMLESS GIRLS GUILD AND ANY OF ITS OFFICERS, AGENTS, SERVANTS, EMPLOYEES, CONTRACTORS, ASSIGNS, AND ALL PERSONS, NATURAL OR CORPORATE, IN PRIVITY WITH GIRLS GUILD from and against any and all claims, actions, damages, liability, costs, and expenses, in connection with any loss of life, any injury or damage to person or property or any other type of injury or damage (including reasonable attorney’s fees) of any kind or nature whatsoever, whether foreseen or unforeseen, arising directly or indirectly out of or resulting from my participation in the Session, including without limitation, any damage to my property or any injury or death to me, REGARDLESS OF WHETHER ANY SUCH LOSS, LIABILITY, CLAIM OR DAMAGE RESULTS FROM THE SOLE, CONTRIBUTORY, PARTIAL, JOINT, COMPARATIVE OR CONCURRENT NEGLIGENCE OF GIRLS GUILD OR ANY OF ITS OFFICERS, AGENTS, SERVANTS, EMPLOYEES, CONTRACTORS, ASSIGNS, ALL PERSONS NATURAL OR CORPORATE, IN PRIVITY WITH GIRLS GUILD OR ANY OF THE FOREGOING PERSONS, OR ANY OTHER PERSON PARTICIPATING IN THE SESSION UNDER THE EXPRESS OR IMPLIED INVITATION OF GIRLS GUILD.
+
+              4. I will exercise the highest degree of care in my use of all tools, equipment, machinery, and other materials and/or substances to avoid damages to all equipment used during my participation in the Session and to avoid damage to the Facility and all fixtures and contents therein. I agree to indemnify and reimburse Girls Guild and/or the owner of the Facility, as applicable, for all damage that I cause to any equipment, infrastructure or any other improvements and facilities.
+
+              5. I understand that Girls Guild is under no duty to supervise or monitor my own actions or the actions of any other Session participant.
+
+              6. I understand that I may be asked to leave the Session for violating any provision of this Agreement or for any other reason within the sole discretion of the Girls Guild staff, and upon such request, I will immediately vacate the Facility.
+
+              7. I confirm that there are no mental or physical problems or limitations associated with my participation in the Session which I have not disclosed in writing to Girls Guild.
+
+              I AM VOLUNTARILY PARTICIPATING IN THE SESSION WITH FULL KNOWLEDGE OF THE INHERENT RISKS INVOLVED AND ASSUME AND ACCEPT ANY AND ALL RISKS OR INJURY OR DEATH IN ENGAGING IN SUCH ACTIVITIES.
+              I HAVE CAREFULLY READ, CLEARLY UNDERSTAND AND VOLUNTARILY SIGN THIS WAIVER AND RELEASE AGREEMENT, BINDING MYSELF, MY HEIRS, LEGAL REPRESENTATIVES, SUCCESSORS, OR ANYONE WHO MAY ACT ON MY BEHALF.
+            %br/
+            = f.check_box :waiver
+            %span.simpleform-text I have read and agree to the apprenticeship participation waiver.
+
+    %br/
+    .accordion-group
+      .accordion-heading
+        %h2
+          %a.accordion-toggle
+            4. Billing Info
+      .accordion-body
+        .accordion-inner
+          %br/
+          %h3 Please submit your billing info - you won't be charged yet!
+          %p
+            We'll only charge your card if you’re accepted.
+          .alert.alert-warning
+            <b>Note: </b>You’ll have 7 days after you’re accepted to cancel your application via
+            = link_to "your dashboard", dashboard_path
+            before we charge your card. &nbsp; You can still cancel after 7 days, but we won’t be able to offer a refund.
+
+          %br/
+          = render :partial => "shared/credit_card", :locals => { :f => f, :paid => @app_signup.user.stripe_customer_id.present? }
           %br/

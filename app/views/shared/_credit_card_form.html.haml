@@ -1,0 +1,25 @@
+.control-group
+  .control-label
+    = label_tag :card_number do
+      Card Number
+      %i.fa.fa-credit-card
+  .controls
+    = text_field_tag :card_number, nil, name: nil, class: "span4"
+    %img{ src: "/assets/payments.png" }
+
+.control-group
+  .control-label
+    = label_tag :card_code do
+      Card Security Code
+      %i.fa.fa-lock
+  .controls
+    = text_field_tag :card_code, nil, name: nil, class: "span1"
+
+.control-group
+  .control-label
+    = label_tag :card_month do
+      Card Expiration
+      %i.fa.fa-warning
+  .controls
+    = select_month nil, {add_month_numbers_true: true}, {name: nil, id: "card_month", class: "span2" }
+    = select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year", class: "span2" }

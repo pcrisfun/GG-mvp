@@ -6,13 +6,13 @@
       - if show
 
         - if current_user && current_user == @apprenticeship.user && @apprenticeship.accepted?
-          = link_to "Close Applications", { :controller => 'apprenticeships', :action => 'close', :id => @apprenticeship.id }, class: "btn pull-left", :method => 'post', data: { :confirm => "Are you sure you want to stop accepting applications?" }
+          = link_to "Close Applications", { :controller => 'apprenticeships', :action => 'close', :id => @apprenticeship.id }, class: "btn btn-small pull-left", :method => 'post', data: { :confirm => "Are you sure you want to stop accepting applications?" }
 
         - if current_user && current_user == @apprenticeship.user && @apprenticeship.filled? && !@apprenticeship.max_capacity_met?
-          = link_to "Re-Open Applications", { :controller => 'apprenticeships', :action => 'reopen', :id => @apprenticeship.id }, class: "btn pull-left", :method => 'post', data: { :confirm => "Are you sure you want to re-open your apprenticeship for applications?" }
+          = link_to "Re-Open Applications", { :controller => 'apprenticeships', :action => 'reopen', :id => @apprenticeship.id }, class: "btn btn-small pull-left", :method => 'post', data: { :confirm => "Are you sure you want to re-open your apprenticeship for applications?" }
 
         - if current_user && current_user==@apprenticeship.user && (@apprenticeship.started? or @apprenticeship.pending? or @apprenticeship.accepted?)
-          = link_to "Edit", edit_apprenticeship_path(@apprenticeship), name: "edit_button", class: "btn btn-primary pull-right"
+          = link_to "Edit", edit_apprenticeship_path(@apprenticeship), name: "edit_button", class: "btn btn-primary btn-small pull-right"
 
         - if current_user && (current_user==@apprenticeship.user or current_user.admin?) && (@apprenticeship.canceled? or @apprenticeship.filled? or @apprenticeship.completed?)
           = link_to "Duplicate", url_for(controller: :apprenticeships, action: :duplicate, id: @apprenticeship.id ), class: "btn btn-primary pull-right", rel: 'popover', data: {placement: "bottom", content:"'Duplicate' will start a new listing pre-populated with the information from this apprenticeship listing. You will still be able to edit any information you've copied over before submitting your new listing."}
@@ -21,12 +21,9 @@
           - if @app_signup.started?
             = link_to "Edit Application", edit_app_signup_path(@app_signup), name: "edit_button", class: "btn btn-primary pull-right"
         - if current_user && @app_signup && current_user==@app_signup.user
-          - if @app_signup.pending?
+          - if @app_signup.pending? or @app_signup.accepted?
             = link_to "Cancel Application", { :controller => 'app_signups', :action => 'cancel', :id => @app_signup.id }, class: "btn btn-danger pull-right", :method => 'post', data: { :confirm => "Are you sure? Your application will be saved in your Dashboard, but you'll have to resubmit it in order to apply again." }
             = link_to "View Application", app_signup_path(@app_signup), class: "btn pull-right"
-          - if @app_signup.accepted?
-            = link_to "Cancel Application", { :controller => 'app_signups', :action => 'cancel', :id => @app_signup.id }, class: "btn btn-danger pull-right", :method => 'post', data: { :confirm => "Are you sure? Your application will be saved in your Dashboard, but you'll have to resubmit it in order to apply again." }
-            = link_to "Confirm Application", app_signup_path(@app_signup), class: "btn pull-right"
 
       - unless show
         %h2 Let's design your apprenticeship
@@ -71,7 +68,7 @@
             %h1#title.field.text
               = editable_link_to 'Topic of Your Apprenticeship', field: :topic, resource: @apprenticeship, type: :text
             - if !show
-              %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"Give it a title that focuses on the type of work you'll be doing together."} }
+              %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"What's the topic of your apprenticeship? Keep it short and sweet!"} }
                 %i.fa.fa-question-circle.small-icon
             %br
             with
@@ -154,7 +151,7 @@
               #ends-at.field.date.optional
                 = editable_link_to "Ending date", field: :ends_at, resource: @apprenticeship, type: :date, link_text: get_formated_date(@apprenticeship.ends_at), data: { viewformat: 'MM d, yyyy', template: 'MM d, yyyy', firstItem: 'none'}
               - if !show
-                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"When do you want the apprenticeship to start? This will be an approximate start date, based on how you work out a schedule with your apprentice. How long is the apprenticeship? We suggest an initial 1-3 month period to see how it goes. You can always offer to extend it!"} }
+                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"When do you want the apprenticeship to start? This will be an approximate start date, based on how you work out a schedule with your apprentice. We suggest an initial 1-3 month period to see how it goes. We have a limit of 6 months."} }
                   %i.fa.fa-question-circle.small-icon
               %br
             %dt
@@ -191,8 +188,8 @@
                   - if @apprenticeship.location_private == true
                     - private_text = "Residential"
                   - elsif @apprenticeship.location_private == false
-                    - private_text = "Public"
-                  = editable_link_to "Public/Residential", field: :location_private, resource: @apprenticeship, type: :select, link_text: @apprenticeship.location_private.nil? ? nil : private_text , data: { source: '{true : "Residential", false : "Public"}'}
+                    - private_text = "Commercial"
+                  = editable_link_to "Commercial/Residential", field: :location_private, resource: @apprenticeship, type: :select, link_text: @apprenticeship.location_private.nil? ? nil : private_text , data: { source: '{true : "Residential", false : "Commercial"}'}
                 address
                 #nbrhood-toggle{class: !@apprenticeship.location_private ?  'hidden' : '' }
                   in the
@@ -202,7 +199,7 @@
                     neighborhood
 
                 - if !show
-                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"If it's a 'Residential' address we'll only display a map of the neighborhood, while a 'Public' address will be displayed with a map of the exact location."} }
+                  %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"If it's a 'Residential' address we'll only display a map of the neighborhood, while a 'Commercial' address will be displayed with a map of the exact location."} }
                     %i.fa.fa-question-circle.small-icon
                   %br
 
@@ -227,10 +224,10 @@
             %dd
               #gender.field.checkbox
                 - if @apprenticeship.gender == true
-                  - gender_text = "Open to all gender identities"
+                  - gender_text = "Everyone"
                 - elsif @apprenticeship.gender == false
                   - gender_text = "Girls/Women"
-                = editable_link_to "Describe your apprentice(s)", field: :gender, resource: @apprenticeship, type: :select, link_text: gender_text, data: { source: '{"false" : "Girls/Women", "true" : "Open to all gender identities"}'}
+                = editable_link_to "Describe your apprentice(s)", field: :gender, resource: @apprenticeship, type: :select, link_text: gender_text, data: { source: '{"false" : "Girls/Women", "true" : "Everyone"}'}
               ages
               #min-age.field.select
                 = editable_link_to "12", field: :age_min, resource: @apprenticeship, type: :number
@@ -252,7 +249,7 @@
                 = editable_link_to "2", field: :registration_max, resource: @apprenticeship, type: :text
               Apprentice(s)
               - if !show
-                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"We suggest you start with 1-2 apprentice(s) if you're new to teaching or collaborating. You can always post again for another apprentice."} }
+                %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content:"We suggest you start with 1-3 apprentice(s) if you're new to teaching or collaborating. You can always duplicate your posting later."} }
                   %i.fa.fa-question-circle.small-icon
             %dt
               - if !show
@@ -293,7 +290,7 @@
                 %dd
                   = mail_to @apprenticeship.user.email
                   - if !show
-                    %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content: "Don't worry, this will only be visible to apprentices AFTER they've been accepted as your apprentice'! To use a different email address, you can edit your Settings (under your name in the top right corner)."} }
+                    %a{ href: "javascript:;", rel: 'popover', data: {placement: "right", content: "Don't worry, this will only be visible to apprentices AFTER they've applied'! To use a different email address, you can edit your Settings (under your name in the top right corner)."} }
                       %i.fa.fa-question-circle.small-icon &nbsp;&nbsp;&nbsp;
                       = link_to "(Edit email)", edit_user_registration_path
 
@@ -350,6 +347,11 @@
                   %dt
 
 
+        //FAQ Section //////////////////
+        - if !show
+          %span#details.span3.accordionFAQ
+            = render 'faq-listing'
+
         //Apply Sidebar //////////////////
         %span#applysidebar.span3
           - if show
@@ -358,9 +360,6 @@
 
             - elsif current_user && current_user.signedup?(@apprenticeship) && @app_signup.pending?
               = link_to "Application sent #{content_tag(:i, "", class: "fa fa-check-circle")}".html_safe, app_signup_path(@app_signup), rel: 'popover', data: {placement: "left", content:"Thanks for applying, we'll let you know just as soon as a decision has been made!"}, :class => "btn btn-block btn-success disabled"
-
-            - elsif current_user && current_user.signedup?(@apprenticeship) && @app_signup.accepted?
-              = link_to "Confirm apprenticeship", app_signup_path(@app_signup), rel: 'popover', data: {placement: "left", content:"Yay! You've been accepted for this apprenticeship. To get started please confirm by paying."}, :class => "btn btn-block btn-warning"
 
             - elsif current_user && current_user.signedup?(@apprenticeship) && @app_signup.confirmed?
               = link_to "Working with #{@apprenticeship.user.first_name} #{content_tag(:i, "", class: "fa fa-check-circle")}".html_safe, app_signup_path(@app_signup), rel: 'popover', data: {placement: "left", content:"Yippee, you're all set to start your apprenticeship!"}, :class => "btn btn-block btn-success disabled"
@@ -440,10 +439,24 @@
               = link_to 'Next', private_apprenticeship_path(@apprenticeship), method: :get, class: 'btn btn-primary'
 
 
+      //Cancel, Delete, Edit //////////////////
+      %br
+      - if current_user && current_user == @apprenticeship.user && !@apprenticeship.started? && !@apprenticeship.completed? && !@apprenticeship.canceled?
+        = link_to "Cancel Apprenticeship", { :controller => 'apprenticeships', :action => 'cancel', :id => @apprenticeship.id }, class: "btn btn-small btn-danger pull-left", :method => 'post', data: { :confirm => "Are you sure? Your apprenticeship will be saved in your Dashboard, but you'll have to resubmit it in order to post it again." }
+      - if current_user && current_user == @apprenticeship.user && @apprenticeship.started?
+        = link_to "Delete Apprenticeship", { :controller => 'apprenticeships', :action => 'destroy', :id => @apprenticeship.id }, class: "btn btn-small btn-danger pull-left", :method => 'delete', data: { :confirm => "Are you sure? You can't undo after you delete your apprenticeship. It will really be gone!" }
+      - if show
+        - if current_user && current_user==@apprenticeship.user && (@apprenticeship.started? or @apprenticeship.pending? or @apprenticeship.accepted?)
+          = link_to "Edit", edit_apprenticeship_path(@apprenticeship), name: "edit_button", class: "btn btn-primary btn-small pull-right"
+
+      %br
+      %br
+
+
       //Disqus //////////////////
       - if show
         - if current_user && current_user.signedup?(@apprenticeship)
-          - if @app_signup.pending? || @app_signup.accepted? || @app_signup.interview_requested? || @app_signup.interview_scheduled? || @app_signup.confirmed? || @app_signup.completed?
+          - if @app_signup.pending? || @app_signup.accepted? || @app_signup.confirmed? || @app_signup.completed?
             = render 'disqus'
         - if current_user==@apprenticeship.user
           = render 'disqus'
@@ -468,7 +481,7 @@
                 = f.submit "Reject Apprenticeship", :name => "reject_button", :class => "btn"
               %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
               %br
-          = link_to "Approve Apprenticeship", { :controller => 'apprenticeships', :action => 'accept', :id => @apprenticeship.id }, class: "btn btn-success", :method => 'post', :data => { :confirm => 'Hey Nerds, did you do a background check yet?'}
+          = link_to "Approve Apprenticeship", { :controller => 'apprenticeships', :action => 'accept', :id => @apprenticeship.id }, class: "btn btn-success", :method => 'post'
 
           %br
           %br
@@ -491,16 +504,6 @@
               %br
           %br
           %br
-        - if current_user && current_user == @apprenticeship.user && !@apprenticeship.started? && !@apprenticeship.completed? && !@apprenticeship.canceled?
-          = link_to "Cancel Apprenticeship", { :controller => 'apprenticeships', :action => 'cancel', :id => @apprenticeship.id }, class: "btn btn-danger", :method => 'post', data: { :confirm => "Are you sure? Your apprenticeship will be saved in your Dashboard, but you'll have to resubmit it in order to post it again." }
-          %br
-          %br
-        - if current_user && current_user == @apprenticeship.user && @apprenticeship.started?
-          = link_to "Delete Apprenticeship", { :controller => 'apprenticeships', :action => 'destroy', :id => @apprenticeship.id }, class: "btn btn-small btn-danger pull-left", :method => 'delete', data: { :confirm => "Are you sure? You can't undo after you delete your apprenticeship. It will really be gone!" }
-          %br
-          %br
-
-
           %br
           %br
           %br

@@ -5,8 +5,9 @@
     %input{id: 'user_use_gravatar_true',name: "user[use_gravatar]", type: 'radio', value: 'true', :checked => (@user.use_gravatar ? "checked" : false) }
     .input-append
       = gravatar_for(@user)
-    %label.collection_radio_buttons{:for => 'user_use_gravatar_true'} Use
-    %a{href: 'http://gravatar.com/emails', target: '_blank'} Gravatar
+    %label.collection_radio_buttons{:for => 'user_use_gravatar_true'}
+      Use
+      %a{href: 'http://gravatar.com/emails', target: '_blank'} Gravatar
   %br
   .form-inline
     %input{id: 'user_use_gravatar_false',name: "user[use_gravatar]", type: 'radio', value: 'false',  :checked => (!@user.use_gravatar ? "checked" : false) }

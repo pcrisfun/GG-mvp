@@ -1,10 +1,12 @@
 - provide(:title, 'Edit Avatar')
-%section#dashboard-display.section.alt-grey
+%section#admin.section.alt-grey
   .container
     .row-fluid
       .span2.pull-left
         = render 'dashboards/nav'
+
       .span10.pull-right
-        .fancyform-light
+        .fancyform-light.form-horizontal
+          %h2 Avatar
           = simple_form_for(@user, :url => update_avatar_path, defaults: { input_html: { class: 'span5' } }, html: { :method => :put } ) do |f|
             = render 'avatar_fields', f: f

@@ -33,11 +33,6 @@
               - if signup.accepted? || signup.confirmed?
                 %br
                 = link_to 'Cancel application', { :controller => 'app_signups', :action => 'cancel', :id => signup.id }, :method => :post, :data => { :confirm => "Are you sure you want to cancel your application for this apprenticeship? We won't be able to offer you a refund if you've already paid."}
-              - if signup.accepted?
-                &nbsp; | &nbsp;
-                = link_to 'Confirm application', { :controller => 'app_signups', :action => 'show', :id => signup.id }
-
-
 
               - if signup.canceled? && !event.canceled?
                 %br
