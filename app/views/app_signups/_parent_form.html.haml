@@ -146,18 +146,18 @@
     .accordion-heading
       %h2
         %a.accordion-toggle
-          3. Payment Info - You won't be charged yet
+          3. Billing Info
     .accordion-body
       .accordion-inner
         %br/
-        %h3 Please submit your billing information - you won't be charged yet!
+        %h3 Please submit your billing info - you won't be charged yet!
         %p
-          We'll only charge your card if your daughter is accepted and decides to take on the apprenticeship.
-          %br
-          (If she decides <i>not</i> to take on the apprenticeship, please cancel via
+          We'll only charge your card if your daughter is accepted.
+        .alert.alert-warning
+          <b>Note: </b>You’ll have 7 days after your daughter is accepted to cancel her application via
           = link_to "your dashboard", dashboard_path
-          to let us know.)
-        .alert.alert-warning <b>Note:</b> If your daughter's application is accepted and you do <i>not</i> cancel within 7 days, we'll assume she's already begun working with #{@app_signup.event.user.first_name} and go ahead with confirming by charging your card.
+          before we charge your card. &nbsp; You can still cancel after 7 days, but we won’t be able to offer a refund.
+
         %br/
         = render :partial => "shared/credit_card", :locals => { :f => f, :paid => @app_signup.user.stripe_customer_id.present? }
         %br/

@@ -1,7 +1,7 @@
 - unless paid
 
   #stripe_error.alert.alert-error{:style => "display:none;"}
-    %strong Payment error!
+    %strong Processing error!
     %span.message
 
   #stripe_error
@@ -14,7 +14,7 @@
   .alert.alert-success
     %strong Awesome!
     %span.message
-      We've got your payment info on file. &nbsp;&nbsp;
+      We've got your billing info on file. &nbsp;&nbsp;
       = link_to "Update my billing info", billing_path, class: 'pull-right'
 
 = f.hidden_field :stripe_card_token, :id => "stripe_card_token"

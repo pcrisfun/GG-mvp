@@ -96,7 +96,7 @@ class ApprenticeshipsController < ApplicationController
             else
               Rails.logger.info("This will end up in papertrail: #{current_user} ")
               Rollbar.report_exception({:error_message => 'Apprenticeship Payment Failed'}, rollbar_request_data, rollbar_person_data)
-              redirect_to payment_apprenticeship_path(@apprenticeship), :flash => { warning: "There was a problem processing your payment: #{@apprenticeship.errors.full_messages}" } and return
+              redirect_to payment_apprenticeship_path(@apprenticeship), :flash => { warning: "There was a problem processing your billing information: #{@apprenticeship.errors.full_messages}" } and return
             end
           end
         else
@@ -301,10 +301,10 @@ class ApprenticeshipsController < ApplicationController
 
   def payment
     unless @apprenticeship.group_valid?(:design)
-      redirect_to edit_apprenticeship_path(@apprenticeship), flash: { warning: "Before you pay, please correct the following: #{@apprenticeship.errors.full_messages}"} and return
+      redirect_to edit_apprenticeship_path(@apprenticeship), flash: { warning: "Before continuing, please correct the following: #{@apprenticeship.errors.full_messages}"} and return
     end
     unless @apprenticeship.group_valid?(:private)
-      redirect_to private_apprenticeship_path(@apprenticeship), :flash => { warning: "Before you pay, please correct the following: #{@apprenticeship.errors.full_messages}" } and return
+      redirect_to private_apprenticeship_path(@apprenticeship), :flash => { warning: "Before continuing, please correct the following: #{@apprenticeship.errors.full_messages}" } and return
     end
   end
 
