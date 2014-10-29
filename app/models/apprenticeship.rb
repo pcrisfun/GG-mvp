@@ -15,6 +15,7 @@ class Apprenticeship < Event
   # Dates
     validates :begins_at, :date => {:after => Proc.new { Date.today }, :message => 'Oops! You need to plan your apprenticeship to start sometime after today. Please check the dates you set.'}, :if => :should_validate_begins_at?
     validates :ends_at, :date => {:after => :begins_at, :message => "Oops! Please check the dates you set. Your apprenticeship can't end before it begins!"}, :if => :tba_is_blank
+    validates :ends_at, :date => {:before => :six_month_timeframe, :message => "Sorry, apprenticeships can't be longer than six months."}
   # Hours & Availability
     validates_presence_of :hours
     validates_numericality_of :hours, :greater_than => 0
@@ -61,6 +62,7 @@ class Apprenticeship < Event
 
   validation_group :ends_at do
     validates :ends_at, :date => {:after => :begins_at, :message => "Oops! Please check the dates you set. Your apprenticeship can't end before it begins!"}, :if => :tba_is_blank
+    validates :ends_at, :date => {:before => :six_month_timeframe, :message => "Sorry, apprenticeships can't be longer than six months."}
   end
   validation_group :hours do
     validates_numericality_of :hours, :greater_than => 0
@@ -100,7 +102,11 @@ class Apprenticeship < Event
   end
 
 def should_validate_begins_at?
-    :tba_is_blank && (self.started? || self.pending?)
+  :tba_is_blank && (self.started? || self.pending?)
+end
+
+def six_month_timeframe
+  self.begins_at + 190.days
 end
 
   include Emailable
