@@ -237,7 +237,7 @@ include EventHelper
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Your workshop signup has been deleted - #{event.topic} with #{user.name}",
+      :subject => "Your workshop signup has been deleted - #{event.title}",
       :html_body => %(<h1>Bummer!</h1>
         <p>You've deleted your workshop signup to work with #{self.event.user.first_name}. We hope you'll consider working with #{self.event.user.first_name} or someone else soon.</p>
         <p>Please let us know if there's a way we can help make this signup process easier by simply replying to this email. We would really appreciate your feedback!</p>
@@ -252,7 +252,7 @@ include EventHelper
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Your daughter's workshop signup has been deleted - #{event.topic} with #{user.name}",
+      :subject => "Your daughter's workshop signup has been deleted - #{event.title}",
       :html_body => %(<h1>Bummer!</h1>
         <p>You've deleted your daughter's signup to work with #{self.event.user.first_name}. We hope you'll consider helping her apply to work with #{self.event.user.first_name} or someone else soon.</p>
         <p>Please let us know if there's a way we can help make this signup process easier by simply replying to this email. We would really appreciate your feedback!</p>
@@ -267,7 +267,7 @@ include EventHelper
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "Your workshop has been canceled - #{event.topic} with #{user.name}",
+      :subject => "Your workshop has been canceled - #{event.title}",
       :html_body => %(<h1>We're sorry.</h1>
         <p>The workshop on #{event.topic} you signed up for with #{self.event.user.first_name} has been canceled. We'll refund your signup fee, and let you know the next time #{self.event.user.first_name} is hosting a workshop or apprenticeship.</p>
         <p>Please let us know if you have any questions.</p>
@@ -283,7 +283,7 @@ include EventHelper
       :to => "#{user.name}<#{user.email}>",
       :from => "Diana & Cheyenne<hello@girlsguild.com>",
       :reply_to => "GirlsGuild<hello@girlsguild.com>",
-      :subject => "You canceled your signup- #{event.topic} with #{user.name}",
+      :subject => "You canceled your signup- #{event.title}",
       :html_body => %(<h1>Darn.</h1>
         <p>You canceled your signup for #{self.event.user.first_name}'s workshop on #{event.topic}. If there are at least 7 days before the workshop date, we'll refund your signup fee in the next two days. We hope you'll find another workshop you're interested in, and we'll let you know the next time #{self.event.user.first_name} is hosting a workshop or apprenticeship.</p>
         <p>Please let us know if there's a way we can help make this process easier by simply replying to this email. We would really appreciate your feedback!</p>
@@ -354,21 +354,21 @@ include EventHelper
 
   def self.first_reminder
     date_range = Date.today..(Date.today+3.days)
-    WorkSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'confirmed', work_first_reminder_sent: false).each do |work|
+    WorkSignup.joins(:event).where(events: {:begins_at => date_range}).where(state: 'confirmed', work_first_reminder_sent: false).each do |work|
       work.deliver_first_reminder
     end
   end
 
   def self.second_reminder
     date_range = Date.today..(Date.today+1.days)
-    WorkSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'confirmed', work_second_reminder_sent: false).each do |work|
+    WorkSignup.joins(:event).where(events: {:begins_at => date_range}).where(state: 'confirmed', work_second_reminder_sent: false).each do |work|
       work.deliver_second_reminder
     end
   end
 
   def self.followup
     date_range = (Date.today-3.days)..Date.today
-    WorkSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'completed', work_followup_sent: false).each do |work|
+    WorkSignup.joins(:event).where(events: {:begins_at => date_range}).where(state: 'completed', work_followup_sent: false).each do |work|
       work.deliver_followup
     end
   end

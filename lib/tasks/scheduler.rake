@@ -1,18 +1,18 @@
 #will need to be scheduled using the Heroku Scheduler tool when we deploy (schedule for each evening)
 #Henry said try separating out the ones that need to run in order into separate tasks (ie. create a task that runs Workshop.complete_workshop THEN runs Workshop.cancel_workshop), then call that task in the task that gets scheduled.
 
-#1st, based on end date, complete apprenticeships that were confirmed, and workshops that were accepted w/ minimum # signups
+#1st, based on close registrations date, cancel accepted workshops that don't have minimum # signups
+desc "Cancel empty workshops"
+task :cancel_events => :environment do
+  Workshop.cancel_workshop
+end
+
+
+#2nd, based on end date, complete events that were accepted/filled, and signups for those events that were confirmed
 desc "Complete events"
 task :complete_events => :environment do
   Apprenticeship.complete_apprenticeship
   Workshop.complete_workshop
-end
-
-
-#2nd, based on close registrations date, cancel workshops that don't have minimum # signups
-desc "Cancel empty workshops"
-task :cancel_events => :environment do
-  Workshop.cancel_workshop
 end
 
 #3rd, based on the date stamp of the transition to state "accepted", confirm & process payment for app_signups that haven't confirmed or canceled yet
@@ -36,7 +36,6 @@ desc "Send followups after events"
 task :send_followups => :environment do
   Workshop.maker_followup
   AppSignup.followup
-  AppSignup.followup_maker
   WorkSignup.followup
 end
 

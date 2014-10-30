@@ -101,13 +101,9 @@ class Apprenticeship < Event
     validates_presence_of :tool_list
   end
 
-def should_validate_begins_at?
-  :tba_is_blank && (self.started? || self.pending?)
-end
-
-def six_month_timeframe
-  self.begins_at + 190.days
-end
+  def six_month_timeframe
+    self.begins_at + 190.days
+  end
 
   include Emailable
 
@@ -360,12 +356,6 @@ end
     checkmarks[:payment] = self.charge_id.present?
     self.errors.clear
     return checkmarks
-  end
-
-  state_machine :state, :initial => :started do
-    event :complete do
-      transition :all => :completed
-    end
   end
 
   def state_label

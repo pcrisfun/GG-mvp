@@ -840,22 +840,15 @@ class AppSignup < Signup
 
   def self.reminder
     date_range = Date.today..(Date.today+3.days)
-    AppSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'confirmed', app_reminder_sent: false).each do |app|
+    AppSignup.joins(:event).where(events: {:begins_at => date_range}).where(state: 'confirmed', app_reminder_sent: false).each do |app|
       app.deliver_reminder
     end
   end
 
   def self.followup
-    date_range = (Date.today-7.days)..Date.today
-    AppSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'confirmed', app_followup_sent: false).each do |app|
-      app.deliver_followup
-    end
-  end
-
-  def self.followup_maker
-    date_range = (Date.today-7.days)..Date.today
-    AppSignup.joins(:event).where(events: {:begins_at => date_range}, state: 'confirmed', app_followup_maker_sent: false).each do |app|
-      app.deliver_followup_maker
+    date_range = (Date.today-3.days)..Date.today
+    AppSignup.joins(:event).where(events: {:begins_at => date_range}).where(state: 'confirmed', app_followup_sent: false).each do |app|
+      app.deliver_followup && app.deliver_followup_maker
     end
   end
 
