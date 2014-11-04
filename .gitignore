@@ -32,3 +32,7 @@ bundler_stubs/
 
 
 .env
+
+# Ignore ImageMagick Folder
+/ImageMagick-6.8.9-7
+/ImageMagick.tar.gz
