@@ -283,7 +283,7 @@
 
 
             - if current_user
-              - if current_user==@apprenticeship.user or current_user.signedup?(@apprenticeship) && @app_signup.ready_to_apprentice?
+              - if current_user==@apprenticeship.user or current_user.admin? or current_user.signedup?(@apprenticeship) && @app_signup.ready_to_apprentice?
                 %hr
                 %dt
                   Email
@@ -330,7 +330,7 @@
 
             - if show
               - if current_user
-                - if current_user==@apprenticeship.user or current_user.signedup?(@apprenticeship) && @app_signup.ready_to_apprentice?
+                - if current_user==@apprenticeship.user or current_user.admin? or current_user.signedup?(@apprenticeship) && @app_signup.ready_to_apprentice?
                   %hr
                   %dt
                     Apprentice(s)
