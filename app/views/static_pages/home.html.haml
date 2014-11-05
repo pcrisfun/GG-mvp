@@ -103,8 +103,8 @@
 
     %section.section.alt#event-previews
       .container
-        %h2.pull-center Coming Up
-        = link_to "Browse Events »", events_path, class: "more-events"
+        %h2.pull-center Open Events
+        = link_to "Browse More Events »", events_path, class: "more-events"
         .row
           - unless @featured_events.blank?
             = render 'events/event-home', events: @featured_events
