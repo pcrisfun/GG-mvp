@@ -185,7 +185,7 @@
                   .form-inputs
                     = f.hidden_field :interview_id, value: @app_signup.interviews.last.id
                     = f.input :message_text, label: false, required: true, input_html: { rows: "4", rel: 'popover', data: { placement: "right",  content: "You might want to give directions, describe what you'll be wearing, or provide a contact number - we'll send her an email." }}
-                    = f.submit "Send", :name => "message_button", :class => "btn btn-primary pull-right"
+                    = f.submit "Send", :class => "btn btn-primary pull-right"
                   %br
                   %br
 

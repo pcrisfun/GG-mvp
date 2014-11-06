@@ -93,17 +93,17 @@ class InterviewsController < ApplicationController
   # PUT /interviews/1.json
   def update
     respond_to do |format|
-      if params[:message_button] == "Send Optional Message"
-        if @interview.update_attributes(params[:interview])
-          # if @interview.user == @app_signup.user
-          #   @interview.deliver_interview_message_maker && @interview.deliver_message_sent_by_girl
-          #   format.html { redirect_to @app_signup, notice: "Thanks, we've sent your message along!" }
-          # elsif @interview.user == @app_signup.event.user
-          #   @interview.deliver_interview_message_sent_by_maker && @interview.deliver_interview_message
-          #   format.html { redirect_to @app_signup, notice: "Thanks, we've sent your message along!" }
-          # end
-        end
-      elsif @interview.update_attributes(params[:interview])
+      # if params[:message_button] == "Send Optional Message"
+      #   if @interview.update_attributes(params[:interview])
+      #     if @interview.user == @app_signup.user
+      #       @interview.deliver_interview_message_maker && @interview.deliver_message_sent_by_girl
+      #       format.html { redirect_to @app_signup, notice: "Thanks, we've sent your message along!" }
+      #     elsif @interview.user == @app_signup.event.user
+      #       @interview.deliver_interview_message_sent_by_maker && @interview.deliver_interview_message
+      #       format.html { redirect_to @app_signup, notice: "Thanks, we've sent your message along!" }
+      #     end
+      #   end
+      if @interview.update_attributes(params[:interview])
         @interview.deliver_interview_rescheduled_maker && @interview.deliver_interview_rescheduled
         format.html { redirect_to @app_signup, notice: "Your Interview was successfully updated. We've sent you both an email with the new time & location." }
         format.json { head :no_content }
