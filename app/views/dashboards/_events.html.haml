@@ -68,7 +68,7 @@
                           - if signup.pending? or signup.interview_requested? or signup.interview_scheduled?
                             = "#{(signup.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days left"
                           - elsif signup.accepted?
-                            = "#{(signup.state_stamps.last.stamp + 14.days).mjd - Date.today.mjd} days before confirmation"
+                            = "#{(signup.state_stamps.last.stamp + 7.days).mjd - Date.today.mjd} days before confirmation"
                         %td.countdown
                           .statebar
                             - if signup.canceled?
