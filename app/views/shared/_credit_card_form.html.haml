@@ -23,3 +23,11 @@
   .controls
     = select_month nil, {add_month_numbers_true: true}, {name: nil, id: "card_month", class: "span2" }
     = select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year", class: "span2" }
+
+.control-group
+  .control-label
+    = label_tag :offer_code do
+      Have an Offer Code?
+      /%i.fa.fa-warning
+  .controls
+    = text_field_tag :offer_code, nil, name: nil, class: "span3"
