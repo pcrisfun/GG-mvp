@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141006155350) do
+ActiveRecord::Schema.define(:version => 20141111162345) do
 
   create_table "admins", :force => true do |t|
     t.string   "email"
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(:version => 20141006155350) do
     t.string   "legal_name"
     t.boolean  "help_posting_sent",                                :default => false,     :null => false
     t.boolean  "featured"
+    t.string   "coupon"
   end
 
   add_index "events", ["charge_id"], :name => "index_events_on_charge_id"

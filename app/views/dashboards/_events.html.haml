@@ -39,6 +39,9 @@
                 = event.nice_dates_workshops
             %td.countdown
               = event.countdown_message
+              %br
+              %b
+                = event.coupon
           - if !submitted_signups.empty?
             %tr
               %td.nested-table{ colspan: 6 }
