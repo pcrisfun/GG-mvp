@@ -8,6 +8,10 @@
         %i &nbsp; More hands-on than a "mentorship", more supportive than an "internship"; apprenticeships are a collaborative way to trade knowledge and skills for help with making.
       %br
       %br
+      #buttons.center
+        %br
+        = link_to "Post an Apprenticeship", { controller: :apprenticeships, action: :create } , {method: :post, style: 'button', class: 'btn btn-large btn-primary' }
+
 
 %section.section#FAQ.newevent
   .container
@@ -276,6 +280,7 @@
 
 
 %section.section.alt#FAQ
+  %a{ id: "whyitworks", class: "anchor"}
   .container
     %br
     %h2
