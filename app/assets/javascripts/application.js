@@ -67,6 +67,13 @@ $(document).ready(function () {
   $('#workshop_requirement_list').tokenInput('/event_requirements.json', { crossDomain: false, 'allowCustomEntry' : true, theme: 'facebook', prePopulate: $('#workshop_requirement_list').data('pre'), hintText: "Separate each with a comma" });
   $('#workshop_tool_list').tokenInput('/event_tools.json', { crossDomain: false, 'allowCustomEntry' : true,  theme: 'facebook', prePopulate: $('#workshop_tool_list').data('pre'), hintText: "Separate each with a comma" });
   $('.rotating-testimonials').easytabs({ animationSpeed: 400, updateHash: false, cycle: 9000 });
+
+  $("form").on("keypress", function (e) {
+      if (e.keyCode == 13) {
+          return false;
+      }
+  });
+
 });
 
 $(function() {
@@ -75,5 +82,3 @@ $(function() {
     $('#workshop_total_price').text(isNaN(total) ? "" : ("" + total));
   }).keyup();
 });
-
-

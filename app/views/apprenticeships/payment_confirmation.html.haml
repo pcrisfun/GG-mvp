@@ -12,6 +12,10 @@
             %p
               Thanks for submitting your listing -
               = link_to @apprenticeship.title, apprenticeship_path(@apprenticeship), target: "_blank"
+              - if @apprenticeship.coupon?
+                with offer code:
+                %b
+                  = @apprenticeship.coupon
             %p
               We'll review it and let you know as soon as it's live!
               %br

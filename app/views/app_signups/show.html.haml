@@ -180,7 +180,7 @@
               %br
               %b.span4.details Email #{@app_signup.event.user.first_name} an optional message:
               .span7.details
-                = simple_form_for(:message, url: { controller: "messages", action: "create" }) do |f|
+                = simple_form_for(:message, url: { controller: "messages", action: "create" }, html: {id: "messages_form"}) do |f|
                   = f.error_notification
                   .form-inputs
                     = f.hidden_field :interview_id, value: @app_signup.interviews.last.id
