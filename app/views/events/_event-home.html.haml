@@ -12,29 +12,16 @@
             - else
               %a{ href: url_for(edit_apprenticeship_path(event)) }
                 %img.default-photo-large{ src: "/images/common/upload-photos-400px.jpg" }
-              .box-details
-                %span.trapezoid
-                %span.traptext
-                  - unless event.datetime_tba
-                    - if event.accepted?
-                      &nbsp;
-                      = event.spots_left
-                    - elsif event.filled? || event.completed?
-                      &nbsp;
-                      %b Closed
-              .box-details
-                %span.trapezoid2
-                %span.traptext2
-                  - unless event.datetime_tba
-                    - if event.accepted?
-                      &nbsp;
-                      = event.spots_left
-                    - elsif event.filled? || event.completed?
-                      &nbsp;
-                      %b Closed
-                %span.trapezoid3
-          .box-details
-
+            .box-details
+              %span.trapezoidshadow
+              %span.trapezoid
+              %span.traptext
+                - if event.accepted?
+                  &nbsp;
+                  = event.spots_left
+                - elsif event.filled? || event.completed?
+                  &nbsp;
+                  %b Closed
             - unless current_user.blank?
               - if event.user == current_user
                 - if event.started?
