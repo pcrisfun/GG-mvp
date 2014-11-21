@@ -279,25 +279,32 @@
               %a{:href => "#t2"} Christina-Valentine
 
 
-%section.section.alt#FAQ
-  %a{ id: "whyitworks", class: "anchor"}
+%section.section#FAQ
   .container
-    %br
-    %h2
-      Why it Works
-      %small / &nbsp; GirlsGuild was built for real people, to solve real problems.
-    %hr
-      .row-fluid
-        %p
-          We think the most important part of our service is the support and facilitation we provide around structuring an equitable trade of teaching for work, and the reason it’s important comes from research. The concept for GirlsGuild originally came from research into eating disorders among young women, and the process of recovery. We interviewed women in recovery and professionals in the field, and learned two major insights:
-
-        %ul
-          %li A key part of recovery is finding creative outlets and building skills around them
-          %li It’s important in recovery to rebuild supportive social connections and community
-
-        %p
-          We took those ideas of building skills in creative fields, and creating supportive social connections, and brought them together under the apprenticeship model of working and learning in hands-on, one-to-one mentorship relationships. In the two years we’ve been building on that concept, we’ve kept those insights as the foundation of the GirlsGuild service, for the benefit of <i>all</i> girls and women.
+    .row-fluid
+      .span12
         %br
+        %h2
+          Why it Works
+        %b GirlsGuild was built for real people, to solve real problems.
+        %hr
+        .row-fluid
+          %p
+            We think the most important part of our service is the support and facilitation we provide around structuring an equitable trade of teaching for work, and the reason it’s important comes from research.
+
+          %p
+            The concept for GirlsGuild originally came from research into eating disorders among young women, and the process of recovery. We interviewed women in recovery and professionals in the field, and learned two major insights:
+
+          %ul
+            %li A key part of recovery is finding creative outlets and building skills around them
+            %li It’s important in recovery to rebuild supportive social connections and community
+
+          %p
+            We took those ideas of building skills in creative fields, and creating supportive social connections, and brought them together under the apprenticeship model of working and learning in hands-on, one-to-one mentorship relationships.
+          %p
+            In the two years we’ve been building on that concept, we’ve kept those insights as the foundation of the GirlsGuild service, for the benefit of <i>all</i> girls and women.
+          %br
+
 
 /%section.section.alt#FAQ
 /  .container
@@ -334,59 +341,106 @@
 /    %hr
 /    %br
 
-%section.section#FAQ.newevent
+%section.section.alt#FAQ.newevent
   .container
-    %br
-    %h2 Still not sure if you're ready?
-    %p
-      We've put together a
-      %a{href: "../handbook/ReadyforanApprentice.pdf"} checklist
-      to help you decide if you're ready to host an apprenticeship.
+    .row-fluid
+      .span6
+        %br
+        %h2 Still not sure if you're ready?
+        %p
+          We've put together a
+          %a{href: "../handbook/ReadyforanApprentice.pdf"} checklist
+          to help you decide if you're ready to host an apprenticeship.
+        %p
+          Or maybe you know someone who would be a wonderful Maker-mentor?  Let us know and we'll ask them how we can help!
+        /%h2 How to Have a Great Apprenticeship
+        /%br
+        /.row-fluid
+        /  .well.span3
+        /    %h3
+        /      Challenge
+        /    The apprentice should be learning new things frequently enough to stay challenged, but don't forget to have them also practice what they're learning.
+        /  .well.span3
+        /    %h3
+        /      World View
+        /    Think about giving the apprentice a feel for what its like to run a small business, OR why you choose not to.
+        /  .well.span3
+        /    %h3
+        /      Feedback
+        /    Remember to give gentle but constructive feedback. Help her learn from her mistakes which is often the best way to gain experience.
+        /  .well.span3
+        /    %h3
+        /      Encouragement
+        /    Get to know each others goals and dreams! We want to help you build a mentor network because we're all stronger when we learn together.
 
 
 
-
-    /%h2 How to Have a Great Apprenticeship
-    /%br
-    /.row-fluid
-    /  .well.span3
-    /    %h3
-    /      Challenge
-    /    The apprentice should be learning new things frequently enough to stay challenged, but don't forget to have them also practice what they're learning.
-    /  .well.span3
-    /    %h3
-    /      World View
-    /    Think about giving the apprentice a feel for what its like to run a small business, OR why you choose not to.
-    /  .well.span3
-    /    %h3
-    /      Feedback
-    /    Remember to give gentle but constructive feedback. Help her learn from her mistakes which is often the best way to gain experience.
-    /  .well.span3
-    /    %h3
-    /      Encouragement
-    /    Get to know each others goals and dreams! We want to help you build a mentor network because we're all stronger when we learn together.
+        /%hr
+        /%h2.center A Safe Community
+        /%ul
+        /  %li We do background checks on all of our Makers
+        /  %li We'll provide you with Waivers & Indemnification agreements for minors
+        /  %li You have the option to meet up first to get a feel for personality before accepting an apprentice
+        /  %li GirlsGuild is always happy to facilitate the first meeting at our headquarters!
 
 
+        %br
+        %ul.icons
+          %li
+            %i.fa.fa-bookmark
+            For more info check out the
+            = link_to "FAQ", faq_path
+          %li
+            %i.fa.fa-envelope
+            Email us with any questions
+            %a{href: "mailto:hello@girlsguild.com?Subject=Howdy"}
+              hello@girlsguild.com
+        %br
+        %br
 
-    /%hr
-    /%h2.center A Safe Community
-    /%ul
-    /  %li We do background checks on all of our Makers
-    /  %li We'll provide you with Waivers & Indemnification agreements for minors
-    /  %li You have the option to meet up first to get a feel for personality before accepting an apprentice
-    /  %li GirlsGuild is always happy to facilitate the first meeting at our headquarters!
+      .span6
+        .well
+          %h3
+            Nominate a Maker!
+          %p.center Know someone who would be a fantastic Maker-mentor?
 
+          / Begin MailChimp Signup Form
+          %link{:href => "//cdn-images.mailchimp.com/embedcode/classic-081711.css", :rel => "stylesheet", :type => "text/css"}
+            :css
+              #mc_embed_signup{clear:left; font:14px Helvetica,Arial,sans-serif; }
+              /* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+                 We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+            #mc_embed_signup
+              %form#mc-embedded-subscribe-form.validate{:action => "//girlsguild.us4.list-manage.com/subscribe/post?u=9f2de43ebd5f4d79e3d803fb9&amp;id=3353a0e544", :method => "post", :name => "mc-embedded-subscribe-form", :novalidate => "", :target => "_blank"}
+                #mc_embed_signup_scroll
+                  .indicates-required
+                    %span.asterisk{:style => "top:10px"} *
+                    indicates required
+                  .mc-field-group
+                    %label{:for => "mce-FNAME"}
+                      Maker's First Name
+                      %span.asterisk{:style => "top:10px"} *
+                    %input#mce-FNAME.required{:name => "FNAME", :type => "text", :value => ""}
+                  .mc-field-group
+                    %label{:for => "mce-LNAME"}
+                      Maker's Last Name
+                      %span.asterisk{:style => "top:10px"} *
+                    %input#mce-LNAME.required{:name => "LNAME", :type => "text", :value => ""}
+                  .mc-field-group
+                    %label{:for => "mce-EMAIL"}
+                      Maker's Email Address
+                      %span.asterisk{:style => "top:10px"} *
+                    %input#mce-EMAIL.required.email{:name => "EMAIL", :type => "email", :value => ""}
+                  .mc-field-group
+                    %label{:for => "mce-MMERGE3"} Your Name (if different)
+                    %input#mce-MMERGE3{:name => "MMERGE3", :type => "text", :value => ""}
+                  #mce-responses.clear
+                    #mce-error-response.response{:style => "display:none"}
+                    #mce-success-response.response{:style => "display:none"}
+                  / real people should not fill this in and expect good things - do not remove this or risk form bot signups
+                  %div{:style => "position: absolute; left: -5000px;"}
+                    %input{:name => "b_9f2de43ebd5f4d79e3d803fb9_3353a0e544", :tabindex => "-1", :type => "text", :value => ""}/
+                  .clear
+                    %input#mc-embedded-subscribe.button{:name => "subscribe", :type => "submit", :value => "Submit"}/
+            / End mc_embed_signup
 
-    %br
-    %ul.icons
-      %li
-        %i.fa.fa-bookmark
-        For more info check out the
-        = link_to "FAQ", faq_path
-      %li
-        %i.fa.fa-envelope
-        Email us with any questions
-        %a{href: "mailto:hello@girlsguild.com?Subject=Howdy"}
-          hello@girlsguild.com
-    %br
-    %br
