@@ -352,7 +352,13 @@
           %a{href: "../handbook/ReadyforanApprentice.pdf"} checklist
           to help you decide if you're ready to host an apprenticeship.
         %p
-          Or maybe you know someone who would be a wonderful Maker-mentor?  Let us know and we'll ask them how we can help!
+          Or maybe you know someone who would be a wonderful Maker-mentor?
+          %br/
+          %a{href: "/nominate"} Nominate a Maker
+          and we'll ask them how we can help!
+
+
+
         /%h2 How to Have a Great Apprenticeship
         /%br
         /.row-fluid
@@ -398,136 +404,141 @@
         %br
         %br
 
+
       .span6
-        .well
-          %h3{:style => "font-size: 32px;"}
-            Nominate a Maker!
-          %p.center Know someone who would be a fantastic Maker-mentor,
-          %p.center or interested yourself?
-
-          / Wufoo Form
-          %script{:src => "scripts/wufoo.js"}
-          %form#form2.wufoo.topLabel.page{"accept-charset" => "UTF-8", :action => "https://girlsguildforms.wufoo.com/forms/mp0xe3j0z187pf/#public", :autocomplete => "off", :enctype => "multipart/form-data", :method => "post", :name => "form2", :novalidate => ""}
-
-            %span#foli218.notranslate.control-label.required
-              .row-fluid
-                .span12
-                  %label#title218.desc{:for => "Field218"}
-                    Maker's Name
-                    %span#req_218.req{:style => "top:10px; color: #c60; font-size: 18px"} *
-              .row-fluid
-                .span6
-                  %input#Field218.field.text.fn{:name => "Field218", :required => "", :size => "8", :tabindex => "1", :type => "text", :value => ""}/
-                .span6
-                  %input#Field219.field.text.ln{:name => "Field219", :required => "", :size => "14", :tabindex => "2", :type => "text", :value => ""}/
-
-            %span#foli226.notranslate
-              .row-fluid
-                .span12
-                  %label#title226.desc{:for => "Field226"}
-                    Maker's Email Address
-                    %span#req_226.req{:style => "top:10px; color: #c60; font-size: 18px"} *
-              .row-fluid
-                .span12
-                  %div
-                    %input#Field226.field.text.medium{:maxlength => "255", :name => "Field226", :spellcheck => "false", :tabindex => "3", :type => "email", :value => ""}/
-
-            %span#foli223.notranslate
-              .row-fluid
-                .span12
-                  %label#title223.desc{:for => "Field223"}
-                    Your Name (if different)
-              .row-fluid
-                .span6
-                  %input#Field223.field.text.fn{:name => "Field223", :size => "8", :tabindex => "4", :type => "text", :value => ""}/
-                .span6
-                  %input#Field224.field.text.ln{:name => "Field224", :size => "14", :tabindex => "5", :type => "text", :value => ""}/
-
-              / %p#instruct223.instruct
-              /   %small Tell us who to thank!
-
-            %span.buttons
-              %div
-                %input#saveForm.btTxt.submit.btn.btn-primary{:name => "saveForm", :type => "submit", :value => "Submit"}/
-            %li.hide
-              %label{:for => "comment"} Do Not Fill This Out
-              %textarea#comment{:cols => "1", :name => "comment", :rows => "1"}
-              %input#idstamp{:name => "idstamp", :type => "hidden", :value => "BBsDnkZzL8U2OJYUkUmYjdVoZlsTqRtrMXR2FuvL36s="}/
+        = render 'static_pages/nominateform', :nomination => @nomination
 
 
+        / .span6
+        /   .well
+        /     %h3{:style => "font-size: 32px;"}
+        /       Nominate a Maker!
+        /     %p.center Know someone who would be a fantastic Maker-mentor,
+        /     %p.center or interested yourself?
 
+        /     / Wufoo Form
+        /     %script{:src => "scripts/wufoo.js"}
+        /     %form#form2.wufoo.topLabel.page{"accept-charset" => "UTF-8", :action => "https://girlsguildforms.wufoo.com/forms/mp0xe3j0z187pf/#public", :autocomplete => "off", :enctype => "multipart/form-data", :method => "post", :name => "form2", :novalidate => ""}
 
+        /       %span#foli218.notranslate.control-label.required
+        /         .row-fluid
+        /           .span12
+        /             %label#title218.desc{:for => "Field218"}
+        /               Maker's Name
+        /               %span#req_218.req{:style => "top:10px; color: #c60; font-size: 18px"} *
+        /         .row-fluid
+        /           .span6
+        /             %input#Field218.field.text.fn{:name => "Field218", :required => "", :size => "8", :tabindex => "1", :type => "text", :value => ""}/
+        /           .span6
+        /             %input#Field219.field.text.ln{:name => "Field219", :required => "", :size => "14", :tabindex => "2", :type => "text", :value => ""}/
 
-          / Wufoo Signup Form
-          %link{:href => "//cdn-images.mailchimp.com/embedcode/classic-081711.css", :rel => "stylesheet", :type => "text/css"}
-            :css
-              #wuf-adv{clear:left; font:19px Helvetica,Arial,sans-serif; }
-            #wufoo-mp0xe3j0z187pf
-              / Fill out my
-              / = succeed "." do
-              /   %a{:href => "https://girlsguildforms.wufoo.com/forms/mp0xe3j0z187pf"} online form
-            #wuf-adv
-              :javascript
-                var mp0xe3j0z187pf;(function(d, t) {
-                var s = d.createElement(t), options = {
-                'userName':'girlsguildforms',
-                'formHash':'mp0xe3j0z187pf',
-                'autoResize':true,
-                'height':'480',
-                'async':true,
-                'host':'wufoo.com',
-                'header':'hide',
-                'ssl':true};
-                s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'www.wufoo.com/scripts/embed/form.js';
-                s.onload = s.onreadystatechange = function() {
-                var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;
-                try { mp0xe3j0z187pf = new WufooForm();mp0xe3j0z187pf.initialize(options);mp0xe3j0z187pf.display(); } catch (e) {}};
-                var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);
-                })(document, 'script');
+        /       %span#foli226.notranslate
+        /         .row-fluid
+        /           .span12
+        /             %label#title226.desc{:for => "Field226"}
+        /               Maker's Email Address
+        /               %span#req_226.req{:style => "top:10px; color: #c60; font-size: 18px"} *
+        /         .row-fluid
+        /           .span12
+        /             %div
+        /               %input#Field226.field.text.medium{:maxlength => "255", :name => "Field226", :spellcheck => "false", :tabindex => "3", :type => "email", :value => ""}/
+
+        /       %span#foli223.notranslate
+        /         .row-fluid
+        /           .span12
+        /             %label#title223.desc{:for => "Field223"}
+        /               Your Name (if different)
+        /         .row-fluid
+        /           .span6
+        /             %input#Field223.field.text.fn{:name => "Field223", :size => "8", :tabindex => "4", :type => "text", :value => ""}/
+        /           .span6
+        /             %input#Field224.field.text.ln{:name => "Field224", :size => "14", :tabindex => "5", :type => "text", :value => ""}/
+
+        /         / %p#instruct223.instruct
+        /         /   %small Tell us who to thank!
+
+        /       %span.buttons
+        /         %div
+        /           %input#saveForm.btTxt.submit.btn.btn-primary{:name => "saveForm", :type => "submit", :value => "Submit"}/
+        /       %li.hide
+        /         %label{:for => "comment"} Do Not Fill This Out
+        /         %textarea#comment{:cols => "1", :name => "comment", :rows => "1"}
+        /         %input#idstamp{:name => "idstamp", :type => "hidden", :value => "BBsDnkZzL8U2OJYUkUmYjdVoZlsTqRtrMXR2FuvL36s="}/
 
 
 
 
 
+        / / Wufoo Signup Form
+        / %link{:href => "//cdn-images.mailchimp.com/embedcode/classic-081711.css", :rel => "stylesheet", :type => "text/css"}
+        /   :css
+        /     #wuf-adv{clear:left; font:19px Helvetica,Arial,sans-serif; }
+        /   #wufoo-mp0xe3j0z187pf
+        /     / Fill out my
+        /     / = succeed "." do
+        /     /   %a{:href => "https://girlsguildforms.wufoo.com/forms/mp0xe3j0z187pf"} online form
+        /   #wuf-adv
+        /     :javascript
+        /       var mp0xe3j0z187pf;(function(d, t) {
+        /       var s = d.createElement(t), options = {
+        /       'userName':'girlsguildforms',
+        /       'formHash':'mp0xe3j0z187pf',
+        /       'autoResize':true,
+        /       'height':'480',
+        /       'async':true,
+        /       'host':'wufoo.com',
+        /       'header':'hide',
+        /       'ssl':true};
+        /       s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'www.wufoo.com/scripts/embed/form.js';
+        /       s.onload = s.onreadystatechange = function() {
+        /       var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;
+        /       try { mp0xe3j0z187pf = new WufooForm();mp0xe3j0z187pf.initialize(options);mp0xe3j0z187pf.display(); } catch (e) {}};
+        /       var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);
+        /       })(document, 'script');
 
 
-          / / Begin MailChimp Signup Form
-          / %link{:href => "//cdn-images.mailchimp.com/embedcode/classic-081711.css", :rel => "stylesheet", :type => "text/css"}
-          /   :css
-          /     #mc_embed_signup{clear:left; font:14px Helvetica,Arial,sans-serif; }
-          /     /* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
-          /        We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
-          /   #mc_embed_signup
-          /     %form#mc-embedded-subscribe-form.validate{:action => "//girlsguild.us4.list-manage.com/subscribe/post?u=9f2de43ebd5f4d79e3d803fb9&amp;id=3353a0e544", :method => "post", :name => "mc-embedded-subscribe-form", :novalidate => "", :target => "_blank"}
-          /       #mc_embed_signup_scroll
-          /         .indicates-required
-          /           %span.asterisk{:style => "top:10px"} *
-          /           indicates required
-          /         .mc-field-group
-          /           %label{:for => "mce-FNAME"}
-          /             Maker's First Name
-          /             %span.asterisk{:style => "top:10px"} *
-          /           %input#mce-FNAME.required{:name => "FNAME", :type => "text", :value => ""}
-          /         .mc-field-group
-          /           %label{:for => "mce-LNAME"}
-          /             Maker's Last Name
-          /             %span.asterisk{:style => "top:10px"} *
-          /           %input#mce-LNAME.required{:name => "LNAME", :type => "text", :value => ""}
-          /         .mc-field-group
-          /           %label{:for => "mce-EMAIL"}
-          /             Maker's Email Address
-          /             %span.asterisk{:style => "top:10px"} *
-          /           %input#mce-EMAIL.required.email{:name => "EMAIL", :type => "email", :value => ""}
-          /         .mc-field-group
-          /           %label{:for => "mce-MMERGE3"} Your Name (if different)
-          /           %input#mce-MMERGE3{:name => "MMERGE3", :type => "text", :value => ""}
-          /         #mce-responses.clear
-          /           #mce-error-response.response{:style => "display:none"}
-          /           #mce-success-response.response{:style => "display:none"}
-          /         / real people should not fill this in and expect good things - do not remove this or risk form bot signups
-          /         %div{:style => "position: absolute; left: -5000px;"}
-          /           %input{:name => "b_9f2de43ebd5f4d79e3d803fb9_3353a0e544", :tabindex => "-1", :type => "text", :value => ""}/
-          /         .clear
-          /           %input#mc-embedded-subscribe.button{:name => "subscribe", :type => "submit", :value => "Submit"}/
-          /   / End mc_embed_signup
+
+
+
+
+
+        / / Begin MailChimp Signup Form
+        / %link{:href => "//cdn-images.mailchimp.com/embedcode/classic-081711.css", :rel => "stylesheet", :type => "text/css"}
+        /   :css
+        /     #mc_embed_signup{clear:left; font:14px Helvetica,Arial,sans-serif; }
+        /     /* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+        /        We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+        /   #mc_embed_signup
+        /     %form#mc-embedded-subscribe-form.validate{:action => "//girlsguild.us4.list-manage.com/subscribe/post?u=9f2de43ebd5f4d79e3d803fb9&amp;id=3353a0e544", :method => "post", :name => "mc-embedded-subscribe-form", :novalidate => "", :target => "_blank"}
+        /       #mc_embed_signup_scroll
+        /         .indicates-required
+        /           %span.asterisk{:style => "top:10px"} *
+        /           indicates required
+        /         .mc-field-group
+        /           %label{:for => "mce-FNAME"}
+        /             Maker's First Name
+        /             %span.asterisk{:style => "top:10px"} *
+        /           %input#mce-FNAME.required{:name => "FNAME", :type => "text", :value => ""}
+        /         .mc-field-group
+        /           %label{:for => "mce-LNAME"}
+        /             Maker's Last Name
+        /             %span.asterisk{:style => "top:10px"} *
+        /           %input#mce-LNAME.required{:name => "LNAME", :type => "text", :value => ""}
+        /         .mc-field-group
+        /           %label{:for => "mce-EMAIL"}
+        /             Maker's Email Address
+        /             %span.asterisk{:style => "top:10px"} *
+        /           %input#mce-EMAIL.required.email{:name => "EMAIL", :type => "email", :value => ""}
+        /         .mc-field-group
+        /           %label{:for => "mce-MMERGE3"} Your Name (if different)
+        /           %input#mce-MMERGE3{:name => "MMERGE3", :type => "text", :value => ""}
+        /         #mce-responses.clear
+        /           #mce-error-response.response{:style => "display:none"}
+        /           #mce-success-response.response{:style => "display:none"}
+        /         / real people should not fill this in and expect good things - do not remove this or risk form bot signups
+        /         %div{:style => "position: absolute; left: -5000px;"}
+        /           %input{:name => "b_9f2de43ebd5f4d79e3d803fb9_3353a0e544", :tabindex => "-1", :type => "text", :value => ""}/
+        /         .clear
+        /           %input#mc-embedded-subscribe.button{:name => "subscribe", :type => "submit", :value => "Submit"}/
+        /   / End mc_embed_signup
 
