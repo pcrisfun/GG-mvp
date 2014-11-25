@@ -400,34 +400,90 @@
 
       .span6
         .well
-          %h3
+          %h3{:style => "font-size: 32px;"}
             Nominate a Maker!
           %p.center Know someone who would be a fantastic Maker-mentor,
           %p.center or interested yourself?
 
+          / Wufoo Form
+          %script{:src => "scripts/wufoo.js"}
+          %form#form2.wufoo.topLabel.page{"accept-charset" => "UTF-8", :action => "https://girlsguildforms.wufoo.com/forms/mp0xe3j0z187pf/#public", :autocomplete => "off", :enctype => "multipart/form-data", :method => "post", :name => "form2", :novalidate => ""}
+
+            %span#foli218.notranslate.control-label.required
+              .row-fluid
+                .span12
+                  %label#title218.desc{:for => "Field218"}
+                    Maker's Name
+                    %span#req_218.req{:style => "top:10px; color: #c60; font-size: 18px"} *
+              .row-fluid
+                .span6
+                  %input#Field218.field.text.fn{:name => "Field218", :required => "", :size => "8", :tabindex => "1", :type => "text", :value => ""}/
+                .span6
+                  %input#Field219.field.text.ln{:name => "Field219", :required => "", :size => "14", :tabindex => "2", :type => "text", :value => ""}/
+
+            %span#foli226.notranslate
+              .row-fluid
+                .span12
+                  %label#title226.desc{:for => "Field226"}
+                    Maker's Email Address
+                    %span#req_226.req{:style => "top:10px; color: #c60; font-size: 18px"} *
+              .row-fluid
+                .span12
+                  %div
+                    %input#Field226.field.text.medium{:maxlength => "255", :name => "Field226", :spellcheck => "false", :tabindex => "3", :type => "email", :value => ""}/
+
+            %span#foli223.notranslate
+              .row-fluid
+                .span12
+                  %label#title223.desc{:for => "Field223"}
+                    Your Name (if different)
+              .row-fluid
+                .span6
+                  %input#Field223.field.text.fn{:name => "Field223", :size => "8", :tabindex => "4", :type => "text", :value => ""}/
+                .span6
+                  %input#Field224.field.text.ln{:name => "Field224", :size => "14", :tabindex => "5", :type => "text", :value => ""}/
+
+              / %p#instruct223.instruct
+              /   %small Tell us who to thank!
+
+            %span.buttons
+              %div
+                %input#saveForm.btTxt.submit.btn.btn-primary{:name => "saveForm", :type => "submit", :value => "Submit"}/
+            %li.hide
+              %label{:for => "comment"} Do Not Fill This Out
+              %textarea#comment{:cols => "1", :name => "comment", :rows => "1"}
+              %input#idstamp{:name => "idstamp", :type => "hidden", :value => "BBsDnkZzL8U2OJYUkUmYjdVoZlsTqRtrMXR2FuvL36s="}/
+
+
+
+
+
           / Wufoo Signup Form
-          #wufoo-mp0xe3j0z187pf
-            / Fill out my
-            / = succeed "." do
-            /   %a{:href => "https://girlsguildforms.wufoo.com/forms/mp0xe3j0z187pf"} online form
-          #wuf-adv{:style => "font-family:inherit;font-size: small;color:#a7a7a7;text-align:center;display:block;"}
-          :javascript
-            var mp0xe3j0z187pf;(function(d, t) {
-            var s = d.createElement(t), options = {
-            'userName':'girlsguildforms',
-            'formHash':'mp0xe3j0z187pf',
-            'autoResize':true,
-            'height':'480',
-            'async':true,
-            'host':'wufoo.com',
-            'header':'hide',
-            'ssl':true};
-            s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'www.wufoo.com/scripts/embed/form.js';
-            s.onload = s.onreadystatechange = function() {
-            var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;
-            try { mp0xe3j0z187pf = new WufooForm();mp0xe3j0z187pf.initialize(options);mp0xe3j0z187pf.display(); } catch (e) {}};
-            var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);
-            })(document, 'script');
+          %link{:href => "//cdn-images.mailchimp.com/embedcode/classic-081711.css", :rel => "stylesheet", :type => "text/css"}
+            :css
+              #wuf-adv{clear:left; font:19px Helvetica,Arial,sans-serif; }
+            #wufoo-mp0xe3j0z187pf
+              / Fill out my
+              / = succeed "." do
+              /   %a{:href => "https://girlsguildforms.wufoo.com/forms/mp0xe3j0z187pf"} online form
+            #wuf-adv
+              :javascript
+                var mp0xe3j0z187pf;(function(d, t) {
+                var s = d.createElement(t), options = {
+                'userName':'girlsguildforms',
+                'formHash':'mp0xe3j0z187pf',
+                'autoResize':true,
+                'height':'480',
+                'async':true,
+                'host':'wufoo.com',
+                'header':'hide',
+                'ssl':true};
+                s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'www.wufoo.com/scripts/embed/form.js';
+                s.onload = s.onreadystatechange = function() {
+                var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;
+                try { mp0xe3j0z187pf = new WufooForm();mp0xe3j0z187pf.initialize(options);mp0xe3j0z187pf.display(); } catch (e) {}};
+                var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);
+                })(document, 'script');
 
 
 

@@ -1,0 +1,21 @@
+- provide(:title, 'Nominate a Maker')
+
+%section.section
+  .container
+    .page-header
+      %h1
+        Nominate a Maker
+        %small / &nbsp; Know someone who would be a fantastic Maker-mentor, or interested yourself?
+    .row-fluid
+      .span6
+        %br
+        %ul.icons
+          %li
+            %p
+              %i.fa.fa-heart
+              Let us know who you think would be a great Maker-mentor. We'll give you both big big hugs!
+
+
+      .span6
+        = render 'static_pages/nominateform', :nomination => @nomination
+

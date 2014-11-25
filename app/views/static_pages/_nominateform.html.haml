@@ -1,0 +1,27 @@
+/ app/views/static_pages/_nominateform.html.haml
+= simple_form_for nomination, html: {class: "form-horizontal"}, validate: true do |f|
+  %fieldset
+    .control-group
+      = f.label :maker_first_name, class: "control-label", label: "Maker's First Name"
+      .controls
+        = f.text_field :maker_first_name, class: 'input-xlarge', rel: 'popover'
+    .control-group
+      = f.label :maker_last_name, class: "control-label", label: "Maker's Last Name"
+      .controls
+        = f.text_field :maker_last_name, class: 'input-xlarge', rel: 'popover'
+    .control-group
+      = f.label :maker_email, class: "control-label", label: "Maker's Email"
+      .controls
+        = f.text_field :maker_email, class: 'input-xlarge'
+    .control-group
+      = f.label :referrer_first_name, class: "control-label", label: "Your First Name"
+      .controls
+        = f.text_field :referrer_first_name, class: 'input-xlarge'
+    .control-group
+      = f.label :referrer_last_name, class: "control-label", label: "Your Last Name"
+      .controls
+        = f.text_field :referrer_last_name, class: 'input-xlarge'
+
+    .control-group
+      .controls
+        = f.submit "Nominate", class: 'btn btn-primary'

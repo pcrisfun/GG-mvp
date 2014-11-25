@@ -19,6 +19,10 @@ class StaticPagesController < ApplicationController
     @inquiry = Inquiry.new
   end
 
+  def nominate
+    @nomination = Nomination.new
+  end
+
   def newsletter
   end
 
