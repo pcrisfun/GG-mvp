@@ -1,6 +1,6 @@
 - if current_user && current_user.preregistered?(event)
   - prereg = Prereg.where(user_id: current_user.id, event_id: event.id).first
-  =link_to( "You're following".html_safe, prereg, method: 'DELETE', class: 'btn btn-success btn-following btn-block')
+  =link_to( "You're following #{content_tag(:i, "", class: "fa fa-check")}".html_safe, prereg, method: 'DELETE', class: 'btn btn-success btn-following btn-block')
 
 - else
   =link_to( "Follow this Maker #{content_tag(:i, "", class: "fa fa-eye")}".html_safe, preregs_path(event_id: event), method: 'POST', class: 'btn btn-block btn-inverse')

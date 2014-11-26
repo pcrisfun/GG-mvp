@@ -2,4 +2,4 @@ jQuery ->
   $(".btn-following").mouseenter ->
     $(this).html("Unfollow <icon class='fa fa-eye-slash' />")
   $(".btn-following").mouseleave ->
-    $(this).text("You're following")
+    $(this).html("You're following <icon class='fa fa-check' />")
