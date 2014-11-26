@@ -20,6 +20,7 @@ class ApprenticeshipsController < ApplicationController
   end
 
   def new
+    @nomination = Nomination.new
   end
 
 #---- create
