@@ -98,9 +98,8 @@ class WorkshopsController < ApplicationController
           redirect_to private_workshop_path(@workshop), :flash => { warning: "Please correct the following: #{@workshop.errors.full_messages}" } and return
 
         else
-
           if @workshop.started?
-            @workshop.submit && @workshop.deliver
+            @workshop.submitted && @workshop.deliver
             redirect_to confirmation_workshop_path(@workshop), flash: { success: "Awesome! Your workshop was submitted."} and return
           else
             @workshop.resubmit && @workshop.deliver_resubmit
