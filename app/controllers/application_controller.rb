@@ -10,12 +10,12 @@ class ApplicationController < ActionController::Base
 
   after_filter :store_location
 
-  def store_location
-   if (!request.fullpath.match("/users") &&
-    !request.xhr?) # don't store ajax calls
-    session[:previous_url] = request.fullpath
-   end
-  end
+#  def store_location
+ #  if (!request.fullpath.match("/users") &&
+ #   !request.xhr?) # don't store ajax calls
+  #  session[:previous_url] = request.fullpath
+   #end
+  #end
 
   #def after_sign_in_path_for(resource)
   #  if Rails.env.production?
@@ -31,9 +31,18 @@ class ApplicationController < ActionController::Base
   #end
 
   # If your model is called User
-  def after_sign_in_path_for(resource)
-    session["user_return_to"] || root_path
+ def store_location
+  # store last url - this is needed for post-login redirect to whatever the user last visited.
+  return unless request.get? 
+  if (request.path != "/users/sign_in" &&
+      !request.xhr?) # don't store ajax calls
+    session[:previous_url] = request.fullpath 
   end
+end
+
+def after_sign_in_path_for(resource)
+  session[:previous_url] || root_path
+end
 
   private
   def render_error(status, exception)
