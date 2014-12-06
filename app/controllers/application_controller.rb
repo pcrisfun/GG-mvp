@@ -41,8 +41,18 @@ class ApplicationController < ActionController::Base
 end
 
 def after_sign_in_path_for(resource)
-  session[:previous_url] || root_path
+  if resource.welcome.blank?
+    resource.welcome = true
+    resource.save
+    return edit_user_registration_url
+  end  
+  puts resource.to_yaml
+  super# session[:dashboard_url]
 end
+
+ # def after_sign_in_path_for
+  #  params[:target] || dashboard_url
+  #end
 
   private
   def render_error(status, exception)
