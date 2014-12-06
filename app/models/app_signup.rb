@@ -6,7 +6,7 @@ class AppSignup < Signup
                   :happywhen, :collaborate, :interest, :experience,
                   :confirm_available, :preferred_times, :confirm_unpaid, :confirm_fee,
                   :parent, :parent_name, :parent_phone, :parent_email, :parents_waiver, :respect_agreement, :waiver, :decline_reason,
-                  :event_id, :state, :maker_charge_id
+                  :event_id, :state, :maker_charge_id, :start_date, :end_date
 
   include Emailable
 
