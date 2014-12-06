@@ -380,6 +380,10 @@
                       %p Are you sure you want to accept this apprentice?
                       %br
                       = simple_form_for(@app_signup) do |f|
+                        = f.input :start_date do
+                          =  f.text_field :start_date, :value=>(Date.today).strftime("%B / %d / %Y"), data: { behaviour: 'combodate', format: 'MMMM D, YYYY', template: 'MMMM / D / YYYY' }
+                        = f.input :end_date do
+                          =  f.text_field :end_date, :value=>(Date.today + 90.days).strftime("%B / %d / %Y"), data: { behaviour: 'combodate', format: 'MMMM D, YYYY', template: 'MMMM / D / YYYY' }
                         = f.submit "Send Acceptance", name: "accept_button", class: "btn btn-success pull-right"
                       %button.close.pull-left{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} Cancel
                   %br
