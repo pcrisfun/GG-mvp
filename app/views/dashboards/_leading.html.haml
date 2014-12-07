@@ -74,6 +74,10 @@
                       %td.state
                         %span{class: signup.state_label_class}
                           = signup.state_label
+                      %td.date
+                        = signup.start_date ? signup.start_date.strftime('%a, %b %d') : ''
+                        %br
+                        = signup.end_date ? signup.end_date.strftime('%a, %b %d') : ''
                       %td.countdown
                         = signup.countdown_message_maker
         - if !submitted_preregs.empty?
